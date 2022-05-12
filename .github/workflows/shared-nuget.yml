@@ -9,7 +9,7 @@ on:
       - "v*"
 
 env:
-  PROJECT_PATH: ./Skagerak.WebApi.Shared/Skagerak.WebApi.Shared.csproj
+  PROJECT_PATH: ./Platypus.WebApi.Shared/Platypus.WebApi.Shared.csproj
 
 jobs:
   build-and-push-nuget:
