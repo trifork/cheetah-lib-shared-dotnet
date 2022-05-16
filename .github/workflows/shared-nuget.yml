@@ -1,4 +1,4 @@
-name: Create and publish skagerak.shared nuget package
+name: Create and publish platypus.shared nuget package
 
 on:
   workflow_dispatch:
@@ -33,7 +33,7 @@ jobs:
         run: echo ::set-output name=tag::${GITHUB_REF#refs/*/v}
       - name: "package"
         run: dotnet pack -o output -c Release ${{ env.PROJECT_PATH}} /p:PackageVersion=${{ steps.vars.outputs.tag }}
-     # - name: "Prep Source"
-      #  run: dotnet nuget add Source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/trifork/index.json"
-      #- name: "Publish to github packages"
-     #   run: dotnet nuget push output/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
+      - name: "Prep Source"
+        run: dotnet nuget add Source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/trifork/index.json"
+      - name: "Publish to github packages"
+        run: dotnet nuget push output/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
