@@ -31,7 +31,7 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
     {
         var info = new OpenApiInfo()
         {
-            Title = "Skagerak REST WebApi",
+            Title = "Platypus REST WebApi",
             Version = description.ApiVersion.ToString(),
             Description = "A sample application with must-have demo's, metrics and API versioning.",
             //Contact = new OpenApiContact() { Name = "Bill Mei", Email = "bill.mei@somewhere.com" },
