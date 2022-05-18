@@ -45,6 +45,16 @@ public interface ITimeIntervalIndexNamingStrategy
     public IEnumerable<IndexDescriptor> Build(DateTimeOffset from, DateTimeOffset to, IndexPrefix prefix, IndexTypeBase type, CustomerIdentifier customer);
 }
 
+public class ReturnIndexNamingStrategy : ITimeIntervalIndexNamingStrategy
+{
+    public IEnumerable<IndexDescriptor> Build(DateTimeOffset @from, DateTimeOffset to, IndexPrefix prefix, IndexTypeBase type, CustomerIdentifier customer) 
+    {
+        var basename = IndexUtils.GetBaseName(prefix, type);
+
+        yield return new IndexDescriptor(customer, $"{basename}");
+    }
+}
+
 public class CustomerIndexNamingStrategy : ITimeIntervalIndexNamingStrategy
 {
     public IEnumerable<IndexDescriptor> Build(DateTimeOffset @from, DateTimeOffset to, IndexPrefix prefix, IndexTypeBase type, CustomerIdentifier customer)
