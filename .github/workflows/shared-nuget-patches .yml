@@ -1,4 +1,4 @@
-name: Create and publish skagerak.shared nuget package
+name: Create and publish Cheetah.shared nuget package
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ on:
       - "v*"
 
 env:
-  PROJECT_PATH: ./Platypus.WebApi.Shared/Platypus.WebApi.Shared.csproj
+  PROJECT_PATH: ./Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj
 
 jobs:
   build-and-push-nuget:
