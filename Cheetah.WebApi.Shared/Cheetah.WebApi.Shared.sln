@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.WebApi.Shared", "Cheetah.WebApi.Shared.csproj", "{D49DB3AA-20D7-4B7A-A5FD-5D093BAFD3CC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheetah.WebApi.Shared-test", "..\Cheetah.WebApi.Shared-test\Cheetah.WebApi.Shared-test.csproj", "{FE63BBB3-21CE-4469-9BE0-97A6B31D5DB2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D49DB3AA-20D7-4B7A-A5FD-5D093BAFD3CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D49DB3AA-20D7-4B7A-A5FD-5D093BAFD3CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D49DB3AA-20D7-4B7A-A5FD-5D093BAFD3CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE63BBB3-21CE-4469-9BE0-97A6B31D5DB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE63BBB3-21CE-4469-9BE0-97A6B31D5DB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE63BBB3-21CE-4469-9BE0-97A6B31D5DB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE63BBB3-21CE-4469-9BE0-97A6B31D5DB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
