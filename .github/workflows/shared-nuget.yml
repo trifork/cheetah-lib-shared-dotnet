@@ -9,7 +9,7 @@ on:
       - "v*"
 
 env:
-  PROJECT_PATH: ./Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj
+  PROJECT_PATH: ./src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj
 
 jobs:
   build-and-push-nuget:

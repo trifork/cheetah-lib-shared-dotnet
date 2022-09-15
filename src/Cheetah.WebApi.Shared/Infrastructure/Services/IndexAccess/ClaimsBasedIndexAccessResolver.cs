@@ -4,7 +4,7 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
 
 public class ClaimsBasedIndexAccessResolver : IIndexAccessResolver
 {
-    private const string CustomerClaimName = "skagerak:customer";
+    private const string CustomerClaimName = "cheetah:customer";
 
     private readonly IIndicesBuilder _indicesBuilder;
     private readonly IHttpContextAccessor _contextAccessor;
