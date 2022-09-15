@@ -1,3 +1,5 @@
+using Cheetah.WebApi.Shared.Core.IndexFragments;
+using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
 using Microsoft.AspNetCore.Http;
 
 namespace Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;

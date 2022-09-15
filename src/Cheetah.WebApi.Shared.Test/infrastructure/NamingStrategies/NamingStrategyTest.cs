@@ -6,19 +6,19 @@ using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
 using Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies;
 using Xunit;
 
-namespace Cheetah.WebApi.Shared_test.infrastructure.Services
+namespace Cheetah.WebApi.Shared_test.infrastructure.NamingStrategies
 {
-    public class IndiciesBuilderTest
+    public class NamingStrategyTest
     {
         [Fact]
-        public void Build_ReturnIndexNamingStrategy() 
+        public void Build_ReturnIndexNamingStrategy()
         {
             //Arrange
             var harddate = new DateTime(2020, 01, 01);
-            var namingStrategy = new ReturnIndexNamingStrategy();
+            var namingStrategy = new SimpleIndexNamingStrategy();
             var from = new DateTimeOffset(harddate.AddYears(-2));
             var to = new DateTimeOffset(harddate);
-            var prefix = new IndexPrefix("Prefix") ;
+            var prefix = new IndexPrefix("Prefix");
             var indexBase = IndexType.testIndex("Indexbase");
             var customer = new CustomerIdentifier("Customer");
 
@@ -52,27 +52,7 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.Services
 
         }
 
-        [Fact]
-        public void Build_YearResolutionIndexNamingStrategy()
-        {
-            //Arrange
-            var harddate = new DateTime(2020,1,1);
-            var namingStrategy = new YearResolutionIndexNamingStrategy();
-            var from = new DateTimeOffset(harddate.AddYears(-2));
-            var to = new DateTimeOffset(harddate);
-            var prefix = new IndexPrefix("Prefix");
-            var indexBase = IndexType.testIndex("Indexbase");
-            var customer = new CustomerIdentifier("Customer");
 
-
-            //Act
-            var indexList = namingStrategy.Build(from, to, prefix, indexBase, customer).ToList();
-            //Assert
-            Assert.True(indexList.Count == 3);
-            Assert.True(indexList.Exists(x => x.Pattern.Equals("indexbase_prefix_customer_2018")));
-            Assert.True(indexList.Exists(x => x.Pattern.Equals("indexbase_prefix_customer_2019")));
-            Assert.True(indexList.Exists(x => x.Pattern.Equals("indexbase_prefix_customer_2020")));
-        }
 
         [Fact]
         public void Build_YearResolutionWithWildcardIndexNamingStrategy()
@@ -91,9 +71,9 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.Services
             var indexList = namingStrategy.Build(from, to, prefix, indexBase, customer).ToList();
             //Assert
             Assert.True(indexList.Count == 3);
-            Assert.True(indexList.Exists(x => x.Pattern.Equals("indexbase_prefix_customer_2018*")));
-            Assert.True(indexList.Exists(x => x.Pattern.Equals("indexbase_prefix_customer_2019*")));
-            Assert.True(indexList.Exists(x => x.Pattern.Equals("indexbase_prefix_customer_2020*")));
+            Assert.True(indexList.Exists(x => x.Pattern.Equals($"{indexBase}_{prefix}_{customer}_2018*".ToLower())));
+            Assert.True(indexList.Exists(x => x.Pattern.Equals($"{indexBase}_{prefix}_{customer}_2019*".ToLower())));
+            Assert.True(indexList.Exists(x => x.Pattern.Equals($"{indexBase}_{prefix}_{customer}_2020*".ToLower())));
         }
 
         [Fact]
@@ -114,9 +94,9 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.Services
 
             //Assert
             Assert.True(indexList.Count == 3);
-            Assert.True(indexList.Exists(x => x.Pattern.Equals("indexbase_prefix_customer_2020_01")));
-            Assert.True(indexList.Exists(x => x.Pattern.Equals("indexbase_prefix_customer_2020_02")));
-            Assert.True(indexList.Exists(x => x.Pattern.Equals("indexbase_prefix_customer_2020_03")));
+            Assert.True(indexList.Exists(x => x.Pattern.Equals($"{indexBase}_{prefix}_{customer}_2020_01".ToLower())));
+            Assert.True(indexList.Exists(x => x.Pattern.Equals($"{indexBase}_{prefix}_{customer}_2020_02".ToLower())));
+            Assert.True(indexList.Exists(x => x.Pattern.Equals($"{indexBase}_{prefix}_{customer}_2020_03".ToLower())));
         }
     }
 }
