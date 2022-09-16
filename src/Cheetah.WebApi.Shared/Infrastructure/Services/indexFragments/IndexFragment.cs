@@ -9,6 +9,10 @@ public class IndexFragment
 
     protected IndexFragment(string value)
     {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            throw new IndexFragmentException();
+        }
 
         if (LettersAndNumbersOnly.IsMatch(value))
             throw new IndexFragmentException();
