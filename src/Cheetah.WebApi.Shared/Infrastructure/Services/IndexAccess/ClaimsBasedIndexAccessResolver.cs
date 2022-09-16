@@ -1,10 +1,12 @@
+using Cheetah.WebApi.Shared.Core.IndexFragments;
+using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
 using Microsoft.AspNetCore.Http;
 
 namespace Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
 
 public class ClaimsBasedIndexAccessResolver : IIndexAccessResolver
 {
-    private const string CustomerClaimName = "skagerak:customer";
+    private const string CustomerClaimName = "cheetah:customer";
 
     private readonly IIndicesBuilder _indicesBuilder;
     private readonly IHttpContextAccessor _contextAccessor;

@@ -2,6 +2,8 @@
 using Cheetah.WebApi.Shared_test.models;
 using System;
 using System.Linq;
+using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
+using Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies;
 using Xunit;
 
 namespace Cheetah.WebApi.Shared_test.infrastructure.Services
