@@ -21,7 +21,7 @@ jobs:
         with:
           dotnet-version: "6.0"
       - name: Run ElasticSearch
-        uses: docker://elasticsearch:8.4.1
+        run: docker run elasticsearch:8.4.1 --detach
       - name: "Dotnet build"
         run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
       - name: "Test"
