@@ -7,10 +7,10 @@ using Nest;
 using Nest.JsonNetSerializer;
 using Newtonsoft.Json;
 using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
-using Cheetah.template.WebApi.Core.Config; // TODO rename me from .template. to .Shared.
-using Cheetah.template.WebApi.Core.Interfaces;
+using Cheetah.Shared.WebApi.Core.Config;
+using Cheetah.Shared.WebApi.Core.Interfaces;
 using Cheetah.WebApi.Shared.Middleware.Metric;
-using Cheetah.template.WebApi.Util;
+using Cheetah.Shared.WebApi.Util;
 
 namespace Cheetah.Shared.WebApi.Infrastructure.Services.ElasticSearch
 {
