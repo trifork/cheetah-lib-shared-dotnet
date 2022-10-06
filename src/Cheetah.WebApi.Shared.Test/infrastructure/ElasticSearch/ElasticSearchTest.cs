@@ -36,7 +36,7 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.ElasticSearch
                 mockEnv.Object,
                 mockLogger.Object,
                 mockMetricReporter.Object);
-            await Assert.ThrowsAsync<ElasticsearchClientException>(async () => await client.GetIndicies(new List<IndexDescriptor>()));
+            await Assert.ThrowsAsync<ElasticsearchClientException>(async () => await client.GetIndices(new List<IndexDescriptor>()));
         }
     }
 
@@ -63,12 +63,12 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.ElasticSearch
             var newIndex = GenerateRandomIndexName();
             client.CreateIndex(newIndex);
 
-            var indices = await client.GetIndicies(new List<IndexDescriptor>());
+            var indices = await client.GetIndices(new List<IndexDescriptor>());
             Assert.Contains(newIndex, indices);
 
             client.DeleteIndex(newIndex);
 
-            indices = await client.GetIndicies(new List<IndexDescriptor>());
+            indices = await client.GetIndices(new List<IndexDescriptor>());
             Assert.DoesNotContain(newIndex, indices);
         }
 
