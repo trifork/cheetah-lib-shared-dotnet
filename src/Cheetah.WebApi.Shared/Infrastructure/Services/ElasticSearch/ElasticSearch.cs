@@ -59,7 +59,7 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.ElasticSearch
         /// queries the ElasticSearch instance defined in appsettings.json, for all indecies-names using Nest.
         /// </summary>
         /// <returns>A List containing all index-names</returns>
-        public async Task<List<string>> GetIndicies(List<IndexDescriptor> indices)
+        public async Task<List<string>> GetIndices(List<IndexDescriptor> indices)
         {
             var result = await _elasticClient.Indices.GetAsync(new GetIndexRequest(Indices.All));
             var resultList = result.Indices.Select(index => index.Key.ToString()).ToList();
