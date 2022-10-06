@@ -12,9 +12,9 @@ using Cheetah.Shared.WebApi.Core.Interfaces;
 using Cheetah.WebApi.Shared.Middleware.Metric;
 using Cheetah.Shared.WebApi.Util;
 
-namespace Cheetah.Shared.WebApi.Infrastructure.Services.ElasticSearch
+namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahElasticClient
 {
-    public class CheetahElasticClient : IElasticSearch
+    public class CheetahElasticClient : ICheetahElasticClient
     {
         private readonly ILogger<CheetahElasticClient> _logger;
         private readonly ElasticClient _elasticClient;

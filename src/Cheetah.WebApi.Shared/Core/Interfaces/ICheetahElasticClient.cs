@@ -2,7 +2,7 @@
 
 namespace Cheetah.Shared.WebApi.Core.Interfaces
 {
-    public interface IElasticSearch
+    public interface ICheetahElasticClient
     {
         /// <summary>
         /// Queries the ElasticSearch instance for all indexes

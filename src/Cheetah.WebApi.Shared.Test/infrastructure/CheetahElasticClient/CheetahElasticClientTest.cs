@@ -1,4 +1,4 @@
-﻿using Cheetah.Shared.WebApi.Infrastructure.Services.ElasticSearch;
+﻿using Cheetah.Shared.WebApi.Infrastructure.Services.CheetahElasticClient;
 using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
 using Cheetah.WebApi.Shared.Middleware.Metric;
 using Cheetah.Shared.WebApi.Core.Config;
