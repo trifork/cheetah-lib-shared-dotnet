@@ -41,8 +41,8 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.ElasticSearch
         {
             var elasticConfig = new ElasticConfig();
             elasticConfig.Url = "http://localhost:9200";
-            elasticConfig.UserName = "";
-            elasticConfig.Password = "";
+            elasticConfig.UserName = "elastic";
+            elasticConfig.Password = "custom_elastic_password_for_testing asdasd";
             var options = Options.Create(elasticConfig);
             var mockEnv = new Mock<IHostEnvironment>();
             mockEnv.Setup(s => s.EnvironmentName).Returns(Environments.Development);

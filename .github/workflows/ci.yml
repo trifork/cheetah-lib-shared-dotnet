@@ -31,6 +31,8 @@ jobs:
         uses: elastic/elastic-github-actions/elasticsearch@master
         with:
           stack-version: 7.6.0
+          port: 9200
+          elasticsearch_password: custom_elastic_password_for_testing
       - name: "Dotnet build"
         run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
       - name: "Test"
