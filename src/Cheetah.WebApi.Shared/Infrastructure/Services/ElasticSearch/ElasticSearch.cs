@@ -21,6 +21,7 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.ElasticSearch
         private readonly ElasticConfig _elasticConfig;
         private readonly IMetricReporter _metricReporter;
 
+        // TODO: add comments
         public CheetahElasticClient(IOptions<ElasticConfig> config, IHostEnvironment hostEnvironment,
             ILogger<CheetahElasticClient> logger, IMetricReporter metricReporter)
         {
@@ -50,7 +51,7 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.ElasticSearch
                 }
             });
             if (hostEnvironment.IsDevelopment()) settings.DisableDirectStreaming(true); //Enables data in OnRequestCompleted callback
-            // Move this config to a lib class and to a config file? 
+            // TODO: Move this config to a lib class and to a config file? 
             // We should need to have some defaults when initializing the client
             _elasticClient = new ElasticClient(settings);
         }
@@ -66,15 +67,6 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.ElasticSearch
             resultList.RemoveAll(x => x.StartsWith('.'));
             return resultList;
         }
-
-        public CreateIndexResponse CreateIndex(IndexName index)
-        {
-            return _elasticClient.Indices.Create(new CreateIndexRequest(index));
-        }
-
-        public DeleteIndexResponse DeleteIndex(IndexName index)
-        {
-            return _elasticClient.Indices.Delete(new DeleteIndexRequest(index));
-        }
+        // TODO: dive down in the settings for elastic and see if we need to expose any of the options as easily changeable
     }
 }

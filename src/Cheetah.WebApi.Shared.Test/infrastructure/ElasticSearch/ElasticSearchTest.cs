@@ -9,10 +9,8 @@ using Microsoft.Extensions.Options;
 using Moq;
 using System.Collections.Generic;
 using Xunit;
-using System.Net.Http;
-using System.Net;
-using System.Threading.Tasks;
 using System;
+using Nest;
 
 namespace Cheetah.WebApi.Shared.Test.Infrastructure.ElasticSearch
 {
@@ -42,13 +40,20 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.ElasticSearch
 
     public class ElasticSearchIntegrationTest
     {
+        // elasticClient is an unprotected client for elastic. It helps with setting-up or tearing down tests
+        private ElasticClient elasticClient;
+        private string port;
+        public ElasticSearchIntegrationTest()
+        {
+            // The default elastic port used in the CI/local container
+            port = "9200";
+            elasticClient = new ElasticClient(new Uri($"http://localhost:{port}"));
+        }
         [Fact]
-        public async void ConnectingToContainerElasticIntegration()
+        public async void GetIndicesIntegration()
         {
             var elasticConfig = new ElasticConfig();
-            elasticConfig.Url = "http://localhost:9200";
-            elasticConfig.UserName = "elastic";
-            elasticConfig.Password = "custom_elastic_password_for_testing asdasd";
+            elasticConfig.Url = $"http://localhost:{port}";
             var options = Options.Create(elasticConfig);
             var mockEnv = new Mock<IHostEnvironment>();
             mockEnv.Setup(s => s.EnvironmentName).Returns(Environments.Development);
@@ -61,15 +66,25 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.ElasticSearch
                 mockMetricReporter.Object);
 
             var newIndex = GenerateRandomIndexName();
-            client.CreateIndex(newIndex);
+            CreateIndex(newIndex);
 
             var indices = await client.GetIndices(new List<IndexDescriptor>());
             Assert.Contains(newIndex, indices);
 
-            client.DeleteIndex(newIndex);
+            DeleteIndex(newIndex);
 
             indices = await client.GetIndices(new List<IndexDescriptor>());
             Assert.DoesNotContain(newIndex, indices);
+        }
+
+        public CreateIndexResponse CreateIndex(IndexName index)
+        {
+            return elasticClient.Indices.Create(new CreateIndexRequest(index));
+        }
+
+        public DeleteIndexResponse DeleteIndex(IndexName index)
+        {
+            return elasticClient.Indices.Delete(new DeleteIndexRequest(index));
         }
 
         public string GenerateRandomIndexName()
