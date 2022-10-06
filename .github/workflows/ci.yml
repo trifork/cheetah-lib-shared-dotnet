@@ -20,16 +20,8 @@ jobs:
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: "6.0"
-      - name: Configure sysctl limits for Elastic
-        run: |
-          sudo swapoff -a
-          sudo sysctl -w vm.swappiness=1
-          sudo sysctl -w fs.file-max=262144
-          sudo sysctl -w vm.max_map_count=262144
-
-      - name: Run Elasticsearch
-        run: docker run elasticsearch:8.4.1
-
+      - name: Run ElasticSearch
+        uses: docker:elasticsearch:8.4.1
       - name: "Dotnet build"
         run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
       - name: "Test"
