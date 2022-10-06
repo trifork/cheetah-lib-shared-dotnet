@@ -40,25 +40,26 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.ElasticSearch
         [Fact]
         public async void ConnectingToElastic()
         {
-            // using (var elasticsearch = await new ElasticsearchInside.Elasticsearch(
-            //     c => c.SetPort(4242)).Ready())
-            // {
-            var elasticConfig = new ElasticConfig();
-            elasticConfig.Url = "http://localhost:9200";
-            elasticConfig.UserName = "";
-            elasticConfig.Password = "";
-            var options = Options.Create(elasticConfig);
-            var mockEnv = new Mock<IHostEnvironment>();
-            mockEnv.Setup(s => s.EnvironmentName).Returns(Environments.Development);
-            var mockLogger = new Mock<ILogger<CheetahElasticClient>>();
-            var mockMetricReporter = new Mock<IMetricReporter>();
-            CheetahElasticClient client = new CheetahElasticClient(
-                options,
-                mockEnv.Object,
-                mockLogger.Object,
-                mockMetricReporter.Object);
-            var actual = await client.GetIndicies(new List<IndexDescriptor>());
-            Assert.Equal(actual, new List<string>());
+            using (var elasticsearch = await new ElasticsearchInside.Elasticsearch(
+                c => c.SetPort(9200)).Ready())
+            {
+                var elasticConfig = new ElasticConfig();
+                elasticConfig.Url = "http://localhost:9200";
+                elasticConfig.UserName = "";
+                elasticConfig.Password = "";
+                var options = Options.Create(elasticConfig);
+                var mockEnv = new Mock<IHostEnvironment>();
+                mockEnv.Setup(s => s.EnvironmentName).Returns(Environments.Development);
+                var mockLogger = new Mock<ILogger<CheetahElasticClient>>();
+                var mockMetricReporter = new Mock<IMetricReporter>();
+                CheetahElasticClient client = new CheetahElasticClient(
+                    options,
+                    mockEnv.Object,
+                    mockLogger.Object,
+                    mockMetricReporter.Object);
+                var actual = await client.GetIndicies(new List<IndexDescriptor>());
+                Assert.Equal(actual, new List<string>());
+            }
         }
     }
 }
