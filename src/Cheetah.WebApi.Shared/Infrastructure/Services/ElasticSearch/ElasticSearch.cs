@@ -61,11 +61,20 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.ElasticSearch
         /// <returns>A List containing all index-names</returns>
         public async Task<List<string>> GetIndicies(List<IndexDescriptor> indices)
         {
-
             var result = await _elasticClient.Indices.GetAsync(new GetIndexRequest(Indices.All));
             var resultList = result.Indices.Select(index => index.Key.ToString()).ToList();
             resultList.RemoveAll(x => x.StartsWith('.'));
             return resultList;
+        }
+
+        public CreateIndexResponse CreateIndex(IndexName index)
+        {
+            return _elasticClient.Indices.Create(new CreateIndexRequest(index));
+        }
+
+        public DeleteIndexResponse DeleteIndex(IndexName index)
+        {
+            return _elasticClient.Indices.Delete(new DeleteIndexRequest(index));
         }
     }
 }

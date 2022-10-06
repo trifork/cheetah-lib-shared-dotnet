@@ -9,22 +9,28 @@ using Microsoft.Extensions.Options;
 using Moq;
 using System.Collections.Generic;
 using Xunit;
+using System.Net.Http;
+using System.Net;
+using System.Threading.Tasks;
+using System;
 
 namespace Cheetah.WebApi.Shared.Test.Infrastructure.ElasticSearch
 {
+
     public class ElasticSearchTest
     {
         [Fact]
         public async void ConnectingToInvalidPortFails()
         {
             var elasticConfig = new ElasticConfig();
-            // Elastic is not running on port 80 so requests will fail
+            // Elastic should never run on port 80 so requests will fail
             elasticConfig.Url = "http://localhost:80";
             var options = Options.Create(elasticConfig);
             var mockEnv = new Mock<IHostEnvironment>();
             mockEnv.Setup(s => s.EnvironmentName).Returns(Environments.Development);
             var mockLogger = new Mock<ILogger<CheetahElasticClient>>();
             var mockMetricReporter = new Mock<IMetricReporter>();
+            // Initialization succeeds, but the connection is not verified until a request is made
             CheetahElasticClient client = new CheetahElasticClient(
                 options,
                 mockEnv.Object,
@@ -53,8 +59,22 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.ElasticSearch
                 mockEnv.Object,
                 mockLogger.Object,
                 mockMetricReporter.Object);
-            var actual = await client.GetIndicies(new List<IndexDescriptor>());
-            Assert.Equal(actual, new List<string>());
+
+            var newIndex = GenerateRandomIndexName();
+            client.CreateIndex(newIndex);
+
+            var indices = await client.GetIndicies(new List<IndexDescriptor>());
+            Assert.Contains(newIndex, indices);
+
+            client.DeleteIndex(newIndex);
+
+            indices = await client.GetIndicies(new List<IndexDescriptor>());
+            Assert.DoesNotContain(newIndex, indices);
+        }
+
+        public string GenerateRandomIndexName()
+        {
+            return Guid.NewGuid().ToString();
         }
     }
 }
