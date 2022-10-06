@@ -40,7 +40,7 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.ElasticSearch
                 })
                 .BasicAuthentication(_elasticConfig.UserName, _elasticConfig.Password)
                 .ThrowExceptions();
-            
+
             settings.OnRequestCompleted(apiCallDetails =>
             {
                 if (apiCallDetails.RequestBodyInBytes != null)
