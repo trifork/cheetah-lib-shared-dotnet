@@ -14,6 +14,32 @@ using Cheetah.Shared.WebApi.Util;
 
 namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahElasticClient
 {
+    /// <summary>Wrapper around ElasticClient, which introduces logging, authorization, and metrics
+    /// <para>
+    /// CheetahElasticClient is a controller interface for accessing ElasticSearch's API.
+    /// It provides:
+    /// <list type=">">
+    /// <item>
+    /// <term>Access control</term>
+    /// <description>
+    /// Callers of this class would be able to access only indices on ES that they are authorized to access
+    /// </description>
+    /// </item>
+    /// <item>
+    /// <term>Logging</term>
+    /// <description>
+    /// When debug mode is enabled the raw requests to ES are logged in plaintext
+    /// </description>
+    /// </item>
+    /// <item>
+    /// <term>Metrics</term>
+    /// <description>
+    /// Automatic metrics for requests done through this client
+    /// </description>
+    /// </item>
+    /// </list>
+    /// </para>
+    /// </summary>
     public class CheetahElasticClient : ICheetahElasticClient
     {
         private readonly ILogger<CheetahElasticClient> _logger;
@@ -21,7 +47,6 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahElasticClient
         private readonly ElasticConfig _elasticConfig;
         private readonly IMetricReporter _metricReporter;
 
-        // TODO: add comments
         public CheetahElasticClient(IOptions<ElasticConfig> config, IHostEnvironment hostEnvironment,
             ILogger<CheetahElasticClient> logger, IMetricReporter metricReporter)
         {
@@ -51,22 +76,22 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahElasticClient
                 }
             });
             if (hostEnvironment.IsDevelopment()) settings.DisableDirectStreaming(true); //Enables data in OnRequestCompleted callback
-            // TODO: Move this config to a lib class and to a config file? 
-            // We should need to have some defaults when initializing the client
+
+            // TODO: We should need to have some defaults when initializing the client
+            // TODO: dive down in the settings for elastic and see if we need to expose any of the options as easily changeable
             _elasticClient = new ElasticClient(settings);
         }
 
         /// <summary>
-        /// queries the ElasticSearch instance defined in appsettings.json, for all indecies-names using Nest.
+        /// Queries the ElasticSearch instance defined in appsettings.json, for all indices' names
         /// </summary>
         /// <returns>A List containing all index-names</returns>
         public async Task<List<string>> GetIndices(List<IndexDescriptor> indices)
         {
             var result = await _elasticClient.Indices.GetAsync(new GetIndexRequest(Indices.All));
-            var resultList = result.Indices.Select(index => index.Key.ToString()).ToList();
-            resultList.RemoveAll(x => x.StartsWith('.'));
-            return resultList;
+            return result.Indices.Select(index => index.Key.ToString())
+                                 .Where(x => !x.StartsWith('.'))
+                                 .ToList();
         }
-        // TODO: dive down in the settings for elastic and see if we need to expose any of the options as easily changeable
     }
 }
