@@ -20,7 +20,8 @@ jobs:
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: "6.0"
-      - name: Run ElasticSearch
+        # Elastic is required for integration tests
+      - name: Run ElasticSearch # This reuses the options from cheetah-example-processing's ES container
         run: docker run
           --detach
           -p 9200:9200

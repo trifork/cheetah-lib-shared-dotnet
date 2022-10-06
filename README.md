@@ -45,3 +45,25 @@ that you query once a month. Therefore, it would make sense to save money by arc
 in a Cold storage. We can easily achieve this if our data is separated in different shards (databases) based
 on the month. i.e. each shard stores data for 1 month, so data for April and June will be stored in two different
 shards. When a shard becomes more than a month old, we can archive it into cold storage.
+
+## Running tests locally
+
+To run unit tests locally run:
+```sh
+dotnet test --filter 'FullyQualifiedName!~Integration'
+```
+
+To run unit tests locally you need ElasticSearch running on port 9200.
+To run integration tests locally run:
+```sh
+dotnet test --filter 'FullyQualifiedName~Integration'
+```
+
+## Writing tests
+
+Writing unit tests has nothing specific to it.
+
+Writing integration tests has the following requirements:
+- The test function must contain 'Integration' in its name (usually as a suffix)
+- The test function must set-up its own data and tear it down afterwards
+- Integration tests for ElasticSearch require an ES instance running on port 9200
