@@ -9,7 +9,6 @@ using Microsoft.Extensions.Options;
 using Moq;
 using System.Collections.Generic;
 using Xunit;
-using ElasticsearchInside.Config;
 
 namespace Cheetah.WebApi.Shared.Test.Infrastructure.ElasticSearch
 {
@@ -35,31 +34,27 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.ElasticSearch
         }
     }
 
-    public class ElasticSearchIntegration
+    public class ElasticSearchIntegrationTest
     {
         [Fact]
-        public async void ConnectingToElastic()
+        public async void ConnectingToContainerElasticIntegration()
         {
-            using (var elasticsearch = await new ElasticsearchInside.Elasticsearch(
-                c => c.SetPort(9200)).Ready())
-            {
-                var elasticConfig = new ElasticConfig();
-                elasticConfig.Url = "http://localhost:9200";
-                elasticConfig.UserName = "";
-                elasticConfig.Password = "";
-                var options = Options.Create(elasticConfig);
-                var mockEnv = new Mock<IHostEnvironment>();
-                mockEnv.Setup(s => s.EnvironmentName).Returns(Environments.Development);
-                var mockLogger = new Mock<ILogger<CheetahElasticClient>>();
-                var mockMetricReporter = new Mock<IMetricReporter>();
-                CheetahElasticClient client = new CheetahElasticClient(
-                    options,
-                    mockEnv.Object,
-                    mockLogger.Object,
-                    mockMetricReporter.Object);
-                var actual = await client.GetIndicies(new List<IndexDescriptor>());
-                Assert.Equal(actual, new List<string>());
-            }
+            var elasticConfig = new ElasticConfig();
+            elasticConfig.Url = "http://localhost:9200";
+            elasticConfig.UserName = "";
+            elasticConfig.Password = "";
+            var options = Options.Create(elasticConfig);
+            var mockEnv = new Mock<IHostEnvironment>();
+            mockEnv.Setup(s => s.EnvironmentName).Returns(Environments.Development);
+            var mockLogger = new Mock<ILogger<CheetahElasticClient>>();
+            var mockMetricReporter = new Mock<IMetricReporter>();
+            CheetahElasticClient client = new CheetahElasticClient(
+                options,
+                mockEnv.Object,
+                mockLogger.Object,
+                mockMetricReporter.Object);
+            var actual = await client.GetIndicies(new List<IndexDescriptor>());
+            Assert.Equal(actual, new List<string>());
         }
     }
 }
