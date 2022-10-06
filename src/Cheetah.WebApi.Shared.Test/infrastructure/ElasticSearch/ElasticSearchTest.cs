@@ -1,7 +1,7 @@
 ﻿using Cheetah.Shared.WebApi.Infrastructure.Services.ElasticSearch;
 using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
 using Cheetah.WebApi.Shared.Middleware.Metric;
-using Cheetah.template.WebApi.Core.Config;
+using Cheetah.Shared.WebApi.Core.Config;
 using Elasticsearch.Net;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -14,7 +14,6 @@ using Nest;
 
 namespace Cheetah.WebApi.Shared.Test.Infrastructure.ElasticSearch
 {
-
     public class ElasticSearchTest
     {
         [Fact]

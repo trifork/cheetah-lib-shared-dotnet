@@ -1,11 +1,11 @@
 ﻿using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
 
-namespace Cheetah.template.WebApi.Core.Interfaces
+namespace Cheetah.Shared.WebApi.Core.Interfaces
 {
     public interface IElasticSearch
     {
         /// <summary>
-        /// queries the ElasticSearch instance defined in appsettings.json, for all indecies-names using Nest.
+        /// Queries the ElasticSearch instance for all indexes
         /// </summary>
         /// <returns>A List containing all index-names</returns>
         Task<List<string>> GetIndices(List<IndexDescriptor> indices);

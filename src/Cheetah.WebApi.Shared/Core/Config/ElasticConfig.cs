@@ -1,4 +1,4 @@
-﻿namespace Cheetah.template.WebApi.Core.Config
+﻿namespace Cheetah.Shared.WebApi.Core.Config
 {
     public class ElasticConfig
     {

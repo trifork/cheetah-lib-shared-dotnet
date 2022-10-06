@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Cheetah.template.WebApi.Util;
+namespace Cheetah.Shared.WebApi.Util;
 
 public class EpochDateTimeConverter : DateTimeConverterBase
 {
