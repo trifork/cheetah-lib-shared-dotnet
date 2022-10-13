@@ -20,7 +20,20 @@ jobs:
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: "6.0"
+        # Elastic is required for integration tests
+      - name: Run ElasticSearch # This reuses the options from cheetah-example-processing's ES container
+        run: docker run
+          --detach
+          -p 9200:9200
+          -e "discovery.type=single-node"
+          -e "bootstrap.memory_lock=true"
+          -e "ES_JAVA_OPTS=-Xms2g -Xmx2g -Dlog4j2.formatMsgNoLookups"
+          -e "xpack.security.enabled=false"
+          -e "xpack.license.self_generated.type=basic"
+          elasticsearch:8.4.1
       - name: "Dotnet build"
         run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
       - name: "Test"
-        run: dotnet test --no-restore --verbosity normal ${{ env.SOLUTION_PATH}}
+        run: dotnet test --no-restore --verbosity normal --filter 'FullyQualifiedName!~Integration' ${{ env.SOLUTION_PATH}}
+      - name: "Test Integration"
+        run: dotnet test --no-restore --verbosity normal --filter 'FullyQualifiedName~Integration' ${{ env.SOLUTION_PATH}}

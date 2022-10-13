@@ -5,7 +5,7 @@
     /// </summary>
     public class ServiceCollectionInstallerComparer : IEqualityComparer<IServiceCollectionInstaller>
     {
-        public bool Equals(IServiceCollectionInstaller x, IServiceCollectionInstaller y)
+        public bool Equals(IServiceCollectionInstaller? x, IServiceCollectionInstaller? y)
         {
             return y != null && x != null && x.GetType().ToString() == y.GetType().ToString();
         }

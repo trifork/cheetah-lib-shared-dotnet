@@ -1,7 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.Hosting;
 
@@ -10,7 +7,7 @@ namespace Cheetah.WebApi.Shared.Infrastructure.ServiceProvider
     public static class ServiceCollectionExtensions
     {
         public static void Install(this IServiceCollection services, IHostEnvironment hostEnvironment,
-            Assembly assembly, int? priorityFilter = null, IServiceCollectionInstaller[] additionalInstallers = null)
+            Assembly assembly, int? priorityFilter = null, IServiceCollectionInstaller[]? additionalInstallers = null)
         {
             var installerTypes = FilterInstallerTypes(assembly.GetAvailableTypes());
             if (installerTypes == null)
@@ -18,7 +15,7 @@ namespace Cheetah.WebApi.Shared.Infrastructure.ServiceProvider
                 return;
             }
 
-            var allInstallers = installerTypes.Select(installerType => (IServiceCollectionInstaller)Activator.CreateInstance(installerType));
+            var allInstallers = installerTypes.Select(x => (IServiceCollectionInstaller)Activator.CreateInstance(x)!);
             if (additionalInstallers != null)
             {
                 allInstallers = allInstallers.Concat(additionalInstallers).Distinct(new ServiceCollectionInstallerComparer());
@@ -26,14 +23,14 @@ namespace Cheetah.WebApi.Shared.Infrastructure.ServiceProvider
 
             if (priorityFilter.HasValue)
             {
-                allInstallers = allInstallers.Where(x => GetPriority(x) == priorityFilter).ToArray();
+                allInstallers = allInstallers.Where(x => x != null && GetPriority(x) == priorityFilter).ToArray();
             }
 
             var orderedInstallerTypes = allInstallers.OrderBy(GetPriority);
 
             foreach (var installer in orderedInstallerTypes)
             {
-                installer.Install(services, hostEnvironment);
+                installer?.Install(services, hostEnvironment);
             }
         }
 
@@ -74,7 +71,7 @@ namespace Cheetah.WebApi.Shared.Infrastructure.ServiceProvider
             }
             catch (ReflectionTypeLoadException e)
             {
-                return e.Types?.ToArray();
+                return e.Types.Where(x => x != null).Select(x => (Type)x!).ToArray();
                 // NOTE: perhaps we should not ignore the exceptions here, and log them?
             }
         }

@@ -1,5 +1,4 @@
-﻿using Cheetah.WebApi.Shared.Infrastructure.Services;
-using Cheetah.WebApi.Shared_test.models;
+﻿using Cheetah.WebApi.Shared_test.models;
 using System;
 using System.Linq;
 using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
@@ -11,14 +10,14 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.Services
     public class IndiciesBuilderTest
     {
         [Fact]
-        public void Build_ReturnIndexNamingStrategy() 
+        public void Build_ReturnIndexNamingStrategy()
         {
             //Arrange
             var harddate = new DateTime(2020, 01, 01);
             var namingStrategy = new ReturnIndexNamingStrategy();
             var from = new DateTimeOffset(harddate.AddYears(-2));
             var to = new DateTimeOffset(harddate);
-            var prefix = new IndexPrefix("Prefix") ;
+            var prefix = new IndexPrefix("Prefix");
             var indexBase = IndexType.testIndex("Indexbase");
             var customer = new CustomerIdentifier("Customer");
 
@@ -56,7 +55,7 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.Services
         public void Build_YearResolutionIndexNamingStrategy()
         {
             //Arrange
-            var harddate = new DateTime(2020,1,1);
+            var harddate = new DateTime(2020, 1, 1);
             var namingStrategy = new YearResolutionIndexNamingStrategy();
             var from = new DateTimeOffset(harddate.AddYears(-2));
             var to = new DateTimeOffset(harddate);

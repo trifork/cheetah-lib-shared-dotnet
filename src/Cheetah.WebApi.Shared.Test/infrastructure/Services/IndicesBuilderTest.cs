@@ -1,11 +1,7 @@
-﻿using Cheetah.WebApi.Shared.Infrastructure.Services;
-using Cheetah.WebApi.Shared_test.models;
+﻿using Cheetah.WebApi.Shared_test.models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
 using Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies;
 using Xunit;

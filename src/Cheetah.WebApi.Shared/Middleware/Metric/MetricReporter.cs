@@ -1,10 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
 using Prometheus;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cheetah.WebApi.Shared.Middleware.Metric
 {

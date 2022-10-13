@@ -1,5 +1,4 @@
-﻿using Cheetah.WebApi.Shared.Infrastructure.Services;
-using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
+﻿using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
 using Cheetah.WebApi.Shared_test.models;
 using System;
 using System.Linq;
