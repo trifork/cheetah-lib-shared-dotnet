@@ -83,7 +83,8 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahElasticClient
         }
 
         /// <summary>
-        /// Queries the ElasticSearch instance defined in appsettings.json, for all indices' names
+        /// Queries the ElasticSearch instance for all indices' names
+
         /// </summary>
         /// <returns>A List containing all index-names</returns>
         public async Task<List<string>> GetIndices(List<IndexDescriptor> indices)
