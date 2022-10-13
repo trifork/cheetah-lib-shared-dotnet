@@ -10,7 +10,7 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.NamingStrategies
     public class NamingStrategyTest
     {
         [Fact]
-        public void SimpleIndexNamingStrategy()
+        public void Build_SimpleIndexNamingStrategy()
         {
             //Arrange
             var harddate = new DateTime(2020, 01, 01);
