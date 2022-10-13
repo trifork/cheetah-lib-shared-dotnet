@@ -10,11 +10,11 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.Services
     public class IndiciesBuilderTest
     {
         [Fact]
-        public void Build_ReturnIndexNamingStrategy()
+        public void Build_SimpleIndexNamingStrategy()
         {
             //Arrange
             var harddate = new DateTime(2020, 01, 01);
-            var namingStrategy = new ReturnIndexNamingStrategy();
+            var namingStrategy = new SimpleIndexNamingStrategy();
             var from = new DateTimeOffset(harddate.AddYears(-2));
             var to = new DateTimeOffset(harddate);
             var prefix = new IndexPrefix("Prefix");

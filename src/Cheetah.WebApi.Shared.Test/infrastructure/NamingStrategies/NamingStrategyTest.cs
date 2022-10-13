@@ -10,7 +10,7 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.NamingStrategies
     public class NamingStrategyTest
     {
         [Fact]
-        public void Build_ReturnIndexNamingStrategy()
+        public void Build_SimpleIndexNamingStrategy()
         {
             //Arrange
             var harddate = new DateTime(2020, 01, 01);
@@ -50,8 +50,6 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.NamingStrategies
             Assert.Equal("indexbase_prefix_customer_*", index.First().Pattern);
 
         }
-
-
 
         [Fact]
         public void Build_YearResolutionWithWildcardIndexNamingStrategy()
