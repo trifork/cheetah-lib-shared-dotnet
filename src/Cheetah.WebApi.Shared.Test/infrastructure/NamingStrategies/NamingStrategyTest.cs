@@ -51,8 +51,6 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.NamingStrategies
 
         }
 
-
-
         [Fact]
         public void Build_YearResolutionWithWildcardIndexNamingStrategy()
         {

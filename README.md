@@ -41,18 +41,17 @@ has different costs associated with it. e.g. SSD discs are faster than HDDs, but
 
 We are providing a number of different naming strategies for Indexes:
 
-The prefix is always optional.
+The `<>` indicates required param, while `[]` indicates optional. e.g `prefix` is always optional.
 - `SimpleIndexNamingStrategy`: follows the pattern `<base>_[prefix]`.
     This is the simplest Index naming
+- `CustomerIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_*`.
+    (For querying) This gives us all the Indexes for a customer - all years/months
 - `YearResolutionIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_<year>`.
     This builds on top of the `CustomerIndexNamingStrategy` but adds sharding based on the year
 - `MonthResolutionIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_<year>_<zero-padded month>`.
     This builds on top of the `YearResolutionIndexNamingStrategy` but adds sharding based on month as well.
-- `CustomerIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_*`.
-    (For querying) This gives us all the Indexes for a customer - all years/months
 - `YearResolutionWithWildcardIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_<year>*`.
     (For querying) This gives us all the Indexes a given customer and year - all the months
-- `ReturnIndexNamingStrategy`: Equivalent to `SimpleIndexNamingStrategy`. `deprecated`
 
 ### Hot and Cold Storage and Sharding
 Usually, we refer to the underlying storage media as Hot or Cold storage.
