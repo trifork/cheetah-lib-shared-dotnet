@@ -1,4 +1,4 @@
-name: Create and publish Cheetah.shared nuget package
+name: Build and test Cheetah.shared nuget package
 
 on:
   workflow_dispatch: {}
