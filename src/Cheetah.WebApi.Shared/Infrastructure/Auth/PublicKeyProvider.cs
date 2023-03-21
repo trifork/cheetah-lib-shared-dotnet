@@ -31,10 +31,10 @@ public class PublicKeyProvider : IPublicKeyProvider
                 }
                 else
                 {
-                    cacheEntryFactory.SlidingExpiration = TimeSpan.Zero;
-                    cacheEntryFactory.AbsoluteExpirationRelativeToNow = TimeSpan.Zero;
+                    cacheEntryFactory.SlidingExpiration = null;
+                    cacheEntryFactory.AbsoluteExpirationRelativeToNow = null;
                 }
-          
+
                 return keys;
             });
         return cachedValue;

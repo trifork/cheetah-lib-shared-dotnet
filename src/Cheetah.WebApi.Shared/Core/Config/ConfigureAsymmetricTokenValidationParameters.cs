@@ -21,6 +21,6 @@ public class ConfigureAsymmetricTokenValidationParameters : IPostConfigureOption
         // assign variable to avoid capturing this class instance in the closure
         var publicKeyCache = this._publicKeyProvider;
 
-        return (token, securityToken, kid, validationParameters) => publicKeyCache.GetKey(securityToken.Issuer).Result;
+        return (token, securityToken, kid, validationParameters) => publicKeyCache.GetKey(securityToken.Issuer).GetAwaiter().GetResult();
     }
 }
