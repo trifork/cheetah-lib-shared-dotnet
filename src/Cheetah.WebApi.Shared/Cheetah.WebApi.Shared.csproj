@@ -23,7 +23,8 @@
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.17.0" />
     <PackageReference Include="Nest" Version="7.17.4" />
     <PackageReference Include="Nest.JsonNetSerializer" Version="7.17.4" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="OpenSearch.Client" Version="1.3.0" />
+    <PackageReference Include="OpenSearch.Client.JsonNetSerializer" Version="1.3.0" />
     <PackageReference Include="prometheus-net" Version="6.0.0" />
     <PackageReference Include="prometheus-net.AspNetCore" Version="6.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.3.1" />
