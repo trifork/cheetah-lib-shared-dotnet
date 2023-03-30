@@ -24,6 +24,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
         # OpenSearch is required for integration tests
+      - name: docker network create cheetah-infrastructure
+        run: docker network create cheetah-infrastructure
+      - name: Run OAuthSimulator
+        run: docker run
+          --detach
+          -p 80:80
+          -e "OAuth__Mode=Asymmetric"
+          -e "Simulator__DefaultRole=admin"
+          --network=cheetah-infrastructure
+          ghcr.io/trifork/cheetah-oauth-simulator:latest
       - name: Run OpenSearch # This reuses the options from cheetah-development-infrastructure OS container
         run: docker run
           --detach
@@ -37,14 +47,8 @@ jobs:
           -e network.host=0.0.0.0
           -v $(pwd)/.github/workflows/opensearch_security.config.yml:/usr/share/opensearch/config/opensearch-security/config.yml
           -e plugins.security.ssl.http.enabled=false
+          --network=cheetah-infrastructure
           opensearchproject/opensearch:2.6.0
-      - name: Run OAuthSimulator
-        run: docker run
-          --detach
-          -p 80:80
-          -e "OAuth__Mode=Asymmetric"
-          -e "Simulator__DefaultRole=admin"
-          ghcr.io/trifork/cheetah-oauth-simulator:latest
       - name: Add hosts to /etc/hosts
         run: |
           sudo echo "127.0.0.1 opensearch" | sudo tee -a /etc/hosts
