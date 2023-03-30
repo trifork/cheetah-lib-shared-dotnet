@@ -18,16 +18,8 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
         {
 
             var cachedAccessToken = await this.tokenService.RequestAccessTokenCachedAsync(cancellationToken);
-            request.Headers.Add("Authorization", $"Bearer {cachedAccessToken}");
-            try
-            {
-                var res = await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
-                return res;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            request.Headers.Add("Authorization", $"bearer {cachedAccessToken}");
+            return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
         }
     }
 }

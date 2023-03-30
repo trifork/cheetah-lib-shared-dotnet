@@ -44,7 +44,7 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
     public class CheetahOpenSearchClient : ICheetahElasticClient
     {
         private readonly ILogger<CheetahOpenSearchClient> _logger;
-        private readonly OpenSearchClient _openSearchClient;
+        public OpenSearchClient InternalClient { get; }
         private readonly OpenSearchConfig _openSearchConfig;
         private readonly IMetricReporter _metricReporter;
 
@@ -55,10 +55,9 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
             _logger = logger;
             _openSearchConfig = openSearchConfig.Value;
             _metricReporter = metricReporter;
-            var pool = new SingleNodeConnectionPool(new Uri(_openSearchConfig.Url));
+            var pool = new SingleNodeConnectionPool(new Uri(_openSearchConfig.Url)); //todo
             IConnection? cheetahConnection = null;
             _openSearchConfig.ValidateConfig();
-            // todo: log auth mode
 
             if (_openSearchConfig.AuthMode == OpenSearchConfig.OpenSearchAuthMode.OAuth2)
             {
@@ -94,7 +93,7 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
 
             // TODO: We should need to have some defaults when initializing the client
             // TODO: dive down in the settings for elastic and see if we need to expose any of the options as easily changeable
-            _openSearchClient = new OpenSearchClient(settings);
+            InternalClient = new OpenSearchClient(settings);
         }
 
         /// <summary>
@@ -103,7 +102,7 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
         /// <returns>A List containing all index-names</returns>
         public async Task<List<string>> GetIndices(List<IndexDescriptor> indices)
         {
-            var result = await _openSearchClient.Indices.GetAsync(new GetIndexRequest(Indices.All));
+            var result = await InternalClient.Indices.GetAsync(new GetIndexRequest(Indices.All));
             return result.Indices.Select(index => index.Key.ToString())
                                  .Where(x => !x.StartsWith('.'))
                                  .ToList();
