@@ -11,7 +11,7 @@ using Cheetah.Shared.WebApi.Util;
 using OpenSearch.Client;
 using OpenSearch.Net;
 using OpenSearch.Client.JsonNetSerializer;
-using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
 {
@@ -48,7 +48,7 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
         private readonly OpenSearchConfig _openSearchConfig;
         private readonly IMetricReporter _metricReporter;
 
-        public CheetahOpenSearchClient(IDistributedCache cache, IHttpClientFactory httpClientfactory,
+        public CheetahOpenSearchClient(IMemoryCache cache, IHttpClientFactory httpClientfactory,
         IOptions<OpenSearchConfig> openSearchConfig, IHostEnvironment hostEnvironment,
             ILogger<CheetahOpenSearchClient> logger, IMetricReporter metricReporter)
         {
@@ -57,12 +57,13 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
             _metricReporter = metricReporter;
             var pool = new SingleNodeConnectionPool(new Uri(_openSearchConfig.Url));
             IConnection? cheetahConnection = null;
-            if (!string.IsNullOrEmpty(_openSearchConfig.ClientId) && !string.IsNullOrEmpty(_openSearchConfig.ClientSecret) && !string.IsNullOrEmpty(_openSearchConfig.TokenEndpoint))
-            {
-                // todo: log oauth2 mode
-                cheetahConnection = new CheetahOpenSearchConnection(cache, httpClientfactory,
-                _openSearchConfig.ClientId, _openSearchConfig.ClientSecret, _openSearchConfig.TokenEndpoint);
+            _openSearchConfig.ValidateConfig();
+            // todo: log auth mode
 
+            if (_openSearchConfig.AuthMode == OpenSearchConfig.OpenSearchAuthMode.OAuth2)
+            {
+                cheetahConnection = new CheetahOpenSearchConnection(logger, cache, httpClientfactory,
+                _openSearchConfig.ClientId, _openSearchConfig.ClientSecret, _openSearchConfig.TokenEndpoint);
             }
             var settings = new ConnectionSettings(pool, cheetahConnection,
                 (builtin, settings) =>
@@ -75,7 +76,10 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
                     return new JsonNetSerializer(builtin, settings, () => jsonSerializerSettings);
                 })
                 .ThrowExceptions();
-
+            if (_openSearchConfig.AuthMode == OpenSearchConfig.OpenSearchAuthMode.BasicAuth)
+            {
+                settings.BasicAuthentication(_openSearchConfig.UserName, _openSearchConfig.Password);
+            }
             settings.OnRequestCompleted(apiCallDetails =>
             {
                 if (apiCallDetails.RequestBodyInBytes != null)
@@ -93,7 +97,6 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
 
         /// <summary>
         /// Queries the ElasticSearch instance for all indices' names
-
         /// </summary>
         /// <returns>A List containing all index-names</returns>
         public async Task<List<string>> GetIndices(List<IndexDescriptor> indices)
