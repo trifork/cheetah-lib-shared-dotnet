@@ -88,7 +88,7 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.ElasticSearch
 
         [Theory]
         [InlineData(OpenSearchAuthMode.BasicAuth, "admin", "admin", "", "", "")]
-        //[InlineData(OpenSearchAuthMode.OAuth2, "", "", "opensearch", "1234", "http://cheetahoauthsimulator:80/oauth2/token")]
+        [InlineData(OpenSearchAuthMode.OAuth2, "", "", "opensearch", "1234", "http://cheetahoauthsimulator:80/oauth2/token")]
         public async void GetIndicesIntegration(OpenSearchAuthMode authMode, string username, string password, string clientId, string clientSecret, string tokenEndpoint)
         {
             var openSearchConfig = new OpenSearchConfig
