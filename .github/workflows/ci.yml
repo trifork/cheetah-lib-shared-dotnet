@@ -33,10 +33,10 @@ jobs:
           -e discovery.type=single-node
           -e bootstrap.memory_lock=true
           -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
-          -e DISABLE_INSTALL_DEMO_CONFIG=true
+          -e DISABLE_INSTALL_DEMO_CONFIG=false
           -e network.host=0.0.0.0
-          -e plugins.security.ssl.http.enabled=false
           -v $(pwd)/.github/workflows/opensearch_security.config.yml:/usr/share/opensearch/config/opensearch-security/config.yml
+          -e plugins.security.ssl.http.enabled=false
           opensearchproject/opensearch:2.6.0
       - name: Run OAuthSimulator
         run: docker run

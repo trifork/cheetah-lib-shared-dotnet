@@ -43,6 +43,7 @@
 				"EditorConfig.EditorConfig",
 				"MS-vsliveshare.vsliveshare-pack",
 				"streetsidesoftware.code-spell-checker",
+				"redhat.vscode-yaml",
 				// Recommended extensions - .NET
 				"Fudge.auto-using",
 				"jongrant.csharpsortusings",
