@@ -22,7 +22,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
         # OpenSearch is required for integration tests
       - name: Run OpenSearch # This reuses the options from cheetah-development-infrastructure OS container
         run: docker run
