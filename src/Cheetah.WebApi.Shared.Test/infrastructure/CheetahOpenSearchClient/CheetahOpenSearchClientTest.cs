@@ -18,6 +18,7 @@ using static Cheetah.Shared.WebApi.Core.Config.OpenSearchConfig;
 using Serilog;
 using Xunit.Abstractions;
 using Microsoft.Extensions.Logging.Configuration;
+using Microsoft.Extensions.Hosting.Internal;
 
 namespace Cheetah.WebApi.Shared.Test.Infrastructure.ElasticSearch
 {
@@ -85,7 +86,7 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.ElasticSearch
                 TokenEndpoint = tokenEndpoint
             };
             var options = Options.Create(openSearchConfig);
-            var env =     new HostingEnvironment { EnvironmentName = Environments.Development };
+            var env = new HostingEnvironment { EnvironmentName = Environments.Development };
 
             var mockMetricReporter = new Mock<IMetricReporter>();
             var memoryCache = new MemoryCache(new MemoryCacheOptions
