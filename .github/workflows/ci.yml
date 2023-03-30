@@ -21,7 +21,7 @@ jobs:
         with:
           dotnet-version: "6.0"
         # Elastic is required for integration tests
-      - name: Run ElasticSearch # This reuses the options from cheetah-example-processing's ES container
+      - name: Run OpenSearch # This reuses the options from cheetah-development-infrastructure OS container
         run: docker run
           --detach
           -p 9200:9200
@@ -31,6 +31,16 @@ jobs:
           -e "xpack.security.enabled=false"
           -e "xpack.license.self_generated.type=basic"
           elasticsearch:8.4.1
+      - name: Run OAuthSimulator
+        run: docker run
+          --detach
+          -p 80:80
+          -e "OAuth__Mode=Asymmetric"
+          ghcr.io/trifork/cheetah-oauth-simulator:latest
+      - name: Add hosts to /etc/hosts
+        run: |
+          sudo echo "127.0.0.1 opensearch" | sudo tee -a /etc/hosts
+          sudo echo "127.0.0.1 cheetahoauthsimulator" | sudo tee -a /etc/hosts
       - name: "Dotnet build"
         run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
       - name: "Test"

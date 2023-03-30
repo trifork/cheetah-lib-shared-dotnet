@@ -15,6 +15,9 @@ using Cheetah.WebApi.Shared_test.TestUtils;
 using OpenSearch.Client;
 using OpenSearch.Net;
 using static Cheetah.Shared.WebApi.Core.Config.OpenSearchConfig;
+using Serilog;
+using Xunit.Abstractions;
+using Microsoft.Extensions.Logging.Configuration;
 
 namespace Cheetah.WebApi.Shared.Test.Infrastructure.ElasticSearch
 {
@@ -23,10 +26,13 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.ElasticSearch
         [Fact]
         public async void ConnectingToInvalidPortFails()
         {
-            var openSearchConfig = new OpenSearchConfig();
-            openSearchConfig.Url = $"http://localhost:80";
-            openSearchConfig.UserName = "admin";
-            openSearchConfig.Password = "admin";
+            var openSearchConfig = new OpenSearchConfig
+            {
+                Url = $"http://localhost:80",
+                AuthMode = OpenSearchAuthMode.BasicAuth,
+                UserName = "admin",
+                Password = "admin"
+            };
             var options = Options.Create(openSearchConfig);
             var mockEnv = new Mock<IHostEnvironment>();
             mockEnv.Setup(s => s.EnvironmentName).Returns(Environments.Development);
@@ -50,46 +56,54 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.ElasticSearch
     public class OpenSearchIntegrationTest
     {
         // elasticClient is an unprotected client for elastic. It helps with setting-up or tearing down tests
-        private OpenSearchClient openSearchClient;
-        private string port;
-        public OpenSearchIntegrationTest()
+        private readonly OpenSearchClient openSearchClient;
+        private readonly string port;
+        public OpenSearchIntegrationTest(ITestOutputHelper output)
         {
             // The default elastic port used in the CI/local container
-            port = "9229";
-            openSearchClient = new OpenSearchClient(new Uri($"http://localhost:{port}"));
+            port = "9200";
+            openSearchClient = new OpenSearchClient(new Uri($"http://opensearch:{port}"));
         }
 
 
 
         [Theory]
         [InlineData(OpenSearchAuthMode.BasicAuth, "admin", "admin", "", "", "")]
-        [InlineData(OpenSearchAuthMode.OAuth2, "", "", "opensearch", "1234", "http://localhost:1752/oauth2/token")]
+        [InlineData(OpenSearchAuthMode.OAuth2, "", "", "opensearch", "1234", "http://cheetahoauthsimulator:80/oauth2/token")]
         public async void GetIndicesIntegration(OpenSearchAuthMode authMode, string username, string password, string clientId, string clientSecret, string tokenEndpoint)
         {
             var openSearchConfig = new OpenSearchConfig
             {
-                AuthMode = OpenSearchConfig.OpenSearchAuthMode.BasicAuth,
-                Url = $"http://localhost:{port}",
-                UserName = "admin",
-                Password = "admin"
+                AuthMode = authMode,
+                Url = $"http://opensearch:{port}",
+                // Basic auth
+                UserName = username,
+                Password = password,
+                // Oauth2
+                ClientId = clientId,
+                ClientSecret = clientSecret,
+                TokenEndpoint = tokenEndpoint
             };
             var options = Options.Create(openSearchConfig);
-            var mockEnv = new Mock<IHostEnvironment>();
-            mockEnv.Setup(s => s.EnvironmentName).Returns(Environments.Development);
-            var mockLogger = new Mock<ILogger<CheetahOpenSearchClient>>();
+            var env =     new HostingEnvironment { EnvironmentName = Environments.Development };
+
             var mockMetricReporter = new Mock<IMetricReporter>();
             var memoryCache = new MemoryCache(new MemoryCacheOptions
             {
-                SizeLimit = 1
             });
             var httpClientfactory = new DefaultHttpClientFactory();
+            var loggerFactory = LoggerFactory.Create(builder =>
+                {
+                    builder.AddConsole();
+                });
 
+            var logger = loggerFactory.CreateLogger<CheetahOpenSearchClient>();
             CheetahOpenSearchClient client = new CheetahOpenSearchClient(
                 memoryCache,
-        httpClientfactory,
+                httpClientfactory,
                 options,
-                mockEnv.Object,
-                mockLogger.Object,
+                env,
+                logger,
                 mockMetricReporter.Object);
 
             var newIndex = GenerateRandomIndexName();

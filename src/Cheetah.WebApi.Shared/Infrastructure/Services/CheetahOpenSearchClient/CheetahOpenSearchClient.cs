@@ -62,6 +62,7 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
 
             if (_openSearchConfig.AuthMode == OpenSearchConfig.OpenSearchAuthMode.OAuth2)
             {
+                logger.LogInformation("Enabled OAuth2 for OpenSearch with clientid={clientId}", _openSearchConfig.ClientId);
                 cheetahConnection = new CheetahOpenSearchConnection(logger, cache, httpClientfactory,
                 _openSearchConfig.ClientId, _openSearchConfig.ClientSecret, _openSearchConfig.TokenEndpoint);
             }
@@ -78,7 +79,8 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
                 .ThrowExceptions();
             if (_openSearchConfig.AuthMode == OpenSearchConfig.OpenSearchAuthMode.BasicAuth)
             {
-                settings.BasicAuthentication(_openSearchConfig.UserName, _openSearchConfig.Password);
+                logger.LogInformation("Enabled BasicAuth for OpenSearch with username={username}", _openSearchConfig.UserName);
+                settings = settings.BasicAuthentication(_openSearchConfig.UserName, _openSearchConfig.Password);
             }
             settings.OnRequestCompleted(apiCallDetails =>
             {

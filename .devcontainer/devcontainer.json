@@ -16,6 +16,11 @@
 		"GITHUB_ACTOR": "${localEnv:GITHUB_ACTOR}",
 		"GITHUB_TOKEN": "${localEnv:GITHUB_TOKEN}"
 	},
+	"runArgs": [
+		// Network where OpenSearch is running
+		"--network=cheetah-infrastructure"
+	],
+	"initializeCommand": "docker network create cheetah-infrastructure || true",
 	"customizations": {
 		"vscode": {
 			"settings": {
