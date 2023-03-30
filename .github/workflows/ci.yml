@@ -32,7 +32,7 @@ jobs:
           -e DISABLE_INSTALL_DEMO_CONFIG=true
           -e network.host=0.0.0.0
           -e plugins.security.ssl.http.enabled=false
-          -v ./.github/workflows/opensearch_security.config.yml:/usr/share/opensearch/config/opensearch-security/config.yml
+          -v $(pwd)/.github/workflows/opensearch_security.config.yml:/usr/share/opensearch/config/opensearch-security/config.yml
           opensearchproject/opensearch:2.6.0
       - name: Run OAuthSimulator
         run: docker run
