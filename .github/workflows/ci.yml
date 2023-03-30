@@ -16,11 +16,10 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
-      - name: "Setup .Net Core SDK 6.0"
-        uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: "6.0"
-        # Elastic is required for integration tests
+      - name: Login to container registry
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        # OpenSearch is required for integration tests
       - name: Run OpenSearch # This reuses the options from cheetah-development-infrastructure OS container
         run: docker run
           --detach
@@ -31,18 +30,26 @@ jobs:
           -e bootstrap.memory_lock=true
           -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
           -e DISABLE_INSTALL_DEMO_CONFIG=true
+          -e network.host=0.0.0.0
+          -e plugins.security.ssl.http.enabled=false
+          -v ./.github/workflows/opensearch_security.config.yml:/usr/share/opensearch/config/opensearch-security/config.yml
           opensearchproject/opensearch:2.6.0
       - name: Run OAuthSimulator
         run: docker run
           --detach
           -p 80:80
           -e "OAuth__Mode=Asymmetric"
-          -e "OAuth__DefaultRole=admin"
+          -e "Simulator__DefaultRole=admin"
           ghcr.io/trifork/cheetah-oauth-simulator:latest
       - name: Add hosts to /etc/hosts
         run: |
           sudo echo "127.0.0.1 opensearch" | sudo tee -a /etc/hosts
           sudo echo "127.0.0.1 cheetahoauthsimulator" | sudo tee -a /etc/hosts
+
+      - name: "Setup .Net Core SDK 6.0"
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: "6.0"
       - name: "Dotnet build"
         run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
       - name: "Test"
