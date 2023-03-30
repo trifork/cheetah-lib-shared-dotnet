@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Xunit;
 using System;
 using Nest;
+using Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient;
 
 namespace Cheetah.WebApi.Shared.Test.Infrastructure.ElasticSearch
 {
@@ -28,7 +29,7 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.ElasticSearch
             var mockLogger = new Mock<ILogger<CheetahElasticClient>>();
             var mockMetricReporter = new Mock<IMetricReporter>();
             // Initialization succeeds, but the connection is not verified until a request is made
-            CheetahElasticClient client = new CheetahElasticClient(
+            CheetahOpenSearchClient client = new CheetahOpenSearchClient(
                 options,
                 mockEnv.Object,
                 mockLogger.Object,
@@ -56,9 +57,9 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.ElasticSearch
             var options = Options.Create(elasticConfig);
             var mockEnv = new Mock<IHostEnvironment>();
             mockEnv.Setup(s => s.EnvironmentName).Returns(Environments.Development);
-            var mockLogger = new Mock<ILogger<CheetahElasticClient>>();
+            var mockLogger = new Mock<ILogger<CheetahOpenSearchClient>>();
             var mockMetricReporter = new Mock<IMetricReporter>();
-            CheetahElasticClient client = new CheetahElasticClient(
+            CheetahOpenSearchClient client = new CheetahOpenSearchClient(
                 options,
                 mockEnv.Object,
                 mockLogger.Object,

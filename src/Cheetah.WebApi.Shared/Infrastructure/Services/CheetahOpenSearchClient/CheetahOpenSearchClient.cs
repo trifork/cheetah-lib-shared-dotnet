@@ -11,6 +11,7 @@ using Cheetah.Shared.WebApi.Util;
 using OpenSearch.Client;
 using OpenSearch.Net;
 using OpenSearch.Client.JsonNetSerializer;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
 {
@@ -44,17 +45,26 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
     {
         private readonly ILogger<CheetahOpenSearchClient> _logger;
         private readonly OpenSearchClient _openSearchClient;
-        private readonly ElasticConfig _elasticConfig;
+        private readonly OpenSearchConfig _openSearchConfig;
         private readonly IMetricReporter _metricReporter;
 
-        public CheetahOpenSearchClient(IOptions<ElasticConfig> config, IHostEnvironment hostEnvironment,
+        public CheetahOpenSearchClient(IDistributedCache cache, IHttpClientFactory httpClientfactory,
+        IOptions<OpenSearchConfig> openSearchConfig, IHostEnvironment hostEnvironment,
             ILogger<CheetahOpenSearchClient> logger, IMetricReporter metricReporter)
         {
             _logger = logger;
-            _elasticConfig = config.Value;
+            _openSearchConfig = openSearchConfig.Value;
             _metricReporter = metricReporter;
-            var pool = new SingleNodeConnectionPool(new Uri(_elasticConfig.Url));
-            var settings = new ConnectionSettings(pool,
+            var pool = new SingleNodeConnectionPool(new Uri(_openSearchConfig.Url));
+            IConnection? cheetahConnection = null;
+            if (!string.IsNullOrEmpty(_openSearchConfig.ClientId) && !string.IsNullOrEmpty(_openSearchConfig.ClientSecret) && !string.IsNullOrEmpty(_openSearchConfig.TokenEndpoint))
+            {
+                // todo: log oauth2 mode
+                cheetahConnection = new CheetahOpenSearchConnection(cache, httpClientfactory,
+                _openSearchConfig.ClientId, _openSearchConfig.ClientSecret, _openSearchConfig.TokenEndpoint);
+
+            }
+            var settings = new ConnectionSettings(pool, cheetahConnection,
                 (builtin, settings) =>
                 {
                     var jsonSerializerSettings = new JsonSerializerSettings()
@@ -64,7 +74,6 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
                     jsonSerializerSettings.Converters.Add(new EpochDateTimeConverter());
                     return new JsonNetSerializer(builtin, settings, () => jsonSerializerSettings);
                 })
-                .BasicAuthentication(_elasticConfig.UserName, _elasticConfig.Password)
                 .ThrowExceptions();
 
             settings.OnRequestCompleted(apiCallDetails =>
