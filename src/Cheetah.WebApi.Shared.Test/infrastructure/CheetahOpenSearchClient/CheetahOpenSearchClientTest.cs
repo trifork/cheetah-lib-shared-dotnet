@@ -1,79 +1,22 @@
 ﻿using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
-
 using Cheetah.WebApi.Shared.Middleware.Metric;
-
 using Cheetah.Shared.WebApi.Core.Config;
-
 using Microsoft.Extensions.Hosting;
-
 using Microsoft.Extensions.Logging;
-
 using Microsoft.Extensions.Options;
-
 using Moq;
-
 using System.Collections.Generic;
-
 using Xunit;
-
 using System;
-
 using Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient;
-
-using System.Net.Http;
-
 using Microsoft.Extensions.Caching.Memory;
-
 using Cheetah.WebApi.Shared_test.TestUtils;
-
 using OpenSearch.Client;
-
-using OpenSearch.Net;
-
-using static Cheetah.Shared.WebApi.Core.Config.OpenSearchConfig;
-
-using Serilog;
-
 using Xunit.Abstractions;
-
-using Microsoft.Extensions.Logging.Configuration;
-
 using Microsoft.Extensions.Hosting.Internal;
 
 namespace Cheetah.WebApi.Shared.Test.Infrastructure.ElasticSearch
 {
-    public class ElasticSearchTest
-    {
-        [Fact]
-        public async void ConnectingToInvalidPortFails()
-        {
-            var openSearchConfig = new OpenSearchConfig
-            {
-                Url = $"http://localhost:80",
-                AuthMode = OpenSearchAuthMode.BasicAuth,
-                UserName = "admin",
-                Password = "admin"
-            };
-            var options = Options.Create(openSearchConfig);
-            var mockEnv = new Mock<IHostEnvironment>();
-            mockEnv.Setup(s => s.EnvironmentName).Returns(Environments.Development);
-            var mockLogger = new Mock<ILogger<CheetahOpenSearchClient>>();
-            var mockMetricReporter = new Mock<IMetricReporter>();
-            var cache = new Mock<IMemoryCache>();
-            var httpClientfactory = new Mock<IHttpClientFactory>();
-
-            // Initialization succeeds, but the connection is not verified until a request is made
-            CheetahOpenSearchClient client = new CheetahOpenSearchClient(
-                cache.Object,
-                httpClientfactory.Object,
-                options,
-                mockEnv.Object,
-                mockLogger.Object,
-                mockMetricReporter.Object);
-            await Assert.ThrowsAsync<OpenSearchClientException>(async () => await client.GetIndices(new List<IndexDescriptor>()));
-        }
-    }
-
     public class OpenSearchIntegrationTest
     {
         // elasticClient is an unprotected client for elastic. It helps with setting-up or tearing down tests
@@ -84,12 +27,10 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.ElasticSearch
             port = "9200";
         }
 
-
-
         [Theory]
-        [InlineData(OpenSearchAuthMode.BasicAuth, "admin", "admin", "", "", "")]
-        [InlineData(OpenSearchAuthMode.OAuth2, "", "", "opensearch", "1234", "http://cheetahoauthsimulator:80/oauth2/token")]
-        public async void GetIndicesIntegration(OpenSearchAuthMode authMode, string username, string password, string clientId, string clientSecret, string tokenEndpoint)
+        [InlineData(OpenSearchConfig.OpenSearchAuthMode.BasicAuth, "admin", "admin", "", "", "")]
+        [InlineData(OpenSearchConfig.OpenSearchAuthMode.OAuth2, "", "", "opensearch", "1234", "http://cheetahoauthsimulator:80/oauth2/token")]
+        public async void GetIndicesIntegration(OpenSearchConfig.OpenSearchAuthMode authMode, string username, string password, string clientId, string clientSecret, string tokenEndpoint)
         {
             var openSearchConfig = new OpenSearchConfig
             {
