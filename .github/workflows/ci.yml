@@ -25,17 +25,19 @@ jobs:
         run: docker run
           --detach
           -p 9200:9200
-          -e "discovery.type=single-node"
-          -e "bootstrap.memory_lock=true"
-          -e "ES_JAVA_OPTS=-Xms2g -Xmx2g -Dlog4j2.formatMsgNoLookups"
-          -e "xpack.security.enabled=false"
-          -e "xpack.license.self_generated.type=basic"
-          elasticsearch:8.4.1
+          -e cluster.name=opensearch-cluster
+          -e node.name=os01
+          -e discovery.type=single-node
+          -e bootstrap.memory_lock=true
+          -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+          -e DISABLE_INSTALL_DEMO_CONFIG=true
+          opensearchproject/opensearch:2.6.0
       - name: Run OAuthSimulator
         run: docker run
           --detach
           -p 80:80
           -e "OAuth__Mode=Asymmetric"
+          -e "OAuth__DefaultRole=admin"
           ghcr.io/trifork/cheetah-oauth-simulator:latest
       - name: Add hosts to /etc/hosts
         run: |
