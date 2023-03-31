@@ -16,21 +16,50 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
+        # OpenSearch is required for integration tests
+      - name: docker network create cheetah-infrastructure
+        run: docker network create cheetah-infrastructure
+      - name: Run OAuthSimulator
+        run: docker run
+          --detach
+          -p 80:80
+          -e "OAuth__Mode=Asymmetric"
+          -e "Simulator__DefaultRole=admin"
+          --network=cheetah-infrastructure
+          --hostname=cheetahoauthsimulator
+          ghcr.io/trifork/cheetah-oauth-simulator:latest
+      - name: Run OpenSearch # This reuses the options from cheetah-development-infrastructure OS container
+        run: docker run
+          --detach
+          -p 9200:9200
+          -e cluster.name=opensearch-cluster
+          -e node.name=os01
+          -e discovery.type=single-node
+          -e bootstrap.memory_lock=true
+          -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+          -e DISABLE_INSTALL_DEMO_CONFIG=false
+          -e network.host=0.0.0.0
+          -e plugins.security.ssl.http.enabled=false
+          -v $(pwd)/.github/workflows/opensearch_security.config.yml:/usr/share/opensearch/config/opensearch-security/config.yml
+          --network=cheetah-infrastructure
+          --hostname=opensearch
+          opensearchproject/opensearch:2.6.0
+      - name: Add hosts to /etc/hosts
+        run: |
+          sudo echo "127.0.0.1 opensearch" | sudo tee -a /etc/hosts
+          sudo echo "127.0.0.1 cheetahoauthsimulator" | sudo tee -a /etc/hosts
+
       - name: "Setup .Net Core SDK 6.0"
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: "6.0"
-        # Elastic is required for integration tests
-      - name: Run ElasticSearch # This reuses the options from cheetah-example-processing's ES container
-        run: docker run
-          --detach
-          -p 9200:9200
-          -e "discovery.type=single-node"
-          -e "bootstrap.memory_lock=true"
-          -e "ES_JAVA_OPTS=-Xms2g -Xmx2g -Dlog4j2.formatMsgNoLookups"
-          -e "xpack.security.enabled=false"
-          -e "xpack.license.self_generated.type=basic"
-          elasticsearch:8.4.1
       - name: "Dotnet build"
         run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
       - name: "Test"

@@ -11,12 +11,13 @@ using Cheetah.Shared.WebApi.Util;
 using OpenSearch.Client;
 using OpenSearch.Net;
 using OpenSearch.Client.JsonNetSerializer;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
 {
-    /// <summary>Wrapper around ElasticClient, which introduces logging, authorization, and metrics
+    /// <summary>Wrapper around OpenSearch, which introduces logging, authorization, and metrics
     /// <para>
-    /// CheetahOpenSearchClient is a controller interface for accessing ElasticSearch's API.
+    /// CheetahOpenSearchClient is a controller interface for accessing OpenSearch's API.
     /// It provides:
     /// <list type=">">
     /// <item>
@@ -40,21 +41,31 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
     /// </list>
     /// </para>
     /// </summary>
-    public class CheetahOpenSearchClient : ICheetahElasticClient
+    public class CheetahOpenSearchClient : ICheetahOpenSearchClient
     {
         private readonly ILogger<CheetahOpenSearchClient> _logger;
-        private readonly OpenSearchClient _openSearchClient;
-        private readonly ElasticConfig _elasticConfig;
+        public OpenSearchClient InternalClient { get; }
+        private readonly OpenSearchConfig _openSearchConfig;
         private readonly IMetricReporter _metricReporter;
 
-        public CheetahOpenSearchClient(IOptions<ElasticConfig> config, IHostEnvironment hostEnvironment,
+        public CheetahOpenSearchClient(IMemoryCache cache, IHttpClientFactory httpClientfactory,
+        IOptions<OpenSearchConfig> openSearchConfig, IHostEnvironment hostEnvironment,
             ILogger<CheetahOpenSearchClient> logger, IMetricReporter metricReporter)
         {
             _logger = logger;
-            _elasticConfig = config.Value;
+            _openSearchConfig = openSearchConfig.Value;
             _metricReporter = metricReporter;
-            var pool = new SingleNodeConnectionPool(new Uri(_elasticConfig.Url));
-            var settings = new ConnectionSettings(pool,
+            var pool = new SingleNodeConnectionPool(new Uri(_openSearchConfig.Url)); //todo
+            IConnection? cheetahConnection = null;
+            _openSearchConfig.ValidateConfig();
+
+            if (_openSearchConfig.AuthMode == OpenSearchConfig.OpenSearchAuthMode.OAuth2)
+            {
+                logger.LogInformation("Enabled OAuth2 for OpenSearch with clientid={clientId}", _openSearchConfig.ClientId);
+                cheetahConnection = new CheetahOpenSearchConnection(logger, cache, httpClientfactory,
+                _openSearchConfig.ClientId, _openSearchConfig.ClientSecret, _openSearchConfig.TokenEndpoint);
+            }
+            var settings = new ConnectionSettings(pool, cheetahConnection,
                 (builtin, settings) =>
                 {
                     var jsonSerializerSettings = new JsonSerializerSettings()
@@ -64,9 +75,12 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
                     jsonSerializerSettings.Converters.Add(new EpochDateTimeConverter());
                     return new JsonNetSerializer(builtin, settings, () => jsonSerializerSettings);
                 })
-                .BasicAuthentication(_elasticConfig.UserName, _elasticConfig.Password)
                 .ThrowExceptions();
-
+            if (_openSearchConfig.AuthMode == OpenSearchConfig.OpenSearchAuthMode.BasicAuth)
+            {
+                logger.LogInformation("Enabled BasicAuth for OpenSearch with username={username}", _openSearchConfig.UserName);
+                settings = settings.BasicAuthentication(_openSearchConfig.UserName, _openSearchConfig.Password);
+            }
             settings.OnRequestCompleted(apiCallDetails =>
             {
                 if (apiCallDetails.RequestBodyInBytes != null)
@@ -78,18 +92,17 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
             if (hostEnvironment.IsDevelopment()) settings.DisableDirectStreaming(true); //Enables data in OnRequestCompleted callback
 
             // TODO: We should need to have some defaults when initializing the client
-            // TODO: dive down in the settings for elastic and see if we need to expose any of the options as easily changeable
-            _openSearchClient = new OpenSearchClient(settings);
+            // TODO: dive down in the settings for OpenSearch and see if we need to expose any of the options as easily changeable
+            InternalClient = new OpenSearchClient(settings);
         }
 
         /// <summary>
-        /// Queries the ElasticSearch instance for all indices' names
-
+        /// Queries the OpenSearch instance for all indices' names
         /// </summary>
         /// <returns>A List containing all index-names</returns>
         public async Task<List<string>> GetIndices(List<IndexDescriptor> indices)
         {
-            var result = await _openSearchClient.Indices.GetAsync(new GetIndexRequest(Indices.All));
+            var result = await InternalClient.Indices.GetAsync(new GetIndexRequest(Indices.All));
             return result.Indices.Select(index => index.Key.ToString())
                                  .Where(x => !x.StartsWith('.'))
                                  .ToList();
