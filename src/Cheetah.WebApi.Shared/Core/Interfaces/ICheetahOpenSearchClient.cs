@@ -1,9 +1,12 @@
 ﻿using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
+using OpenSearch.Client;
 
 namespace Cheetah.Shared.WebApi.Core.Interfaces
 {
     public interface ICheetahOpenSearchClient
     {
+        public OpenSearchClient InternalClient { get; }
+
         /// <summary>
         /// Queries the OpenSearch instance for all indexes
         /// </summary>
