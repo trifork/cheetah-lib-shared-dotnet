@@ -4,14 +4,14 @@ namespace Cheetah.Shared.WebApi.Core.Config
     {
         public const string Position = "OpenSearch";
         public string IndexNamePrefix { get; set; } = string.Empty;
-        public string Url { get; set; } = string.Empty;
+        public string Url { get; set; } = "http://opensearch:9200";
         public string ClientId { get; set; } = string.Empty;
         public string ClientSecret { get; set; } = string.Empty;
-        public string TokenEndpoint { get; set; } = string.Empty;
-        public string UserName { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
+        public string TokenEndpoint { get; set; } = "http://cheetahoauthsimulator:80/oauth2/token";
+        public string UserName { get; set; } = "admin";
+        public string Password { get; set; } = "admin";
 
-        public OpenSearchAuthMode AuthMode { get; set; }
+        public OpenSearchAuthMode AuthMode { get; set; } = OpenSearchAuthMode.BasicAuth;
 
         public void ValidateConfig()
         {
