@@ -15,15 +15,14 @@ using OpenSearch.Client;
 using Xunit.Abstractions;
 using Microsoft.Extensions.Hosting.Internal;
 
-namespace Cheetah.WebApi.Shared.Test.Infrastructure.ElasticSearch
+namespace Cheetah.WebApi.Shared.Test.Infrastructure.OpenSearch
 {
     public class OpenSearchIntegrationTest
     {
-        // elasticClient is an unprotected client for elastic. It helps with setting-up or tearing down tests
         private readonly string port;
         public OpenSearchIntegrationTest(ITestOutputHelper output)
         {
-            // The default elastic port used in the CI/local container
+            // The default opensearch port used in the CI/local container
             port = "9200";
         }
 

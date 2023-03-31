@@ -9,7 +9,7 @@ features offered by this library:
 
 * Prometheus exposed on a kestrel server
 * Helper methods for Authentication.
-* Helper methods for building elastic-search indices
+* Helper methods for building opensearch-search indices
 
 ## Running tests locally
 
@@ -18,7 +18,7 @@ To run unit tests locally run:
 dotnet test --filter 'FullyQualifiedName!~Integration'
 ```
 
-To run unit tests locally you need ElasticSearch running on port 9200.
+To run unit tests locally you need OpenSearch running on port 9200.
 To run integration tests locally run:
 ```sh
 dotnet test --filter 'FullyQualifiedName~Integration'
@@ -31,7 +31,7 @@ Writing unit tests has nothing specific to it.
 Writing integration tests has the following requirements:
 - The test function must contain 'Integration' in its name (usually as a suffix)
 - The test function must set-up its own data and tear it down afterwards
-- Integration tests for ElasticSearch require an ES instance running on port 9200
+- Integration tests for OpenSearch require an OS instance running on port 9200
 
 ## Naming Strategies
 

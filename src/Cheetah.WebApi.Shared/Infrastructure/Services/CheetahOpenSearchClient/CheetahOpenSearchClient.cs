@@ -15,9 +15,9 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
 {
-    /// <summary>Wrapper around ElasticClient, which introduces logging, authorization, and metrics
+    /// <summary>Wrapper around OpenSearch, which introduces logging, authorization, and metrics
     /// <para>
-    /// CheetahOpenSearchClient is a controller interface for accessing ElasticSearch's API.
+    /// CheetahOpenSearchClient is a controller interface for accessing OpenSearch's API.
     /// It provides:
     /// <list type=">">
     /// <item>
@@ -41,7 +41,7 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
     /// </list>
     /// </para>
     /// </summary>
-    public class CheetahOpenSearchClient : ICheetahElasticClient
+    public class CheetahOpenSearchClient : ICheetahOpenSearchClient
     {
         private readonly ILogger<CheetahOpenSearchClient> _logger;
         public OpenSearchClient InternalClient { get; }
@@ -92,12 +92,12 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
             if (hostEnvironment.IsDevelopment()) settings.DisableDirectStreaming(true); //Enables data in OnRequestCompleted callback
 
             // TODO: We should need to have some defaults when initializing the client
-            // TODO: dive down in the settings for elastic and see if we need to expose any of the options as easily changeable
+            // TODO: dive down in the settings for OpenSearch and see if we need to expose any of the options as easily changeable
             InternalClient = new OpenSearchClient(settings);
         }
 
         /// <summary>
-        /// Queries the ElasticSearch instance for all indices' names
+        /// Queries the OpenSearch instance for all indices' names
         /// </summary>
         /// <returns>A List containing all index-names</returns>
         public async Task<List<string>> GetIndices(List<IndexDescriptor> indices)
