@@ -11,5 +11,6 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
 
 
         public override string CacheKey => "opensearch-access-token";
+        public override string HttpClientName => "OpenSearch";
     }
 }

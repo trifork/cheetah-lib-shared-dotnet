@@ -16,6 +16,8 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
 
         public abstract string CacheKey { get; }
 
+        public abstract string HttpClientName { get; }
+
         public TokenService(ILogger logger, IHttpClientFactory httpClientFactory, IMemoryCache cache, string clientId, string clientSecret, string tokenEndpoint)
         {
             this.cache = cache;
@@ -40,7 +42,7 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
         }
         public async Task<TokenResponse> RequestClientCredentialsTokenAsync(CancellationToken cancellationToken)
         {
-            using var httpClient = httpClientFactory.CreateClient(CacheKey);
+            using var httpClient = httpClientFactory.CreateClient(HttpClientName);
             var tokenClient = new TokenClient(httpClient, new TokenClientOptions()
             {
                 Address = tokenEndpoint,

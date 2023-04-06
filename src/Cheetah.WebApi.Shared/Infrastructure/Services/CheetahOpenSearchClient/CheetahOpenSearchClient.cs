@@ -76,11 +76,13 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
                     return new JsonNetSerializer(builtin, settings, () => jsonSerializerSettings);
                 })
                 .ThrowExceptions();
+            settings.ServerCertificateValidationCallback(CertificateValidations.AllowAll); 
             if (_openSearchConfig.AuthMode == OpenSearchConfig.OpenSearchAuthMode.BasicAuth)
             {
                 logger.LogInformation("Enabled BasicAuth for OpenSearch with username={username}", _openSearchConfig.UserName);
                 settings = settings.BasicAuthentication(_openSearchConfig.UserName, _openSearchConfig.Password);
             }
+            
             settings.OnRequestCompleted(apiCallDetails =>
             {
                 if (apiCallDetails.RequestBodyInBytes != null)
