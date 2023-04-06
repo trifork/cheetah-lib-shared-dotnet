@@ -76,7 +76,7 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
                     return new JsonNetSerializer(builtin, settings, () => jsonSerializerSettings);
                 })
                 .ThrowExceptions();
-            settings.ServerCertificateValidationCallback => true;
+            settings.ServerCertificateValidationCallback(CertificateValidations.AllowAll); 
             if (_openSearchConfig.AuthMode == OpenSearchConfig.OpenSearchAuthMode.BasicAuth)
             {
                 logger.LogInformation("Enabled BasicAuth for OpenSearch with username={username}", _openSearchConfig.UserName);
