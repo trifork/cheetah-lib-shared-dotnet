@@ -40,7 +40,7 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
         }
         public async Task<TokenResponse> RequestClientCredentialsTokenAsync(CancellationToken cancellationToken)
         {
-            using var httpClient = httpClientFactory.CreateClient(CacheKey);
+            using var httpClient = httpClientFactory.CreateClient("OpenSearch");
             var tokenClient = new TokenClient(httpClient, new TokenClientOptions()
             {
                 Address = tokenEndpoint,
