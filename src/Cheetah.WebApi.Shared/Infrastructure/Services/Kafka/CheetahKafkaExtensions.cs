@@ -18,7 +18,7 @@ public static class CheetahKafkaExtensions
             return;
         }
         logger.LogDebug("Forwarded new oauth2 accesstoken to kafka");
-        client.OAuthBearerSetToken(cachedAccessToken.AccessToken, DateTimeOffset.UtcNow.AddSeconds(cachedAccessToken.ExpiresIn).ToUnixTimeMilliseconds(), null);
+        client.OAuthBearerSetToken(cachedAccessToken.AccessToken, DateTimeOffset.UtcNow.AddSeconds(cachedAccessToken.ExpiresIn).ToUnixTimeMilliseconds(), "unused");
     }
     private static CheetahKafkaTokenService BuildTokenService(ILogger logger, IServiceProvider provider) // We are not using DI, as we do not know which settings to look at
     {

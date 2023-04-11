@@ -59,35 +59,44 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.OpenSearch
         {
             var provider = Sut.BuildServiceProvider();
             var kafkaConfig = provider.GetRequiredService<IOptions<KafkaConfig>>();
+            var topic = $"dotnet_{nameof(OAuthBearerToken_PublishConsume)}_{Guid.NewGuid()}";
 
             var message = new Message<string, string>
             {
                 Key = $"{Guid.NewGuid()}",
                 Value = $"{DateTimeOffset.UtcNow:T}"
             };
-
-            var config = new ClientConfig
+            var producerConfig = new ProducerConfig(new ClientConfig
             {
                 BootstrapServers = kafkaConfig.Value.KafkaUrl,
                 SecurityProtocol = SecurityProtocol.SaslPlaintext,
                 SaslMechanism = SaslMechanism.OAuthBearer
-            };
-            var producerConfig = new ProducerConfig(config);
-            var consumerConfig = new ConsumerConfig(config)
+            });
+            var consumerConfig = new ConsumerConfig(new ClientConfig
+            {
+                BootstrapServers = kafkaConfig.Value.KafkaUrl,
+                SecurityProtocol = SecurityProtocol.SaslPlaintext,
+                SaslMechanism = SaslMechanism.OAuthBearer
+            })
             {
                 GroupId = $"{Guid.NewGuid()}",
                 AutoOffsetReset = AutoOffsetReset.Earliest
             };
 
+
+            Error producerError = null;
             var producer = new ProducerBuilder<string, string>(producerConfig)
+               .SetErrorHandler((c, e) => producerError = e)
                 .AddCheetahOAuthentication(provider)
                 .Build();
+            Error consumerError = null;
             var consumer = new ConsumerBuilder<string, string>(consumerConfig)
                 .AddCheetahOAuthentication(provider)
+                   .SetErrorHandler((c, e) => consumerError = e)
                 .Build();
 
-            consumer.Subscribe("exampletopic");
-            producer.Produce("exampletopic", message);
+            consumer.Subscribe(topic);
+            producer.Produce(topic, message);
             producer.Flush(TimeSpan.FromSeconds(30));
             var received = consumer.Consume(TimeSpan.FromSeconds(30));
 
