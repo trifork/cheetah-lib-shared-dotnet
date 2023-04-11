@@ -56,6 +56,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
+      - run: docker network create cheetah-infrastructure
       - name: "Start e2e infrastructure"
         working-directory: integrationtests/
         run: docker compose --profile opensearch up -d --build
@@ -87,6 +88,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.PACKAGE_PAT }}
+      - run: docker network create cheetah-infrastructure
       - name: "Start e2e infrastructure"
         working-directory: integrationtests/
         run: docker compose --profile kafka up -d --build
