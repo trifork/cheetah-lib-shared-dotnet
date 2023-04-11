@@ -16,7 +16,7 @@ public static class CheetahKafkaExtensions
             client.OAuthBearerSetTokenFailure("Could not retrieve access token from IDP. Look at environment values to ensure they are correct");
             return;
         }
-        client.OAuthBearerSetToken(cachedAccessToken.AccessToken, (long)TimeSpan.FromSeconds(cachedAccessToken.ExpiresIn).TotalMilliseconds, null);
+        client.OAuthBearerSetToken(cachedAccessToken.AccessToken, DateTimeOffset.UtcNow.AddSeconds(cachedAccessToken.ExpiresIn).ToUnixTimeMilliseconds(), null);
     }
     private static CheetahKafkaTokenService BuildTokenService(IServiceProvider provider) // We are not using DI, as we do not know which settings to look at
     {
@@ -25,9 +25,14 @@ public static class CheetahKafkaExtensions
         var cache = provider.GetRequiredService<IMemoryCache>();
         var logger = provider.GetRequiredService<ILogger<CheetahKafkaTokenService>>();
 
-        var tokenService = new CheetahKafkaTokenService(logger, httpClientFactory, cache, oauthConfig.Value.ClientId, oauthConfig.Value.ClientSecret, oauthConfig.Value.TokenEndpoint);
+        var tokenService = new CheetahKafkaTokenService(logger, httpClientFactory, cache,
+            oauthConfig.Value.ClientId, oauthConfig.Value.ClientSecret, oauthConfig.Value.TokenEndpoint);
         return tokenService;
     }
+
+    /// <summary>
+    /// Setup OAuth authentication for Kafka consumer
+    /// </summary>
     public static ConsumerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(this ConsumerBuilder<TKey, TValue> builder, IServiceProvider provider)
     {
         var tokenService = BuildTokenService(provider);
@@ -36,6 +41,9 @@ public static class CheetahKafkaExtensions
         return builder;
     }
 
+    /// <summary>
+    /// Setup OAuth authentication for Kafka producer
+    /// </summary>
     public static ProducerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(this ProducerBuilder<TKey, TValue> builder, IServiceProvider provider)
     {
         var tokenService = BuildTokenService(provider);

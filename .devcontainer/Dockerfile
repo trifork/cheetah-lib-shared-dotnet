@@ -6,7 +6,7 @@ ENV DOCKER_DEFAULT_PLATFORM=linux/amd64
 
 # [Optional] Uncomment this section to install additional OS packages.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-     && apt-get -y install --no-install-recommends git curl exa
+     && apt-get -y install --no-install-recommends git curl exa librdkafka-dev
 
 # Install Docker to use in docker-in-docker
 RUN apt-get update && apt-get install -y curl \
