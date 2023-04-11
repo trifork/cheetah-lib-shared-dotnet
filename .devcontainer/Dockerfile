@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y curl \
      && curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh 
 # Add user "admin" to the Docker group
 #&& usermod -a -G docker admin
-ADD https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker /etc/bash_completion.d/docker.sh
+#ADD https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker /etc/bash_completion.d/docker.sh
 
 USER vscode
 ARG GITHUB_ACTOR
