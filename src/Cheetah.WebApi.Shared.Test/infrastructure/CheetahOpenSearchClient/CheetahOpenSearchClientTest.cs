@@ -17,6 +17,7 @@ using Microsoft.Extensions.Hosting.Internal;
 
 namespace Cheetah.WebApi.Shared.Test.Infrastructure.OpenSearch
 {
+    [Trait("Category", "OpenSearch"), Trait("TestType", "IntegrationTests")]
     public class OpenSearchIntegrationTest
     {
         private readonly string port;

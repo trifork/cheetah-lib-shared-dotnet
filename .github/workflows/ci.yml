@@ -11,51 +11,23 @@ env:
   SOLUTION_PATH: ./Cheetah.WebApi.Shared.sln
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
-
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
+      - name: "Setup .Net Core SDK 6.0"
+        uses: actions/setup-dotnet@v2
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
-        # OpenSearch is required for integration tests
-      - name: docker network create cheetah-infrastructure
-        run: docker network create cheetah-infrastructure
-      - name: Run OAuthSimulator
-        run: docker run
-          --detach
-          -p 80:80
-          -e "OAuth__Mode=Asymmetric"
-          -e "Simulator__DefaultRole=admin"
-          --network=cheetah-infrastructure
-          --hostname=cheetahoauthsimulator
-          ghcr.io/trifork/cheetah-oauth-simulator:latest
-      - name: Run OpenSearch # This reuses the options from cheetah-development-infrastructure OS container
-        run: docker run
-          --detach
-          -p 9200:9200
-          -e cluster.name=opensearch-cluster
-          -e node.name=os01
-          -e discovery.type=single-node
-          -e bootstrap.memory_lock=true
-          -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
-          -e DISABLE_INSTALL_DEMO_CONFIG=false
-          -e network.host=0.0.0.0
-          -e plugins.security.ssl.http.enabled=false
-          -v $(pwd)/.github/config/opensearch_security.config.yml:/usr/share/opensearch/config/opensearch-security/config.yml
-          --network=cheetah-infrastructure
-          --hostname=opensearch
-          opensearchproject/opensearch:2.6.0
-      - name: Add hosts to /etc/hosts
-        run: |
-          sudo echo "127.0.0.1 opensearch" | sudo tee -a /etc/hosts
-          sudo echo "127.0.0.1 cheetahoauthsimulator" | sudo tee -a /etc/hosts
-
+          dotnet-version: "6.0"
+      - name: "Dotnet build"
+        run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
+  tests:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
       - name: "Setup .Net Core SDK 6.0"
         uses: actions/setup-dotnet@v2
         with:
@@ -63,6 +35,77 @@ jobs:
       - name: "Dotnet build"
         run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
       - name: "Test"
-        run: dotnet test --no-restore --verbosity normal --filter 'FullyQualifiedName!~Integration' ${{ env.SOLUTION_PATH}}
+        run: dotnet test --no-restore --verbosity normal --filter 'TestType!=IntegrationTests' ${{ env.SOLUTION_PATH}}
+
+  test_opensearch:
+    needs: tests
+    name: "Integration testing: OpenSearch"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+      - name: "Setup .Net Core SDK 6.0"
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: "6.0"
+      - name: "Dotnet build"
+        run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
+      - run: docker network create cheetah-infrastructure
+      - name: "Start e2e infrastructure"
+        working-directory: integrationtests/
+        run: docker compose --profile opensearch up -d --build
+        env:
+          GITHUB_TOKEN: ${{ secrets.PACKAGE_PAT }}
+      - name: Add hosts to /etc/hosts
+        run: |
+          sudo echo "127.0.0.1 opensearch" | sudo tee -a /etc/hosts
+          sudo echo "127.0.0.1 cheetahoauthsimulator" | sudo tee -a /etc/hosts
+      - name: "Wait for opensearch, the slowest component"
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 3
+          max_attempts: 25
+          retry_wait_seconds: 5
+          warning_on_retry: false
+          command: 'curl -sS -X GET -H "Content-Type: application/json" http://admin:admin@opensearch:9200/_cat/indices'
+
       - name: "Test Integration"
-        run: dotnet test --no-restore --verbosity normal --filter 'FullyQualifiedName~Integration' ${{ env.SOLUTION_PATH}}
+        run: dotnet test --no-restore --verbosity normal --filter 'Category=OpenSearch' ${{ env.SOLUTION_PATH}}
+
+  kafka-authentication-lib:
+    needs: tests
+    name: "Integration testing: Kafka"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+      - name: "Setup .Net Core SDK 6.0"
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: "6.0"
+      - name: "Dotnet build"
+        run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.PACKAGE_PAT }}
+      - run: docker network create cheetah-infrastructure
+      - name: "Start e2e infrastructure"
+        working-directory: integrationtests/
+        run: docker compose --profile kafka up -d --build
+        env:
+          GITHUB_TOKEN: ${{ secrets.PACKAGE_PAT }}
+      - name: Add hosts to /etc/hosts
+        run: |
+          sudo echo "127.0.0.1 kafka" | sudo tee -a /etc/hosts
+          sudo echo "127.0.0.1 cheetahoauthsimulator" | sudo tee -a /etc/hosts
+      - name: "Test Integration"
+        run: dotnet test --no-restore --verbosity normal --filter 'Category=Kafka' ${{ env.SOLUTION_PATH}}

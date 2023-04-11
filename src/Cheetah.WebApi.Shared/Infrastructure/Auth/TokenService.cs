@@ -38,7 +38,7 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
                                         var tokenResponse = await RequestClientCredentialsTokenAsync(cancellationToken);
                                         TimeSpan absoluteExpiration = TimeSpan.FromSeconds(Math.Max(10, tokenResponse.ExpiresIn - 10));
                                         cacheEntry.AbsoluteExpirationRelativeToNow = absoluteExpiration;
-                                        logger.LogDebug("New access token retrieved for {clientId} saved in cache: {CacheKey}", clientId, CacheKey);
+                                        logger.LogDebug("New access token retrieved for {clientId} and saved in cache with key: {CacheKey}", clientId, CacheKey);
                                         return tokenResponse;
                                     });
 
