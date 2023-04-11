@@ -22,6 +22,7 @@ using System.Text;
 
 namespace Cheetah.WebApi.Shared.Test.Infrastructure.OpenSearch
 {
+
     [Trait("Category", "Kafka"), Trait("TestType", "IntegrationTests")]
     public class KafkaIntegrationTests
     {
@@ -52,6 +53,7 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.OpenSearch
             Sut = services;
         }
 
+        //https://github.com/confluentinc/confluent-kafka-dotnet/blob/master/test/Confluent.Kafka.IntegrationTests/Tests/OauthBearerToken_PublishConsume.cs#L9
         [Fact]
         public void OAuthBearerToken_PublishConsume()
         {
@@ -97,57 +99,5 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.OpenSearch
 
         }
 
-        // Inspired by: https://github.com/confluentinc/confluent-kafka-dotnet/blob/master/test/Confluent.Kafka.IntegrationTests/Tests/SimpleProduceConsume.cs
-        [Fact]
-        public async Task SimpleProduceConsume()
-        {
-            // Arrange
-            var provider = Sut.BuildServiceProvider();
-            var kafkaConfig = provider.GetRequiredService<IOptions<KafkaConfig>>();
-
-            var clientConfig = new ClientConfig
-            {
-                BootstrapServers = kafkaConfig.Value.KafkaUrl,
-                SecurityProtocol = SecurityProtocol.SaslPlaintext,
-                SaslMechanism = SaslMechanism.OAuthBearer,
-
-            };
-
-
-            var producer = new ProducerBuilder<Null, string>(new ProducerConfig(clientConfig)
-            {
-            })
-               .AddCheetahOAuthentication(provider)
-               .Build();
-
-
-            var consumer = new ConsumerBuilder<Ignore, string>(new ConsumerConfig(clientConfig)
-            {
-                GroupId = Guid.NewGuid().ToString(),
-                SessionTimeoutMs = 6000
-            })
-                .AddCheetahOAuthentication(provider)
-                .Build();
-            var testString = "a log message";
-            var topic = "yo";
-
-            // act
-            Action<DeliveryReport<Null, string>> handler = (report) =>
-            {
-                Console.WriteLine("yo");
-                Assert.Equal(expected: PersistenceStatus.Persisted, report.Status);
-                Assert.Equal(0, producer.Flush(TimeSpan.FromSeconds(10)));
-
-            };
-
-            var result = producer.ProduceAsync(topic, new Message<Null, string> { Value = testString }).Result;
-            Assert.Equal(0, producer.Flush(TimeSpan.FromSeconds(10)));
-
-            consumer.Subscribe("examples");
-            // var consumeResult = consumer.Consume(TimeSpan.FromSeconds(10));
-            // Assert.NotNull(consumeResult?.Message);
-            //Assert.Equal(testString, consumeResult?.Message.Value);
-
-        }
     }
 }
