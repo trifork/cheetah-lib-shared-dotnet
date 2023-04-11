@@ -26,6 +26,14 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+      - name: "Setup .Net Core SDK 6.0"
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: "6.0"
+      - name: "Dotnet build"
+        run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
       - name: "Test"
         run: dotnet test --no-restore --verbosity normal --filter 'TestType!=IntegrationTests' ${{ env.SOLUTION_PATH}}
 
@@ -34,6 +42,14 @@ jobs:
     name: "Integration testing: OpenSearch"
     runs-on: ubuntu-latest
     steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+      - name: "Setup .Net Core SDK 6.0"
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: "6.0"
+      - name: "Dotnet build"
+        run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
@@ -57,7 +73,14 @@ jobs:
     name: "Integration testing: Kafka"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: "Checkout"
+        uses: actions/checkout@v3
+      - name: "Setup .Net Core SDK 6.0"
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: "6.0"
+      - name: "Dotnet build"
+        run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
       - name: Log in to the Container registry
         uses: docker/login-action@v2
         with:
