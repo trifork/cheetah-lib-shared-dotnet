@@ -18,10 +18,11 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var cachedAccessToken = await this.tokenService.RequestAccessTokenCachedAsync(cancellationToken);
-            if(string.IsNullOrEmpty(cachedAccessToken)){
+            if (cachedAccessToken == null || string.IsNullOrEmpty(cachedAccessToken.AccessToken))
+            {
                 throw new UnauthorizedAccessException("Could not retrieve access token from IDP. Look at environment values to ensure they are correct");
             }
-            request.Headers.Add("Authorization", $"bearer {cachedAccessToken}");
+            request.Headers.Add("Authorization", $"bearer {cachedAccessToken.AccessToken}");
             return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
         }
     }

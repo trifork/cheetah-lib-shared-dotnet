@@ -25,20 +25,32 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
             this.tokenEndpoint = tokenEndpoint;
         }
 
-        public async Task<string> RequestAccessTokenCachedAsync(CancellationToken cancellationToken)
+        public async Task<TokenResponse?> RequestAccessTokenCachedAsync(CancellationToken cancellationToken)
         {
+            if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(clientSecret) || string.IsNullOrEmpty(tokenEndpoint))
+            {
+                this.logger.LogError("Missing OAuth config! Please check environment variables");
+                return default(TokenResponse);
+            }
+
             return await this.cache.GetOrCreateAsync(CacheKey, async cacheEntry =>
                                     {
                                         var tokenResponse = await RequestClientCredentialsTokenAsync(cancellationToken);
                                         TimeSpan absoluteExpiration = TimeSpan.FromSeconds(Math.Max(10, tokenResponse.ExpiresIn - 10));
                                         cacheEntry.AbsoluteExpirationRelativeToNow = absoluteExpiration;
                                         logger.LogDebug("New access token retrieved for {clientId} saved in cache: {CacheKey}", clientId, CacheKey);
-                                        return tokenResponse.AccessToken;
+                                        return tokenResponse;
                                     });
 
         }
-        public async Task<TokenResponse> RequestClientCredentialsTokenAsync(CancellationToken cancellationToken)
+        public async Task<TokenResponse?> RequestClientCredentialsTokenAsync(CancellationToken cancellationToken)
         {
+            if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(clientSecret) || string.IsNullOrEmpty(tokenEndpoint))
+            {
+                this.logger.LogError("Missing OAuth config! Please check environment variables");
+                return default(TokenResponse);
+            }
+
             using var httpClient = httpClientFactory.CreateClient(CacheKey);
             var tokenClient = new TokenClient(httpClient, new TokenClientOptions()
             {
