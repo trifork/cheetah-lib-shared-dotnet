@@ -25,23 +25,17 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.OpenSearch
     [Trait("Category", "Kafka"), Trait("TestType", "IntegrationTests")]
     public class KafkaIntegrationTests
     {
+        private ServiceCollection Sut;
+
         public KafkaIntegrationTests(ITestOutputHelper output)
         {
 
-        }
-
-        // Inspired by: https://github.com/confluentinc/confluent-kafka-dotnet/blob/master/test/Confluent.Kafka.IntegrationTests/Tests/SimpleProduceConsume.cs
-        [Theory]
-        [InlineData("kafka", "1234", "http://cheetahoauthsimulator:80/oauth2/token")]
-        public async Task SimpleProduceConsume(string clientId, string clientSecret, string tokenEndpoint)
-        {
-            // Arrange
             var kafkaConfig = new KafkaConfig
             {
                 KafkaUrl = "kafka:19093",
-                ClientId = clientId,
-                ClientSecret = clientSecret,
-                TokenEndpoint = tokenEndpoint
+                ClientId = "tester",
+                ClientSecret = "1234",
+                TokenEndpoint = "http://cheetahoauthsimulator:80/oauth2/token"
             };
 
             var services = new ServiceCollection();
@@ -55,17 +49,70 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.OpenSearch
                 s.AddConsole();
             });
 
+            Sut = services;
+        }
 
+        [Fact]
+        public void OAuthBearerToken_PublishConsume()
+        {
+            var provider = Sut.BuildServiceProvider();
+            var kafkaConfig = provider.GetRequiredService<IOptions<KafkaConfig>>();
+
+            var message = new Message<string, string>
+            {
+                Key = $"{Guid.NewGuid()}",
+                Value = $"{DateTimeOffset.UtcNow:T}"
+            };
+
+            var config = new ClientConfig
+            {
+                BootstrapServers = kafkaConfig.Value.KafkaUrl,
+                SecurityProtocol = SecurityProtocol.SaslPlaintext,
+                SaslMechanism = SaslMechanism.OAuthBearer
+            };
+            var producerConfig = new ProducerConfig(config);
+            var consumerConfig = new ConsumerConfig(config)
+            {
+                GroupId = $"{Guid.NewGuid()}",
+                AutoOffsetReset = AutoOffsetReset.Earliest
+            };
+
+            var producer = new ProducerBuilder<string, string>(producerConfig)
+                .AddCheetahOAuthentication(provider)
+                .Build();
+            var consumer = new ConsumerBuilder<string, string>(consumerConfig)
+                .AddCheetahOAuthentication(provider)
+                .Build();
+
+            consumer.Subscribe("exampletopic");
+            producer.Produce("exampletopic", message);
+            producer.Flush(TimeSpan.FromSeconds(30));
+            var received = consumer.Consume(TimeSpan.FromSeconds(30));
+
+            Assert.NotNull(received);
+            consumer.Commit(received);
+
+            Assert.Equal(message.Key, received.Message.Key);
+            Assert.Equal(message.Value, received.Message.Value);
+
+        }
+
+        // Inspired by: https://github.com/confluentinc/confluent-kafka-dotnet/blob/master/test/Confluent.Kafka.IntegrationTests/Tests/SimpleProduceConsume.cs
+        [Fact]
+        public async Task SimpleProduceConsume()
+        {
+            // Arrange
+            var provider = Sut.BuildServiceProvider();
+            var kafkaConfig = provider.GetRequiredService<IOptions<KafkaConfig>>();
 
             var clientConfig = new ClientConfig
             {
-                BootstrapServers = kafkaConfig.KafkaUrl,
+                BootstrapServers = kafkaConfig.Value.KafkaUrl,
                 SecurityProtocol = SecurityProtocol.SaslPlaintext,
                 SaslMechanism = SaslMechanism.OAuthBearer,
 
             };
 
-            var provider = services.BuildServiceProvider();
 
             var producer = new ProducerBuilder<Null, string>(new ProducerConfig(clientConfig)
             {
