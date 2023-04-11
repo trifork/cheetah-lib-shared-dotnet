@@ -66,6 +66,15 @@ jobs:
         run: |
           sudo echo "127.0.0.1 opensearch" | sudo tee -a /etc/hosts
           sudo echo "127.0.0.1 cheetahoauthsimulator" | sudo tee -a /etc/hosts
+      - name: "Wait for opensearch, the slowest component"
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 3
+          max_attempts: 25
+          retry_wait_seconds: 5
+          warning_on_retry: false
+          command: 'curl -sS -X GET -H "Content-Type: application/json" http://admin:admin@opensearch:9200/_cat/indices'
+
       - name: "Test Integration"
         run: dotnet test --no-restore --verbosity normal --filter 'Category=OpenSearch' ${{ env.SOLUTION_PATH}}
 
