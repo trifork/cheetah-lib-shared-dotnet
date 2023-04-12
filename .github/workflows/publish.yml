@@ -36,7 +36,7 @@ jobs:
       - run: dotnet tool update -g docfx
       - run: docfx build docs/docfx.json
 
-      - run: rm docs/api/.gitignore
+      #- run: rm docs/api/.gitignore
 
       - name: Deploy to GitHub Pages
         id: deployment
