@@ -1,5 +1,5 @@
 ---
-redirect_url: ../README.html
+redirect_url: ~/README.html
 ---
 # Documentation page
 
