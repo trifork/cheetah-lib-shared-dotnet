@@ -28,14 +28,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Dotnet Setup
-        uses: actions/setup-dotnet@v3
+      - name: "dotnet build"
+        uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
         with:
-          dotnet-version: 6.0
+          read_package_pat: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
+          project_path: ${{ env.PROJECT_PATH }}
+          dotnet-version: "6.0"
+          github_actor: ${{ github.actor }}
+          solution_filepath: ${{ env.SOLUTION_FILEPATH }}
 
       - run: dotnet tool update -g docfx
 
-      - run: dotnet restore
       - run: docfx metadata --logLevel verbose docs/docfx.json
       - run: docfx build docs/docfx.json
 

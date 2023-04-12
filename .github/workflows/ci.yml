@@ -16,26 +16,29 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
-      - name: "Setup .Net Core SDK 6.0"
-        uses: actions/setup-dotnet@v2
+      - name: "dotnet build"
+        uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
         with:
+          read_package_pat: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
+          project_path: ${{ env.PROJECT_PATH }}
           dotnet-version: "6.0"
-      - name: "Dotnet build"
-        run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
+          github_actor: ${{ github.actor }}
+          solution_filepath: ${{ env.SOLUTION_FILEPATH }}
+
   tests:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
-      - name: "Setup .Net Core SDK 6.0"
-        uses: actions/setup-dotnet@v2
+      - name: "dotnet build"
+        uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
         with:
+          read_package_pat: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
+          project_path: ${{ env.PROJECT_PATH }}
           dotnet-version: "6.0"
-      - name: "Dotnet build"
-        run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
-      - name: "Test"
-        run: dotnet test --no-restore --verbosity normal --filter 'TestType!=IntegrationTests' ${{ env.SOLUTION_PATH}}
+          github_actor: ${{ github.actor }}
+          solution_filepath: ${{ env.SOLUTION_FILEPATH }}
 
   test_opensearch:
     needs: tests
@@ -44,12 +47,14 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
-      - name: "Setup .Net Core SDK 6.0"
-        uses: actions/setup-dotnet@v2
+      - name: "dotnet build"
+        uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
         with:
+          read_package_pat: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
+          project_path: ${{ env.PROJECT_PATH }}
           dotnet-version: "6.0"
-      - name: "Dotnet build"
-        run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
+          github_actor: ${{ github.actor }}
+          solution_filepath: ${{ env.SOLUTION_FILEPATH }}
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
@@ -85,12 +90,14 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
-      - name: "Setup .Net Core SDK 6.0"
-        uses: actions/setup-dotnet@v2
+      - name: "dotnet build"
+        uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
         with:
+          read_package_pat: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
+          project_path: ${{ env.PROJECT_PATH }}
           dotnet-version: "6.0"
-      - name: "Dotnet build"
-        run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
+          github_actor: ${{ github.actor }}
+          solution_filepath: ${{ env.SOLUTION_FILEPATH }}
       - name: Log in to the Container registry
         uses: docker/login-action@v2
         with:
