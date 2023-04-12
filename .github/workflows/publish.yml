@@ -9,7 +9,7 @@ on:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -35,11 +35,9 @@ jobs:
 
       - run: dotnet tool update -g docfx
 
-      - name: "Dotnet build"
-        run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
+      #- name: "Dotnet build"
+      #  run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
 
-      - run: docfx metadata docs/docfx.json
-      - run: ls docs/api/ # debug
       - run: docfx build docs/docfx.json
 
       #- run: rm docs/api/.gitignore
