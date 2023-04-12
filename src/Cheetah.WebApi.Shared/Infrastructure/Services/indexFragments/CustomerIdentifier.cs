@@ -1,3 +1,5 @@
+using System;
+
 namespace Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
 
 public class CustomerIdentifier : IndexFragment

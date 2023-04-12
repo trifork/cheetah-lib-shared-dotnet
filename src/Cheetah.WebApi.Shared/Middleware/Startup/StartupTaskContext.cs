@@ -1,4 +1,6 @@
-﻿namespace Cheetah.WebApi.Shared.Middleware.Startup;
+﻿using System.Threading;
+
+namespace Cheetah.WebApi.Shared.Middleware.Startup;
 
 public class StartupTaskContext
 {

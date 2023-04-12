@@ -4,6 +4,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using OpenSearch.Net;
 using Cheetah.WebApi.Shared.Infrastructure.Auth;
+using System.Net.Http;
 
 namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
 {

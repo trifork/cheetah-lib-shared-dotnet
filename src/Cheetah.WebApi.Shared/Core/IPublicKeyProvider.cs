@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
 
 public interface IPublicKeyProvider
 {

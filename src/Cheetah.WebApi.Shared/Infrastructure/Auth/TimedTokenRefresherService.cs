@@ -1,3 +1,7 @@
+using System;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 using Cheetah.Shared.WebApi.Core.Config;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Hosting;

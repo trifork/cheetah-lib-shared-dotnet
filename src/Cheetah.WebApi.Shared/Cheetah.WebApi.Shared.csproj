@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <RepositoryUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</RepositoryUrl>
-	  <ImplicitUsings>enable</ImplicitUsings>
+	  <ImplicitUsings>false</ImplicitUsings>
     <Nullable>enable</Nullable>
     <VersionPrefix>1.2.8</VersionPrefix>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

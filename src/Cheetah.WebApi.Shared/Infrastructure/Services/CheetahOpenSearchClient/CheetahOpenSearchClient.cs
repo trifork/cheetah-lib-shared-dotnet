@@ -12,6 +12,11 @@ using OpenSearch.Client;
 using OpenSearch.Net;
 using OpenSearch.Client.JsonNetSerializer;
 using Microsoft.Extensions.Caching.Memory;
+using System.Net.Http;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System;
+using System.Linq;
 
 namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
 {
@@ -19,7 +24,7 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
     /// <para>
     /// CheetahOpenSearchClient is a controller interface for accessing OpenSearch's API.
     /// It provides:
-    /// <list type=">">
+    /// <list type="bullet">
     /// <item>
     /// <term>Access control</term>
     /// <description>
@@ -76,13 +81,13 @@ namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
                     return new JsonNetSerializer(builtin, settings, () => jsonSerializerSettings);
                 })
                 .ThrowExceptions();
-            settings = settings.ServerCertificateValidationCallback(CertificateValidations.AllowAll); 
+            settings = settings.ServerCertificateValidationCallback(CertificateValidations.AllowAll);
             if (_openSearchConfig.AuthMode == OpenSearchConfig.OpenSearchAuthMode.BasicAuth)
             {
                 logger.LogInformation("Enabled BasicAuth for OpenSearch with username={username}", _openSearchConfig.UserName);
                 settings = settings.BasicAuthentication(_openSearchConfig.UserName, _openSearchConfig.Password);
             }
-            
+
             settings.OnRequestCompleted(apiCallDetails =>
             {
                 if (apiCallDetails.RequestBodyInBytes != null)

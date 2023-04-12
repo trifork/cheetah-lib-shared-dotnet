@@ -1,3 +1,4 @@
+using System;
 using Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient;
 
 namespace Cheetah.Shared.WebApi.Core.Config

@@ -2,6 +2,10 @@
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Cheetah.WebApi.Shared.Core.Config;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System;
+using System.Linq;
 
 namespace Cheetah.WebApi.Shared.Infrastructure.Auth;
 

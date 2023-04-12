@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cheetah.WebApi.Shared.Middleware.Startup;
 
