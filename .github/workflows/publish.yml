@@ -40,7 +40,7 @@ jobs:
 
       - run: docfx build docs/docfx.json
 
-      - run: rm docs/api/.gitignore
+      - run: ls _site/api/
 
       - name: Deploy to GitHub Pages
         id: deployment
@@ -48,4 +48,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./_site
+          exclude_assets: ""
           force_orphan: true
