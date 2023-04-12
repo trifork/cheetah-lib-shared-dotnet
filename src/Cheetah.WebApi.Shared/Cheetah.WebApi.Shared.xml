@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cheetah.WebApi.Shared</name>
+    </assembly>
+    <members>
+        <member name="M:Cheetah.WebApi.Shared.Core.Config.ConfigureSwaggerOptions.#ctor(Microsoft.AspNetCore.Mvc.ApiExplorer.IApiVersionDescriptionProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cheetah.WebApi.Shared.Core.Config.ConfigureSwaggerOptions"/> class.
+            </summary>
+            <param name="provider">The <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.IApiVersionDescriptionProvider">provider</see> used to generate Swagger documents.</param>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Core.Config.ConfigureSwaggerOptions.Configure(Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cheetah.WebApi.Shared.Core.Config.OAuthConfig">
+            <summary>
+            OAuthConfig for IOptions. Can be used by WebApi's to authenticate user http requests.
+            </summary>
+        </member>
+        <member name="F:Cheetah.WebApi.Shared.Core.Config.OAuthConfig.Position">
+            <summary>
+            Prefix for options e.g. OAuth__
+            </summary>
+        </member>
+        <member name="P:Cheetah.WebApi.Shared.Core.Config.OAuthConfig.OAuthUrl">
+            <summary>
+            OAuth url for WebApi to authenticate http requests bearer tokens
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Cheetah.WebApi.Shared.Core.Config.OAuthConfig.Mode">
+            <summary>
+            Can be used to determine if authentication should be validated symmetric or asymmetric
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Cheetah.WebApi.Shared.Core.Config.OAuthConfig.SymmetricPrivateKey">
+            <summary>
+            Secret used by Symmetric validation
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Core.Extensions.ResilienceConfiguration.GetRetryPolicy``1(System.IServiceProvider,System.Int32)">
+            <summary>
+            Adds a resilient and transient-fault handling policy
+            </summary>
+            <typeparam name="TService"></typeparam>
+            <param name="serviceProvider"></param>
+            <param name="retryCount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Core.Extensions.ResilienceConfiguration.GetRetryPolicy(Microsoft.Extensions.Logging.ILogger,System.Int32,System.Int32)">
+            <summary>
+            Adds a resilient and transient-fault handling policy
+            </summary>
+        </member>
+        <member name="T:Cheetah.WebApi.Shared.Infrastructure.ServiceProvider.ServiceCollectionInstallerComparer">
+            <summary>
+            We want to do a value compare on type
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.Kafka.CheetahKafkaExtensions.AddCheetahOAuthentication``2(Confluent.Kafka.ConsumerBuilder{``0,``1},System.IServiceProvider)">
+            <summary>
+            Setup OAuth authentication for Kafka consumer
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.Kafka.CheetahKafkaExtensions.AddCheetahOAuthentication``2(Confluent.Kafka.ProducerBuilder{``0,``1},System.IServiceProvider)">
+            <summary>
+            Setup OAuth authentication for Kafka producer
+            </summary>
+        </member>
+        <member name="T:Cheetah.Shared.WebApi.Core.Config.KafkaConfig">
+            <summary>
+            KafkaConfig for IOptions
+            </summary>
+        </member>
+        <member name="F:Cheetah.Shared.WebApi.Core.Config.KafkaConfig.Position">
+            <summary>
+            Prefix for options e.g. Kafka__
+            </summary>
+        </member>
+        <member name="P:Cheetah.Shared.WebApi.Core.Config.KafkaConfig.KafkaUrl">
+            <summary>
+            Bootstrap Url
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Cheetah.Shared.WebApi.Core.Config.KafkaConfig.OAuthScopes">
+            <summary>
+            OAuth2 specific. What scopes to request from TokenEndpoint
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Cheetah.Shared.WebApi.Core.Config.KafkaConfig.ClientId">
+            <summary>
+            Client id used to obtain JWT from token endpoint
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Cheetah.Shared.WebApi.Core.Config.KafkaConfig.ClientSecret">
+            <summary>
+            Client secret used to obtain JWT from token endpoint
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Cheetah.Shared.WebApi.Core.Config.KafkaConfig.TokenEndpoint">
+            <summary>
+            Token endpoint used to obtain token for authentication and authorization
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Cheetah.Shared.WebApi.Core.Config.OpenSearchConfig">
+            <summary>
+            OpenSearchConfig for IOptions
+            </summary>
+        </member>
+        <member name="F:Cheetah.Shared.WebApi.Core.Config.OpenSearchConfig.Position">
+            <summary>
+            Prefix for options e.g. OpenSearch__
+            </summary>
+        </member>
+        <member name="P:Cheetah.Shared.WebApi.Core.Config.OpenSearchConfig.IndexNamePrefix">
+            <summary>
+            Can be used to set prefix when querying indices
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Cheetah.Shared.WebApi.Core.Config.OpenSearchConfig.Url">
+            <summary>
+            Url for OpenSearch
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Cheetah.Shared.WebApi.Core.Config.OpenSearchConfig.ClientId">
+            <summary>
+            Client id used to obtain JWT from token endpoint
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Cheetah.Shared.WebApi.Core.Config.OpenSearchConfig.ClientSecret">
+            <summary>
+            Client secret used to obtain JWT from token endpoint
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Cheetah.Shared.WebApi.Core.Config.OpenSearchConfig.TokenEndpoint">
+            <summary>
+            Token endpoint used to obtain token for authentication and authorization
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Cheetah.Shared.WebApi.Core.Config.OpenSearchConfig.UserName">
+            <summary>
+            UserName for Basic Auth
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Cheetah.Shared.WebApi.Core.Config.OpenSearchConfig.Password">
+            <summary>
+            Password for Basic Auth
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Cheetah.Shared.WebApi.Core.Config.OpenSearchConfig.AuthMode">
+            <summary>
+            Authentication mode used by <see cref="T:Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient"/>
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:Cheetah.Shared.WebApi.Core.Config.OpenSearchConfig.ValidateConfig">
+            <summary>
+            Validates and throws an error if values are not set for a given <see cref="P:Cheetah.Shared.WebApi.Core.Config.OpenSearchConfig.AuthMode"/>.
+            </summary>
+        </member>
+        <member name="M:Cheetah.Shared.WebApi.Core.Interfaces.ICheetahOpenSearchClient.GetIndices(System.Collections.Generic.List{Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess.IndexDescriptor})">
+            <summary>
+            Queries the OpenSearch instance for all indexes
+            </summary>
+            <returns>A List containing all index-names</returns>
+        </member>
+        <member name="T:Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient">
+            <summary>Wrapper around OpenSearch, which introduces logging, authorization, and metrics
+            <para>
+            CheetahOpenSearchClient is a controller interface for accessing OpenSearch's API.
+            It provides:
+            <list type="bullet">
+            <item>
+            <term>Access control</term>
+            <description>
+            Callers of this class would be able to access only indices on ES that they are authorized to access
+            </description>
+            </item>
+            <item>
+            <term>Logging</term>
+            <description>
+            When debug mode is enabled the raw requests to ES are logged in plaintext
+            </description>
+            </item>
+            <item>
+            <term>Metrics</term>
+            <description>
+            Automatic metrics for requests done through this client
+            </description>
+            </item>
+            </list>
+            </para>
+            </summary>
+        </member>
+        <member name="M:Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient.GetIndices(System.Collections.Generic.List{Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess.IndexDescriptor})">
+            <summary>
+            Queries the OpenSearch instance for all indices' names
+            </summary>
+            <returns>A List containing all index-names</returns>
+        </member>
+    </members>
+</doc>

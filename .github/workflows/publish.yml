@@ -37,6 +37,9 @@ jobs:
 
       - name: "Dotnet build"
         run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
+
+      - run: docfx metadata docs/docfx.json
+      - run: ls docs/api/ # debug
       - run: docfx build docs/docfx.json
 
       #- run: rm docs/api/.gitignore
