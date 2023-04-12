@@ -8,7 +8,7 @@ on:
       - main
 
 env:
-  SOLUTION_PATH: ./Cheetah.WebApi.Shared.sln
+  SOLUTION_FILEPATH: ./Cheetah.WebApi.Shared.sln
 
 jobs:
   build:

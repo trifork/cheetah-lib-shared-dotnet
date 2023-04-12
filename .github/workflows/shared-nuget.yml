@@ -10,7 +10,7 @@ on:
 
 env:
   PROJECT_PATH: ./src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj
-  SOLUTION_PATH: ./Cheetah.WebApi.Shared.sln
+  SOLUTION_FILEPATH: ./Cheetah.WebApi.Shared.sln
 
 jobs:
   build-and-push-nuget:
@@ -18,10 +18,14 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
-      - name: "Setup .Net Core SDK 6.0"
-        uses: trifork/
-      - name: "Test"
-        run: dotnet test --no-restore --verbosity normal ${{ env.SOLUTION_PATH}}
+      - name: "dotnet build"
+        uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
+        with:
+          read_package_pat: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
+          project_path: ${{ env.PROJECT_PATH }}
+          dotnet-version: "6.0"
+          github_actor: ${{ github.actor }}
+          solution_filepath: ${{ env.SOLUTION_FILEPATH }}
       - name: "create output-folder"
         run: mkdir -p output
       - name: Get Tag-name

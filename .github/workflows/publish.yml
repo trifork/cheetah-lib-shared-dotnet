@@ -19,6 +19,9 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+env:
+  SOLUTION_FILEPATH: ./Cheetah.WebApi.Shared.sln
+
 jobs:
   publish-docs:
     runs-on: ubuntu-latest
