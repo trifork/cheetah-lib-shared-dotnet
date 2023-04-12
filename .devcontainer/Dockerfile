@@ -8,7 +8,6 @@ ENV DOCKER_DEFAULT_PLATFORM=linux/amd64
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
      && apt-get -y install --no-install-recommends git curl exa
 
-RUN dotnet tool update -g docfx
 
 # Install Docker to use in docker-in-docker
 RUN apt-get update && apt-get install -y curl \
@@ -24,3 +23,4 @@ ARG GITHUB_TOKEN
 
 RUN dotnet nuget add source https://nuget.pkg.github.com/trifork/index.json -n trifork-github -u $GITHUB_ACTOR -p $GITHUB_TOKEN --store-password-in-clear-text
 
+RUN dotnet tool update -g docfx

@@ -34,6 +34,9 @@ jobs:
           dotnet-version: 6.x
 
       - run: dotnet tool update -g docfx
+
+      - name: "Dotnet build"
+        run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
       - run: docfx build docs/docfx.json
 
       #- run: rm docs/api/.gitignore
