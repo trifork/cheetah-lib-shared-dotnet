@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Cheetah.WebApi.Shared.Core.NamingStrategies;
 using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
 using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;

@@ -14,12 +14,12 @@ To run integration tests locally run:
 dotnet test --filter 'FullyQualifiedName~Integration'
 ```
 
-
 ## Writing tests
 
 Writing unit tests has nothing specific to it.
 
 Writing integration tests has the following requirements:
+
 - The test function must contain 'Integration' in its name (usually as a suffix)
 - The test function must set-up its own data and tear it down afterwards
 - Integration tests for OpenSearch require an OS instance running on port 9200

@@ -1,24 +1,12 @@
-using System.Threading;
-using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
-using Cheetah.WebApi.Shared.Middleware.Metric;
 using Cheetah.Shared.WebApi.Core.Config;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Moq;
-using System.Collections.Generic;
 using Xunit;
 using System;
-using Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient;
-using Microsoft.Extensions.Caching.Memory;
-using Cheetah.WebApi.Shared_test.TestUtils;
-using OpenSearch.Client;
 using Xunit.Abstractions;
-using Microsoft.Extensions.Hosting.Internal;
 using Confluent.Kafka;
 using Microsoft.Extensions.DependencyInjection;
-using System.Threading.Tasks;
-using System.Text;
+using Cheetah.WebApi.Shared.Infrastructure.Services.Kafka;
 
 namespace Cheetah.WebApi.Shared.Test.Infrastructure.OpenSearch
 {

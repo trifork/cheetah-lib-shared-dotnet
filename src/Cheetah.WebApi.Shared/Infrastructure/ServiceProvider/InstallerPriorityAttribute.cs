@@ -1,4 +1,6 @@
-﻿[AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+﻿using System;
+
+[AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
 public sealed class InstallerPriorityAttribute : Attribute
 {
     public const int DefaultPriority = 100;

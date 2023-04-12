@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Cheetah.WebApi.Shared.Middleware.Metric
 {
