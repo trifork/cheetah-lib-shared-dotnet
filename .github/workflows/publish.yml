@@ -31,7 +31,7 @@ jobs:
       - name: Dotnet Setup
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.x
+          dotnet-version: 6.0
 
       - run: dotnet tool update -g docfx
 
@@ -39,8 +39,6 @@ jobs:
       #  run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
 
       - run: docfx build docs/docfx.json
-
-      - run: ls _site/api/
 
       - name: Deploy to GitHub Pages
         id: deployment
