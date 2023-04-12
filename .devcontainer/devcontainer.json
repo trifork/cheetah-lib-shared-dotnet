@@ -44,6 +44,7 @@
 				"MS-vsliveshare.vsliveshare-pack",
 				"streetsidesoftware.code-spell-checker",
 				"redhat.vscode-yaml",
+				"k--kato.docomment",
 				// Recommended extensions - .NET
 				"Fudge.auto-using",
 				"jongrant.csharpsortusings",

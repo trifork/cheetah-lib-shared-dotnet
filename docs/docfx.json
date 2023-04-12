@@ -18,6 +18,13 @@
     "content": [
       {
         "files": [
+          "README.md"
+        ],
+        "src": "../",
+        "dest": "./"
+      },
+      {
+        "files": [
           "api/**.yml",
           "api/index.md"
         ]
@@ -38,6 +45,9 @@
         ]
       }
     ],
+    "globalMetadata": {
+      "_appTitle": "Cheetah.Shared (Nuget Package)"
+    },
     "dest": "../_site",
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],

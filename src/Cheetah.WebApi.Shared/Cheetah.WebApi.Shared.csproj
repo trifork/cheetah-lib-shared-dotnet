@@ -6,6 +6,8 @@
 	  <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <VersionPrefix>1.2.8</VersionPrefix>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DocumentationFile>Cheetah.WebApi.Shared.xml</DocumentationFile>
     <DebugType>Embedded</DebugType>
   </PropertyGroup>
 

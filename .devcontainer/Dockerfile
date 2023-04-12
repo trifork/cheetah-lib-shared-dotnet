@@ -8,6 +8,8 @@ ENV DOCKER_DEFAULT_PLATFORM=linux/amd64
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
      && apt-get -y install --no-install-recommends git curl exa
 
+RUN dotnet tool update -g docfx
+
 # Install Docker to use in docker-in-docker
 RUN apt-get update && apt-get install -y curl \
      && rm -rf /var/lib/apt/lists/* \
