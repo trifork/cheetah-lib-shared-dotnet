@@ -14,7 +14,7 @@ and other utilities using the library:
 features offered by this library:
 
 * Prometheus exposed on a kestrel server
-* Helper methods for Authentication against OpenSearch
+* Helper methods for connecting and authentication against OpenSearch
 * Helper methods for Authentication against Kafka
 * Helper methods for building OpenSearch-search indices
 
