@@ -36,9 +36,7 @@ jobs:
       - run: dotnet tool update -g docfx
 
       - run: dotnet restore
-      - name: "Dotnet build"
-        run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
-
+      - run: docfx metadata --logLevel verbose docs/docfx.json
       - run: docfx build docs/docfx.json
 
       - name: Deploy to GitHub Pages
