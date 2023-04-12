@@ -71,10 +71,21 @@ We are using the Confluent.Net client library and have added an additional exten
 
 ```c#
 # Setup a consumer or producer with OAuth
-var consumer = new ConsumerBuilder<Ignore, string>(config)
-                   ...
-                    .AddCheetahOAuthentication(localProvider)
-                    .Build();
+var clientConfig = new ClientConfig
+                {
+                    BootstrapServers = kafkaConfig.Value.KafkaUrl,
+                    SaslMechanism = SaslMechanism.OAuthBearer,
+                    SecurityProtocol = SecurityProtocol.SaslPlaintext,
+                };
+var consumer = new ConsumerBuilder<Ignore, string>(new ConsumerConfig(clientConfig)
+                {
+                    GroupId = webApiOptions.Value.ConsumerName,
+                    AutoOffsetReset = AutoOffsetReset.Latest,
+                    EnableAutoCommit = true,
+                })
+                ...
+                .AddCheetahOAuthentication(localProvider)
+                .Build();
 ```
 
 To enable Oauth2 authentication you should also provide the following options through environment variables:
