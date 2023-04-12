@@ -5,7 +5,7 @@
       "src": [
         {
           "files": [
-            "src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+            "**/Cheetah.WebApi.Shared.csproj"
           ],
           "src": "../"
         }

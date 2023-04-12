@@ -35,8 +35,9 @@ jobs:
 
       - run: dotnet tool update -g docfx
 
-      #- name: "Dotnet build"
-      #  run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
+      - run: dotnet restore
+      - name: "Dotnet build"
+        run: dotnet build --configuration Release ${{ env.SOLUTION_PATH}}
 
       - run: docfx build docs/docfx.json
 
