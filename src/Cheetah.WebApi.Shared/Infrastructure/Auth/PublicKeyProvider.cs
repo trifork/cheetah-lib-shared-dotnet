@@ -46,9 +46,10 @@ public class PublicKeyProvider : IPublicKeyProvider
 
     public async Task<JsonWebKey[]> GetKeys(string clientId)
     {
-        var jwksUri = $"{_oauthConfig.Value.OAuthUrl}/.well-known/jwks.json?clientId={clientId}";
+        var jwksUriBuilder = new UriBuilder(_oauthConfig.Value.OAuthUrl);
+        jwksUriBuilder.Path = $"/.well-known/jwks.json?clientId={clientId}";
 
-        var response = await _httpClient.GetAsync(jwksUri); //todo: cache?
+        var response = await _httpClient.GetAsync(jwksUriBuilder.Uri);
         response.EnsureSuccessStatusCode();
         var responseString = await response.Content.ReadAsStringAsync();
         return new JsonWebKeySet(responseString).Keys.ToArray();
