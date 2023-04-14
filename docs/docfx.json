@@ -50,7 +50,9 @@
       }
     ],
     "globalMetadata": {
-      "_appTitle": "Cheetah.Shared (Nuget Package)"
+      "_appTitle": "Cheetah.Shared (Nuget Package)",
+      "_disableContribution": true,
+      "_disableToc": false
     },
     "dest": "../_site",
     "globalMetadataFiles": [],
