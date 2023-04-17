@@ -23,7 +23,7 @@ public class EpochDateTimeConverterTest
     {
         new object[] { "0", DateTime.UnixEpoch.ToLocalTime() },
         new object[] { "123", DateTime.UnixEpoch.AddMilliseconds(123).ToLocalTime() },
-        new object[] { "123", DateTime.UnixEpoch.AddMilliseconds(123).ToLocalTime() },
+        new object[] { "2147483647001", DateTime.UnixEpoch.AddSeconds(int.MaxValue).AddMilliseconds(1).ToLocalTime() }, // Survives Y2K38
         new object[] { "\"1970-01-01 00:00:00Z\"", DateTime.UnixEpoch.ToLocalTime() },
         new object[] { "\"1970-01-01 01:00:00+0100\"", DateTime.UnixEpoch.ToLocalTime() },
         new object[] { "\"1970-01-01 00:00:00.123\"", DateTime.UnixEpoch.AddMilliseconds(123).ToLocalTime() },
