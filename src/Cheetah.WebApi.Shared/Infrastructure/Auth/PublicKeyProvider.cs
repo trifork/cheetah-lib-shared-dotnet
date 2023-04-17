@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System;
 using System.Linq;
+using Cheetah.WebApi.Shared.Core;
 
 namespace Cheetah.WebApi.Shared.Infrastructure.Auth;
 

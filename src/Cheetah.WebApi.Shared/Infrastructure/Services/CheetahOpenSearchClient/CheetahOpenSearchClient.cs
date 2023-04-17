@@ -1,24 +1,24 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
+using Cheetah.WebApi.Shared.Core.Config;
+using Cheetah.WebApi.Shared.Core.Interfaces;
+using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
+using Cheetah.WebApi.Shared.Middleware.Metric;
+using Cheetah.WebApi.Shared.Util;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
-using Cheetah.Shared.WebApi.Core.Config;
-using Cheetah.Shared.WebApi.Core.Interfaces;
-using Cheetah.WebApi.Shared.Middleware.Metric;
-using Cheetah.Shared.WebApi.Util;
 using OpenSearch.Client;
-using OpenSearch.Net;
 using OpenSearch.Client.JsonNetSerializer;
-using Microsoft.Extensions.Caching.Memory;
-using System.Net.Http;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System;
-using System.Linq;
+using OpenSearch.Net;
 
-namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
+namespace Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient
 {
     /// <summary>Wrapper around OpenSearch, which introduces logging, authorization, and metrics
     /// <para>

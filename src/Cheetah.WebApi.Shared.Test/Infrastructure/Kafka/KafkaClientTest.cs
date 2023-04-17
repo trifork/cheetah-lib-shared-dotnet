@@ -1,22 +1,21 @@
-using Cheetah.Shared.WebApi.Core.Config;
+using System;
+using Cheetah.WebApi.Shared.Core.Config;
+using Cheetah.WebApi.Shared.Infrastructure.Services.Kafka;
+using Confluent.Kafka;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Xunit;
-using System;
-using Xunit.Abstractions;
-using Confluent.Kafka;
-using Microsoft.Extensions.DependencyInjection;
-using Cheetah.WebApi.Shared.Infrastructure.Services.Kafka;
 
-namespace Cheetah.WebApi.Shared.Test.Infrastructure.OpenSearch
+namespace Cheetah.WebApi.Shared.Test.Infrastructure.Kafka
 {
 
     [Trait("Category", "Kafka"), Trait("TestType", "IntegrationTests")]
     public class KafkaIntegrationTests
     {
-        private ServiceCollection Sut;
+        private readonly ServiceCollection _sut;
 
-        public KafkaIntegrationTests(ITestOutputHelper output)
+        public KafkaIntegrationTests()
         {
 
             var kafkaConfig = new KafkaConfig
@@ -28,24 +27,24 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.OpenSearch
             };
 
             var services = new ServiceCollection();
-            services.AddTransient<IOptions<KafkaConfig>>(p => Options.Create(kafkaConfig));
+            services.AddTransient(_ => Options.Create(kafkaConfig));
             services.AddMemoryCache();
             services.AddHttpClient();
             services.AddLogging(s =>
             {
-                s.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Debug);
-                s.AddFilter("System.Net.Http.HttpClient", Microsoft.Extensions.Logging.LogLevel.Warning);
+                s.SetMinimumLevel(LogLevel.Debug);
+                s.AddFilter("System.Net.Http.HttpClient", LogLevel.Warning);
                 s.AddConsole();
             });
 
-            Sut = services;
+            _sut = services;
         }
 
         //https://github.com/confluentinc/confluent-kafka-dotnet/blob/master/test/Confluent.Kafka.IntegrationTests/Tests/OauthBearerToken_PublishConsume.cs#L9
         [Fact]
         public void OAuthBearerToken_PublishConsume()
         {
-            var provider = Sut.BuildServiceProvider();
+            var provider = _sut.BuildServiceProvider();
             var kafkaConfig = provider.GetRequiredService<IOptions<KafkaConfig>>();
             var topic = $"dotnet_{nameof(OAuthBearerToken_PublishConsume)}_{Guid.NewGuid()}";
 
@@ -72,15 +71,14 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.OpenSearch
             };
 
 
-            Error producerError = null;
             var producer = new ProducerBuilder<string, string>(producerConfig)
-               .SetErrorHandler((c, e) => producerError = e)
+               .SetErrorHandler((_, _) => { })
                 .AddCheetahOAuthentication(provider)
                 .Build();
-            Error consumerError = null;
+            
             var consumer = new ConsumerBuilder<string, string>(consumerConfig)
                 .AddCheetahOAuthentication(provider)
-                   .SetErrorHandler((c, e) => consumerError = e)
+                   .SetErrorHandler((_, _) => { })
                 .Build();
 
             consumer.Subscribe(topic);

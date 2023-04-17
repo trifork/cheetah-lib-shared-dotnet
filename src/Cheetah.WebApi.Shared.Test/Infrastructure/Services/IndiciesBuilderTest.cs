@@ -1,13 +1,13 @@
-﻿using Cheetah.WebApi.Shared_test.models;
-using System;
+﻿using System;
 using System.Linq;
 using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
 using Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies;
+using Cheetah.WebApi.Shared.Test.Models;
 using Xunit;
 
-namespace Cheetah.WebApi.Shared_test.infrastructure.NamingStrategies
+namespace Cheetah.WebApi.Shared.Test.Infrastructure.Services
 {
-    public class NamingStrategyTest
+    public class IndiciesBuilderTest
     {
         [Fact]
         public void Build_SimpleIndexNamingStrategy()
@@ -18,7 +18,7 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.NamingStrategies
             var from = new DateTimeOffset(harddate.AddYears(-2));
             var to = new DateTimeOffset(harddate);
             var prefix = new IndexPrefix("Prefix");
-            var indexBase = IndexType.testIndex("Indexbase");
+            var indexBase = IndexType.TestIndex("Indexbase");
             var customer = new CustomerIdentifier("Customer");
 
 
@@ -39,7 +39,7 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.NamingStrategies
             var from = new DateTimeOffset(harddate.AddYears(-2));
             var to = new DateTimeOffset(harddate);
             var prefix = new IndexPrefix("Prefix");
-            var indexBase = IndexType.testIndex("Indexbase");
+            var indexBase = IndexType.TestIndex("Indexbase");
             var customer = new CustomerIdentifier("Customer");
 
 
@@ -52,6 +52,28 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.NamingStrategies
         }
 
         [Fact]
+        public void Build_YearResolutionIndexNamingStrategy()
+        {
+            //Arrange
+            var harddate = new DateTime(2020, 1, 1);
+            var namingStrategy = new YearResolutionIndexNamingStrategy();
+            var from = new DateTimeOffset(harddate.AddYears(-2));
+            var to = new DateTimeOffset(harddate);
+            var prefix = new IndexPrefix("Prefix");
+            var indexBase = IndexType.TestIndex("Indexbase");
+            var customer = new CustomerIdentifier("Customer");
+
+
+            //Act
+            var indexList = namingStrategy.Build(from, to, prefix, indexBase, customer).ToList();
+            //Assert
+            Assert.True(indexList.Count == 3);
+            Assert.True(indexList.Exists(x => x.Pattern.Equals("indexbase_prefix_customer_2018")));
+            Assert.True(indexList.Exists(x => x.Pattern.Equals("indexbase_prefix_customer_2019")));
+            Assert.True(indexList.Exists(x => x.Pattern.Equals("indexbase_prefix_customer_2020")));
+        }
+
+        [Fact]
         public void Build_YearResolutionWithWildcardIndexNamingStrategy()
         {
             //Arrange
@@ -60,7 +82,7 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.NamingStrategies
             var from = new DateTimeOffset(harddate.AddYears(-2));
             var to = new DateTimeOffset(harddate);
             var prefix = new IndexPrefix("Prefix");
-            var indexBase = IndexType.testIndex("Indexbase");
+            var indexBase = IndexType.TestIndex("Indexbase");
             var customer = new CustomerIdentifier("Customer");
 
 
@@ -68,9 +90,9 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.NamingStrategies
             var indexList = namingStrategy.Build(from, to, prefix, indexBase, customer).ToList();
             //Assert
             Assert.True(indexList.Count == 3);
-            Assert.True(indexList.Exists(x => x.Pattern.Equals($"{indexBase}_{prefix}_{customer}_2018*".ToLower())));
-            Assert.True(indexList.Exists(x => x.Pattern.Equals($"{indexBase}_{prefix}_{customer}_2019*".ToLower())));
-            Assert.True(indexList.Exists(x => x.Pattern.Equals($"{indexBase}_{prefix}_{customer}_2020*".ToLower())));
+            Assert.True(indexList.Exists(x => x.Pattern.Equals("indexbase_prefix_customer_2018*")));
+            Assert.True(indexList.Exists(x => x.Pattern.Equals("indexbase_prefix_customer_2019*")));
+            Assert.True(indexList.Exists(x => x.Pattern.Equals("indexbase_prefix_customer_2020*")));
         }
 
         [Fact]
@@ -82,7 +104,7 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.NamingStrategies
             var from = new DateTimeOffset(harddate.AddMonths(-2));
             var to = new DateTimeOffset(harddate);
             var prefix = new IndexPrefix("Prefix");
-            var indexBase = IndexType.testIndex("Indexbase");
+            var indexBase = IndexType.TestIndex("Indexbase");
             var customer = new CustomerIdentifier("Customer");
 
 
@@ -91,9 +113,9 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.NamingStrategies
 
             //Assert
             Assert.True(indexList.Count == 3);
-            Assert.True(indexList.Exists(x => x.Pattern.Equals($"{indexBase}_{prefix}_{customer}_2020_01".ToLower())));
-            Assert.True(indexList.Exists(x => x.Pattern.Equals($"{indexBase}_{prefix}_{customer}_2020_02".ToLower())));
-            Assert.True(indexList.Exists(x => x.Pattern.Equals($"{indexBase}_{prefix}_{customer}_2020_03".ToLower())));
+            Assert.True(indexList.Exists(x => x.Pattern.Equals("indexbase_prefix_customer_2020_01")));
+            Assert.True(indexList.Exists(x => x.Pattern.Equals("indexbase_prefix_customer_2020_02")));
+            Assert.True(indexList.Exists(x => x.Pattern.Equals("indexbase_prefix_customer_2020_03")));
         }
     }
 }

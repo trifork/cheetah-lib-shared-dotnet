@@ -1,19 +1,18 @@
-using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Xunit;
-using Moq;
-using Moq.Protected;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.IdentityModel.Tokens;
 using Cheetah.WebApi.Shared.Core.Config;
 using Cheetah.WebApi.Shared.Infrastructure.Auth;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using Moq;
+using Moq.Protected;
+using Xunit;
 using Xunit.Abstractions;
 
-namespace PublicKeyProviderTests
+namespace Cheetah.WebApi.Shared.Test.Infrastructure.Auth
 {
     public class PublicKeyProviderTest
     {
@@ -44,12 +43,17 @@ namespace PublicKeyProviderTests
 
             // Assert
             Assert.Single(result);
-            httpClientHandlerMock
-                .Protected().Verify("SendAsync", Times.Once(),
-                ItExpr.Is<HttpRequestMessage>(x => !x.RequestUri.Query.IsNullOrEmpty()), ItExpr.IsAny<CancellationToken>());
             Assert.Equal("RSA", result[0].Kty);
             Assert.Equal("some-value", result[0].N);
             Assert.Equal("AQAB", result[0].E);
+            
+            httpClientHandlerMock
+                .Protected()
+                .Verify("SendAsync", 
+                    Times.Once(),
+                    ItExpr.Is<HttpRequestMessage>(x => 
+                        x.RequestUri != null && !x.RequestUri.Query.IsNullOrEmpty()), 
+                    ItExpr.IsAny<CancellationToken>());
         }
 
         private Mock<HttpMessageHandler> CreateMockedHttpMessageHandler(string responseContent)
@@ -61,7 +65,7 @@ namespace PublicKeyProviderTests
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>()
                 )
-                .Callback<HttpRequestMessage, CancellationToken>((req, token) => output.WriteLine($"RequestUri: {req.RequestUri}"))
+                .Callback<HttpRequestMessage, CancellationToken>((req, _) => output.WriteLine($"RequestUri: {req.RequestUri}"))
                 .ReturnsAsync(new HttpResponseMessage()
                 {
                     StatusCode = HttpStatusCode.OK,

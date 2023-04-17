@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
+namespace Cheetah.WebApi.Shared.Core.Config;
+
 public class ConfigureAsymmetricTokenValidationParameters : IPostConfigureOptions<JwtBearerOptions>
 {
     private readonly IPublicKeyProvider _publicKeyProvider;

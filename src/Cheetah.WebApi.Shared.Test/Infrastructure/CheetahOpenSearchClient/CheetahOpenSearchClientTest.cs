@@ -1,27 +1,25 @@
-﻿using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
+﻿using System;
+using System.Collections.Generic;
+using Cheetah.WebApi.Shared.Core.Config;
+using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
 using Cheetah.WebApi.Shared.Middleware.Metric;
-using Cheetah.Shared.WebApi.Core.Config;
+using Cheetah.WebApi.Shared.Test.TestUtils;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
-using System.Collections.Generic;
-using Xunit;
-using System;
-using Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient;
-using Microsoft.Extensions.Caching.Memory;
-using Cheetah.WebApi.Shared_test.TestUtils;
 using OpenSearch.Client;
-using Xunit.Abstractions;
-using Microsoft.Extensions.Hosting.Internal;
+using Xunit;
 
-namespace Cheetah.WebApi.Shared.Test.Infrastructure.OpenSearch
+namespace Cheetah.WebApi.Shared.Test.Infrastructure.CheetahOpenSearchClient
 {
     [Trait("Category", "OpenSearch"), Trait("TestType", "IntegrationTests")]
     public class OpenSearchIntegrationTest
     {
         private readonly string port;
-        public OpenSearchIntegrationTest(ITestOutputHelper output)
+        public OpenSearchIntegrationTest()
         {
             // The default opensearch port used in the CI/local container
             port = "9200";
@@ -48,20 +46,18 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.OpenSearch
             var env = new HostingEnvironment { EnvironmentName = Environments.Development };
 
             var mockMetricReporter = new Mock<IMetricReporter>();
-            var memoryCache = new MemoryCache(new MemoryCacheOptions
-            {
-            });
-            var httpClientfactory = new DefaultHttpClientFactory();
+            var memoryCache = new MemoryCache(new MemoryCacheOptions());
+            var httpClientFactory = new DefaultHttpClientFactory();
             var loggerFactory = LoggerFactory.Create(builder =>
                 {
                     builder.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Debug);
                     builder.AddConsole();
                 });
 
-            var logger = loggerFactory.CreateLogger<CheetahOpenSearchClient>();
-            CheetahOpenSearchClient client = new CheetahOpenSearchClient(
+            var logger = loggerFactory.CreateLogger<Shared.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient>();
+            Shared.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient client = new Shared.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient(
                 memoryCache,
-                httpClientfactory,
+                httpClientFactory,
                 options,
                 env,
                 logger,

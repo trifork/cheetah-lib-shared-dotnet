@@ -1,21 +1,21 @@
-﻿using Cheetah.WebApi.Shared_test.models;
-using System;
+﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
 using Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies;
+using Cheetah.WebApi.Shared.Test.Models;
 using Xunit;
 
-namespace Cheetah.WebApi.Shared_test.infrastructure.Services
+namespace Cheetah.WebApi.Shared.Test.Infrastructure.Services
 {
-    public class indicesBuilderTest
+    public class IndicesBuilderTest
     {
         [Fact]
         public void ShouldExpandSingleMonth()
         {
             var strategy = new MonthResolutionIndexNamingStrategy();
             var builder = new IndicesBuilder(new IndexPrefix("pf"), strategy);
-            var indextype = IndexType.testIndex("Indexbase");
+            var indextype = IndexType.TestIndex("Indexbase");
 
             var enumerable = builder.Build(indextype, DateTimeOffset.Now, DateTimeOffset.Now, new CustomerIdentifier("cust1")).ToList();
             Assert.Single(enumerable);
@@ -26,7 +26,7 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.Services
         {
             var indexNamingStrategy = new MonthResolutionIndexNamingStrategy();
             var builder = new IndicesBuilder(new IndexPrefix("pf"), indexNamingStrategy);
-            var indextype = IndexType.testIndex("Indexbase");
+            var indextype = IndexType.TestIndex("Indexbase");
 
 
             var enumerable = builder.Build(indextype, DateTimeOffset.Now, DateTimeOffset.Now.AddMonths(-1), new CustomerIdentifier("testId1")).ToList();
@@ -37,7 +37,7 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.Services
         public void ShouldExpandThreeMonths()
         {
             var customer = "testid";
-            var indextype = IndexType.testIndex("Indexbase");
+            var indextype = IndexType.TestIndex("Indexbase");
 
             var from = DateTimeOffset.Now;
             var to = from.AddMonths(2);
@@ -60,7 +60,7 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.Services
         public void ShouldExpand99Months()
         {
             var customer = "testid";
-            var indextype = IndexType.testIndex("Indexbase");
+            var indextype = IndexType.TestIndex("Indexbase");
 
             var from = DateTimeOffset.Now;
             var to = from.AddMonths(98);
@@ -83,7 +83,7 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.Services
         {
             var customer1 = "testid1";
             var customer2 = "testid2";
-            var indextype = IndexType.testIndex("Indexbase");
+            var indextype = IndexType.TestIndex("Indexbase");
 
             var indexNamingStrategy = new MonthResolutionIndexNamingStrategy();
             var builder = new IndicesBuilder(new IndexPrefix("pf"), indexNamingStrategy);
@@ -107,7 +107,7 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.Services
         {
             var customer1 = "testid1";
             var customer2 = "testid2";
-            var indextype = IndexType.testIndex("Indexbase");
+            var indextype = IndexType.TestIndex("Indexbase");
 
             var indexNamingStrategy = new MonthResolutionIndexNamingStrategy();
             var builder = new IndicesBuilder(new IndexPrefix("pf"), indexNamingStrategy);
@@ -133,7 +133,7 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.Services
         [InlineData("prefix", "ok", "ok2")]
         public void ShouldReturnWildcardsWhenNoInterval(string prefix, params string[] ids)
         {
-            var indextype = IndexType.testIndex("Indexbase");
+            var indextype = IndexType.TestIndex("Indexbase");
             var indexNamingStrategy = new MonthResolutionIndexNamingStrategy();
             var builder = new IndicesBuilder(new IndexPrefix(prefix), indexNamingStrategy);
 
@@ -147,7 +147,7 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.Services
         [InlineData("prefix", "OK", "Ok2")]
         public void ShouldConvertToLowerCase(string prefix, params string[] ids)
         {
-            var indextype = IndexType.testIndex("Indexbase");
+            var indextype = IndexType.TestIndex("Indexbase");
             var indexNamingStrategy = new MonthResolutionIndexNamingStrategy();
             var builder = new IndicesBuilder(new IndexPrefix(prefix), indexNamingStrategy);
 

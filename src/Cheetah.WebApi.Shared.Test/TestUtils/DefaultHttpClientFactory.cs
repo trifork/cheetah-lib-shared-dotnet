@@ -1,7 +1,7 @@
 using System;
 using System.Net.Http;
 
-namespace Cheetah.WebApi.Shared_test.TestUtils
+namespace Cheetah.WebApi.Shared.Test.TestUtils
 {
     public sealed class DefaultHttpClientFactory : IHttpClientFactory, IDisposable
     {

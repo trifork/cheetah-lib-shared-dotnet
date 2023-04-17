@@ -2,11 +2,11 @@ using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Cheetah.Shared.WebApi.Util;
+namespace Cheetah.WebApi.Shared.Util;
 
 public class EpochDateTimeConverter : DateTimeConverterBase
 {
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    public override object ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
     {
         try
         {
@@ -27,9 +27,9 @@ public class EpochDateTimeConverter : DateTimeConverterBase
         }
     }
 
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
     {
-        var unixTimeMilliseconds = new DateTimeOffset((DateTime)value).ToUnixTimeMilliseconds();
+        var unixTimeMilliseconds = new DateTimeOffset((DateTime)(value ?? throw new ArgumentNullException(nameof(value)))).ToUnixTimeMilliseconds();
         writer.WriteValue(unixTimeMilliseconds);
     }
 }
