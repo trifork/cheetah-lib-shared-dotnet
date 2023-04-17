@@ -3,4 +3,4 @@ redirect_url: README.html
 ---
 # Documentation page
 
-See: [README](~/README.md)
+See: [README](./README.md)

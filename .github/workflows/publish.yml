@@ -1,3 +1,5 @@
+name: docs
+
 on:
   # Runs on pushes targeting the default branch
   push:
@@ -45,11 +47,19 @@ jobs:
       - run: docfx metadata --logLevel verbose docs/docfx.json
       - run: docfx build docs/docfx.json
 
+      - name: create public/
+        run: |
+          mkdir -p public/
+          mv docs/ public/_source
+          cp README.md public/_source
+          rm public/_source/api/.gitignore
+          mv _site/ public/docs
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
+          publish_dir: ./public
           exclude_assets: ""
           force_orphan: true

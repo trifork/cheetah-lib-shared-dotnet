@@ -2,8 +2,8 @@
 
 Popular documentation:
 
-* [CheetahOpenSearchClient](~/api/Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient.yml)
-* [CheetahKafkaExtensions](~/api/Cheetah.WebApi.Shared.Infrastructure.Services.Kafka.CheetahKafkaExtensions.yml)
+* [CheetahOpenSearchClient](./Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient.yml)
+* [CheetahKafkaExtensions](./Cheetah.WebApi.Shared.Infrastructure.Services.Kafka.CheetahKafkaExtensions.yml)
 
 ## Missing expanded documentation
 
