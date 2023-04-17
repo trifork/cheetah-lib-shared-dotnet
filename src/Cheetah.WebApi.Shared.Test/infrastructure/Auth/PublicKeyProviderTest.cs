@@ -33,7 +33,8 @@ namespace PublicKeyProviderTests
             // Arrange
             var oauthConfig = new OAuthConfig { OAuthUrl = oauthUrl };
             var options = Options.Create(oauthConfig);
-            var httpClient = CreateMockedHttpClient("{\"keys\":[{\"kty\":\"RSA\",\"n\":\"some-value\",\"e\":\"AQAB\"}]}");
+            var httpClientHandlerMock = CreateMockedHttpMessageHandler("{\"keys\":[{\"kty\":\"RSA\",\"n\":\"some-value\",\"e\":\"AQAB\"}]}");
+            var httpClient = new HttpClient(httpClientHandlerMock.Object);
             var memoryCache = new MemoryCache(new MemoryCacheOptions());
             var publicKeyProvider = new PublicKeyProvider(options, httpClient, memoryCache);
             var clientId = "test-client-id";
@@ -43,12 +44,15 @@ namespace PublicKeyProviderTests
 
             // Assert
             Assert.Single(result);
+            httpClientHandlerMock
+                .Protected().Verify("SendAsync", Times.Once(),
+                ItExpr.Is<HttpRequestMessage>(x => !x.RequestUri.Query.IsNullOrEmpty()), ItExpr.IsAny<CancellationToken>());
             Assert.Equal("RSA", result[0].Kty);
             Assert.Equal("some-value", result[0].N);
             Assert.Equal("AQAB", result[0].E);
         }
 
-        private HttpClient CreateMockedHttpClient(string responseContent)
+        private Mock<HttpMessageHandler> CreateMockedHttpMessageHandler(string responseContent)
         {
             var messageHandler = new Mock<HttpMessageHandler>();
             messageHandler.Protected()
@@ -64,7 +68,7 @@ namespace PublicKeyProviderTests
                     Content = new StringContent(responseContent),
                 });
 
-            return new HttpClient(messageHandler.Object);
+            return messageHandler;
         }
     }
 }
