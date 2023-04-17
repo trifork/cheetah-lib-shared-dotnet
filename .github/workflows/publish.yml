@@ -51,6 +51,8 @@ jobs:
         run: |
           mkdir -p public/
           mv docs/ public/_source
+          cp README.md public/_source
+          rm public/_source/api/.gitignore
           mv _site/ public/docs
 
       - name: Deploy to GitHub Pages
