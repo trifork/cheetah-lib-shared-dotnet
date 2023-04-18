@@ -10,25 +10,25 @@ using Xunit;
 namespace Cheetah.WebApi.Shared.Test.Util;
 
 [Trait("Category", "Utils"), Trait("TestType", "Unit")]
-public class EpochDateTimeConverterTest
+public class UtcDateTimeConverterTest
 {
     
-    private EpochDateTimeConverter _sut;
-    public EpochDateTimeConverterTest()
+    private readonly UtcDateTimeConverter _sut;
+    public UtcDateTimeConverterTest()
     {
-        _sut = new EpochDateTimeConverter();
+        _sut = new UtcDateTimeConverter();
     }
 
 
     public static IEnumerable<object[]> ValidTestCases => new List<object[]>
     {
-        new object[] { "0", DateTime.UnixEpoch.ToLocalTime() },
-        new object[] { "123", DateTime.UnixEpoch.AddMilliseconds(123).ToLocalTime() },
-        new object[] { "2147483647001", DateTime.UnixEpoch.AddSeconds(int.MaxValue).AddMilliseconds(1).ToLocalTime() }, // Survives Y2K38
-        new object[] { "\"1970-01-01 00:00:00Z\"", DateTime.UnixEpoch.ToLocalTime() },
-        new object[] { "\"1970-01-01 01:00:00+0100\"", DateTime.UnixEpoch.ToLocalTime() },
-        new object[] { "\"1970-01-01 00:00:00.123\"", DateTime.UnixEpoch.AddMilliseconds(123).ToLocalTime() },
-        new object[] { "\"2038-01-19 03:14:07.001Z\"", DateTime.UnixEpoch.AddSeconds(int.MaxValue).AddMilliseconds(1).ToLocalTime() } // Survives Y2K38
+        new object[] { "0", DateTime.UnixEpoch },
+        new object[] { "123", DateTime.UnixEpoch.AddMilliseconds(123) },
+        new object[] { "2147483647001", DateTime.UnixEpoch.AddSeconds(int.MaxValue).AddMilliseconds(1) }, // Survives Y2K38
+        new object[] { "\"1970-01-01 00:00:00Z\"", DateTime.UnixEpoch },
+        new object[] { "\"1970-01-01 01:00:00+0100\"", DateTime.UnixEpoch },
+        new object[] { "\"1970-01-01 00:00:00.123Z\"", DateTime.UnixEpoch.AddMilliseconds(123) },
+        new object[] { "\"2038-01-19 03:14:07.001Z\"", DateTime.UnixEpoch.AddSeconds(int.MaxValue).AddMilliseconds(1) } // Survives Y2K38
     };
 
     [Theory]
@@ -79,19 +79,19 @@ public class EpochDateTimeConverterTest
     [Fact]
     public void Should_CorrectlyReadDateTime()
     {
-        DateTime now = DateTime.UnixEpoch.ToLocalTime();
+        DateTime dateTime = DateTime.UnixEpoch;
         var readerMock = new Mock<JsonReader>();
-        readerMock.SetupGet(x => x.Value).Returns(now);
+        readerMock.SetupGet(x => x.Value).Returns(dateTime);
 
         var value = (DateTime) _sut.ReadJson(readerMock.Object, typeof(DateTime), null, JsonSerializer.CreateDefault());
 
-        Assert.Equal(now, value);
+        Assert.Equal(dateTime, value);
     }
 
     [Fact]
     public void Should_CorrectlyReadDateTimeOffset()
     {
-        DateTimeOffset dateTime = DateTimeOffset.UnixEpoch;
+        var dateTime = DateTimeOffset.UnixEpoch;
         var readerMock = new Mock<JsonReader>();
         readerMock.SetupGet(x => x.Value).Returns(dateTime);
         

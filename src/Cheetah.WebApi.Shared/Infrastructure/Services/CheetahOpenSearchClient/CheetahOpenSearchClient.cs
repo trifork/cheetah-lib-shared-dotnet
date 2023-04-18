@@ -77,7 +77,7 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient
                     {
                         MissingMemberHandling = MissingMemberHandling.Ignore
                     };
-                    jsonSerializerSettings.Converters.Add(new EpochDateTimeConverter());
+                    jsonSerializerSettings.Converters.Add(new UtcDateTimeConverter());
                     return new JsonNetSerializer(builtin, settings, () => jsonSerializerSettings);
                 })
                 .ThrowExceptions();
