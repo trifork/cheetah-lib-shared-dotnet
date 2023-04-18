@@ -1,7 +1,7 @@
 ﻿using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
 using Xunit;
 
-namespace Cheetah.WebApi.Shared_test.infrastructure.IndexFragments
+namespace Cheetah.WebApi.Shared.Test.Infrastructure.IndexFragments
 {
     public class IndexFragmentTests
     {

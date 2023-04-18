@@ -1,7 +1,7 @@
 using System;
-using Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient;
+using Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient;
 
-namespace Cheetah.Shared.WebApi.Core.Config
+namespace Cheetah.WebApi.Shared.Core.Config
 {
     /// <summary>
     /// OpenSearchConfig for IOptions

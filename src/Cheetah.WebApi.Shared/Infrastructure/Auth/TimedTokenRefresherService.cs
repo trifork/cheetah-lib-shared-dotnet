@@ -2,7 +2,7 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Cheetah.Shared.WebApi.Core.Config;
+using Cheetah.WebApi.Shared.Core.Config;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -25,7 +25,7 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
                 logger.LogWarning(nameof(TimedOpenSearchTokenRefresherService) + " was registered but OAuth2 has not been enabled");
                 return;
             }
-            this.tokenService = new CheetahOpenSearchTokenService(logger, httpClientFactory, cache, openSearchConfig.Value.ClientId, openSearchConfig.Value.ClientSecret, openSearchConfig.Value.TokenEndpoint);
+            tokenService = new CheetahOpenSearchTokenService(logger, httpClientFactory, cache, openSearchConfig.Value.ClientId, openSearchConfig.Value.ClientSecret, openSearchConfig.Value.TokenEndpoint);
         }
 
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)

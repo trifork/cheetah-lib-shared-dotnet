@@ -1,10 +1,10 @@
-using Cheetah.WebApi.Shared.Infrastructure.Auth;
 using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Cheetah.WebApi.Shared.Infrastructure.Auth;
 
-namespace Cheetah.Shared.WebApi.Infrastructure.Services.CheetahOpenSearchClient
+namespace Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient
 {
     internal class OAuth2HttpClientHandler : DelegatingHandler
     {

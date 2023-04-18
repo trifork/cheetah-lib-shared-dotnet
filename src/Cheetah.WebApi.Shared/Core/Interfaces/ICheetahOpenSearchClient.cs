@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
 using OpenSearch.Client;
 
-namespace Cheetah.Shared.WebApi.Core.Interfaces
+namespace Cheetah.WebApi.Shared.Core.Interfaces
 {
     public interface ICheetahOpenSearchClient
     {

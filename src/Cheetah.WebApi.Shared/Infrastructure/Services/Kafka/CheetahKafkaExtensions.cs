@@ -1,7 +1,7 @@
 using System;
 using System.Net.Http;
 using System.Threading;
-using Cheetah.Shared.WebApi.Core.Config;
+using Cheetah.WebApi.Shared.Core.Config;
 using Cheetah.WebApi.Shared.Infrastructure.Auth;
 using Confluent.Kafka;
 using Microsoft.Extensions.Caching.Memory;

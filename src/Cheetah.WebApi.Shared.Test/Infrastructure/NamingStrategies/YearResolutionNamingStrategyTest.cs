@@ -1,11 +1,11 @@
 ﻿using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
-using Cheetah.WebApi.Shared_test.models;
 using System;
 using System.Linq;
 using Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies;
+using Cheetah.WebApi.Shared.Test.Models;
 using Xunit;
 
-namespace Cheetah.WebApi.Shared_test.infrastructure.NamingStrategies
+namespace Cheetah.WebApi.Shared.Test.Infrastructure.NamingStrategies
 {
     public class YearResolutionNamingStrategyTest
     {
@@ -19,7 +19,7 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.NamingStrategies
             var from = new DateTimeOffset(harddate.AddYears(-2));
             var to = new DateTimeOffset(harddate);
             var prefix = new IndexPrefix("Prefix");
-            var indexBase = IndexType.testIndex("Indexbase");
+            var indexBase = IndexType.TestIndex("Indexbase");
             var customer = new CustomerIdentifier("Customer");
 
 
@@ -38,7 +38,7 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.NamingStrategies
             var strategy = new YearResolutionIndexNamingStrategy();
             var customerId = "customerId";
             var now = DateTimeOffset.Now;
-            var indexType = IndexType.testIndex("Indexbase");
+            var indexType = IndexType.TestIndex("Indexbase");
 
 
             var indices = strategy.Build(now, now.AddYears(-1), new IndexPrefix("__"), indexType, new CustomerIdentifier(customerId)).ToList();
@@ -53,7 +53,7 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.NamingStrategies
             var customerId = "customerId";
             var now = DateTimeOffset.Now;
 
-            var indexType = IndexType.testIndex("Indexbase");
+            var indexType = IndexType.TestIndex("Indexbase");
             var indexPrefix = new IndexPrefix("abc");
 
             var indices = strategy.Build(now, now, indexPrefix, indexType, new CustomerIdentifier(customerId)).ToList();
@@ -68,7 +68,7 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.NamingStrategies
             var strategy = new YearResolutionIndexNamingStrategy();
             var customerId = "customerId";
             var now = DateTimeOffset.Now;
-            var indexType = IndexType.testIndex("Indexbase");
+            var indexType = IndexType.TestIndex("Indexbase");
 
 
             var indices = strategy.Build(now, now.AddYears(1), new IndexPrefix("__"), indexType, new CustomerIdentifier(customerId)).ToList();
@@ -83,7 +83,7 @@ namespace Cheetah.WebApi.Shared_test.infrastructure.NamingStrategies
             var customerId = "customerId";
             var now = DateTimeOffset.Now;
 
-            var indexType = IndexType.testIndex("Indexbase");
+            var indexType = IndexType.TestIndex("Indexbase");
 
             var indices = strategy.Build(now, now, IndexPrefix.Empty, indexType, new CustomerIdentifier(customerId)).ToList();
 

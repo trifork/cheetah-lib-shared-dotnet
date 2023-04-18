@@ -1,5 +1,7 @@
 ﻿using System;
 
+namespace Cheetah.WebApi.Shared.Infrastructure.ServiceProvider;
+
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
 public sealed class InstallerPriorityAttribute : Attribute
 {

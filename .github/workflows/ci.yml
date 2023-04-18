@@ -39,6 +39,8 @@ jobs:
           dotnet-version: "6.0"
           github_actor: ${{ github.actor }}
           solution_filepath: ${{ env.SOLUTION_FILEPATH }}
+      - name: "Test"
+        run: dotnet test --no-restore --filter 'TestType!=IntegrationTests' ${{ env.SOLUTION_PATH}} /nowarn:cs1591
 
   test_opensearch:
     needs: tests

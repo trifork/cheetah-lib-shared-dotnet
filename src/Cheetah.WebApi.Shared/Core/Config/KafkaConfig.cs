@@ -1,4 +1,4 @@
-namespace Cheetah.Shared.WebApi.Core.Config
+namespace Cheetah.WebApi.Shared.Core.Config
 {
     /// <summary>
     /// KafkaConfig for IOptions

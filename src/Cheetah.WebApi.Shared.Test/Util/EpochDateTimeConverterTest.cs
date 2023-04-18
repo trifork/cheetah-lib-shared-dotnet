@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Cheetah.Shared.WebApi.Util;
+using Cheetah.WebApi.Shared.Util;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace Cheetah.WebApi.Shared_test.Util;
+namespace Cheetah.WebApi.Shared.Test.Util;
 
 [Trait("Category", "Utils"), Trait("TestType", "Unit")]
 public class EpochDateTimeConverterTest

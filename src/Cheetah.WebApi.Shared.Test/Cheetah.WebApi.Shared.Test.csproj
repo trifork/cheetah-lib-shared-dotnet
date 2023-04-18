@@ -2,9 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>Cheetah.WebApi.Shared_test</RootNamespace>
+    <RootNamespace>Cheetah.WebApi.Shared.Test</RootNamespace>
     <Nullable>enable</Nullable>
-
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
