@@ -45,7 +45,7 @@ jobs:
       - run: dotnet tool update -g docfx
 
       - run: docfx metadata --logLevel verbose docs/docfx.json
-      - run: docfx build docs/docfx.json
+      - run: docfx build --warningsAsErrors docs/docfx.json
 
       - name: create public/
         run: |
