@@ -17,8 +17,10 @@ public class EpochDateTimeConverter : DateTimeConverterBase
                     ? dateTime.ToLocalTime()
                     : throw new ArgumentException(
                         $"Attempted to deserialize the string '{val}', into a DateTime, but it could not be parsed"),
+                DateTime val => val.ToLocalTime(),
+                DateTimeOffset val => val.DateTime.ToLocalTime(),
                 _ => throw new ArgumentException(
-                    $"Unable to deserialize type '{reader.Value?.GetType().Name}' into a DateTime.")
+                    $"Unable to deserialize type '{reader.Value?.GetType().FullName}' into a DateTime.")
             };
         }
         catch (Exception e)

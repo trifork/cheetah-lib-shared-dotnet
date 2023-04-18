@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using Cheetah.WebApi.Shared.Util;
+using Moq;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -60,6 +62,30 @@ public class EpochDateTimeConverterTest
         Assert.Throws<JsonSerializationException>(() => _sut.ReadJson(reader, typeof(DateTime), null, Newtonsoft.Json.JsonSerializer.CreateDefault()));
     }
 
+    [Fact]
+    public void Should_BeAbleToDeserializeDateTime()
+    {
+        var now = DateTime.Now;
+        var readerMock = new Mock<JsonReader>();
+        readerMock.SetupGet(x => x.Value).Returns(now);
+
+        var value = (DateTime) _sut.ReadJson(readerMock.Object, typeof(DateTime), null, JsonSerializer.CreateDefault());
+
+        Assert.Equal(value, now);
+    }
+
+    [Fact]
+    public void Should_CorrectlyReadDateTimeOffset()
+    {
+        var now = DateTimeOffset.Now;
+        var readerMock = new Mock<JsonReader>();
+        readerMock.SetupGet(x => x.Value).Returns(now);
+        
+        var value = (DateTime) _sut.ReadJson(readerMock.Object, typeof(DateTime), null, JsonSerializer.CreateDefault());
+
+        Assert.Equal(value, now.DateTime.ToLocalTime());
+    }
+
     [Theory]
     [InlineData(-1)]
     [InlineData(0)]
@@ -71,7 +97,7 @@ public class EpochDateTimeConverterTest
 
         var sb = new StringBuilder();
         var writer = new JsonTextWriter(new StringWriter(sb));
-        _sut.WriteJson(writer, dateTime, Newtonsoft.Json.JsonSerializer.CreateDefault());
+        _sut.WriteJson(writer, dateTime, JsonSerializer.CreateDefault());
 
         var value = sb.ToString();
         
