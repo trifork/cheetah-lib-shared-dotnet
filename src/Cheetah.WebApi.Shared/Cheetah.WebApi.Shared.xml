@@ -197,6 +197,12 @@
             </para>
             </summary>
         </member>
+        <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient.SetJsonSerializerSettingsFactory(System.Func{Newtonsoft.Json.JsonSerializerSettings})">
+            <summary>
+            Set what JSON settings to use when deserializing data from OpenSearch
+            </summary>
+            <param name="jsonSerializerSettingsFactory"></param>
+        </member>
         <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient.GetIndices(System.Collections.Generic.List{Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess.IndexDescriptor})">
             <summary>
             Queries the OpenSearch instance for all indices' names
