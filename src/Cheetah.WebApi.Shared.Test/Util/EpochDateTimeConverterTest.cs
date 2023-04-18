@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Text;
 using Cheetah.WebApi.Shared.Util;
@@ -41,9 +40,24 @@ public class EpochDateTimeConverterTest
             if (!reader.Read())
                 break;
 
-        var obj = (DateTime) _sut.ReadJson(reader, typeof(DateTime), null, Newtonsoft.Json.JsonSerializer.CreateDefault());
+        var actual = (DateTime) _sut.ReadJson(reader, typeof(DateTime), null, Newtonsoft.Json.JsonSerializer.CreateDefault());
 
-        Assert.Equal(obj, expected);
+        Assert.Equal(expected, actual);
+    }
+    
+    
+    public record DummyDateTime(DateTime DateTime);
+    
+    [Theory]
+    [MemberData(nameof(ValidTestCases))]
+    public void Should_CorrectlyDeserializeDateTimeRepresentations_When_UsedInASerializer(string valueJson, DateTime expected)
+    {
+        var json = $"{{ \"DateTime\": {valueJson} }}";
+        var settings = new JsonSerializerSettings();
+        settings.Converters.Add(_sut);
+        var actual = JsonConvert.DeserializeObject<DummyDateTime>(json, settings);
+
+        Assert.Equal(expected, actual?.DateTime);
     }
 
     [Theory]
@@ -63,28 +77,29 @@ public class EpochDateTimeConverterTest
     }
 
     [Fact]
-    public void Should_BeAbleToDeserializeDateTime()
+    public void Should_CorrectlyReadDateTime()
     {
-        var now = DateTime.Now;
+        DateTime now = DateTime.UnixEpoch.ToLocalTime();
         var readerMock = new Mock<JsonReader>();
         readerMock.SetupGet(x => x.Value).Returns(now);
 
         var value = (DateTime) _sut.ReadJson(readerMock.Object, typeof(DateTime), null, JsonSerializer.CreateDefault());
 
-        Assert.Equal(value, now);
+        Assert.Equal(now, value);
     }
 
     [Fact]
     public void Should_CorrectlyReadDateTimeOffset()
     {
-        var now = DateTimeOffset.Now;
+        DateTimeOffset dateTime = DateTimeOffset.UnixEpoch;
         var readerMock = new Mock<JsonReader>();
-        readerMock.SetupGet(x => x.Value).Returns(now);
+        readerMock.SetupGet(x => x.Value).Returns(dateTime);
         
         var value = (DateTime) _sut.ReadJson(readerMock.Object, typeof(DateTime), null, JsonSerializer.CreateDefault());
 
-        Assert.Equal(value, now.DateTime.ToLocalTime());
+        Assert.Equal(dateTime, value);
     }
+
 
     [Theory]
     [InlineData(-1)]
