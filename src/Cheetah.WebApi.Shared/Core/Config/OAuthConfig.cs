@@ -23,11 +23,11 @@ public class OAuthConfig
     /// Secret used by Symmetric validation
     /// </summary>
     /// <value></value>
-    public string SymmetricPrivateKey { get; set; } = "this is very secret"; //todo: SecureString?
-}
+    public string SymmetricPrivateKey { get; set; } = "this is very secret"; //todo: SecureString or mounted secret?
 
-public enum OAuthConfigMode
-{
-    Symmetric,
-    Asymmetric
+    public enum OAuthConfigMode
+    {
+        Symmetric,
+        Asymmetric
+    }
 }

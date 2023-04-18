@@ -51,7 +51,7 @@ jobs:
         run: |
           mkdir -p public/
           mv docs/ public/_source
-          mv src/ public/_src
+          mv src/ public/src
           cp README.md public/_source
           rm public/_source/api/.gitignore
           mv _site/ public/docs
