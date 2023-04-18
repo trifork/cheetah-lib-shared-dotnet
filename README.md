@@ -33,6 +33,7 @@ The internal client can be accessed directly at `_cheetahOpenSearchClient.Intern
 # Register the client for dependency injection
 services.AddMemoryCache();
 services.AddHttpClient();
+services.AddTransient<IMetricReporter, MetricReporter>();
 services.AddTransient<ICheetahOpenSearchClient, CheetahOpenSearchClient>();
 ```
 

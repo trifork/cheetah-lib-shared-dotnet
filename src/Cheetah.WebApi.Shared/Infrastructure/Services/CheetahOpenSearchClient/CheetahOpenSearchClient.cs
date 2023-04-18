@@ -53,6 +53,9 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient
         private readonly OpenSearchConfig _openSearchConfig;
         private readonly IMetricReporter _metricReporter;
 
+        private Func<JsonSerializerSettings> jsonSerializerSettingsFactory;
+
+
         public CheetahOpenSearchClient(IMemoryCache cache, IHttpClientFactory httpClientfactory,
         IOptions<OpenSearchConfig> openSearchConfig, IHostEnvironment hostEnvironment,
             ILogger<CheetahOpenSearchClient> logger, IMetricReporter metricReporter)
@@ -60,7 +63,18 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient
             _logger = logger;
             _openSearchConfig = openSearchConfig.Value;
             _metricReporter = metricReporter;
-            var pool = new SingleNodeConnectionPool(new Uri(_openSearchConfig.Url)); //todo
+            IConnectionPool pool;
+            if (_openSearchConfig.Url.Contains(','))
+            {
+                // SniffingConnectionPool
+                // todo: ensure monitoring_user role
+                // Unless you configure the publish host option, the sniffing result will be unusable.
+                pool = new StaticConnectionPool(_openSearchConfig.Url.Split(',').Select(url => new Uri(url)));
+            }
+            else
+            {
+                pool = new SingleNodeConnectionPool(new Uri(_openSearchConfig.Url));
+            }
             IConnection? cheetahConnection = null;
             _openSearchConfig.ValidateConfig();
 
@@ -73,12 +87,7 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient
             var settings = new ConnectionSettings(pool, cheetahConnection,
                 (builtin, settings) =>
                 {
-                    var jsonSerializerSettings = new JsonSerializerSettings()
-                    {
-                        MissingMemberHandling = MissingMemberHandling.Ignore
-                    };
-                    jsonSerializerSettings.Converters.Add(new UtcDateTimeConverter());
-                    return new JsonNetSerializer(builtin, settings, () => jsonSerializerSettings);
+                    return new JsonNetSerializer(builtin, settings, GetJsonSerializerSettingsFactory());
                 })
                 .ThrowExceptions();
             settings = settings.ServerCertificateValidationCallback(CertificateValidations.AllowAll);
@@ -102,6 +111,31 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient
             // TODO: dive down in the settings for OpenSearch and see if we need to expose any of the options as easily changeable
             InternalClient = new OpenSearchClient(settings);
         }
+
+        #region GetJsonSerializerSettingsFactory
+        private Func<JsonSerializerSettings> GetJsonSerializerSettingsFactory()
+        {
+            if (jsonSerializerSettingsFactory == null) // Get default
+            {
+                var jsonSerializerSettings = new JsonSerializerSettings()
+                {
+                    MissingMemberHandling = MissingMemberHandling.Ignore
+                };
+                jsonSerializerSettings.Converters.Add(new UtcDateTimeConverter());
+                return () => jsonSerializerSettings;
+            }
+            return jsonSerializerSettingsFactory;
+        }
+        #endregion
+        /// <summary>
+        /// Set what JSON settings to use when deserializing data from OpenSearch
+        /// </summary>
+        /// <param name="jsonSerializerSettingsFactory"></param>
+        public void SetJsonSerializerSettingsFactory(Func<JsonSerializerSettings> jsonSerializerSettingsFactory)
+        {
+            this.jsonSerializerSettingsFactory = jsonSerializerSettingsFactory;
+        }
+
 
         /// <summary>
         /// Queries the OpenSearch instance for all indices' names

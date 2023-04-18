@@ -1,2 +1,4 @@
 - name: Configuration
   href: configuration.md
+- name: CheetahOpenSearchClient
+  href: CheetahOpenSearchClient.md
