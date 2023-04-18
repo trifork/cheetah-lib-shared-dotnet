@@ -4,15 +4,6 @@
         <name>Cheetah.WebApi.Shared</name>
     </assembly>
     <members>
-        <member name="M:Cheetah.WebApi.Shared.Core.Config.ConfigureSwaggerOptions.#ctor(Microsoft.AspNetCore.Mvc.ApiExplorer.IApiVersionDescriptionProvider)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Cheetah.WebApi.Shared.Core.Config.ConfigureSwaggerOptions"/> class.
-            </summary>
-            <param name="provider">The <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.IApiVersionDescriptionProvider">provider</see> used to generate Swagger documents.</param>
-        </member>
-        <member name="M:Cheetah.WebApi.Shared.Core.Config.ConfigureSwaggerOptions.Configure(Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions)">
-            <inheritdoc />
-        </member>
         <member name="T:Cheetah.WebApi.Shared.Core.Config.KafkaConfig">
             <summary>
             KafkaConfig for IOptions
@@ -143,6 +134,15 @@
             <summary>
             Validates and throws an error if values are not set for a given <see cref="P:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig.AuthMode"/>.
             </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Core.Configure.ConfigureSwaggerOptions.#ctor(Microsoft.AspNetCore.Mvc.ApiExplorer.IApiVersionDescriptionProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cheetah.WebApi.Shared.Core.Configure.ConfigureSwaggerOptions"/> class.
+            </summary>
+            <param name="provider">The <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.IApiVersionDescriptionProvider">provider</see> used to generate Swagger documents.</param>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Core.Configure.ConfigureSwaggerOptions.Configure(Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions)">
+            <inheritdoc />
         </member>
         <member name="M:Cheetah.WebApi.Shared.Core.Extensions.ResilienceConfiguration.GetRetryPolicy``1(System.IServiceProvider,System.Int32)">
             <summary>

@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Cheetah.WebApi.Shared.Core.Config;
+namespace Cheetah.WebApi.Shared.Core.Configure;
 
 public class ConfigureAsymmetricTokenValidationParameters : IPostConfigureOptions<JwtBearerOptions>
 {
