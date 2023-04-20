@@ -51,7 +51,7 @@ runs:
         GITHUB_TOKEN: ${{ inputs.github_token }}
       run: |
         curl -s -H "Accept: application/vnd.github+json" -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/orgs/trifork/packages/nuget/${{ inputs.package_name }}/versions" | jq ".[].name" > versions.txt
-        echo test
+        grep  -F -x -c '"${{ env.NUGET_PACKAGE_VERSION }}"' versions.txt
         PACKAGE_EXISTS=$(grep  -F -x -c '"${{ env.NUGET_PACKAGE_VERSION }}"' versions.txt)
         echo "Number of matching packages: $PACKAGE_EXISTS"
         if [ $PACKAGE_EXISTS -eq 0 ]; then
