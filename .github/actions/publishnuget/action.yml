@@ -46,7 +46,7 @@ runs:
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
       run: |
-        PACKAGE_EXISTS=$(gh api "repos/:owner/:repo/packages/nuget?package_name=${{ inputs.package_name }}" | jq ".[].version" | grep -F -x -c "${{ env.NUGET_PACKAGE_VERSION }}")
+        PACKAGE_EXISTS=$(curl -s -H "Accept: application/vnd.github+json" -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/packages/nuget?package_name=${{ inputs.package_name }}" | jq ".[].version" | grep -F -x -c "${{ env.NUGET_PACKAGE_VERSION }}")
         echo "Number of matching packages: $PACKAGE_EXISTS"
         if [ $PACKAGE_EXISTS -eq 0 ]; then
           echo "No existing package with the same version found."
