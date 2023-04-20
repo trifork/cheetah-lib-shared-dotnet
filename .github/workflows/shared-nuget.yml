@@ -17,20 +17,8 @@ jobs:
   build-and-push-nuget:
     runs-on: ubuntu-latest
     steps:
-      - name: "Checkout"
-        uses: actions/checkout@v3
-      - name: "dotnet build"
-        uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
-        with:
-          read_package_pat: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
-          project_path: ${{ env.PROJECT_PATH }}
-          dotnet-version: "6.0"
-          github_actor: ${{ github.actor }}
-          solution_filepath: ${{ env.SOLUTION_FILEPATH }}
-      - name: "create output-folder"
-        run: mkdir -p output
       - name: "dotnet publish"
-        #uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
+        #uses: trifork/cheetah-infrastructure-utils/.github/actions/publish-nuget@main
         uses: "./.github/actions/publishnuget"
         with:
           project_filepath: ${{ env.PROJECT_PATH }}
