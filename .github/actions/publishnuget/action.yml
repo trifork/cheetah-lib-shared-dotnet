@@ -85,8 +85,7 @@ runs:
       run: dotnet nuget push output/${{ inputs.package_name }}*.nupkg --skip-duplicate --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --api-key ${{ inputs.github_token }}
 
     - name: "Create release"
-      #&& github.ref == 'refs/heads/main'
-      if: env.PACKAGE_EXISTS == 'false'
+      if: env.PACKAGE_EXISTS == 'false' && github.ref == 'refs/heads/main'
       uses: "actions/github-script@v6"
       env:
         releasenotes_path: "${{ inputs.releasenotes_path }}"

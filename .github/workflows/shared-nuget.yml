@@ -3,15 +3,12 @@ name: Create and publish Cheetah.shared nuget package
 on:
   workflow_dispatch:
   pull_request:
-    branches: [main]
+    branches: ["main"]
   push:
     branches: ["main"]
-    tags:
-      - "v*"
 
 env:
   PROJECT_PATH: ./src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj
-  SOLUTION_FILEPATH: ./Cheetah.WebApi.Shared.sln
 
 jobs:
   build-and-push-nuget:
