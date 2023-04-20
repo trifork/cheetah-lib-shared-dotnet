@@ -66,14 +66,14 @@ runs:
       if: github.ref == 'refs/heads/main'
       run: |
         echo "IS_PRERELEASE=false" >> $GITHUB_ENV
-        dotnet pack -o output /p:PackageVersion="${{ env.NUGET_PACKAGE_VERSION }}" -c Release ${{ inputs.project_filepath }}
+        dotnet pack --no-build -o output /p:PackageVersion="${{ env.NUGET_PACKAGE_VERSION }}" -c Release ${{ inputs.project_filepath }}
 
     - name: "package with suffix"
       shell: bash
       if: github.ref != 'refs/heads/main'
       run: |
         echo "IS_PRERELEASE=true" >> $GITHUB_ENV
-        dotnet pack --version-suffix ${{ github.run_number }} -o output -c Release ${{ inputs.project_filepath }}
+        dotnet pack --no-build --version-suffix ${{ github.run_number }} -o output -c Release ${{ inputs.project_filepath }}
 
     - name: "Publish to github packages"
       if: env.PACKAGE_EXISTS == 'false'
