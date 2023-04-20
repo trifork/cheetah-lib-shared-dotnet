@@ -12,6 +12,9 @@ inputs:
   package_name:
     description: "Package name."
     required: true
+  github_token:
+    description: ""
+    required: true
 
 runs:
   using: composite
@@ -41,7 +44,7 @@ runs:
       id: check_existing_package
       shell: bash
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ inputs.github_token }}
       run: |
         PACKAGE_EXISTS=$(gh api "repos/:owner/:repo/packages/nuget?package_name=${{ inputs.package_name }}" | jq ".[].version" | grep -F -x -c "${{ env.NUGET_PACKAGE_VERSION }}")
         echo "Number of matching packages: $PACKAGE_EXISTS"
@@ -67,4 +70,6 @@ runs:
     - name: "Publish to github packages"
       if: env.PACKAGE_EXISTS == 'false'
       shell: bash
-      run: dotnet nuget push output/${{ inputs.package_name }}*.nupkg --skip-duplicate --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
+      run: dotnet nuget push output/${{ inputs.package_name }}*.nupkg --skip-duplicate --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --api-key ${{ inputs.github_token }}
+
+  # todo: push tag with  package_name+ version?
