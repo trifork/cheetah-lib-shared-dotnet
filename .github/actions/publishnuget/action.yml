@@ -98,10 +98,10 @@ runs:
             const response = await github.rest.repos.createRelease({
               draft: false,
               generate_release_notes: true,
-              body: fs.readFileSync(process.env.releasenotes_path),
+              body: fs.readFileSync(process.env.releasenotes_path,  'utf8'),
               name: "Release " + process.env.PACKAGE_RELEASE_NAME,
               owner: context.repo.owner,
-              prerelease: process.env.IS_PRERELEASE,
+              prerelease: (process.env.IS_PRERELEASE == "true"? true : false),
               repo: context.repo.repo,
               tag_name: process.env.NUGET_PACKAGE_VERSION,
             });
