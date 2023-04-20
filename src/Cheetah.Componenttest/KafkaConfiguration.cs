@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Common;
+namespace Cheetah.ComponentTest;
 
 public class KafkaConfiguration
 {

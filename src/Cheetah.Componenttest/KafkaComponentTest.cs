@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 using Serilog;
 using Serilog.Core;
 
-namespace Common;
+namespace Cheetah.ComponentTest;
 
 public abstract class KafkaComponentTest<TIn, TOut> : ComponentTest
 {
@@ -16,7 +16,7 @@ public abstract class KafkaComponentTest<TIn, TOut> : ComponentTest
     /// Number of messages to be expected to be produced by the tested job
     /// </summary>
     protected abstract int ExpectedResponseCount { get; }
-    
+
     /// <summary>
     /// Time to wait for additional messages to be produced by the tested job
     /// Optional, Default value: 2 seconds.
@@ -27,7 +27,7 @@ public abstract class KafkaComponentTest<TIn, TOut> : ComponentTest
     {
         _configuration = configuration.Value;
     }
-    
+
     internal override Task Arrange(CancellationToken cancellationToken)
     {
         Log.Information("Preparing kafka consumer, consuming from topic '{topic}'", _configuration.ConsumerTopic);
@@ -51,7 +51,7 @@ public abstract class KafkaComponentTest<TIn, TOut> : ComponentTest
                 break;
             }
         }
-        
+
         Log.Information("Preparing kafka producer, producing to topic '{topic}'", _configuration.ProducerTopic);
         _producer = new ProducerBuilder<Null, TIn>(new ProducerConfig
         {
@@ -94,14 +94,14 @@ public abstract class KafkaComponentTest<TIn, TOut> : ComponentTest
             {
                 continue;
             }
-            
+
             messages.Add(consumeResult.Message.Value);
         }
         Log.Information("Successfully consumed {messageCount} messages from Kafka.", messages.Count);
-        
+
         Log.Information("Waiting {waitTimeAfterConsume}, then checking for any additional, unexpected messages...", WaitTimeAfterConsume);
         await Task.Delay(WaitTimeAfterConsume, cancellationToken);
-        
+
         var additionalMessages = new List<TOut>();
         while (!cancellationToken.IsCancellationRequested)
         {
@@ -111,20 +111,20 @@ public abstract class KafkaComponentTest<TIn, TOut> : ComponentTest
             {
                 break;
             }
-            
+
             additionalMessages.Add(consumeResult.Message.Value);
         }
-        
+
         Log.Information("Found {additionalMessageCount} additional messages!", additionalMessages.Count);
         if (additionalMessages.Any())
         {
             // TODO: Find or create a proper exception type for this.
             throw new Exception($"Received a total of {messages.Count + additionalMessages.Count} messages, but only expected {ExpectedResponseCount}");
         }
-        
+
         _consumer.Close();
         _consumer.Dispose();
-        
+
         return messages;
     }
 

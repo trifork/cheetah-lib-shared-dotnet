@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Serilog;
 
-namespace Common;
+namespace Cheetah.ComponentTest;
 
 public class ComponentTestWorker : BackgroundService
 {
@@ -11,7 +11,7 @@ public class ComponentTestWorker : BackgroundService
     private readonly List<(string testName, string failureMessage)> _testFailures = new();
     private readonly object _stoppingLock = new();
     private bool _stopping;
-    
+
     public ComponentTestWorker(IEnumerable<IComponentTest> componentTests, IHostApplicationLifetime lifetime)
     {
         _componentTests = componentTests.ToList();
@@ -65,8 +65,8 @@ public class ComponentTestWorker : BackgroundService
 
         if (_testFailures.Any())
         {
-            Log.Error("{failCount} of {totalCount} tests failed. With the following reasons:", 
-                _testFailures.Count, 
+            Log.Error("{failCount} of {totalCount} tests failed. With the following reasons:",
+                _testFailures.Count,
                 _componentTests.Count);
             foreach (var failure in _testFailures)
             {
@@ -76,7 +76,7 @@ public class ComponentTestWorker : BackgroundService
             Exit(-1);
             return;
         }
-        
+
         Log.Information("All tests passed");
         Exit(0);
     }
@@ -85,7 +85,7 @@ public class ComponentTestWorker : BackgroundService
     {
         lock (_stoppingLock)
         {
-            if(_stopping) return;
+            if (_stopping) return;
             _stopping = true;
         }
 

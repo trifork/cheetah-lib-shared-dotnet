@@ -1,4 +1,4 @@
-namespace Common;
+namespace Cheetah.ComponentTest;
 
 public interface IComponentTest
 {

@@ -1,4 +1,4 @@
-namespace Common;
+namespace Cheetah.ComponentTest;
 
 public struct TestResult
 {
@@ -9,7 +9,7 @@ public struct TestResult
         IsPassed = isPassed;
         ErrorMessage = errorMessage;
     }
-    
+
     public static TestResult Passed => new(true);
     public static TestResult Failed(string errorMessage) => new(false, errorMessage);
 };

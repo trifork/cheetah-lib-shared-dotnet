@@ -1,30 +1,30 @@
-﻿using Common.Extensions;
+﻿using Cheetah.ComponentTest.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
 
-namespace Common;
+namespace Cheetah.ComponentTest;
 
 public class ComponentTestRunner
 {
     private readonly List<Action<IServiceCollection>> _serviceCollectionActions = new();
-    
+
     public ComponentTestRunner AddTest<T>() where T : ComponentTest
     {
-        
+
         _serviceCollectionActions.Add(services => services.AddSingleton<IComponentTest, T>());
         return this;
     }
 
-    public ComponentTestRunner WithConfiguration<TConfiguration>(string configurationPath) 
+    public ComponentTestRunner WithConfiguration<TConfiguration>(string configurationPath)
         where TConfiguration : class
     {
         _serviceCollectionActions.Add(services => services.AddOptionsValidateOnStart<TConfiguration>(configurationPath));
         return this;
     }
-    
+
     public async Task RunAsync(string[] args)
     {
         Log.Logger = new LoggerConfiguration()

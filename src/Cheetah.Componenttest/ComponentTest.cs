@@ -1,6 +1,6 @@
 ﻿using Serilog;
 
-namespace Common;
+namespace Cheetah.ComponentTest;
 
 public abstract class ComponentTest : IComponentTest
 {
@@ -33,7 +33,7 @@ public abstract class ComponentTest : IComponentTest
             {
                 Log.Error("{testName} failed!\n", GetType().Name);
             }
-            
+
             return result;
         }
         catch (OperationCanceledException ex)

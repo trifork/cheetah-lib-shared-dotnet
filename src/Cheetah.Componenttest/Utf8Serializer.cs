@@ -2,7 +2,7 @@
 using System.Text.Json;
 using Confluent.Kafka;
 
-namespace Common;
+namespace Cheetah.ComponentTest;
 
 public class Utf8Serializer<T> : ISerializer<T>, IDeserializer<T>
 {
