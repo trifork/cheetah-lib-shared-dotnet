@@ -46,7 +46,6 @@ runs:
         VERSION=$(cat ${{ inputs.project_filepath }} | grep "<VersionPrefix>" | sed 's/<\/\?VersionPrefix>//g' | tr -d "[:space:]")
         echo "Extracted NuGet package version: $VERSION"
         echo "NUGET_PACKAGE_VERSION=$VERSION" >> $GITHUB_ENV
-        echo "PACKAGE_RELEASE_NAME=${{ inputs.package_name }}-v$VERSION" >> $GITHUB_ENV
 
     - name: Check if package with same version exists
       id: check_existing_package
@@ -70,6 +69,7 @@ runs:
       if: github.ref == 'refs/heads/main'
       run: |
         echo "IS_PRERELEASE=false" >> $GITHUB_ENV
+        echo "PACKAGE_RELEASE_NAME=${{ inputs.package_name }}-v${{ env.NUGET_PACKAGE_VERSION }}" >> $GITHUB_ENV
         dotnet pack --no-build -o output /p:PackageVersion="${{ env.NUGET_PACKAGE_VERSION }}" -c Release ${{ inputs.project_filepath }}
 
     - name: "package with suffix"
@@ -77,6 +77,7 @@ runs:
       if: github.ref != 'refs/heads/main'
       run: |
         echo "IS_PRERELEASE=true" >> $GITHUB_ENV
+        echo "PACKAGE_RELEASE_NAME=${{ inputs.package_name }}-v${{ env.NUGET_PACKAGE_VERSION }}-${{ github.run_number }}" >> $GITHUB_ENV
         dotnet pack --no-build --version-suffix ${{ github.run_number }} -o output -c Release ${{ inputs.project_filepath }}
 
     - name: Read release notes
@@ -89,7 +90,7 @@ runs:
     - name: "Publish to github packages"
       if: env.PACKAGE_EXISTS == 'false'
       shell: bash
-      run: dotnet nuget push output/${{ inputs.package_name }}*.nupkg --skip-duplicate --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --api-key ${{ inputs.github_token }} --property ReleaseNotes="${{ env.RELEASE_NOTES }}
+      run: dotnet nuget push output/${{ inputs.package_name }}*.nupkg --skip-duplicate --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --api-key ${{ inputs.github_token }}
 
     - name: "Create release"
       #&& github.ref == 'refs/heads/main'
