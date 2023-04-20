@@ -15,6 +15,9 @@ inputs:
   github_token:
     description: ""
     required: true
+  releasenotes_path:
+    description: ""
+    required: true
 
 runs:
   using: composite
@@ -43,6 +46,7 @@ runs:
         VERSION=$(cat ${{ inputs.project_filepath }} | grep "<VersionPrefix>" | sed 's/<\/\?VersionPrefix>//g' | tr -d "[:space:]")
         echo "Extracted NuGet package version: $VERSION"
         echo "NUGET_PACKAGE_VERSION=$VERSION" >> $GITHUB_ENV
+        echo "PACKAGE_RELEASE_NAME=${{ inputs.package_name }}-v$VERSION" >> $GITHUB_ENV
 
     - name: Check if package with same version exists
       id: check_existing_package
@@ -75,20 +79,39 @@ runs:
         echo "IS_PRERELEASE=true" >> $GITHUB_ENV
         dotnet pack --no-build --version-suffix ${{ github.run_number }} -o output -c Release ${{ inputs.project_filepath }}
 
+    - name: Read release notes
+      shell: bash
+      id: read_release_notes
+      run: |
+        RELEASE_NOTES=$(cat ${{ inputs.releasenotes_path }})
+        echo "RELEASE_NOTES=${RELEASE_NOTES}" >> $GITHUB_ENV
+
     - name: "Publish to github packages"
       if: env.PACKAGE_EXISTS == 'false'
       shell: bash
-      run: dotnet nuget push output/${{ inputs.package_name }}*.nupkg --skip-duplicate --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --api-key ${{ inputs.github_token }}
+      run: dotnet nuget push output/${{ inputs.package_name }}*.nupkg --skip-duplicate --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --api-key ${{ inputs.github_token }} --property ReleaseNotes="${{ env.RELEASE_NOTES }}
 
-    # todo: release notes
-    - name: Create Release
-      if: env.PACKAGE_EXISTS == 'false' && github.ref == 'refs/heads/main'
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ inputs.github_token }}
+    - name: "Create release"
+      #&& github.ref == 'refs/heads/main'
+      if: env.PACKAGE_EXISTS == 'false'
+      uses: "actions/github-script@v6"
       with:
-        tag_name: "${{ inputs.package_name }}-v${{ env.NUGET_PACKAGE_VERSION }}"
-        release_name: Release ${{ inputs.package_name }}-v${{ env.NUGET_PACKAGE_VERSION }}
-        draft: false
-        prerelease: ${{ env.IS_PRERELEASE }}
+        github-token: "${{ inputs.github_token }}"
+        script: |
+          try {
+            const response = await github.rest.repos.createRelease({
+              draft: false,
+              generate_release_notes: true,
+              body: process.env.RELEASE_NOTES
+              name: "Release " + process.env.PACKAGE_RELEASE_NAME,
+              owner: context.repo.owner,
+              prerelease: process.env.IS_PRERELEASE,
+              repo: context.repo.repo,
+              tag_name: process.env.NUGET_PACKAGE_VERSION,
+            });
+
+            core.exportVariable('RELEASE_ID', response.data.id);
+            core.exportVariable('RELEASE_UPLOAD_URL', response.data.upload_url);
+          } catch (error) {
+            core.setFailed(error.message);
+          }
