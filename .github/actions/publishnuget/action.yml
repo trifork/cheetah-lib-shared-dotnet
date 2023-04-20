@@ -89,7 +89,7 @@ runs:
       if: env.PACKAGE_EXISTS == 'false'
       uses: "actions/github-script@v6"
       env:
-        releasenotes_path: "${{env.releasenotes_path}}"
+        releasenotes_path: "${{ inputs.releasenotes_path }}"
       with:
         github-token: "${{ inputs.github_token }}"
         script: |
