@@ -46,6 +46,8 @@ runs:
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
       run: |
+        echo "Packages:"
+        curl -s -H "Accept: application/vnd.github+json" -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/orgs/trifork/packages/nuget/${{ inputs.package_name }}/versions" -v | jq ".[].name"
         PACKAGE_EXISTS=$(curl -s -H "Accept: application/vnd.github+json" -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/orgs/trifork/packages/nuget/${{ inputs.package_name }}/versions" | jq ".[].name" | grep '"${{ env.NUGET_PACKAGE_VERSION }}"' -F -x -c)
         echo "Number of matching packages: $PACKAGE_EXISTS"
         if [ $PACKAGE_EXISTS -eq 0 ]; then
@@ -56,24 +58,33 @@ runs:
           echo "PACKAGE_EXISTS=true" >> $GITHUB_ENV
         fi
 
-      # todo: main check
     - name: "package with version"
       shell: bash
       if: github.ref == 'refs/heads/main'
-      run: dotnet pack -o output /p:PackageVersion="${{ env.NUGET_PACKAGE_VERSION }}" -c Release ${{ inputs.project_filepath }}
+      run: |
+        echo "IS_PRERELEASE=false" >> $GITHUB_ENV
+        dotnet pack -o output /p:PackageVersion="${{ env.NUGET_PACKAGE_VERSION }}" -c Release ${{ inputs.project_filepath }}
 
     - name: "package with suffix"
       shell: bash
       if: github.ref != 'refs/heads/main'
-      run: dotnet pack --version-suffix ${{ github.run_number }} -o output -c Release ${{ inputs.project_filepath }}
+      run: |
+        echo "IS_PRERELEASE=true" >> $GITHUB_ENV
+        dotnet pack --version-suffix ${{ github.run_number }} -o output -c Release ${{ inputs.project_filepath }}
 
     - name: "Publish to github packages"
       if: env.PACKAGE_EXISTS == 'false'
       shell: bash
       run: dotnet nuget push output/${{ inputs.package_name }}*.nupkg --skip-duplicate --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --api-key ${{ inputs.github_token }}
-# todo: push tag with  package_name+ version?
-# also make release with release notes
 
-#curl -s -H "Accept: application/vnd.github+json" -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/trifork/cheetah-lib-shared-dotnet/packages/nuget?package_name=Cheetah.WebApi.Shared"
-
-#curl -s -H "Accept: application/vnd.github+json" -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/orgs/trifork/packages/nuget/Cheetah.WebApi.Shared/versions
+    - name: Create Release
+      if: env.PACKAGE_EXISTS == 'false'
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+      with:
+        tag_name: "${{ inputs.package_name }}-v${{ env.NUGET_PACKAGE_VERSION }}"
+        release_name: Release ${{ inputs.package_name }}-v${{ env.NUGET_PACKAGE_VERSION }}
+        draft: false
+        prerelease: ${{ env.IS_PRERELEASE }}
