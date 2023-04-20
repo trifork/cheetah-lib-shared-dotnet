@@ -1,4 +1,4 @@
-name: Create and publish Cheetah.shared nuget package
+name: build and test Cheetah.WebApi.Shared.sln
 
 on:
   workflow_dispatch: {}
