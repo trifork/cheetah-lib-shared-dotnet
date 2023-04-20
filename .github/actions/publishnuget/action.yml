@@ -46,7 +46,7 @@ runs:
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
       run: |
-        PACKAGE_EXISTS=$(curl -s -H "Accept: application/vnd.github+json" -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/packages/nuget?package_name=${{ inputs.package_name }}" | jq ".[].version" | grep -F -x -c "${{ env.NUGET_PACKAGE_VERSION }}")
+        PACKAGE_EXISTS=$(curl -s -H "Accept: application/vnd.github+json" -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/orgs/trifork/packages/nuget/${{ inputs.package_name }}/versions" | jq ".[].name" | grep '"${{ env.NUGET_PACKAGE_VERSION }}"' -F -x -c)
         echo "Number of matching packages: $PACKAGE_EXISTS"
         if [ $PACKAGE_EXISTS -eq 0 ]; then
           echo "No existing package with the same version found."
@@ -71,5 +71,9 @@ runs:
       if: env.PACKAGE_EXISTS == 'false'
       shell: bash
       run: dotnet nuget push output/${{ inputs.package_name }}*.nupkg --skip-duplicate --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --api-key ${{ inputs.github_token }}
+# todo: push tag with  package_name+ version?
+# also make release with release notes
 
-  # todo: push tag with  package_name+ version?
+#curl -s -H "Accept: application/vnd.github+json" -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/trifork/cheetah-lib-shared-dotnet/packages/nuget?package_name=Cheetah.WebApi.Shared"
+
+#curl -s -H "Accept: application/vnd.github+json" -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/orgs/trifork/packages/nuget/Cheetah.WebApi.Shared/versions
