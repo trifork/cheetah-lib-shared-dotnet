@@ -9,11 +9,11 @@ public class KafkaConfiguration
     public string ConsumerGroup { get; } = "ComponentTest";
 
     [Required]
-    public string BootstrapServer { get; set; } = "kafka:19092";
+    public string BootstrapServer { get; set; }
 
     [Required]
-    public string ConsumerTopic { get; set; } = "MappedInfoCodes";
+    public string ConsumerTopic { get; set; }
 
     [Required]
-    public string ProducerTopic { get; set; } = "RawMeterStates";
+    public string ProducerTopic { get; set; }
 }
