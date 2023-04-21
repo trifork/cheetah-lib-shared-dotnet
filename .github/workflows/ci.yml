@@ -46,7 +46,7 @@ jobs:
         if: success() || failure()
         with:
           name: Tests
-          path: Cheetah.WebApi.Shared.Test/TestResults/*.trx
+          path: src/Cheetah.WebApi.Shared.Test/TestResults/*.trx
           reporter: dotnet-trx
 
   test_opensearch:
@@ -95,7 +95,7 @@ jobs:
         if: success() || failure()
         with:
           name: Tests
-          path: Cheetah.WebApi.Shared.Test/TestResults/*.trx
+          path: src/Cheetah.WebApi.Shared.Test/TestResults/*.trx
           reporter: dotnet-trx
 
   kafka-authentication-lib:
@@ -137,5 +137,5 @@ jobs:
         if: success() || failure()
         with:
           name: Tests
-          path: Cheetah.WebApi.Shared.Test/TestResults/*.trx
+          path: src/Cheetah.WebApi.Shared.Test/TestResults/*.trx
           reporter: dotnet-trx
