@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <VersionPrefix>1.0.1</VersionPrefix>
     <RootNamespace>Cheetah.ComponentTest</RootNamespace>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReadmeFile>Readme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
