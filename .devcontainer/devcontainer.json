@@ -54,6 +54,7 @@
 				"DavidAnson.vscode-markdownlint",
 				"docsmsft.docs-linting",
 				"yzhang.markdown-all-in-one",
+				"redhat.vscode-xml",
 				// Required extensions
 				//"GitHub.copilot",
 				"ms-dotnettools.csharp",
