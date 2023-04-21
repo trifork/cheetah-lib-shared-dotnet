@@ -30,7 +30,7 @@ await new ComponentTestRunner()
 example-component-test:
     build:
       context: .
-      dockerfile: MappingJobTest/Dockerfile
+      dockerfile: Dockerfile
     environment:
       KAFKA__BOOTSTRAPSERVER: kafka_Server:Port_number
       KAFKA__CONSUMERTOPIC: ConsumerTopic

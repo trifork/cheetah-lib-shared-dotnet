@@ -61,6 +61,10 @@ public abstract class KafkaComponentTest<TIn, TOut> : ComponentTest
         return Task.CompletedTask;
     }
 
+    /// <summary>
+    /// Define messages to publish to Kafka
+    /// </summary>
+    /// <returns></returns>
     protected abstract IEnumerable<TIn> GetMessagesToPublish();
 
     internal sealed override async Task Act(CancellationToken cancellationToken)
@@ -128,5 +132,10 @@ public abstract class KafkaComponentTest<TIn, TOut> : ComponentTest
         return messages;
     }
 
+    /// <summary>
+    /// Define how to validate results from Kafka
+    /// </summary>
+    /// <param name="result"></param>
+    /// <returns></returns>
     protected abstract TestResult ValidateResult(IEnumerable<TOut> result);
 }
