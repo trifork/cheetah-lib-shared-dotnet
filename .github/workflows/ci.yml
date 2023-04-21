@@ -40,7 +40,7 @@ jobs:
           github_actor: ${{ github.actor }}
           solution_filepath: ${{ env.SOLUTION_FILEPATH }}
       - name: "Test"
-        run: dotnet test --no-restore --filter 'TestType!=IntegrationTests' ${{ env.SOLUTION_PATH}} /nowarn:cs1591
+        run: dotnet test --logger trx --no-restore --filter 'TestType!=IntegrationTests' ${{ env.SOLUTION_PATH}} /nowarn:cs1591
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: success() || failure()
@@ -89,7 +89,7 @@ jobs:
           warning_on_retry: false
           command: 'curl -sS -X GET -H "Content-Type: application/json" http://admin:admin@opensearch:9200/_cat/indices'
       - name: "Test Integration"
-        run: dotnet test --no-restore --verbosity normal --filter 'Category=OpenSearch' ${{ env.SOLUTION_PATH}}
+        run: dotnet test --logger trx --no-restore --verbosity normal --filter 'Category=OpenSearch' ${{ env.SOLUTION_PATH}}
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: success() || failure()
