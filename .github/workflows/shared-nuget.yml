@@ -24,3 +24,4 @@ jobs:
           package_name: "Cheetah.WebApi.Shared"
           github_token: ${{ secrets.GITHUB_TOKEN }}
           releasenotes_path: src/Cheetah.WebApi.Shared/ReleaseNotes.md
+          kamstrup_gitlab_token: ${{ vars.KAMSTRUP_GITLAB_TOKEN }}
