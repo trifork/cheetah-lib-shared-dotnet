@@ -1,4 +1,4 @@
-name: Create and publish Cheetah.shared nuget package
+name: Create and publish Cheetah.ComponentTest nuget package
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
     branches: ["main"]
 
 env:
-  PROJECT_PATH: ./src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj
+  PROJECT_PATH: ./src/Cheetah.Componenttest/Cheetah.ComponentTest.csproj
 
 jobs:
   build-and-push-nuget:
@@ -21,6 +21,6 @@ jobs:
         with:
           project_filepath: ${{ env.PROJECT_PATH }}
           dotnet-version: "6.0"
-          package_name: "Cheetah.WebApi.Shared"
+          package_name: "Cheetah.ComponentTest"
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          releasenotes_path: src/Cheetah.WebApi.Shared/ReleaseNotes.md
+          releasenotes_path: ./src/Cheetah.Componenttest/ReleaseNotes.md
