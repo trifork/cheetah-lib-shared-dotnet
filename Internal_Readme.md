@@ -1,5 +1,10 @@
 # Cheetah.Shared (Documentation for developers)
 
+## Making releases
+
+Edit `<VersionPrefix>` and `ReleaseNotes.md` to create a new release.
+Any new version registered in `origin/main` will result in a release + release notes with a tag
+
 ## Running tests locally
 
 To run unit tests locally run:
