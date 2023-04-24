@@ -14,7 +14,7 @@ public class ComponentTestRunner
     /// <summary>
     /// Add a component test to the collection of test to run
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">Of type ComponentTest</typeparam>
     /// <returns></returns>
     public ComponentTestRunner AddTest<T>() where T : ComponentTest
     {
