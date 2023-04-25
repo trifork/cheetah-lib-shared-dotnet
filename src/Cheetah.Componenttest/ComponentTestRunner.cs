@@ -11,6 +11,11 @@ public class ComponentTestRunner
 {
     private readonly List<Action<IServiceCollection>> _serviceCollectionActions = new();
 
+    /// <summary>
+    /// Add a component test to the collection of test to run
+    /// </summary>
+    /// <typeparam name="T">Of type ComponentTest</typeparam>
+    /// <returns></returns>
     public ComponentTestRunner AddTest<T>() where T : ComponentTest
     {
 
