@@ -1,13 +1,11 @@
 ﻿using Confluent.Kafka;
-using Confluent.Kafka.Admin;
 using Microsoft.Extensions.Options;
 using Serilog;
-using Serilog.Core;
 
-namespace Cheetah.ComponentTest;
-
-public abstract class KafkaComponentTest<TIn, TOut> : ComponentTest
+namespace Cheetah.ComponentTest
 {
+  public abstract class KafkaComponentTest<TIn, TOut> : ComponentTest
+  {
     private readonly KafkaConfiguration _configuration;
     private IProducer<Null, TIn> _producer;
     private IConsumer<Null, TOut> _consumer;
@@ -25,40 +23,40 @@ public abstract class KafkaComponentTest<TIn, TOut> : ComponentTest
 
     protected KafkaComponentTest(IOptions<KafkaConfiguration> configuration)
     {
-        _configuration = configuration.Value;
+      _configuration = configuration.Value;
     }
 
     internal override Task Arrange(CancellationToken cancellationToken)
     {
-        Log.Information("Preparing kafka consumer, consuming from topic '{topic}'", _configuration.ConsumerTopic);
-        _consumer = new ConsumerBuilder<Null, TOut>(new ConsumerConfig
-        {
-            BootstrapServers = _configuration.BootstrapServer,
-            GroupId = _configuration.ConsumerGroup,
-            AllowAutoCreateTopics = true,
-            EnablePartitionEof = true
-        })
-            .SetValueDeserializer(new Utf8Serializer<TOut>())
-            .Build();
+      Log.Information("Preparing kafka consumer, consuming from topic '{topic}'", _configuration.ConsumerTopic);
+      _consumer = new ConsumerBuilder<Null, TOut>(new ConsumerConfig
+      {
+        BootstrapServers = _configuration.BootstrapServer,
+        GroupId = _configuration.ConsumerGroup,
+        AllowAutoCreateTopics = true,
+        EnablePartitionEof = true
+      })
+          .SetValueDeserializer(new Utf8Serializer<TOut>())
+          .Build();
 
-        _consumer.Assign(new TopicPartitionOffset(_configuration.ConsumerTopic, 0, Offset.End));
+      _consumer.Assign(new TopicPartitionOffset(_configuration.ConsumerTopic, 0, Offset.End));
 
-        while (!cancellationToken.IsCancellationRequested)
+      while (!cancellationToken.IsCancellationRequested)
+      {
+        var consumeResult = _consumer.Consume(cancellationToken);
+        if (consumeResult.IsPartitionEOF)
         {
-            var consumeResult = _consumer.Consume(cancellationToken);
-            if (consumeResult.IsPartitionEOF)
-            {
-                break;
-            }
+          break;
         }
+      }
 
-        Log.Information("Preparing kafka producer, producing to topic '{topic}'", _configuration.ProducerTopic);
-        _producer = new ProducerBuilder<Null, TIn>(new ProducerConfig
-        {
-            BootstrapServers = _configuration.BootstrapServer
-        }).SetValueSerializer(new Utf8Serializer<TIn>()).Build();
+      Log.Information("Preparing kafka producer, producing to topic '{topic}'", _configuration.ProducerTopic);
+      _producer = new ProducerBuilder<Null, TIn>(new ProducerConfig
+      {
+        BootstrapServers = _configuration.BootstrapServer
+      }).SetValueSerializer(new Utf8Serializer<TIn>()).Build();
 
-        return Task.CompletedTask;
+      return Task.CompletedTask;
     }
 
     /// <summary>
@@ -69,67 +67,67 @@ public abstract class KafkaComponentTest<TIn, TOut> : ComponentTest
 
     internal sealed override async Task Act(CancellationToken cancellationToken)
     {
-        var messages = GetMessagesToPublish().ToList();
+      var messages = GetMessagesToPublish().ToList();
 
-        foreach (var message in messages)
-        {
-            await _producer.ProduceAsync(_configuration.ProducerTopic, new Message<Null, TIn> { Value = message }, cancellationToken);
-        }
+      foreach (var message in messages)
+      {
+        await _producer.ProduceAsync(_configuration.ProducerTopic, new Message<Null, TIn> { Value = message }, cancellationToken);
+      }
 
-        Log.Information($"Published {messages.Count} messages to Kafka");
+      Log.Information($"Published {messages.Count} messages to Kafka");
     }
 
     internal sealed override async Task<TestResult> Assert(CancellationToken cancellationToken)
     {
-        var messages = await ConsumeMessages(cancellationToken);
-        return ValidateResult(messages);
+      var messages = await ConsumeMessages(cancellationToken);
+      return ValidateResult(messages);
     }
 
     private async Task<IEnumerable<TOut>> ConsumeMessages(CancellationToken cancellationToken)
     {
-        var messages = new List<TOut>();
+      var messages = new List<TOut>();
 
-        Log.Information("Consuming messages from '{topic}', expecting a total of {count} messages...", _configuration.ConsumerTopic, ExpectedResponseCount);
-        while (messages.Count < ExpectedResponseCount && !cancellationToken.IsCancellationRequested)
+      Log.Information("Consuming messages from '{topic}', expecting a total of {count} messages...", _configuration.ConsumerTopic, ExpectedResponseCount);
+      while (messages.Count < ExpectedResponseCount && !cancellationToken.IsCancellationRequested)
+      {
+        var consumeResult = _consumer.Consume(cancellationToken);
+
+        if (consumeResult.IsPartitionEOF)
         {
-            var consumeResult = _consumer.Consume(cancellationToken);
-
-            if (consumeResult.IsPartitionEOF)
-            {
-                continue;
-            }
-
-            messages.Add(consumeResult.Message.Value);
-        }
-        Log.Information("Successfully consumed {messageCount} messages from Kafka.", messages.Count);
-
-        Log.Information("Waiting {waitTimeAfterConsume}, then checking for any additional, unexpected messages...", WaitTimeAfterConsume);
-        await Task.Delay(WaitTimeAfterConsume, cancellationToken);
-
-        var additionalMessages = new List<TOut>();
-        while (!cancellationToken.IsCancellationRequested)
-        {
-            var consumeResult = _consumer.Consume(cancellationToken);
-
-            if (consumeResult.IsPartitionEOF)
-            {
-                break;
-            }
-
-            additionalMessages.Add(consumeResult.Message.Value);
+          continue;
         }
 
-        Log.Information("Found {additionalMessageCount} additional messages!", additionalMessages.Count);
-        if (additionalMessages.Any())
+        messages.Add(consumeResult.Message.Value);
+      }
+      Log.Information("Successfully consumed {messageCount} messages from Kafka.", messages.Count);
+
+      Log.Information("Waiting {waitTimeAfterConsume}, then checking for any additional, unexpected messages...", WaitTimeAfterConsume);
+      await Task.Delay(WaitTimeAfterConsume, cancellationToken);
+
+      var additionalMessages = new List<TOut>();
+      while (!cancellationToken.IsCancellationRequested)
+      {
+        var consumeResult = _consumer.Consume(cancellationToken);
+
+        if (consumeResult.IsPartitionEOF)
         {
-            // TODO: Find or create a proper exception type for this.
-            throw new Exception($"Received a total of {messages.Count + additionalMessages.Count} messages, but only expected {ExpectedResponseCount}");
+          break;
         }
 
-        _consumer.Close();
-        _consumer.Dispose();
+        additionalMessages.Add(consumeResult.Message.Value);
+      }
 
-        return messages;
+      Log.Information("Found {additionalMessageCount} additional messages!", additionalMessages.Count);
+      if (additionalMessages.Any())
+      {
+        // TODO: Find or create a proper exception type for this.
+        throw new Exception($"Received a total of {messages.Count + additionalMessages.Count} messages, but only expected {ExpectedResponseCount}");
+      }
+
+      _consumer.Close();
+      _consumer.Dispose();
+
+      return messages;
     }
 
     /// <summary>
@@ -138,4 +136,5 @@ public abstract class KafkaComponentTest<TIn, TOut> : ComponentTest
     /// <param name="result">IEnumerable of the consumed messages</param>
     /// <returns></returns>
     protected abstract TestResult ValidateResult(IEnumerable<TOut> result);
+  }
 }

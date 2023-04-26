@@ -5,18 +5,18 @@ using Prometheus;
 
 namespace Cheetah.WebApi.Shared.Middleware.Metric
 {
-    public class KestrelMetricService : BackgroundService
+  public class KestrelMetricService : BackgroundService
+  {
+    readonly KestrelMetricServer _kestrelserver;
+    public KestrelMetricService(int port)
     {
-        KestrelMetricServer _kestrelserver;
-        public KestrelMetricService(int port)
-        {
-            _kestrelserver = new KestrelMetricServer(port);
-        }
-
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            _kestrelserver.Start();
-            return Task.CompletedTask;
-        }
+      _kestrelserver = new KestrelMetricServer(port);
     }
+
+    protected override Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+      _kestrelserver.Start();
+      return Task.CompletedTask;
+    }
+  }
 }

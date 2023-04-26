@@ -1,10 +1,10 @@
-﻿namespace Cheetah.WebApi.Shared.Core.Config;
-
-/// <summary>
-/// OAuthConfig for IOptions. Can be used by WebApi's to authenticate user http requests.
-/// </summary>
-public class OAuthConfig
+﻿namespace Cheetah.WebApi.Shared.Core.Config
 {
+  /// <summary>
+  /// OAuthConfig for IOptions. Can be used by WebApi's to authenticate user http requests.
+  /// </summary>
+  public class OAuthConfig
+  {
     /// <summary>
     /// Prefix for options e.g. OAuth__
     /// </summary>
@@ -27,7 +27,8 @@ public class OAuthConfig
 
     public enum OAuthConfigMode
     {
-        Symmetric,
-        Asymmetric
+      Symmetric,
+      Asymmetric
     }
+  }
 }

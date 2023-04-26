@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Cheetah.ComponentTest;
-
-public class KafkaConfiguration
+namespace Cheetah.ComponentTest
 {
+  public class KafkaConfiguration
+  {
     public const string Position = "Kafka";
 
     public string ConsumerGroup { get; } = "ComponentTest";
@@ -16,4 +16,5 @@ public class KafkaConfiguration
 
     [Required]
     public string ProducerTopic { get; set; }
+  }
 }
