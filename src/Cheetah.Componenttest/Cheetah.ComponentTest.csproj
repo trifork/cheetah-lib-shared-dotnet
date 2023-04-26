@@ -6,11 +6,13 @@
     <Nullable>enable</Nullable>
     <VersionPrefix>1.0.1</VersionPrefix>
     <RootNamespace>Cheetah.ComponentTest</RootNamespace>
-    <PackageReadmeFile>Readme.md</PackageReadmeFile>
+    <PackageReadmeFile>CheetahComponentTest.md</PackageReadmeFile>
+    <!--  TODO -->
+    <PackageDescription>Cheetah.ComponentTest</PackageDescription>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Readme.md" Pack="true" PackagePath="\" />
+    <None Include="../../docs/articles/CheetahComponentTest.md" Pack="true" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Confluent.Kafka" Version="2.1.0" />
