@@ -145,8 +145,8 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient
         {
             var result = await InternalClient.Indices.GetAsync(new GetIndexRequest(Indices.All));
             return result.Indices.Select(index => index.Key.ToString())
-                                 .Where(x => !x.StartsWith('.'))
-                                 .ToList();
+                                .Where(x => !x.StartsWith('.'))
+                                .ToList();
         }
     }
 }
