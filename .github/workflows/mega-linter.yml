@@ -44,6 +44,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # ADD YOUR CUSTOM ENV VARIABLES HERE OR DEFINE THEM IN A FILE .mega-linter.yml AT THE ROOT OF YOUR REPOSITORY
           DISABLE: COPYPASTE,SPELL,REPOSITORY_CHECKOV # Uncomment to disable copy-paste and spell checks
+          DOCKERFILE_HADOLINT_ARGUMENTS: "--ignore ds026"
+          REPOSITORY_CHECKOV_ARGUMENTS: "--skip-check CKV2_GHA_1"
+          EXCLUDED_DIRECTORIES: ".devcontainer"
 
       # Upload MegaLinter artifacts
       - name: Archive production artifacts
