@@ -28,7 +28,11 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
       this.clientSecret = clientSecret;
       this.tokenEndpoint = tokenEndpoint;
     }
-
+    
+    /// <summary>
+    /// Request access token
+    /// </summary>
+    /// <returns>Token response</returns>
     public async Task<TokenResponse?> RequestAccessTokenCachedAsync(CancellationToken cancellationToken)
     {
       if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(clientSecret) || string.IsNullOrEmpty(tokenEndpoint))
@@ -47,6 +51,11 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
                               });
 
     }
+    
+    /// <summary>
+    /// Request access token with client credentials
+    /// </summary>
+    /// <returns>Token response</returns>
     public async Task<TokenResponse?> RequestClientCredentialsTokenAsync(CancellationToken cancellationToken)
     {
       if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(clientSecret) || string.IsNullOrEmpty(tokenEndpoint))
