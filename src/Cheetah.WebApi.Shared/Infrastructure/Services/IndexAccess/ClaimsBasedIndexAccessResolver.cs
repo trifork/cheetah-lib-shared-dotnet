@@ -5,10 +5,10 @@ using Cheetah.WebApi.Shared.Core.IndexFragments;
 using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
 using Microsoft.AspNetCore.Http;
 
-namespace Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
-
-public class ClaimsBasedIndexAccessResolver : IIndexAccessResolver
+namespace Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess
 {
+  public class ClaimsBasedIndexAccessResolver : IIndexAccessResolver
+  {
     private const string CustomerClaimName = "cheetah:customer";
 
     private readonly IIndicesBuilder _indicesBuilder;
@@ -16,31 +16,34 @@ public class ClaimsBasedIndexAccessResolver : IIndexAccessResolver
 
     public ClaimsBasedIndexAccessResolver(IIndicesBuilder indicesBuilder, IHttpContextAccessor contextAccessor)
     {
-        _indicesBuilder = indicesBuilder;
-        _contextAccessor = contextAccessor;
+      _indicesBuilder = indicesBuilder;
+      _contextAccessor = contextAccessor;
     }
 
     public bool IsAccessible(IndexDescriptor indexName)
     {
-        var accessibleCustomers = GetAccessibleCustomers();
-        return accessibleCustomers.Contains(indexName.Customer);
+      var accessibleCustomers = GetAccessibleCustomers();
+      return accessibleCustomers.Contains(indexName.Customer);
     }
 
     public List<IndexDescriptor> GetAccessibleIndices(IndexTypeBase type)
     {
-        var customerIds = GetAccessibleCustomers();
-        return _indicesBuilder.Build(type, customerIds).ToList();
+      var customerIds = GetAccessibleCustomers();
+      return _indicesBuilder.Build(type, customerIds).ToList();
     }
 
     public List<IndexDescriptor> GetAccessibleIndices(DateTimeOffset @from, DateTimeOffset to, IndexTypeBase type)
     {
-        var customerIds = GetAccessibleCustomers();
-        return _indicesBuilder.Build(type, from, to, customerIds).ToList();
+      var customerIds = GetAccessibleCustomers();
+      return _indicesBuilder.Build(type, from, to, customerIds).ToList();
     }
 
-    private CustomerIdentifier[] GetAccessibleCustomers() =>
-        _contextAccessor.HttpContext?.User.Claims
+    private CustomerIdentifier[] GetAccessibleCustomers()
+    {
+      return _contextAccessor.HttpContext?.User.Claims
             .Where(c => c.Type.Equals(CustomerClaimName))
             .Select(c => new CustomerIdentifier(c.Value))
             .ToArray() ?? Array.Empty<CustomerIdentifier>();
+    }
+  }
 }
