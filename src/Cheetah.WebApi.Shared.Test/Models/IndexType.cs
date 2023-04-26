@@ -2,16 +2,16 @@
 
 namespace Cheetah.WebApi.Shared.Test.Models
 {
-    public class IndexType : IndexTypeBase
+  public class IndexType : IndexTypeBase
+  {
+
+    public static IndexType TestIndex(string indexBase = "indexBase")
     {
-
-        public static IndexType TestIndex(string indexBase = "indexBase")
-        {
-            return new IndexType(indexBase);
-        }
-
-        public IndexType(string name) : base(name)
-        {
-        }
+      return new IndexType(indexBase);
     }
+
+    public IndexType(string name) : base(name)
+    {
+    }
+  }
 }

@@ -2,27 +2,28 @@
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Cheetah.WebApi.Shared.Core.Configure;
-
-public class ConfigureAsymmetricTokenValidationParameters : IPostConfigureOptions<JwtBearerOptions>
+namespace Cheetah.WebApi.Shared.Core.Configure
 {
+  public class ConfigureAsymmetricTokenValidationParameters : IPostConfigureOptions<JwtBearerOptions>
+  {
     private readonly IPublicKeyProvider _publicKeyProvider;
 
     public ConfigureAsymmetricTokenValidationParameters(IPublicKeyProvider publicKeyProvider)
     {
-        this._publicKeyProvider = publicKeyProvider;
+      _publicKeyProvider = publicKeyProvider;
     }
 
     public void PostConfigure(string name, JwtBearerOptions options)
     {
-        options.TokenValidationParameters.IssuerSigningKeyResolver = this.CreateAsymmetricResolver();
+      options.TokenValidationParameters.IssuerSigningKeyResolver = CreateAsymmetricResolver();
     }
 
     private IssuerSigningKeyResolver CreateAsymmetricResolver()
     {
-        // assign variable to avoid capturing this class instance in the closure
-        var publicKeyCache = this._publicKeyProvider;
+      // assign variable to avoid capturing this class instance in the closure
+      var publicKeyCache = _publicKeyProvider;
 
-        return (token, securityToken, kid, validationParameters) => publicKeyCache.GetKey(securityToken.Issuer).GetAwaiter().GetResult();
+      return (token, securityToken, kid, validationParameters) => publicKeyCache.GetKey(securityToken.Issuer).GetAwaiter().GetResult();
     }
+  }
 }
