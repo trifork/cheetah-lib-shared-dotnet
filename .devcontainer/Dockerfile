@@ -10,9 +10,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 
 # Install Docker to use in docker-in-docker
-RUN apt-get update && apt-get install -y curl \
-     && rm -rf /var/lib/apt/lists/* \
-     && curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh 
+RUN curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh 
 # Add user "admin" to the Docker group
 #&& usermod -a -G docker admin
 #ADD https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker /etc/bash_completion.d/docker.sh
