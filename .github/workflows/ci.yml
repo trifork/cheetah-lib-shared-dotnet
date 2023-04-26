@@ -1,4 +1,4 @@
-name: build and test Cheetah.WebApi.Shared.sln
+name: build and test
 
 on:
   workflow_dispatch: {}
@@ -40,7 +40,14 @@ jobs:
           github_actor: ${{ github.actor }}
           solution_filepath: ${{ env.SOLUTION_FILEPATH }}
       - name: "Test"
-        run: dotnet test --no-restore --filter 'TestType!=IntegrationTests' ${{ env.SOLUTION_PATH}} /nowarn:cs1591
+        run: dotnet test --logger trx --no-restore --filter 'TestType!=IntegrationTests' ${{ env.SOLUTION_PATH}} /nowarn:cs1591
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Tests
+          path: src/Cheetah.WebApi.Shared.Test/TestResults/*.trx
+          reporter: dotnet-trx
 
   test_opensearch:
     needs: tests
@@ -81,9 +88,15 @@ jobs:
           retry_wait_seconds: 5
           warning_on_retry: false
           command: 'curl -sS -X GET -H "Content-Type: application/json" http://admin:admin@opensearch:9200/_cat/indices'
-
       - name: "Test Integration"
-        run: dotnet test --no-restore --verbosity normal --filter 'Category=OpenSearch' ${{ env.SOLUTION_PATH}}
+        run: dotnet test --logger trx --no-restore --verbosity normal --filter 'Category=OpenSearch' ${{ env.SOLUTION_PATH}}
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Tests
+          path: src/Cheetah.WebApi.Shared.Test/TestResults/*.trx
+          reporter: dotnet-trx
 
   kafka-authentication-lib:
     needs: tests
@@ -117,4 +130,12 @@ jobs:
           sudo echo "127.0.0.1 kafka" | sudo tee -a /etc/hosts
           sudo echo "127.0.0.1 cheetahoauthsimulator" | sudo tee -a /etc/hosts
       - name: "Test Integration"
-        run: dotnet test --no-restore --verbosity normal --filter 'Category=Kafka' ${{ env.SOLUTION_PATH}}
+        run: dotnet test --logger trx --no-restore --verbosity normal --filter 'Category=Kafka' ${{ env.SOLUTION_PATH}}
+
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Tests
+          path: src/Cheetah.WebApi.Shared.Test/TestResults/*.trx
+          reporter: dotnet-trx
