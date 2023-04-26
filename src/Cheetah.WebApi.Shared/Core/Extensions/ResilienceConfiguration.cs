@@ -42,8 +42,8 @@ public static class ResilienceConfiguration
             {
                 Random jitterer = new();
                 return TimeSpan.FromSeconds(Math.Pow(2,
-                           retryAttempt)) // exponential back-off: 2, 4, 8 etc
-                       + TimeSpan.FromMilliseconds(jitterer.Next(0, 1000)); // added some jitter
+                          retryAttempt)) // exponential back-off: 2, 4, 8 etc
+                      + TimeSpan.FromMilliseconds(jitterer.Next(0, 1000)); // added some jitter
             }
         }
 
