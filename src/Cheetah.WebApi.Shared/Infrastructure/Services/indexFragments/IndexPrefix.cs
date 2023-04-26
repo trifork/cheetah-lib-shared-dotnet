@@ -7,6 +7,6 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments
     }
 
     public IndexPrefix(string value) : base(value) { }
-    public static IndexPrefix Empty = new();
+    public readonly static IndexPrefix Empty = new();
   }
 }
