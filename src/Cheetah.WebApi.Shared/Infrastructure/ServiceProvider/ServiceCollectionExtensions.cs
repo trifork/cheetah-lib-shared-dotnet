@@ -7,8 +7,14 @@ using Microsoft.Extensions.Hosting;
 
 namespace Cheetah.WebApi.Shared.Infrastructure.ServiceProvider
 {
+  /// <summary>
+  /// IServiceCollection extension to install services on the hosting environment. 
+  /// </summary>
   public static class ServiceCollectionExtensions
   {
+    /// <summary>
+    /// Install services on the hosting environment using specific installer types. 
+    /// </summary>
     public static void Install(this IServiceCollection services, IHostEnvironment hostEnvironment,
         Assembly assembly, int? priorityFilter = null, IServiceCollectionInstaller[]? additionalInstallers = null)
     {
@@ -36,7 +42,10 @@ namespace Cheetah.WebApi.Shared.Infrastructure.ServiceProvider
         installer?.Install(services, hostEnvironment);
       }
     }
-
+    
+    /// <summary>
+    /// Install services on the hosting environment using specific installer types. 
+    /// </summary>
     public static void Install(this IServiceCollection services, IHostEnvironment hostEnvironment, params IServiceCollectionInstaller[] allInstallers)
     {
       var orderedInstallerTypes = allInstallers.OrderBy(GetPriority);

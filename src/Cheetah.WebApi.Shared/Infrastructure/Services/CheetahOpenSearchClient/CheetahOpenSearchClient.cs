@@ -28,13 +28,13 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient
   /// <item>
   /// <term>Access control</term>
   /// <description>
-  /// Callers of this class would be able to access only indices on ES that they are authorized to access
+  /// Callers of this class would be able to access only indices on OpenSearch that they are authorized to access
   /// </description>
   /// </item>
   /// <item>
   /// <term>Logging</term>
   /// <description>
-  /// When debug mode is enabled the raw requests to ES are logged in plaintext
+  /// When debug mode is enabled the raw requests to OpenSearch are logged in plaintext
   /// </description>
   /// </item>
   /// <item>

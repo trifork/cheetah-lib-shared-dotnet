@@ -10,6 +10,9 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Cheetah.WebApi.Shared.Infrastructure.Auth
 {
+  /// <summary>
+  /// Public key provider used to provide public keys
+  /// </summary>
   public class PublicKeyProvider : IPublicKeyProvider
   {
     private readonly IOptions<OAuthConfig> _oauthConfig;
@@ -23,6 +26,10 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
       _memoryCache = memoryCache;
     }
 
+    /// <summary>
+    /// Get public key based on client id 
+    /// </summary>
+    /// <returns> returns a JWT public key </returns>
     public async Task<JsonWebKey[]> GetKey(string clientId)
     {
       var cachedValue = await _memoryCache.GetOrCreateAsync(
@@ -45,6 +52,10 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
       return cachedValue;
     }
 
+    /// <summary>
+    /// Get public keys based on client id 
+    /// </summary>
+    /// <returns> returns a JWT public key </returns>
     public async Task<JsonWebKey[]> GetKeys(string clientId)
     {
       var jwksUriBuilder = new UriBuilder(_oauthConfig.Value.OAuthUrl)

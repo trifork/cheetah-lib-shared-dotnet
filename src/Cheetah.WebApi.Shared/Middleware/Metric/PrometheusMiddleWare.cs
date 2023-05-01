@@ -9,11 +9,18 @@ namespace Cheetah.WebApi.Shared.Middleware.Metric
   {
     private readonly RequestDelegate _request;
 
+    /// <summary>
+    /// Instantiate a Prometheus MiddleWare class to handle HTTP requests
+    /// </summary>
+    /// <param name="request"> Request delegate</param>
     public PrometheusMiddleWare(RequestDelegate request)
     {
       _request = request ?? throw new ArgumentNullException(nameof(request));
     }
 
+    /// <summary>
+    /// Invoke a httpContext to the Metric Reporter to register request and register response time.
+    /// </summary>
     public async Task Invoke(HttpContext httpContext, IMetricReporter reporter)
     {
       var path = httpContext.Request.Path.Value;
