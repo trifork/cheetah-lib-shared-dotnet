@@ -8,7 +8,7 @@ namespace Cheetah.WebApi.Shared.Middleware.Metric
   public class KestrelMetricService : BackgroundService
   {
     readonly KestrelMetricServer _kestrelserver;
-    
+
     /// <summary>
     /// Instantiate a stand-alone Kestrel based metric server that only serves Prometheus requests. 
     /// </summary>
