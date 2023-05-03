@@ -31,12 +31,10 @@ namespace Cheetah.ComponentTest
     {
       AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes())
       .Where(x => typeof(ComponentTest).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
-      .Select(x => Activator.CreateInstance(x))
-      .Where(x => x != null)
       .ToList().ForEach(instance =>
       _serviceCollectionActions.Add(
-          services => services.AddSingleton((IComponentTest)instance))
-      );
+          services => services.AddSingleton(typeof(IComponentTest), instance)
+      ));
       return this;
     }
 
