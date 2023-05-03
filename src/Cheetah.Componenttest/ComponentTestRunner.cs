@@ -23,6 +23,23 @@ namespace Cheetah.ComponentTest
       return this;
     }
 
+    /// <summary>
+    /// Adds all classes implementing the IComponentTest interface
+    /// </summary>
+    /// <returns></returns>
+    public ComponentTestRunner AddAllTests()
+    {
+      AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes())
+      .Where(x => typeof(ComponentTest).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
+      .Select(x => Activator.CreateInstance(x))
+      .Where(x => x != null)
+      .ToList().ForEach(instance =>
+      _serviceCollectionActions.Add(
+          services => services.AddSingleton((IComponentTest)instance))
+      );
+      return this;
+    }
+
     public ComponentTestRunner WithConfiguration<TConfiguration>(string configurationPath)
         where TConfiguration : class
     {
