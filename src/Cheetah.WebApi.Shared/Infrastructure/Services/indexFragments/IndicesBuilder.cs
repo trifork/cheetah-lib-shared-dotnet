@@ -7,31 +7,31 @@ using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
 
 namespace Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments
 {
-  public class IndicesBuilder : IIndicesBuilder
-  {
-    private readonly ITimeIntervalIndexNamingStrategy _indexNamingStrategy;
-    public IndexPrefix Prefix { get; }
-
-    public IndicesBuilder(IndexPrefix prefix, ITimeIntervalIndexNamingStrategy indexNamingStrategy)
+    public class IndicesBuilder : IIndicesBuilder
     {
-      _indexNamingStrategy = indexNamingStrategy;
-      Prefix = prefix;
-    }
+        private readonly ITimeIntervalIndexNamingStrategy _indexNamingStrategy;
+        public IndexPrefix Prefix { get; }
 
-    public IEnumerable<IndexDescriptor> Build(IndexTypeBase type, params CustomerIdentifier[] customerIdentifiers)
-    {
-      var basename = IndexUtils.GetBaseName(Prefix, type);
+        public IndicesBuilder(IndexPrefix prefix, ITimeIntervalIndexNamingStrategy indexNamingStrategy)
+        {
+            _indexNamingStrategy = indexNamingStrategy;
+            Prefix = prefix;
+        }
 
-      return customerIdentifiers
-              .Select(customer => new IndexDescriptor(customer, $"{basename}_{customer}_*"))
-              .ToList();
-    }
+        public IEnumerable<IndexDescriptor> Build(IndexTypeBase type, params CustomerIdentifier[] customerIdentifiers)
+        {
+            var basename = IndexUtils.GetBaseName(Prefix, type);
 
-    public IEnumerable<IndexDescriptor> Build(IndexTypeBase type, DateTimeOffset from, DateTimeOffset to, params CustomerIdentifier[] identifiers)
-    {
-      return identifiers
-              .SelectMany(customer => _indexNamingStrategy.Build(from, to, Prefix, type, customer))
-              .ToList();
+            return customerIdentifiers
+                    .Select(customer => new IndexDescriptor(customer, $"{basename}_{customer}_*"))
+                    .ToList();
+        }
+
+        public IEnumerable<IndexDescriptor> Build(IndexTypeBase type, DateTimeOffset from, DateTimeOffset to, params CustomerIdentifier[] identifiers)
+        {
+            return identifiers
+                    .SelectMany(customer => _indexNamingStrategy.Build(from, to, Prefix, type, customer))
+                    .ToList();
+        }
     }
-  }
 }
