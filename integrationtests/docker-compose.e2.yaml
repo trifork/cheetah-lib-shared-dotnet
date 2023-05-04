@@ -1,3 +1,4 @@
+---
 version: "2.1"
 
 services:
@@ -7,11 +8,7 @@ services:
     profiles:
       - kafka
     command:
-      [
-        "sh",
-        "-c",
-        "bin/zookeeper-server-start.sh config/zookeeper.properties"
-      ]
+      ["sh", "-c", "bin/zookeeper-server-start.sh config/zookeeper.properties"]
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       LOG_DIR: /tmp/logs
@@ -27,7 +24,7 @@ services:
       [
         "sh",
         "-c",
-        "bin/kafka-server-start.sh /opt/kafka/custom-config/server.properties"
+        "bin/kafka-server-start.sh /opt/kafka/custom-config/server.properties",
       ]
     profiles:
       - kafka
@@ -58,15 +55,15 @@ services:
       - node.name=os01
       - discovery.type=single-node
       - bootstrap.memory_lock=true
-      - 'OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m'
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
       - DISABLE_INSTALL_DEMO_CONFIG=false
       - network.host=0.0.0.0
       - plugins.security.ssl.http.enabled=false
     volumes:
-      - './opensearch_security.config.yml:/usr/share/opensearch/config/opensearch-security/config.yml'
+      - "./opensearch_security.config.yml:/usr/share/opensearch/config/opensearch-security/config.yml"
     network_mode: cheetah-infrastructure
     hostname: opensearch
-    image: 'opensearchproject/opensearch:2.6.0'
+    image: "opensearchproject/opensearch:2.6.0"
 
   cheetah.oauth.simulator:
     hostname: cheetahoauthsimulator

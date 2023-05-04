@@ -52,3 +52,6 @@ msbuild.wrn
 /**/obj/
 _site
 docs/api/.manifest
+
+# Mega-linter
+megalinter-reports/

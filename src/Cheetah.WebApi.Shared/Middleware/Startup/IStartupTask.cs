@@ -2,5 +2,5 @@
 
 namespace Cheetah.WebApi.Shared.Middleware.Startup
 {
-  public interface IStartupTask : IHostedService { }
+    public interface IStartupTask : IHostedService { }
 }

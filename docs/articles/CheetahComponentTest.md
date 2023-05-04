@@ -45,7 +45,7 @@ To use the NuGet package this configuration must be added to the `NuGet.Config` 
 
 ## Running test in docker compose
 
-To run the componentest in docker compose, it's required to pull the NuGet package. 
+To run the componentest in docker compose, it's required to pull the NuGet package.
 
 ```bash
 # Example for docker compose componenttest

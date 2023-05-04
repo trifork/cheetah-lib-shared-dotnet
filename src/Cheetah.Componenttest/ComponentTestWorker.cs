@@ -3,95 +3,114 @@ using Serilog;
 
 namespace Cheetah.ComponentTest
 {
-  public class ComponentTestWorker : BackgroundService
-  {
-    private readonly List<IComponentTest> _componentTests;
-    private readonly IHostApplicationLifetime _lifetime;
-    private int _successfulTestCounter;
-    private readonly List<(string testName, string failureMessage)> _testFailures = new();
-    private readonly object _stoppingLock = new();
-    private bool _stopping;
-
-    public ComponentTestWorker(IEnumerable<IComponentTest> componentTests, IHostApplicationLifetime lifetime)
+    public class ComponentTestWorker : BackgroundService
     {
-      _componentTests = componentTests.ToList();
-      _lifetime = lifetime;
-    }
+        private readonly List<IComponentTest> _componentTests;
+        private readonly IHostApplicationLifetime _lifetime;
+        private int _successfulTestCounter;
+        private readonly List<(string testName, string failureMessage)> _testFailures = new();
+        private readonly object _stoppingLock = new();
+        private bool _stopping;
 
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-    {
-      try
-      {
-        foreach (var test in _componentTests)
+        public ComponentTestWorker(
+            IEnumerable<IComponentTest> componentTests,
+            IHostApplicationLifetime lifetime
+        )
         {
-          var result = await test.RunAsync(stoppingToken);
-
-          if (result.IsPassed)
-          {
-            _successfulTestCounter++;
-          }
-          else
-          {
-            _testFailures.Add((test.GetType().Name, result.ErrorMessage ?? "No failure message provided"));
-          }
+            _componentTests = componentTests.ToList();
+            _lifetime = lifetime;
         }
 
-        EndTest();
-      }
-      catch (Exception e)
-      {
-        lock (_stoppingLock)
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-          // Suppress any exceptions thrown while the test is already stopping.
-          if (_stopping) return;
+            try
+            {
+                foreach (var test in _componentTests)
+                {
+                    var result = await test.RunAsync(stoppingToken);
+
+                    if (result.IsPassed)
+                    {
+                        _successfulTestCounter++;
+                    }
+                    else
+                    {
+                        _testFailures.Add(
+                            (
+                                test.GetType().Name,
+                                result.ErrorMessage ?? "No failure message provided"
+                            )
+                        );
+                    }
+                }
+
+                EndTest();
+            }
+            catch (Exception e)
+            {
+                lock (_stoppingLock)
+                {
+                    // Suppress any exceptions thrown while the test is already stopping.
+                    if (_stopping)
+                        return;
+                }
+
+                Log.Error(
+                    "An unexpected exception was thrown while running tests. It had type '{exceptionType}' and message: '{message}'",
+                    e.GetType().FullName,
+                    e.Message
+                );
+                Exit(-1);
+                throw;
+            }
         }
 
-        Log.Error(
-            "An unexpected exception was thrown while running tests. It had type '{exceptionType}' and message: '{message}'",
-            e.GetType().FullName,
-            e.Message);
-        Exit(-1);
-        throw;
-      }
-    }
-
-    private void EndTest()
-    {
-      Log.Information("============= Results  =============");
-      Log.Information("{totalTests} run, {passedTests} passed, {failedTests} failed.",
-          _componentTests.Count,
-          _successfulTestCounter,
-          _testFailures.Count);
-
-      if (_testFailures.Any())
-      {
-        Log.Error("{failCount} of {totalCount} tests failed. With the following reasons:",
-            _testFailures.Count,
-            _componentTests.Count);
-        foreach (var (testName, failureMessage) in _testFailures)
+        private void EndTest()
         {
-          Log.Error("{testName} failed with message: {failureMessage}", testName, failureMessage);
+            Log.Information("============= Results  =============");
+            Log.Information(
+                "{totalTests} run, {passedTests} passed, {failedTests} failed.",
+                _componentTests.Count,
+                _successfulTestCounter,
+                _testFailures.Count
+            );
+
+            if (_testFailures.Any())
+            {
+                Log.Error(
+                    "{failCount} of {totalCount} tests failed. With the following reasons:",
+                    _testFailures.Count,
+                    _componentTests.Count
+                );
+                foreach (var (testName, failureMessage) in _testFailures)
+                {
+                    Log.Error(
+                        "{testName} failed with message: {failureMessage}",
+                        testName,
+                        failureMessage
+                    );
+                }
+
+                Exit(-1);
+                return;
+            }
+
+            Log.Information("All tests passed");
+            Exit(0);
         }
 
-        Exit(-1);
-        return;
-      }
+        private void Exit(int exitCode)
+        {
+            lock (_stoppingLock)
+            {
+                if (_stopping)
+                    return;
+                _stopping = true;
+            }
 
-      Log.Information("All tests passed");
-      Exit(0);
+            Log.Information("Exiting with exit code: {exitCode}", exitCode);
+            Environment.ExitCode = exitCode;
+            _lifetime.StopApplication();
+        }
     }
-
-    private void Exit(int exitCode)
-    {
-      lock (_stoppingLock)
-      {
-        if (_stopping) return;
-        _stopping = true;
-      }
-
-      Log.Information("Exiting with exit code: {exitCode}", exitCode);
-      Environment.ExitCode = exitCode;
-      _lifetime.StopApplication();
-    }
-  }
 }
