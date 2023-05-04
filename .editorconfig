@@ -13,7 +13,7 @@ tab_width = 2
 
 # New line preferences
 end_of_line = crlf
-insert_final_newline = false
+insert_final_newline = true
 
 # Default severity for all analyzer diagnostics
 # NB: This is very strict and any issue will result in build failure
@@ -248,18 +248,6 @@ dotnet_diagnostic.CA1707.severity = none
 
 # IDE0045: Convert to conditional expression
 dotnet_diagnostic.IDE0045.severity = suggestion
-
-# Disable _ for private fields
-
-dotnet_naming_rule.private_members_with_underscore.symbols  = private_fields
-dotnet_naming_rule.private_members_with_underscore.style    = prefix_underscore
-dotnet_naming_rule.private_members_with_underscore.severity = error
- 
-dotnet_naming_symbols.private_fields.applicable_kinds           = field
-dotnet_naming_symbols.private_fields.applicable_accessibilities = private
- 
-dotnet_naming_style.prefix_underscore.capitalization = camel_case
-dotnet_naming_style.prefix_underscore.required_prefix = 
 
 # IDE0090: Use 'new(...)'
 dotnet_diagnostic.IDE0090.severity = suggestion
