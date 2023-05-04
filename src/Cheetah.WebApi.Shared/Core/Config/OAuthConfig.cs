@@ -1,4 +1,4 @@
-﻿namespace Cheetah.WebApi.Shared.Core.Config
+namespace Cheetah.WebApi.Shared.Core.Config
 {
     /// <summary>
     /// OAuthConfig for IOptions. Can be used by WebApi's to authenticate user http requests.

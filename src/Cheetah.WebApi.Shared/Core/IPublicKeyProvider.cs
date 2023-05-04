@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Cheetah.WebApi.Shared.Core

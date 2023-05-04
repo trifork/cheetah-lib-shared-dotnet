@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Prometheus;
 
 namespace Cheetah.WebApi.Shared.Middleware.Metric

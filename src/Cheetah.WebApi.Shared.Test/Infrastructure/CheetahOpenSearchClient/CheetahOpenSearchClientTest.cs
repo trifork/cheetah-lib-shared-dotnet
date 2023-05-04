@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Cheetah.WebApi.Shared.Core.Config;
 using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;

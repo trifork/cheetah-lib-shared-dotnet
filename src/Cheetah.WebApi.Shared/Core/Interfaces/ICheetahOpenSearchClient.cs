@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
 using OpenSearch.Client;

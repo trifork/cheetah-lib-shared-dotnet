@@ -1,4 +1,4 @@
-﻿using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
+using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
 
 namespace Cheetah.WebApi.Shared.Test.Models
 {
