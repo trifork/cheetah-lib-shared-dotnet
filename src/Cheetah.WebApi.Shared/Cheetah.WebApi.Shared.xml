@@ -195,17 +195,17 @@
         </member>
         <member name="T:Cheetah.WebApi.Shared.Infrastructure.ServiceProvider.ServiceCollectionExtensions">
             <summary>
-            IServiceCollection extension to install services on the hosting environment. 
+            IServiceCollection extension to install services on the hosting environment.
             </summary>
         </member>
         <member name="M:Cheetah.WebApi.Shared.Infrastructure.ServiceProvider.ServiceCollectionExtensions.Install(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment,System.Reflection.Assembly,System.Nullable{System.Int32},Cheetah.WebApi.Shared.Infrastructure.ServiceProvider.IServiceCollectionInstaller[])">
             <summary>
-            Install services on the hosting environment using specific installer types. 
+            Install services on the hosting environment using specific installer types.
             </summary>
         </member>
         <member name="M:Cheetah.WebApi.Shared.Infrastructure.ServiceProvider.ServiceCollectionExtensions.Install(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment,Cheetah.WebApi.Shared.Infrastructure.ServiceProvider.IServiceCollectionInstaller[])">
             <summary>
-            Install services on the hosting environment using specific installer types. 
+            Install services on the hosting environment using specific installer types.
             </summary>
         </member>
         <member name="T:Cheetah.WebApi.Shared.Infrastructure.ServiceProvider.ServiceCollectionInstallerComparer">
@@ -373,12 +373,12 @@
         </member>
         <member name="M:Cheetah.WebApi.Shared.Middleware.Metric.KestrelMetricService.#ctor(System.Int32)">
             <summary>
-            Instantiate a stand-alone Kestrel based metric server that only serves Prometheus requests. 
+            Instantiate a stand-alone Kestrel based metric server that only serves Prometheus requests.
             </summary>
         </member>
         <member name="M:Cheetah.WebApi.Shared.Middleware.Metric.KestrelMetricService.ExecuteAsync(System.Threading.CancellationToken)">
             <summary>
-            Start kestrel server. 
+            Start kestrel server.
             </summary>
         </member>
         <member name="M:Cheetah.WebApi.Shared.Middleware.Metric.MetricReporter.#ctor(Microsoft.Extensions.Logging.ILogger{Cheetah.WebApi.Shared.Middleware.Metric.MetricReporter})">
@@ -419,7 +419,7 @@
         </member>
         <member name="M:Cheetah.WebApi.Shared.Middleware.Startup.StartupTaskContext.MarkTaskAsComplete">
             <summary>
-            Mark a task as done to shared context 
+            Mark a task as done to shared context
             </summary>
         </member>
         <member name="P:Cheetah.WebApi.Shared.Middleware.Startup.StartupTaskContext.IsComplete">
@@ -429,13 +429,13 @@
         </member>
         <member name="M:Cheetah.WebApi.Shared.Middleware.Startup.StartupTaskExtensions.AddStartupTasks(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-            Add startup multiple tasks to the IServiceCollection 
+            Add startup multiple tasks to the IServiceCollection
             </summary>
             <returns>The IServiceCollection</returns>
         </member>
         <member name="M:Cheetah.WebApi.Shared.Middleware.Startup.StartupTaskExtensions.AddStartupTask``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-            Add startup task to the IServiceCollection 
+            Add startup task to the IServiceCollection
             </summary>
             <returns>The IServiceCollection</returns>
         </member>
