@@ -70,13 +70,7 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.CheetahOpenSearchClient
             var logger =
                 loggerFactory.CreateLogger<Shared.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient>();
             Shared.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient client =
-                new(
-                    memoryCache,
-                    httpClientFactory,
-                    options,
-                    env,
-                    logger
-                );
+                new(memoryCache, httpClientFactory, options, env, logger);
 
             var newIndexName = Guid.NewGuid().ToString();
             var newIndicesResponse = client.InternalClient.Indices.Create(
