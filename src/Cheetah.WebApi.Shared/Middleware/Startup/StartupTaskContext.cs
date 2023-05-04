@@ -13,7 +13,7 @@ namespace Cheetah.WebApi.Shared.Middleware.Startup
     {
       Interlocked.Increment(ref outstandingTaskCount);
     }
-    
+
     /// <summary>
     /// Mark a task as done to shared context 
     /// </summary>
@@ -21,7 +21,7 @@ namespace Cheetah.WebApi.Shared.Middleware.Startup
     {
       Interlocked.Decrement(ref outstandingTaskCount);
     }
-  
+
     /// <summary>
     /// Check if all tasks is complete
     /// </summary>

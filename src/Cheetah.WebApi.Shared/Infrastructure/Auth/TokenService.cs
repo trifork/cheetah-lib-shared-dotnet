@@ -28,7 +28,7 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
       this.clientSecret = clientSecret;
       this.tokenEndpoint = tokenEndpoint;
     }
-    
+
     /// <summary>
     /// Request access token
     /// </summary>
@@ -51,7 +51,7 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
                               });
 
     }
-    
+
     /// <summary>
     /// Request access token with client credentials
     /// </summary>
