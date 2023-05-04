@@ -18,11 +18,11 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.Kafka
             var cachedAccessToken = tokenService.RequestClientCredentialsTokenAsync(CancellationToken.None).GetAwaiter().GetResult();
             if (cachedAccessToken == null || string.IsNullOrEmpty(cachedAccessToken.AccessToken))
             {
-                logger.LogError("Could not retrieve oauth2 accesstoken");
+                logger.LogError($"Could not retrieve oauth2 accesstoken from {cfg}", cfg);
                 client.OAuthBearerSetTokenFailure("Could not retrieve access token from IDP. Look at environment values to ensure they are correct");
                 return;
             }
-            logger.LogDebug("Forwarded new oauth2 accesstoken to kafka");
+            logger.LogDebug($"Forwarded new oauth2 accesstoken to kafka from  {cfg}", cfg);
             client.OAuthBearerSetToken(cachedAccessToken.AccessToken, DateTimeOffset.UtcNow.AddSeconds(cachedAccessToken.ExpiresIn).ToUnixTimeMilliseconds(), "unused");
         }
         private static CheetahKafkaTokenService BuildTokenService(ILogger logger, IServiceProvider provider) // We are not using DI, as we do not know which settings to look at

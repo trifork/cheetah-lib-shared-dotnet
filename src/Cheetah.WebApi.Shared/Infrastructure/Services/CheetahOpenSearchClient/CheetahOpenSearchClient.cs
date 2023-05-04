@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Cheetah.WebApi.Shared.Core.Config;
 using Cheetah.WebApi.Shared.Core.Interfaces;
 using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
-using Cheetah.WebApi.Shared.Middleware.Metric;
 using Cheetah.WebApi.Shared.Util;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Hosting;
@@ -51,18 +50,16 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient
         private readonly ILogger<CheetahOpenSearchClient> _logger;
         public OpenSearchClient InternalClient { get; }
         private readonly OpenSearchConfig _openSearchConfig;
-        private readonly IMetricReporter _metricReporter;
 
         private Func<JsonSerializerSettings> jsonSerializerSettingsFactory;
 
 
         public CheetahOpenSearchClient(IMemoryCache cache, IHttpClientFactory httpClientfactory,
         IOptions<OpenSearchConfig> openSearchConfig, IHostEnvironment hostEnvironment,
-            ILogger<CheetahOpenSearchClient> logger, IMetricReporter metricReporter)
+            ILogger<CheetahOpenSearchClient> logger)
         {
             _logger = logger;
             _openSearchConfig = openSearchConfig.Value;
-            _metricReporter = metricReporter;
             IConnectionPool pool;
             if (_openSearchConfig.Url.Contains(','))
             {

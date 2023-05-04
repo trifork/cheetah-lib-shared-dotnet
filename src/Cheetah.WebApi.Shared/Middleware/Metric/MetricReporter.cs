@@ -1,12 +1,10 @@
 ﻿using System;
-using Microsoft.Extensions.Logging;
 using Prometheus;
 
 namespace Cheetah.WebApi.Shared.Middleware.Metric
 {
     public class MetricReporter : IMetricReporter
     {
-        private readonly ILogger<MetricReporter> _logger;
         private readonly Counter _requestCounter;
         private readonly Histogram _responseTimeHistogram;
 
@@ -15,10 +13,8 @@ namespace Cheetah.WebApi.Shared.Middleware.Metric
         /// The counter represents the total number of requests serviced by this API.
         /// The Histogram represents the duration in seconds between the response to a request.
         /// </summary>
-        public MetricReporter(ILogger<MetricReporter> logger)
+        public MetricReporter()
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-
             _requestCounter = Metrics.CreateCounter("total_requests", "The total number of requests serviced by this API.");
 
             _responseTimeHistogram = Metrics.CreateHistogram("request_duration_seconds",
