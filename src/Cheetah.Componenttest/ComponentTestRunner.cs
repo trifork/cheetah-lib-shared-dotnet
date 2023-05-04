@@ -16,9 +16,9 @@ namespace Cheetah.ComponentTest
         /// </summary>
         /// <typeparam name="T">Of type ComponentTest</typeparam>
         /// <returns></returns>
-        public ComponentTestRunner AddTest<T>() where T : ComponentTest
+        public ComponentTestRunner AddTest<T>()
+            where T : ComponentTest
         {
-
             _serviceCollectionActions.Add(services => services.AddSingleton<IComponentTest, T>());
             return this;
         }
@@ -29,39 +29,51 @@ namespace Cheetah.ComponentTest
         /// <returns></returns>
         public ComponentTestRunner AddAllTests()
         {
-            AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes())
-            .Where(x => typeof(ComponentTest).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
-            .ToList().ForEach(instance =>
-            _serviceCollectionActions.Add(
-                services => services.AddSingleton(typeof(IComponentTest), instance)
-            ));
+            AppDomain.CurrentDomain
+                .GetAssemblies()
+                .SelectMany(x => x.GetTypes())
+                .Where(
+                    x =>
+                        typeof(ComponentTest).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract
+                )
+                .ToList()
+                .ForEach(
+                    instance =>
+                        _serviceCollectionActions.Add(
+                            services => services.AddSingleton(typeof(IComponentTest), instance)
+                        )
+                );
             return this;
         }
 
         public ComponentTestRunner WithConfiguration<TConfiguration>(string configurationPath)
             where TConfiguration : class
         {
-            _serviceCollectionActions.Add(services => services.AddOptionsValidateOnStart<TConfiguration>(configurationPath));
+            _serviceCollectionActions.Add(
+                services => services.AddOptionsValidateOnStart<TConfiguration>(configurationPath)
+            );
             return this;
         }
 
         public async Task RunAsync(string[] args)
         {
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Verbose()
+            Log.Logger = new LoggerConfiguration().MinimumLevel
+                .Verbose()
                 .Enrich.FromLogContext()
                 .WriteTo.Console(LogEventLevel.Information)
                 .CreateLogger();
 
             var host = Host.CreateDefaultBuilder(args)
-                .ConfigureServices((context, services) =>
-                {
-                    foreach (var action in _serviceCollectionActions)
+                .ConfigureServices(
+                    (context, services) =>
                     {
-                        action.Invoke(services);
-                        services.AddHostedService<ComponentTestWorker>();
+                        foreach (var action in _serviceCollectionActions)
+                        {
+                            action.Invoke(services);
+                            services.AddHostedService<ComponentTestWorker>();
+                        }
                     }
-                })
+                )
                 .ConfigureLogging(builder =>
                 {
                     builder.AddFilter("Microsoft", LogLevel.Warning);
