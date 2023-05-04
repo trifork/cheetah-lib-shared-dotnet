@@ -42,7 +42,7 @@ namespace Cheetah.WebApi.Shared.Infrastructure.ServiceProvider
         installer?.Install(services, hostEnvironment);
       }
     }
-    
+
     /// <summary>
     /// Install services on the hosting environment using specific installer types. 
     /// </summary>

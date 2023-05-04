@@ -37,7 +37,6 @@ namespace Cheetah.ComponentTest
       ));
       return this;
     }
-
     public ComponentTestRunner WithConfiguration<TConfiguration>(string configurationPath)
         where TConfiguration : class
     {

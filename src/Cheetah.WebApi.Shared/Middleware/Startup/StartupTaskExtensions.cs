@@ -6,7 +6,7 @@ namespace Cheetah.WebApi.Shared.Middleware.Startup
   public static class StartupTaskExtensions
   {
     private static readonly StartupTaskContext sharedContext = new();
-    
+
     /// <summary>
     /// Add startup multiple tasks to the IServiceCollection 
     /// </summary>
