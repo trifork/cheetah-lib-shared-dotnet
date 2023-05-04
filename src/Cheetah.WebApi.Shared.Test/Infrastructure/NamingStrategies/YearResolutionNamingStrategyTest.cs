@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
 using Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies;

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Text;
 using Cheetah.WebApi.Shared.Core.Config;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

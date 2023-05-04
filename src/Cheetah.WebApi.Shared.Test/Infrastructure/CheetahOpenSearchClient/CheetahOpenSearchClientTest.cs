@@ -1,15 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Cheetah.WebApi.Shared.Core.Config;
 using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
-using Cheetah.WebApi.Shared.Middleware.Metric;
 using Cheetah.WebApi.Shared.Test.TestUtils;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Moq;
 using OpenSearch.Client;
 using Xunit;
 
@@ -60,7 +58,7 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.CheetahOpenSearchClient
             var options = Options.Create(openSearchConfig);
             var env = new HostingEnvironment { EnvironmentName = Environments.Development };
 
-            var mockMetricReporter = new Mock<IMetricReporter>();
+            //var mockMetricReporter = new Mock<IMetricReporter>();
             var memoryCache = new MemoryCache(new MemoryCacheOptions());
             var httpClientFactory = new DefaultHttpClientFactory();
             var loggerFactory = LoggerFactory.Create(builder =>
@@ -72,14 +70,7 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.CheetahOpenSearchClient
             var logger =
                 loggerFactory.CreateLogger<Shared.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient>();
             Shared.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient client =
-                new(
-                    memoryCache,
-                    httpClientFactory,
-                    options,
-                    env,
-                    logger,
-                    mockMetricReporter.Object
-                );
+                new(memoryCache, httpClientFactory, options, env, logger);
 
             var newIndexName = Guid.NewGuid().ToString();
             var newIndicesResponse = client.InternalClient.Indices.Create(

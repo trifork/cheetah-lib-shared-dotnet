@@ -1,4 +1,4 @@
-﻿using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
+using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
 using Xunit;
 
 namespace Cheetah.WebApi.Shared.Test.Infrastructure.IndexFragments
