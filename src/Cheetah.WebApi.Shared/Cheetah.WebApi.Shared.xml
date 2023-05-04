@@ -4,15 +4,6 @@
         <name>Cheetah.WebApi.Shared</name>
     </assembly>
     <members>
-        <member name="M:Cheetah.WebApi.Shared.Core.Configure.ConfigureSwaggerOptions.#ctor(Microsoft.AspNetCore.Mvc.ApiExplorer.IApiVersionDescriptionProvider)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Cheetah.WebApi.Shared.Core.Configure.ConfigureSwaggerOptions"/> class.
-            </summary>
-            <param name="provider">The <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.IApiVersionDescriptionProvider">provider</see> used to generate Swagger documents.</param>
-        </member>
-        <member name="M:Cheetah.WebApi.Shared.Core.Configure.ConfigureSwaggerOptions.Configure(Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions)">
-            <inheritdoc />
-        </member>
         <member name="T:Cheetah.WebApi.Shared.Core.Config.KafkaConfig">
             <summary>
             KafkaConfig for IOptions
@@ -144,6 +135,15 @@
             Validates and throws an error if values are not set for a given <see cref="P:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig.AuthMode"/>.
             </summary>
         </member>
+        <member name="M:Cheetah.WebApi.Shared.Core.Configure.ConfigureSwaggerOptions.#ctor(Microsoft.AspNetCore.Mvc.ApiExplorer.IApiVersionDescriptionProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cheetah.WebApi.Shared.Core.Configure.ConfigureSwaggerOptions"/> class.
+            </summary>
+            <param name="provider">The <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.IApiVersionDescriptionProvider">provider</see> used to generate Swagger documents.</param>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Core.Configure.ConfigureSwaggerOptions.Configure(Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions)">
+            <inheritdoc />
+        </member>
         <member name="M:Cheetah.WebApi.Shared.Core.Extensions.ResilienceConfiguration.GetRetryPolicy``1(System.IServiceProvider,System.Int32)">
             <summary>
             Adds a resilient and transient-fault handling policy
@@ -171,13 +171,13 @@
         </member>
         <member name="M:Cheetah.WebApi.Shared.Infrastructure.Auth.PublicKeyProvider.GetKey(System.String)">
             <summary>
-            Get public key based on client id 
+            Get public key based on client id
             </summary>
             <returns> returns a JWT public key </returns>
         </member>
         <member name="M:Cheetah.WebApi.Shared.Infrastructure.Auth.PublicKeyProvider.GetKeys(System.String)">
             <summary>
-            Get public keys based on client id 
+            Get public keys based on client id
             </summary>
             <returns> returns a JWT public key </returns>
         </member>
@@ -192,6 +192,21 @@
             Request access token with client credentials
             </summary>
             <returns>Token response</returns>
+        </member>
+        <member name="T:Cheetah.WebApi.Shared.Infrastructure.ServiceProvider.ServiceCollectionExtensions">
+            <summary>
+            IServiceCollection extension to install services on the hosting environment.
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Infrastructure.ServiceProvider.ServiceCollectionExtensions.Install(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment,System.Reflection.Assembly,System.Nullable{System.Int32},Cheetah.WebApi.Shared.Infrastructure.ServiceProvider.IServiceCollectionInstaller[])">
+            <summary>
+            Install services on the hosting environment using specific installer types.
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Infrastructure.ServiceProvider.ServiceCollectionExtensions.Install(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment,Cheetah.WebApi.Shared.Infrastructure.ServiceProvider.IServiceCollectionInstaller[])">
+            <summary>
+            Install services on the hosting environment using specific installer types.
+            </summary>
         </member>
         <member name="T:Cheetah.WebApi.Shared.Infrastructure.ServiceProvider.ServiceCollectionInstallerComparer">
             <summary>
@@ -240,7 +255,7 @@
         </member>
         <member name="T:Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess.ClaimsBasedIndexAccessResolver">
             <summary>
-            A resolver used to return accessible indices 
+            A resolver used to return accessible indices
             </summary>
         </member>
         <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess.ClaimsBasedIndexAccessResolver.IsAccessible(Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess.IndexDescriptor)">
@@ -283,7 +298,7 @@
         </member>
         <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies.CustomerIndexNamingStrategy.Build(System.DateTimeOffset,System.DateTimeOffset,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.IndexPrefix,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.IndexTypeBase,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.CustomerIdentifier)">
             <summary>
-            Build costumer indices for a specific costumer in a specified timeframe. 
+            Build costumer indices for a specific costumer in a specified timeframe.
             </summary>
             <param name="from"> Start date of the timeframe </param>
             <param name="to"> End date of the timeframe </param>
@@ -315,7 +330,7 @@
         </member>
         <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies.SimpleIndexNamingStrategy.Build(System.DateTimeOffset,System.DateTimeOffset,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.IndexPrefix,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.IndexTypeBase,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.CustomerIdentifier)">
             <summary>
-            Build simple indices in a specified timeframe.  
+            Build simple indices in a specified timeframe.
             </summary>
             <param name="from"> Start date of the timeframe </param>
             <param name="to"> End date of the timeframe </param>
@@ -331,7 +346,7 @@
         </member>
         <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies.YearResolutionIndexNamingStrategy.Build(System.DateTimeOffset,System.DateTimeOffset,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.IndexPrefix,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.IndexTypeBase,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.CustomerIdentifier)">
             <summary>
-            Build year resolution indices in a specified timeframe.  
+            Build year resolution indices in a specified timeframe.
             </summary>
             <param name="from"> Start date of the timeframe </param>
             <param name="to"> End date of the timeframe </param>
@@ -347,7 +362,7 @@
         </member>
         <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies.YearResolutionWithWildcardIndexNamingStrategy.Build(System.DateTimeOffset,System.DateTimeOffset,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.IndexPrefix,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.IndexTypeBase,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.CustomerIdentifier)">
             <summary>
-            Build year resolution with wildcard indices in a specified timeframe.  
+            Build year resolution with wildcard indices in a specified timeframe.
             </summary>
             <param name="from"> Start date of the timeframe </param>
             <param name="to"> End date of the timeframe </param>
@@ -358,15 +373,15 @@
         </member>
         <member name="M:Cheetah.WebApi.Shared.Middleware.Metric.KestrelMetricService.#ctor(System.Int32)">
             <summary>
-            Instantiate a stand-alone Kestrel based metric server that only serves Prometheus requests. 
+            Instantiate a stand-alone Kestrel based metric server that only serves Prometheus requests.
             </summary>
         </member>
         <member name="M:Cheetah.WebApi.Shared.Middleware.Metric.KestrelMetricService.ExecuteAsync(System.Threading.CancellationToken)">
             <summary>
-            Start kestrel server. 
+            Start kestrel server.
             </summary>
         </member>
-        <member name="M:Cheetah.WebApi.Shared.Middleware.Metric.MetricReporter.#ctor(Microsoft.Extensions.Logging.ILogger{Cheetah.WebApi.Shared.Middleware.Metric.MetricReporter})">
+        <member name="M:Cheetah.WebApi.Shared.Middleware.Metric.MetricReporter.#ctor">
             <summary>
             Instantiate a MetricReporter that consists of a Prometheus metric counter and Prometheus histogram
             The counter represents the total number of requests serviced by this API.
@@ -395,6 +410,38 @@
         <member name="M:Cheetah.WebApi.Shared.Middleware.Metric.PrometheusMiddleWare.Invoke(Microsoft.AspNetCore.Http.HttpContext,Cheetah.WebApi.Shared.Middleware.Metric.IMetricReporter)">
             <summary>
             Invoke a httpContext to the Metric Reporter to register request and register response time.
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Middleware.Startup.StartupTaskContext.RegisterTask">
+            <summary>
+            Register a task to shared context
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Middleware.Startup.StartupTaskContext.MarkTaskAsComplete">
+            <summary>
+            Mark a task as done to shared context
+            </summary>
+        </member>
+        <member name="P:Cheetah.WebApi.Shared.Middleware.Startup.StartupTaskContext.IsComplete">
+            <summary>
+            Check if all tasks is complete
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Middleware.Startup.StartupTaskExtensions.AddStartupTasks(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Add startup multiple tasks to the IServiceCollection
+            </summary>
+            <returns>The IServiceCollection</returns>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Middleware.Startup.StartupTaskExtensions.AddStartupTask``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Add startup task to the IServiceCollection
+            </summary>
+            <returns>The IServiceCollection</returns>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Middleware.Startup.StartupTasksMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            Invoke task async
             </summary>
         </member>
     </members>
