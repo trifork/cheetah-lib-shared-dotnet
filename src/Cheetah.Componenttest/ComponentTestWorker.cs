@@ -12,7 +12,10 @@ namespace Cheetah.ComponentTest
         private readonly object _stoppingLock = new();
         private bool _stopping;
 
-        public ComponentTestWorker(IEnumerable<IComponentTest> componentTests, IHostApplicationLifetime lifetime)
+        public ComponentTestWorker(
+            IEnumerable<IComponentTest> componentTests,
+            IHostApplicationLifetime lifetime
+        )
         {
             _componentTests = componentTests.ToList();
             _lifetime = lifetime;
@@ -32,7 +35,12 @@ namespace Cheetah.ComponentTest
                     }
                     else
                     {
-                        _testFailures.Add((test.GetType().Name, result.ErrorMessage ?? "No failure message provided"));
+                        _testFailures.Add(
+                            (
+                                test.GetType().Name,
+                                result.ErrorMessage ?? "No failure message provided"
+                            )
+                        );
                     }
                 }
 
@@ -43,13 +51,15 @@ namespace Cheetah.ComponentTest
                 lock (_stoppingLock)
                 {
                     // Suppress any exceptions thrown while the test is already stopping.
-                    if (_stopping) return;
+                    if (_stopping)
+                        return;
                 }
 
                 Log.Error(
                     "An unexpected exception was thrown while running tests. It had type '{exceptionType}' and message: '{message}'",
                     e.GetType().FullName,
-                    e.Message);
+                    e.Message
+                );
                 Exit(-1);
                 throw;
             }
@@ -58,19 +68,27 @@ namespace Cheetah.ComponentTest
         private void EndTest()
         {
             Log.Information("============= Results  =============");
-            Log.Information("{totalTests} run, {passedTests} passed, {failedTests} failed.",
+            Log.Information(
+                "{totalTests} run, {passedTests} passed, {failedTests} failed.",
                 _componentTests.Count,
                 _successfulTestCounter,
-                _testFailures.Count);
+                _testFailures.Count
+            );
 
             if (_testFailures.Any())
             {
-                Log.Error("{failCount} of {totalCount} tests failed. With the following reasons:",
+                Log.Error(
+                    "{failCount} of {totalCount} tests failed. With the following reasons:",
                     _testFailures.Count,
-                    _componentTests.Count);
+                    _componentTests.Count
+                );
                 foreach (var (testName, failureMessage) in _testFailures)
                 {
-                    Log.Error("{testName} failed with message: {failureMessage}", testName, failureMessage);
+                    Log.Error(
+                        "{testName} failed with message: {failureMessage}",
+                        testName,
+                        failureMessage
+                    );
                 }
 
                 Exit(-1);
@@ -85,7 +103,8 @@ namespace Cheetah.ComponentTest
         {
             lock (_stoppingLock)
             {
-                if (_stopping) return;
+                if (_stopping)
+                    return;
                 _stopping = true;
             }
 

@@ -13,6 +13,5 @@ namespace Cheetah.WebApi.Shared.Infrastructure.ServiceProvider
         {
             Priority = priority;
         }
-
     }
 }

@@ -20,5 +20,4 @@ namespace Cheetah.WebApi.Shared.Test.TestUtils
             }
         }
     }
-
 }

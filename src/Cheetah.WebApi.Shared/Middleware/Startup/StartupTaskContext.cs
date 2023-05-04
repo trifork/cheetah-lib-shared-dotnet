@@ -15,7 +15,7 @@ namespace Cheetah.WebApi.Shared.Middleware.Startup
         }
 
         /// <summary>
-        /// Mark a task as done to shared context 
+        /// Mark a task as done to shared context
         /// </summary>
         public void MarkTaskAsComplete()
         {

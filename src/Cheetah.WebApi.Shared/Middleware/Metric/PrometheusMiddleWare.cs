@@ -39,7 +39,11 @@ namespace Cheetah.WebApi.Shared.Middleware.Metric
             {
                 sw.Stop();
                 reporter.RegisterRequest();
-                reporter.RegisterResponseTime(httpContext.Response.StatusCode, httpContext.Request.Method, sw.Elapsed);
+                reporter.RegisterResponseTime(
+                    httpContext.Response.StatusCode,
+                    httpContext.Request.Method,
+                    sw.Elapsed
+                );
             }
         }
     }

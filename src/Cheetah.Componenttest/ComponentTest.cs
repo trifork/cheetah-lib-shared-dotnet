@@ -11,10 +11,14 @@ namespace Cheetah.ComponentTest
         internal abstract Task Arrange(CancellationToken cancellationToken);
         internal abstract Task Act(CancellationToken cancellationToken);
         internal abstract Task<TestResult> Assert(CancellationToken cancellationToken);
+
         public async Task<TestResult> RunAsync(CancellationToken cancellationToken)
         {
             var timeoutCtx = new CancellationTokenSource(TestTimeout);
-            var linkedCtx = CancellationTokenSource.CreateLinkedTokenSource(timeoutCtx.Token, cancellationToken);
+            var linkedCtx = CancellationTokenSource.CreateLinkedTokenSource(
+                timeoutCtx.Token,
+                cancellationToken
+            );
             try
             {
                 Log.Information("Running {testName}...", GetType().Name);
@@ -40,14 +44,18 @@ namespace Cheetah.ComponentTest
             {
                 if (timeoutCtx.IsCancellationRequested)
                 {
-                    return TestResult.Failed($"The test did not finish before the test timeout of '{TestTimeout}'");
+                    return TestResult.Failed(
+                        $"The test did not finish before the test timeout of '{TestTimeout}'"
+                    );
                 }
 
                 throw;
             }
             catch (Exception ex)
             {
-                return TestResult.Failed($"An exception was thrown of type '{ex.GetType().Name} with message '{ex.Message}'");
+                return TestResult.Failed(
+                    $"An exception was thrown of type '{ex.GetType().Name} with message '{ex.Message}'"
+                );
             }
         }
     }

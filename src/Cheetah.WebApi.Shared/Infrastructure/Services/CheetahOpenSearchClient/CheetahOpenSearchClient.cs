@@ -53,10 +53,13 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient
 
         private Func<JsonSerializerSettings> jsonSerializerSettingsFactory;
 
-
-        public CheetahOpenSearchClient(IMemoryCache cache, IHttpClientFactory httpClientfactory,
-        IOptions<OpenSearchConfig> openSearchConfig, IHostEnvironment hostEnvironment,
-            ILogger<CheetahOpenSearchClient> logger)
+        public CheetahOpenSearchClient(
+            IMemoryCache cache,
+            IHttpClientFactory httpClientfactory,
+            IOptions<OpenSearchConfig> openSearchConfig,
+            IHostEnvironment hostEnvironment,
+            ILogger<CheetahOpenSearchClient> logger
+        )
         {
             _logger = logger;
             _openSearchConfig = openSearchConfig.Value;
@@ -66,7 +69,9 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient
                 // SniffingConnectionPool
                 // todo: ensure monitoring_user role
                 // Unless you configure the publish host option, the sniffing result will be unusable.
-                pool = new StaticConnectionPool(_openSearchConfig.Url.Split(',').Select(url => new Uri(url)));
+                pool = new StaticConnectionPool(
+                    _openSearchConfig.Url.Split(',').Select(url => new Uri(url))
+                );
             }
             else
             {
@@ -77,21 +82,44 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient
 
             if (_openSearchConfig.AuthMode == OpenSearchConfig.OpenSearchAuthMode.OAuth2)
             {
-                logger.LogInformation("Enabled OAuth2 for OpenSearch with clientid={clientId}", _openSearchConfig.ClientId);
-                cheetahConnection = new CheetahOpenSearchConnection(logger, cache, httpClientfactory,
-                _openSearchConfig.ClientId, _openSearchConfig.ClientSecret, _openSearchConfig.TokenEndpoint);
+                logger.LogInformation(
+                    "Enabled OAuth2 for OpenSearch with clientid={clientId}",
+                    _openSearchConfig.ClientId
+                );
+                cheetahConnection = new CheetahOpenSearchConnection(
+                    logger,
+                    cache,
+                    httpClientfactory,
+                    _openSearchConfig.ClientId,
+                    _openSearchConfig.ClientSecret,
+                    _openSearchConfig.TokenEndpoint
+                );
             }
-            var settings = new ConnectionSettings(pool, cheetahConnection,
+            var settings = new ConnectionSettings(
+                pool,
+                cheetahConnection,
                 (builtin, settings) =>
                 {
-                    return new JsonNetSerializer(builtin, settings, GetJsonSerializerSettingsFactory());
-                })
-                .ThrowExceptions();
-            settings = settings.ServerCertificateValidationCallback(CertificateValidations.AllowAll);
+                    return new JsonNetSerializer(
+                        builtin,
+                        settings,
+                        GetJsonSerializerSettingsFactory()
+                    );
+                }
+            ).ThrowExceptions();
+            settings = settings.ServerCertificateValidationCallback(
+                CertificateValidations.AllowAll
+            );
             if (_openSearchConfig.AuthMode == OpenSearchConfig.OpenSearchAuthMode.BasicAuth)
             {
-                logger.LogInformation("Enabled BasicAuth for OpenSearch with username={username}", _openSearchConfig.UserName);
-                settings = settings.BasicAuthentication(_openSearchConfig.UserName, _openSearchConfig.Password);
+                logger.LogInformation(
+                    "Enabled BasicAuth for OpenSearch with username={username}",
+                    _openSearchConfig.UserName
+                );
+                settings = settings.BasicAuthentication(
+                    _openSearchConfig.UserName,
+                    _openSearchConfig.Password
+                );
             }
 
             settings.OnRequestCompleted(apiCallDetails =>
@@ -102,7 +130,8 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient
                     _logger.LogDebug("Sent raw query: {@json}", json);
                 }
             });
-            if (hostEnvironment.IsDevelopment()) settings.DisableDirectStreaming(true); //Enables data in OnRequestCompleted callback
+            if (hostEnvironment.IsDevelopment())
+                settings.DisableDirectStreaming(true); //Enables data in OnRequestCompleted callback
 
             // TODO: We should need to have some defaults when initializing the client
             // TODO: dive down in the settings for OpenSearch and see if we need to expose any of the options as easily changeable
@@ -128,11 +157,12 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient
         /// Set what JSON settings to use when deserializing data from OpenSearch
         /// </summary>
         /// <param name="jsonSerializerSettingsFactory"></param>
-        public void SetJsonSerializerSettingsFactory(Func<JsonSerializerSettings> jsonSerializerSettingsFactory)
+        public void SetJsonSerializerSettingsFactory(
+            Func<JsonSerializerSettings> jsonSerializerSettingsFactory
+        )
         {
             this.jsonSerializerSettingsFactory = jsonSerializerSettingsFactory;
         }
-
 
         /// <summary>
         /// Queries the OpenSearch instance for all indices' names
@@ -141,9 +171,10 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient
         public async Task<List<string>> GetIndices(List<IndexDescriptor> indices)
         {
             var result = await InternalClient.Indices.GetAsync(new GetIndexRequest(Indices.All));
-            return result.Indices.Select(index => index.Key.ToString())
-                                .Where(x => !x.StartsWith('.'))
-                                .ToList();
+            return result.Indices
+                .Select(index => index.Key.ToString())
+                .Where(x => !x.StartsWith('.'))
+                .ToList();
         }
     }
 }

@@ -7,8 +7,16 @@ namespace Cheetah.WebApi.Shared.Core.IndexFragments
 {
     public interface IIndicesBuilder
     {
-        IEnumerable<IndexDescriptor> Build(IndexTypeBase type, params CustomerIdentifier[] customerIdentifiers);
-        IEnumerable<IndexDescriptor> Build(IndexTypeBase type, DateTimeOffset from, DateTimeOffset to, params CustomerIdentifier[] identifiers);
+        IEnumerable<IndexDescriptor> Build(
+            IndexTypeBase type,
+            params CustomerIdentifier[] customerIdentifiers
+        );
+        IEnumerable<IndexDescriptor> Build(
+            IndexTypeBase type,
+            DateTimeOffset from,
+            DateTimeOffset to,
+            params CustomerIdentifier[] identifiers
+        );
         IndexPrefix Prefix { get; }
     }
 }

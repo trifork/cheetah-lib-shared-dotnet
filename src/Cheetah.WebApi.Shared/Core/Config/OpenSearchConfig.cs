@@ -12,36 +12,43 @@ namespace Cheetah.WebApi.Shared.Core.Config
         /// Prefix for options e.g. OpenSearch__
         /// </summary>
         public const string Position = "OpenSearch";
+
         /// <summary>
         /// Can be used to set prefix when querying indices
         /// </summary>
         /// <value></value>
         public string IndexNamePrefix { get; set; } = string.Empty;
+
         /// <summary>
         /// Url for OpenSearch
         /// </summary>
         /// <value></value>
         public string Url { get; set; } = "http://opensearch:9200";
+
         /// <summary>
         /// Client id used to obtain JWT from token endpoint
         /// </summary>
         /// <value></value>
         public string ClientId { get; set; } = string.Empty;
+
         /// <summary>
         /// Client secret used to obtain JWT from token endpoint
         /// </summary>
         /// <value></value>
         public string ClientSecret { get; set; } = string.Empty;
+
         /// <summary>
         /// Token endpoint used to obtain token for authentication and authorization
         /// </summary>
         /// <value></value>
         public string TokenEndpoint { get; set; } = "http://cheetahoauthsimulator:80/oauth2/token";
+
         /// <summary>
         /// UserName for Basic Auth
         /// </summary>
         /// <value></value>
         public string UserName { get; set; } = "admin";
+
         /// <summary>
         /// Password for Basic Auth
         /// </summary>

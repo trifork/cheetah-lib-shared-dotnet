@@ -16,7 +16,9 @@ namespace Cheetah.ComponentTest
             var value = JsonSerializer.Deserialize<T>(data);
             if (value is null)
             {
-                throw new ArgumentException($"Deserialization to type '{typeof(T).Name}' returned a null response");
+                throw new ArgumentException(
+                    $"Deserialization to type '{typeof(T).Name}' returned a null response"
+                );
             }
             return value;
         }

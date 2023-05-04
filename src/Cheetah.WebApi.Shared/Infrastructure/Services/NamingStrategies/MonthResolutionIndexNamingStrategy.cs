@@ -20,7 +20,13 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies
         /// <param name="type"> Index type</param>
         /// <param name="customer"> Costumer identifier </param>
         /// <returns> IndexDescriptor for month resolution indices </returns>
-        public IEnumerable<IndexDescriptor> Build(DateTimeOffset from, DateTimeOffset to, IndexPrefix prefix, IndexTypeBase type, CustomerIdentifier customer)
+        public IEnumerable<IndexDescriptor> Build(
+            DateTimeOffset from,
+            DateTimeOffset to,
+            IndexPrefix prefix,
+            IndexTypeBase type,
+            CustomerIdentifier customer
+        )
         {
             var firstMonth = new DateTime(from.Year, @from.Month, 1);
             var lastMonth = new DateTime(to.Year, to.Month, 1);
@@ -29,7 +35,10 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies
 
             for (var current = firstMonth; current <= lastMonth; current = current.AddMonths(1))
             {
-                yield return new IndexDescriptor(customer, $"{basename}_{customer}_{current.Year}_{current.Month:00}");
+                yield return new IndexDescriptor(
+                    customer,
+                    $"{basename}_{customer}_{current.Year}_{current.Month:00}"
+                );
             }
         }
     }

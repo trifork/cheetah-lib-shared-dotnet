@@ -21,13 +21,11 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.Services
             var indexBase = IndexType.TestIndex("Indexbase");
             var customer = new CustomerIdentifier("Customer");
 
-
             //Act
             var index = namingStrategy.Build(from, to, prefix, indexBase, customer);
 
             //Assert
             Assert.Equal("indexbase_prefix", index.First().Pattern);
-
         }
 
         [Fact]
@@ -42,13 +40,11 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.Services
             var indexBase = IndexType.TestIndex("Indexbase");
             var customer = new CustomerIdentifier("Customer");
 
-
             //Act
             var index = namingStrategy.Build(from, to, prefix, indexBase, customer);
 
             //Assert
             Assert.Equal("indexbase_prefix_customer_*", index.First().Pattern);
-
         }
 
         [Fact]
@@ -62,7 +58,6 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.Services
             var prefix = new IndexPrefix("Prefix");
             var indexBase = IndexType.TestIndex("Indexbase");
             var customer = new CustomerIdentifier("Customer");
-
 
             //Act
             var indexList = namingStrategy.Build(from, to, prefix, indexBase, customer).ToList();
@@ -85,7 +80,6 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.Services
             var indexBase = IndexType.TestIndex("Indexbase");
             var customer = new CustomerIdentifier("Customer");
 
-
             //Act
             var indexList = namingStrategy.Build(from, to, prefix, indexBase, customer).ToList();
             //Assert
@@ -107,15 +101,20 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.Services
             var indexBase = IndexType.TestIndex("Indexbase");
             var customer = new CustomerIdentifier("Customer");
 
-
             //Act
             var indexList = namingStrategy.Build(from, to, prefix, indexBase, customer).ToList();
 
             //Assert
             Assert.True(indexList.Count == 3);
-            Assert.True(indexList.Exists(x => x.Pattern.Equals("indexbase_prefix_customer_2020_01")));
-            Assert.True(indexList.Exists(x => x.Pattern.Equals("indexbase_prefix_customer_2020_02")));
-            Assert.True(indexList.Exists(x => x.Pattern.Equals("indexbase_prefix_customer_2020_03")));
+            Assert.True(
+                indexList.Exists(x => x.Pattern.Equals("indexbase_prefix_customer_2020_01"))
+            );
+            Assert.True(
+                indexList.Exists(x => x.Pattern.Equals("indexbase_prefix_customer_2020_02"))
+            );
+            Assert.True(
+                indexList.Exists(x => x.Pattern.Equals("indexbase_prefix_customer_2020_03"))
+            );
         }
     }
 }

@@ -9,7 +9,6 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.NamingStrategies
 {
     public class YearResolutionNamingStrategyTest
     {
-
         [Fact]
         public void Build_YearResolutionIndexNamingStrategy()
         {
@@ -22,14 +21,25 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.NamingStrategies
             var indexBase = IndexType.TestIndex("Indexbase");
             var customer = new CustomerIdentifier("Customer");
 
-
             //Act
             var indexList = namingStrategy.Build(from, to, prefix, indexBase, customer).ToList();
             //Assert
             Assert.True(indexList.Count == 3);
-            Assert.True(indexList.Exists(x => x.Pattern.Equals($"{indexBase}_{prefix}_{customer}_2018".ToLower())));
-            Assert.True(indexList.Exists(x => x.Pattern.Equals($"{indexBase}_{prefix}_{customer}_2019".ToLower())));
-            Assert.True(indexList.Exists(x => x.Pattern.Equals($"{indexBase}_{prefix}_{customer}_2020".ToLower())));
+            Assert.True(
+                indexList.Exists(
+                    x => x.Pattern.Equals($"{indexBase}_{prefix}_{customer}_2018".ToLower())
+                )
+            );
+            Assert.True(
+                indexList.Exists(
+                    x => x.Pattern.Equals($"{indexBase}_{prefix}_{customer}_2019".ToLower())
+                )
+            );
+            Assert.True(
+                indexList.Exists(
+                    x => x.Pattern.Equals($"{indexBase}_{prefix}_{customer}_2020".ToLower())
+                )
+            );
         }
 
         [Fact]
@@ -40,8 +50,15 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.NamingStrategies
             var now = DateTimeOffset.Now;
             var indexType = IndexType.TestIndex("Indexbase");
 
-
-            var indices = strategy.Build(now, now.AddYears(-1), new IndexPrefix("__"), indexType, new CustomerIdentifier(customerId)).ToList();
+            var indices = strategy
+                .Build(
+                    now,
+                    now.AddYears(-1),
+                    new IndexPrefix("__"),
+                    indexType,
+                    new CustomerIdentifier(customerId)
+                )
+                .ToList();
 
             Assert.Empty(indices);
         }
@@ -56,10 +73,15 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.NamingStrategies
             var indexType = IndexType.TestIndex("Indexbase");
             var indexPrefix = new IndexPrefix("abc");
 
-            var indices = strategy.Build(now, now, indexPrefix, indexType, new CustomerIdentifier(customerId)).ToList();
+            var indices = strategy
+                .Build(now, now, indexPrefix, indexType, new CustomerIdentifier(customerId))
+                .ToList();
 
             Assert.Single(indices);
-            Assert.Equal($"{indexType}_{indexPrefix}_{customerId.ToLowerInvariant()}_{now.Year}", indices.Single().Pattern);
+            Assert.Equal(
+                $"{indexType}_{indexPrefix}_{customerId.ToLowerInvariant()}_{now.Year}",
+                indices.Single().Pattern
+            );
         }
 
         [Fact]
@@ -70,8 +92,15 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.NamingStrategies
             var now = DateTimeOffset.Now;
             var indexType = IndexType.TestIndex("Indexbase");
 
-
-            var indices = strategy.Build(now, now.AddYears(1), new IndexPrefix("__"), indexType, new CustomerIdentifier(customerId)).ToList();
+            var indices = strategy
+                .Build(
+                    now,
+                    now.AddYears(1),
+                    new IndexPrefix("__"),
+                    indexType,
+                    new CustomerIdentifier(customerId)
+                )
+                .ToList();
 
             Assert.Equal(2, indices.Count);
         }
@@ -85,10 +114,15 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.NamingStrategies
 
             var indexType = IndexType.TestIndex("Indexbase");
 
-            var indices = strategy.Build(now, now, IndexPrefix.Empty, indexType, new CustomerIdentifier(customerId)).ToList();
+            var indices = strategy
+                .Build(now, now, IndexPrefix.Empty, indexType, new CustomerIdentifier(customerId))
+                .ToList();
 
             Assert.Single(indices);
-            Assert.Equal($"{indexType}_{customerId.ToLowerInvariant()}_{now.Year}", indices.Single().Pattern);
+            Assert.Equal(
+                $"{indexType}_{customerId.ToLowerInvariant()}_{now.Year}",
+                indices.Single().Pattern
+            );
         }
     }
 }

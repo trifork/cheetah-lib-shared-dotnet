@@ -32,7 +32,9 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.Auth
             // Arrange
             var oauthConfig = new OAuthConfig { OAuthUrl = oauthUrl };
             var options = Options.Create(oauthConfig);
-            var httpClientHandlerMock = CreateMockedHttpMessageHandler(/*lang=json,strict*/ "{\"keys\":[{\"kty\":\"RSA\",\"n\":\"some-value\",\"e\":\"AQAB\"}]}");
+            var httpClientHandlerMock = CreateMockedHttpMessageHandler( /*lang=json,strict*/
+                "{\"keys\":[{\"kty\":\"RSA\",\"n\":\"some-value\",\"e\":\"AQAB\"}]}"
+            );
             var httpClient = new HttpClient(httpClientHandlerMock.Object);
             var memoryCache = new MemoryCache(new MemoryCacheOptions());
             var publicKeyProvider = new PublicKeyProvider(options, httpClient, memoryCache);
@@ -49,28 +51,36 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.Auth
 
             httpClientHandlerMock
                 .Protected()
-                .Verify("SendAsync",
+                .Verify(
+                    "SendAsync",
                     Times.Once(),
-                    ItExpr.Is<HttpRequestMessage>(x =>
-                        x.RequestUri != null && !x.RequestUri.Query.IsNullOrEmpty()),
-                    ItExpr.IsAny<CancellationToken>());
+                    ItExpr.Is<HttpRequestMessage>(
+                        x => x.RequestUri != null && !x.RequestUri.Query.IsNullOrEmpty()
+                    ),
+                    ItExpr.IsAny<CancellationToken>()
+                );
         }
 
         private Mock<HttpMessageHandler> CreateMockedHttpMessageHandler(string responseContent)
         {
             var messageHandler = new Mock<HttpMessageHandler>();
-            messageHandler.Protected()
+            messageHandler
+                .Protected()
                 .Setup<Task<HttpResponseMessage>>(
                     "SendAsync",
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>()
                 )
-                .Callback<HttpRequestMessage, CancellationToken>((req, _) => output.WriteLine($"RequestUri: {req.RequestUri}"))
-                .ReturnsAsync(new HttpResponseMessage()
-                {
-                    StatusCode = HttpStatusCode.OK,
-                    Content = new StringContent(responseContent),
-                });
+                .Callback<HttpRequestMessage, CancellationToken>(
+                    (req, _) => output.WriteLine($"RequestUri: {req.RequestUri}")
+                )
+                .ReturnsAsync(
+                    new HttpResponseMessage()
+                    {
+                        StatusCode = HttpStatusCode.OK,
+                        Content = new StringContent(responseContent),
+                    }
+                );
 
             return messageHandler;
         }

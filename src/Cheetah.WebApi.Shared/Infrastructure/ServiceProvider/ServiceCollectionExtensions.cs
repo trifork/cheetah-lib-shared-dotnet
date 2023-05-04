@@ -8,15 +8,20 @@ using Microsoft.Extensions.Hosting;
 namespace Cheetah.WebApi.Shared.Infrastructure.ServiceProvider
 {
     /// <summary>
-    /// IServiceCollection extension to install services on the hosting environment. 
+    /// IServiceCollection extension to install services on the hosting environment.
     /// </summary>
     public static class ServiceCollectionExtensions
     {
         /// <summary>
-        /// Install services on the hosting environment using specific installer types. 
+        /// Install services on the hosting environment using specific installer types.
         /// </summary>
-        public static void Install(this IServiceCollection services, IHostEnvironment hostEnvironment,
-            Assembly assembly, int? priorityFilter = null, IServiceCollectionInstaller[]? additionalInstallers = null)
+        public static void Install(
+            this IServiceCollection services,
+            IHostEnvironment hostEnvironment,
+            Assembly assembly,
+            int? priorityFilter = null,
+            IServiceCollectionInstaller[]? additionalInstallers = null
+        )
         {
             var installerTypes = FilterInstallerTypes(assembly.GetAvailableTypes());
             if (installerTypes == null)
@@ -24,15 +29,21 @@ namespace Cheetah.WebApi.Shared.Infrastructure.ServiceProvider
                 return;
             }
 
-            var allInstallers = installerTypes.Select(x => (IServiceCollectionInstaller)Activator.CreateInstance(x)!);
+            var allInstallers = installerTypes.Select(
+                x => (IServiceCollectionInstaller)Activator.CreateInstance(x)!
+            );
             if (additionalInstallers != null)
             {
-                allInstallers = allInstallers.Concat(additionalInstallers).Distinct(new ServiceCollectionInstallerComparer());
+                allInstallers = allInstallers
+                    .Concat(additionalInstallers)
+                    .Distinct(new ServiceCollectionInstallerComparer());
             }
 
             if (priorityFilter.HasValue)
             {
-                allInstallers = allInstallers.Where(x => x != null && GetPriority(x) == priorityFilter).ToArray();
+                allInstallers = allInstallers
+                    .Where(x => x != null && GetPriority(x) == priorityFilter)
+                    .ToArray();
             }
 
             var orderedInstallerTypes = allInstallers.OrderBy(GetPriority);
@@ -44,9 +55,13 @@ namespace Cheetah.WebApi.Shared.Infrastructure.ServiceProvider
         }
 
         /// <summary>
-        /// Install services on the hosting environment using specific installer types. 
+        /// Install services on the hosting environment using specific installer types.
         /// </summary>
-        public static void Install(this IServiceCollection services, IHostEnvironment hostEnvironment, params IServiceCollectionInstaller[] allInstallers)
+        public static void Install(
+            this IServiceCollection services,
+            IHostEnvironment hostEnvironment,
+            params IServiceCollectionInstaller[] allInstallers
+        )
         {
             var orderedInstallerTypes = allInstallers.OrderBy(GetPriority);
 
@@ -56,22 +71,33 @@ namespace Cheetah.WebApi.Shared.Infrastructure.ServiceProvider
             }
         }
 
-
         private static int GetPriority(IServiceCollectionInstaller serviceCollectionInstaller)
         {
-            return serviceCollectionInstaller.GetType().GetCustomAttributes(typeof(InstallerPriorityAttribute), false)
-              .FirstOrDefault() is InstallerPriorityAttribute attribute ? attribute.Priority : InstallerPriorityAttribute.DefaultPriority;
+            return
+                serviceCollectionInstaller
+                    .GetType()
+                    .GetCustomAttributes(typeof(InstallerPriorityAttribute), false)
+                    .FirstOrDefault()
+                    is InstallerPriorityAttribute attribute
+                ? attribute.Priority
+                : InstallerPriorityAttribute.DefaultPriority;
         }
 
         private static IEnumerable<Type> FilterInstallerTypes(IEnumerable<Type> types)
         {
-            return types.Where(t => t.GetTypeInfo().IsClass &&
-                                    t.GetTypeInfo().IsAbstract == false &&
-                                    t.GetTypeInfo().IsGenericTypeDefinition == false &&
-                                    typeof(IServiceCollectionInstaller).IsAssignableFrom(t));
+            return types.Where(
+                t =>
+                    t.GetTypeInfo().IsClass
+                    && t.GetTypeInfo().IsAbstract == false
+                    && t.GetTypeInfo().IsGenericTypeDefinition == false
+                    && typeof(IServiceCollectionInstaller).IsAssignableFrom(t)
+            );
         }
 
-        private static Type[] GetAvailableTypes(this Assembly assembly, bool includeNonExported = false)
+        private static Type[] GetAvailableTypes(
+            this Assembly assembly,
+            bool includeNonExported = false
+        )
         {
             try
             {

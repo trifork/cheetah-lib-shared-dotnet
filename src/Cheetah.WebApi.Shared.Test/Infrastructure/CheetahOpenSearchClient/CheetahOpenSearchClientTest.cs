@@ -19,6 +19,7 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.CheetahOpenSearchClient
     public class OpenSearchIntegrationTest
     {
         private readonly string port;
+
         public OpenSearchIntegrationTest()
         {
             // The default opensearch port used in the CI/local container
@@ -27,8 +28,22 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.CheetahOpenSearchClient
 
         [Theory]
         [InlineData(OpenSearchConfig.OpenSearchAuthMode.BasicAuth, "admin", "admin", "", "", "")]
-        [InlineData(OpenSearchConfig.OpenSearchAuthMode.OAuth2, "", "", "opensearch", "1234", "http://cheetahoauthsimulator:80/oauth2/token")]
-        public async void GetIndicesIntegration(OpenSearchConfig.OpenSearchAuthMode authMode, string username, string password, string clientId, string clientSecret, string tokenEndpoint)
+        [InlineData(
+            OpenSearchConfig.OpenSearchAuthMode.OAuth2,
+            "",
+            "",
+            "opensearch",
+            "1234",
+            "http://cheetahoauthsimulator:80/oauth2/token"
+        )]
+        public async void GetIndicesIntegration(
+            OpenSearchConfig.OpenSearchAuthMode authMode,
+            string username,
+            string password,
+            string clientId,
+            string clientSecret,
+            string tokenEndpoint
+        )
         {
             var openSearchConfig = new OpenSearchConfig
             {
@@ -49,22 +64,27 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.CheetahOpenSearchClient
             var memoryCache = new MemoryCache(new MemoryCacheOptions());
             var httpClientFactory = new DefaultHttpClientFactory();
             var loggerFactory = LoggerFactory.Create(builder =>
-                {
-                    builder.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Debug);
-                    builder.AddConsole();
-                });
+            {
+                builder.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Debug);
+                builder.AddConsole();
+            });
 
-            var logger = loggerFactory.CreateLogger<Shared.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient>();
-            Shared.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient client = new(
-                memoryCache,
-                httpClientFactory,
-                options,
-                env,
-                logger,
-                mockMetricReporter.Object);
+            var logger =
+                loggerFactory.CreateLogger<Shared.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient>();
+            Shared.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient client =
+                new(
+                    memoryCache,
+                    httpClientFactory,
+                    options,
+                    env,
+                    logger,
+                    mockMetricReporter.Object
+                );
 
             var newIndexName = Guid.NewGuid().ToString();
-            var newIndicesResponse = client.InternalClient.Indices.Create(new CreateIndexRequest(newIndexName));
+            var newIndicesResponse = client.InternalClient.Indices.Create(
+                new CreateIndexRequest(newIndexName)
+            );
             Assert.True(newIndicesResponse.Acknowledged);
 
             var indices = await client.GetIndices(new List<IndexDescriptor>());

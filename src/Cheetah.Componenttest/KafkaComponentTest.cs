@@ -28,16 +28,19 @@ namespace Cheetah.ComponentTest
 
         internal override Task Arrange(CancellationToken cancellationToken)
         {
-            Log.Information("Preparing kafka consumer, consuming from topic '{topic}'", _configuration.ConsumerTopic);
-            _consumer = new ConsumerBuilder<Null, TOut>(new ConsumerConfig
-            {
-                BootstrapServers = _configuration.BootstrapServer,
-                GroupId = _configuration.ConsumerGroup,
-                AllowAutoCreateTopics = true,
-                EnablePartitionEof = true
-            })
-                .SetValueDeserializer(new Utf8Serializer<TOut>())
-                .Build();
+            Log.Information(
+                "Preparing kafka consumer, consuming from topic '{topic}'",
+                _configuration.ConsumerTopic
+            );
+            _consumer = new ConsumerBuilder<Null, TOut>(
+                new ConsumerConfig
+                {
+                    BootstrapServers = _configuration.BootstrapServer,
+                    GroupId = _configuration.ConsumerGroup,
+                    AllowAutoCreateTopics = true,
+                    EnablePartitionEof = true
+                }
+            ).SetValueDeserializer(new Utf8Serializer<TOut>()).Build();
 
             _consumer.Assign(new TopicPartitionOffset(_configuration.ConsumerTopic, 0, Offset.End));
 
@@ -50,11 +53,15 @@ namespace Cheetah.ComponentTest
                 }
             }
 
-            Log.Information("Preparing kafka producer, producing to topic '{topic}'", _configuration.ProducerTopic);
-            _producer = new ProducerBuilder<Null, TIn>(new ProducerConfig
-            {
-                BootstrapServers = _configuration.BootstrapServer
-            }).SetValueSerializer(new Utf8Serializer<TIn>()).Build();
+            Log.Information(
+                "Preparing kafka producer, producing to topic '{topic}'",
+                _configuration.ProducerTopic
+            );
+            _producer = new ProducerBuilder<Null, TIn>(
+                new ProducerConfig { BootstrapServers = _configuration.BootstrapServer }
+            )
+                .SetValueSerializer(new Utf8Serializer<TIn>())
+                .Build();
 
             return Task.CompletedTask;
         }
@@ -71,7 +78,11 @@ namespace Cheetah.ComponentTest
 
             foreach (var message in messages)
             {
-                await _producer.ProduceAsync(_configuration.ProducerTopic, new Message<Null, TIn> { Value = message }, cancellationToken);
+                await _producer.ProduceAsync(
+                    _configuration.ProducerTopic,
+                    new Message<Null, TIn> { Value = message },
+                    cancellationToken
+                );
             }
 
             Log.Information($"Published {messages.Count} messages to Kafka");
@@ -87,8 +98,14 @@ namespace Cheetah.ComponentTest
         {
             var messages = new List<TOut>();
 
-            Log.Information("Consuming messages from '{topic}', expecting a total of {count} messages...", _configuration.ConsumerTopic, ExpectedResponseCount);
-            while (messages.Count < ExpectedResponseCount && !cancellationToken.IsCancellationRequested)
+            Log.Information(
+                "Consuming messages from '{topic}', expecting a total of {count} messages...",
+                _configuration.ConsumerTopic,
+                ExpectedResponseCount
+            );
+            while (
+                messages.Count < ExpectedResponseCount && !cancellationToken.IsCancellationRequested
+            )
             {
                 var consumeResult = _consumer.Consume(cancellationToken);
 
@@ -99,9 +116,15 @@ namespace Cheetah.ComponentTest
 
                 messages.Add(consumeResult.Message.Value);
             }
-            Log.Information("Successfully consumed {messageCount} messages from Kafka.", messages.Count);
+            Log.Information(
+                "Successfully consumed {messageCount} messages from Kafka.",
+                messages.Count
+            );
 
-            Log.Information("Waiting {waitTimeAfterConsume}, then checking for any additional, unexpected messages...", WaitTimeAfterConsume);
+            Log.Information(
+                "Waiting {waitTimeAfterConsume}, then checking for any additional, unexpected messages...",
+                WaitTimeAfterConsume
+            );
             await Task.Delay(WaitTimeAfterConsume, cancellationToken);
 
             var additionalMessages = new List<TOut>();
@@ -117,11 +140,16 @@ namespace Cheetah.ComponentTest
                 additionalMessages.Add(consumeResult.Message.Value);
             }
 
-            Log.Information("Found {additionalMessageCount} additional messages!", additionalMessages.Count);
+            Log.Information(
+                "Found {additionalMessageCount} additional messages!",
+                additionalMessages.Count
+            );
             if (additionalMessages.Any())
             {
                 // TODO: Find or create a proper exception type for this.
-                throw new Exception($"Received a total of {messages.Count + additionalMessages.Count} messages, but only expected {ExpectedResponseCount}");
+                throw new Exception(
+                    $"Received a total of {messages.Count + additionalMessages.Count} messages, but only expected {ExpectedResponseCount}"
+                );
             }
 
             _consumer.Close();

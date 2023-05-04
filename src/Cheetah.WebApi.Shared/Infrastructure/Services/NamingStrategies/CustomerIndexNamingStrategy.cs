@@ -12,7 +12,7 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies
     public class CustomerIndexNamingStrategy : ITimeIntervalIndexNamingStrategy
     {
         /// <summary>
-        /// Build costumer indices for a specific costumer in a specified timeframe. 
+        /// Build costumer indices for a specific costumer in a specified timeframe.
         /// </summary>
         /// <param name="from"> Start date of the timeframe </param>
         /// <param name="to"> End date of the timeframe </param>
@@ -20,7 +20,13 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies
         /// <param name="type"> Index type</param>
         /// <param name="customer"> Costumer identifier</param>
         /// <returns> IndexDescriptor for costumer indices </returns>
-        public IEnumerable<IndexDescriptor> Build(DateTimeOffset @from, DateTimeOffset to, IndexPrefix prefix, IndexTypeBase type, CustomerIdentifier customer)
+        public IEnumerable<IndexDescriptor> Build(
+            DateTimeOffset @from,
+            DateTimeOffset to,
+            IndexPrefix prefix,
+            IndexTypeBase type,
+            CustomerIdentifier customer
+        )
         {
             var basename = IndexUtils.GetBaseName(prefix, type);
 

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 namespace Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess
 {
     /// <summary>
-    /// A resolver used to return accessible indices 
+    /// A resolver used to return accessible indices
     /// </summary>
     public class ClaimsBasedIndexAccessResolver : IIndexAccessResolver
     {
@@ -17,7 +17,10 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess
         private readonly IIndicesBuilder _indicesBuilder;
         private readonly IHttpContextAccessor _contextAccessor;
 
-        public ClaimsBasedIndexAccessResolver(IIndicesBuilder indicesBuilder, IHttpContextAccessor contextAccessor)
+        public ClaimsBasedIndexAccessResolver(
+            IIndicesBuilder indicesBuilder,
+            IHttpContextAccessor contextAccessor
+        )
         {
             _indicesBuilder = indicesBuilder;
             _contextAccessor = contextAccessor;
@@ -52,7 +55,11 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess
         /// <param name="to"> End date of the timeframe </param>
         /// <param name="type"> Index type </param>
         /// <returns> A list of all accessible indices of a specified index type and timeframe</returns>
-        public List<IndexDescriptor> GetAccessibleIndices(DateTimeOffset @from, DateTimeOffset to, IndexTypeBase type)
+        public List<IndexDescriptor> GetAccessibleIndices(
+            DateTimeOffset @from,
+            DateTimeOffset to,
+            IndexTypeBase type
+        )
         {
             var customerIds = GetAccessibleCustomers();
             return _indicesBuilder.Build(type, from, to, customerIds).ToList();
@@ -61,9 +68,9 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess
         private CustomerIdentifier[] GetAccessibleCustomers()
         {
             return _contextAccessor.HttpContext?.User.Claims
-                  .Where(c => c.Type.Equals(CustomerClaimName))
-                  .Select(c => new CustomerIdentifier(c.Value))
-                  .ToArray() ?? Array.Empty<CustomerIdentifier>();
+                    .Where(c => c.Type.Equals(CustomerClaimName))
+                    .Select(c => new CustomerIdentifier(c.Value))
+                    .ToArray() ?? Array.Empty<CustomerIdentifier>();
         }
     }
 }

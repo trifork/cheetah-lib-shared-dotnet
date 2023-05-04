@@ -8,7 +8,7 @@ namespace Cheetah.WebApi.Shared.Middleware.Startup
         private static readonly StartupTaskContext sharedContext = new();
 
         /// <summary>
-        /// Add startup multiple tasks to the IServiceCollection 
+        /// Add startup multiple tasks to the IServiceCollection
         /// </summary>
         /// <returns>The IServiceCollection</returns>
         public static IServiceCollection AddStartupTasks(this IServiceCollection services)
@@ -23,7 +23,7 @@ namespace Cheetah.WebApi.Shared.Middleware.Startup
         }
 
         /// <summary>
-        /// Add startup task to the IServiceCollection 
+        /// Add startup task to the IServiceCollection
         /// </summary>
         /// <returns>The IServiceCollection</returns>
         public static IServiceCollection AddStartupTask<T>(this IServiceCollection services)

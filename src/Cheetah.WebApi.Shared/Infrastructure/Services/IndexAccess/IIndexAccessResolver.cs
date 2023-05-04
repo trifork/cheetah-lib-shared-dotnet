@@ -8,7 +8,11 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess
     {
         bool IsAccessible(IndexDescriptor indexDescriptor);
         List<IndexDescriptor> GetAccessibleIndices(IndexTypeBase type);
-        List<IndexDescriptor> GetAccessibleIndices(DateTimeOffset from, DateTimeOffset to, IndexTypeBase type);
+        List<IndexDescriptor> GetAccessibleIndices(
+            DateTimeOffset from,
+            DateTimeOffset to,
+            IndexTypeBase type
+        );
     }
 
     public struct IndexDescriptor

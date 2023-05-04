@@ -9,7 +9,6 @@ using Xunit;
 
 namespace Cheetah.WebApi.Shared.Test.Infrastructure.Kafka
 {
-
     [Trait("Category", "Kafka"), Trait("TestType", "IntegrationTests")]
     public class KafkaIntegrationTests
     {
@@ -17,7 +16,6 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.Kafka
 
         public KafkaIntegrationTests()
         {
-
             var kafkaConfig = new KafkaConfig
             {
                 KafkaUrl = "kafka:19093",
@@ -53,32 +51,35 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.Kafka
                 Key = $"{Guid.NewGuid()}",
                 Value = $"{DateTimeOffset.UtcNow:T}"
             };
-            var producerConfig = new ProducerConfig(new ClientConfig
-            {
-                BootstrapServers = kafkaConfig.Value.KafkaUrl,
-                SecurityProtocol = SecurityProtocol.SaslPlaintext,
-                SaslMechanism = SaslMechanism.OAuthBearer
-            });
-            var consumerConfig = new ConsumerConfig(new ClientConfig
-            {
-                BootstrapServers = kafkaConfig.Value.KafkaUrl,
-                SecurityProtocol = SecurityProtocol.SaslPlaintext,
-                SaslMechanism = SaslMechanism.OAuthBearer
-            })
+            var producerConfig = new ProducerConfig(
+                new ClientConfig
+                {
+                    BootstrapServers = kafkaConfig.Value.KafkaUrl,
+                    SecurityProtocol = SecurityProtocol.SaslPlaintext,
+                    SaslMechanism = SaslMechanism.OAuthBearer
+                }
+            );
+            var consumerConfig = new ConsumerConfig(
+                new ClientConfig
+                {
+                    BootstrapServers = kafkaConfig.Value.KafkaUrl,
+                    SecurityProtocol = SecurityProtocol.SaslPlaintext,
+                    SaslMechanism = SaslMechanism.OAuthBearer
+                }
+            )
             {
                 GroupId = $"{Guid.NewGuid()}",
                 AutoOffsetReset = AutoOffsetReset.Earliest
             };
 
-
             var producer = new ProducerBuilder<string, string>(producerConfig)
-              .SetErrorHandler((_, _) => { })
+                .SetErrorHandler((_, _) => { })
                 .AddCheetahOAuthentication(provider)
                 .Build();
 
             var consumer = new ConsumerBuilder<string, string>(consumerConfig)
                 .AddCheetahOAuthentication(provider)
-                  .SetErrorHandler((_, _) => { })
+                .SetErrorHandler((_, _) => { })
                 .Build();
 
             consumer.Subscribe(topic);
@@ -91,8 +92,6 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.Kafka
 
             Assert.Equal(message.Key, received.Message.Key);
             Assert.Equal(message.Value, received.Message.Value);
-
         }
-
     }
 }

@@ -19,7 +19,11 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
         private readonly HttpClient _httpClient;
         private readonly IMemoryCache _memoryCache;
 
-        public PublicKeyProvider(IOptions<OAuthConfig> oauthConfig, HttpClient httpClient, IMemoryCache memoryCache)
+        public PublicKeyProvider(
+            IOptions<OAuthConfig> oauthConfig,
+            HttpClient httpClient,
+            IMemoryCache memoryCache
+        )
         {
             _oauthConfig = oauthConfig;
             _httpClient = httpClient;
@@ -27,13 +31,14 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
         }
 
         /// <summary>
-        /// Get public key based on client id 
+        /// Get public key based on client id
         /// </summary>
         /// <returns> returns a JWT public key </returns>
         public async Task<JsonWebKey[]> GetKey(string clientId)
         {
             var cachedValue = await _memoryCache.GetOrCreateAsync(
-                clientId, async cacheEntryFactory =>
+                clientId,
+                async cacheEntryFactory =>
                 {
                     var keys = await GetKeys(clientId);
                     if (keys.Any())
@@ -48,12 +53,13 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
                     }
 
                     return keys;
-                });
+                }
+            );
             return cachedValue;
         }
 
         /// <summary>
-        /// Get public keys based on client id 
+        /// Get public keys based on client id
         /// </summary>
         /// <returns> returns a JWT public key </returns>
         public async Task<JsonWebKey[]> GetKeys(string clientId)

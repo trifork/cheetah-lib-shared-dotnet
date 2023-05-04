@@ -36,7 +36,8 @@ namespace Cheetah.WebApi.Shared.Core.Configure
             {
                 Title = "Cheetah REST WebApi",
                 Version = description.ApiVersion.ToString(),
-                Description = "A sample application with must-have demo's, metrics and API versioning.",
+                Description =
+                    "A sample application with must-have demo's, metrics and API versioning.",
                 //Contact = new OpenApiContact() { Name = "Bill Mei", Email = "bill.mei@somewhere.com" },
                 //License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
             };

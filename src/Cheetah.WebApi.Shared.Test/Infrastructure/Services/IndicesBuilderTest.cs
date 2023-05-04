@@ -17,7 +17,14 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.Services
             var builder = new IndicesBuilder(new IndexPrefix("pf"), strategy);
             var indextype = IndexType.TestIndex("Indexbase");
 
-            var enumerable = builder.Build(indextype, DateTimeOffset.Now, DateTimeOffset.Now, new CustomerIdentifier("cust1")).ToList();
+            var enumerable = builder
+                .Build(
+                    indextype,
+                    DateTimeOffset.Now,
+                    DateTimeOffset.Now,
+                    new CustomerIdentifier("cust1")
+                )
+                .ToList();
             Assert.Single(enumerable);
         }
 
@@ -28,8 +35,14 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.Services
             var builder = new IndicesBuilder(new IndexPrefix("pf"), indexNamingStrategy);
             var indextype = IndexType.TestIndex("Indexbase");
 
-
-            var enumerable = builder.Build(indextype, DateTimeOffset.Now, DateTimeOffset.Now.AddMonths(-1), new CustomerIdentifier("testId1")).ToList();
+            var enumerable = builder
+                .Build(
+                    indextype,
+                    DateTimeOffset.Now,
+                    DateTimeOffset.Now.AddMonths(-1),
+                    new CustomerIdentifier("testId1")
+                )
+                .ToList();
             Assert.Empty(enumerable);
         }
 
@@ -45,8 +58,9 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.Services
             var indexNamingStrategy = new MonthResolutionIndexNamingStrategy();
             var builder = new IndicesBuilder(new IndexPrefix("pf"), indexNamingStrategy);
 
-
-            var result = builder.Build(indextype, from, to, new CustomerIdentifier(customer)).ToList();
+            var result = builder
+                .Build(indextype, from, to, new CustomerIdentifier(customer))
+                .ToList();
             Assert.Equal(3, result.Count);
 
             var validExpression = new Regex(customer + "_[0-9]{4}_[0-9]{2}");
@@ -68,7 +82,9 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.Services
             var indexNamingStrategy = new MonthResolutionIndexNamingStrategy();
             var builder = new IndicesBuilder(new IndexPrefix("pf"), indexNamingStrategy);
 
-            var result = builder.Build(indextype, from, to, new CustomerIdentifier(customer)).ToList();
+            var result = builder
+                .Build(indextype, from, to, new CustomerIdentifier(customer))
+                .ToList();
             Assert.Equal(99, result.Count);
 
             var validExpression = new Regex(customer + "_[0-9]{4}_[0-9]{2}");
@@ -91,16 +107,25 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.Services
             var from = DateTimeOffset.Now;
             var to = from.AddMonths(98);
 
-            var result = builder.Build(indextype, from, to, new CustomerIdentifier(customer1), new CustomerIdentifier(customer2)).ToList();
+            var result = builder
+                .Build(
+                    indextype,
+                    from,
+                    to,
+                    new CustomerIdentifier(customer1),
+                    new CustomerIdentifier(customer2)
+                )
+                .ToList();
             Assert.Equal(198, result.Count);
 
-            var validExpression = new Regex($"{builder.Prefix}_({customer1}|{customer2})" + "_[0-9]{4}_[0-9]{2}");
+            var validExpression = new Regex(
+                $"{builder.Prefix}_({customer1}|{customer2})" + "_[0-9]{4}_[0-9]{2}"
+            );
             foreach (var index in result)
             {
                 Assert.Matches(validExpression, index.Pattern);
             }
         }
-
 
         [Fact]
         public void ShouldExpandMultipleIdentifiers_exact_match()
@@ -115,17 +140,33 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.Services
             var from = DateTimeOffset.Now;
             var to = from.AddMonths(98);
 
-            var result = builder.Build(indextype, from, to, new CustomerIdentifier(customer1), new CustomerIdentifier(customer2)).ToList();
+            var result = builder
+                .Build(
+                    indextype,
+                    from,
+                    to,
+                    new CustomerIdentifier(customer1),
+                    new CustomerIdentifier(customer2)
+                )
+                .ToList();
             Assert.Equal(198, result.Count);
 
-            var validExpressionCustomer1 = new Regex($"{builder.Prefix}_({customer1})" + "_[0-9]{4}_[0-9]{2}");
+            var validExpressionCustomer1 = new Regex(
+                $"{builder.Prefix}_({customer1})" + "_[0-9]{4}_[0-9]{2}"
+            );
 
-            var customer1IndexCount = result.Count(r => validExpressionCustomer1.IsMatch(r.Pattern));
+            var customer1IndexCount = result.Count(
+                r => validExpressionCustomer1.IsMatch(r.Pattern)
+            );
             Assert.Equal(99, customer1IndexCount);
 
-            var validExpressionCustomer2 = new Regex($"{builder.Prefix}_({customer2})" + "_[0-9]{4}_[0-9]{2}");
+            var validExpressionCustomer2 = new Regex(
+                $"{builder.Prefix}_({customer2})" + "_[0-9]{4}_[0-9]{2}"
+            );
 
-            var customer2IndexCount = result.Count(r => validExpressionCustomer2.IsMatch(r.Pattern));
+            var customer2IndexCount = result.Count(
+                r => validExpressionCustomer2.IsMatch(r.Pattern)
+            );
             Assert.Equal(99, customer2IndexCount);
         }
 
@@ -137,7 +178,9 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.Services
             var indexNamingStrategy = new MonthResolutionIndexNamingStrategy();
             var builder = new IndicesBuilder(new IndexPrefix(prefix), indexNamingStrategy);
 
-            var result = builder.Build(indextype, ids.Select(id => new CustomerIdentifier(id)).ToArray()).ToList();
+            var result = builder
+                .Build(indextype, ids.Select(id => new CustomerIdentifier(id)).ToArray())
+                .ToList();
 
             Assert.Equal(2, result.Count);
             Assert.True(result.All(r => r.Pattern.EndsWith("_*")));
@@ -151,12 +194,20 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.Services
             var indexNamingStrategy = new MonthResolutionIndexNamingStrategy();
             var builder = new IndicesBuilder(new IndexPrefix(prefix), indexNamingStrategy);
 
-            var result = builder.Build(indextype, ids.Select(id => new CustomerIdentifier(id)).ToArray()).ToList();
+            var result = builder
+                .Build(indextype, ids.Select(id => new CustomerIdentifier(id)).ToArray())
+                .ToList();
 
             Assert.Equal(2, result.Count);
             foreach (var id in ids)
             {
-                Assert.Contains(result, r => r.Pattern.StartsWith($"{indextype}_{builder.Prefix}_{id.ToLowerInvariant()}_"));
+                Assert.Contains(
+                    result,
+                    r =>
+                        r.Pattern.StartsWith(
+                            $"{indextype}_{builder.Prefix}_{id.ToLowerInvariant()}_"
+                        )
+                );
             }
         }
     }

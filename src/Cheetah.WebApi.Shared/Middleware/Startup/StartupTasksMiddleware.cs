@@ -13,7 +13,7 @@ namespace Cheetah.WebApi.Shared.Middleware.Startup
         }
 
         /// <summary>
-        /// Invoke task async 
+        /// Invoke task async
         /// </summary>
         public async Task InvokeAsync(HttpContext httpContext, RequestDelegate next)
         {

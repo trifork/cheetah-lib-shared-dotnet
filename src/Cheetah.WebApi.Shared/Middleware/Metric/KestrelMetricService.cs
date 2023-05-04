@@ -10,7 +10,7 @@ namespace Cheetah.WebApi.Shared.Middleware.Metric
         readonly KestrelMetricServer _kestrelserver;
 
         /// <summary>
-        /// Instantiate a stand-alone Kestrel based metric server that only serves Prometheus requests. 
+        /// Instantiate a stand-alone Kestrel based metric server that only serves Prometheus requests.
         /// </summary>
         public KestrelMetricService(int port)
         {
@@ -18,7 +18,7 @@ namespace Cheetah.WebApi.Shared.Middleware.Metric
         }
 
         /// <summary>
-        /// Start kestrel server. 
+        /// Start kestrel server.
         /// </summary>
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {

@@ -9,16 +9,19 @@
         /// Prefix for options e.g. OAuth__
         /// </summary>
         public const string Position = "OAuth";
+
         /// <summary>
         /// OAuth url for WebApi to authenticate http requests bearer tokens
         /// </summary>
         /// <value></value>
         public string OAuthUrl { get; set; } = "http://cheetahoauthsimulator:80";
+
         /// <summary>
         /// Can be used to determine if authentication should be validated symmetric or asymmetric
         /// </summary>
         /// <value></value>
         public OAuthConfigMode Mode { get; set; } = OAuthConfigMode.Asymmetric;
+
         /// <summary>
         /// Secret used by Symmetric validation
         /// </summary>

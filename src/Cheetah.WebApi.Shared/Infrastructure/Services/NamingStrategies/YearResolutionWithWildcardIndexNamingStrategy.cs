@@ -12,7 +12,7 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies
     public class YearResolutionWithWildcardIndexNamingStrategy : ITimeIntervalIndexNamingStrategy
     {
         /// <summary>
-        /// Build year resolution with wildcard indices in a specified timeframe.  
+        /// Build year resolution with wildcard indices in a specified timeframe.
         /// </summary>
         /// <param name="from"> Start date of the timeframe </param>
         /// <param name="to"> End date of the timeframe </param>
@@ -20,7 +20,13 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies
         /// <param name="type"> Index type</param>
         /// <param name="customer"> Costumer identifier </param>
         /// <returns> IndexDescriptor for year resolution with wildcard indices </returns>
-        public IEnumerable<IndexDescriptor> Build(DateTimeOffset @from, DateTimeOffset to, IndexPrefix prefix, IndexTypeBase type, CustomerIdentifier customer)
+        public IEnumerable<IndexDescriptor> Build(
+            DateTimeOffset @from,
+            DateTimeOffset to,
+            IndexPrefix prefix,
+            IndexTypeBase type,
+            CustomerIdentifier customer
+        )
         {
             var first = from.Year;
             var last = to.Year;

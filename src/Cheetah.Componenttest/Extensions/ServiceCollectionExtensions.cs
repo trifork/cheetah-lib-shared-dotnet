@@ -6,10 +6,15 @@ namespace Cheetah.ComponentTest.Extensions
     {
         public static IServiceCollection AddOptionsValidateOnStart<T>(
             this IServiceCollection services,
-            string configurationPath)
+            string configurationPath
+        )
             where T : class
         {
-            services.AddOptions<T>().BindConfiguration(configurationPath).ValidateDataAnnotations().ValidateOnStart();
+            services
+                .AddOptions<T>()
+                .BindConfiguration(configurationPath)
+                .ValidateDataAnnotations()
+                .ValidateOnStart();
             return services;
         }
     }
