@@ -1,6 +1,5 @@
 using Cheetah.ComponentTest.Extensions;
 using KafkaCore;
-using Microsoft.Extensions.Options;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -73,7 +72,6 @@ namespace Cheetah.ComponentTest
                   action.Invoke(services);
               }
               services.AddHttpClient();
-              services.AddLogging(x => x.AddSerilog());
               services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(provider =>
                 provider.GetRequiredService<ILogger<CheetahKafkaTokenService>>());
               services.AddHostedService<ComponentTestWorker>();
