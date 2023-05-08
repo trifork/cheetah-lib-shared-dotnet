@@ -1,4 +1,6 @@
 using Cheetah.ComponentTest.Extensions;
+using KafkaCore;
+using Microsoft.Extensions.Options;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -64,21 +66,27 @@ namespace Cheetah.ComponentTest
                 .CreateLogger();
 
             var host = Host.CreateDefaultBuilder(args)
-                .ConfigureServices(
-                    (context, services) =>
-                    {
-                        foreach (var action in _serviceCollectionActions)
-                        {
-                            action.Invoke(services);
-                            services.AddHostedService<ComponentTestWorker>();
-                        }
-                    }
-                )
-                .ConfigureLogging(builder =>
-                {
-                    builder.AddFilter("Microsoft", LogLevel.Warning);
-                })
-                .Build();
+          .ConfigureServices((context, services) =>
+          {
+              foreach (var action in _serviceCollectionActions)
+              {
+                  action.Invoke(services);
+              }
+              services.AddHttpClient();
+              services.AddLogging(x => x.AddSerilog());
+              services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(provider =>
+                provider.GetRequiredService<ILogger<CheetahKafkaTokenService>>());
+              services.AddHostedService<ComponentTestWorker>();
+              services.AddMemoryCache();
+              services.Configure<KafkaConfig>(context.Configuration);
+              services.Configure<KafkaConfiguration>(context.Configuration);
+              services.AddSingleton<CheetahKafkaTokenService>();
+          })
+          .ConfigureLogging(builder =>
+          {
+              builder.AddFilter("Microsoft", LogLevel.Warning);
+          })
+          .Build();
 
             await host.RunAsync();
         }

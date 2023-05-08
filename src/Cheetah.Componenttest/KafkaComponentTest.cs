@@ -1,4 +1,5 @@
 using Confluent.Kafka;
+using KafkaCore;
 using Microsoft.Extensions.Options;
 using Serilog;
 
@@ -7,6 +8,8 @@ namespace Cheetah.ComponentTest
     public abstract class KafkaComponentTest<TIn, TOut> : ComponentTest
     {
         private readonly KafkaConfiguration _configuration;
+        readonly Microsoft.Extensions.Logging.ILogger logger;
+        private readonly CheetahKafkaTokenService tokenService;
         private IProducer<Null, TIn> _producer;
         private IConsumer<Null, TOut> _consumer;
 
@@ -21,26 +24,28 @@ namespace Cheetah.ComponentTest
         /// </summary>
         protected virtual TimeSpan WaitTimeAfterConsume { get; } = TimeSpan.FromSeconds(2);
 
-        protected KafkaComponentTest(IOptions<KafkaConfiguration> configuration)
+        protected KafkaComponentTest(Microsoft.Extensions.Logging.ILogger logger, IOptions<KafkaConfiguration> configuration, CheetahKafkaTokenService tokenService)
         {
             _configuration = configuration.Value;
+            this.logger = logger;
+            this.tokenService = tokenService;
         }
 
         internal override Task Arrange(CancellationToken cancellationToken)
         {
-            Log.Information(
-                "Preparing kafka consumer, consuming from topic '{topic}'",
-                _configuration.ConsumerTopic
-            );
-            _consumer = new ConsumerBuilder<Null, TOut>(
-                new ConsumerConfig
-                {
-                    BootstrapServers = _configuration.BootstrapServer,
-                    GroupId = _configuration.ConsumerGroup,
-                    AllowAutoCreateTopics = true,
-                    EnablePartitionEof = true
-                }
-            ).SetValueDeserializer(new Utf8Serializer<TOut>()).Build();
+            Log.Information("Preparing kafka consumer, consuming from topic '{topic}'", _configuration.ConsumerTopic);
+            _consumer = new ConsumerBuilder<Null, TOut>(new ConsumerConfig
+            {
+                BootstrapServers = _configuration.BootstrapServer,
+                GroupId = _configuration.ConsumerGroup,
+                AllowAutoCreateTopics = true,
+                EnablePartitionEof = true,
+                SaslMechanism = SaslMechanism.OAuthBearer,
+                SecurityProtocol = SecurityProtocol.SaslPlaintext
+            })
+              .SetValueDeserializer(new Utf8Serializer<TOut>())
+              .AddCheetahOAuthentication(tokenService, logger)
+              .Build();
 
             _consumer.Assign(new TopicPartitionOffset(_configuration.ConsumerTopic, 0, Offset.End));
 
@@ -53,15 +58,16 @@ namespace Cheetah.ComponentTest
                 }
             }
 
-            Log.Information(
-                "Preparing kafka producer, producing to topic '{topic}'",
-                _configuration.ProducerTopic
-            );
-            _producer = new ProducerBuilder<Null, TIn>(
-                new ProducerConfig { BootstrapServers = _configuration.BootstrapServer }
-            )
-                .SetValueSerializer(new Utf8Serializer<TIn>())
-                .Build();
+            Log.Information("Preparing kafka producer, producing to topic '{topic}'", _configuration.ProducerTopic);
+            _producer = new ProducerBuilder<Null, TIn>(new ProducerConfig
+            {
+                BootstrapServers = _configuration.BootstrapServer,
+                SaslMechanism = SaslMechanism.OAuthBearer,
+                SecurityProtocol = SecurityProtocol.SaslPlaintext
+            })
+            .SetValueSerializer(new Utf8Serializer<TIn>())
+            .AddCheetahOAuthentication(tokenService, logger)
+            .Build();
 
             return Task.CompletedTask;
         }
@@ -71,6 +77,12 @@ namespace Cheetah.ComponentTest
         /// </summary>
         /// <returns>IEnumerable of class to be produced</returns>
         protected abstract IEnumerable<TIn> GetMessagesToPublish();
+
+        internal sealed override async Task<TestResult> Assert(CancellationToken cancellationToken)
+        {
+            var messages = await ConsumeMessages(cancellationToken);
+            return ValidateResult(messages);
+        }
 
         internal sealed override async Task Act(CancellationToken cancellationToken)
         {
@@ -86,12 +98,6 @@ namespace Cheetah.ComponentTest
             }
 
             Log.Information($"Published {messages.Count} messages to Kafka");
-        }
-
-        internal sealed override async Task<TestResult> Assert(CancellationToken cancellationToken)
-        {
-            var messages = await ConsumeMessages(cancellationToken);
-            return ValidateResult(messages);
         }
 
         private async Task<IEnumerable<TOut>> ConsumeMessages(CancellationToken cancellationToken)
