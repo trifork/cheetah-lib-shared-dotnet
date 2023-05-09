@@ -1,7 +1,3 @@
----
-uid: Readme
----
-
 # Cheetah.Shared (Nuget Package)
 
 This is a project containing shared functionality for .net projects interacting with the data platform.
