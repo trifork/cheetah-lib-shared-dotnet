@@ -13,46 +13,6 @@
         <member name="M:Cheetah.WebApi.Shared.Core.Configure.ConfigureSwaggerOptions.Configure(Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions)">
             <inheritdoc />
         </member>
-        <member name="T:Cheetah.WebApi.Shared.Core.Config.KafkaConfig">
-            <summary>
-            KafkaConfig for IOptions
-            </summary>
-        </member>
-        <member name="F:Cheetah.WebApi.Shared.Core.Config.KafkaConfig.Position">
-            <summary>
-            Prefix for options e.g. Kafka__
-            </summary>
-        </member>
-        <member name="P:Cheetah.WebApi.Shared.Core.Config.KafkaConfig.KafkaUrl">
-            <summary>
-            Bootstrap Url
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Cheetah.WebApi.Shared.Core.Config.KafkaConfig.OAuthScopes">
-            <summary>
-            OAuth2 specific. What scopes to request from TokenEndpoint
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Cheetah.WebApi.Shared.Core.Config.KafkaConfig.ClientId">
-            <summary>
-            Client id used to obtain JWT from token endpoint
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Cheetah.WebApi.Shared.Core.Config.KafkaConfig.ClientSecret">
-            <summary>
-            Client secret used to obtain JWT from token endpoint
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Cheetah.WebApi.Shared.Core.Config.KafkaConfig.TokenEndpoint">
-            <summary>
-            Token endpoint used to obtain token for authentication and authorization
-            </summary>
-            <value></value>
-        </member>
         <member name="T:Cheetah.WebApi.Shared.Core.Config.OAuthConfig">
             <summary>
             OAuthConfig for IOptions. Can be used by WebApi's to authenticate user http requests.
@@ -181,18 +141,6 @@
             </summary>
             <returns> returns a JWT public key </returns>
         </member>
-        <member name="M:Cheetah.WebApi.Shared.Infrastructure.Auth.TokenService.RequestAccessTokenCachedAsync(System.Threading.CancellationToken)">
-            <summary>
-            Request access token
-            </summary>
-            <returns>Token response</returns>
-        </member>
-        <member name="M:Cheetah.WebApi.Shared.Infrastructure.Auth.TokenService.RequestClientCredentialsTokenAsync(System.Threading.CancellationToken)">
-            <summary>
-            Request access token with client credentials
-            </summary>
-            <returns>Token response</returns>
-        </member>
         <member name="T:Cheetah.WebApi.Shared.Infrastructure.ServiceProvider.ServiceCollectionExtensions">
             <summary>
             IServiceCollection extension to install services on the hosting environment.
@@ -280,16 +228,6 @@
             <param name="to"> End date of the timeframe </param>
             <param name="type"> Index type </param>
             <returns> A list of all accessible indices of a specified index type and timeframe</returns>
-        </member>
-        <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.Kafka.CheetahKafkaExtensions.AddCheetahOAuthentication``2(Confluent.Kafka.ConsumerBuilder{``0,``1},System.IServiceProvider)">
-            <summary>
-            Setup OAuth authentication for Kafka consumer
-            </summary>
-        </member>
-        <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.Kafka.CheetahKafkaExtensions.AddCheetahOAuthentication``2(Confluent.Kafka.ProducerBuilder{``0,``1},System.IServiceProvider)">
-            <summary>
-            Setup OAuth authentication for Kafka producer
-            </summary>
         </member>
         <member name="T:Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies.CustomerIndexNamingStrategy">
             <summary>

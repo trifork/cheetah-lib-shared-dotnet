@@ -1,5 +1,6 @@
+using Cheetah.Core.Infrastucture.Auth;
+using Cheetah.Core.Infrastucture.Services.Kafka;
 using Confluent.Kafka;
-using KafkaCore;
 using Microsoft.Extensions.Options;
 using Serilog;
 

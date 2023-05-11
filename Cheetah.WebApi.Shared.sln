@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.ComponentTest", "src\Cheetah.Componenttest\Cheetah.ComponentTest.csproj", "{218D3E64-0A50-44D4-B78B-4E56B963B281}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaCore", "src\KafkaCore\KafkaCore.csproj", "{FAC39E23-E21E-4C09-9DDD-0986F67F3B34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Core", "src\KafkaCore\Cheetah.Core.csproj", "{FAC39E23-E21E-4C09-9DDD-0986F67F3B34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

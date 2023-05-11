@@ -1,4 +1,5 @@
 using System.Net.Http;
+using Cheetah.Core.Infrastucture.Auth;
 using Cheetah.WebApi.Shared.Infrastructure.Auth;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;

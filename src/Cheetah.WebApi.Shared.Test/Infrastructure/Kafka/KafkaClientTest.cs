@@ -1,6 +1,6 @@
 using System;
-using Cheetah.WebApi.Shared.Core.Config;
-using Cheetah.WebApi.Shared.Infrastructure.Services.Kafka;
+using Cheetah.Core.Core.Config;
+using Cheetah.Core.Infrastucture.Services.Kafka;
 using Confluent.Kafka;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

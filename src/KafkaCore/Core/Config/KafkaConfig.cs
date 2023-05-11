@@ -1,5 +1,8 @@
-namespace KafkaCore
+namespace Cheetah.Core.Core.Config
 {
+    /// <summary>
+    /// KafkaConfig for IOptions
+    /// </summary>
     public class KafkaConfig
     {
         /// <summary>
@@ -23,12 +26,13 @@ namespace KafkaCore
         /// Client id used to obtain JWT from token endpoint
         /// </summary>
         /// <value></value>
-        public string ClientId { get; set; } = "ClientId";
+        public string ClientId { get; set; } = string.Empty;
+
         /// <summary>
         /// Client secret used to obtain JWT from token endpoint
         /// </summary>
         /// <value></value>
-        public string ClientSecret { get; set; } = "1234";
+        public string ClientSecret { get; set; } = string.Empty;
 
         /// <summary>
         /// Token endpoint used to obtain token for authentication and authorization

@@ -1,5 +1,6 @@
 using Cheetah.ComponentTest.Extensions;
-using KafkaCore;
+using Cheetah.Core.Core.Config;
+using Cheetah.Core.Infrastucture.Auth;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
