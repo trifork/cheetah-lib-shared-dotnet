@@ -20,6 +20,7 @@ namespace KafkaCore
             logger.LogDebug("Forwarded new oauth2 accesstoken to kafka");
             client.OAuthBearerSetToken(cachedAccessToken.AccessToken, DateTimeOffset.UtcNow.AddSeconds(cachedAccessToken.ExpiresIn).ToUnixTimeMilliseconds(), "unused");
         }
+
         private static CheetahKafkaTokenService BuildTokenService(ILogger logger, IServiceProvider provider) // We are not using DI, as we do not know which settings to look at.
         {
             var oauthConfig = provider.GetRequiredService<IOptions<KafkaConfig>>();
@@ -39,7 +40,6 @@ namespace KafkaCore
         {
             return builder.SetOAuthBearerTokenRefreshHandler((client, cfg) => TokenRefreshHandler(logger, tokenService, client));
         }
-
 
         /// <summary>
         /// Setup OAuth authentication for Kafka consumer.
