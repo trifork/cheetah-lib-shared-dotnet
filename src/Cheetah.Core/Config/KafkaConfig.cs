@@ -1,4 +1,4 @@
-namespace Cheetah.Core.Core.Config
+namespace Cheetah.Core.Config
 {
     /// <summary>
     /// KafkaConfig for IOptions

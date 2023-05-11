@@ -1,5 +1,5 @@
 using Cheetah.ComponentTest.Extensions;
-using Cheetah.Core.Core.Config;
+using Cheetah.Core.Config;
 using Cheetah.Core.Infrastucture.Auth;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

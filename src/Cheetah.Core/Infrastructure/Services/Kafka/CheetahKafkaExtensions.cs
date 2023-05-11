@@ -1,4 +1,4 @@
-using Cheetah.Core.Core.Config;
+using Cheetah.Core.Config;
 using Cheetah.Core.Infrastucture.Auth;
 using Confluent.Kafka;
 using Microsoft.Extensions.Caching.Memory;

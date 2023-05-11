@@ -1,5 +1,5 @@
 using System;
-using Cheetah.Core.Core.Config;
+using Cheetah.Core.Config;
 using Cheetah.Core.Infrastucture.Services.Kafka;
 using Confluent.Kafka;
 using Microsoft.Extensions.DependencyInjection;
