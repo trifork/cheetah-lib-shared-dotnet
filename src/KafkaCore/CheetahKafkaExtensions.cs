@@ -20,7 +20,7 @@ namespace KafkaCore
             logger.LogDebug("Forwarded new oauth2 accesstoken to kafka");
             client.OAuthBearerSetToken(cachedAccessToken.AccessToken, DateTimeOffset.UtcNow.AddSeconds(cachedAccessToken.ExpiresIn).ToUnixTimeMilliseconds(), "unused");
         }
-        private static CheetahKafkaTokenService BuildTokenService(ILogger logger, IServiceProvider provider) // We are not using DI, as we do not know which settings to look at
+        private static CheetahKafkaTokenService BuildTokenService(ILogger logger, IServiceProvider provider) // We are not using DI, as we do not know which settings to look at.
         {
             var oauthConfig = provider.GetRequiredService<IOptions<KafkaConfig>>();
             var httpClientFactory = provider.GetRequiredService<IHttpClientFactory>();
@@ -54,7 +54,7 @@ namespace KafkaCore
         }
 
         /// <summary>
-        /// Setup OAuth authentication for Kafka producer
+        /// Setup OAuth authentication for Kafka producer.
         /// </summary>
         public static ProducerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(this ProducerBuilder<TKey, TValue> builder, IServiceProvider provider)
         {
