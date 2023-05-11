@@ -31,14 +31,14 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0 # If you use VALIDATE_ALL_CODEBASE = true, you can remove this line to improve performances
 
-      - name: "dotnet build"
-        uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
-        with:
-          read_package_pat: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
-          project_path: ${{ env.PROJECT_PATH }}
-          dotnet-version: "6.0"
-          github_actor: ${{ github.actor }}
-          solution_filepath: ${{ env.SOLUTION_FILEPATH }}
+      #- name: "dotnet build"
+      #  uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
+      #  with:
+      #    read_package_pat: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
+      #    project_path: ${{ env.PROJECT_PATH }}
+      #    dotnet-version: "6.0"
+      #    github_actor: ${{ github.actor }}
+      #    solution_filepath: ${{ env.SOLUTION_FILEPATH }}
 
       # MegaLinter
       - name: MegaLinter
@@ -52,7 +52,7 @@ jobs:
           VALIDATE_ALL_CODEBASE: true #${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }} # Validates all source when push on main, else just the git diff with main. Override with true if you always want to lint all sources
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CSHARP_DOTNET_FORMAT_CLI_LINT_MODE: project
-          CSHARP_DOTNET_FORMAT_ARGUMENTS: "./Cheetah.WebApi.Shared.sln"
+          #CSHARP_DOTNET_FORMAT_ARGUMENTS: "./Cheetah.WebApi.Shared.sln"
           # ADD YOUR CUSTOM ENV VARIABLES HERE OR DEFINE THEM IN A FILE .mega-linter.yml AT THE ROOT OF YOUR REPOSITORY
           DISABLE: COPYPASTE,SPELL # Uncomment to disable copy-paste and spell checks
           DISABLE_LINTERS: "MARKDOWN_MARKDOWN_LINK_CHECK,HTML_HTMLHINT,JSON_V8R,REPOSITORY_GIT_DIFF"
