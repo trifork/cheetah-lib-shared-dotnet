@@ -43,7 +43,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\Cheetah.Core\Cheetah.Core.csproj" />
     <ProjectReference Include="..\KafkaCore\Cheetah.Core.csproj" />
-    <ProjectReference Include="..\KafkaCore\KafkaCore.csproj" />
   </ItemGroup>
 </Project>

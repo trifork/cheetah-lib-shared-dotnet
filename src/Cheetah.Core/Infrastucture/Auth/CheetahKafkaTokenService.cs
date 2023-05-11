@@ -1,8 +1,7 @@
-using System.Net.Http;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 
-namespace Cheetah.WebApi.Shared.Infrastructure.Auth
+namespace Cheetah.Core.Infrastucture.Auth
 {
     public class CheetahKafkaTokenService : TokenService
     {

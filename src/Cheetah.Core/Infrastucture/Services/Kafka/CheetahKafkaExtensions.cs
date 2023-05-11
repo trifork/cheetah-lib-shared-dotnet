@@ -1,5 +1,5 @@
 using Cheetah.Core.Core.Config;
-using Cheetah.WebApi.Shared.Infrastructure.Auth;
+using Cheetah.Core.Infrastucture.Auth;
 using Confluent.Kafka;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
