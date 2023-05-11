@@ -1,18 +1,21 @@
-using Cheetah.Core.Infrastucture.Auth;
-using Cheetah.Core.Infrastucture.Services.Kafka;
+using Cheetah.Core.Config;
+using Cheetah.Core.Infrastructure.Auth;
+using Cheetah.Core.Infrastructure.Services.Kafka;
 using Confluent.Kafka;
 using Microsoft.Extensions.Options;
 using Serilog;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Cheetah.ComponentTest
 {
     public abstract class KafkaComponentTest<TIn, TOut> : ComponentTest
     {
-        private readonly KafkaConfiguration _configuration;
-        readonly Microsoft.Extensions.Logging.ILogger logger;
-        private readonly CheetahKafkaTokenService tokenService;
-        private IProducer<Null, TIn> _producer;
-        private IConsumer<Null, TOut> _consumer;
+        private readonly ComponentTestConfig _topicconfig;
+        private readonly KafkaConfig _kafkaConfig;
+        private readonly ILogger _logger;
+        private readonly CheetahKafkaTokenService _tokenService;
+        private IProducer<Null, TIn>? _producer;
+        private IConsumer<Null, TOut>? _consumer;
 
         /// <summary>
         /// Number of messages to be expected to be produced by the tested job
@@ -25,30 +28,31 @@ namespace Cheetah.ComponentTest
         /// </summary>
         protected virtual TimeSpan WaitTimeAfterConsume { get; } = TimeSpan.FromSeconds(2);
 
-        protected KafkaComponentTest(Microsoft.Extensions.Logging.ILogger logger, IOptions<KafkaConfiguration> configuration, CheetahKafkaTokenService tokenService)
+        protected KafkaComponentTest(ILogger logger, IOptions<ComponentTestConfig> topicConfiguration, IOptions<KafkaConfig> kafkaConfiguration, CheetahKafkaTokenService tokenService)
         {
-            _configuration = configuration.Value;
-            this.logger = logger;
-            this.tokenService = tokenService;
+            _topicconfig = topicConfiguration.Value;
+            _kafkaConfig = kafkaConfiguration.Value;
+            _logger = logger;
+            _tokenService = tokenService;
         }
 
         internal override Task Arrange(CancellationToken cancellationToken)
         {
-            Log.Information("Preparing kafka consumer, consuming from topic '{topic}'", _configuration.ConsumerTopic);
+            Log.Information("Preparing kafka consumer, consuming from topic '{topic}'", _topicconfig.ConsumerTopic);
             _consumer = new ConsumerBuilder<Null, TOut>(new ConsumerConfig
             {
-                BootstrapServers = _configuration.BootstrapServer,
-                GroupId = _configuration.ConsumerGroup,
+                BootstrapServers = _kafkaConfig.Url,
+                GroupId = _topicconfig.ConsumerGroup,
                 AllowAutoCreateTopics = true,
                 EnablePartitionEof = true,
                 SaslMechanism = SaslMechanism.OAuthBearer,
                 SecurityProtocol = SecurityProtocol.SaslPlaintext
             })
               .SetValueDeserializer(new Utf8Serializer<TOut>())
-              .AddCheetahOAuthentication(tokenService, logger)
+              .AddCheetahOAuthentication(_tokenService, _logger)
               .Build();
 
-            _consumer.Assign(new TopicPartitionOffset(_configuration.ConsumerTopic, 0, Offset.End));
+            _consumer.Assign(new TopicPartitionOffset(_topicconfig.ConsumerTopic, 0, Offset.End));
 
             while (!cancellationToken.IsCancellationRequested)
             {
@@ -59,15 +63,15 @@ namespace Cheetah.ComponentTest
                 }
             }
 
-            Log.Information("Preparing kafka producer, producing to topic '{topic}'", _configuration.ProducerTopic);
+            Log.Information("Preparing kafka producer, producing to topic '{topic}'", _topicconfig.ProducerTopic);
             _producer = new ProducerBuilder<Null, TIn>(new ProducerConfig
             {
-                BootstrapServers = _configuration.BootstrapServer,
+                BootstrapServers = _kafkaConfig.Url,
                 SaslMechanism = SaslMechanism.OAuthBearer,
                 SecurityProtocol = SecurityProtocol.SaslPlaintext
             })
             .SetValueSerializer(new Utf8Serializer<TIn>())
-            .AddCheetahOAuthentication(tokenService, logger)
+            .AddCheetahOAuthentication(_tokenService, _logger)
             .Build();
 
             return Task.CompletedTask;
@@ -79,20 +83,15 @@ namespace Cheetah.ComponentTest
         /// <returns>IEnumerable of class to be produced</returns>
         protected abstract IEnumerable<TIn> GetMessagesToPublish();
 
-        internal sealed override async Task<TestResult> Assert(CancellationToken cancellationToken)
-        {
-            var messages = await ConsumeMessages(cancellationToken);
-            return ValidateResult(messages);
-        }
-
         internal sealed override async Task Act(CancellationToken cancellationToken)
         {
             var messages = GetMessagesToPublish().ToList();
+            if (_producer == null) throw new ArgumentException("Arrange has not been called");
 
             foreach (var message in messages)
             {
                 await _producer.ProduceAsync(
-                    _configuration.ProducerTopic,
+                    _topicconfig.ProducerTopic,
                     new Message<Null, TIn> { Value = message },
                     cancellationToken
                 );
@@ -107,9 +106,10 @@ namespace Cheetah.ComponentTest
 
             Log.Information(
                 "Consuming messages from '{topic}', expecting a total of {count} messages...",
-                _configuration.ConsumerTopic,
+                _topicconfig.ConsumerTopic,
                 ExpectedResponseCount
             );
+            if (_consumer == null) throw new ArgumentException("Arrange has not been called");
             while (
                 messages.Count < ExpectedResponseCount && !cancellationToken.IsCancellationRequested
             )
@@ -163,6 +163,12 @@ namespace Cheetah.ComponentTest
             _consumer.Dispose();
 
             return messages;
+        }
+
+        internal sealed override async Task<TestResult> Assert(CancellationToken cancellationToken)
+        {
+            var messages = await ConsumeMessages(cancellationToken);
+            return ValidateResult(messages);
         }
 
         /// <summary>

@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 
-namespace Cheetah.Core.Infrastucture.Auth
+namespace Cheetah.Core.Infrastructure.Auth
 {
     public class CheetahKafkaTokenService : TokenService
     {

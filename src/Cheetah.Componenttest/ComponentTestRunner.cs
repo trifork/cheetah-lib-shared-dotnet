@@ -1,6 +1,6 @@
 using Cheetah.ComponentTest.Extensions;
 using Cheetah.Core.Config;
-using Cheetah.Core.Infrastucture.Auth;
+using Cheetah.Core.Infrastructure.Auth;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -77,8 +77,10 @@ namespace Cheetah.ComponentTest
                 provider.GetRequiredService<ILogger<CheetahKafkaTokenService>>());
               services.AddHostedService<ComponentTestWorker>();
               services.AddMemoryCache();
-              services.Configure<KafkaConfig>(context.Configuration);
-              services.Configure<KafkaConfiguration>(context.Configuration);
+              services.Configure<KafkaConfig>
+                (context.Configuration.GetSection(KafkaConfig.Position));
+              services.Configure<ComponentTestConfig>
+                (context.Configuration.GetSection(ComponentTestConfig.Position));
               services.AddSingleton<CheetahKafkaTokenService>();
           })
           .ConfigureLogging(builder =>

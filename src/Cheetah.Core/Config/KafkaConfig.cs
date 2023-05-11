@@ -14,7 +14,7 @@ namespace Cheetah.Core.Config
         /// Bootstrap Url
         /// </summary>
         /// <value></value>
-        public string KafkaUrl { get; set; } = "kafka:19092";
+        public string Url { get; set; } = "kafka:19092";
 
         /// <summary>
         /// OAuth2 specific. What scopes to request from TokenEndpoint

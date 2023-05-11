@@ -2,7 +2,7 @@ using IdentityModel.Client;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 
-namespace Cheetah.Core.Infrastucture.Auth
+namespace Cheetah.Core.Infrastructure.Auth
 {
     public abstract class TokenService
     {
@@ -103,10 +103,8 @@ namespace Cheetah.Core.Infrastucture.Auth
 
             // Check if the token request was successful
             if (!tokenResponse.IsError)
-            {
                 // Get the access token from the token response
                 return tokenResponse;
-            }
             else
             {
                 throw tokenResponse.Exception;
