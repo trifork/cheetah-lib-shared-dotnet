@@ -10,7 +10,7 @@ namespace Cheetah.ComponentTest
 {
     public abstract class KafkaComponentTest<TIn, TOut> : ComponentTest
     {
-        private readonly ComponentTestConfig _topicconfig;
+        private readonly ComponentTestConfig _componentTestConfig;
         private readonly KafkaConfig _kafkaConfig;
         private readonly ILogger _logger;
         private readonly CheetahKafkaTokenService _tokenService;
@@ -28,21 +28,21 @@ namespace Cheetah.ComponentTest
         /// </summary>
         protected virtual TimeSpan WaitTimeAfterConsume { get; } = TimeSpan.FromSeconds(2);
 
-        protected KafkaComponentTest(ILogger logger, IOptions<ComponentTestConfig> topicConfiguration, IOptions<KafkaConfig> kafkaConfiguration, CheetahKafkaTokenService tokenService)
+        protected KafkaComponentTest(ILogger logger, IOptions<ComponentTestConfig> componentTestConfig, IOptions<KafkaConfig> kafkaConfig, CheetahKafkaTokenService tokenService)
         {
-            _topicconfig = topicConfiguration.Value;
-            _kafkaConfig = kafkaConfiguration.Value;
+            _componentTestConfig = componentTestConfig.Value;
+            _kafkaConfig = kafkaConfig.Value;
             _logger = logger;
             _tokenService = tokenService;
         }
 
         internal override Task Arrange(CancellationToken cancellationToken)
         {
-            Log.Information("Preparing kafka consumer, consuming from topic '{topic}'", _topicconfig.ConsumerTopic);
+            Log.Information("Preparing kafka consumer, consuming from topic '{topic}'", _componentTestConfig.ConsumerTopic);
             _consumer = new ConsumerBuilder<Null, TOut>(new ConsumerConfig
             {
                 BootstrapServers = _kafkaConfig.Url,
-                GroupId = _topicconfig.ConsumerGroup,
+                GroupId = _componentTestConfig.ConsumerGroup,
                 AllowAutoCreateTopics = true,
                 EnablePartitionEof = true,
                 SaslMechanism = SaslMechanism.OAuthBearer,
@@ -52,7 +52,7 @@ namespace Cheetah.ComponentTest
               .AddCheetahOAuthentication(_tokenService, _logger)
               .Build();
 
-            _consumer.Assign(new TopicPartitionOffset(_topicconfig.ConsumerTopic, 0, Offset.End));
+            _consumer.Assign(new TopicPartitionOffset(_componentTestConfig.ConsumerTopic, 0, Offset.End));
 
             while (!cancellationToken.IsCancellationRequested)
             {
@@ -63,7 +63,7 @@ namespace Cheetah.ComponentTest
                 }
             }
 
-            Log.Information("Preparing kafka producer, producing to topic '{topic}'", _topicconfig.ProducerTopic);
+            Log.Information("Preparing kafka producer, producing to topic '{topic}'", _componentTestConfig.ProducerTopic);
             _producer = new ProducerBuilder<Null, TIn>(new ProducerConfig
             {
                 BootstrapServers = _kafkaConfig.Url,
@@ -91,7 +91,7 @@ namespace Cheetah.ComponentTest
             foreach (var message in messages)
             {
                 await _producer.ProduceAsync(
-                    _topicconfig.ProducerTopic,
+                    _componentTestConfig.ProducerTopic,
                     new Message<Null, TIn> { Value = message },
                     cancellationToken
                 );
@@ -106,7 +106,7 @@ namespace Cheetah.ComponentTest
 
             Log.Information(
                 "Consuming messages from '{topic}', expecting a total of {count} messages...",
-                _topicconfig.ConsumerTopic,
+                _componentTestConfig.ConsumerTopic,
                 ExpectedResponseCount
             );
             if (_consumer == null) throw new ArgumentException("Arrange has not been called");
