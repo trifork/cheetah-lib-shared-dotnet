@@ -23,17 +23,6 @@
 	"initializeCommand": "docker network create cheetah-infrastructure || true",
 	"customizations": {
 		"vscode": {
-			"settings": {
-				// Uncomment if you want to use zsh as the default shell
-				"terminal.integrated.defaultProfile.linux": "zsh",
-				"terminal.integrated.profiles.linux": {
-					"zsh": {
-						"path": "/usr/bin/zsh"
-					}
-				},
-				// Uncomment if you want to use CaskaydiaCove Nerd Font as the default terminal font
-				//"terminal.integrated.fontFamily": "CaskaydiaCove Nerd Font"
-			},
 			"extensions": [
 				// Recommended extensions - GitHub
 				"cschleiden.vscode-github-actions",
@@ -64,9 +53,9 @@
 	},
 	"features": {
 		"ghcr.io/devcontainers/features/common-utils:1": {
-			"installZsh": true,
-			"installOhMyZsh": true,
-			"upgradePackages": true,
+			"installZsh": false,
+			"installOhMyZsh": false,
+			"upgradePackages": false,
 			"username": "vscode",
 			"uid": "1000",
 			"gid": "1000"
