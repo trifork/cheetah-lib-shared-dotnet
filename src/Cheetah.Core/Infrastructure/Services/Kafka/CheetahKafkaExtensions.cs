@@ -52,9 +52,7 @@ namespace Cheetah.Core.Infrastructure.Services.Kafka
                 logger,
                 httpClientFactory,
                 cache,
-                oauthConfig.Value.ClientId,
-                oauthConfig.Value.ClientSecret,
-                oauthConfig.Value.TokenEndpoint
+                oauthConfig
             );
             return tokenService;
         }
