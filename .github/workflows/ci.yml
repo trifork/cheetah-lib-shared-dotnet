@@ -20,7 +20,7 @@ jobs:
         uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
         with:
           read_package_pat: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
-          project_path: ${{ env.PROJECT_PATH }}
+          silent: "false"
           dotnet-version: "6.0"
           github_actor: ${{ github.actor }}
           solution_filepath: ${{ env.SOLUTION_FILEPATH }}
@@ -35,7 +35,7 @@ jobs:
         uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
         with:
           read_package_pat: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
-          project_path: ${{ env.PROJECT_PATH }}
+          silent: "true"
           dotnet-version: "6.0"
           github_actor: ${{ github.actor }}
           solution_filepath: ${{ env.SOLUTION_FILEPATH }}
@@ -60,7 +60,7 @@ jobs:
         uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
         with:
           read_package_pat: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
-          project_path: ${{ env.PROJECT_PATH }}
+          silent: "true"
           dotnet-version: "6.0"
           github_actor: ${{ github.actor }}
           solution_filepath: ${{ env.SOLUTION_FILEPATH }}
@@ -112,7 +112,7 @@ jobs:
         uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
         with:
           read_package_pat: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
-          project_path: ${{ env.PROJECT_PATH }}
+          silent: "true"
           dotnet-version: "6.0"
           github_actor: ${{ github.actor }}
           solution_filepath: ${{ env.SOLUTION_FILEPATH }}
@@ -168,11 +168,6 @@ jobs:
       - name: "Start e2e infrastructure"
         working-directory: integrationtests/
         run: docker compose --profile kafka --profile oauth up -d --build
-      - name: Add hosts to /etc/hosts
-        run: |
-          sudo echo "127.0.0.1 kafka" | sudo tee -a /etc/hosts
-          sudo echo "127.0.0.1 cheetahoauthsimulator" | sudo tee -a /etc/hosts
-   #   - run: sleep 30s
       - name: "Test Integration"
         working-directory: src/Cheetah.ComponentTest.Test
         run: docker compose -f docker-compose.yaml up --abort-on-container-exit

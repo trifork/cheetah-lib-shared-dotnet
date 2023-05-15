@@ -32,7 +32,7 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.CheetahOpenSearchClient
             "",
             "opensearch",
             "1234",
-            "http://cheetahoauthsimulator:80/oauth2/token"
+            "http://cheetahoauthsimulator:1752/oauth2/token"
         )]
         public async void GetIndicesIntegration(
             OpenSearchConfig.OpenSearchAuthMode authMode,
