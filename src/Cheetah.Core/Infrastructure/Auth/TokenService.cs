@@ -102,13 +102,7 @@ namespace Cheetah.Core.Infrastructure.Auth
                 .ConfigureAwait(false);
 
             // Check if the token request was successful
-            if (!tokenResponse.IsError)
-                // Get the access token from the token response
-                return tokenResponse;
-            else
-            {
-                throw tokenResponse.Exception;
-            }
+            return !tokenResponse.IsError ? tokenResponse : throw tokenResponse.Exception; // Get the access token from the token response                
         }
     }
 }
