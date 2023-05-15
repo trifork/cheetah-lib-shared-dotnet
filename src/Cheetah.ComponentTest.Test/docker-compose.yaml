@@ -16,8 +16,8 @@ services:
       KAFKA__CLIENTSECRET: 1234
     depends_on:
       kafka:
-        condition: service_healthy  
+        condition: service_healthy
         
 networks:
   default:
-    name: "componentTest"
+    name: "cheetah-infrastructure"
