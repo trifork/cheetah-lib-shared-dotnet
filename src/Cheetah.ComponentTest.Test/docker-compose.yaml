@@ -14,9 +14,6 @@ services:
       COMPONENTTEST__PRODUCERTOPIC: TestTopic
       KAFKA__CLIENTID: ClientId
       KAFKA__CLIENTSECRET: 1234
-    depends_on:
-      kafka:
-        condition: service_healthy
         
 networks:
   default:
