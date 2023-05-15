@@ -9,12 +9,12 @@ ARG GITHUB_TOKEN
 WORKDIR /src
 COPY "Cheetah.ComponentTest.Test/NuGet-CI.Config" "NuGet.config"
 COPY ["Cheetah.ComponentTest.Test/Cheetah.ComponentTest.Test.csproj", "Cheetah.ComponentTest.Test/"]
-RUN dotnet restore "Cheetah.ComponentTest.Test/Cheetah.ComponentTest.Test.csproj"
-COPY Cheetah.ComponentTest.Test/ Cheetah.ComponentTest.Test
-COPY Cheetah.Componenttest/ Cheetah.Componenttest
-COPY Cheetah.Core/ Cheetah.Core
-RUN dotnet restore "Cheetah.Componenttest/Cheetah.ComponentTest.csproj"
-RUN dotnet build "Cheetah.ComponentTest.Test/Cheetah.ComponentTest.Test.csproj" -c Release -o /app/build
+COPY ["Cheetah.Componenttest/Cheetah.ComponentTest.csproj", "Cheetah.Componenttest/"]
+RUN dotnet restore "Cheetah.ComponentTest.Test/Cheetah.ComponentTest.Test.csproj" && \
+    dotnet restore "Cheetah.Componenttest/Cheetah.ComponentTest.csproj"
+COPY . .
+WORKDIR "/src/Cheetah.ComponentTest.Test/"
+RUN dotnet build "Cheetah.ComponentTest.Test.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "Cheetah.ComponentTest.Test/Cheetah.ComponentTest.Test.csproj" -c Release -o /app/publish
