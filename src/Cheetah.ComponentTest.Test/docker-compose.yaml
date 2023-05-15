@@ -1,5 +1,6 @@
+---
 version: '3'
-services: 
+services:
   example-component-test:
     build:
       context: ..
@@ -14,7 +15,7 @@ services:
       COMPONENTTEST__PRODUCERTOPIC: TestTopic
       KAFKA__CLIENTID: ClientId
       KAFKA__CLIENTSECRET: 1234
-        
+
 networks:
   default:
     name: "cheetah-infrastructure"
