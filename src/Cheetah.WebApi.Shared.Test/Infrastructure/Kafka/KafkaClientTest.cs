@@ -1,6 +1,6 @@
 using System;
-using Cheetah.WebApi.Shared.Core.Config;
-using Cheetah.WebApi.Shared.Infrastructure.Services.Kafka;
+using Cheetah.Core.Config;
+using Cheetah.Core.Infrastructure.Services.Kafka;
 using Confluent.Kafka;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -18,7 +18,7 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.Kafka
         {
             var kafkaConfig = new KafkaConfig
             {
-                KafkaUrl = "kafka:19093",
+                Url = "kafka:19093",
                 ClientId = "tester",
                 ClientSecret = "1234",
                 TokenEndpoint = "http://cheetahoauthsimulator:80/oauth2/token"
@@ -54,7 +54,7 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.Kafka
             var producerConfig = new ProducerConfig(
                 new ClientConfig
                 {
-                    BootstrapServers = kafkaConfig.Value.KafkaUrl,
+                    BootstrapServers = kafkaConfig.Value.Url,
                     SecurityProtocol = SecurityProtocol.SaslPlaintext,
                     SaslMechanism = SaslMechanism.OAuthBearer
                 }
@@ -62,7 +62,7 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.Kafka
             var consumerConfig = new ConsumerConfig(
                 new ClientConfig
                 {
-                    BootstrapServers = kafkaConfig.Value.KafkaUrl,
+                    BootstrapServers = kafkaConfig.Value.Url,
                     SecurityProtocol = SecurityProtocol.SaslPlaintext,
                     SaslMechanism = SaslMechanism.OAuthBearer
                 }

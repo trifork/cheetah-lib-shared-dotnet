@@ -41,4 +41,8 @@
       <_Parameter1>$(AssemblyName).Test</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Cheetah.Core\Cheetah.Core.csproj" />
+  </ItemGroup>
 </Project>
