@@ -172,7 +172,7 @@ jobs:
         run: |
           sudo echo "127.0.0.1 kafka" | sudo tee -a /etc/hosts
           sudo echo "127.0.0.1 cheetahoauthsimulator" | sudo tee -a /etc/hosts
-      - run: sleep 30s
+   #   - run: sleep 30s
       - name: "Test Integration"
         working-directory: src/Cheetah.ComponentTest.Test
         run: docker compose -f docker-compose.yaml up --abort-on-container-exit
