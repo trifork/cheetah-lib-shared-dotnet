@@ -21,7 +21,10 @@ RUN dotnet publish "Cheetah.ComponentTest.Test/Cheetah.ComponentTest.Test.csproj
 
 FROM base AS final
 
-RUN apt-get update && apt-get install -y curl \
+# Install curl
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends curl=7.74.* \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Create a new user with bash and a homedir
