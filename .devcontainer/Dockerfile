@@ -22,3 +22,8 @@ ARG GITHUB_TOKEN
 RUN dotnet nuget add source https://nuget.pkg.github.com/trifork/index.json -n trifork-github -u $GITHUB_ACTOR -p $GITHUB_TOKEN --store-password-in-clear-text
 
 RUN dotnet tool update -g docfx
+
+# Install ACT
+
+#  ./bin/act -s GITHUB_TOKEN=${GITHUB_TOKEN} -s PACKAGE_PAT=${GITHUB_TOKEN}  -j component-test
+RUN curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
