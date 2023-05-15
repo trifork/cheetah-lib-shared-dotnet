@@ -1,0 +1,26 @@
+﻿FROM mcr.microsoft.com/dotnet/runtime:6.0 AS base
+WORKDIR /app
+
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+
+ARG GITHUB_ACTOR
+ARG GITHUB_TOKEN
+
+
+WORKDIR /src
+COPY "Cheetah.ComponentTest.Test/NuGet-CI.Config" "NuGet.config"
+COPY ["Cheetah.ComponentTest.Test/Cheetah.ComponentTest.Test.csproj", "Cheetah.ComponentTest.Test/"]
+RUN dotnet restore "Cheetah.ComponentTest.Test/Cheetah.ComponentTest.Test.csproj"
+COPY Cheetah.ComponentTest.Test/ Cheetah.ComponentTest.Test
+COPY Cheetah.Componenttest/ Cheetah.Componenttest
+COPY Cheetah.Core/ Cheetah.Core
+RUN dotnet restore "Cheetah.Componenttest/Cheetah.ComponentTest.csproj"
+RUN dotnet build "Cheetah.ComponentTest.Test/Cheetah.ComponentTest.Test.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "Cheetah.ComponentTest.Test/Cheetah.ComponentTest.Test.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "Cheetah.ComponentTest.Test.dll"]

@@ -1,0 +1,23 @@
+version: '3'
+services: 
+  example-component-test:
+    build:
+      context: ..
+      dockerfile: Cheetah.ComponentTest.Test/Dockerfile
+      args:
+        # Nuget restore outside Visual Studio
+        - GITHUB_ACTOR=${GITHUB_ACTOR:-Missing required GITHUB_ACTOR}
+        - GITHUB_TOKEN=${GITHUB_TOKEN:-Missing required GITHUB_TOKEN}
+    environment:
+      KAFKA__URL: kafka:19092
+      COMPONENTTEST__CONSUMERTOPIC: TestTopic
+      COMPONENTTEST__PRODUCERTOPIC: TestTopic
+      KAFKA__CLIENTID: ClientId
+      KAFKA__CLIENTSECRET: 1234
+    depends_on:
+      kafka:
+        condition: service_healthy  
+        
+networks:
+  default:
+    name: "componentTest"
