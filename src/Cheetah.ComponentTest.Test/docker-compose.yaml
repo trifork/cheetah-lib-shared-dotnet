@@ -9,7 +9,7 @@ services:
         - GITHUB_ACTOR=${GITHUB_ACTOR:-Missing required GITHUB_ACTOR}
         - GITHUB_TOKEN=${GITHUB_TOKEN:-Missing required GITHUB_TOKEN}
     environment:
-      KAFKA__URL: kafka:19093
+      KAFKA__URL: kafka:19092
       COMPONENTTEST__CONSUMERTOPIC: TestTopic
       COMPONENTTEST__PRODUCERTOPIC: TestTopic
       KAFKA__CLIENTID: ClientId
