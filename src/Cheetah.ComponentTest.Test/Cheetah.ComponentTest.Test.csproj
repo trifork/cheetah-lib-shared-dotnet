@@ -8,7 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Cheetah.Componenttest\Cheetah.ComponentTest.csproj" />
+    <ProjectReference Include="..\Cheetah.Componenttest\Cheetah.ComponentTest.csproj"
+      PrivateAssets="all" />
   </ItemGroup>
 
 </Project>
