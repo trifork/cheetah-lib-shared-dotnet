@@ -18,10 +18,10 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.Kafka
         {
             var kafkaConfig = new KafkaConfig
             {
-                Url = "kafka:19093",
+                Url = "kafka:9092",
                 ClientId = "tester",
                 ClientSecret = "1234",
-                TokenEndpoint = "http://cheetahoauthsimulator:80/oauth2/token"
+                TokenEndpoint = "http://cheetahoauthsimulator:1752/oauth2/token"
             };
 
             var services = new ServiceCollection();
