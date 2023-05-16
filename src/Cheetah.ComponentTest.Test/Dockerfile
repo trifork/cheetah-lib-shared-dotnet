@@ -13,11 +13,11 @@ COPY ["Cheetah.Componenttest/Cheetah.ComponentTest.csproj", "Cheetah.Componentte
 RUN dotnet restore "Cheetah.ComponentTest.Test/Cheetah.ComponentTest.Test.csproj" && \
     dotnet restore "Cheetah.Componenttest/Cheetah.ComponentTest.csproj"
 COPY . .
-WORKDIR "/src/Cheetah.ComponentTest.Test/"
+WORKDIR "/src/Cheetah.ComponentTest.Test"
 RUN dotnet build "Cheetah.ComponentTest.Test.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Cheetah.ComponentTest.Test/Cheetah.ComponentTest.Test.csproj" -c Release -o /app/publish
+RUN dotnet publish "Cheetah.ComponentTest.Test.csproj" -c Release -o /app/publish
 
 FROM base AS final
 
