@@ -9,7 +9,6 @@
     <PackageReadmeFile>CheetahComponentTest.md</PackageReadmeFile>
     <!--  TODO -->
     <PackageDescription>Cheetah.ComponentTest</PackageDescription>
-	  <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
   </PropertyGroup>
   <ItemGroup>
     <None Include="../../docs/articles/CheetahComponentTest.md" Pack="true" PackagePath="\" />
@@ -25,14 +24,6 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cheetah.Core\Cheetah.Core.csproj"> 
-      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-      <IncludeAssets>Cheetah.Core.dll</IncludeAssets>
-    </ProjectReference>
+    <ProjectReference Include="..\Cheetah.Core\Cheetah.Core.csproj" PrivateAssets="all" />
   </ItemGroup>
-	<Target DependsOnTargets="BuildOnlySettings;ResolveReferences" Name="CopyProjectReferencesToPackage">
-    <ItemGroup>
-        <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
-    </ItemGroup>
-  </Target>
 </Project>
