@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
+      - name: "Build"
+        uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
       - name: "dotnet publish"
         uses: trifork/cheetah-infrastructure-utils/.github/actions/nuget-publish@main
         with:
