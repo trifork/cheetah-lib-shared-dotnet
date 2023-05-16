@@ -42,9 +42,11 @@ jobs:
           # https://megalinter.io/configuration/
           VALIDATE_ALL_CODEBASE: true # ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }} # Validates all source when push on main, else just the git diff with main. Override with true if you always want to lint all sources
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CSHARP_DOTNET_FORMAT_CLI_LINT_MODE: project
+          #CSHARP_DOTNET_FORMAT_ARGUMENTS: "./Cheetah.WebApi.Shared.sln"
           # ADD YOUR CUSTOM ENV VARIABLES HERE OR DEFINE THEM IN A FILE .mega-linter.yml AT THE ROOT OF YOUR REPOSITORY
           DISABLE: COPYPASTE,SPELL # Uncomment to disable copy-paste and spell checks
-          DISABLE_LINTERS: "MARKDOWN_MARKDOWN_LINK_CHECK,HTML_HTMLHINT,JSON_V8R,REPOSITORY_GIT_DIFF,CSHARP_DOTNET_FORMAT,EDITORCONFIG_EDITORCONFIG_CHECKER"
+          DISABLE_LINTERS: "MARKDOWN_MARKDOWN_LINK_CHECK,HTML_HTMLHINT,JSON_V8R,REPOSITORY_GIT_DIFF"
           DOCKERFILE_HADOLINT_ARGUMENTS: "--ignore ds026"
           #DOCKERFILE_HADOLINT_FILTER_REGEX_EXCLUDE: ".devcontainer"
           FILTER_REGEX_EXCLUDE: '(\.automation/test|\.automation/generated|\.github/workflows|docs/javascripts|docs/overrides|docs/json-schemas|flavors|clj-kondo|TEMPLATES|.devcontainer)'
