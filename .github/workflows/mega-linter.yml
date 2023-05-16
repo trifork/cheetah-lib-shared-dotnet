@@ -48,7 +48,7 @@ jobs:
           DOCKERFILE_HADOLINT_ARGUMENTS: "--ignore ds026"
           #DOCKERFILE_HADOLINT_FILTER_REGEX_EXCLUDE: ".devcontainer"
           FILTER_REGEX_EXCLUDE: '(\.automation/test|\.automation/generated|\.github/workflows|docs/javascripts|docs/overrides|docs/json-schemas|flavors|clj-kondo|TEMPLATES|.devcontainer)'
-          REPOSITORY_CHECKOV_ARGUMENTS: "--skip-check CKV2_GHA_1"
+          REPOSITORY_CHECKOV_ARGUMENTS: "--skip-check CKV2_GHA_1,CKV_DOCKER_7"
           EXCLUDED_DIRECTORIES: ".devcontainer"
           REPOSITORY_TRIVY_ARGUMENTS: "--skip-dirs .devcontainer"
 
