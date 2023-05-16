@@ -25,8 +25,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cheetah.Core\Cheetah.Core.csproj" />
-      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-      <IncludeAssets>Cheetah.Core.dll</IncludeAssets>
   </ItemGroup>
 
 </Project>
