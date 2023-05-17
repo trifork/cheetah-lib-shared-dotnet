@@ -17,7 +17,7 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v3
       - name: "dotnet publish"
-        uses: trifork/cheetah-infrastructure-utils/.github/actions/nuget-publish@test_no_build-pipeline
+        uses: trifork/cheetah-infrastructure-utils/.github/actions/nuget-publish@main
         with:
           project_filepath: ${{ env.PROJECT_PATH }}
           dotnet-version: "6.0"
