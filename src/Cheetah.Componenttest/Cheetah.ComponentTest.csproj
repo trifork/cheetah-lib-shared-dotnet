@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>false</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <VersionPrefix>1.0.3</VersionPrefix>
+    <VersionPrefix>1.1.0</VersionPrefix>
     <RootNamespace>Cheetah.ComponentTest</RootNamespace>
     <PackageReadmeFile>CheetahComponentTest.md</PackageReadmeFile>
     <!--  TODO -->
@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Confluent.Kafka" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="Serilog" Version="2.12.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="6.0.0" />
@@ -25,6 +26,21 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cheetah.Core\Cheetah.Core.csproj" PrivateAssets="all" />
+	  <ProjectReference Include="..\Cheetah.Core\Cheetah.Core.csproj" PrivateAssets="All" />
   </ItemGroup>
+    <PropertyGroup>
+		<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+    </PropertyGroup>
+	<Target Name="CopyProjectReferencesToPackage" DependsOnTargets="BuildOnlySettings;ResolveReferences">
+	<ItemGroup>
+		<!-- Filter out unnecessary files -->
+		<_ReferenceCopyLocalPaths Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference')->WithMetadataValue('PrivateAssets', 'All'))"/>
+	</ItemGroup>
+	<!-- Print batches for debug purposes -->
+	<Message Text="Batch for .nupkg: ReferenceCopyLocalPaths = @(_ReferenceCopyLocalPaths), ReferenceCopyLocalPaths.DestinationSubDirectory = %(_ReferenceCopyLocalPaths.DestinationSubDirectory) Filename = %(_ReferenceCopyLocalPaths.Filename) Extension = %(_ReferenceCopyLocalPaths.Extension)" Importance="High" Condition="'@(_ReferenceCopyLocalPaths)' != ''" />
+	<ItemGroup>
+		<!-- Add file to package with consideration of sub folder. If empty, the root folder is chosen. -->
+		<BuildOutputInPackage Include="@(_ReferenceCopyLocalPaths)" TargetPath="%(_ReferenceCopyLocalPaths.DestinationSubDirectory)"/>
+	</ItemGroup>
+	</Target>
 </Project>
