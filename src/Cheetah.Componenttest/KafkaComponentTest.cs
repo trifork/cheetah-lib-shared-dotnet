@@ -13,14 +13,20 @@ using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Cheetah.ComponentTest
 {
-    public abstract class KafkaComponentTest<TIn, TOut> : ComponentTest
+    public abstract class KafkaComponentTest<TIn, TOut> : KafkaComponentTest<TIn, Null, TOut, Null>
+    {
+        protected KafkaComponentTest(ILogger logger, IOptions<ComponentTestConfig> componentTestConfig, IOptions<KafkaConfig> kafkaConfig, CheetahKafkaTokenService tokenService) : base(logger, componentTestConfig, kafkaConfig, tokenService)
+        {
+        }
+    }
+    public abstract class KafkaComponentTest<TIn, TInKey, TOut, TOutKey> : ComponentTest
     {
         private readonly ComponentTestConfig _componentTestConfig;
         private readonly KafkaConfig _kafkaConfig;
         private readonly ILogger _logger;
         private readonly CheetahKafkaTokenService _tokenService;
-        private IProducer<Null, TIn>? _producer;
-        private IConsumer<Null, TOut>? _consumer;
+        private IProducer<TInKey, TIn>? _producer;
+        private IConsumer<TOutKey, TOut>? _consumer;
 
         /// <summary>
         /// Number of messages to be expected to be produced by the tested job
@@ -44,7 +50,7 @@ namespace Cheetah.ComponentTest
         internal override Task Arrange(CancellationToken cancellationToken)
         {
             Log.Information("Preparing kafka consumer, consuming from topic '{topic}'", _componentTestConfig.ConsumerTopic);
-            _consumer = new ConsumerBuilder<Null, TOut>(new ConsumerConfig
+            _consumer = new ConsumerBuilder<TOutKey, TOut>(new ConsumerConfig
             {
                 BootstrapServers = _kafkaConfig.Url,
                 GroupId = _componentTestConfig.ConsumerGroup,
@@ -69,7 +75,7 @@ namespace Cheetah.ComponentTest
             }
 
             Log.Information("Preparing kafka producer, producing to topic '{topic}'", _componentTestConfig.ProducerTopic);
-            _producer = new ProducerBuilder<Null, TIn>(new ProducerConfig
+            _producer = new ProducerBuilder<TInKey, TIn>(new ProducerConfig
             {
                 BootstrapServers = _kafkaConfig.Url,
                 SaslMechanism = SaslMechanism.OAuthBearer,
@@ -97,7 +103,7 @@ namespace Cheetah.ComponentTest
             {
                 await _producer.ProduceAsync(
                     _componentTestConfig.ProducerTopic,
-                    new Message<Null, TIn> { Value = message },
+                    new Message<TInKey, TIn> { Value = message },
                     cancellationToken
                 );
             }
