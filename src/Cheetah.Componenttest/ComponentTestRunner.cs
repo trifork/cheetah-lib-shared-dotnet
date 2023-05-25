@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using Serilog.Core;
 using Serilog.Events;
 
 namespace Cheetah.ComponentTest
@@ -16,6 +17,7 @@ namespace Cheetah.ComponentTest
     public class ComponentTestRunner
     {
         private readonly List<Action<IServiceCollection>> _serviceCollectionActions = new();
+        private LoggingLevelSwitch levelSwitch = new LoggingLevelSwitch(LogEventLevel.Verbose);
 
         /// <summary>
         /// Add a component test to the collection of test to run
@@ -52,6 +54,18 @@ namespace Cheetah.ComponentTest
             return this;
         }
 
+        /// <summary>
+        /// Sets the logging level switch to use for the component test
+        /// </summary>
+        /// <example>new LoggingLevelSwitch(LogEventLevel.Verbose);</example>
+        /// <param name="levelSwitch"></param>
+        /// <returns></returns>
+        public ComponentTestRunner WithLoggingLevelSwitch(LoggingLevelSwitch levelSwitch)
+        {
+            this.levelSwitch = levelSwitch;
+            return this;
+        }
+
         public ComponentTestRunner WithConfiguration<TConfiguration>(string configurationPath)
             where TConfiguration : class
         {
@@ -63,10 +77,10 @@ namespace Cheetah.ComponentTest
 
         public async Task RunAsync(string[] args)
         {
-            Log.Logger = new LoggerConfiguration().MinimumLevel
-                .Verbose()
+            Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.ControlledBy(levelSwitch)
                 .Enrich.FromLogContext()
-                .WriteTo.Console(LogEventLevel.Information)
+                .WriteTo.Console()
                 .CreateLogger();
 
             var host = Host.CreateDefaultBuilder(args)
