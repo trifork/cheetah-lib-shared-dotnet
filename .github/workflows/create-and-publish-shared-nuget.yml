@@ -5,7 +5,8 @@ on:
   pull_request:
     branches: ["main"]
   push:
-    branches: ["main"]
+    tags:
+      - "v*"
 
 env:
   PROJECT_PATH: ./src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj
