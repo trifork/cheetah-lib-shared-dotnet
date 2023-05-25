@@ -1,6 +1,10 @@
-namespace Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
+using System;
 
-public class IndexFragmentException : ArgumentException
+namespace Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments
 {
-    public override string Message => "Value must be a non empty string consisting of letters and numbers";
+    public class IndexFragmentException : ArgumentException
+    {
+        public override string Message =>
+            "Value must be a non empty string consisting of letters and numbers";
+    }
 }

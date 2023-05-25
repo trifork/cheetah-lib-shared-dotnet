@@ -1,4 +1,6 @@
-﻿namespace Cheetah.WebApi.Shared.Infrastructure.ServiceProvider
+using System.Collections.Generic;
+
+namespace Cheetah.WebApi.Shared.Infrastructure.ServiceProvider
 {
     /// <summary>
     /// We want to do a value compare on type

@@ -1,18 +1,30 @@
-﻿namespace Cheetah.WebApi.Shared.Middleware.Startup;
+using System.Threading;
 
-public class StartupTaskContext
+namespace Cheetah.WebApi.Shared.Middleware.Startup
 {
-    private int outstandingTaskCount;
-
-    public void RegisterTask()
+    public class StartupTaskContext
     {
-        Interlocked.Increment(ref outstandingTaskCount);
-    }
+        private int outstandingTaskCount;
 
-    public void MarkTaskAsComplete()
-    {
-        Interlocked.Decrement(ref outstandingTaskCount);
-    }
+        /// <summary>
+        /// Register a task to shared context
+        /// </summary>
+        public void RegisterTask()
+        {
+            Interlocked.Increment(ref outstandingTaskCount);
+        }
 
-    public bool IsComplete => outstandingTaskCount == 0;
+        /// <summary>
+        /// Mark a task as done to shared context
+        /// </summary>
+        public void MarkTaskAsComplete()
+        {
+            Interlocked.Decrement(ref outstandingTaskCount);
+        }
+
+        /// <summary>
+        /// Check if all tasks is complete
+        /// </summary>
+        public bool IsComplete => outstandingTaskCount == 0;
+    }
 }

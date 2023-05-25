@@ -1,68 +1,96 @@
-# Cheetah.Shared
+# Cheetah.Shared (Nuget Package)
 
-This is a project containing shared functionality for projects such as
+This is a project containing shared functionality for .net projects interacting with the data platform.
 
-* cheetah-example-webapi
-* cheetah-lib-templates
+See reference projects
+
+* <https://github.com/trifork/cheetah-example-webapi>
+* <https://github.com/trifork/cheetah-example-alertservice>
+
+and other utilities using the library:
+
+* <https://github.com/trifork/cheetah-lib-templates-dotnet>
 
 features offered by this library:
 
 * Prometheus exposed on a kestrel server
-* Helper methods for Authentication.
-* Helper methods for building elastic-search indices
+* Helper methods for connecting and authentication against OpenSearch
+* Helper methods for Authentication against Kafka
+* Helper methods for building OpenSearch-search indices
 
-## Running tests locally
+## Functionality
 
-To run unit tests locally run:
-```sh
-dotnet test --filter 'FullyQualifiedName!~Integration'
+### OpenSearch
+
+This library provides a `CheetahOpenSearchClient` wrapper which contains a wrapped `OpenSearchClient` with some standard configuration and authentication setup.  
+The internal client can be accessed directly at `_cheetahOpenSearchClient.InternalClient` for interacting with OpenSearch.
+
+```c#
+# Register the client for dependency injection
+services.AddMemoryCache();
+services.AddHttpClient();
+services.AddTransient<IMetricReporter, MetricReporter>();
+services.AddTransient<ICheetahOpenSearchClient, CheetahOpenSearchClient>();
 ```
 
-To run unit tests locally you need ElasticSearch running on port 9200.
-To run integration tests locally run:
-```sh
-dotnet test --filter 'FullyQualifiedName~Integration'
-```
+#### OpenSearch OAuth2 authentication
 
-## Writing tests
+To enable Oauth2 authentication you can provide the following options through environment variables:
 
-Writing unit tests has nothing specific to it.
+* `OpenSearch__AuthMode=OAuth2` - Token endpoint used to obtain token for authentication and authorization
+* `OpenSearch__TokenEndpoint` - Token endpoint used to obtain token for authentication and authorization
+* `OpenSearch__ClientId` - Client id used to obtain JWT from token endpoint
+* `OpenSearch__ClientSecret` - Client secret used to obtain JWT from token endpoint
 
-Writing integration tests has the following requirements:
-- The test function must contain 'Integration' in its name (usually as a suffix)
-- The test function must set-up its own data and tear it down afterwards
-- Integration tests for ElasticSearch require an ES instance running on port 9200
+If these environment variables are not provided, the `CheetahOpenSearchClient`  will try to communicate with OpenSearch using basic auth.
 
-## Naming Strategies
+#### OpenSearch Naming Strategies
 
-In order to store data in ES, you need an Index (Index is the ES counterpart to a Database in the SQL world).
-ES can scale to very large volumes of storage, but we have to keep in mind that different underlying storage
-has different costs associated with it. e.g. SSD discs are faster than HDDs, but are more costly.
-
-We are providing a number of different naming strategies for Indexes:
+In order to store data in OpenSearch, you need an Index.
+We are providing a number of different naming strategies for querying Indexes:
 
 The `<>` indicates required param, while `[]` indicates optional. e.g `prefix` is always optional.
-- `SimpleIndexNamingStrategy`: follows the pattern `<base>_[prefix]`.
+* `SimpleIndexNamingStrategy`: follows the pattern `<base>_[prefix]`.
     This is the simplest Index naming
-- `CustomerIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_*`.
+* `CustomerIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_*`.
     (For querying) This gives us all the Indexes for a customer - all years/months
-- `YearResolutionIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_<year>`.
+* `YearResolutionIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_<year>`.
     This builds on top of the `CustomerIndexNamingStrategy` but adds sharding based on the year
-- `MonthResolutionIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_<year>_<zero-padded month>`.
+* `MonthResolutionIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_<year>_<zero-padded month>`.
     This builds on top of the `YearResolutionIndexNamingStrategy` but adds sharding based on month as well.
-- `YearResolutionWithWildcardIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_<year>*`.
+* `YearResolutionWithWildcardIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_<year>*`.
     (For querying) This gives us all the Indexes a given customer and year - all the months
 
-### Hot and Cold Storage and Sharding
-Usually, we refer to the underlying storage media as Hot or Cold storage.
-Hot storage using faster hardware, but is more expensive.
-Cold storage is slower, but cheaper.
+See an example at <https://github.com/trifork/cheetah-example-webapi>.
 
-To give some numbers for better understanding why we have this separation: Cold storage can be 5 times cheaper
-than Hot storage, but it will also probably be 10-20 times slower to query.
+### Kafka
 
-Depending on your needs you might need to query the data for the past month frequently, but anything older than
-that you query once a month. Therefore, it would make sense to save money by archiving data older than 1 month
-in a Cold storage. We can easily achieve this if our data is separated in different shards (databases) based
-on the month. i.e. each shard stores data for 1 month, so data for April and June will be stored in two different
-shards. When a shard becomes more than a month old, we can archive it into cold storage.
+We are using the Confluent.Net client library and have added an additional extension method for authentication.  
+<https://github.com/trifork/cheetah-example-alertservice> has a working example of using the library to connect to kafka.
+
+#### Kafka OAuth2 authentication
+
+```c#
+# Setup a consumer or producer with OAuth
+var clientConfig = new ClientConfig
+                {
+                    BootstrapServers = kafkaConfig.Value.KafkaUrl,
+                    SaslMechanism = SaslMechanism.OAuthBearer,
+                    SecurityProtocol = SecurityProtocol.SaslPlaintext,
+                };
+var consumer = new ConsumerBuilder<Ignore, string>(new ConsumerConfig(clientConfig)
+                {
+                    GroupId = webApiOptions.Value.ConsumerName,
+                    AutoOffsetReset = AutoOffsetReset.Latest,
+                    EnableAutoCommit = true,
+                })
+                ...
+                .AddCheetahOAuthentication(localProvider)
+                .Build();
+```
+
+To enable Oauth2 authentication you should also provide the following options through environment variables:
+
+* `Kafka__TokenEndpoint` - Token endpoint used to obtain token for authentication and authorization
+* `Kafka__ClientId` - Client id used to obtain JWT from token endpoint
+* `Kafka__ClientSecret` - Client secret used to obtain JWT from token endpoint

@@ -1,0 +1,93 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/dotnet
+{
+	"name": ".NET DevContainer",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"build": {
+		"dockerfile": "./Dockerfile",
+		"context": ".",
+		"args": {
+			"VARIANT": "6.0-jammy",
+			"GITHUB_ACTOR": "${localEnv:GITHUB_ACTOR}",
+			"GITHUB_TOKEN": "${localEnv:GITHUB_TOKEN}"
+		}
+	},
+	"containerEnv": {
+		"GITHUB_ACTOR": "${localEnv:GITHUB_ACTOR}",
+		"GITHUB_TOKEN": "${localEnv:GITHUB_TOKEN}"
+	},
+	"runArgs": [
+		// Network where OpenSearch is running
+		"--network=cheetah-infrastructure"
+	],
+	"initializeCommand": "docker network create cheetah-infrastructure || true",
+	"customizations": {
+		"vscode": {
+			"settings": {
+				// Uncomment if you want to use zsh as the default shell
+				"terminal.integrated.defaultProfile.linux": "zsh",
+				"terminal.integrated.profiles.linux": {
+					"zsh": {
+						"path": "/usr/bin/zsh"
+					}
+				},
+				// Uncomment if you want to use CaskaydiaCove Nerd Font as the default terminal font
+				//"terminal.integrated.fontFamily": "CaskaydiaCove Nerd Font"
+			},
+			"extensions": [
+				// Recommended extensions - GitHub
+				"cschleiden.vscode-github-actions",
+				"GitHub.vscode-pull-request-github",
+				"GitHub.vscode-github-actions",
+				// Recommended extensions - Collaboration
+				"eamodio.gitlens",
+				"EditorConfig.EditorConfig",
+				"MS-vsliveshare.vsliveshare-pack",
+				"streetsidesoftware.code-spell-checker",
+				"redhat.vscode-yaml",
+				"k--kato.docomment",
+				// Recommended extensions - .NET
+				"Fudge.auto-using",
+				"jongrant.csharpsortusings",
+				"kreativ-software.csharpextensions",
+				// Recommended extensions - Markdown
+				"bierner.github-markdown-preview",
+				"DavidAnson.vscode-markdownlint",
+				"docsmsft.docs-linting",
+				"yzhang.markdown-all-in-one",
+				"redhat.vscode-xml",
+				// Required extensions
+				"GitHub.copilot",
+				"ms-dotnettools.csharp",
+				"VisualStudioExptTeam.vscodeintellicode"
+			]
+		}
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:1": {
+			"installZsh": false,
+			"installOhMyZsh": false,
+			"upgradePackages": true,
+			"username": "vscode",
+			"uid": "1000",
+			"gid": "1000"
+		},
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
+	},
+	"mounts": [
+		"source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind"
+	],
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [5000, 5001],
+	// "portsAttributes": {
+	//		"5001": {
+	//			"protocol": "https"
+	//		}
+	// }
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "dotnet restore",
+	// Configure tool-specific properties.
+	// "customizations": {},
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}

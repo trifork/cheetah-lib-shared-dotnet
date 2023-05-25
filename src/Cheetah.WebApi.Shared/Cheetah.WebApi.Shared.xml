@@ -1,0 +1,386 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cheetah.WebApi.Shared</name>
+    </assembly>
+    <members>
+        <member name="M:Cheetah.WebApi.Shared.Core.Configure.ConfigureSwaggerOptions.#ctor(Microsoft.AspNetCore.Mvc.ApiExplorer.IApiVersionDescriptionProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cheetah.WebApi.Shared.Core.Configure.ConfigureSwaggerOptions"/> class.
+            </summary>
+            <param name="provider">The <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.IApiVersionDescriptionProvider">provider</see> used to generate Swagger documents.</param>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Core.Configure.ConfigureSwaggerOptions.Configure(Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cheetah.WebApi.Shared.Core.Config.OAuthConfig">
+            <summary>
+            OAuthConfig for IOptions. Can be used by WebApi's to authenticate user http requests.
+            </summary>
+        </member>
+        <member name="F:Cheetah.WebApi.Shared.Core.Config.OAuthConfig.Position">
+            <summary>
+            Prefix for options e.g. OAuth__
+            </summary>
+        </member>
+        <member name="P:Cheetah.WebApi.Shared.Core.Config.OAuthConfig.OAuthUrl">
+            <summary>
+            OAuth url for WebApi to authenticate http requests bearer tokens
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Cheetah.WebApi.Shared.Core.Config.OAuthConfig.Mode">
+            <summary>
+            Can be used to determine if authentication should be validated symmetric or asymmetric
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Cheetah.WebApi.Shared.Core.Config.OAuthConfig.SymmetricPrivateKey">
+            <summary>
+            Secret used by Symmetric validation
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig">
+            <summary>
+            OpenSearchConfig for IOptions
+            </summary>
+        </member>
+        <member name="F:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig.Position">
+            <summary>
+            Prefix for options e.g. OpenSearch__
+            </summary>
+        </member>
+        <member name="P:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig.IndexNamePrefix">
+            <summary>
+            Can be used to set prefix when querying indices
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig.Url">
+            <summary>
+            Url for OpenSearch
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig.ClientId">
+            <summary>
+            Client id used to obtain JWT from token endpoint
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig.ClientSecret">
+            <summary>
+            Client secret used to obtain JWT from token endpoint
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig.TokenEndpoint">
+            <summary>
+            Token endpoint used to obtain token for authentication and authorization
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig.UserName">
+            <summary>
+            UserName for Basic Auth
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig.Password">
+            <summary>
+            Password for Basic Auth
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig.AuthMode">
+            <summary>
+            Authentication mode used by <see cref="T:Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient"/>
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig.ValidateConfig">
+            <summary>
+            Validates and throws an error if values are not set for a given <see cref="P:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig.AuthMode"/>.
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Core.Extensions.ResilienceConfiguration.GetRetryPolicy``1(System.IServiceProvider,System.Int32)">
+            <summary>
+            Adds a resilient and transient-fault handling policy
+            </summary>
+            <typeparam name="TService"></typeparam>
+            <param name="serviceProvider"></param>
+            <param name="retryCount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Core.Extensions.ResilienceConfiguration.GetRetryPolicy(Microsoft.Extensions.Logging.ILogger,System.Int32,System.Int32)">
+            <summary>
+            Adds a resilient and transient-fault handling policy
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Core.Interfaces.ICheetahOpenSearchClient.GetIndices(System.Collections.Generic.List{Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess.IndexDescriptor})">
+            <summary>
+            Queries the OpenSearch instance for all indexes
+            </summary>
+            <returns>A List containing all index-names</returns>
+        </member>
+        <member name="T:Cheetah.WebApi.Shared.Infrastructure.Auth.PublicKeyProvider">
+            <summary>
+            Public key provider used to provide public keys
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Infrastructure.Auth.PublicKeyProvider.GetKey(System.String)">
+            <summary>
+            Get public key based on client id
+            </summary>
+            <returns> returns a JWT public key </returns>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Infrastructure.Auth.PublicKeyProvider.GetKeys(System.String)">
+            <summary>
+            Get public keys based on client id
+            </summary>
+            <returns> returns a JWT public key </returns>
+        </member>
+        <member name="T:Cheetah.WebApi.Shared.Infrastructure.ServiceProvider.ServiceCollectionExtensions">
+            <summary>
+            IServiceCollection extension to install services on the hosting environment.
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Infrastructure.ServiceProvider.ServiceCollectionExtensions.Install(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment,System.Reflection.Assembly,System.Nullable{System.Int32},Cheetah.WebApi.Shared.Infrastructure.ServiceProvider.IServiceCollectionInstaller[])">
+            <summary>
+            Install services on the hosting environment using specific installer types.
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Infrastructure.ServiceProvider.ServiceCollectionExtensions.Install(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment,Cheetah.WebApi.Shared.Infrastructure.ServiceProvider.IServiceCollectionInstaller[])">
+            <summary>
+            Install services on the hosting environment using specific installer types.
+            </summary>
+        </member>
+        <member name="T:Cheetah.WebApi.Shared.Infrastructure.ServiceProvider.ServiceCollectionInstallerComparer">
+            <summary>
+            We want to do a value compare on type
+            </summary>
+        </member>
+        <member name="T:Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient">
+            <summary>Wrapper around OpenSearch, which introduces logging, authorization, and metrics
+            <para>
+            CheetahOpenSearchClient is a controller interface for accessing OpenSearch's API.
+            It provides:
+            <list type="bullet">
+            <item>
+            <term>Access control</term>
+            <description>
+            Callers of this class would be able to access only indices on OpenSearch that they are authorized to access
+            </description>
+            </item>
+            <item>
+            <term>Logging</term>
+            <description>
+            When debug mode is enabled the raw requests to OpenSearch are logged in plaintext
+            </description>
+            </item>
+            <item>
+            <term>Metrics</term>
+            <description>
+            Automatic metrics for requests done through this client
+            </description>
+            </item>
+            </list>
+            </para>
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient.SetJsonSerializerSettingsFactory(System.Func{Newtonsoft.Json.JsonSerializerSettings})">
+            <summary>
+            Set what JSON settings to use when deserializing data from OpenSearch
+            </summary>
+            <param name="jsonSerializerSettingsFactory"></param>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient.GetIndices(System.Collections.Generic.List{Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess.IndexDescriptor})">
+            <summary>
+            Queries the OpenSearch instance for all indices' names
+            </summary>
+            <returns>A List containing all index-names</returns>
+        </member>
+        <member name="T:Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess.ClaimsBasedIndexAccessResolver">
+            <summary>
+            A resolver used to return accessible indices
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess.ClaimsBasedIndexAccessResolver.IsAccessible(Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess.IndexDescriptor)">
+            <summary>
+            Check if an specific index is accessible
+            </summary>
+            <param name="indexName"> IndexDescriptor </param>
+            <returns> A boolean describing if the index is accessible</returns>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess.ClaimsBasedIndexAccessResolver.GetAccessibleIndices(Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.IndexTypeBase)">
+            <summary>
+            Get accessible indices of a specified index type
+            </summary>
+            <param name="type"> Index type </param>
+            <returns> A list of all accessible indices of a specified index type </returns>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess.ClaimsBasedIndexAccessResolver.GetAccessibleIndices(System.DateTimeOffset,System.DateTimeOffset,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.IndexTypeBase)">
+            <summary>
+            Get accessible indices of a specified index type in a specified timeframe
+            </summary>
+            <param name="from"> Start date of the timeframe </param>
+            <param name="to"> End date of the timeframe </param>
+            <param name="type"> Index type </param>
+            <returns> A list of all accessible indices of a specified index type and timeframe</returns>
+        </member>
+        <member name="T:Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies.CustomerIndexNamingStrategy">
+            <summary>
+            Use to build costumer indices
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies.CustomerIndexNamingStrategy.Build(System.DateTimeOffset,System.DateTimeOffset,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.IndexPrefix,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.IndexTypeBase,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.CustomerIdentifier)">
+            <summary>
+            Build costumer indices for a specific costumer in a specified timeframe.
+            </summary>
+            <param name="from"> Start date of the timeframe </param>
+            <param name="to"> End date of the timeframe </param>
+            <param name="prefix"> Index prefix </param>
+            <param name="type"> Index type</param>
+            <param name="customer"> Costumer identifier</param>
+            <returns> IndexDescriptor for costumer indices </returns>
+        </member>
+        <member name="T:Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies.MonthResolutionIndexNamingStrategy">
+            <summary>
+            Use to build month resolution indices
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies.MonthResolutionIndexNamingStrategy.Build(System.DateTimeOffset,System.DateTimeOffset,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.IndexPrefix,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.IndexTypeBase,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.CustomerIdentifier)">
+            <summary>
+            Build month resolution indices in a specified timeframe.
+            </summary>
+            <param name="from"> Start date of the timeframe </param>
+            <param name="to"> End date of the timeframe </param>
+            <param name="prefix"> Index prefix </param>
+            <param name="type"> Index type</param>
+            <param name="customer"> Costumer identifier </param>
+            <returns> IndexDescriptor for month resolution indices </returns>
+        </member>
+        <member name="T:Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies.SimpleIndexNamingStrategy">
+            <summary>
+            Use to build simple indices
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies.SimpleIndexNamingStrategy.Build(System.DateTimeOffset,System.DateTimeOffset,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.IndexPrefix,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.IndexTypeBase,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.CustomerIdentifier)">
+            <summary>
+            Build simple indices in a specified timeframe.
+            </summary>
+            <param name="from"> Start date of the timeframe </param>
+            <param name="to"> End date of the timeframe </param>
+            <param name="prefix"> Index prefix </param>
+            <param name="type"> Index type </param>
+            <param name="customer"> Costumer identifier </param>
+            <returns> IndexDescriptor for simple indices </returns>
+        </member>
+        <member name="T:Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies.YearResolutionIndexNamingStrategy">
+            <summary>
+            Use to build year resolution indices
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies.YearResolutionIndexNamingStrategy.Build(System.DateTimeOffset,System.DateTimeOffset,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.IndexPrefix,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.IndexTypeBase,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.CustomerIdentifier)">
+            <summary>
+            Build year resolution indices in a specified timeframe.
+            </summary>
+            <param name="from"> Start date of the timeframe </param>
+            <param name="to"> End date of the timeframe </param>
+            <param name="prefix"> Index prefix </param>
+            <param name="type"> Index type</param>
+            <param name="customer"> Costumer identifier </param>
+            <returns> IndexDescriptor for year resolution indices </returns>
+        </member>
+        <member name="T:Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies.YearResolutionWithWildcardIndexNamingStrategy">
+            <summary>
+            Use to build year resolution with wildcard indices
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies.YearResolutionWithWildcardIndexNamingStrategy.Build(System.DateTimeOffset,System.DateTimeOffset,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.IndexPrefix,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.IndexTypeBase,Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments.CustomerIdentifier)">
+            <summary>
+            Build year resolution with wildcard indices in a specified timeframe.
+            </summary>
+            <param name="from"> Start date of the timeframe </param>
+            <param name="to"> End date of the timeframe </param>
+            <param name="prefix"> Index prefix </param>
+            <param name="type"> Index type</param>
+            <param name="customer"> Costumer identifier </param>
+            <returns> IndexDescriptor for year resolution with wildcard indices </returns>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Middleware.Metric.KestrelMetricService.#ctor(System.Int32)">
+            <summary>
+            Instantiate a stand-alone Kestrel based metric server that only serves Prometheus requests.
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Middleware.Metric.KestrelMetricService.ExecuteAsync(System.Threading.CancellationToken)">
+            <summary>
+            Start kestrel server.
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Middleware.Metric.MetricReporter.#ctor">
+            <summary>
+            Instantiate a MetricReporter that consists of a Prometheus metric counter and Prometheus histogram
+            The counter represents the total number of requests serviced by this API.
+            The Histogram represents the duration in seconds between the response to a request.
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Middleware.Metric.MetricReporter.RegisterRequest">
+            <summary>
+            Increments the request counter
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Middleware.Metric.MetricReporter.RegisterResponseTime(System.Int32,System.String,System.TimeSpan)">
+            <summary>
+            Register a response time in the MetricReporter response time histogram with the status code, method and the elapsed response time.
+            </summary>
+            <param name="statusCode"> The status code</param>
+            <param name="method"> The method name</param>
+            <param name="elasped"> Timespan elapsed </param>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Middleware.Metric.PrometheusMiddleWare.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            Instantiate a Prometheus MiddleWare class to handle HTTP requests
+            </summary>
+            <param name="request"> Request delegate</param>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Middleware.Metric.PrometheusMiddleWare.Invoke(Microsoft.AspNetCore.Http.HttpContext,Cheetah.WebApi.Shared.Middleware.Metric.IMetricReporter)">
+            <summary>
+            Invoke a httpContext to the Metric Reporter to register request and register response time.
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Middleware.Startup.StartupTaskContext.RegisterTask">
+            <summary>
+            Register a task to shared context
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Middleware.Startup.StartupTaskContext.MarkTaskAsComplete">
+            <summary>
+            Mark a task as done to shared context
+            </summary>
+        </member>
+        <member name="P:Cheetah.WebApi.Shared.Middleware.Startup.StartupTaskContext.IsComplete">
+            <summary>
+            Check if all tasks is complete
+            </summary>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Middleware.Startup.StartupTaskExtensions.AddStartupTasks(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Add startup multiple tasks to the IServiceCollection
+            </summary>
+            <returns>The IServiceCollection</returns>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Middleware.Startup.StartupTaskExtensions.AddStartupTask``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Add startup task to the IServiceCollection
+            </summary>
+            <returns>The IServiceCollection</returns>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Middleware.Startup.StartupTasksMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            Invoke task async
+            </summary>
+        </member>
+    </members>
+</doc>

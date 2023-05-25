@@ -1,4 +1,5 @@
-﻿
+using System;
+
 namespace Cheetah.WebApi.Shared.Middleware.Metric
 {
     public interface IMetricReporter

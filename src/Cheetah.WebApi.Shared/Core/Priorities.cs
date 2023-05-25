@@ -1,4 +1,6 @@
-﻿namespace Cheetah.WebApi.Shared.Core
+using Cheetah.WebApi.Shared.Infrastructure.ServiceProvider;
+
+namespace Cheetah.WebApi.Shared.Core
 {
     public class Priorities
     {

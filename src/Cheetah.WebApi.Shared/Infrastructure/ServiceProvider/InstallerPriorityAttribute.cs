@@ -1,13 +1,17 @@
-﻿[AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-public sealed class InstallerPriorityAttribute : Attribute
+using System;
+
+namespace Cheetah.WebApi.Shared.Infrastructure.ServiceProvider
 {
-    public const int DefaultPriority = 100;
-
-    public int Priority { get; private set; }
-
-    public InstallerPriorityAttribute(int priority)
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+    public sealed class InstallerPriorityAttribute : Attribute
     {
-        Priority = priority;
-    }
+        public const int DefaultPriority = 100;
 
+        public int Priority { get; private set; }
+
+        public InstallerPriorityAttribute(int priority)
+        {
+            Priority = priority;
+        }
+    }
 }

@@ -1,6 +1,10 @@
-﻿using Microsoft.IdentityModel.Tokens;
+using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
 
-public interface IPublicKeyProvider
+namespace Cheetah.WebApi.Shared.Core
 {
-    Task<JsonWebKey[]> GetKey(string clientId);
+    public interface IPublicKeyProvider
+    {
+        Task<JsonWebKey[]> GetKey(string clientId);
+    }
 }
