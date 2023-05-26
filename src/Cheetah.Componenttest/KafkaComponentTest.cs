@@ -13,12 +13,22 @@ using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Cheetah.ComponentTest
 {
+    /// <summary>
+    /// <typeparam name="TIn">The type of the value of the produced message</typeparam>
+    /// <typeparam name="TOut">The type of the value of the consumed message</typeparam>
+    /// </summary>
     public abstract class KafkaComponentTest<TIn, TOut> : KafkaComponentTest<TIn, Null, TOut, Null>
     {
         protected KafkaComponentTest(ILogger logger, IOptions<ComponentTestConfig> componentTestConfig, IOptions<KafkaConfig> kafkaConfig, CheetahKafkaTokenService tokenService) : base(logger, componentTestConfig, kafkaConfig, tokenService)
         {
         }
     }
+    /// <summary>
+    /// <typeparam name="TIn">The type of the value of the produced message</typeparam>
+    /// <typeparam name="TOut">The type of the value of the consumed message</typeparam>
+    /// <typeparam name="TInKey">The type of the value of the produced message</typeparam>
+    /// <typeparam name="TOutKey">The type of the value of the consumed message</typeparam>
+    /// </summary>
     public abstract class KafkaComponentTest<TIn, TInKey, TOut, TOutKey> : ComponentTest
     {
         private readonly ComponentTestConfig _componentTestConfig;
