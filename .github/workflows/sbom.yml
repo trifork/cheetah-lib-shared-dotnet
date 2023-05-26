@@ -14,11 +14,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - run: docker run --rm -v /tmp:/tmp -v $(pwd):/app:rw -e FETCH_LICENSE=true -t ghcr.io/cyclonedx/cdxgen -r /app/src -o /app/sbom.json -t dotnet
-      - name: Commit the sbom files
-        uses: EndBug/add-and-commit@v7
+      #  image: public.ecr.aws/appthreat/cdxgen:latest
+      - run: |
+          docker pull ghcr.io/cyclonedx/cdxgen:latest
+          docker run --rm -v /tmp:/tmp -v $(pwd):/app:rw -e FETCH_LICENSE=true -t ghcr.io/cyclonedx/cdxgen:latest -r /app/src -o /app/sbom.json -t dotnet
+      - name: Commit changes and open pull request
+        if: github.ref == 'refs/heads/main'
+        uses: peter-evans/create-pull-request@284f54f989303d2699d373481a0cfa13ad5a6666
         with:
-          # This makes the GH Actions user/bot the author of the commit
-          default_author: github_actor
-          message: "Automatically update sbom files"
-          add: "*.json"
+          title: Update sbom report
+          commit-message: Update sbom to the latest version
+          add-paths: .
+          author: cheetahbot <cheetahbot@trifork.com>
+          committer: cheetahbot <cheetahbot@trifork.com>
+          delete-branch: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          labels: automerge
