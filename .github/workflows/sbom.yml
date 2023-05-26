@@ -32,5 +32,5 @@ jobs:
           author: cheetahbot <cheetahbot@trifork.com>
           committer: cheetahbot <cheetahbot@trifork.com>
           delete-branch: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PACKAGE_PAT }}
           labels: automerge
