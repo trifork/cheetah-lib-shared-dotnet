@@ -1,26 +1,10 @@
 name: docs
 
 on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches:
-      - main
   pull_request:
     branches: ["main"]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: write
-  pages: write
-  id-token: write
-
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 env:
   SOLUTION_FILEPATH: ./Cheetah.WebApi.Shared.sln
@@ -28,9 +12,6 @@ env:
 jobs:
   publish-docs:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -47,24 +28,3 @@ jobs:
 
       - run: docfx metadata --logLevel verbose docs/docfx.json
       - run: docfx build --warningsAsErrors docs/docfx.json
-
-      - name: create public/
-        if: github.ref == 'refs/heads/main'
-        run: |
-          mkdir -p public/
-          mv docs/ public/_source
-          mv src/ public/src
-          mv .gitignore public/.gitignore
-          cp README.md public/_source
-          rm public/_source/api/.gitignore
-          mv _site/ public/docs
-
-      - name: Deploy to GitHub Pages
-        if: github.ref == 'refs/heads/main'
-        id: deployment
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-          exclude_assets: ""
-          force_orphan: true
