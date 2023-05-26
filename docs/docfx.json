@@ -6,7 +6,8 @@
         {
           "files": [
             "**/Cheetah.WebApi.Shared.csproj",
-            "**/Cheetah.ComponentTest.csproj"
+            "**/Cheetah.ComponentTest.csproj",
+            "**/Cheetah.Core.csproj"
           ],
           "src": "../"
         }
@@ -22,20 +23,32 @@
   "build": {
     "content": [
       {
-        "files": ["README.md"],
+        "files": [
+          "README.md"
+        ],
         "src": "../",
         "dest": "./"
       },
       {
-        "files": ["api/**.yml", "api/index.md"]
+        "files": [
+          "api/**.yml",
+          "api/index.md"
+        ]
       },
       {
-        "files": ["articles/**.md", "articles/**/toc.yml", "toc.yml", "*.md"]
+        "files": [
+          "articles/**.md",
+          "articles/**/toc.yml",
+          "toc.yml",
+          "*.md"
+        ]
       }
     ],
     "resource": [
       {
-        "files": ["images/**"]
+        "files": [
+          "images/**"
+        ]
       }
     ],
     "globalMetadata": {
@@ -46,7 +59,10 @@
     "dest": "../_site",
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
-    "template": ["default", "modern"],
+    "template": [
+      "default",
+      "modern"
+    ],
     "postProcessors": [],
     "keepFileLink": false,
     "disableGitFeatures": false
