@@ -56,6 +56,7 @@ namespace Cheetah.ComponentTest
             }
             catch (Exception ex)
             {
+                Log.Debug(ex?.StackTrace);
                 return TestResult.Failed(
                     $"An exception was thrown of type '{ex.GetType().Name} with message '{ex.Message}'"
                 );

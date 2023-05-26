@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>false</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <VersionPrefix>1.1.1</VersionPrefix>
+    <VersionPrefix>1.2.0</VersionPrefix>
     <RootNamespace>Cheetah.ComponentTest</RootNamespace>
     <PackageReadmeFile>CheetahComponentTest.md</PackageReadmeFile>
     <!--  TODO -->
