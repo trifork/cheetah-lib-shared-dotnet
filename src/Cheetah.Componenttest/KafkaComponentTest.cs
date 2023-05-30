@@ -17,26 +17,28 @@ namespace Cheetah.ComponentTest
     /// <typeparam name="TIn">The type of the value of the produced message</typeparam>
     /// <typeparam name="TOut">The type of the value of the consumed message</typeparam>
     /// </summary>
-    public abstract class KafkaComponentTest<TIn, TOut> : KafkaComponentTest<TIn, Null, TOut, Null>
+    public abstract class KafkaComponentTest<TIn, TOut> : KafkaComponentTest<TIn, Null, TOut>
     {
         protected KafkaComponentTest(ILogger logger, IOptions<ComponentTestConfig> componentTestConfig, IOptions<KafkaConfig> kafkaConfig, CheetahKafkaTokenService tokenService) : base(logger, componentTestConfig, kafkaConfig, tokenService)
         {
         }
+
+        protected sealed override Null InputKeyMapping(TIn input) => null!;
     }
+        
     /// <summary>
     /// <typeparam name="TIn">The type of the value of the produced message</typeparam>
     /// <typeparam name="TOut">The type of the value of the consumed message</typeparam>
     /// <typeparam name="TInKey">The type of the value of the produced message</typeparam>
-    /// <typeparam name="TOutKey">The type of the value of the consumed message</typeparam>
     /// </summary>
-    public abstract class KafkaComponentTest<TIn, TInKey, TOut, TOutKey> : ComponentTest
+    public abstract class KafkaComponentTest<TIn, TInKey, TOut> : ComponentTest
     {
         private readonly ComponentTestConfig _componentTestConfig;
         private readonly KafkaConfig _kafkaConfig;
         private readonly ILogger _logger;
         private readonly CheetahKafkaTokenService _tokenService;
         private IProducer<TInKey, TIn>? _producer;
-        private IConsumer<TOutKey, TOut>? _consumer;
+        private IConsumer<Null, TOut>? _consumer;
 
         /// <summary>
         /// Number of messages to be expected to be produced by the tested job
@@ -60,7 +62,7 @@ namespace Cheetah.ComponentTest
         internal override Task Arrange(CancellationToken cancellationToken)
         {
             Log.Information("Preparing kafka consumer, consuming from topic '{topic}'", _componentTestConfig.ConsumerTopic);
-            _consumer = new ConsumerBuilder<TOutKey, TOut>(new ConsumerConfig
+            _consumer = new ConsumerBuilder<Null, TOut>(new ConsumerConfig
             {
                 BootstrapServers = _kafkaConfig.Url,
                 GroupId = _componentTestConfig.ConsumerGroup,
@@ -98,12 +100,14 @@ namespace Cheetah.ComponentTest
             return Task.CompletedTask;
         }
 
+        protected abstract TInKey InputKeyMapping(TIn input);
+        
         /// <summary>
         /// Define messages to publish to Kafka
         /// </summary>
         /// <returns>IEnumerable of class to be produced</returns>
         protected abstract IEnumerable<TIn> GetMessagesToPublish();
-
+        
         internal sealed override async Task Act(CancellationToken cancellationToken)
         {
             var messages = GetMessagesToPublish().ToList();
@@ -113,7 +117,7 @@ namespace Cheetah.ComponentTest
             {
                 await _producer.ProduceAsync(
                     _componentTestConfig.ProducerTopic,
-                    new Message<TInKey, TIn> { Value = message },
+                    new Message<TInKey, TIn> { Value = message, Key = InputKeyMapping(message)},
                     cancellationToken
                 );
             }
