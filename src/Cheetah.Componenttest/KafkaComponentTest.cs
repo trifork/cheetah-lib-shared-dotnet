@@ -14,31 +14,59 @@ using ILogger = Microsoft.Extensions.Logging.ILogger;
 namespace Cheetah.ComponentTest
 {
     /// <summary>
+    /// Base class for implementing component tests, which produce messages to one kafka topic and consumes from another.
+    /// Intended for use with Flink jobs which have a single input and output topic.
+    /// This both produces messages with null keys and expects consumed message to have null keys.
+    /// For more control over keys, use the 3 or 4 type-argument overload,
+    /// which allows specification of the expected key type and both produced and expected key type, respectively.
+    /// <see cref="KafkaComponentTest{TIn,TOut,TOutKey}"/>
+    /// <see cref="KafkaComponentTest{TIn,TInKey,TOut,TOutKey}"/>
+    /// </summary>
     /// <typeparam name="TIn">The type of the value of the produced message</typeparam>
     /// <typeparam name="TOut">The type of the value of the consumed message</typeparam>
-    /// </summary>
-    public abstract class KafkaComponentTest<TIn, TOut> : KafkaComponentTest<TIn, Null, TOut>
+    public abstract class KafkaComponentTest<TIn, TOut> : KafkaComponentTest<TIn, TOut, Null>
     {
         protected KafkaComponentTest(ILogger logger, IOptions<ComponentTestConfig> componentTestConfig, IOptions<KafkaConfig> kafkaConfig, CheetahKafkaTokenService tokenService) : base(logger, componentTestConfig, kafkaConfig, tokenService)
         {
         }
 
-        protected sealed override Null InputKeyMapping(TIn input) => null!;
     }
-        
+
     /// <summary>
+    /// Base class for implementing component tests, which produce messages to one kafka topic and consumes from another.
+    /// Intended for use with Flink jobs which have a single input and output topic.
+    /// This produces messages with null keys and expects consumed message to have keys of type <typeparamref name="TOutKey"/> keys.
+    /// </summary>
     /// <typeparam name="TIn">The type of the value of the produced message</typeparam>
     /// <typeparam name="TOut">The type of the value of the consumed message</typeparam>
-    /// <typeparam name="TInKey">The type of the value of the produced message</typeparam>
+    /// <typeparam name="TOutKey">The type of the key of the produced message</typeparam>
+    
+    public abstract class KafkaComponentTest<TIn, TOut, TOutKey> : KafkaComponentTest<TIn, Null, TOut, TOutKey>
+    {
+        protected KafkaComponentTest(ILogger logger, IOptions<ComponentTestConfig> componentTestConfig, IOptions<KafkaConfig> kafkaConfig, CheetahKafkaTokenService tokenService) : base(logger, componentTestConfig, kafkaConfig, tokenService)
+        {
+        }
+        
+        protected sealed override Null InputKeyMapping(TIn input) => null!;
+    }
+
+    /// <summary>
+    /// Base class for implementing component tests, which produce messages to one kafka topic and consumes from another.
+    /// Intended for use with Flink jobs which have a single input and output topic.
+    /// This produces messages with keys of type <typeparamref name="TInKey"/> and expects consumed message to have keys of type <typeparamref name="TOutKey"/> keys.
     /// </summary>
-    public abstract class KafkaComponentTest<TIn, TInKey, TOut> : ComponentTest
+    /// <typeparam name="TIn">The type of the value of the produced message</typeparam>
+    /// <typeparam name="TOut">The type of the value of the consumed message</typeparam>
+    /// <typeparam name="TInKey">The type of the key of the produced message</typeparam>
+    /// <typeparam name="TOutKey">The type of the key of the produced message</typeparam>
+    public abstract class KafkaComponentTest<TIn, TInKey, TOut, TOutKey> : ComponentTest
     {
         private readonly ComponentTestConfig _componentTestConfig;
         private readonly KafkaConfig _kafkaConfig;
         private readonly ILogger _logger;
         private readonly CheetahKafkaTokenService _tokenService;
         private IProducer<TInKey, TIn>? _producer;
-        private IConsumer<Null, TOut>? _consumer;
+        private IConsumer<TOutKey, TOut>? _consumer;
 
         /// <summary>
         /// Number of messages to be expected to be produced by the tested job
@@ -62,7 +90,7 @@ namespace Cheetah.ComponentTest
         internal override Task Arrange(CancellationToken cancellationToken)
         {
             Log.Information("Preparing kafka consumer, consuming from topic '{topic}'", _componentTestConfig.ConsumerTopic);
-            _consumer = new ConsumerBuilder<Null, TOut>(new ConsumerConfig
+            _consumer = new ConsumerBuilder<TOutKey, TOut>(new ConsumerConfig
             {
                 BootstrapServers = _kafkaConfig.Url,
                 GroupId = _componentTestConfig.ConsumerGroup,
