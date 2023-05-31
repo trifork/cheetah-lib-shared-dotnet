@@ -82,7 +82,6 @@ COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "ComponentTest.dll"]
 ```
 
-
 # Code examples
 
 ## Creating a test
@@ -90,6 +89,7 @@ ENTRYPOINT ["dotnet", "ComponentTest.dll"]
 ### Making a class for producing or consuming data.
 
 The class for consuming or producing data in the component test can be a simple C# class, no imports need.
+
 ```c#
 public class ExampleProducerData
     {
@@ -104,8 +104,8 @@ public class ExampleConsumerData
         public int ExampleInteger { get; set; }
     }
 ```
-It's only important they contain the properies you wish to test. And they don't have to be identical. Shown above is an example of the producer object having a properti the consumer dones't have. As it's not important to test. Could be it's not in the topic after an operation done between the two objects. 
 
+It's only important they contain the properies you wish to test. And they don't have to be identical. Shown above is an example of the producer object having a property the consumer doesn't have. As it's not important to test. Could be it's not in the topic after an operation done between the two objects. 
 
 ### Making the test case
 
