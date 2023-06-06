@@ -14,21 +14,51 @@ using ILogger = Microsoft.Extensions.Logging.ILogger;
 namespace Cheetah.ComponentTest
 {
     /// <summary>
+    /// Base class for implementing component tests, which produce messages to one kafka topic and consumes from another.
+    /// Intended for use with Flink jobs which have a single input and output topic.
+    /// This both produces messages with null keys and expects consumed message to have null keys.
+    /// For more control over keys, use the 3 or 4 type-argument overload,
+    /// which allows specification of the expected key type and both produced and expected key type, respectively.
+    /// <see cref="KafkaComponentTest{TIn,TOut,TOutKey}"/>
+    /// <see cref="KafkaComponentTest{TIn,TInKey,TOut,TOutKey}"/>
+    /// </summary>
     /// <typeparam name="TIn">The type of the value of the produced message</typeparam>
     /// <typeparam name="TOut">The type of the value of the consumed message</typeparam>
-    /// </summary>
-    public abstract class KafkaComponentTest<TIn, TOut> : KafkaComponentTest<TIn, Null, TOut, Null>
+    public abstract class KafkaComponentTest<TIn, TOut> : KafkaComponentTest<TIn, TOut, Null>
     {
         protected KafkaComponentTest(ILogger logger, IOptions<ComponentTestConfig> componentTestConfig, IOptions<KafkaConfig> kafkaConfig, CheetahKafkaTokenService tokenService) : base(logger, componentTestConfig, kafkaConfig, tokenService)
         {
         }
+
     }
+
     /// <summary>
+    /// Base class for implementing component tests, which produce messages to one kafka topic and consumes from another.
+    /// Intended for use with Flink jobs which have a single input and output topic.
+    /// This produces messages with null keys and expects consumed message to have keys of type <typeparamref name="TOutKey"/> keys.
+    /// </summary>
     /// <typeparam name="TIn">The type of the value of the produced message</typeparam>
     /// <typeparam name="TOut">The type of the value of the consumed message</typeparam>
-    /// <typeparam name="TInKey">The type of the value of the produced message</typeparam>
-    /// <typeparam name="TOutKey">The type of the value of the consumed message</typeparam>
+    /// <typeparam name="TOutKey">The type of the key of the produced message</typeparam>
+    
+    public abstract class KafkaComponentTest<TIn, TOut, TOutKey> : KafkaComponentTest<TIn, Null, TOut, TOutKey>
+    {
+        protected KafkaComponentTest(ILogger logger, IOptions<ComponentTestConfig> componentTestConfig, IOptions<KafkaConfig> kafkaConfig, CheetahKafkaTokenService tokenService) : base(logger, componentTestConfig, kafkaConfig, tokenService)
+        {
+        }
+        
+        protected sealed override Null InputKeyMapping(TIn input) => null!;
+    }
+
+    /// <summary>
+    /// Base class for implementing component tests, which produce messages to one kafka topic and consumes from another.
+    /// Intended for use with Flink jobs which have a single input and output topic.
+    /// This produces messages with keys of type <typeparamref name="TInKey"/> and expects consumed message to have keys of type <typeparamref name="TOutKey"/> keys.
     /// </summary>
+    /// <typeparam name="TIn">The type of the value of the produced message</typeparam>
+    /// <typeparam name="TOut">The type of the value of the consumed message</typeparam>
+    /// <typeparam name="TInKey">The type of the key of the produced message</typeparam>
+    /// <typeparam name="TOutKey">The type of the key of the produced message</typeparam>
     public abstract class KafkaComponentTest<TIn, TInKey, TOut, TOutKey> : ComponentTest
     {
         private readonly ComponentTestConfig _componentTestConfig;
@@ -98,12 +128,14 @@ namespace Cheetah.ComponentTest
             return Task.CompletedTask;
         }
 
+        protected abstract TInKey InputKeyMapping(TIn input);
+        
         /// <summary>
         /// Define messages to publish to Kafka
         /// </summary>
         /// <returns>IEnumerable of class to be produced</returns>
         protected abstract IEnumerable<TIn> GetMessagesToPublish();
-
+        
         internal sealed override async Task Act(CancellationToken cancellationToken)
         {
             var messages = GetMessagesToPublish().ToList();
@@ -113,7 +145,7 @@ namespace Cheetah.ComponentTest
             {
                 await _producer.ProduceAsync(
                     _componentTestConfig.ProducerTopic,
-                    new Message<TInKey, TIn> { Value = message },
+                    new Message<TInKey, TIn> { Value = message, Key = InputKeyMapping(message)},
                     cancellationToken
                 );
             }
