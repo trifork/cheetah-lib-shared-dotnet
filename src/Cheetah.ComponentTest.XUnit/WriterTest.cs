@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Cheetah.ComponentTest.XUnit
 {
+    [Trait("TestType", "IntegrationTests")]
     public class WriterTest
     {
         readonly IConfiguration configuration;
