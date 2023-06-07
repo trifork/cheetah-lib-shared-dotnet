@@ -169,5 +169,5 @@ jobs:
         working-directory: integrationtests/
         run: docker compose --profile kafka --profile oauth up -d --build
       - name: "Test Integration"
-        working-directory: src/Cheetah.ComponentTest.Test
+        working-directory: src/Cheetah.ComponentTest.Xunit
         run: docker compose -f docker-compose.yaml up --abort-on-container-exit
