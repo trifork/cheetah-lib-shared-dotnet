@@ -1,0 +1,22 @@
+---
+version: '3'
+services:
+  example-component-test-xunit:
+    build:
+      context: ..
+      dockerfile: Cheetah.ComponentTest.XUnit/Dockerfile
+      args:
+        # Nuget restore outside Visual Studio
+        - GITHUB_ACTOR=${GITHUB_ACTOR:-Missing required GITHUB_ACTOR}
+        - GITHUB_TOKEN=${GITHUB_TOKEN:-Missing required GITHUB_TOKEN}
+    environment:
+      KAFKA__URL: kafka:19092
+      COMPONENTTEST__CONSUMERTOPIC: TestTopic
+      COMPONENTTEST__PRODUCERTOPIC: TestTopic
+      KAFKA__CLIENTID: ClientId
+      KAFKA__CLIENTSECRET: 1234
+      KAFKA__AUTHENDPOINT: http://cheetah.oauth.simulator:80/oauth2/token
+
+networks:
+  default:
+    name: "cheetah-infrastructure"

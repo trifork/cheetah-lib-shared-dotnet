@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Cheetah.Core.Infrastructure.Auth
 {
-    public abstract class TokenService
+    public abstract class TokenService : ITokenService
     {
         private readonly ILogger logger;
         private readonly IHttpClientFactory httpClientFactory;
@@ -73,7 +73,7 @@ namespace Cheetah.Core.Infrastructure.Auth
         /// Request access token with client credentials
         /// </summary>
         /// <returns>Token response</returns>
-        public async Task<TokenResponse?> RequestClientCredentialsTokenAsync(
+        public async Task<TokenResponse> RequestClientCredentialsTokenAsync(
             CancellationToken cancellationToken
         )
         {
@@ -84,7 +84,7 @@ namespace Cheetah.Core.Infrastructure.Auth
             )
             {
                 logger.LogError("Missing OAuth config! Please check environment variables");
-                return default;
+                return new TokenResponse();
             }
 
             using var httpClient = httpClientFactory.CreateClient(CacheKey);
