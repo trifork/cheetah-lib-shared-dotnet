@@ -31,6 +31,7 @@ namespace Cheetah.ComponentTest.XUnit
                 .Build();
 
             await writer.WriteAsync("Message4");
+            Thread.Sleep(3000);
             var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(1));
             Assert.Single(readMessages);
             Assert.True(reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(1)));
