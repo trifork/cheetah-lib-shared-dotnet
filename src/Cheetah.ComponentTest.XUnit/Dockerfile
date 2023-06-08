@@ -17,7 +17,7 @@ RUN groupadd --gid 1001 nonroot \
   && mkdir -p /home/nonroot/.ssh \
   && chown -R nonroot:nonroot /home/nonroot \
   && chmod 0700 /home/nonroot/.ssh \
-  && chown nonroot:nonroot /app
+  && chown nonroot:nonroot /src
 
 USER nonroot
 WORKDIR /src
