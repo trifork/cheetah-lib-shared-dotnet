@@ -171,5 +171,5 @@ jobs:
       - name: "Test Integration"
         working-directory: src/Cheetah.ComponentTest.XUnit
         run: |
-             docker compose -f docker-compose.yaml up --abort-on-container-exit 
+             $exit=docker compose -f docker-compose.yaml up --abort-on-container-exit 
              docker logs cheetah-infrastructure-kafka-1
