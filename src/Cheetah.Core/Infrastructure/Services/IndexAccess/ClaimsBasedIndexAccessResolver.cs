@@ -1,3 +1,4 @@
+using Cheetah.Core.IndexFragments;
 using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
 using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
 
