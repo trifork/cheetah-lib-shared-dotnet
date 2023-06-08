@@ -82,7 +82,7 @@ jobs:
       - name: Add hosts to /etc/hosts
         run: |
           sudo echo "127.0.0.1 opensearch" | sudo tee -a /etc/hosts
-          sudo echo "127.0.0.1 cheetahoauthsimulator" | sudo tee -a /etc/hosts
+          sudo echo "127.0.0.1 cheetah.oauth.simulator" | sudo tee -a /etc/hosts
       - name: "Wait for opensearch, the slowest component"
         uses: nick-fields/retry@v2
         with:
@@ -134,7 +134,7 @@ jobs:
       - name: Add hosts to /etc/hosts
         run: |
           sudo echo "127.0.0.1 kafka" | sudo tee -a /etc/hosts
-          sudo echo "127.0.0.1 cheetahoauthsimulator" | sudo tee -a /etc/hosts
+          sudo echo "127.0.0.1 cheetah.oauth.simulator" | sudo tee -a /etc/hosts
       - name: "Test Integration"
         run: dotnet test --logger trx --no-restore --verbosity normal --filter 'Category=Kafka' ${{ env.SOLUTION_FILEPATH }}
 
@@ -168,10 +168,9 @@ jobs:
       - name: "Start e2e infrastructure"
         working-directory: integrationtests/
         run: docker compose --profile kafka --profile oauth up -d --build
-      - name: Add hosts to /etc/hosts
-        run: |
-          sudo echo "127.0.0.1 kafka" | sudo tee -a /etc/hosts
-          sudo echo "127.0.0.1 cheetahoauthsimulator" | sudo tee -a /etc/hosts
       - name: "Test Integration"
         working-directory: src/Cheetah.ComponentTest.XUnit
         run: docker compose -f docker-compose.yaml up --abort-on-container-exit
+      - name: "Do stuff"
+        working-directory: integrationtests/
+        run: docker logs kafka

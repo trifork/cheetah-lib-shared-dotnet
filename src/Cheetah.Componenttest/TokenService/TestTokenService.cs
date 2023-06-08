@@ -42,7 +42,7 @@ namespace Cheetah.ComponentTest.TokenService
                 .ConfigureAwait(false);
 
             // Check if the token request was successful
-            return !tokenResponse.IsError ? tokenResponse : throw tokenResponse.Exception; // Get the access token from the token response            }
+            return !tokenResponse.IsError ? tokenResponse : throw tokenResponse.Exception; // Get the access token from the token response
         }
     }
 }

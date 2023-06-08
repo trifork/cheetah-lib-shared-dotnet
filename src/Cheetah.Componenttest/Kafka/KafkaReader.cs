@@ -43,14 +43,15 @@ namespace Cheetah.ComponentTest.Kafka
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
             cancellationTokenSource.CancelAfter(TimeSpan.FromSeconds(2));
             var cancellationToken = cancellationTokenSource.Token;
-            while (!cancellationToken.IsCancellationRequested) 
+            while (!cancellationToken.IsCancellationRequested)
             {
-                try {
-                  var consumeResult = Consumer.Consume(cancellationToken);
-                  if (consumeResult.IsPartitionEOF)
-                  {
-                      break;
-                  }
+                try
+                {
+                    var consumeResult = Consumer.Consume(cancellationToken);
+                    if (consumeResult.IsPartitionEOF)
+                    {
+                        break;
+                    }
                 }
                 catch (OperationCanceledException)
                 {
