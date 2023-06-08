@@ -1,5 +1,6 @@
 using System.Text;
 using Cheetah.Core.Config;
+using Cheetah.Core.Infrastructure.Services.IndexAccess;
 using Cheetah.Core.Interfaces;
 using Cheetah.WebApi.Shared.Util;
 using Microsoft.Extensions.Caching.Memory;

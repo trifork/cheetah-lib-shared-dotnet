@@ -1,5 +1,8 @@
-using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
+using Cheetah.Core.IndexFragments;
+using Cheetah.Core.Infrastructure.Services.IndexAccess;
+using Cheetah.Core.NamingStrategies;
 using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
+using OpenSearch.Client;
 
 namespace Cheetah.Core.Infrastructure.Services.indexFragments
 {

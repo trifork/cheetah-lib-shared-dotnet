@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cheetah.Core.Config;
+using Cheetah.Core.Infrastructure.Services.IndexAccess;
 using Cheetah.WebApi.Shared.Core.Config;
 using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
 using Cheetah.WebApi.Shared.Test.TestUtils;
