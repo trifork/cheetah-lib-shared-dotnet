@@ -151,8 +151,6 @@ jobs:
     name: "Integration testing: ComponentTest"
     runs-on: ubuntu-latest
     steps:
-      - name: "Harden runner"
-        uses: step-security/harden-runner@128a63446a954579617e875aaab7d2978154e969
       - name: "Checkout"
         uses: actions/checkout@v3
       - name: Log in to the Container registry
@@ -171,5 +169,5 @@ jobs:
         working-directory: integrationtests/
         run: docker compose --profile kafka --profile oauth up -d --build
       - name: "Test Integration"
-        working-directory: src/Cheetah.ComponentTest.Xunit
+        working-directory: src/Cheetah.ComponentTest.XUnit
         run: docker compose -f docker-compose.yaml up --abort-on-container-exit
