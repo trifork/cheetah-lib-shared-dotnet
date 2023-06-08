@@ -15,7 +15,7 @@ services:
       COMPONENTTEST__PRODUCERTOPIC: TestTopic
       KAFKA__CLIENTID: ClientId
       KAFKA__CLIENTSECRET: 1234
-      KAFKA__AUTHENDPOINT: http://cheetah.oauth.simulator:80/oauth2/token
+      KAFKA__AUTHENDPOINT: http://cheetahoauthsimulator:80/oauth2/token
 
 networks:
   default:
