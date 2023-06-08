@@ -11,6 +11,14 @@ COPY ["Cheetah.Core/Cheetah.Core.csproj", "Cheetah.Core/"]
 RUN dotnet restore "Cheetah.ComponentTest.XUnit/Cheetah.ComponentTest.XUnit.csproj"
 COPY . .
 
-USER integrationTest
+RUN groupadd --gid 1001 nonroot \
+  # user needs a home folder, i.e. to store azure credentials
+  && useradd --gid nonroot --create-home --uid 1001 nonroot \
+  && mkdir -p /home/nonroot/.ssh \
+  && chown -R nonroot:nonroot /home/nonroot \
+  && chmod 0700 /home/nonroot/.ssh \
+  && chown nonroot:nonroot /app
+
+USER nonroot
 WORKDIR /src
 ENTRYPOINT ["dotnet","test", "Cheetah.ComponentTest.XUnit/Cheetah.ComponentTest.XUnit.csproj"]
