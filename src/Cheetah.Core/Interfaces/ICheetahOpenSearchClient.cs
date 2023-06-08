@@ -1,3 +1,4 @@
+using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
 using OpenSearch.Client;
 
 namespace Cheetah.Core.Interfaces

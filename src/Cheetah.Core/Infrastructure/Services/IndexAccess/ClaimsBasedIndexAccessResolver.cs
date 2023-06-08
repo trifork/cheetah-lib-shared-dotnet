@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Cheetah.WebApi.Shared.Core.IndexFragments;
+using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
 using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
-using Microsoft.AspNetCore.Http;
 
-namespace Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess
+namespace Cheetah.Core.Infrastructure.Services.IndexAccess
 {
     /// <summary>
     /// A resolver used to return accessible indices
