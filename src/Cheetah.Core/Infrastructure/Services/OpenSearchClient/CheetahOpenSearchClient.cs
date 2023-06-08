@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
-using Cheetah.WebApi.Shared.Core.Config;
-using Cheetah.WebApi.Shared.Core.Interfaces;
-using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
+using Cheetah.Core.Config;
+using Cheetah.Core.Interfaces;
 using Cheetah.WebApi.Shared.Util;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Hosting;
@@ -17,7 +11,7 @@ using OpenSearch.Client;
 using OpenSearch.Client.JsonNetSerializer;
 using OpenSearch.Net;
 
-namespace Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient
+namespace Cheetah.Core.Infrastructure.Services.OpenSearchClient
 {
     /// <summary>Wrapper around OpenSearch, which introduces logging, authorization, and metrics
     /// <para>
@@ -48,7 +42,7 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient
     public class CheetahOpenSearchClient : ICheetahOpenSearchClient
     {
         private readonly ILogger<CheetahOpenSearchClient> _logger;
-        public OpenSearchClient InternalClient { get; }
+        public OpenSearch.Client.OpenSearchClient InternalClient { get; }
         private readonly OpenSearchConfig _openSearchConfig;
 
         private Func<JsonSerializerSettings> jsonSerializerSettingsFactory;
@@ -135,7 +129,7 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient
 
             // TODO: We should need to have some defaults when initializing the client
             // TODO: dive down in the settings for OpenSearch and see if we need to expose any of the options as easily changeable
-            InternalClient = new OpenSearchClient(settings);
+            InternalClient = new OpenSearch.Client.OpenSearchClient(settings);
         }
 
         #region GetJsonSerializerSettingsFactory

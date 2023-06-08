@@ -1,9 +1,6 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
 using OpenSearch.Client;
 
-namespace Cheetah.WebApi.Shared.Core.Interfaces
+namespace Cheetah.Core.Interfaces
 {
     public interface ICheetahOpenSearchClient
     {

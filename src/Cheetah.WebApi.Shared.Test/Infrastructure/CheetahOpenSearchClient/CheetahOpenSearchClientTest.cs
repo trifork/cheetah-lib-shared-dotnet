@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Cheetah.Core.Config;
 using Cheetah.WebApi.Shared.Core.Config;
 using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
 using Cheetah.WebApi.Shared.Test.TestUtils;
@@ -68,8 +69,8 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.CheetahOpenSearchClient
             });
 
             var logger =
-                loggerFactory.CreateLogger<Shared.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient>();
-            Shared.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient client =
+                loggerFactory.CreateLogger<Cheetah.Core.Infrastructure.Services.OpenSearchClient.CheetahOpenSearchClient>();
+            Cheetah.Core.Infrastructure.Services.OpenSearchClient.CheetahOpenSearchClient client =
                 new(memoryCache, httpClientFactory, options, env, logger);
 
             var newIndexName = Guid.NewGuid().ToString();
