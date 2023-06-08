@@ -50,7 +50,7 @@ jobs:
           reporter: dotnet-trx
 
   test_opensearch:
-    needs: tests
+    needs: kafka-authentication-lib
     name: "Integration testing: OpenSearch"
     runs-on: ubuntu-latest
     steps:
@@ -102,7 +102,7 @@ jobs:
           reporter: dotnet-trx
 
   kafka-authentication-lib:
-    needs: tests
+    needs: component-test
     name: "Integration testing: Kafka"
     runs-on: ubuntu-latest
     steps:
