@@ -11,5 +11,6 @@ COPY ["Cheetah.Core/Cheetah.Core.csproj", "Cheetah.Core/"]
 RUN dotnet restore "Cheetah.ComponentTest.XUnit/Cheetah.ComponentTest.XUnit.csproj"
 COPY . .
 
+USER integrationTest
 WORKDIR /src
 ENTRYPOINT ["dotnet","test", "Cheetah.ComponentTest.XUnit/Cheetah.ComponentTest.XUnit.csproj"]
