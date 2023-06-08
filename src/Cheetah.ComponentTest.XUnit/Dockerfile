@@ -10,8 +10,6 @@ COPY ["Cheetah.Componenttest/Cheetah.ComponentTest.csproj", "Cheetah.Componentte
 COPY ["Cheetah.Core/Cheetah.Core.csproj", "Cheetah.Core/"]
 RUN dotnet restore "Cheetah.ComponentTest.XUnit/Cheetah.ComponentTest.XUnit.csproj"
 COPY . .
-#WORKDIR "/src/Cheetah.ComponentTest.XUnit"
-#RUN dotnet build "Cheetah.ComponentTest.XUnit.csproj" -c Release -o /app/build
 
 WORKDIR /src
 ENTRYPOINT ["dotnet","test", "Cheetah.ComponentTest.XUnit/Cheetah.ComponentTest.XUnit.csproj"]

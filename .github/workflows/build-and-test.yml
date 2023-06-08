@@ -151,6 +151,8 @@ jobs:
     name: "Integration testing: ComponentTest"
     runs-on: ubuntu-latest
     steps:
+      - name: "Harden runner"
+        uses: step-security/harden-runner
       - name: "Checkout"
         uses: actions/checkout@v3
       - name: Log in to the Container registry
