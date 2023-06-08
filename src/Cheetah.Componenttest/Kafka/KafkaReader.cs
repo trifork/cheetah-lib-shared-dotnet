@@ -34,6 +34,7 @@ namespace Cheetah.ComponentTest.Kafka
                 SecurityProtocol = SecurityProtocol.SaslPlaintext,
                 EnablePartitionEof = true,
                 GroupId = ConsumerGroup,
+                AllowAutoCreateTopics = true,
             })
             .SetValueDeserializer(new Utf8Serializer<T>())
             .AddCheetahOAuthentication(new TestTokenService(ClientId, ClientSecret, AuthEndpoint), Logger)
