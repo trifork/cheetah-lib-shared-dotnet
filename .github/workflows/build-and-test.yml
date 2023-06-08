@@ -152,7 +152,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Harden runner"
-        uses: step-security/harden-runner
+        uses: step-security/harden-runner@128a63446a954579617e875aaab7d2978154e969
       - name: "Checkout"
         uses: actions/checkout@v3
       - name: Log in to the Container registry
