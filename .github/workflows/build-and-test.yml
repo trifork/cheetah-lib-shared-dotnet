@@ -165,6 +165,9 @@ jobs:
           repository: trifork/cheetah-development-infrastructure
           token: ${{ secrets.PACKAGE_PAT }} # `PACKAGE_PAT` is a secret that contains your PAT
           path: integrationtests
+      - name: "Stop e2e infrastructure"
+        working-directory: integrationtests/
+        run: docker compose --profile kafka --profile oauth down
       - name: "Start e2e infrastructure"
         working-directory: integrationtests/
         run: docker compose --profile kafka --profile oauth up -d --build
