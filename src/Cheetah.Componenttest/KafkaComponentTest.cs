@@ -40,14 +40,17 @@ namespace Cheetah.ComponentTest
     /// <typeparam name="TIn">The type of the value of the produced message</typeparam>
     /// <typeparam name="TOut">The type of the value of the consumed message</typeparam>
     /// <typeparam name="TOutKey">The type of the key of the produced message</typeparam>
-    
+
     public abstract class KafkaComponentTest<TIn, TOut, TOutKey> : KafkaComponentTest<TIn, Null, TOut, TOutKey>
     {
         protected KafkaComponentTest(ILogger logger, IOptions<ComponentTestConfig> componentTestConfig, IOptions<KafkaConfig> kafkaConfig, CheetahKafkaTokenService tokenService) : base(logger, componentTestConfig, kafkaConfig, tokenService)
         {
         }
-        
-        protected sealed override Null InputKeyMapping(TIn input) => null!;
+
+        protected sealed override Null InputKeyMapping(TIn input)
+        {
+            return null!;
+        }
     }
 
     /// <summary>
@@ -129,13 +132,13 @@ namespace Cheetah.ComponentTest
         }
 
         protected abstract TInKey InputKeyMapping(TIn input);
-        
+
         /// <summary>
         /// Define messages to publish to Kafka
         /// </summary>
         /// <returns>IEnumerable of class to be produced</returns>
         protected abstract IEnumerable<TIn> GetMessagesToPublish();
-        
+
         internal sealed override async Task Act(CancellationToken cancellationToken)
         {
             var messages = GetMessagesToPublish().ToList();
@@ -145,7 +148,7 @@ namespace Cheetah.ComponentTest
             {
                 await _producer.ProduceAsync(
                     _componentTestConfig.ProducerTopic,
-                    new Message<TInKey, TIn> { Value = message, Key = InputKeyMapping(message)},
+                    new Message<TInKey, TIn> { Value = message, Key = InputKeyMapping(message) },
                     cancellationToken
                 );
             }
