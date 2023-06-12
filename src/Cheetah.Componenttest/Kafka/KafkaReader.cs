@@ -34,6 +34,7 @@ namespace Cheetah.ComponentTest.Kafka
                 SecurityProtocol = SecurityProtocol.SaslPlaintext,
                 EnablePartitionEof = true,
                 GroupId = ConsumerGroup,
+                AllowAutoCreateTopics = true,
             })
             .SetValueDeserializer(new Utf8Serializer<T>())
             .AddCheetahOAuthentication(new TestTokenService(ClientId, ClientSecret, AuthEndpoint), Logger)
@@ -43,14 +44,15 @@ namespace Cheetah.ComponentTest.Kafka
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
             cancellationTokenSource.CancelAfter(TimeSpan.FromSeconds(2));
             var cancellationToken = cancellationTokenSource.Token;
-            while (!cancellationToken.IsCancellationRequested) 
+            while (!cancellationToken.IsCancellationRequested)
             {
-                try {
-                  var consumeResult = Consumer.Consume(cancellationToken);
-                  if (consumeResult.IsPartitionEOF)
-                  {
-                      break;
-                  }
+                try
+                {
+                    var consumeResult = Consumer.Consume(cancellationToken);
+                    if (consumeResult.IsPartitionEOF)
+                    {
+                        break;
+                    }
                 }
                 catch (OperationCanceledException)
                 {

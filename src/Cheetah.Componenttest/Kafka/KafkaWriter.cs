@@ -29,9 +29,10 @@ namespace Cheetah.ComponentTest.Kafka
             {
                 BootstrapServers = Server,
                 SaslMechanism = SaslMechanism.OAuthBearer,
-                SecurityProtocol = SecurityProtocol.SaslPlaintext
+                SecurityProtocol = SecurityProtocol.SaslPlaintext,
             })
             .SetValueSerializer(new Utf8Serializer<T>())
+            .SetKeySerializer(new Utf8Serializer<TKey>())
             .AddCheetahOAuthentication(new TestTokenService(ClientId, ClientSecret, AuthEndpoint), Logger)
             .Build();
         }
