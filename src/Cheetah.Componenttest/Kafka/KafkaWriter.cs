@@ -32,7 +32,6 @@ namespace Cheetah.ComponentTest.Kafka
                 SecurityProtocol = SecurityProtocol.SaslPlaintext,
             })
             .SetValueSerializer(new Utf8Serializer<T>())
-            .SetKeySerializer(new Utf8Serializer<TKey>())
             .AddCheetahOAuthentication(new TestTokenService(ClientId, ClientSecret, AuthEndpoint), Logger)
             .Build();
         }
@@ -44,7 +43,9 @@ namespace Cheetah.ComponentTest.Kafka
                 Key = KeyFunction(message),
                 Value = message
             };
-            await Producer.ProduceAsync(Topic, kafkaMessage);
+            Producer.Produce(Topic, kafkaMessage);
+            Producer.Flush();
+
         }
 
         public async Task WriteAsync(params T[] messages)
@@ -56,8 +57,9 @@ namespace Cheetah.ComponentTest.Kafka
                     Key = KeyFunction(message),
                     Value = message
                 };
-                await Producer.ProduceAsync(Topic, kafkaMessage);
+                Producer.Produce(Topic, kafkaMessage);
             }
+            Producer.Flush();
         }
     }
 }

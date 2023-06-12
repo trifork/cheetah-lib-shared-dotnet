@@ -35,11 +35,11 @@ namespace Cheetah.ComponentTest.Kafka
                 EnablePartitionEof = true,
                 GroupId = ConsumerGroup,
                 AllowAutoCreateTopics = true,
+                AutoOffsetReset = AutoOffsetReset.Latest
             })
             .SetValueDeserializer(new Utf8Serializer<T>())
             .AddCheetahOAuthentication(new TestTokenService(ClientId, ClientSecret, AuthEndpoint), Logger)
             .Build();
-
             Consumer.Assign(new TopicPartitionOffset(Topic, 0, Offset.End));
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
             cancellationTokenSource.CancelAfter(TimeSpan.FromSeconds(2));

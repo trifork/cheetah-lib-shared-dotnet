@@ -10,7 +10,15 @@ namespace Cheetah.ComponentTest.XUnit
 
         public WriterTest()
         {
+            /*Dictionary<string, string> conf = new Dictionary<string, string>()
+            {
+                {"KAFKA:AUTHENDPOINT", "http://localhost:1752/oauth2/token"},
+                {"KAFKA:CLIENTID", "ClientId" },
+                {"KAFKA:SECRET", "1234" },
+                {"KAFKA:URL", "localhost:9092"}
+            };*/
             configuration = new ConfigurationBuilder()
+                //.AddInMemoryCollection(conf)
                 .AddEnvironmentVariables()
                 .Build();
         }
@@ -31,7 +39,6 @@ namespace Cheetah.ComponentTest.XUnit
                 .Build();
 
             await writer.WriteAsync("Message4");
-            Thread.Sleep(3000);
             var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(1));
             Assert.Single(readMessages);
             Assert.True(reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(1)));
