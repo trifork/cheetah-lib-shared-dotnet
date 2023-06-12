@@ -1,4 +1,8 @@
-﻿using Cheetah.Core.Config;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Cheetah.Core.Config;
 using Cheetah.Core.Infrastructure.Services.OpenSearchClient;
 using Cheetah.Core.Util;
 using Microsoft.Extensions.Caching.Memory;
@@ -52,7 +56,39 @@ namespace Cheetah.ComponentTest.OpenSearch
 
             Client.InternalClient.Indices.Create(new CreateIndexRequest(Index));
         }
-        
+
+
+        /// <summary>
+        /// Returns the expected number of messages from the index
+        /// this reader was initialized with
+        /// </summary>
+        /// <param name="expectedSize"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<string>> GetMessages(int expectedSize)
+        {
+            var messages = new List<string>();
+
+            if (Client == null) throw new ArgumentException("Client has not been  configured");
+            
+            var response = await Client.InternalClient.SearchAsync<string>(s => s.Index(Index).Size(50));
+
+            if (response.IsValid)
+            {
+                messages.AddRange(response.Documents.Select(d => d.ToString()));
+            }
+
+            return messages;
+        }
+
+        public long CountAllMessagesInIndex()
+        {
+            if (Client == null) throw new ArgumentException("Client has not been  configured");
+
+            return Client.InternalClient.Count<string>(c => c
+                .Index(Index)
+                .Query(q => q
+                    .MatchAll())).Count;
+        }
     }
 }
 

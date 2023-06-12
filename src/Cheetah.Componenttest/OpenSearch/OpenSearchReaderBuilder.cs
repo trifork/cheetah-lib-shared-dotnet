@@ -18,7 +18,7 @@ public class OpenSearchReaderBuilder
         return new OpenSearchReaderBuilder();
     }
     
-    public OpenSearchReaderBuilder WithOpenSearchConfugurationPrefix(string prefix, IConfiguration configuration)
+    public OpenSearchReaderBuilder WithOpenSearchConfigurationPrefix(string prefix, IConfiguration configuration)
     {
         Configuration = configuration;
         OpenSearchConfigurationPrefix = prefix;
