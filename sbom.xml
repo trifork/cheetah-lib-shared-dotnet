@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<bom xmlns="http://cyclonedx.org/schema/bom/1.4" serialNumber="urn:uuid:f09d1e51-5587-4909-a0e3-aad79a73d8f6" version="1">
+<bom xmlns="http://cyclonedx.org/schema/bom/1.4" serialNumber="urn:uuid:ac401e2d-078f-4b8a-9760-53ddccf40ebd" version="1">
   <metadata>
-    <timestamp>2023-05-26T09:21:19.605Z</timestamp>
+    <timestamp>2023-06-06T08:45:49.725Z</timestamp>
     <tools>
       <tool>
         <vendor>cyclonedx</vendor>
         <name>cdxgen</name>
-        <version>8.4.12</version>
+        <version>8.5.2</version>
       </tool>
     </tools>
     <authors>

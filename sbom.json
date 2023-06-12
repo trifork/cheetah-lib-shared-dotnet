@@ -1,15 +1,15 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
-  "serialNumber": "urn:uuid:f09d1e51-5587-4909-a0e3-aad79a73d8f6",
+  "serialNumber": "urn:uuid:ac401e2d-078f-4b8a-9760-53ddccf40ebd",
   "version": 1,
   "metadata": {
-    "timestamp": "2023-05-26T09:21:19.589Z",
+    "timestamp": "2023-06-06T08:45:49.712Z",
     "tools": [
       {
         "vendor": "cyclonedx",
         "name": "cdxgen",
-        "version": "8.4.12"
+        "version": "8.5.2"
       }
     ],
     "authors": [
