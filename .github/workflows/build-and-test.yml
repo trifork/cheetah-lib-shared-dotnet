@@ -177,3 +177,5 @@ jobs:
       - name: "Test Integration"
         working-directory: src/Cheetah.ComponentTest.Test
         run: docker compose -f docker-compose.yaml up --abort-on-container-exit
+        env:
+          GITHUB_TOKEN: ${{ secrets.PACKAGE_PAT }}
