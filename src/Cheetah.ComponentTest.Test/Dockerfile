@@ -7,7 +7,12 @@ WORKDIR /src
 COPY "Cheetah.ComponentTest.Test/NuGet-CI.Config" "NuGet.config"
 COPY ["Cheetah.ComponentTest.Test/Cheetah.ComponentTest.Test.csproj", "Cheetah.ComponentTest.Test/"]
 COPY ["Cheetah.Componenttest/Cheetah.ComponentTest.csproj", "Cheetah.Componenttest/"]
-RUN dotnet restore "Cheetah.ComponentTest.Test/Cheetah.ComponentTest.Test.csproj" && \
+RUN --mount=type=secret,id=GITHUB_TOKEN \
+    GITHUB_TOKEN="$(cat /run/secrets/GITHUB_TOKEN)" \
+    dotnet restore "Cheetah.ComponentTest.Test/Cheetah.ComponentTest.Test.csproj"
+
+RUN --mount=type=secret,id=GITHUB_TOKEN \
+    GITHUB_TOKEN="$(cat /run/secrets/GITHUB_TOKEN)" \
     dotnet restore "Cheetah.Componenttest/Cheetah.ComponentTest.csproj"
 COPY . .
 WORKDIR "/src/Cheetah.ComponentTest.Test"
