@@ -36,7 +36,7 @@ namespace Cheetah.ComponentTest.Kafka
             .Build();
         }
 
-        public async Task WriteAsync(T message)
+        public void Write(T message)
         {
             var kafkaMessage = new Message<TKey, T>
             {
@@ -48,7 +48,7 @@ namespace Cheetah.ComponentTest.Kafka
 
         }
 
-        public async Task WriteAsync(params T[] messages)
+        public void Write(params T[] messages)
         {
             foreach (var message in messages)
             {

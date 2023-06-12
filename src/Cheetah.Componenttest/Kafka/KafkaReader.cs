@@ -40,7 +40,9 @@ namespace Cheetah.ComponentTest.Kafka
             .SetValueDeserializer(new Utf8Serializer<T>())
             .AddCheetahOAuthentication(new TestTokenService(ClientId, ClientSecret, AuthEndpoint), Logger)
             .Build();
+            Console.WriteLine("After build");
             Consumer.Assign(new TopicPartitionOffset(Topic, 0, Offset.End));
+            Console.WriteLine("After Assign");
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
             cancellationTokenSource.CancelAfter(TimeSpan.FromSeconds(2));
             var cancellationToken = cancellationTokenSource.Token;
@@ -59,6 +61,7 @@ namespace Cheetah.ComponentTest.Kafka
                     break;
                 }
             }
+            Console.WriteLine("After Consume");
         }
 
         public IEnumerable<T> ReadMessages(int count, TimeSpan timeout)
