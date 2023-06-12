@@ -176,4 +176,4 @@ jobs:
         run: docker compose --profile kafka --profile oauth up -d --build
       - name: "Test Integration"
         working-directory: src/Cheetah.ComponentTest.Test
-        run: docker compose -f docker-compose.yaml up --abort-on-container-exit
+        run: DOCKER_BUILDKIT=1 docker compose -f docker-compose.yaml --secret id=GITHUB_TOKEN up --abort-on-container-exit
