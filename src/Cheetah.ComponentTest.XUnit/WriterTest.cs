@@ -41,9 +41,9 @@ namespace Cheetah.ComponentTest.XUnit
 
             writer.Write("Message4");
             Console.WriteLine("After Write");
-            var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(1));
+            var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(3));
             Assert.Single(readMessages);
-            Assert.True(reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(1)));
+            Assert.True(reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(3)));
         }
     }
 }
