@@ -47,11 +47,9 @@ namespace Cheetah.ComponentTest.Kafka
             {
                 if (deliveryReport.Error.Code != ErrorCode.NoError)
                 {
-                    Console.WriteLine($"Failed to deliver message: {deliveryReport.Error.Reason}");
                     throw new Exception($"Failed to deliver message: {deliveryReport.Error.Reason}");
                 }
             });
-            Console.WriteLine("Message produced");
         }
 
         public void Write(params T[] messages)
@@ -67,7 +65,6 @@ namespace Cheetah.ComponentTest.Kafka
                 {
                     if (deliveryReport.Error.Code != ErrorCode.NoError)
                     {
-                        Console.WriteLine($"Failed to deliver message: {deliveryReport.Error.Reason}");
                         throw new Exception($"Failed to deliver message: {deliveryReport.Error.Reason}");
                     }
                 });

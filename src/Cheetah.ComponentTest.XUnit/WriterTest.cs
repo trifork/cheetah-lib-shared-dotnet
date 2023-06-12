@@ -37,12 +37,9 @@ namespace Cheetah.ComponentTest.XUnit
                 .WithTopic("MyTopic")
                 .WithGroupId("Mygroup")
                 .BuildAsync();
-            Console.WriteLine("After Create");
 
             writer.Write("Message4");
-            Console.WriteLine("After Write");
             var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(20));
-            Console.WriteLine("After Read");
             Assert.Single(readMessages);
             Assert.True(reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(3)));
         }
