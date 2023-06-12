@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 
@@ -49,7 +50,7 @@ namespace Cheetah.ComponentTest.Kafka
             return this;
         }
 
-        public KafkaReader<TKey, T> Build()
+        public async Task<KafkaReader<TKey, T>> BuildAsync()
         {
             var reader = new KafkaReader<TKey, T>
             {
@@ -77,7 +78,7 @@ namespace Cheetah.ComponentTest.Kafka
             {
                 throw new InvalidOperationException("KafkaConfigurationPrefix or Configuration is not set");
             }
-            reader.Prepare();
+            await reader.PrepareAsync();
             return reader;
         }
     }

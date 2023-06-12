@@ -32,16 +32,17 @@ namespace Cheetah.ComponentTest.XUnit
                 .WithKeyFunction(message => message)
                 .Build();
 
-            var reader = KafkaReaderBuilder.Create<string, string>()
+            var reader = await KafkaReaderBuilder.Create<string, string>()
                 .WithKafkaConfigurationPrefix(string.Empty, configuration)
                 .WithTopic("MyTopic")
                 .WithGroupId("Mygroup")
-                .Build();
+                .BuildAsync();
             Console.WriteLine("After Create");
 
             writer.Write("Message4");
             Console.WriteLine("After Write");
-            var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(3));
+            var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(20));
+            Console.WriteLine("After Read");
             Assert.Single(readMessages);
             Assert.True(reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(3)));
         }

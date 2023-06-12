@@ -12,7 +12,7 @@ services:
       KAFKA__URL: kafka:19092
       COMPONENTTEST__CONSUMERTOPIC: TestTopic
       COMPONENTTEST__PRODUCERTOPIC: TestTopic
-      KAFKA__CLIENTID: ClientId
+      KAFKA__CLIENTID: myapp
       KAFKA__CLIENTSECRET: 1234
       KAFKA__AUTHENDPOINT: http://cheetahoauthsimulator:80/oauth2/token
 
