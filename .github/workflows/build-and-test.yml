@@ -94,7 +94,7 @@ jobs:
           warning_on_retry: false
           command: 'curl -sS -X GET -H "Content-Type: application/json" http://admin:admin@opensearch:9200/_cat/indices'
       - name: "Test Integration"
-        run: dotnet test --logger trx --no-restore --verbosity normal --filter 'Category=OpenSearch' ${{ env.SOLUTION_FILEPATH }}
+        run: DOCKER_BUILDKIT=1 dotnet test --logger trx --no-restore --verbosity normal --secret id=GITHUB_TOKEN --filter 'Category=OpenSearch' ${{ env.SOLUTION_FILEPATH }}
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: success() || failure()
