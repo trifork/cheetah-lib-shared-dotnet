@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
     <VersionPrefix>1.2.0</VersionPrefix>
     <RootNamespace>Cheetah.ComponentTest</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<NoWarn>$(NoWarn);1591</NoWarn>
     <PackageReadmeFile>CheetahComponentTest.md</PackageReadmeFile>
     <!--  TODO -->
     <Description>Cheetah.ComponentTest</Description>
