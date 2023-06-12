@@ -8,7 +8,9 @@ COPY "Cheetah.ComponentTest.XUnit/NuGet-CI.Config" "NuGet.config"
 COPY ["Cheetah.ComponentTest.XUnit/Cheetah.ComponentTest.XUnit.csproj", "Cheetah.ComponentTest.XUnit/"]
 COPY ["Cheetah.Componenttest/Cheetah.ComponentTest.csproj", "Cheetah.Componenttest/"]
 COPY ["Cheetah.Core/Cheetah.Core.csproj", "Cheetah.Core/"]
-RUN dotnet restore "Cheetah.ComponentTest.XUnit/Cheetah.ComponentTest.XUnit.csproj"
+RUN --mount=type=secret,id=GITHUB_TOKEN \
+    GITHUB_TOKEN="$(cat /run/secrets/GITHUB_TOKEN)" \
+    dotnet restore "Cheetah.ComponentTest.XUnit/Cheetah.ComponentTest.XUnit.csproj"
 COPY . .
 
 WORKDIR /src

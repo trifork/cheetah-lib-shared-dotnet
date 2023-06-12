@@ -180,4 +180,6 @@ jobs:
       - name: "Test Integration"
         working-directory: src/Cheetah.ComponentTest.XUnit
         run: |
-             docker compose -f docker-compose.yaml up --abort-on-container-exit
+          docker compose -f docker-compose.yaml up --abort-on-container-exit
+        env:
+          GITHUB_TOKEN: ${{ secrets.PACKAGE_PAT }}
