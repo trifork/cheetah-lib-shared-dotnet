@@ -32,6 +32,7 @@ namespace Cheetah.ComponentTest.Kafka
                 SecurityProtocol = SecurityProtocol.SaslPlaintext,
             })
             .SetValueSerializer(new Utf8Serializer<T>())
+            .SetKeySerializer(new Utf8Serializer<TKey>())
             .AddCheetahOAuthentication(new TestTokenService(ClientId, ClientSecret, AuthEndpoint), Logger)
             .Build();
         }
