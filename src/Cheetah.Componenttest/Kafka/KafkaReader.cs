@@ -61,7 +61,6 @@ namespace Cheetah.ComponentTest.Kafka
                     break;
                 }
             }
-            Consumer.Subscribe(Topic);
         }
 
         public IEnumerable<T> ReadMessages(int count, TimeSpan timeout)
