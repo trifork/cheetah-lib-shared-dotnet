@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Cheetah.Core.Config;
 using Cheetah.Core.Infrastructure.Services.OpenSearchClient;
@@ -15,11 +16,11 @@ using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace Cheetah.ComponentTest.OpenSearch
 {
-    public class OpenSearchReader
+    public class OpenSearchReader<T> where T : class
     {
-        private static readonly ILogger Logger = new LoggerFactory().CreateLogger<OpenSearchReader>();
+        private static readonly ILogger Logger = new LoggerFactory().CreateLogger<OpenSearchReader<T>>();
         
-        internal string? Index { get; set; }
+        internal string? IndexName { get; set; }
         internal string? Server { get; set; }
         internal string? ClientId { get; set; }
         internal string? ClientSecret { get; set; }
@@ -28,7 +29,7 @@ namespace Cheetah.ComponentTest.OpenSearch
 
         internal void Prepare()
         {
-            Logger.LogInformation("Preparing OpenSearch connection, writing to index '{Index}'", Index);
+            Logger.LogInformation("Preparing OpenSearch connection, writing to index '{Index}'", IndexName);
 
             var openSearchConfig = new OpenSearchConfig
             {
@@ -54,7 +55,11 @@ namespace Cheetah.ComponentTest.OpenSearch
             
             Client = new(memoryCache, httpClientFactory, options, env, logger);
 
-            Client.InternalClient.Indices.Create(new CreateIndexRequest(Index));
+            // create the index if it doesn't already exists
+            if (!Client.InternalClient.Indices.Exists(IndexName).Exists)
+            {
+                Client.InternalClient.Indices.Create(new CreateIndexRequest(IndexName));
+            }
         }
 
 
@@ -64,17 +69,18 @@ namespace Cheetah.ComponentTest.OpenSearch
         /// </summary>
         /// <param name="expectedSize"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<string>> GetMessages(int expectedSize)
+        public async Task<IEnumerable<T>> GetMessages(int expectedSize)
         {
-            var messages = new List<string>();
+            var messages = new List<T>();
 
             if (Client == null) throw new ArgumentException("Client has not been  configured");
-            
-            var response = await Client.InternalClient.SearchAsync<string>(s => s.Index(Index).Size(50));
+
+            var response = await Client.InternalClient.SearchAsync<T>(s => s
+                .Index(IndexName));
 
             if (response.IsValid)
             {
-                messages.AddRange(response.Documents.Select(d => d.ToString()));
+                messages.AddRange(response.Documents.Select(d =>d));
             }
 
             return messages;
@@ -85,9 +91,18 @@ namespace Cheetah.ComponentTest.OpenSearch
             if (Client == null) throw new ArgumentException("Client has not been  configured");
 
             return Client.InternalClient.Count<string>(c => c
-                .Index(Index)
+                .Index(IndexName)
                 .Query(q => q
                     .MatchAll())).Count;
+        }
+
+        public void DeleteAllMessagesInIndex()
+        {
+            if (Client == null) throw new ArgumentException("Client has not been  configured");
+
+            Client.InternalClient.DeleteByQueryAsync<T>(del => del
+                .Index(IndexName)
+                .Query(q => q.QueryString(qs => qs.Query("*"))));
         }
     }
 }

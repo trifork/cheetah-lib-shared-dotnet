@@ -3,7 +3,18 @@ using Microsoft.Extensions.Configuration;
 
 namespace Cheetah.ComponentTest.OpenSearch;
 
+
 public class OpenSearchReaderBuilder
+{
+    public static OpenSearchReaderBuilder<T> Create<T>() where T : class
+    {
+        return new OpenSearchReaderBuilder<T>();
+    }
+    
+    private OpenSearchReaderBuilder(){}
+}
+
+public class OpenSearchReaderBuilder<T> where T : class
 {
     private const string OPENSEARCH_URL = "OPENSEARCH:URL";
     private const string OPENSEARCH_CLIENTID = "OPENSEARCH:CLIENTID";
@@ -13,29 +24,29 @@ public class OpenSearchReaderBuilder
     private IConfiguration? Configuration;
     private string? IndexName;
 
-    public static OpenSearchReaderBuilder Create()
+    internal OpenSearchReaderBuilder()
     {
-        return new OpenSearchReaderBuilder();
+        
     }
     
-    public OpenSearchReaderBuilder WithOpenSearchConfigurationPrefix(string prefix, IConfiguration configuration)
+    public OpenSearchReaderBuilder<T> WithOpenSearchConfigurationPrefix(string prefix, IConfiguration configuration)
     {
         Configuration = configuration;
         OpenSearchConfigurationPrefix = prefix;
         return this;
     }
 
-    public OpenSearchReaderBuilder WithIndex(string indexName)
+    public OpenSearchReaderBuilder<T> WithIndex(string indexName)
     {
         IndexName = indexName;
         return this;
     }
 
-    public OpenSearchReader Build()
+    public OpenSearchReader<T> Build()
     {
-        var reader = new OpenSearchReader()
+        var reader = new OpenSearchReader<T>()
         {
-            Index = IndexName
+            IndexName = IndexName
         };
 
         if (OpenSearchConfigurationPrefix != null && Configuration != null)
@@ -57,7 +68,7 @@ public class OpenSearchReaderBuilder
         }
         else
         {
-            throw new InvalidOperationException("KafkaConfigurationPrefix or Configuration is not set");
+            throw new InvalidOperationException("OpenSearchConfigurationPrefix or Configuration is not set");
         }
         
         reader.Prepare();
