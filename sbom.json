@@ -1,15 +1,15 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
-  "serialNumber": "urn:uuid:ac401e2d-078f-4b8a-9760-53ddccf40ebd",
+  "serialNumber": "urn:uuid:a1b35aa7-b708-40ee-9ec6-e92b6760b2b2",
   "version": 1,
   "metadata": {
-    "timestamp": "2023-06-06T08:45:49.712Z",
+    "timestamp": "2023-06-13T12:00:09.884Z",
     "tools": [
       {
         "vendor": "cyclonedx",
         "name": "cdxgen",
-        "version": "8.5.2"
+        "version": "8.5.3"
       }
     ],
     "authors": [
@@ -20,6 +20,146 @@
     ]
   },
   "components": [
+    {
+      "publisher": "",
+      "group": "",
+      "name": "Microsoft.Extensions.Configuration",
+      "version": "7.0.0",
+      "description": "Implementation of key-value pair based configuration for Microsoft.Extensions.Configuration. Includes the memory configuration provider.",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "url": "https://opensource.org/licenses/Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Microsoft.Extensions.Configuration@7.0.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Configuration/7.0.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://asp.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Configuration@7.0.0"
+    },
+    {
+      "publisher": "",
+      "group": "",
+      "name": "Microsoft.NET.Test.Sdk",
+      "version": "17.5.0",
+      "description": "The MSbuild targets and properties for building .NET test projects.",
+      "licenses": [
+        {
+          "license": {
+            "name": "CUSTOM",
+            "url": "http://www.microsoft.com/web/webpi/eula/net_library_eula_enu.htm"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Microsoft.NET.Test.Sdk@17.5.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Microsoft.NET.Test.Sdk/17.5.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/microsoft/vstest/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.NET.Test.Sdk@17.5.0"
+    },
+    {
+      "publisher": "",
+      "group": "",
+      "name": "xunit",
+      "version": "2.4.2",
+      "description": "xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.\n\nInstalling this package installs xunit.core, xunit.assert, and xunit.analyzers.",
+      "licenses": [
+        {
+          "license": {
+            "name": "CUSTOM",
+            "url": "https://raw.githubusercontent.com/xunit/xunit/master/license.txt"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/xunit@2.4.2",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/xunit/2.4.2/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/xunit/xunit"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/xunit@2.4.2"
+    },
+    {
+      "publisher": "",
+      "group": "",
+      "name": "xunit.runner.visualstudio",
+      "version": "2.4.5",
+      "description": "Visual Studio 2012+ Test Explorer runner for the xUnit.net framework. Capable of running xUnit.net v1.9.2 and v2.0+ tests. Supports .NET 2.0 or later, .NET Core 1.0 or later, and Universal Windows 10.0 or later.",
+      "licenses": [
+        {
+          "license": {
+            "name": "CUSTOM",
+            "url": "https://raw.githubusercontent.com/xunit/xunit/master/license.txt"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/xunit.runner.visualstudio@2.4.5",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/xunit.runner.visualstudio/2.4.5/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/xunit/xunit"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/xunit.runner.visualstudio@2.4.5"
+    },
+    {
+      "publisher": "",
+      "group": "",
+      "name": "coverlet.collector",
+      "version": "3.2.0",
+      "description": "Coverlet is a cross platform code coverage library for .NET, with support for line, branch and method coverage.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/coverlet.collector@3.2.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/coverlet.collector/3.2.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "http://github.com/tonerdo/coverlet"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/coverlet.collector@3.2.0"
+    },
     {
       "publisher": "",
       "group": "",
@@ -387,34 +527,6 @@
     {
       "publisher": "",
       "group": "",
-      "name": "xunit",
-      "version": "2.4.2",
-      "description": "xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.\n\nInstalling this package installs xunit.core, xunit.assert, and xunit.analyzers.",
-      "licenses": [
-        {
-          "license": {
-            "name": "CUSTOM",
-            "url": "https://raw.githubusercontent.com/xunit/xunit/master/license.txt"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/xunit@2.4.2",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/xunit/2.4.2/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://github.com/xunit/xunit"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/xunit@2.4.2"
-    },
-    {
-      "publisher": "",
-      "group": "",
       "name": "Xunit.SkippableFact",
       "version": "1.3.12",
       "description": "Make your Xunit test methods self-determine to report a \"skipped\" result. Useful for such cases as \"not supported on this platform\" results or other environmental inputs.",
@@ -467,34 +579,6 @@
       ],
       "type": "library",
       "bom-ref": "pkg:nuget/xunit.extensibility.execution@2.4.2"
-    },
-    {
-      "publisher": "",
-      "group": "",
-      "name": "xunit.runner.visualstudio",
-      "version": "2.4.5",
-      "description": "Visual Studio 2012+ Test Explorer runner for the xUnit.net framework. Capable of running xUnit.net v1.9.2 and v2.0+ tests. Supports .NET 2.0 or later, .NET Core 1.0 or later, and Universal Windows 10.0 or later.",
-      "licenses": [
-        {
-          "license": {
-            "name": "CUSTOM",
-            "url": "https://raw.githubusercontent.com/xunit/xunit/master/license.txt"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/xunit.runner.visualstudio@2.4.5",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/xunit.runner.visualstudio/2.4.5/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://github.com/xunit/xunit"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/xunit.runner.visualstudio@2.4.5"
     },
     {
       "publisher": "",
@@ -836,7 +920,7 @@
     },
     {
       "type": "other",
-      "url": "/app/src/Cheetah.ComponentTest.Test/Cheetah.ComponentTest.Test.csproj, /app/src/Cheetah.Componenttest/Cheetah.ComponentTest.csproj, /app/src/Cheetah.Core/Cheetah.Core.csproj, /app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj, /app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj",
+      "url": "/app/src/Cheetah.ComponentTest.XUnit/Cheetah.ComponentTest.XUnit.csproj, /app/src/Cheetah.Componenttest/Cheetah.ComponentTest.csproj, /app/src/Cheetah.Core/Cheetah.Core.csproj, /app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj, /app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj",
       "comment": "Package file"
     }
   ]
