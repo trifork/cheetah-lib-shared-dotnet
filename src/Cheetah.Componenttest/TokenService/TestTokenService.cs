@@ -1,4 +1,3 @@
-using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -50,7 +49,7 @@ namespace Cheetah.ComponentTest.TokenService
             // Check if the token request was successful
             if (!tokenResponse.IsError)
             {
-                cachedResponse = tokenResponse;
+//                cachedResponse = tokenResponse;
                 return tokenResponse;
             }
             else
