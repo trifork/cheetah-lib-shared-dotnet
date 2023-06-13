@@ -32,22 +32,27 @@ namespace Cheetah.ComponentTest.Kafka
                 SecurityProtocol = SecurityProtocol.SaslPlaintext,
             })
             .SetValueSerializer(new Utf8Serializer<T>())
-            .SetKeySerializer(new Utf8Serializer<TKey>())
             .AddCheetahOAuthentication(new TestTokenService(ClientId, ClientSecret, AuthEndpoint), Logger)
             .Build();
         }
 
-        public async Task WriteAsync(T message)
+        public void Write(T message)
         {
             var kafkaMessage = new Message<TKey, T>
             {
                 Key = KeyFunction(message),
                 Value = message
             };
-            await Producer.ProduceAsync(Topic, kafkaMessage);
+            Producer.Produce(Topic, kafkaMessage, (deliveryReport) =>
+            {
+                if (deliveryReport.Error.Code != ErrorCode.NoError)
+                {
+                    throw new Exception($"Failed to deliver message: {deliveryReport.Error.Reason}");
+                }
+            });
         }
 
-        public async Task WriteAsync(params T[] messages)
+        public void Write(params T[] messages)
         {
             foreach (var message in messages)
             {
@@ -56,7 +61,13 @@ namespace Cheetah.ComponentTest.Kafka
                     Key = KeyFunction(message),
                     Value = message
                 };
-                await Producer.ProduceAsync(Topic, kafkaMessage);
+                Producer.Produce(Topic, kafkaMessage, (deliveryReport) =>
+                {
+                    if (deliveryReport.Error.Code != ErrorCode.NoError)
+                    {
+                        throw new Exception($"Failed to deliver message: {deliveryReport.Error.Reason}");
+                    }
+                });
             }
         }
     }

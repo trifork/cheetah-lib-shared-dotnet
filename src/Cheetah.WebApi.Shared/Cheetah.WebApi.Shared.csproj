@@ -5,7 +5,7 @@
     <RepositoryUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</RepositoryUrl>
 	  <ImplicitUsings>false</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <VersionPrefix>1.5.2</VersionPrefix>
+    <VersionPrefix>1.5.3</VersionPrefix>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
 	<NoWarn>$(NoWarn);1591</NoWarn>
 	<DocumentationFile>Cheetah.WebApi.Shared.xml</DocumentationFile>

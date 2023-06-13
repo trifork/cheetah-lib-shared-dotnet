@@ -1,3 +1,4 @@
+using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace Cheetah.ComponentTest.TokenService
 {
     public class TestTokenService : ITokenService
     {
+        private static TokenResponse cachedResponse;
         private readonly string tokenEndpoint;
         private readonly string clientId;
         private readonly string clientSecret;
@@ -27,6 +29,10 @@ namespace Cheetah.ComponentTest.TokenService
 
         public async Task<TokenResponse> RequestClientCredentialsTokenAsync(CancellationToken cancellationToken)
         {
+            if (cachedResponse != null)
+            {
+                return cachedResponse;
+            }
             var httpClient = new HttpClient();
             var tokenClient = new TokenClient(
                             httpClient,
@@ -42,7 +48,15 @@ namespace Cheetah.ComponentTest.TokenService
                 .ConfigureAwait(false);
 
             // Check if the token request was successful
-            return !tokenResponse.IsError ? tokenResponse : throw tokenResponse.Exception; // Get the access token from the token response
+            if (!tokenResponse.IsError)
+            {
+                cachedResponse = tokenResponse;
+                return tokenResponse;
+            }
+            else
+            {
+                throw tokenResponse.Exception;
+            }
         }
     }
 }

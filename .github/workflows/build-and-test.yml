@@ -50,7 +50,7 @@ jobs:
           reporter: dotnet-trx
 
   test_opensearch:
-    needs: kafka-authentication-lib
+    needs: tests
     name: "Integration testing: OpenSearch"
     runs-on: ubuntu-latest
     env:
@@ -104,7 +104,7 @@ jobs:
           reporter: dotnet-trx
 
   kafka-authentication-lib:
-    needs: component-test
+    needs: tests
     name: "Integration testing: Kafka"
     runs-on: ubuntu-latest
     env:
@@ -180,4 +180,6 @@ jobs:
       - name: "Test Integration"
         working-directory: src/Cheetah.ComponentTest.XUnit
         run: |
-             docker compose -f docker-compose.yaml up --abort-on-container-exit
+          docker compose -f docker-compose.yaml up --abort-on-container-exit
+        env:
+          GITHUB_TOKEN: ${{ secrets.PACKAGE_PAT }}
