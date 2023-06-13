@@ -17,4 +17,4 @@ You can call `_cheetahOpenSearchClient.SetJsonSerializerSettingsFactory` to mana
 
 You can see the default behavior in case you have not set your own implementation:
 
-[!code-csharp[](../../src/Cheetah.WebApi.Shared/Infrastructure/Services/CheetahOpenSearchClient/CheetahOpenSearchClient.cs#GetJsonSerializerSettingsFactory)]
+[!code-csharp[](../../src/Cheetah.Core/Infrastructure/Services/OpenSearchClient/CheetahOpenSearchClient.cs#GetJsonSerializerSettingsFactory)]
