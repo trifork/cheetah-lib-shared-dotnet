@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 using Cheetah.ComponentTest.TokenService;
 using Cheetah.Core.Infrastructure.Services.Kafka;
 using Confluent.Kafka;
-using Confluent.Kafka.Admin;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
@@ -26,9 +24,13 @@ namespace Cheetah.ComponentTest.Kafka
 
         internal KafkaReader() { }
 
-        internal async Task PrepareAsync()
+        internal void Prepare()
         {
-            Logger.LogInformation("Preparing kafka producer, producing to topic '{topic}'", Topic);
+            Logger.LogInformation("Preparing kafka producer, producing to topic '{Topic}'", Topic);
+            if (ClientId == null || ClientSecret == null || AuthEndpoint == null)
+            {
+                throw new InvalidOperationException("ClientId, ClientSecret and AuthEndpoint must be set");
+            }
             Consumer = new ConsumerBuilder<TKey, T>(new ConsumerConfig
             {
                 BootstrapServers = Server,
@@ -43,7 +45,7 @@ namespace Cheetah.ComponentTest.Kafka
             .AddCheetahOAuthentication(new TestTokenService(ClientId, ClientSecret, AuthEndpoint), Logger)
             .Build();
             Consumer.Assign(new TopicPartition(Topic, 0));
-            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            CancellationTokenSource cancellationTokenSource = new();
             cancellationTokenSource.CancelAfter(TimeSpan.FromSeconds(2));
             var cancellationToken = cancellationTokenSource.Token;
             while (!cancellationToken.IsCancellationRequested)
@@ -67,7 +69,7 @@ namespace Cheetah.ComponentTest.Kafka
         {
             var messages = new List<T>();
 
-            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            CancellationTokenSource cancellationTokenSource = new();
             cancellationTokenSource.CancelAfter(timeout);
             var cancellationToken = cancellationTokenSource.Token;
             Log.Information(
@@ -81,7 +83,7 @@ namespace Cheetah.ComponentTest.Kafka
             {
                 try
                 {
-                    var consumeResult = Consumer.Consume(cancellationToken);
+                    var consumeResult = Consumer!.Consume(cancellationToken);
                     if (consumeResult.IsPartitionEOF)
                     {
                         continue;
@@ -104,7 +106,7 @@ namespace Cheetah.ComponentTest.Kafka
 
         public bool VerifyNoMoreMessages(TimeSpan timeout)
         {
-            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            CancellationTokenSource cancellationTokenSource = new();
             cancellationTokenSource.CancelAfter(timeout);
             var cancellationToken = cancellationTokenSource.Token;
             while (
@@ -113,7 +115,7 @@ namespace Cheetah.ComponentTest.Kafka
             {
                 try
                 {
-                    var consumeResult = Consumer.Consume(cancellationToken);
+                    var consumeResult = Consumer!.Consume(cancellationToken);
 
                     if (consumeResult.IsPartitionEOF)
                     {
