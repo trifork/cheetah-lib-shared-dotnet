@@ -54,11 +54,11 @@ function Get-RelativeFilePath {
         [string] $relativeTo
     )
 
-    if(-not (Test-Path -Path $filePath -PathType Leaf)){
+    if (-not (Test-Path -Path $filePath -PathType Leaf)) {
         Write-Error "Attempted to call Get-RelativeFilePath with a non-leaf path: '$filePath'."
     }
 
-    if(-not (Test-Path -Path $relativeTo -PathType Container)){
+    if (-not (Test-Path -Path $relativeTo -PathType Container)) {
         $relativeTo = Split-Path $relativeTo
         Write-Warning "Attempted to get file path relative to a non-directory path. Returning file path relative to parent directory of supplied file: '$relativeTo'"
     }
@@ -86,8 +86,7 @@ function Get-PackageReferences {
     $xmlDocument.Project.GetElementsByTagName("PackageReference")
 }
 
-function Get-ReferencedProjects
-{
+function Get-ReferencedProjects {
     [OutputType([PSCustomObject[]])]
     param(
         [parameter(Mandatory, ValueFromPipeline)]
@@ -102,10 +101,10 @@ function Get-ReferencedProjects
         $referencePath = $projectReference.GetAttribute("Include")
 
         # Resolve the referenced project path relative to the directory of our project.
-        $referencePath =  Join-Path $(Split-Path $projectPath) $referencePath -Resolve
+        $referencePath = Join-Path $(Split-Path $projectPath) $referencePath -Resolve
         $referencedDocument = Get-FileAsXml $referencePath
 
-        if($recurse){
+        if ($recurse) {
             # Recursively find and return nested project references, so that we can roll it up to the parent.
             $referencedDocument | Get-ReferencedProjects -Recurse
         }
@@ -147,7 +146,7 @@ function Add-NestedProjectReferences {
     
     $missingProjectReferences = $nestedProjectReferencePaths | Where-Object { $directProjectReferencePaths -notcontains $_ }
     
-    if($missingProjectReferences.Count -gt 0){
+    if ($missingProjectReferences.Count -gt 0) {
         # Add all indirect project references as direct references
         $itemGroup = $xmlDocument | Add-ItemGroupWithComment -Comment "These project references were imported because of nested project references in an original project reference"
 
@@ -165,8 +164,7 @@ function Add-NestedProjectReferences {
     $xmlDocument    
 }
 
-function Set-PrivateAssetsAttributeOnReferencedProjects
-{
+function Set-PrivateAssetsAttributeOnReferencedProjects {
     [OutputType([System.Xml.XmlDocument])]
     param(
         [parameter(Mandatory, ValueFromPipeline)]
@@ -181,8 +179,7 @@ function Set-PrivateAssetsAttributeOnReferencedProjects
     $xmlDocument
 }
 
-function Add-ReferencedPackagesFromReferencedProjects
-{
+function Add-ReferencedPackagesFromReferencedProjects {
     [OutputType([System.Xml.XmlDocument])]
     param(
         [parameter(Mandatory, ValueFromPipeline)]
@@ -212,19 +209,19 @@ function Confirm-PackageReferenceUniqueness {
     )
 
     $packageGroupsWithMultipleVersions = @($xmlDocument 
-    | Get-PackageReferences 
-    | Group-Object { $_.GetAttribute("Include") }
-    | Where-Object {
-        # Find all groups of package references that have more than 1 unique version
-        $uniqueVersions = $_.Group | ForEach-Object { $_.GetAttribute("Version")} | Select-Object -Unique
-        $uniqueVersions.Count -gt 1
-     })
+        | Get-PackageReferences 
+        | Group-Object { $_.GetAttribute("Include") }
+        | Where-Object {
+            # Find all groups of package references that have more than 1 unique version
+            $uniqueVersions = $_.Group | ForEach-Object { $_.GetAttribute("Version") } | Select-Object -Unique
+            $uniqueVersions.Count -gt 1
+        })
 
-    if($packageGroupsWithMultipleVersions.Count -gt 0){
+    if ($packageGroupsWithMultipleVersions.Count -gt 0) {
         # Write warnings for each package with multiple versions
         $packageGroupsWithMultipleVersions | ForEach-Object {
             $packageName = $_.Name
-            $versions = $_.Group | ForEach-Object { $_.GetAttribute("Version")}
+            $versions = $_.Group | ForEach-Object { $_.GetAttribute("Version") }
             Write-Warning "Found $($versions.Count) versions of '$packageName' in included projects: $($versions | Join-String -SingleQuote -Separator ', ')"
         }
 
@@ -255,8 +252,7 @@ function Remove-PackageReferenceDuplicates {
 }
 
 
-function Add-AdditionalBuildTarget
-{
+function Add-AdditionalBuildTarget {
     [OutputType([System.Xml.XmlDocument])]
     param(
         [parameter(Mandatory, ValueFromPipeline)]
@@ -305,19 +301,19 @@ function Test-Node {
 
     $node = $xmlDocument.GetElementsByTagName($tagName);
 
-    if($node.Count -eq 0){
+    if ($node.Count -eq 0) {
         Write-Warning "'$projectName' does not have a '$tagName' property"
         return $false
     }
 
-    if($node.Count -gt 1){
+    if ($node.Count -gt 1) {
         Write-Warning "Expected '$projectName' to only have a single '$tagName' property, but found $($node.Count)"
         return $false
     }
 
     $nodeText = $node.'#text'
 
-    if($requiredValue -ne "" -and $nodeText.ToLower() -ne $requiredValue.ToLower()){
+    if ($requiredValue -ne "" -and $nodeText.ToLower() -ne $requiredValue.ToLower()) {
         Write-Warning "Expected '$projectName' to have a property with name '$tagName' to have value '$requiredValue', but found '$nodeText'"
         return $false
     }
@@ -334,7 +330,7 @@ function Confirm-ProjectProperties {
 
     $projectName = Split-Path -Path $projectPath -Leaf
 
-    $nodeValidations =  @(
+    $nodeValidations = @(
         ($xmlDocument | Test-Node -ProjectName $projectName -TagName "GenerateDocumentationFile" -RequiredValue "true"),
         ($xmlDocument | Test-Node -ProjectName $projectName -TagName "PackageId"),
         ($xmlDocument | Test-Node -ProjectName $projectName -TagName "Authors"),
@@ -342,7 +338,7 @@ function Confirm-ProjectProperties {
     )
 
 
-    if($nodeValidations -contains $false){
+    if ($nodeValidations -contains $false) {
         Write-Error "The project is missing required metadata properties. See previous warning(s) for details"
     }
 
@@ -352,28 +348,27 @@ function Confirm-ProjectProperties {
         $document | Test-Node -ProjectName $fileName -TagName "GenerateDocumentationFile" -RequiredValue "true" 
     }
 
-    if($referencedProjectValidations -contains $false){
+    if ($referencedProjectValidations -contains $false) {
         Write-Error "One or more of the referenced projects are missing required properties. See previous warning(s) for details"
     }
 
     $xmlDocument
 }
 
-function Save-Project
-{
+function Save-Project {
     [OutputType([string])]
     param(
         [parameter(Mandatory, ValueFromPipeline)]
         [System.Xml.XmlDocument] $xmlDocument
     )
 
-    if($outputFileName -eq ""){
+    if ($outputFileName -eq "") {
         $outputFileName = $(Split-Path $projectPath -Leaf) -Replace ".csproj", ".autogenerated.csproj"
     }
 
     $outputPath = Join-Path $(Split-Path($projectPath)) $outputFileName
 
-    if($(Test-Path $outputPath) -and -not $allowOverwrite){
+    if ($(Test-Path $outputPath) -and -not $allowOverwrite) {
         Write-Error "Could not save modified .csproj to $outputPath, since it already exists. This can be resolved by removing the file, specifying a different output file name with -OutputFileName or enabling the -AllowOverwrite switch"
     }
 
@@ -395,9 +390,9 @@ function Publish-Project {
 
 function Remove-Project {
     param([parameter(Mandatory, ValueFromPipeline)]
-    [string] $fatProject)
+        [string] $fatProject)
 
-    if(-not $keepResolvedProject){
+    if (-not $keepResolvedProject) {
         Write-Host "Removing resolved project file $fatProject"
         Remove-Item $fatProject
     }
