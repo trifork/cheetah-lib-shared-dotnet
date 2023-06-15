@@ -13,7 +13,8 @@ jobs:
     with:
         project_filepath: ./src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj
         dotnet-version: "6.0"
-        github_token: ${{ secrets.GITHUB_TOKEN }}
         releasenotes_path: ./src/Cheetah.WebApi.Shared/ReleaseNotes.md
         kamstrup_gitlab_token: ${{ vars.KAMSTRUP_GITLAB_TOKEN }}
+    secrets:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
   
