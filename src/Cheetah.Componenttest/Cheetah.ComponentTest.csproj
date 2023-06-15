@@ -7,13 +7,12 @@
     <VersionPrefix>1.2.0</VersionPrefix>
     <RootNamespace>Cheetah.ComponentTest</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-	<NoWarn>$(NoWarn);1591</NoWarn>
+	  <NoWarn>$(NoWarn);1591</NoWarn>
     <PackageReadmeFile>CheetahComponentTest.md</PackageReadmeFile>
     <!--  TODO -->
     <Description>Cheetah.ComponentTest</Description>
     <PackageId>Cheetah.ComponentTest</PackageId>
     <Authors>Trifork</Authors>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <None Include="../../docs/articles/CheetahComponentTest.md" Pack="true" PackagePath="\" />
@@ -29,9 +28,8 @@
     <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="6.0.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
-    <PackageReference Include="IdentityModel" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cheetah.Core\Cheetah.Core.csproj" PrivateAssets="All" />
+    <ProjectReference Include="..\Cheetah.Core\Cheetah.Core.csproj"/>
   </ItemGroup>
 </Project>
