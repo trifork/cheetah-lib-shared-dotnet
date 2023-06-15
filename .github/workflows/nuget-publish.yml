@@ -107,14 +107,14 @@ jobs:
       - name: "Publish to github packages"
         if: env.PACKAGE_EXISTS == 'false' || github.ref != 'refs/heads/main'
         shell: bash
-        run: dotnet nuget push output/${{ inputs.package_name }}*.nupkg --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --api-key ${{ secrets.gh_token }}
+        run: dotnet nuget push output/${{ env.NUGET_PACKAGE_NAME }}*.nupkg --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --api-key ${{ secrets.gh_token }}
 
       - name: "Publish to Kamstrup Gitlab"
         if: env.PACKAGE_EXISTS == 'false' && github.ref == 'refs/heads/main'
         shell: bash
         run: |
           dotnet nuget add source "https://gitlab.com/api/v4/projects/45237329/packages/nuget/index.json" --name gitlab --username trifork --password ${{ inputs.kamstrup_gitlab_token }} --store-password-in-clear-text
-          dotnet nuget push output/${{ inputs.package_name }}*.nupkg --source gitlab
+          dotnet nuget push output/${{ env.NUGET_PACKAGE_NAME }}*.nupkg --source gitlab
 
       - name: "Create release"
         if: env.PACKAGE_EXISTS == 'false' && github.ref == 'refs/heads/main'
