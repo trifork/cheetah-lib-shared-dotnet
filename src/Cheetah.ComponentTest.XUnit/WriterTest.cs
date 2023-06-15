@@ -68,7 +68,7 @@ namespace Cheetah.ComponentTest.XUnit
 
             await writer.WriteAsync(model);
             Thread.Sleep(5000);
-            var readMessages = await reader.GetMessages(10);
+            var readMessages = await reader.GetMessages(1);
             Assert.Single(readMessages);
             Assert.True(reader.CountAllMessagesInIndex() == 1);
             
