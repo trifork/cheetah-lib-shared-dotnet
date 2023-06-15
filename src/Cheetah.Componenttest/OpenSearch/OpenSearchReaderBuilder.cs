@@ -53,7 +53,8 @@ public class OpenSearchReaderBuilder<T> where T : class
     {
         var reader = new OpenSearchReader<T>()
         {
-            IndexName = IndexName
+            IndexName = IndexName,
+            IndexPrefix = IndexPrefix
         };
 
         if (OpenSearchConfigurationPrefix != null && Configuration != null)
