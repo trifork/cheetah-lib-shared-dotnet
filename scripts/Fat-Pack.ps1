@@ -389,7 +389,7 @@ function Publish-Project {
 
     Write-Host
 
-    dotnet pack $dotnetPackArgs -o $destinationPath $fatProject | Out-Host
+    dotnet pack (-split $dotnetPackArgs) -o $destinationPath $fatProject | Out-Host
     $fatProject
 }
 
