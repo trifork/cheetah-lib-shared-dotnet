@@ -66,6 +66,7 @@ namespace Cheetah.ComponentTest.XUnit
                 .WithIndex("my_index")
                 .Build();
 
+            reader.DeleteAllMessagesInIndex();
             await writer.WriteAsync(model);
             Thread.Sleep(5000);
             var readMessages = await reader.GetMessages(1);

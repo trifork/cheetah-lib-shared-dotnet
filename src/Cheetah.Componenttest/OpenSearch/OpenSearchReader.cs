@@ -81,7 +81,6 @@ namespace Cheetah.ComponentTest.OpenSearch
 
             if (response.Documents.Count != expectedSize)
             {
-                DeleteAllMessagesInIndex();
                 throw new Exception($"Query did not return expected number {expectedSize}, but returned { response.Documents.Count }");
             }
             
