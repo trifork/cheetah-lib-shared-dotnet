@@ -96,7 +96,7 @@ function Get-ReferencedProjects {
 
     $projectReferences = Get-ProjectReferences $xmlDocument
 
-    $projectReferences | ForEach-Object { 
+    $projectReferences | ForEach-Object {
         $projectReference = $_
         $referencePath = $projectReference.GetAttribute("Include")
 
@@ -143,9 +143,9 @@ function Add-NestedProjectReferences {
     # Find the difference between immediate references and nested references
     $directProjectReferencePaths = $xmlDocument | Get-ReferencedProjects | Select-Object -ExpandProperty FilePath
     $nestedProjectReferencePaths = $xmlDocument | Get-ReferencedProjects -Recurse | Select-Object -ExpandProperty FilePath
-    
+
     $missingProjectReferences = $nestedProjectReferencePaths | Where-Object { $directProjectReferencePaths -notcontains $_ }
-    
+
     if ($missingProjectReferences.Count -gt 0) {
         # Add all indirect project references as direct references
         $itemGroup = $xmlDocument | Add-ItemGroupWithComment -Comment "These project references were imported because of nested project references in an original project reference"
@@ -161,7 +161,7 @@ function Add-NestedProjectReferences {
         }
     }
 
-    $xmlDocument    
+    $xmlDocument
 }
 
 function Set-PrivateAssetsAttributeOnReferencedProjects {
@@ -172,7 +172,7 @@ function Set-PrivateAssetsAttributeOnReferencedProjects {
     )
 
     # This allows our additional build target added in "Add-AdditionalBuildTarget" to include output of the project reference as a .dll rather than a NuGet reference
-    $xmlDocument 
+    $xmlDocument
     | Get-ProjectReferences
     | ForEach-Object { $_.SetAttribute("PrivateAssets", "All") }
 
@@ -193,8 +193,8 @@ function Add-ReferencedPackagesFromReferencedProjects {
         $projectDocument = $_.Document
         $itemGroup = $xmlDocument | Add-ItemGroupWithComment -Comment "These Package reference were imported from '$projectFileName'"
 
-        $projectDocument 
-        | Get-PackageReferences 
+        $projectDocument
+        | Get-PackageReferences
         | ForEach-Object { $itemGroup.AppendChild($xmlDocument.ImportNode($_, $true)) | Out-Null }
     }
 
@@ -208,8 +208,8 @@ function Confirm-PackageReferenceUniqueness {
         [System.Xml.XmlDocument] $xmlDocument
     )
 
-    $packageGroupsWithMultipleVersions = @($xmlDocument 
-        | Get-PackageReferences 
+    $packageGroupsWithMultipleVersions = @($xmlDocument
+        | Get-PackageReferences
         | Group-Object { $_.GetAttribute("Include") }
         | Where-Object {
             # Find all groups of package references that have more than 1 unique version
@@ -239,9 +239,9 @@ function Remove-PackageReferenceDuplicates {
         [System.Xml.XmlDocument] $xmlDocument
     )
 
-    $xmlDocument 
+    $xmlDocument
     | Confirm-PackageReferenceUniqueness                  # Ensure we have only a single version
-    | Get-PackageReferences 
+    | Get-PackageReferences
     | Group-Object { $_.GetAttribute("Include") }
     | Where-Object { $_.Count -gt 1 }                     # Find groups of packages that have duplicate references
     | ForEach-Object { $_.Group | Select-Object -Skip 1 } # Skip the first
@@ -272,7 +272,7 @@ function Add-AdditionalBuildTarget {
             <!-- Filter out unnecessary files -->
             <_ReferenceCopyLocalPaths Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference')-&gt;WithMetadataValue('PrivateAssets', 'All'))" />
         </ItemGroup>
-        
+
         <ItemGroup>
             <!-- Add file to package with consideration of sub folder. If empty, the root folder is chosen. -->
             <BuildOutputInPackage Include="@(_ReferenceCopyLocalPaths)" TargetPath="%(_ReferenceCopyLocalPaths.DestinationSubDirectory)" />
@@ -321,7 +321,7 @@ function Test-Node {
     return $true
 }
 
-function Confirm-ProjectProperties {
+function Confirm-ProjectMetadata {
     [OutputType([System.Xml.XmlDocument])]
     param(
         [parameter(Mandatory, ValueFromPipeline)]
@@ -345,7 +345,7 @@ function Confirm-ProjectProperties {
     $referencedProjectValidations = $xmlDocument | Get-ReferencedProjects | ForEach-Object {
         $document = $_.Document
         $fileName = Split-Path -Path $_.FilePath -Leaf
-        $document | Test-Node -ProjectName $fileName -TagName "GenerateDocumentationFile" -RequiredValue "true" 
+        $document | Test-Node -ProjectName $fileName -TagName "GenerateDocumentationFile" -RequiredValue "true"
     }
 
     if ($referencedProjectValidations -contains $false) {
@@ -382,8 +382,6 @@ function Publish-Project {
         [string] $fatProject
     )
 
-    Write-Host
-
     dotnet pack (-split $dotnetPackArgs) -o $destinationPath $fatProject | Out-Host
     $fatProject
 }
@@ -393,7 +391,6 @@ function Remove-Project {
         [string] $fatProject)
 
     if (-not $keepResolvedProject) {
-        Write-Host "Removing resolved project file $fatProject"
         Remove-Item $fatProject
     }
 }
@@ -404,7 +401,7 @@ $projectPath = Resolve-Path $projectPath
 Get-FileAsXml $projectPath
 | Add-NestedProjectReferences
 | Set-PrivateAssetsAttributeOnReferencedProjects
-| Confirm-ProjectProperties
+| Confirm-ProjectMetadata
 | Add-ReferencedPackagesFromReferencedProjects
 | Remove-PackageReferenceDuplicates
 | Add-AdditionalBuildTarget
