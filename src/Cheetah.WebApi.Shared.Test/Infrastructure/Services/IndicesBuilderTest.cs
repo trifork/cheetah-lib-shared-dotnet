@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Cheetah.Core.Infrastructure.Services.indexFragments;
 using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
 using Cheetah.WebApi.Shared.Infrastructure.Services.NamingStrategies;
 using Cheetah.WebApi.Shared.Test.Models;

@@ -41,69 +41,6 @@
             </summary>
             <value></value>
         </member>
-        <member name="T:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig">
-            <summary>
-            OpenSearchConfig for IOptions
-            </summary>
-        </member>
-        <member name="F:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig.Position">
-            <summary>
-            Prefix for options e.g. OpenSearch__
-            </summary>
-        </member>
-        <member name="P:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig.IndexNamePrefix">
-            <summary>
-            Can be used to set prefix when querying indices
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig.Url">
-            <summary>
-            Url for OpenSearch
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig.ClientId">
-            <summary>
-            Client id used to obtain JWT from token endpoint
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig.ClientSecret">
-            <summary>
-            Client secret used to obtain JWT from token endpoint
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig.TokenEndpoint">
-            <summary>
-            Token endpoint used to obtain token for authentication and authorization
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig.UserName">
-            <summary>
-            UserName for Basic Auth
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig.Password">
-            <summary>
-            Password for Basic Auth
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig.AuthMode">
-            <summary>
-            Authentication mode used by <see cref="T:Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient"/>
-            </summary>
-            <value></value>
-        </member>
-        <member name="M:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig.ValidateConfig">
-            <summary>
-            Validates and throws an error if values are not set for a given <see cref="P:Cheetah.WebApi.Shared.Core.Config.OpenSearchConfig.AuthMode"/>.
-            </summary>
-        </member>
         <member name="M:Cheetah.WebApi.Shared.Core.Extensions.ResilienceConfiguration.GetRetryPolicy``1(System.IServiceProvider,System.Int32)">
             <summary>
             Adds a resilient and transient-fault handling policy
@@ -117,12 +54,6 @@
             <summary>
             Adds a resilient and transient-fault handling policy
             </summary>
-        </member>
-        <member name="M:Cheetah.WebApi.Shared.Core.Interfaces.ICheetahOpenSearchClient.GetIndices(System.Collections.Generic.List{Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess.IndexDescriptor})">
-            <summary>
-            Queries the OpenSearch instance for all indexes
-            </summary>
-            <returns>A List containing all index-names</returns>
         </member>
         <member name="T:Cheetah.WebApi.Shared.Infrastructure.Auth.PublicKeyProvider">
             <summary>
@@ -161,52 +92,12 @@
             We want to do a value compare on type
             </summary>
         </member>
-        <member name="T:Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient">
-            <summary>Wrapper around OpenSearch, which introduces logging, authorization, and metrics
-            <para>
-            CheetahOpenSearchClient is a controller interface for accessing OpenSearch's API.
-            It provides:
-            <list type="bullet">
-            <item>
-            <term>Access control</term>
-            <description>
-            Callers of this class would be able to access only indices on OpenSearch that they are authorized to access
-            </description>
-            </item>
-            <item>
-            <term>Logging</term>
-            <description>
-            When debug mode is enabled the raw requests to OpenSearch are logged in plaintext
-            </description>
-            </item>
-            <item>
-            <term>Metrics</term>
-            <description>
-            Automatic metrics for requests done through this client
-            </description>
-            </item>
-            </list>
-            </para>
-            </summary>
-        </member>
-        <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient.SetJsonSerializerSettingsFactory(System.Func{Newtonsoft.Json.JsonSerializerSettings})">
-            <summary>
-            Set what JSON settings to use when deserializing data from OpenSearch
-            </summary>
-            <param name="jsonSerializerSettingsFactory"></param>
-        </member>
-        <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient.GetIndices(System.Collections.Generic.List{Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess.IndexDescriptor})">
-            <summary>
-            Queries the OpenSearch instance for all indices' names
-            </summary>
-            <returns>A List containing all index-names</returns>
-        </member>
         <member name="T:Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess.ClaimsBasedIndexAccessResolver">
             <summary>
             A resolver used to return accessible indices
             </summary>
         </member>
-        <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess.ClaimsBasedIndexAccessResolver.IsAccessible(Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess.IndexDescriptor)">
+        <member name="M:Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess.ClaimsBasedIndexAccessResolver.IsAccessible(Cheetah.Core.Infrastructure.Services.IndexAccess.IndexDescriptor)">
             <summary>
             Check if an specific index is accessible
             </summary>

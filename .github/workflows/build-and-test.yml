@@ -173,7 +173,10 @@ jobs:
           path: integrationtests
       - name: "Start e2e infrastructure"
         working-directory: integrationtests/
-        run: docker compose --profile kafka --profile oauth up -d --build
+        run: docker compose --profile kafka --profile oauth --profile opensearch up -d --build
       - name: "Test Integration"
-        working-directory: src/Cheetah.ComponentTest.Test
-        run: docker compose -f docker-compose.yaml up --abort-on-container-exit
+        working-directory: src/Cheetah.ComponentTest.XUnit
+        run: |
+          docker compose -f docker-compose.yaml up --abort-on-container-exit
+        env:
+          GITHUB_TOKEN: ${{ secrets.PACKAGE_PAT }}
