@@ -15,6 +15,10 @@ services:
       KAFKA__CLIENTID: myapp
       KAFKA__CLIENTSECRET: 1234
       KAFKA__AUTHENDPOINT: http://cheetahoauthsimulator:80/oauth2/token
+      OPENSEARCH__CLIENTID: ClientId
+      OPENSEARCH__CLIENTSECRET: 1234
+      OPENSEARCH__AUTHENDPOINT: http://cheetahoauthsimulator:80/oauth2/token
+      OPENSEARCH__URL: http://opensearch:9200
 
 networks:
   default:

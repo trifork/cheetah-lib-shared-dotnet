@@ -2,7 +2,7 @@
 
 Popular documentation:
 
-* [CheetahOpenSearchClient](./Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient.CheetahOpenSearchClient.yml)
+* [CheetahOpenSearchClient](./Cheetah.Core.Infrastructure.Services.OpenSearchClient.CheetahOpenSearchClient.yml)
 * [CheetahKafkaExtensions](./Cheetah.Core.Infrastructure.Services.Kafka.CheetahKafkaExtensions.yml)
 
 ## Missing expanded documentation

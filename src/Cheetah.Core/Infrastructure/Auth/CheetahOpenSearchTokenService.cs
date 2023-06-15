@@ -1,9 +1,7 @@
-using System.Net.Http;
-using Cheetah.Core.Infrastructure.Auth;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 
-namespace Cheetah.WebApi.Shared.Infrastructure.Auth
+namespace Cheetah.Core.Infrastructure.Auth
 {
     public class CheetahOpenSearchTokenService : TokenService
     {

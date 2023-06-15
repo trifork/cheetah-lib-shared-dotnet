@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
-using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
+using Cheetah.Core.Infrastructure.Services.IndexAccess;
 using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
 
-namespace Cheetah.WebApi.Shared.Core.NamingStrategies
+namespace Cheetah.Core.NamingStrategies
 {
     public interface ITimeIntervalIndexNamingStrategy
     {

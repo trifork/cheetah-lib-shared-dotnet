@@ -1,11 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Cheetah.WebApi.Shared.Core.IndexFragments;
-using Cheetah.WebApi.Shared.Core.NamingStrategies;
-using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
+using Cheetah.Core.IndexFragments;
+using Cheetah.Core.Infrastructure.Services.IndexAccess;
+using Cheetah.Core.NamingStrategies;
+using Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments;
+using OpenSearch.Client;
 
-namespace Cheetah.WebApi.Shared.Infrastructure.Services.indexFragments
+namespace Cheetah.Core.Infrastructure.Services.indexFragments
 {
     public class IndicesBuilder : IIndicesBuilder
     {
