@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.ComponentTest", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Core", "src\Cheetah.Core\Cheetah.Core.csproj", "{1DE5990E-1317-45CF-992E-A0036A6E0E36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheetah.ComponentTest.Test", "src\Cheetah.ComponentTest.Test\Cheetah.ComponentTest.Test.csproj", "{8BA7A30F-6F1A-43F6-8CEC-28610035BB0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.ComponentTest.XUnit", "src\Cheetah.ComponentTest.XUnit\Cheetah.ComponentTest.XUnit.csproj", "{15D6D6AE-0AAA-4CA5-9070-40900F62E02D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,10 +42,10 @@ Global
 		{1DE5990E-1317-45CF-992E-A0036A6E0E36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DE5990E-1317-45CF-992E-A0036A6E0E36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DE5990E-1317-45CF-992E-A0036A6E0E36}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8BA7A30F-6F1A-43F6-8CEC-28610035BB0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8BA7A30F-6F1A-43F6-8CEC-28610035BB0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8BA7A30F-6F1A-43F6-8CEC-28610035BB0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8BA7A30F-6F1A-43F6-8CEC-28610035BB0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15D6D6AE-0AAA-4CA5-9070-40900F62E02D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15D6D6AE-0AAA-4CA5-9070-40900F62E02D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15D6D6AE-0AAA-4CA5-9070-40900F62E02D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15D6D6AE-0AAA-4CA5-9070-40900F62E02D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

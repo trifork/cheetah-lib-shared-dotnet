@@ -12,7 +12,7 @@ namespace Cheetah.Core.Infrastructure.Services.Kafka
     {
         private static void TokenRefreshHandler(
             ILogger logger,
-            TokenService tokenService,
+            ITokenService tokenService,
             IClient client,
             string cfg
         )
@@ -90,12 +90,12 @@ namespace Cheetah.Core.Infrastructure.Services.Kafka
             return builder;
         }
 
-        public static ConsumerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(this ConsumerBuilder<TKey, TValue> builder, TokenService tokenService, ILogger logger)
+        public static ConsumerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(this ConsumerBuilder<TKey, TValue> builder, ITokenService tokenService, ILogger logger)
         {
             return builder.SetOAuthBearerTokenRefreshHandler((client, cfg) => TokenRefreshHandler(logger, tokenService, client, cfg));
         }
 
-        public static ProducerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(this ProducerBuilder<TKey, TValue> builder, TokenService tokenService, ILogger logger)
+        public static ProducerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(this ProducerBuilder<TKey, TValue> builder, ITokenService tokenService, ILogger logger)
         {
             return builder.SetOAuthBearerTokenRefreshHandler((client, cfg) => TokenRefreshHandler(logger, tokenService, client, cfg));
         }

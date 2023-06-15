@@ -1,27 +1,27 @@
 # CheetahComponentTest
 
-This library provide `KafkaComponentTest`, an extendable class containing logic for publishing and consuming data from topics, specefied in `KafkaConfiguration`.
+This library provide builders for reading and writing to and from Kafka queues and OpenSearch.
 
-`KafkaConfiguration` comes with some default values, but require 3 parameter:
-
-- BootstrapServer
-- ConsumerTopic
-- ProducerTopic
-
-`BootstrapServer` is the server for kafka.
-
-`ConsumerTopic` is the topic the `KafkaComponentTest` comsume from.
-
-`ProducerTopic` is the topic the `KafkaComponentTest` produce to.
+All readers and writers are built upon the same setup.
 
 ```c#
-## Create testrunner
-await new ComponentTestRunner()
-    .AddTest<ExampleTest>()
-    .AddTest<AnotherExampleTest>()
-    .WithConfiguration<KafkaConfiguration>(KafkaConfiguration.Position)
-    .RunAsync(args);
+var writer = KafkaWriterBuilder.Create<string, string>()
+                .WithKafkaConfigurationPrefix(string.Empty, configuration)
+                .WithTopic("MyTopic")
+                .WithKeyFunction(message => message)
+                .Build();
+
 ```
+
+The configuration needed must contain the following values:
+```
+ KAFKA:AUTHENDPOINT
+ KAFKA:CLIENTID
+ KAFKA:SECRET
+ KAFKA:URL
+```
+
+If using the OpenSearch replace `KAFKA` with `OPENSEARCH`
 
 ## Configuration for using NuGet package
 
@@ -82,14 +82,6 @@ COPY "NuGet-CI.Config" "NuGet.config"
 COPY ["ComponentTest.csproj", "ComponentTest/"]
 RUN dotnet restore "ComponentTest.csproj"
 COPY . .
-WORKDIR "/src/ComponentTest"
-RUN dotnet build "ComponentTest.csproj" -c Release -o /app/build
-
-FROM build AS publish
-RUN dotnet publish "ComponentTest.csproj" -c Release -o /app/publish
-
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "ComponentTest.dll"]
+WORKDIR /src
+ENTRYPOINT ["dotnet","test", "ComponentTest/ComponentTest.csproj"]
 ```

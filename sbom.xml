@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<bom xmlns="http://cyclonedx.org/schema/bom/1.4" serialNumber="urn:uuid:ac401e2d-078f-4b8a-9760-53ddccf40ebd" version="1">
+<bom xmlns="http://cyclonedx.org/schema/bom/1.4" serialNumber="urn:uuid:a1b35aa7-b708-40ee-9ec6-e92b6760b2b2" version="1">
   <metadata>
-    <timestamp>2023-06-06T08:45:49.725Z</timestamp>
+    <timestamp>2023-06-13T12:00:09.898Z</timestamp>
     <tools>
       <tool>
         <vendor>cyclonedx</vendor>
         <name>cdxgen</name>
-        <version>8.5.2</version>
+        <version>8.5.3</version>
       </tool>
     </tools>
     <authors>
@@ -17,6 +17,118 @@
     </authors>
   </metadata>
   <components>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.Extensions.Configuration@7.0.0">
+      <publisher/>
+      <group/>
+      <name>Microsoft.Extensions.Configuration</name>
+      <version>7.0.0</version>
+      <description><![CDATA[Implementation of key-value pair based configuration for Microsoft.Extensions.Configuration. Includes the memory configuration provider.]]></description>
+      <licenses>
+        <license>
+          <id>Apache-2.0</id>
+          <url>https://opensource.org/licenses/Apache-2.0</url>
+        </license>
+      </licenses>
+      <purl>pkg:nuget/Microsoft.Extensions.Configuration@7.0.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://www.nuget.org/packages/Microsoft.Extensions.Configuration/7.0.0/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://asp.net/</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.NET.Test.Sdk@17.5.0">
+      <publisher/>
+      <group/>
+      <name>Microsoft.NET.Test.Sdk</name>
+      <version>17.5.0</version>
+      <description><![CDATA[The MSbuild targets and properties for building .NET test projects.]]></description>
+      <licenses>
+        <license>
+          <name>CUSTOM</name>
+          <url>http://www.microsoft.com/web/webpi/eula/net_library_eula_enu.htm</url>
+        </license>
+      </licenses>
+      <purl>pkg:nuget/Microsoft.NET.Test.Sdk@17.5.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://www.nuget.org/packages/Microsoft.NET.Test.Sdk/17.5.0/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/microsoft/vstest/</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/xunit@2.4.2">
+      <publisher/>
+      <group/>
+      <name>xunit</name>
+      <version>2.4.2</version>
+      <description><![CDATA[xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.
+
+Installing this package installs xunit.core, xunit.assert, and xunit.analyzers.]]></description>
+      <licenses>
+        <license>
+          <name>CUSTOM</name>
+          <url>https://raw.githubusercontent.com/xunit/xunit/master/license.txt</url>
+        </license>
+      </licenses>
+      <purl>pkg:nuget/xunit@2.4.2</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://www.nuget.org/packages/xunit/2.4.2/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/xunit/xunit</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/xunit.runner.visualstudio@2.4.5">
+      <publisher/>
+      <group/>
+      <name>xunit.runner.visualstudio</name>
+      <version>2.4.5</version>
+      <description><![CDATA[Visual Studio 2012+ Test Explorer runner for the xUnit.net framework. Capable of running xUnit.net v1.9.2 and v2.0+ tests. Supports .NET 2.0 or later, .NET Core 1.0 or later, and Universal Windows 10.0 or later.]]></description>
+      <licenses>
+        <license>
+          <name>CUSTOM</name>
+          <url>https://raw.githubusercontent.com/xunit/xunit/master/license.txt</url>
+        </license>
+      </licenses>
+      <purl>pkg:nuget/xunit.runner.visualstudio@2.4.5</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://www.nuget.org/packages/xunit.runner.visualstudio/2.4.5/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/xunit/xunit</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/coverlet.collector@3.2.0">
+      <publisher/>
+      <group/>
+      <name>coverlet.collector</name>
+      <version>3.2.0</version>
+      <description><![CDATA[Coverlet is a cross platform code coverage library for .NET, with support for line, branch and method coverage.]]></description>
+      <licenses>
+        <license>
+          <id>MIT</id>
+          <url>https://opensource.org/licenses/MIT</url>
+        </license>
+      </licenses>
+      <purl>pkg:nuget/coverlet.collector@3.2.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://www.nuget.org/packages/coverlet.collector/3.2.0/</url>
+        </reference>
+        <reference type="vcs">
+          <url>http://github.com/tonerdo/coverlet</url>
+        </reference>
+      </externalReferences>
+    </component>
     <component type="library" bom-ref="pkg:nuget/Confluent.Kafka@2.1.0">
       <publisher/>
       <group/>
@@ -316,30 +428,6 @@ Microsoft.Extensions.Logging.Abstractions.NullLogger]]></description>
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:nuget/xunit@2.4.2">
-      <publisher/>
-      <group/>
-      <name>xunit</name>
-      <version>2.4.2</version>
-      <description><![CDATA[xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.
-
-Installing this package installs xunit.core, xunit.assert, and xunit.analyzers.]]></description>
-      <licenses>
-        <license>
-          <name>CUSTOM</name>
-          <url>https://raw.githubusercontent.com/xunit/xunit/master/license.txt</url>
-        </license>
-      </licenses>
-      <purl>pkg:nuget/xunit@2.4.2</purl>
-      <externalReferences>
-        <reference type="website">
-          <url>https://www.nuget.org/packages/xunit/2.4.2/</url>
-        </reference>
-        <reference type="vcs">
-          <url>https://github.com/xunit/xunit</url>
-        </reference>
-      </externalReferences>
-    </component>
     <component type="library" bom-ref="pkg:nuget/Xunit.SkippableFact@1.3.12">
       <publisher/>
       <group/>
@@ -378,28 +466,6 @@ Installing this package installs xunit.core, xunit.assert, and xunit.analyzers.]
       <externalReferences>
         <reference type="website">
           <url>https://www.nuget.org/packages/xunit.extensibility.execution/2.4.2/</url>
-        </reference>
-        <reference type="vcs">
-          <url>https://github.com/xunit/xunit</url>
-        </reference>
-      </externalReferences>
-    </component>
-    <component type="library" bom-ref="pkg:nuget/xunit.runner.visualstudio@2.4.5">
-      <publisher/>
-      <group/>
-      <name>xunit.runner.visualstudio</name>
-      <version>2.4.5</version>
-      <description><![CDATA[Visual Studio 2012+ Test Explorer runner for the xUnit.net framework. Capable of running xUnit.net v1.9.2 and v2.0+ tests. Supports .NET 2.0 or later, .NET Core 1.0 or later, and Universal Windows 10.0 or later.]]></description>
-      <licenses>
-        <license>
-          <name>CUSTOM</name>
-          <url>https://raw.githubusercontent.com/xunit/xunit/master/license.txt</url>
-        </license>
-      </licenses>
-      <purl>pkg:nuget/xunit.runner.visualstudio@2.4.5</purl>
-      <externalReferences>
-        <reference type="website">
-          <url>https://www.nuget.org/packages/xunit.runner.visualstudio/2.4.5/</url>
         </reference>
         <reference type="vcs">
           <url>https://github.com/xunit/xunit</url>
@@ -681,7 +747,7 @@ Microsoft.Extensions.DependencyInjection.IServiceCollection]]></description>
       <comment>Base path</comment>
     </reference>
     <reference type="other">
-      <url>/app/src/Cheetah.ComponentTest.Test/Cheetah.ComponentTest.Test.csproj, /app/src/Cheetah.Componenttest/Cheetah.ComponentTest.csproj, /app/src/Cheetah.Core/Cheetah.Core.csproj, /app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj, /app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj</url>
+      <url>/app/src/Cheetah.ComponentTest.XUnit/Cheetah.ComponentTest.XUnit.csproj, /app/src/Cheetah.Componenttest/Cheetah.ComponentTest.csproj, /app/src/Cheetah.Core/Cheetah.Core.csproj, /app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj, /app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj</url>
       <comment>Package file</comment>
     </reference>
   </externalReferences>
