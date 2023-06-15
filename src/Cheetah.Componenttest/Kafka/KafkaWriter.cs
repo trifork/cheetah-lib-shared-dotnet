@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using Cheetah.ComponentTest.TokenService;
 using Cheetah.Core.Infrastructure.Services.Kafka;
 using Confluent.Kafka;
@@ -25,6 +24,10 @@ namespace Cheetah.ComponentTest.Kafka
         internal void Prepare()
         {
             Logger.LogInformation("Preparing kafka producer, producing to topic '{topic}'", Topic);
+            if (ClientId == null || ClientSecret == null || AuthEndpoint == null)
+            {
+                throw new InvalidOperationException("ClientId, ClientSecret and AuthEndpoint must be set");
+            }
             Producer = new ProducerBuilder<TKey, T>(new ProducerConfig
             {
                 BootstrapServers = Server,
@@ -38,12 +41,16 @@ namespace Cheetah.ComponentTest.Kafka
 
         public void Write(T message)
         {
+            if (KeyFunction == null)
+            {
+                throw new InvalidOperationException("KeyFunction must be set");
+            }
             var kafkaMessage = new Message<TKey, T>
             {
                 Key = KeyFunction(message),
                 Value = message
             };
-            Producer.Produce(Topic, kafkaMessage, (deliveryReport) =>
+            Producer!.Produce(Topic, kafkaMessage, (deliveryReport) =>
             {
                 if (deliveryReport.Error.Code != ErrorCode.NoError)
                 {
@@ -54,6 +61,10 @@ namespace Cheetah.ComponentTest.Kafka
 
         public void Write(params T[] messages)
         {
+            if (KeyFunction == null)
+            {
+                throw new InvalidOperationException("KeyFunction must be set");
+            }
             foreach (var message in messages)
             {
                 var kafkaMessage = new Message<TKey, T>
@@ -61,7 +72,7 @@ namespace Cheetah.ComponentTest.Kafka
                     Key = KeyFunction(message),
                     Value = message
                 };
-                Producer.Produce(Topic, kafkaMessage, (deliveryReport) =>
+                Producer!.Produce(Topic, kafkaMessage, (deliveryReport) =>
                 {
                     if (deliveryReport.Error.Code != ErrorCode.NoError)
                     {

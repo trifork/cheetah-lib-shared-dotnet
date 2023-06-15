@@ -27,24 +27,39 @@ namespace Cheetah.ComponentTest.XUnit
         }
 
         [Fact]
-        public async Task WriteToQueueAsync()
+        public void WriteToQueue()
         {
             var writer = KafkaWriterBuilder.Create<string, string>()
                 .WithKafkaConfigurationPrefix(string.Empty, configuration)
                 .WithTopic("MyTopic")
                 .WithKeyFunction(message => message)
                 .Build();
+            var writer2 = KafkaWriterBuilder.Create<string, string>()
+                .WithKafkaConfigurationPrefix(string.Empty, configuration)
+                .WithTopic("MyTopic2")
+                .WithKeyFunction(message => message)
+                .Build();
 
-            var reader = await KafkaReaderBuilder.Create<string, string>()
+            var reader = KafkaReaderBuilder.Create<string, string>()
                 .WithKafkaConfigurationPrefix(string.Empty, configuration)
                 .WithTopic("MyTopic")
                 .WithGroupId("Mygroup")
-                .BuildAsync();
+                .Build();
+
+            var reader2 = KafkaReaderBuilder.Create<string, string>()
+                .WithKafkaConfigurationPrefix(string.Empty, configuration)
+                .WithTopic("MyTopic2")
+                .WithGroupId("Mygroup2")
+                .Build();
 
             writer.Write("Message4");
+            writer2.Write("Message4");
             var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(20));
             Assert.Single(readMessages);
-            Assert.True(reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(3)));
+            Assert.True(reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(20)));
+            var readMessages2 = reader2.ReadMessages(1, TimeSpan.FromSeconds(20));
+            Assert.Single(readMessages2);
+            Assert.True(reader2.VerifyNoMoreMessages(TimeSpan.FromSeconds(20)));
         }
 
         [Fact]
