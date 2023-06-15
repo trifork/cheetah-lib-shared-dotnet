@@ -23,6 +23,7 @@ public class OpenSearchReaderBuilder<T> where T : class
     private string? OpenSearchConfigurationPrefix;
     private IConfiguration? Configuration;
     private string? IndexName;
+    private string? IndexPrefix;
 
     internal OpenSearchReaderBuilder()
     {

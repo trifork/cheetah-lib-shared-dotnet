@@ -70,7 +70,7 @@ public class OpenSearchWriter<T> where T : class
         await Client.InternalClient.IndexAsync( message,  i => i.Index(IndexName));
     }
 
-    public async Task WriteAsync<T>(params T[] messages) where T : class
+    public async Task WriteAsync(params T[] messages)
     {
         if (Client == null) throw new ArgumentException("Client has not been  configured");
 

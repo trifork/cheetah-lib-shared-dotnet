@@ -21,6 +21,7 @@ namespace Cheetah.ComponentTest.OpenSearch
         private static readonly ILogger Logger = new LoggerFactory().CreateLogger<OpenSearchReader<T>>();
         
         internal string? IndexName { get; set; }
+        internal string? IndexPrefix { get; set; }
         internal string? Server { get; set; }
         internal string? ClientId { get; set; }
         internal string? ClientSecret { get; set; }
@@ -65,7 +66,7 @@ namespace Cheetah.ComponentTest.OpenSearch
 
         /// <summary>
         /// Returns the expected number of messages from the index
-        /// this reader was initialized with
+        /// this reader was initialized with. Max 10.000
         /// </summary>
         /// <param name="expectedSize"></param>
         /// <returns></returns>
@@ -78,6 +79,11 @@ namespace Cheetah.ComponentTest.OpenSearch
             var response = await Client.InternalClient.SearchAsync<T>(s => s
                 .Index(IndexName));
 
+            if (response.Documents.Count != expectedSize)
+            {
+                throw new Exception($"Query did not return expected number {expectedSize}, but returned { response.Documents.Count }");
+            }
+            
             if (response.IsValid)
             {
                 messages.AddRange(response.Documents.Select(d =>d));
@@ -90,8 +96,10 @@ namespace Cheetah.ComponentTest.OpenSearch
         {
             if (Client == null) throw new ArgumentException("Client has not been  configured");
 
+            var indices = (IndexPrefix ?? "") + (IndexName ?? "*");
+            
             return Client.InternalClient.Count<string>(c => c
-                .Index(IndexName)
+                .Index(indices)
                 .Query(q => q
                     .MatchAll())).Count;
         }
