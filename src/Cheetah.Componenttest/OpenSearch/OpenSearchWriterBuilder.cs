@@ -22,8 +22,7 @@ public class OpenSearchWriterBuilder<T> where T : class
     private string? OpenSearchConfigurationPrefix;
     private IConfiguration? Configuration;
     private string? IndexName;
-    private string? IndexPrefix;
-    
+
     public OpenSearchWriterBuilder<T> WithOpenSearchConfigurationPrefix(string prefix, IConfiguration configuration)
     {
         Configuration = configuration;

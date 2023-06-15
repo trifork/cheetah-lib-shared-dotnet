@@ -43,6 +43,12 @@ public class OpenSearchReaderBuilder<T> where T : class
         return this;
     }
 
+    public OpenSearchReaderBuilder<T> WithPrefix(string indexPrefix)
+    {
+        IndexPrefix = indexPrefix;
+        return this;
+    }
+
     public OpenSearchReader<T> Build()
     {
         var reader = new OpenSearchReader<T>()
