@@ -332,7 +332,7 @@ function Confirm-ProjectProperties {
 
     $nodeValidations = @(
         ($xmlDocument | Test-Node -ProjectName $projectName -TagName "GenerateDocumentationFile" -RequiredValue "true"),
-        ($xmlDocument | Test-Node -ProjectName $projectName -TagName "PackageId"),
+        ($xmlDocument | Test-Node -ProjectName $projectName -TagName "AssemblyName"),
         ($xmlDocument | Test-Node -ProjectName $projectName -TagName "Authors"),
         ($xmlDocument | Test-Node -ProjectName $projectName -TagName "Description")
     )
