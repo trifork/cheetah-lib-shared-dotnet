@@ -49,7 +49,7 @@ jobs:
         shell: bash
         run: |
           VERSION=$(cat ${{ inputs.project_filepath }} | grep "<VersionPrefix>" | sed 's/<\/\?VersionPrefix>//g' | tr -d "[:space:]")
-          PACKAGE_NAME=$(cat ${{inputs.project_filepath }} | grep "<PackageId>" | sed 's/<\/\?PackageId>//g' | tr -d "[:space:]")
+          PACKAGE_NAME=$(cat ${{inputs.project_filepath }} | grep "<AssemblyName>" | sed 's/<\/\?AssemblyName>//g' | tr -d "[:space:]")
           echo "Extracted NuGet package version: $VERSION"
           echo "Extracted NuGet package name: $PACKAGE_NAME"
           echo "NUGET_PACKAGE_VERSION=$VERSION" >> $GITHUB_ENV
