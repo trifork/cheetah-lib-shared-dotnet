@@ -20,7 +20,7 @@ on:
         description: ""
         required: true
     secrets:
-      github_token:
+      gh_token:
         required: true
   
 jobs:
@@ -33,7 +33,7 @@ jobs:
       - name: "dotnet build"
         uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
         with:
-          read_package_pat: ${{ secrets.github_token }}
+          read_package_pat: ${{ secrets.gh_token }}
           dotnet_version: ${{ inputs.dotnet_version }}
           github_actor: ${{ github.actor }}
           solution_filepath: ${{ inputs.project_filepath }}
@@ -60,7 +60,7 @@ jobs:
         id: check_existing_package
         shell: bash
         env:
-          GITHUB_TOKEN: ${{ secrets.github_token }}
+          GITHUB_TOKEN: ${{ secrets.gh_token }}
         run: |
           response=$(curl -s -H "Accept: application/vnd.github+json" -H "Authorization: token $GITHUB_TOKEN" -o /dev/null -w "%{http_code}" "https://api.github.com/orgs/trifork/packages/nuget/${{ env.NUGET_PACKAGE_NAME }}/versions")
           if [[ $response == 404 ]]; then
@@ -107,7 +107,7 @@ jobs:
       - name: "Publish to github packages"
         if: env.PACKAGE_EXISTS == 'false' || github.ref != 'refs/heads/main'
         shell: bash
-        run: dotnet nuget push output/${{ inputs.package_name }}*.nupkg --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --api-key ${{ secrets.github_token }}
+        run: dotnet nuget push output/${{ inputs.package_name }}*.nupkg --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --api-key ${{ secrets.gh_token }}
 
       - name: "Publish to Kamstrup Gitlab"
         if: env.PACKAGE_EXISTS == 'false' && github.ref == 'refs/heads/main'
@@ -122,7 +122,7 @@ jobs:
         env:
           releasenotes_path: "${{ inputs.releasenotes_path }}"
         with:
-          github-token: "${{ secrets.github_token }}"
+          github-token: "${{ secrets.gh_token }}"
           script: |
             try {
               const fs = require('fs')

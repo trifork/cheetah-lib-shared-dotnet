@@ -16,5 +16,5 @@ jobs:
         releasenotes_path: ./src/Cheetah.Componenttest/ReleaseNotes.md
         kamstrup_gitlab_token: ${{ vars.KAMSTRUP_GITLAB_TOKEN }}  
     secrets:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
+      gh_token: ${{ secrets.GITHUB_TOKEN }}
 
