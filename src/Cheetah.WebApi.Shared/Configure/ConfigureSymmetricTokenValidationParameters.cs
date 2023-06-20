@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Text;
-using Cheetah.WebApi.Shared.Core.Config;
+using Cheetah.WebApi.Shared.Config;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Cheetah.WebApi.Shared.Core.Configure
+namespace Cheetah.WebApi.Shared.Configure
 {
     public class ConfigureSymmetricTokenValidationParameters
         : IPostConfigureOptions<JwtBearerOptions>

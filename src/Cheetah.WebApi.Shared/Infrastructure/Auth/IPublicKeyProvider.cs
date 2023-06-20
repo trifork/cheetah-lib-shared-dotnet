@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Cheetah.WebApi.Shared.Core
+namespace Cheetah.WebApi.Shared.Infrastructure.Auth
 {
     public interface IPublicKeyProvider
     {

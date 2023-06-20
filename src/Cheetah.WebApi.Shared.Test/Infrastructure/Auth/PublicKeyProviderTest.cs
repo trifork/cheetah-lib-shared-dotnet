@@ -2,7 +2,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Cheetah.WebApi.Shared.Core.Config;
+using Cheetah.WebApi.Shared.Config;
 using Cheetah.WebApi.Shared.Infrastructure.Auth;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;

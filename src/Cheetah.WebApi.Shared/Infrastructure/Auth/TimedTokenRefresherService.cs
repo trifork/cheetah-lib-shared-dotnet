@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cheetah.Core.Config;
 using Cheetah.Core.Infrastructure.Auth;
-using Cheetah.WebApi.Shared.Core.Config;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;

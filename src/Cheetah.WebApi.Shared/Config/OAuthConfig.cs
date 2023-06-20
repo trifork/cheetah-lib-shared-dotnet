@@ -1,6 +1,4 @@
-using System.ComponentModel.DataAnnotations;
-
-namespace Cheetah.WebApi.Shared.Core.Config
+namespace Cheetah.WebApi.Shared.Config
 {
     /// <summary>
     /// OAuthConfig for IOptions. Can be used by WebApi's to authenticate user http requests.
@@ -16,7 +14,6 @@ namespace Cheetah.WebApi.Shared.Core.Config
         /// OAuth url for WebApi to authenticate http requests bearer tokens
         /// </summary>
         /// <value></value>
-        [Required]
         public string OAuthUrl { get; set; } = null!;
 
         /// <summary>
