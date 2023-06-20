@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Cheetah.WebApi.Shared.Core.Config
 {
     /// <summary>
@@ -14,7 +16,8 @@ namespace Cheetah.WebApi.Shared.Core.Config
         /// OAuth url for WebApi to authenticate http requests bearer tokens
         /// </summary>
         /// <value></value>
-        public string OAuthUrl { get; set; } = "http://cheetahoauthsimulator:80";
+        [Required]
+        public string OAuthUrl { get; set; } = null!;
 
         /// <summary>
         /// Can be used to determine if authentication should be validated symmetric or asymmetric
@@ -26,7 +29,7 @@ namespace Cheetah.WebApi.Shared.Core.Config
         /// Secret used by Symmetric validation
         /// </summary>
         /// <value></value>
-        public string SymmetricPrivateKey { get; set; } = "this is very secret"; //todo: SecureString or mounted secret?
+        public string SymmetricPrivateKey { get; set; } = null!; //todo: SecureString or mounted secret?
 
         public enum OAuthConfigMode
         {

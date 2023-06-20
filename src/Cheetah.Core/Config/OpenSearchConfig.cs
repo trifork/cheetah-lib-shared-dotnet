@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Cheetah.Core.Infrastructure.Services.OpenSearchClient;
 using Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient;
 
@@ -23,37 +24,43 @@ namespace Cheetah.Core.Config
         /// Url for OpenSearch
         /// </summary>
         /// <value></value>
-        public string Url { get; set; } = "http://opensearch:9200";
+        [Required]
+        public string Url { get; set; } = null!;
 
         /// <summary>
         /// Client id used to obtain JWT from token endpoint
         /// </summary>
         /// <value></value>
-        public string ClientId { get; set; } = string.Empty;
+        [Required]
+        public string ClientId { get; set; } = null!;
 
         /// <summary>
         /// Client secret used to obtain JWT from token endpoint
         /// </summary>
         /// <value></value>
-        public string ClientSecret { get; set; } = string.Empty;
+        [Required]
+        public string ClientSecret { get; set; } = null!;
 
         /// <summary>
         /// Token endpoint used to obtain token for authentication and authorization
         /// </summary>
         /// <value></value>
-        public string TokenEndpoint { get; set; } = "http://cheetahoauthsimulator:80/oauth2/token";
+        [Required]
+        public string TokenEndpoint { get; set; } = null!;
 
         /// <summary>
         /// UserName for Basic Auth
         /// </summary>
         /// <value></value>
-        public string UserName { get; set; } = "admin";
+        [Required]
+        public string UserName { get; set; } = null!;
 
         /// <summary>
         /// Password for Basic Auth
         /// </summary>
         /// <value></value>
-        public string Password { get; set; } = "admin";
+        [Required]
+        public string Password { get; set; } = null!;
 
         /// <summary>
         /// Authentication mode used by <see cref="CheetahOpenSearchClient"/>
