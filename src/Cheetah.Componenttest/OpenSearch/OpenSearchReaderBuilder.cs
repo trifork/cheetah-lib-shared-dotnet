@@ -1,4 +1,5 @@
 ﻿using System;
+using Cheetah.Core.Config;
 using Microsoft.Extensions.Configuration;
 
 namespace Cheetah.ComponentTest.OpenSearch;
@@ -20,6 +21,7 @@ public class OpenSearchReaderBuilder<T> where T : class
     private const string OPENSEARCH_CLIENTID = "OPENSEARCH:CLIENTID";
     private const string OPENSEARCH_CLIENTSECRET = "OPENSEARCH:CLIENTSECRET";
     private const string OPENSEARCH_AUTH_ENDPOINT = "OPENSEARCH:AUTHENDPOINT";
+    private const string OPENSEARCH_AUTH_MODE = "OPENSEARCH:AUTHMODE";
     private string? OpenSearchConfigurationPrefix;
     private IConfiguration? Configuration;
     private string? IndexName;
@@ -65,6 +67,7 @@ public class OpenSearchReaderBuilder<T> where T : class
                 reader.ClientId = Configuration.GetSection(OpenSearchConfigurationPrefix).GetValue<string>(OPENSEARCH_CLIENTID);
                 reader.ClientSecret = Configuration.GetSection(OpenSearchConfigurationPrefix).GetValue<string>(OPENSEARCH_CLIENTSECRET);
                 reader.AuthEndpoint = Configuration.GetSection(OpenSearchConfigurationPrefix).GetValue<string>(OPENSEARCH_AUTH_ENDPOINT);
+                writer.AuthMode = Configuration.GetSection(OpenSearchConfigurationPrefix).GetValue<OpenSearchConfig.OpenSearchAuthMode>(OPENSEARCH_AUTH_MODE);
             }
             else
             {
@@ -72,6 +75,7 @@ public class OpenSearchReaderBuilder<T> where T : class
                 reader.ClientId = Configuration.GetValue<string>(OPENSEARCH_CLIENTID);
                 reader.ClientSecret = Configuration.GetValue<string>(OPENSEARCH_CLIENTSECRET);
                 reader.AuthEndpoint = Configuration.GetValue<string>(OPENSEARCH_AUTH_ENDPOINT);   
+                writer.AuthMode = Configuration.GetValue<OpenSearchConfig.OpenSearchAuthMode>(OPENSEARCH_AUTH_MODE);
             }
         }
         else

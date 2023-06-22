@@ -26,6 +26,7 @@ namespace Cheetah.ComponentTest.OpenSearch
         internal string? ClientId { get; set; }
         internal string? ClientSecret { get; set; }
         internal string? AuthEndpoint { get; set; }
+        internal OpenSearchConfig.OpenSearchAuthMode AuthMode { get; set; }
         CheetahOpenSearchClient? Client { get; set; }
 
         internal void Prepare()
@@ -35,7 +36,7 @@ namespace Cheetah.ComponentTest.OpenSearch
             var openSearchConfig = new OpenSearchConfig
             {
                 Url = Server,
-                // Oauth2
+                AuthMode = AuthMode,
                 ClientId = ClientId,
                 ClientSecret = ClientSecret,
                 TokenEndpoint = AuthEndpoint
