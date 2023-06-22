@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Cheetah.WebApi.Shared</name>
+        <name>Cheetah.WebApi.Shared.fat</name>
     </assembly>
     <members>
         <member name="M:Cheetah.WebApi.Shared.Configure.ConfigureSwaggerOptions.#ctor(Microsoft.AspNetCore.Mvc.ApiExplorer.IApiVersionDescriptionProvider)">

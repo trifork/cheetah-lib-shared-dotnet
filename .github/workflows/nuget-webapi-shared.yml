@@ -1,4 +1,4 @@
-name: Create and publish Cheetah.shared nuget package
+name: Create and publish Cheetah.WebApi.Shared nuget package
 
 on:
   workflow_dispatch:
@@ -7,34 +7,14 @@ on:
   push:
     branches: ["main"]
 
-env:
-  PROJECT_PATH: ./src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj
-
 jobs:
-  build-and-push-nuget:
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Checkout"
-        uses: actions/checkout@v3
-      - name: "dotnet publish"
-        uses: trifork/cheetah-infrastructure-utils/.github/actions/nuget-publish@main
-        with:
-          project_filepath: ${{ env.PROJECT_PATH }}
-          dotnet-version: "6.0"
-          package_name: "Cheetah.WebApi.Shared"
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          releasenotes_path: ./src/Cheetah.WebApi.Shared/ReleaseNotes.md
-          kamstrup_gitlab_token: ${{ vars.KAMSTRUP_GITLAB_TOKEN }}
-
-      - name: "Generate SBOM"
-        if: github.ref == 'refs/heads/main'
-        run: docker run --rm -v /tmp:/tmp -v $(pwd):/app:rw -e FETCH_LICENSE=true -t ghcr.io/cyclonedx/cdxgen -r /app/src/Cheetah.WebApi.Shared -o /app/src/Cheetah.WebApi.Shared/sbom.json -t dotnet
-      - name: Upload asset to github release page
-        id: upload-release-asset
-        if: github.ref == 'refs/heads/main'
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ env.RELEASE_UPLOAD_URL }}
-          asset_path: ./src/Cheetah.WebApi.Shared/sbom.json
-          asset_name: sbom.json
-          asset_content_type: application/json
+  build-and-package-nuget:
+    uses: ./.github/workflows/nuget-publish.yml
+    with:
+        project_filepath: ./src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj
+        dotnet_version: "6.0"
+        releasenotes_path: ./src/Cheetah.WebApi.Shared/ReleaseNotes.md
+        kamstrup_gitlab_token: ${{ vars.KAMSTRUP_GITLAB_TOKEN }}
+    secrets:
+        gh_token: ${{ secrets.GITHUB_TOKEN }}
+  
