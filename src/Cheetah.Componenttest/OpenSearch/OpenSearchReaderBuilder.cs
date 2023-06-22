@@ -67,7 +67,7 @@ public class OpenSearchReaderBuilder<T> where T : class
                 reader.ClientId = Configuration.GetSection(OpenSearchConfigurationPrefix).GetValue<string>(OPENSEARCH_CLIENTID);
                 reader.ClientSecret = Configuration.GetSection(OpenSearchConfigurationPrefix).GetValue<string>(OPENSEARCH_CLIENTSECRET);
                 reader.AuthEndpoint = Configuration.GetSection(OpenSearchConfigurationPrefix).GetValue<string>(OPENSEARCH_AUTH_ENDPOINT);
-                writer.AuthMode = Configuration.GetSection(OpenSearchConfigurationPrefix).GetValue<OpenSearchConfig.OpenSearchAuthMode>(OPENSEARCH_AUTH_MODE);
+                reader.AuthMode = Configuration.GetSection(OpenSearchConfigurationPrefix).GetValue<OpenSearchConfig.OpenSearchAuthMode>(OPENSEARCH_AUTH_MODE);
             }
             else
             {
@@ -75,7 +75,7 @@ public class OpenSearchReaderBuilder<T> where T : class
                 reader.ClientId = Configuration.GetValue<string>(OPENSEARCH_CLIENTID);
                 reader.ClientSecret = Configuration.GetValue<string>(OPENSEARCH_CLIENTSECRET);
                 reader.AuthEndpoint = Configuration.GetValue<string>(OPENSEARCH_AUTH_ENDPOINT);   
-                writer.AuthMode = Configuration.GetValue<OpenSearchConfig.OpenSearchAuthMode>(OPENSEARCH_AUTH_MODE);
+                reader.AuthMode = Configuration.GetValue<OpenSearchConfig.OpenSearchAuthMode>(OPENSEARCH_AUTH_MODE);
             }
         }
         else
