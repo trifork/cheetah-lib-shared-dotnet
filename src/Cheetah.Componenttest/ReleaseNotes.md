@@ -1,5 +1,9 @@
 # Release notes
 
+## 1.4.0
+
+Added OpenSearchReader
+
 ## 1.0.2
 
 Updated Componentest to use Oauth for connection to Kafka.
