@@ -151,6 +151,8 @@ jobs:
         id: upload-release-asset
         if: github.ref == 'refs/heads/main'
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ env.RELEASE_UPLOAD_URL }}
           asset_path: ./src/Cheetah.Componenttest/sbom.json
