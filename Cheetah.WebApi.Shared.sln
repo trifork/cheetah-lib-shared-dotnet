@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.github\workflows\shared-nuget.yml = .github\workflows\shared-nuget.yml
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.ComponentTest", "src\Cheetah.Componenttest\Cheetah.ComponentTest.csproj", "{218D3E64-0A50-44D4-B78B-4E56B963B281}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.ComponentTest", "src\Cheetah.ComponentTest\Cheetah.ComponentTest.csproj", "{218D3E64-0A50-44D4-B78B-4E56B963B281}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Core", "src\Cheetah.Core\Cheetah.Core.csproj", "{1DE5990E-1317-45CF-992E-A0036A6E0E36}"
 EndProject
