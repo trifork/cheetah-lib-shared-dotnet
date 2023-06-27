@@ -4279,7 +4279,7 @@ When using NuGet 3.x this package requires at least version 3.4.]]></description
       <comment>Base path</comment>
     </reference>
     <reference type="other">
-      <url>/app/src/Cheetah.Componenttest/bin/Debug/Cheetah.ComponentTest.1.0.1.nupkg, /app/src/Cheetah.WebApi.Shared/bin/Debug/Cheetah.WebApi.Shared.1.5.0.nupkg, /app/src/Cheetah.ComponentTest.Test/obj/project.assets.json, /app/src/Cheetah.Componenttest/obj/project.assets.json, /app/src/Cheetah.Core/obj/project.assets.json, /app/src/Cheetah.WebApi.Shared.Test/obj/project.assets.json, /app/src/Cheetah.WebApi.Shared/obj/project.assets.json</url>
+      <url>/app/src/Cheetah.Componenttest/bin/Debug/Cheetah.ComponentTest.1.0.1.nupkg, /app/src/Cheetah.WebApi.Shared/bin/Debug/Cheetah.WebApi.Shared.1.5.0.nupkg, /app/src/Cheetah.ComponentTest.Test/obj/project.assets.json, /app/src/Cheetah.ComponentTest/obj/project.assets.json, /app/src/Cheetah.Core/obj/project.assets.json, /app/src/Cheetah.WebApi.Shared.Test/obj/project.assets.json, /app/src/Cheetah.WebApi.Shared/obj/project.assets.json</url>
       <comment>Package file</comment>
     </reference>
   </externalReferences>
