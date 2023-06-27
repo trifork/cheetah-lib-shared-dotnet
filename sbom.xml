@@ -769,7 +769,7 @@ Microsoft.Extensions.DependencyInjection.IServiceCollection]]></description>
       <comment>Base path</comment>
     </reference>
     <reference type="other">
-      <url>/app/src/Cheetah.ComponentTest.XUnit/Cheetah.ComponentTest.XUnit.csproj, /app/src/Cheetah.Componenttest/Cheetah.ComponentTest.csproj, /app/src/Cheetah.Core/Cheetah.Core.csproj, /app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj, /app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj</url>
+      <url>/app/src/Cheetah.ComponentTest.XUnit/Cheetah.ComponentTest.XUnit.csproj, /app/src/Cheetah.ComponentTest/Cheetah.ComponentTest.csproj, /app/src/Cheetah.Core/Cheetah.Core.csproj, /app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj, /app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj</url>
       <comment>Package file</comment>
     </reference>
   </externalReferences>
