@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Cheetah.Componenttest\Cheetah.ComponentTest.csproj" />
+    <ProjectReference Include="..\Cheetah.ComponentTest\Cheetah.ComponentTest.csproj" />
   </ItemGroup>
 
 </Project>
