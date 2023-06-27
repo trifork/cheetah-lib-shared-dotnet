@@ -155,6 +155,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ env.RELEASE_UPLOAD_URL }}
-          asset_path: ./src/Cheetah.Componenttest/sbom.json
+          asset_path: ./src/Cheetah.ComponentTest/sbom.json
           asset_name: sbom.json
           asset_content_type: application/json
