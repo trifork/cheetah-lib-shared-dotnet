@@ -76,8 +76,10 @@ namespace Cheetah.ComponentTest.OpenSearch
 
             if (Client == null) throw new ArgumentException("Client has not been  configured");
 
+            var indices = (IndexPrefix ?? "") + (IndexName ?? "*");
+            
             var response = await Client.InternalClient.SearchAsync<T>(s => s
-                .Index(IndexName));
+                .Index(indices));
 
             if (response.Documents.Count != expectedSize)
             {
@@ -97,6 +99,18 @@ namespace Cheetah.ComponentTest.OpenSearch
             if (Client == null) throw new ArgumentException("Client has not been  configured");
 
             var indices = (IndexPrefix ?? "") + (IndexName ?? "*");
+            
+            return Client.InternalClient.Count<string>(c => c
+                .Index(indices)
+                .Query(q => q
+                    .MatchAll())).Count;
+        }
+
+        public long CountAllMessagesInIndex(string suffix)
+        {
+            if (Client == null) throw new ArgumentException("Client has not been  configured");
+
+            var indices = (IndexPrefix ?? "") + (IndexName ?? "*") + (suffix);
             
             return Client.InternalClient.Count<string>(c => c
                 .Index(indices)
