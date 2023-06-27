@@ -1,4 +1,3 @@
-using System.Security.Cryptography.X509Certificates;
 using Cheetah.ComponentTest.Kafka;
 using Cheetah.ComponentTest.OpenSearch;
 using Cheetah.ComponentTest.XUnit.Model;
@@ -70,21 +69,21 @@ namespace Cheetah.ComponentTest.XUnit
                 TestString = "Test string",
                 TestInteger = 1234
             };
-            
-            var writer = OpenSearchWriterBuilder.Create<OpenSearchTestModel>()
-                .WithOpenSearchConfigurationPrefix(string.Empty, configuration)
-                .WithIndex("my_index")
+
+            var indexPattern = "my_index";
+
+            var openSearchConnector = OpenSearchConnectorBuilder.Create()
+                .WithOpenSearchConfigurationPrefix(configuration)
                 .Build();
 
-            var reader = OpenSearchReaderBuilder.Create<OpenSearchTestModel>()
-                .WithOpenSearchConfigurationPrefix(string.Empty, configuration)
-                .WithIndex("my_index")
-                .Build();
+            var reader = openSearchConnector.NewReader<OpenSearchTestModel>(indexPattern);
+
+            var writer = openSearchConnector.NewWriter<OpenSearchTestModel>(indexPattern);
 
             reader.DeleteAllMessagesInIndex();
-            await writer.WriteAsync(model);
+            await writer.WriteAsync(indexPattern, model);
             Thread.Sleep(5000);
-            var readMessages = await reader.GetMessages(1);
+            var readMessages = await reader.GetMessages(1, indexPattern);
             Assert.Single(readMessages);
             Assert.True(reader.CountAllMessagesInIndex() == 1);
             
