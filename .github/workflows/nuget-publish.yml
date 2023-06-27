@@ -145,7 +145,7 @@ jobs:
 
       - name: "Generate SBOM"
         if: github.ref == 'refs/heads/main'
-        run: docker run --rm -v /tmp:/tmp -v $(pwd):/app:rw -e FETCH_LICENSE=true -t ghcr.io/cyclonedx/cdxgen -r /app/src/Cheetah.Componenttest -o /app/src/Cheetah.Componenttest/sbom.json -t dotnet
+        run: docker run --rm -v /tmp:/tmp -v $(pwd):/app:rw -e FETCH_LICENSE=true -t ghcr.io/cyclonedx/cdxgen -r /app/src/Cheetah.ComponentTest -o /app/src/Cheetah.ComponentTest/sbom.json -t dotnet
 
       - name: Upload asset to github release page
         id: upload-release-asset
