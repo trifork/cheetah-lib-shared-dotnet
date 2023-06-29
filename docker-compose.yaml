@@ -3,8 +3,8 @@ version: '3'
 services:
   example-component-test-xunit:
     build:
-      context: ..
-      dockerfile: Cheetah.ComponentTest.XUnit/Dockerfile
+      context: ./src
+      dockerfile: ../Dockerfile
       secrets:
         - GITHUB_TOKEN
         - GITHUB_ACTOR
