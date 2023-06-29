@@ -13,11 +13,19 @@ public class OpenSearchWriter<T> where T : class
     private static readonly ILogger Logger = new LoggerFactory().CreateLogger<OpenSearchReader<T>>();
         
     internal string? IndexPattern { get; set; }
+
+    // TODO: Consider a better way to instantiate this instead of checking for null every time we use Client.
+    // Same goes for Kafka
     internal CheetahOpenSearchClient? Client { get; set; }
     
     internal OpenSearchWriter<T> Prepare()
     {
         Logger.LogInformation("Preparing OpenSearch connection, writing to index '{Index}'", IndexPattern);
+
+        if (Client == null)
+        {
+            throw new InvalidOperationException("Client must not be null");
+        }
         
         // create the index if it doesn't already exists
         if (!Client.InternalClient.Indices.Exists(IndexPattern).Exists)

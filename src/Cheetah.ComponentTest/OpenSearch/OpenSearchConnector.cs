@@ -1,4 +1,5 @@
-﻿using Cheetah.Core.Config;
+﻿using System;
+using Cheetah.Core.Config;
 using Cheetah.Core.Infrastructure.Services.OpenSearchClient;
 using Cheetah.Core.Util;
 using Microsoft.Extensions.Caching.Memory;
@@ -20,10 +21,13 @@ public class OpenSearchConnector
     
     public void Prepare()
     {
+        if (Server == null || ClientId == null || ClientSecret == null || AuthEndpoint == null)
+        {
+            throw new InvalidOperationException("Server, ClientId, ClientSecret and AuthEndpoint must be set");
+        }
         var openSearchConfig = new OpenSearchConfig
         {
-            Url = Server,
-            // Oauth2
+            Url = Server, // Oauth2
             ClientId = ClientId,
             ClientSecret = ClientSecret,
             TokenEndpoint = AuthEndpoint

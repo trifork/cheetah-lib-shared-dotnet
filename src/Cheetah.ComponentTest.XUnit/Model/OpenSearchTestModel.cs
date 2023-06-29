@@ -2,6 +2,11 @@
 
 public class OpenSearchTestModel
 {
-    public string TestString { get; set; }
-    public int TestInteger { get; set; }
+    public string TestString { get; }
+    public int TestInteger { get; }
+
+    public OpenSearchTestModel(string testString, int testInteger) {
+        TestString = testString;
+        TestInteger = testInteger;
+    }
 }

@@ -64,11 +64,7 @@ namespace Cheetah.ComponentTest.XUnit
         [Fact]
         public async Task WriteToOsAsync()
         {
-            var model = new OpenSearchTestModel()
-            {
-                TestString = "Test string",
-                TestInteger = 1234
-            };
+            var model = new OpenSearchTestModel("Test string", 1234);
 
             var indexPattern = "my_index";
 
