@@ -1,6 +1,8 @@
 using Cheetah.ComponentTest.Kafka;
 using Cheetah.ComponentTest.OpenSearch;
 using Cheetah.ComponentTest.XUnit.Model;
+using Cheetah.ComponentTest.XUnit.Model.Avro;
+using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 
 namespace Cheetah.ComponentTest.XUnit
@@ -16,11 +18,12 @@ namespace Cheetah.ComponentTest.XUnit
             {
                 {"KAFKA:AUTHENDPOINT", "http://localhost:1752/oauth2/token"},
                 {"KAFKA:CLIENTID", "ClientId" },
-                {"KAFKA:SECRET", "1234" },
-                {"KAFKA:URL", "localhost:9092"}
+                {"KAFKA:CLIENTSECRET", "testsecret" },
+                {"KAFKA:URL", "http://localhost:9093"},
+                {"KAFKA:SCHEMAREGISTRYURL", "http://localhost:8081/apis/ccompat/v7"}
             };*/
             configuration = new ConfigurationBuilder()
-                //.AddInMemoryCollection(conf)
+                // .AddInMemoryCollection(conf)
                 .AddEnvironmentVariables()
                 .Build();
         }
@@ -29,24 +32,24 @@ namespace Cheetah.ComponentTest.XUnit
         public void WriteToQueue()
         {
             var writer = KafkaWriterBuilder.Create<string, string>()
-                .WithKafkaConfigurationPrefix(string.Empty, configuration)
+                .WithKafkaConfiguration(configuration)
                 .WithTopic("MyTopic")
                 .WithKeyFunction(message => message)
                 .Build();
             var writer2 = KafkaWriterBuilder.Create<string, string>()
-                .WithKafkaConfigurationPrefix(string.Empty, configuration)
+                .WithKafkaConfiguration(configuration)
                 .WithTopic("MyTopic2")
                 .WithKeyFunction(message => message)
                 .Build();
 
             var reader = KafkaReaderBuilder.Create<string, string>()
-                .WithKafkaConfigurationPrefix(string.Empty, configuration)
+                .WithKafkaConfigurationPrefix(configuration)
                 .WithTopic("MyTopic")
                 .WithGroupId("Mygroup")
                 .Build();
 
             var reader2 = KafkaReaderBuilder.Create<string, string>()
-                .WithKafkaConfigurationPrefix(string.Empty, configuration)
+                .WithKafkaConfigurationPrefix(configuration)
                 .WithTopic("MyTopic2")
                 .WithGroupId("Mygroup2")
                 .Build();
@@ -89,6 +92,66 @@ namespace Cheetah.ComponentTest.XUnit
             
             //Clean up
             reader.DeleteAllMessagesInIndex();
+        }
+
+        [Fact]
+        public void WriteAvroTest()
+        {
+            var avroModel = new SimpleAvroObject() { Name = "foo", Number = 100 };
+
+            var writerAvro = KafkaWriterBuilder.Create<Null, SimpleAvroObject>()
+                .WithKafkaConfiguration(configuration)
+                .WithTopic("MyAvroTopic")
+                .UsingAvro()
+                .WithKeyFunction(message => null)
+                .Build();
+            
+            var readerAvro = KafkaReaderBuilder.Create<Null, SimpleAvroObject>()
+                .WithKafkaConfigurationPrefix(configuration)
+                .WithTopic("MyAvroTopic")
+                .WithGroupId("MyAvroGroup")
+                .UsingAvro()
+                .Build();
+            
+            writerAvro.Write(avroModel);
+            var readMessages = readerAvro.ReadMessages(1, TimeSpan.FromSeconds(20));
+            Assert.Single(readMessages);
+            Assert.True(readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(20)));
+        }
+
+        [Fact]
+        public void WriteComplexAvroObjTest()
+        {
+            var avroModel2 = new AvroObjectWithEnum()
+            {
+                EnumType = EnumTypeAvro.EnumType1, NullableInt = null, NullableString = null
+            };
+            var avroModel1 = new AdvancedAvroObject()
+            {
+                Id = "SpecialId",
+                Name = "AvroName",
+                LongNumber = 11899823748932,
+                AvroObjectWithEnum = avroModel2
+            };
+            
+            var writerAvro = KafkaWriterBuilder.Create<Null, AdvancedAvroObject>()
+                .WithKafkaConfiguration(configuration)
+                .WithTopic("MyAvroComplexTopic")
+                .UsingAvro()
+                .WithKeyFunction(message => null)
+                .Build();
+            
+            var readerAvro = KafkaReaderBuilder.Create<Null, AdvancedAvroObject>()
+                .WithKafkaConfigurationPrefix(configuration)
+                .WithTopic("MyAvroComplexTopic")
+                .WithGroupId("MyAvroComplexGroup")
+                .UsingAvro()
+                .Build();
+            
+            writerAvro.Write(avroModel1);
+            var readMessages = readerAvro.ReadMessages(1, TimeSpan.FromSeconds(20));
+            Assert.Single(readMessages);
+            Assert.True(readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(20)));
         }
     }
 }

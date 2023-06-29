@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Cheetah.ComponentTest.TokenService;
 using Cheetah.Core.Infrastructure.Services.Kafka;
 using Confluent.Kafka;
@@ -16,6 +17,7 @@ namespace Cheetah.ComponentTest.Kafka
         internal string? ClientId { get; set; }
         internal string? ClientSecret { get; set; }
         internal string? AuthEndpoint { get; set; }
+        internal ISerializer<T> Serializer { get; set; }
         internal Func<T, TKey>? KeyFunction { get; set; }
         private IProducer<TKey, T>? Producer { get; set; }
 
@@ -34,7 +36,7 @@ namespace Cheetah.ComponentTest.Kafka
                 SaslMechanism = SaslMechanism.OAuthBearer,
                 SecurityProtocol = SecurityProtocol.SaslPlaintext,
             })
-            .SetValueSerializer(new Utf8Serializer<T>())
+            .SetValueSerializer(Serializer)
             .AddCheetahOAuthentication(new TestTokenService(ClientId, ClientSecret, AuthEndpoint), Logger)
             .Build();
         }
@@ -57,6 +59,20 @@ namespace Cheetah.ComponentTest.Kafka
                     throw new Exception($"Failed to deliver message: {deliveryReport.Error.Reason}");
                 }
             });
+        }
+        
+        public async Task WriteAsync(T message)
+        {
+            if (KeyFunction == null)
+            {
+                throw new InvalidOperationException("KeyFunction must be set");
+            }
+            var kafkaMessage = new Message<TKey, T>
+            {
+                Key = KeyFunction(message),
+                Value = message
+            };
+            var res= await Producer!.ProduceAsync(Topic, kafkaMessage);
         }
 
         public void Write(params T[] messages)

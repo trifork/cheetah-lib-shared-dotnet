@@ -1,5 +1,8 @@
 using System;
 using Confluent.Kafka;
+using Confluent.Kafka.SyncOverAsync;
+using Confluent.SchemaRegistry;
+using Confluent.SchemaRegistry.Serdes;
 using Microsoft.Extensions.Configuration;
 
 namespace Cheetah.ComponentTest.Kafka
@@ -25,12 +28,15 @@ namespace Cheetah.ComponentTest.Kafka
         private const string KAFKA_CLIENTID = "KAFKA:CLIENTID";
         private const string KAFKA_CLIENTSECRET = "KAFKA:CLIENTSECRET";
         private const string KAFKA_AUTH_ENDPOINT = "KAFKA:AUTHENDPOINT";
+        private const string? SCHEMA_REGISTRY_URL = "KAFKA:SCHEMAREGISTRYURL";
+        private bool IsAvro;
+        private SchemaRegistryConfig? SchemaRegistryConfig;
         private string? KafkaConfigurationPrefix;
         private string? Topic;
         private IConfiguration? Configuration;
         private string? GroupId;
 
-        public KafkaReaderBuilder<TKey, T> WithKafkaConfigurationPrefix(string prefix, IConfiguration configuration)
+        public KafkaReaderBuilder<TKey, T> WithKafkaConfigurationPrefix(IConfiguration configuration, string? prefix = null)
         {
             KafkaConfigurationPrefix = prefix;
             Configuration = configuration;
@@ -49,6 +55,18 @@ namespace Cheetah.ComponentTest.Kafka
             return this;
         }
 
+        public KafkaReaderBuilder<TKey, T> UsingAvro()
+        {
+            IsAvro = true;
+            return this;
+        }
+
+        public KafkaReaderBuilder<TKey, T> UsingAvro(SchemaRegistryConfig schemaRegistryConfig)
+        {
+            SchemaRegistryConfig = schemaRegistryConfig;
+            return UsingAvro();
+        }
+
         public KafkaReader<TKey, T> Build()
         {
             var reader = new KafkaReader<TKey, T>
@@ -56,26 +74,33 @@ namespace Cheetah.ComponentTest.Kafka
                 Topic = Topic,
                 ConsumerGroup = GroupId
             };
-            if (KafkaConfigurationPrefix != null && Configuration != null)
+
+            if (Configuration == null)
             {
-                if (!string.IsNullOrEmpty(KafkaConfigurationPrefix))
+                throw new InvalidOperationException("No configuration provided. You must call 'WithKafkaConfiguration'");
+            }
+
+            var configurationSection = string.IsNullOrWhiteSpace(KafkaConfigurationPrefix)
+                ? Configuration
+                : Configuration.GetSection(KafkaConfigurationPrefix);
+            
+            reader.Server = Configuration.GetValue<string>(KAFKA_URL);
+            reader.ClientId = Configuration.GetValue<string>(KAFKA_CLIENTID);
+            reader.ClientSecret = Configuration.GetValue<string>(KAFKA_CLIENTSECRET);
+            reader.AuthEndpoint = Configuration.GetValue<string>(KAFKA_AUTH_ENDPOINT);
+
+            if (IsAvro)
+            {
+                SchemaRegistryConfig ??= new SchemaRegistryConfig()
                 {
-                    reader.Server = Configuration.GetSection(KafkaConfigurationPrefix).GetValue<string>(KAFKA_URL);
-                    reader.ClientId = Configuration.GetSection(KafkaConfigurationPrefix).GetValue<string>(KAFKA_CLIENTID);
-                    reader.ClientSecret = Configuration.GetSection(KafkaConfigurationPrefix).GetValue<string>(KAFKA_CLIENTSECRET);
-                    reader.AuthEndpoint = Configuration.GetSection(KafkaConfigurationPrefix).GetValue<string>(KAFKA_AUTH_ENDPOINT);
-                }
-                else
-                {
-                    reader.Server = Configuration.GetValue<string>(KAFKA_URL);
-                    reader.ClientId = Configuration.GetValue<string>(KAFKA_CLIENTID);
-                    reader.ClientSecret = Configuration.GetValue<string>(KAFKA_CLIENTSECRET);
-                    reader.AuthEndpoint = Configuration.GetValue<string>(KAFKA_AUTH_ENDPOINT);
-                }
+                    Url = configurationSection.GetValue<string>(SCHEMA_REGISTRY_URL)
+                };
+                var schemaRegistry = new CachedSchemaRegistryClient(SchemaRegistryConfig);
+                reader.Serializer = new AvroDeserializer<T>(schemaRegistry).AsSyncOverAsync();
             }
             else
             {
-                throw new InvalidOperationException("KafkaConfigurationPrefix or Configuration is not set");
+                reader.Serializer = new Utf8Serializer<T>();
             }
             reader.Prepare();
             return reader;

@@ -1,4 +1,8 @@
 using System;
+using Cheetah.Core.Config;
+using Confluent.Kafka.SyncOverAsync;
+using Confluent.SchemaRegistry;
+using Confluent.SchemaRegistry.Serdes;
 using Microsoft.Extensions.Configuration;
 
 namespace Cheetah.ComponentTest.Kafka
@@ -19,6 +23,9 @@ namespace Cheetah.ComponentTest.Kafka
         private const string KAFKA_CLIENTID = "KAFKA:CLIENTID";
         private const string KAFKA_CLIENTSECRET = "KAFKA:CLIENTSECRET";
         private const string KAFKA_AUTH_ENDPOINT = "KAFKA:AUTHENDPOINT";
+        private const string? SCHEMA_REGISTRY_URL = "KAFKA:SCHEMAREGISTRYURL";
+        private bool IsAvro;
+        private SchemaRegistryConfig? SchemaRegistryConfig;
         private string? KafkaConfigurationPrefix;
         private string? Topic;
         private IConfiguration? Configuration;
@@ -28,13 +35,13 @@ namespace Cheetah.ComponentTest.Kafka
         {
         }
 
-        public KafkaWriterBuilder<TKey, T> WithKafkaConfigurationPrefix(string prefix, IConfiguration configuration)
+        public KafkaWriterBuilder<TKey, T> WithKafkaConfiguration(IConfiguration configuration, string? prefix = null)
         {
+            Configuration = configuration; // Could also require this in the static Create function, since we can't create a writer without it.
             KafkaConfigurationPrefix = prefix;
-            Configuration = configuration;
             return this;
         }
-
+        
         public KafkaWriterBuilder<TKey, T> WithTopic(string topic)
         {
             Topic = topic;
@@ -47,6 +54,17 @@ namespace Cheetah.ComponentTest.Kafka
             return this;
         }
 
+        public KafkaWriterBuilder<TKey, T> UsingAvro()
+        {
+            IsAvro = true;
+            return this;
+        }
+        public KafkaWriterBuilder<TKey, T> UsingAvro(SchemaRegistryConfig config)
+        {
+            SchemaRegistryConfig = config;
+            return UsingAvro();
+        }
+
         public KafkaWriter<TKey, T> Build()
         {
             var writer = new KafkaWriter<TKey, T>
@@ -54,26 +72,34 @@ namespace Cheetah.ComponentTest.Kafka
                 Topic = Topic,
                 KeyFunction = KeyFunction
             };
-            if (KafkaConfigurationPrefix != null && Configuration != null)
+            
+            if (Configuration == null)
             {
-                if (!string.IsNullOrEmpty(KafkaConfigurationPrefix))
+                throw new InvalidOperationException("No configuration provided. You must call 'WithKafkaConfiguration'");
+            }
+
+            var configurationSection = string.IsNullOrWhiteSpace(KafkaConfigurationPrefix)
+                ? Configuration
+                : Configuration.GetSection(KafkaConfigurationPrefix);
+
+            writer.Server = configurationSection.GetValue<string>(KAFKA_URL);
+            writer.ClientId = configurationSection.GetValue<string>(KAFKA_CLIENTID);
+            writer.ClientSecret = configurationSection.GetValue<string>(KAFKA_CLIENTSECRET);
+            writer.AuthEndpoint = configurationSection.GetValue<string>(KAFKA_AUTH_ENDPOINT);
+           
+
+            if (IsAvro)
+            {
+                SchemaRegistryConfig ??= new SchemaRegistryConfig
                 {
-                    writer.Server = Configuration.GetSection(KafkaConfigurationPrefix).GetValue<string>(KAFKA_URL);
-                    writer.ClientId = Configuration.GetSection(KafkaConfigurationPrefix).GetValue<string>(KAFKA_CLIENTID);
-                    writer.ClientSecret = Configuration.GetSection(KafkaConfigurationPrefix).GetValue<string>(KAFKA_CLIENTSECRET);
-                    writer.AuthEndpoint = Configuration.GetSection(KafkaConfigurationPrefix).GetValue<string>(KAFKA_AUTH_ENDPOINT);
-                }
-                else
-                {
-                    writer.Server = Configuration.GetValue<string>(KAFKA_URL);
-                    writer.ClientId = Configuration.GetValue<string>(KAFKA_CLIENTID);
-                    writer.ClientSecret = Configuration.GetValue<string>(KAFKA_CLIENTSECRET);
-                    writer.AuthEndpoint = Configuration.GetValue<string>(KAFKA_AUTH_ENDPOINT);
-                }
+                    Url = configurationSection.GetValue<string>(SCHEMA_REGISTRY_URL)
+                };
+                var schemaRegistry = new CachedSchemaRegistryClient(SchemaRegistryConfig);
+                writer.Serializer = new AvroSerializer<T>(schemaRegistry).AsSyncOverAsync();
             }
             else
             {
-                throw new InvalidOperationException("KafkaConfigurationPrefix or Configuration is not set");
+                writer.Serializer = new Utf8Serializer<T>();
             }
             writer.Prepare();
             return writer;
