@@ -12,6 +12,16 @@ namespace Cheetah.ComponentTest.XUnit
     {
         readonly IConfiguration configuration;
 
+        static readonly AvroObjectWithEnum AvroObjWithEnum = new() { EnumType = EnumTypeAvro.EnumType1, NullableInt = null, NullableString = null };
+
+        static readonly AdvancedAvroObject AdvancedAvroObject = new()
+        {
+            Id = "SpecialId",
+            Name = "AvroName",
+            LongNumber = 11899823748932,
+            AvroObjectWithEnum = AvroObjWithEnum
+        };
+        
         public WriterTest()
         {
             /*Dictionary<string, string> conf = new Dictionary<string, string>()
@@ -97,13 +107,14 @@ namespace Cheetah.ComponentTest.XUnit
         [Fact]
         public void WriteAvroTest()
         {
+            // Arrange
             var avroModel = new SimpleAvroObject() { Name = "foo", Number = 100 };
 
             var writerAvro = KafkaWriterBuilder.Create<Null, SimpleAvroObject>()
                 .WithKafkaConfiguration(configuration)
                 .WithTopic("MyAvroTopic")
                 .UsingAvro()
-                .WithKeyFunction(message => null)
+                .WithKeyFunction(message => null!)
                 .Build();
             
             var readerAvro = KafkaReaderBuilder.Create<Null, SimpleAvroObject>()
@@ -113,8 +124,11 @@ namespace Cheetah.ComponentTest.XUnit
                 .UsingAvro()
                 .Build();
             
+            // Act
             writerAvro.Write(avroModel);
             var readMessages = readerAvro.ReadMessages(1, TimeSpan.FromSeconds(20));
+            
+            // Assert
             Assert.Single(readMessages);
             Assert.True(readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(20)));
         }
@@ -122,23 +136,12 @@ namespace Cheetah.ComponentTest.XUnit
         [Fact]
         public void WriteComplexAvroObjTest()
         {
-            var avroModel2 = new AvroObjectWithEnum()
-            {
-                EnumType = EnumTypeAvro.EnumType1, NullableInt = null, NullableString = null
-            };
-            var avroModel1 = new AdvancedAvroObject()
-            {
-                Id = "SpecialId",
-                Name = "AvroName",
-                LongNumber = 11899823748932,
-                AvroObjectWithEnum = avroModel2
-            };
-            
+            // Arrange
             var writerAvro = KafkaWriterBuilder.Create<Null, AdvancedAvroObject>()
                 .WithKafkaConfiguration(configuration)
                 .WithTopic("MyAvroComplexTopic")
                 .UsingAvro()
-                .WithKeyFunction(message => null)
+                .WithKeyFunction(message => null!)
                 .Build();
             
             var readerAvro = KafkaReaderBuilder.Create<Null, AdvancedAvroObject>()
@@ -148,8 +151,38 @@ namespace Cheetah.ComponentTest.XUnit
                 .UsingAvro()
                 .Build();
             
-            writerAvro.Write(avroModel1);
+            // Act
+            writerAvro.Write(AdvancedAvroObject);
             var readMessages = readerAvro.ReadMessages(1, TimeSpan.FromSeconds(20));
+            
+            // Assert
+            Assert.Single(readMessages);
+            Assert.True(readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(20)));
+        }
+
+        [Fact]
+        public async Task WriteAsyncComplexAvroObjTest()
+        {
+            // Arrange
+            var writerAvro = KafkaWriterBuilder.Create<Null, AdvancedAvroObject>()
+                .WithKafkaConfiguration(configuration)
+                .WithTopic("MyAvroComplexTopicAsync")
+                .UsingAvro()
+                .WithKeyFunction(message => null!)
+                .Build();
+            
+            var readerAvro = KafkaReaderBuilder.Create<Null, AdvancedAvroObject>()
+                .WithKafkaConfigurationPrefix(configuration)
+                .WithTopic("MyAvroComplexTopicAsync")
+                .WithGroupId("MyAvroComplexGroupAsync")
+                .UsingAvro()
+                .Build();
+            
+            // Act
+            await writerAvro.WriteAsync(AdvancedAvroObject);
+            var readMessages = readerAvro.ReadMessages(1, TimeSpan.FromSeconds(20));
+            
+            // Assert
             Assert.Single(readMessages);
             Assert.True(readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(20)));
         }
