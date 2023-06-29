@@ -68,7 +68,8 @@ namespace Cheetah.ComponentTest.XUnit
 
             var indexPattern = "my_index";
 
-            var openSearchConnector = OpenSearchConnectorBuilder.Create()
+            var openSearchConnector = OpenSearchConnectorBuilder
+                .Create()
                 .WithOpenSearchConfigurationPrefix(configuration)
                 .Build();
 
