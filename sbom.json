@@ -1,10 +1,10 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
-  "serialNumber": "urn:uuid:a1b35aa7-b708-40ee-9ec6-e92b6760b2b2",
+  "serialNumber": "urn:uuid:8031df9a-fffa-4f47-acab-012fbdf72afa",
   "version": 1,
   "metadata": {
-    "timestamp": "2023-06-13T12:00:09.884Z",
+    "timestamp": "2023-06-22T09:23:02.796Z",
     "tools": [
       {
         "vendor": "cyclonedx",
@@ -215,6 +215,28 @@
       ],
       "type": "library",
       "bom-ref": "pkg:nuget/Microsoft.Extensions.Http@6.0.0"
+    },
+    {
+      "publisher": "",
+      "group": "",
+      "name": "OpenSearch.Client",
+      "version": "1.3.0",
+      "description": "",
+      "licenses": [],
+      "purl": "pkg:nuget/OpenSearch.Client@1.3.0",
+      "type": "library",
+      "bom-ref": "pkg:nuget/OpenSearch.Client@1.3.0"
+    },
+    {
+      "publisher": "",
+      "group": "",
+      "name": "OpenSearch.Client.JsonNetSerializer",
+      "version": "1.3.0",
+      "description": "",
+      "licenses": [],
+      "purl": "pkg:nuget/OpenSearch.Client.JsonNetSerializer@1.3.0",
+      "type": "library",
+      "bom-ref": "pkg:nuget/OpenSearch.Client.JsonNetSerializer@1.3.0"
     },
     {
       "publisher": "",
@@ -439,6 +461,34 @@
       ],
       "type": "library",
       "bom-ref": "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@6.0.1"
+    },
+    {
+      "publisher": "",
+      "group": "",
+      "name": "Newtonsoft.Json",
+      "version": "13.0.2",
+      "description": "Json.NET is a popular high-performance JSON framework for .NET",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Newtonsoft.Json@13.0.2",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Newtonsoft.Json/13.0.2/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://www.newtonsoft.com/json"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Newtonsoft.Json@13.0.2"
     },
     {
       "publisher": "",
@@ -779,28 +829,6 @@
     {
       "publisher": "",
       "group": "",
-      "name": "OpenSearch.Client",
-      "version": "1.3.0",
-      "description": "",
-      "licenses": [],
-      "purl": "pkg:nuget/OpenSearch.Client@1.3.0",
-      "type": "library",
-      "bom-ref": "pkg:nuget/OpenSearch.Client@1.3.0"
-    },
-    {
-      "publisher": "",
-      "group": "",
-      "name": "OpenSearch.Client.JsonNetSerializer",
-      "version": "1.3.0",
-      "description": "",
-      "licenses": [],
-      "purl": "pkg:nuget/OpenSearch.Client.JsonNetSerializer@1.3.0",
-      "type": "library",
-      "bom-ref": "pkg:nuget/OpenSearch.Client.JsonNetSerializer@1.3.0"
-    },
-    {
-      "publisher": "",
-      "group": "",
       "name": "prometheus-net",
       "version": "6.0.0",
       "description": ".NET metrics exporter for the Prometheus monitoring and alerting system",
@@ -920,7 +948,7 @@
     },
     {
       "type": "other",
-      "url": "/app/src/Cheetah.ComponentTest.XUnit/Cheetah.ComponentTest.XUnit.csproj, /app/src/Cheetah.Componenttest/Cheetah.ComponentTest.csproj, /app/src/Cheetah.Core/Cheetah.Core.csproj, /app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj, /app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj",
+      "url": "/app/src/Cheetah.ComponentTest.XUnit/Cheetah.ComponentTest.XUnit.csproj, /app/src/Cheetah.ComponentTest/Cheetah.ComponentTest.csproj, /app/src/Cheetah.Core/Cheetah.Core.csproj, /app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj, /app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj",
       "comment": "Package file"
     }
   ]

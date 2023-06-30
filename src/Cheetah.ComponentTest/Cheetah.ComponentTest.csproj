@@ -12,7 +12,7 @@
     <RepositoryUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</RepositoryUrl>
     <RootNamespace>Cheetah.ComponentTest</RootNamespace>
     <TargetFramework>net6.0</TargetFramework>
-    <VersionPrefix>1.3.2</VersionPrefix>
+    <VersionPrefix>1.4.2</VersionPrefix>
   </PropertyGroup>
   <ItemGroup>
     <None Include="../../docs/articles/CheetahComponentTest.md" Pack="true" PackagePath="\" />
@@ -32,6 +32,6 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cheetah.Core\Cheetah.Core.csproj"/>
+    <ProjectReference Include="..\Cheetah.Core\Cheetah.Core.csproj" />
   </ItemGroup>
 </Project>
