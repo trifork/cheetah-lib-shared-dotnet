@@ -3,61 +3,46 @@ using Microsoft.Extensions.Configuration;
 
 namespace Cheetah.ComponentTest.OpenSearch;
 
-public class OpenSearchConnectorBuilder
+public class OpenSearchClientBuilder
 {
-    private const string OPENSEARCH_URL = "OPENSEARCH:URL";
-    private const string OPENSEARCH_CLIENTID = "OPENSEARCH:CLIENTID";
-    private const string OPENSEARCH_CLIENTSECRET = "OPENSEARCH:CLIENTSECRET";
-    private const string OPENSEARCH_AUTH_ENDPOINT = "OPENSEARCH:AUTHENDPOINT";
-    private string? OpenSearchConfigurationPrefix;
+    private const string ADDRESS = "URL";
+    private const string CLIENT_ID = "CLIENTID";
+    private const string CLIENT_SECRET = "CLIENTSECRET";
+    private const string AUTH_ENDPOINT = "AUTHENDPOINT";
+    private string ConfigurationPrefix = "";
     private IConfiguration? Configuration;
 
-    private OpenSearchConnectorBuilder()
+    private OpenSearchClientBuilder()
     {
-        
     }
     
-    public static OpenSearchConnectorBuilder Create() 
+    public static OpenSearchClientBuilder Create() 
     {
-        return new OpenSearchConnectorBuilder();
+        return new OpenSearchClientBuilder();
     }
     
-    public OpenSearchConnectorBuilder WithOpenSearchConfigurationPrefix(IConfiguration configuration, string prefix = "")
+    public OpenSearchClientBuilder WithOpenSearchConfigurationPrefix(IConfiguration configuration, string prefix = "")
     {
         Configuration = configuration;
-        OpenSearchConfigurationPrefix = prefix;
+        ConfigurationPrefix = prefix;
         return this;
     }
 
-    public OpenSearchConnector Build()
+    public OpenSearchClient Build()
     {
-        var connector = new OpenSearchConnector()
-        {
-        };
+        var configuration = Configuration ?? throw new InvalidOperationException("OpenSeach configuration must be set");
+        // im not entirely sure what the point of ConfigurationPrefix is so if youre getting errors trying to use it,
+        // this is probably a good place to look
+        var configurationSection = configuration.GetSection(ConfigurationPrefix + "OPENSEARCH");
 
-        if (OpenSearchConfigurationPrefix != null && Configuration != null)
-        {
-            if (!string.IsNullOrEmpty(OpenSearchConfigurationPrefix))
-            {
-                connector.Server = Configuration.GetSection(OpenSearchConfigurationPrefix).GetValue<string>(OPENSEARCH_URL);
-                connector.ClientId = Configuration.GetSection(OpenSearchConfigurationPrefix).GetValue<string>(OPENSEARCH_CLIENTID);
-                connector.ClientSecret = Configuration.GetSection(OpenSearchConfigurationPrefix).GetValue<string>(OPENSEARCH_CLIENTSECRET);
-                connector.AuthEndpoint = Configuration.GetSection(OpenSearchConfigurationPrefix).GetValue<string>(OPENSEARCH_AUTH_ENDPOINT);
-            }
-            else
-            {
-                connector.Server = Configuration.GetValue<string>(OPENSEARCH_URL);
-                connector.ClientId = Configuration.GetValue<string>(OPENSEARCH_CLIENTID);
-                connector.ClientSecret = Configuration.GetValue<string>(OPENSEARCH_CLIENTSECRET);
-                connector.AuthEndpoint = Configuration.GetValue<string>(OPENSEARCH_AUTH_ENDPOINT);   
-            }
-        }
-        else
-        {
-            throw new InvalidOperationException("OpenSearchConfigurationPrefix or Configuration is not set");
-        }
-        
-        connector.Prepare();
-        return connector;
+        var osAddress = configurationSection.GetValue<string>(ADDRESS);
+        var clientId = configurationSection.GetValue<string>(CLIENT_ID);
+        var clientSecret = configurationSection.GetValue<string>(CLIENT_SECRET);
+        var authEndpoint = configurationSection.GetValue<string>(AUTH_ENDPOINT);
+
+        var client = new OpenSearchClient(osAddress, clientId, clientSecret, authEndpoint);
+        client.Prepare();
+
+        return client;
     }
 }

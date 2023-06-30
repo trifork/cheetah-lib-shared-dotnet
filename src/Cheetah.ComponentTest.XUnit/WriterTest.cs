@@ -25,67 +25,67 @@ namespace Cheetah.ComponentTest.XUnit
                 .Build();
         }
 
-        [Fact]
-        public void WriteToQueue()
-        {
-            var writer = KafkaWriterBuilder.Create<string, string>()
-                .WithKafkaConfigurationPrefix(string.Empty, configuration)
-                .WithTopic("MyTopic")
-                .WithKeyFunction(message => message)
-                .Build();
-            var writer2 = KafkaWriterBuilder.Create<string, string>()
-                .WithKafkaConfigurationPrefix(string.Empty, configuration)
-                .WithTopic("MyTopic2")
-                .WithKeyFunction(message => message)
-                .Build();
-
-            var reader = KafkaReaderBuilder.Create<string, string>()
-                .WithKafkaConfigurationPrefix(string.Empty, configuration)
-                .WithTopic("MyTopic")
-                .WithGroupId("Mygroup")
-                .Build();
-
-            var reader2 = KafkaReaderBuilder.Create<string, string>()
-                .WithKafkaConfigurationPrefix(string.Empty, configuration)
-                .WithTopic("MyTopic2")
-                .WithGroupId("Mygroup2")
-                .Build();
-
-            writer.Write("Message4");
-            writer2.Write("Message4");
-            var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(20));
-            Assert.Single(readMessages);
-            Assert.True(reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(20)));
-            var readMessages2 = reader2.ReadMessages(1, TimeSpan.FromSeconds(20));
-            Assert.Single(readMessages2);
-            Assert.True(reader2.VerifyNoMoreMessages(TimeSpan.FromSeconds(20)));
-        }
-
         // [Fact]
-        // public async Task WriteToOsAsync()
+        // public void WriteToQueue()
         // {
-        //     var model = new OpenSearchTestModel("Test string", 1234);
-
-        //     var indexPattern = "my_index";
-
-        //     var openSearchConnector = OpenSearchConnectorBuilder
-        //         .Create()
-        //         .WithOpenSearchConfigurationPrefix(configuration)
+        //     var writer = KafkaWriterBuilder.Create<string, string>()
+        //         .WithKafkaConfigurationPrefix(string.Empty, configuration)
+        //         .WithTopic("MyTopic")
+        //         .WithKeyFunction(message => message)
+        //         .Build();
+        //     var writer2 = KafkaWriterBuilder.Create<string, string>()
+        //         .WithKafkaConfigurationPrefix(string.Empty, configuration)
+        //         .WithTopic("MyTopic2")
+        //         .WithKeyFunction(message => message)
         //         .Build();
 
-        //     var reader = openSearchConnector.NewReader<OpenSearchTestModel>(indexPattern);
+        //     var reader = KafkaReaderBuilder.Create<string, string>()
+        //         .WithKafkaConfigurationPrefix(string.Empty, configuration)
+        //         .WithTopic("MyTopic")
+        //         .WithGroupId("Mygroup")
+        //         .Build();
 
-        //     var writer = openSearchConnector.NewWriter<OpenSearchTestModel>(indexPattern);
+        //     var reader2 = KafkaReaderBuilder.Create<string, string>()
+        //         .WithKafkaConfigurationPrefix(string.Empty, configuration)
+        //         .WithTopic("MyTopic2")
+        //         .WithGroupId("Mygroup2")
+        //         .Build();
 
-        //     reader.DeleteAllMessagesInIndex();
-        //     await writer.WriteAsync(indexPattern, model);
-        //     Thread.Sleep(5000);
-        //     var readMessages = await reader.GetMessages(1, indexPattern);
+        //     writer.Write("Message4");
+        //     writer2.Write("Message4");
+        //     var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(20));
         //     Assert.Single(readMessages);
-        //     Assert.True(reader.CountAllMessagesInIndex() == 1);
-            
-        //     //Clean up
-        //     reader.DeleteAllMessagesInIndex();
+        //     Assert.True(reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(20)));
+        //     var readMessages2 = reader2.ReadMessages(1, TimeSpan.FromSeconds(20));
+        //     Assert.Single(readMessages2);
+        //     Assert.True(reader2.VerifyNoMoreMessages(TimeSpan.FromSeconds(20)));
         // }
+
+        [Fact]
+        public void WriteToOsAsync()
+        {
+            var documents = new List<OpenSearchTestModel>()
+            {
+                new OpenSearchTestModel("Document 1", 2),
+                new OpenSearchTestModel("Document 2", 3),
+                new OpenSearchTestModel("Document 3", 4),
+                new OpenSearchTestModel("Document 4", 5),
+            };
+
+            var opensearchClient = OpenSearchClientBuilder
+                .Create()
+                .WithOpenSearchConfigurationPrefix(configuration)
+                .Build();
+
+            opensearchClient.Index("test-index", documents);
+            Thread.Sleep(2000);
+
+            Assert.Equal(opensearchClient.Count("test*"), documents.Count);
+            Assert.Equal(opensearchClient.Search<OpenSearchTestModel>("test*"), documents);
+            opensearchClient.ClearIndex("test*");
+            Thread.Sleep(2000);
+
+            Assert.Equal(opensearchClient.Count("test*"), 0);
+        }
     }
 }
