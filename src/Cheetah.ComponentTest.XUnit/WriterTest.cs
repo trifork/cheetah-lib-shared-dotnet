@@ -84,7 +84,7 @@ namespace Cheetah.ComponentTest.XUnit
 
             opensearchClient.DeleteIndex("test*");
             Thread.Sleep(2000);
-            Assert.Equal(opensearchClient.Count("test*"), 0);
+            Assert.Equal(0, opensearchClient.Count("test*"));
         }
     }
 }
