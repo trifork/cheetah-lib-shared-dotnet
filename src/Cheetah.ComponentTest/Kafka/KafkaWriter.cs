@@ -72,7 +72,7 @@ namespace Cheetah.ComponentTest.Kafka
                 Key = KeyFunction(message),
                 Value = message
             };
-            var res= await Producer!.ProduceAsync(Topic, kafkaMessage);
+            await Producer!.ProduceAsync(Topic, kafkaMessage);
         }
 
         public void Write(params T[] messages)
