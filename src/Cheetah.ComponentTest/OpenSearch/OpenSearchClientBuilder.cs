@@ -40,9 +40,6 @@ public class OpenSearchClientBuilder
         var clientSecret = configurationSection.GetValue<string>(CLIENT_SECRET);
         var authEndpoint = configurationSection.GetValue<string>(AUTH_ENDPOINT);
 
-        var client = new OpenSearchClient(osAddress, clientId, clientSecret, authEndpoint);
-        client.PrepareClient();
-
-        return client;
+        return new OpenSearchClient(osAddress, clientId, clientSecret, authEndpoint);
     }
 }
