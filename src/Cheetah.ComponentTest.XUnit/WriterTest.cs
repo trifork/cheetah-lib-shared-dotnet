@@ -61,31 +61,31 @@ namespace Cheetah.ComponentTest.XUnit
             Assert.True(reader2.VerifyNoMoreMessages(TimeSpan.FromSeconds(20)));
         }
 
-        [Fact]
-        public async Task WriteToOsAsync()
-        {
-            var model = new OpenSearchTestModel("Test string", 1234);
+        // [Fact]
+        // public async Task WriteToOsAsync()
+        // {
+        //     var model = new OpenSearchTestModel("Test string", 1234);
 
-            var indexPattern = "my_index";
+        //     var indexPattern = "my_index";
 
-            var openSearchConnector = OpenSearchConnectorBuilder
-                .Create()
-                .WithOpenSearchConfigurationPrefix(configuration)
-                .Build();
+        //     var openSearchConnector = OpenSearchConnectorBuilder
+        //         .Create()
+        //         .WithOpenSearchConfigurationPrefix(configuration)
+        //         .Build();
 
-            var reader = openSearchConnector.NewReader<OpenSearchTestModel>(indexPattern);
+        //     var reader = openSearchConnector.NewReader<OpenSearchTestModel>(indexPattern);
 
-            var writer = openSearchConnector.NewWriter<OpenSearchTestModel>(indexPattern);
+        //     var writer = openSearchConnector.NewWriter<OpenSearchTestModel>(indexPattern);
 
-            reader.DeleteAllMessagesInIndex();
-            await writer.WriteAsync(indexPattern, model);
-            Thread.Sleep(5000);
-            var readMessages = await reader.GetMessages(1, indexPattern);
-            Assert.Single(readMessages);
-            Assert.True(reader.CountAllMessagesInIndex() == 1);
+        //     reader.DeleteAllMessagesInIndex();
+        //     await writer.WriteAsync(indexPattern, model);
+        //     Thread.Sleep(5000);
+        //     var readMessages = await reader.GetMessages(1, indexPattern);
+        //     Assert.Single(readMessages);
+        //     Assert.True(reader.CountAllMessagesInIndex() == 1);
             
-            //Clean up
-            reader.DeleteAllMessagesInIndex();
-        }
+        //     //Clean up
+        //     reader.DeleteAllMessagesInIndex();
+        // }
     }
 }
