@@ -41,7 +41,7 @@ public class OpenSearchClientBuilder
         var authEndpoint = configurationSection.GetValue<string>(AUTH_ENDPOINT);
 
         var client = new OpenSearchClient(osAddress, clientId, clientSecret, authEndpoint);
-        client.Prepare();
+        client.PrepareClient();
 
         return client;
     }

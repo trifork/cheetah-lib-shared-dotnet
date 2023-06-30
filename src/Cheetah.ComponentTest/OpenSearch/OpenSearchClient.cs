@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cheetah.Core.Config;
 using Cheetah.Core.Infrastructure.Services.OpenSearchClient;
 using Cheetah.Core.Util;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using OpenSearch.Client;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace Cheetah.ComponentTest.OpenSearch;
@@ -22,16 +24,27 @@ public class OpenSearchClient
         ClientId = clientId;
         ClientSecret = clientSecret;
         AuthEndpoint = authEndpoint;
+
+        var openSearchConfig = new OpenSearchConfig
+        {
+            AuthMode = OpenSearchConfig.OpenSearchAuthMode.OAuth2,
+            Url = OsAddress,
+            ClientId = ClientId,
+            ClientSecret = ClientSecret,
+            TokenEndpoint = AuthEndpoint
+        };
+            
+        Client = PrepareClient();
     }
 
     internal string OsAddress { get; set; }
     internal string ClientId { get; set; }
     internal string ClientSecret { get; set; }
     internal string AuthEndpoint { get; set; }
-    CheetahOpenSearchClient? Client { get; set; }
+    CheetahOpenSearchClient Client { get; set; }
 
     
-    public void Prepare()
+    public CheetahOpenSearchClient PrepareClient()
     {
         var openSearchConfig = new OpenSearchConfig
         {
@@ -55,26 +68,33 @@ public class OpenSearchClient
             
         var logger = loggerFactory.CreateLogger<CheetahOpenSearchClient>();
             
-        Client = new(memoryCache, httpClientFactory, options, env, logger);
+        return new CheetahOpenSearchClient(memoryCache, httpClientFactory, options, env, logger);
     }
 
-    public void Index<T>(string index, ICollection<T> documents)
+    public void Index<T>(string index, ICollection<T> documents) where T : class
     {
-        throw new NotImplementedException();
+        Client.InternalClient.Bulk(b => b
+            .Index(index)
+            .CreateMany<T>(documents)
+        );
     }
 
-    public int Count(string index)
+    // TODO: overload count with possible match query
+    public long Count(string index)
     {
-        throw new NotImplementedException();
+        return Client.InternalClient.Count<object>(q => q.Index(index)).Count;
     }
 
-    public ICollection<T> Search<T>(string index)
+    public IReadOnlyCollection<IHit<T>> Search<T>(string index, int maxSize = 100) where T : class
     {
-        throw new NotImplementedException();
+        return Client.InternalClient.Search<T>(q => q
+            .Index(index)
+            .Size(maxSize)
+        ).Hits;
     }
 
-    public void ClearIndex(string index)
+    public void DeleteIndex(string index)
     {
-        throw new NotImplementedException();
+        Client.InternalClient.Indices.Delete(index);
     }
 }

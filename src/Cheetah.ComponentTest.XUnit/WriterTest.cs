@@ -25,41 +25,41 @@ namespace Cheetah.ComponentTest.XUnit
                 .Build();
         }
 
-        // [Fact]
-        // public void WriteToQueue()
-        // {
-        //     var writer = KafkaWriterBuilder.Create<string, string>()
-        //         .WithKafkaConfigurationPrefix(string.Empty, configuration)
-        //         .WithTopic("MyTopic")
-        //         .WithKeyFunction(message => message)
-        //         .Build();
-        //     var writer2 = KafkaWriterBuilder.Create<string, string>()
-        //         .WithKafkaConfigurationPrefix(string.Empty, configuration)
-        //         .WithTopic("MyTopic2")
-        //         .WithKeyFunction(message => message)
-        //         .Build();
+        [Fact]
+        public void WriteToQueue()
+        {
+            var writer = KafkaWriterBuilder.Create<string, string>()
+                .WithKafkaConfigurationPrefix(string.Empty, configuration)
+                .WithTopic("MyTopic")
+                .WithKeyFunction(message => message)
+                .Build();
+            var writer2 = KafkaWriterBuilder.Create<string, string>()
+                .WithKafkaConfigurationPrefix(string.Empty, configuration)
+                .WithTopic("MyTopic2")
+                .WithKeyFunction(message => message)
+                .Build();
 
-        //     var reader = KafkaReaderBuilder.Create<string, string>()
-        //         .WithKafkaConfigurationPrefix(string.Empty, configuration)
-        //         .WithTopic("MyTopic")
-        //         .WithGroupId("Mygroup")
-        //         .Build();
+            var reader = KafkaReaderBuilder.Create<string, string>()
+                .WithKafkaConfigurationPrefix(string.Empty, configuration)
+                .WithTopic("MyTopic")
+                .WithGroupId("Mygroup")
+                .Build();
 
-        //     var reader2 = KafkaReaderBuilder.Create<string, string>()
-        //         .WithKafkaConfigurationPrefix(string.Empty, configuration)
-        //         .WithTopic("MyTopic2")
-        //         .WithGroupId("Mygroup2")
-        //         .Build();
+            var reader2 = KafkaReaderBuilder.Create<string, string>()
+                .WithKafkaConfigurationPrefix(string.Empty, configuration)
+                .WithTopic("MyTopic2")
+                .WithGroupId("Mygroup2")
+                .Build();
 
-        //     writer.Write("Message4");
-        //     writer2.Write("Message4");
-        //     var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(20));
-        //     Assert.Single(readMessages);
-        //     Assert.True(reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(20)));
-        //     var readMessages2 = reader2.ReadMessages(1, TimeSpan.FromSeconds(20));
-        //     Assert.Single(readMessages2);
-        //     Assert.True(reader2.VerifyNoMoreMessages(TimeSpan.FromSeconds(20)));
-        // }
+            writer.Write("Message4");
+            writer2.Write("Message4");
+            var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(20));
+            Assert.Single(readMessages);
+            Assert.True(reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(20)));
+            var readMessages2 = reader2.ReadMessages(1, TimeSpan.FromSeconds(20));
+            Assert.Single(readMessages2);
+            Assert.True(reader2.VerifyNoMoreMessages(TimeSpan.FromSeconds(20)));
+        }
 
         [Fact]
         public void WriteToOsAsync()
@@ -79,12 +79,11 @@ namespace Cheetah.ComponentTest.XUnit
 
             opensearchClient.Index("test-index", documents);
             Thread.Sleep(2000);
+            Assert.Equal(documents.Count, opensearchClient.Count("test*"));
+            Assert.All(opensearchClient.Search<OpenSearchTestModel>("test*"), d => documents.Contains(d.Source));
 
-            Assert.Equal(opensearchClient.Count("test*"), documents.Count);
-            Assert.Equal(opensearchClient.Search<OpenSearchTestModel>("test*"), documents);
-            opensearchClient.ClearIndex("test*");
+            opensearchClient.DeleteIndex("test*");
             Thread.Sleep(2000);
-
             Assert.Equal(opensearchClient.Count("test*"), 0);
         }
     }
