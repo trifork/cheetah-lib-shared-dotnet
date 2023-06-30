@@ -175,6 +175,7 @@ jobs:
         working-directory: integrationtests/
         run: docker compose --profile kafka --profile oauth --profile opensearch up -d --build
       - name: "Test Integration"
+        working-directory: test
         run: |
           docker compose -f docker-compose.yaml up --abort-on-container-exit
         env:
