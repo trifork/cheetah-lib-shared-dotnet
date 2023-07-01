@@ -3,8 +3,8 @@ version: '3'
 services:
   example-component-test-xunit:
     build:
-      context: ../src
-      dockerfile: ../test/Dockerfile
+      context: ..
+      dockerfile: Cheetah.ComponentTest.XUnit/Dockerfile
       secrets:
         - GITHUB_TOKEN
         - GITHUB_ACTOR
@@ -12,10 +12,10 @@ services:
       KAFKA__URL: kafka:19092
       COMPONENTTEST__CONSUMERTOPIC: TestTopic
       COMPONENTTEST__PRODUCERTOPIC: TestTopic
-      KAFKA__CLIENTID: myapp
+      KAFKA__CLIENTID: kafka
       KAFKA__CLIENTSECRET: 1234
       KAFKA__AUTHENDPOINT: http://cheetahoauthsimulator:80/oauth2/token
-      OPENSEARCH__CLIENTID: ClientId
+      OPENSEARCH__CLIENTID: opensearch
       OPENSEARCH__CLIENTSECRET: 1234
       OPENSEARCH__AUTHENDPOINT: http://cheetahoauthsimulator:80/oauth2/token
       OPENSEARCH__URL: http://opensearch:9200
