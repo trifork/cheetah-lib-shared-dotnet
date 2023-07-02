@@ -71,6 +71,29 @@ public class OpenSearchClient
         return new CheetahOpenSearchClient(memoryCache, httpClientFactory, options, env, logger);
     }
 
+    public void CreateIndex(string index) {
+        Client.InternalClient.Indices.Create(index);
+    }
+
+    /// <summary>
+    /// Calling this without a parameter will refresh all indices
+    /// </summary>
+    public void RefreshIndex(string? index = null) {
+        Client.InternalClient.Indices.Refresh(index);
+    }
+
+    /// <summary>
+    /// Consider using RefreshIndex instead of this for a more deterministic outcome
+    /// </summary>
+    public void SetRefreshInterval(string index, Time time)
+    {
+        Client.InternalClient.Indices.UpdateSettings(index, u => u
+            .IndexSettings(s => s
+                .RefreshInterval(time)
+            )
+        );
+    }
+
     public void Index<T>(string index, ICollection<T> documents) where T : class
     {
         Client.InternalClient.Bulk(b => b
@@ -79,10 +102,12 @@ public class OpenSearchClient
         );
     }
 
-    // TODO: overload count with possible match query
+    // TODO: overload count and search with possible match query
     public long Count(string index)
     {
-        return Client.InternalClient.Count<object>(q => q.Index(index)).Count;
+        return Client.InternalClient.Count<object>(q => q
+            .Index(index)
+        ).Count;
     }
 
     public IReadOnlyCollection<IHit<T>> Search<T>(string index, int maxSize = 100) where T : class
