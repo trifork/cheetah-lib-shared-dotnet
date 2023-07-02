@@ -64,6 +64,8 @@ namespace Cheetah.ComponentTest.XUnit
         [Fact]
         public void WriteToOsAsync()
         {
+            var indexName = "test-index";
+
             var documents = new List<OpenSearchTestModel>()
             {
                 new OpenSearchTestModel("Document 1", 2),
@@ -77,14 +79,19 @@ namespace Cheetah.ComponentTest.XUnit
                 .WithOpenSearchConfigurationPrefix(configuration)
                 .Build();
 
-            opensearchClient.Index("test-index", documents);
-            Thread.Sleep(2000);
-            Assert.Equal(documents.Count, opensearchClient.Count("test*"));
-            Assert.All(opensearchClient.Search<OpenSearchTestModel>("test*"), d => documents.Contains(d.Source));
+            // i am unsure if the requests will always come in the same order
+            // if they dont, we might have to do a thread sleep, although i would like to avoid this
+            opensearchClient.DeleteIndex(indexName);
+            Assert.Equal(0, opensearchClient.Count(indexName));
 
-            opensearchClient.DeleteIndex("test*");
-            Thread.Sleep(2000);
-            Assert.Equal(0, opensearchClient.Count("test*"));
+            opensearchClient.Index(indexName, documents);
+            opensearchClient.RefreshIndex(indexName);
+            Assert.Equal(documents.Count, opensearchClient.Count(indexName));
+            Assert.All(opensearchClient.Search<OpenSearchTestModel>(indexName), d => documents.Contains(d.Source));
+
+            opensearchClient.DeleteIndex(indexName);
+            opensearchClient.RefreshIndex(indexName);
+            Assert.Equal(0, opensearchClient.Count(indexName));
         }
     }
 }
