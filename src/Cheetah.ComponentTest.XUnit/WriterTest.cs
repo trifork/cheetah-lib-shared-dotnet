@@ -79,8 +79,8 @@ namespace Cheetah.ComponentTest.XUnit
                 .WithOpenSearchConfigurationPrefix(configuration)
                 .Build();
 
-            // i am unsure if the requests will always come in the same order
-            // if they dont, we might have to do a thread sleep, although i would like to avoid this
+            // the Index call takes around 365ms and the DeleteIndex calls take around 165ms so they seem to be running synchronously
+            // which means we can use them without Thread.Sleep which is great
             opensearchClient.DeleteIndex(indexName);
             Assert.Equal(0, opensearchClient.Count(indexName));
 

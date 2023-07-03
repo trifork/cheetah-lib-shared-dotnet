@@ -71,32 +71,35 @@ public class OpenSearchClient
         return new CheetahOpenSearchClient(memoryCache, httpClientFactory, options, env, logger);
     }
 
-    public void CreateIndex(string index) {
-        Client.InternalClient.Indices.Create(index);
+    public CreateIndexResponse CreateIndex(string index) {
+        return Client.InternalClient.Indices.Create(index);
     }
 
     /// <summary>
     /// Calling this without a parameter will refresh all indices
     /// </summary>
-    public void RefreshIndex(string? index = null) {
-        Client.InternalClient.Indices.Refresh(index);
+    public RefreshResponse RefreshIndex(string? index = null) {
+        return Client.InternalClient.Indices.Refresh(index);
     }
 
     /// <summary>
     /// Consider using RefreshIndex instead of this for a more deterministic outcome
     /// </summary>
-    public void SetRefreshInterval(string index, Time time)
+    public UpdateIndexSettingsResponse SetRefreshInterval(string index, Time time)
     {
-        Client.InternalClient.Indices.UpdateSettings(index, u => u
+        return Client.InternalClient.Indices.UpdateSettings(index, u => u
             .IndexSettings(s => s
                 .RefreshInterval(time)
             )
         );
     }
 
-    public void Index<T>(string index, ICollection<T> documents) where T : class
+    /// <summary>
+    /// Consider calling RefreshIndex after this to ensure the index is ready for queries
+    /// </summary>
+    public BulkResponse Index<T>(string index, ICollection<T> documents) where T : class
     {
-        Client.InternalClient.Bulk(b => b
+        return Client.InternalClient.Bulk(b => b
             .Index(index)
             .CreateMany<T>(documents)
         );
@@ -118,8 +121,8 @@ public class OpenSearchClient
         ).Hits;
     }
 
-    public void DeleteIndex(string index)
+    public DeleteIndexResponse DeleteIndex(string index)
     {
-        Client.InternalClient.Indices.Delete(index);
+        return Client.InternalClient.Indices.Delete(index);
     }
 }
