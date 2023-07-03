@@ -20,7 +20,7 @@ namespace Cheetah.Core.Config
         /// OAuth2 specific. What scopes to request from TokenEndpoint
         /// </summary>
         /// <value></value>
-        public string OAuthScopes { get; set; }
+        public string OAuthScopes { get; set; } = string.Empty;
 
         /// <summary>
         /// Client id used to obtain JWT from token endpoint
