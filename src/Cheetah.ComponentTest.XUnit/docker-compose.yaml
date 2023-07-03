@@ -10,15 +10,13 @@ services:
         - GITHUB_ACTOR
     environment:
       KAFKA__URL: kafka:19092
-      COMPONENTTEST__CONSUMERTOPIC: TestTopic
-      COMPONENTTEST__PRODUCERTOPIC: TestTopic
       KAFKA__CLIENTID: kafka
       KAFKA__CLIENTSECRET: 1234
       KAFKA__AUTHENDPOINT: http://cheetahoauthsimulator:80/oauth2/token
+      OPENSEARCH__URL: http://opensearch:9200
       OPENSEARCH__CLIENTID: opensearch
       OPENSEARCH__CLIENTSECRET: 1234
       OPENSEARCH__AUTHENDPOINT: http://cheetahoauthsimulator:80/oauth2/token
-      OPENSEARCH__URL: http://opensearch:9200
 
 networks:
   default:
