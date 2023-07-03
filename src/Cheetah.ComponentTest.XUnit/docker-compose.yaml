@@ -20,7 +20,6 @@ services:
       OPENSEARCH__AUTHENDPOINT: http://cheetahoauthsimulator:80/oauth2/token
       OPENSEARCH__URL: http://opensearch:9200
       KAFKA__SCHEMAREGISTRYURL: http://schema-registry:8080/apis/ccompat/v7
-      
 
 networks:
   default:

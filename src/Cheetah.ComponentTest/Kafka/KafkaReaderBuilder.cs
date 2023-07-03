@@ -10,14 +10,14 @@ namespace Cheetah.ComponentTest.Kafka
 
     public class KafkaReaderBuilder
     {
-        public static KafkaReaderBuilder<TKey, T> Create<TKey, T>()
+        public static KafkaReaderBuilder<TKey, T> Create<TKey, T>(IConfiguration configuration)
         {
-            return new KafkaReaderBuilder<TKey, T>();
+            return new KafkaReaderBuilder<TKey, T>(configuration);
         }
 
-        public static KafkaReaderBuilder<Null, T> Create<T>()
+        public static KafkaReaderBuilder<Null, T> Create<T>(IConfiguration configuration)
         {
-            return new KafkaReaderBuilder<Null, T>();
+            return new KafkaReaderBuilder<Null, T>(configuration);
         }
 
         private KafkaReaderBuilder() { }
@@ -36,10 +36,14 @@ namespace Cheetah.ComponentTest.Kafka
         private IConfiguration? Configuration;
         private string? GroupId;
 
-        public KafkaReaderBuilder<TKey, T> WithKafkaConfigurationPrefix(IConfiguration configuration, string? prefix = null)
+        public KafkaReaderBuilder(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public KafkaReaderBuilder<TKey, T> WithKafkaConfigurationPrefix(string prefix)
         {
             KafkaConfigurationPrefix = prefix;
-            Configuration = configuration;
             return this;
         }
 
@@ -98,10 +102,7 @@ namespace Cheetah.ComponentTest.Kafka
                 var schemaRegistry = new CachedSchemaRegistryClient(SchemaRegistryConfig);
                 reader.Serializer = new AvroDeserializer<T>(schemaRegistry).AsSyncOverAsync();
             }
-            else
-            {
-                reader.Serializer = new Utf8Serializer<T>();
-            }
+            
             reader.Prepare();
             return reader;
         }

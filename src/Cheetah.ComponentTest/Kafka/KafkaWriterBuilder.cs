@@ -10,9 +10,9 @@ namespace Cheetah.ComponentTest.Kafka
 
     public class KafkaWriterBuilder
     {
-        public static KafkaWriterBuilder<TKey, T> Create<TKey, T>()
+        public static KafkaWriterBuilder<TKey, T> Create<TKey, T>(IConfiguration configuration)
         {
-            return new KafkaWriterBuilder<TKey, T>();
+            return new KafkaWriterBuilder<TKey, T>(configuration);
         }
 
         private KafkaWriterBuilder() { }
@@ -31,13 +31,16 @@ namespace Cheetah.ComponentTest.Kafka
         private IConfiguration? Configuration;
         private Func<T, TKey>? KeyFunction;
 
+        public KafkaWriterBuilder(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
         internal KafkaWriterBuilder()
         {
         }
 
-        public KafkaWriterBuilder<TKey, T> WithKafkaConfiguration(IConfiguration configuration, string? prefix = null)
+        public KafkaWriterBuilder<TKey, T> WithKafkaConfigurationPrefix(string prefix)
         {
-            Configuration = configuration; // Could also require this in the static Create function, since we can't create a writer without it.
             KafkaConfigurationPrefix = prefix;
             return this;
         }
@@ -97,10 +100,7 @@ namespace Cheetah.ComponentTest.Kafka
                 var schemaRegistry = new CachedSchemaRegistryClient(SchemaRegistryConfig);
                 writer.Serializer = new AvroSerializer<T>(schemaRegistry).AsSyncOverAsync();
             }
-            else
-            {
-                writer.Serializer = new Utf8Serializer<T>();
-            }
+            
             writer.Prepare();
             return writer;
         }

@@ -51,25 +51,21 @@ namespace Cheetah.ComponentTest.XUnit
         [Fact]
         public void WriteToQueue()
         {
-            var writer = KafkaWriterBuilder.Create<string, string>()
-                .WithKafkaConfiguration(configuration)
+            var writer = KafkaWriterBuilder.Create<string, string>(configuration)
                 .WithTopic("MyTopic")
                 .WithKeyFunction(message => message)
                 .Build();
-            var writer2 = KafkaWriterBuilder.Create<string, string>()
-                .WithKafkaConfiguration(configuration)
+            var writer2 = KafkaWriterBuilder.Create<string, string>(configuration)
                 .WithTopic("MyTopic2")
                 .WithKeyFunction(message => message)
                 .Build();
 
-            var reader = KafkaReaderBuilder.Create<string, string>()
-                .WithKafkaConfigurationPrefix(configuration)
+            var reader = KafkaReaderBuilder.Create<string, string>(configuration)
                 .WithTopic("MyTopic")
                 .WithGroupId("Mygroup")
                 .Build();
 
-            var reader2 = KafkaReaderBuilder.Create<string, string>()
-                .WithKafkaConfigurationPrefix(configuration)
+            var reader2 = KafkaReaderBuilder.Create<string, string>(configuration)
                 .WithTopic("MyTopic2")
                 .WithGroupId("Mygroup2")
                 .Build();
@@ -120,15 +116,13 @@ namespace Cheetah.ComponentTest.XUnit
             // Arrange
             var avroModel = new SimpleAvroObject() { Name = "foo", Number = 100 };
 
-            var writerAvro = KafkaWriterBuilder.Create<Null, SimpleAvroObject>()
-                .WithKafkaConfiguration(configuration)
+            var writerAvro = KafkaWriterBuilder.Create<Null, SimpleAvroObject>(configuration)
                 .WithTopic("MyAvroTopic")
                 .UsingAvro()
                 .WithKeyFunction(message => null!)
                 .Build();
             
-            var readerAvro = KafkaReaderBuilder.Create<Null, SimpleAvroObject>()
-                .WithKafkaConfigurationPrefix(configuration)
+            var readerAvro = KafkaReaderBuilder.Create<Null, SimpleAvroObject>(configuration)
                 .WithTopic("MyAvroTopic")
                 .WithGroupId("MyAvroGroup")
                 .UsingAvro()
@@ -147,15 +141,13 @@ namespace Cheetah.ComponentTest.XUnit
         public void WriteComplexAvroObjTest()
         {
             // Arrange
-            var writerAvro = KafkaWriterBuilder.Create<Null, AdvancedAvroObject>()
-                .WithKafkaConfiguration(configuration)
+            var writerAvro = KafkaWriterBuilder.Create<Null, AdvancedAvroObject>(configuration)
                 .WithTopic("AvroAdvancedTopic")
                 .UsingAvro()
                 .WithKeyFunction(message => null!)
                 .Build();
             
-            var readerAvro = KafkaReaderBuilder.Create<Null, AdvancedAvroObject>()
-                .WithKafkaConfigurationPrefix(configuration)
+            var readerAvro = KafkaReaderBuilder.Create<Null, AdvancedAvroObject>(configuration)
                 .WithTopic("AvroAdvancedTopic")
                 .WithGroupId("AvroAdvancedGroup")
                 .UsingAvro()
@@ -174,15 +166,13 @@ namespace Cheetah.ComponentTest.XUnit
         public async Task WriteAdvancedAvroObjAsyncTest()
         {
             // Arrange
-            var writerAvro = KafkaWriterBuilder.Create<Null, AdvancedAvroObject>()
-                .WithKafkaConfiguration(configuration)
+            var writerAvro = KafkaWriterBuilder.Create<Null, AdvancedAvroObject>(configuration)
                 .WithTopic("AvroTopicAsync")
                 .UsingAvro()
                 .WithKeyFunction(message => null!)
                 .Build();
             
-            var readerAvro = KafkaReaderBuilder.Create<Null, AdvancedAvroObject>()
-                .WithKafkaConfigurationPrefix(configuration)
+            var readerAvro = KafkaReaderBuilder.Create<Null, AdvancedAvroObject>(configuration)
                 .WithTopic("AvroTopicAsync")
                 .WithGroupId("AvroGroupAsync")
                 .UsingAvro()
@@ -201,15 +191,13 @@ namespace Cheetah.ComponentTest.XUnit
         public async Task WriteMultipleAdvancedAvroObjAsyncTest()
         {
             // Arrange
-            var writerAvro = KafkaWriterBuilder.Create<Null, AdvancedAvroObject>()
-                .WithKafkaConfiguration(configuration)
+            var writerAvro = KafkaWriterBuilder.Create<Null, AdvancedAvroObject>(configuration)
                 .WithTopic("AvroTopicAsync_2")
                 .UsingAvro()
                 .WithKeyFunction(message => null!)
                 .Build();
             
-            var readerAvro = KafkaReaderBuilder.Create<Null, AdvancedAvroObject>()
-                .WithKafkaConfigurationPrefix(configuration)
+            var readerAvro = KafkaReaderBuilder.Create<Null, AdvancedAvroObject>(configuration)
                 .WithTopic("AvroTopicAsync_2")
                 .WithGroupId("AvroGroupAsync_2")
                 .UsingAvro()
