@@ -46,7 +46,7 @@ namespace Cheetah.Core.Infrastructure.Services.OpenSearchClient
         public OpenSearch.Client.OpenSearchClient InternalClient { get; }
         private readonly OpenSearchConfig _openSearchConfig;
 
-        private Func<JsonSerializerSettings> jsonSerializerSettingsFactory;
+        private Func<JsonSerializerSettings>? jsonSerializerSettingsFactory;
 
         public CheetahOpenSearchClient(
             IMemoryCache cache,

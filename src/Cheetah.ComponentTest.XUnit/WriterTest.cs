@@ -81,33 +81,36 @@ namespace Cheetah.ComponentTest.XUnit
         }
 
         [Fact]
-        public async Task WriteToOsAsync()
+        public void WriteToOsAsync()
         {
-            var model = new OpenSearchTestModel()
+            var indexName = "test-index";
+
+            var documents = new List<OpenSearchTestModel>()
             {
-                TestString = "Test string",
-                TestInteger = 1234
+                new OpenSearchTestModel("Document 1", 2),
+                new OpenSearchTestModel("Document 2", 3),
+                new OpenSearchTestModel("Document 3", 4),
+                new OpenSearchTestModel("Document 4", 5),
             };
 
-            var indexPattern = "my_index";
-
-            var openSearchConnector = OpenSearchConnectorBuilder.Create()
+            var opensearchClient = OpenSearchClientBuilder
+                .Create()
                 .WithOpenSearchConfigurationPrefix(configuration)
                 .Build();
 
-            var reader = openSearchConnector.NewReader<OpenSearchTestModel>(indexPattern);
+            // the Index call takes around 365ms and the DeleteIndex calls take around 165ms so they seem to be running synchronously
+            // which means we can use them without Thread.Sleep which is great
+            opensearchClient.DeleteIndex(indexName);
+            Assert.Equal(0, opensearchClient.Count(indexName));
 
-            var writer = openSearchConnector.NewWriter<OpenSearchTestModel>(indexPattern);
+            opensearchClient.Index(indexName, documents);
+            opensearchClient.RefreshIndex(indexName);
+            Assert.Equal(documents.Count, opensearchClient.Count(indexName));
+            Assert.All(opensearchClient.Search<OpenSearchTestModel>(indexName), d => documents.Contains(d.Source));
 
-            reader.DeleteAllMessagesInIndex();
-            await writer.WriteAsync(indexPattern, model);
-            Thread.Sleep(5000);
-            var readMessages = await reader.GetMessages(1, indexPattern);
-            Assert.Single(readMessages);
-            Assert.True(reader.CountAllMessagesInIndex() == 1);
-            
-            //Clean up
-            reader.DeleteAllMessagesInIndex();
+            opensearchClient.DeleteIndex(indexName);
+            opensearchClient.RefreshIndex(indexName);
+            Assert.Equal(0, opensearchClient.Count(indexName));
         }
 
         [Fact]

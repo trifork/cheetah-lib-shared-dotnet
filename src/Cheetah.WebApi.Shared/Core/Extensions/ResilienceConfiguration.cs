@@ -24,7 +24,7 @@ namespace Cheetah.WebApi.Shared.Core.Extensions
             int retryCount = 6
         )
         {
-            ILogger<TService> logger = serviceProvider.GetService<ILogger<TService>>();
+            ILogger<TService> logger = serviceProvider.GetService<ILogger<TService>>() ?? throw new InvalidOperationException("Logger must not be null");
             return GetRetryPolicy(logger, retryCount, -1);
         }
 
