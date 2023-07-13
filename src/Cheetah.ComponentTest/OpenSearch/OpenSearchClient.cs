@@ -18,11 +18,12 @@ namespace Cheetah.ComponentTest.OpenSearch;
 public class OpenSearchClient
 {
 
-    public OpenSearchClient(string osAddress, string clientId, string clientSecret, string authEndpoint)
+    public OpenSearchClient(string osAddress, string clientId, string clientSecret, string authEndpoint, string? scope = null)
     {
         OsAddress = osAddress;
         ClientId = clientId;
         ClientSecret = clientSecret;
+        Scope = scope;
         AuthEndpoint = authEndpoint;
 
         var openSearchConfig = new OpenSearchConfig
@@ -31,19 +32,21 @@ public class OpenSearchClient
             Url = OsAddress,
             ClientId = ClientId,
             ClientSecret = ClientSecret,
+            Scope = Scope,
             TokenEndpoint = AuthEndpoint
         };
-            
+
         Client = PrepareClient();
     }
 
     internal string OsAddress { get; set; }
     internal string ClientId { get; set; }
     internal string ClientSecret { get; set; }
+    internal string? Scope { get; set; }
     internal string AuthEndpoint { get; set; }
     CheetahOpenSearchClient Client { get; set; }
 
-    
+
     public CheetahOpenSearchClient PrepareClient()
     {
         var openSearchConfig = new OpenSearchConfig
@@ -52,12 +55,13 @@ public class OpenSearchClient
             Url = OsAddress,
             ClientId = ClientId,
             ClientSecret = ClientSecret,
+            Scope = Scope,
             TokenEndpoint = AuthEndpoint
         };
-            
+
         var options = Options.Create(openSearchConfig);
         var env = new HostingEnvironment { EnvironmentName = Environments.Development };
-            
+
         var memoryCache = new MemoryCache(new MemoryCacheOptions());
         var httpClientFactory = new DefaultHttpClientFactory();
         var loggerFactory = LoggerFactory.Create(builder =>
@@ -65,20 +69,22 @@ public class OpenSearchClient
             builder.SetMinimumLevel(LogLevel.Debug);
             builder.AddConsole();
         });
-            
+
         var logger = loggerFactory.CreateLogger<CheetahOpenSearchClient>();
-            
+
         return new CheetahOpenSearchClient(memoryCache, httpClientFactory, options, env, logger);
     }
 
-    public CreateIndexResponse CreateIndex(string index) {
+    public CreateIndexResponse CreateIndex(string index)
+    {
         return Client.InternalClient.Indices.Create(index);
     }
 
     /// <summary>
     /// Calling this without a parameter will refresh all indices
     /// </summary>
-    public RefreshResponse RefreshIndex(string? index = null) {
+    public RefreshResponse RefreshIndex(string? index = null)
+    {
         return Client.InternalClient.Indices.Refresh(index);
     }
 

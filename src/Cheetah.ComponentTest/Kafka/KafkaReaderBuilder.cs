@@ -24,6 +24,7 @@ namespace Cheetah.ComponentTest.Kafka
         private const string KAFKA_URL = "KAFKA:URL";
         private const string KAFKA_CLIENTID = "KAFKA:CLIENTID";
         private const string KAFKA_CLIENTSECRET = "KAFKA:CLIENTSECRET";
+        private const string KAFKA_SCOPE = "KAFKA:SCOPE";
         private const string KAFKA_AUTH_ENDPOINT = "KAFKA:AUTHENDPOINT";
         private string? KafkaConfigurationPrefix;
         private string? Topic;
@@ -63,6 +64,7 @@ namespace Cheetah.ComponentTest.Kafka
                     reader.Server = Configuration.GetSection(KafkaConfigurationPrefix).GetValue<string>(KAFKA_URL);
                     reader.ClientId = Configuration.GetSection(KafkaConfigurationPrefix).GetValue<string>(KAFKA_CLIENTID);
                     reader.ClientSecret = Configuration.GetSection(KafkaConfigurationPrefix).GetValue<string>(KAFKA_CLIENTSECRET);
+                    reader.Scope = Configuration.GetSection(KafkaConfigurationPrefix).GetValue<string>(KAFKA_SCOPE);
                     reader.AuthEndpoint = Configuration.GetSection(KafkaConfigurationPrefix).GetValue<string>(KAFKA_AUTH_ENDPOINT);
                 }
                 else
@@ -70,6 +72,7 @@ namespace Cheetah.ComponentTest.Kafka
                     reader.Server = Configuration.GetValue<string>(KAFKA_URL);
                     reader.ClientId = Configuration.GetValue<string>(KAFKA_CLIENTID);
                     reader.ClientSecret = Configuration.GetValue<string>(KAFKA_CLIENTSECRET);
+                    reader.Scope = Configuration.GetValue<string>(KAFKA_SCOPE);
                     reader.AuthEndpoint = Configuration.GetValue<string>(KAFKA_AUTH_ENDPOINT);
                 }
             }

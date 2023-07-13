@@ -11,12 +11,14 @@ namespace Cheetah.ComponentTest.TokenService
         private readonly string tokenEndpoint;
         private readonly string clientId;
         private readonly string clientSecret;
+        private readonly string? scope;
 
-        public TestTokenService(string clientId, string clientSecret, string tokenEndpoint)
+        public TestTokenService(string clientId, string clientSecret, string tokenEndpoint, string? scope = null)
         {
             this.clientId = clientId;
             this.clientSecret = clientSecret;
             this.tokenEndpoint = tokenEndpoint;
+            this.scope = scope;
         }
 
         public async Task<TokenResponse?> RequestAccessTokenCachedAsync(CancellationToken cancellationToken)
@@ -38,7 +40,7 @@ namespace Cheetah.ComponentTest.TokenService
                             }
                         );
             var tokenResponse = await tokenClient
-                .RequestClientCredentialsTokenAsync(cancellationToken: cancellationToken)
+                .RequestClientCredentialsTokenAsync(cancellationToken: cancellationToken, scope: scope)
                 .ConfigureAwait(false);
 
             // Check if the token request was successful

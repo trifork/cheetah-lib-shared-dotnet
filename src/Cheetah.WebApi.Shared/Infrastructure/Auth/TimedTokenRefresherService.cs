@@ -41,7 +41,8 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
                 cache,
                 openSearchConfig.Value.ClientId,
                 openSearchConfig.Value.ClientSecret,
-                openSearchConfig.Value.TokenEndpoint
+                openSearchConfig.Value.TokenEndpoint,
+                openSearchConfig.Value.Scope
             );
         }
 

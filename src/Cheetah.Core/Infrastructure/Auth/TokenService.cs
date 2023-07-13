@@ -10,6 +10,7 @@ namespace Cheetah.Core.Infrastructure.Auth
         private readonly IHttpClientFactory httpClientFactory;
         private readonly string clientId;
         private readonly string clientSecret;
+        private readonly string? scope;
         private readonly string tokenEndpoint;
         private readonly IMemoryCache cache;
 
@@ -21,7 +22,8 @@ namespace Cheetah.Core.Infrastructure.Auth
             IMemoryCache cache,
             string clientId,
             string clientSecret,
-            string tokenEndpoint
+            string tokenEndpoint,
+            string? scope = null
         )
         {
             this.cache = cache;
@@ -30,6 +32,7 @@ namespace Cheetah.Core.Infrastructure.Auth
             this.clientId = clientId;
             this.clientSecret = clientSecret;
             this.tokenEndpoint = tokenEndpoint;
+            this.scope = scope;
         }
 
         /// <summary>
@@ -98,7 +101,7 @@ namespace Cheetah.Core.Infrastructure.Auth
                 }
             );
             var tokenResponse = await tokenClient
-                .RequestClientCredentialsTokenAsync(cancellationToken: cancellationToken)
+                .RequestClientCredentialsTokenAsync(cancellationToken: cancellationToken, scope: scope)
                 .ConfigureAwait(false);
 
             // Check if the token request was successful

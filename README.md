@@ -4,19 +4,19 @@ This is a project containing shared functionality for .net projects interacting 
 
 See reference projects
 
-* <https://github.com/trifork/cheetah-example-webapi>
-* <https://github.com/trifork/cheetah-example-alertservice>
+- <https://github.com/trifork/cheetah-example-webapi>
+- <https://github.com/trifork/cheetah-example-alertservice>
 
 and other utilities using the library:
 
-* <https://github.com/trifork/cheetah-lib-templates-dotnet>
+- <https://github.com/trifork/cheetah-lib-templates-dotnet>
 
 features offered by this library:
 
-* Prometheus exposed on a kestrel server
-* Helper methods for connecting and authentication against OpenSearch
-* Helper methods for Authentication against Kafka
-* Helper methods for building OpenSearch-search indices
+- Prometheus exposed on a kestrel server
+- Helper methods for connecting and authentication against OpenSearch
+- Helper methods for Authentication against Kafka
+- Helper methods for building OpenSearch-search indices
 
 ## Functionality
 
@@ -37,12 +37,12 @@ services.AddTransient<ICheetahOpenSearchClient, CheetahOpenSearchClient>();
 
 To enable Oauth2 authentication you can provide the following options through environment variables:
 
-* `OpenSearch__AuthMode=OAuth2` - Token endpoint used to obtain token for authentication and authorization
-* `OpenSearch__TokenEndpoint` - Token endpoint used to obtain token for authentication and authorization
-* `OpenSearch__ClientId` - Client id used to obtain JWT from token endpoint
-* `OpenSearch__ClientSecret` - Client secret used to obtain JWT from token endpoint
+- `OpenSearch__AuthMode=OAuth2` - Token endpoint used to obtain token for authentication and authorization
+- `OpenSearch__TokenEndpoint` - Token endpoint used to obtain token for authentication and authorization
+- `OpenSearch__ClientId` - Client id used to obtain JWT from token endpoint
+- `OpenSearch__ClientSecret` - Client secret used to obtain JWT from token endpoint
 
-If these environment variables are not provided, the `CheetahOpenSearchClient`  will try to communicate with OpenSearch using basic auth.
+If these environment variables are not provided, the `CheetahOpenSearchClient` will try to communicate with OpenSearch using basic auth.
 
 #### OpenSearch Naming Strategies
 
@@ -50,16 +50,17 @@ In order to store data in OpenSearch, you need an Index.
 We are providing a number of different naming strategies for querying Indexes:
 
 The `<>` indicates required param, while `[]` indicates optional. e.g `prefix` is always optional.
-* `SimpleIndexNamingStrategy`: follows the pattern `<base>_[prefix]`.
-    This is the simplest Index naming
-* `CustomerIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_*`.
-    (For querying) This gives us all the Indexes for a customer - all years/months
-* `YearResolutionIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_<year>`.
-    This builds on top of the `CustomerIndexNamingStrategy` but adds sharding based on the year
-* `MonthResolutionIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_<year>_<zero-padded month>`.
-    This builds on top of the `YearResolutionIndexNamingStrategy` but adds sharding based on month as well.
-* `YearResolutionWithWildcardIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_<year>*`.
-    (For querying) This gives us all the Indexes a given customer and year - all the months
+
+- `SimpleIndexNamingStrategy`: follows the pattern `<base>_[prefix]`.
+  This is the simplest Index naming
+- `CustomerIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_*`.
+  (For querying) This gives us all the Indexes for a customer - all years/months
+- `YearResolutionIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_<year>`.
+  This builds on top of the `CustomerIndexNamingStrategy` but adds sharding based on the year
+- `MonthResolutionIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_<year>_<zero-padded month>`.
+  This builds on top of the `YearResolutionIndexNamingStrategy` but adds sharding based on month as well.
+- `YearResolutionWithWildcardIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_<year>*`.
+  (For querying) This gives us all the Indexes a given customer and year - all the months
 
 See an example at <https://github.com/trifork/cheetah-example-webapi>.
 
@@ -91,6 +92,7 @@ var consumer = new ConsumerBuilder<Ignore, string>(new ConsumerConfig(clientConf
 
 To enable Oauth2 authentication you should also provide the following options through environment variables:
 
-* `Kafka__TokenEndpoint` - Token endpoint used to obtain token for authentication and authorization
-* `Kafka__ClientId` - Client id used to obtain JWT from token endpoint
-* `Kafka__ClientSecret` - Client secret used to obtain JWT from token endpoint
+- `Kafka__TokenEndpoint` - Token endpoint used to obtain token for authentication and authorization
+- `Kafka__ClientId` - Client id used to obtain JWT from token endpoint
+- `Kafka__ClientSecret` - Client secret used to obtain JWT from token endpoint
+- `Kafka__Scope` (Optional) - Scope used to obtain JWT from token endpoint
