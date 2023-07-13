@@ -41,7 +41,7 @@ namespace Cheetah.Core.Config
         /// Scope used to obtain JWT from token endpoint
         /// </summary>
         /// <value></value>
-        public string? Scope { get; set; } = null;
+        public string? Scope { get; set; }
 
         /// <summary>
         /// Token endpoint used to obtain token for authentication and authorization
