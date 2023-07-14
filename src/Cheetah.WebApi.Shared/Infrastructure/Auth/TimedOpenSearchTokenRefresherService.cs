@@ -66,7 +66,9 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
                 {
                     try
                     {
+                        _logger.LogInformation("Retrieving token");
                         await tokenService.RequestAccessTokenCachedAsync(cancellationToken);
+                        _logger.LogInformation("Successfully retrieved token");
                     }
                     catch (OAuth2TokenException e)
                     {
