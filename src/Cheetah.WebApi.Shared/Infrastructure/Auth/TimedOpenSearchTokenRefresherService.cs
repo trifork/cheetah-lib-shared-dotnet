@@ -70,7 +70,7 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
                     }
                     catch (OAuth2TokenException e)
                     {
-                        _logger.LogWarning($"Periodic refresh of OpenSearch Auth token failed with error: '{e.Error}'");
+                        _logger.LogWarning($"Failed to retrieve OpenSearch auth token with error: '{e.Error}'");
                     }
                 } while (await timer.WaitForNextTickAsync(cancellationToken));
             }
