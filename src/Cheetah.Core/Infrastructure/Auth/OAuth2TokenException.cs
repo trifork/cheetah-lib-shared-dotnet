@@ -2,7 +2,9 @@
 
 public class OAuth2TokenException : Exception
 {
-    public OAuth2TokenException(string message) : base(message)
+    public string Error { get; }
+    public OAuth2TokenException(string error) : base(error)
     {
+        this.Error = error;
     }
 }
