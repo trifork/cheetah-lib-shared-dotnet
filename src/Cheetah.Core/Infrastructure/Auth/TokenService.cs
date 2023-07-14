@@ -52,24 +52,32 @@ namespace Cheetah.Core.Infrastructure.Auth
                 logger.LogError("Missing OAuth config! Please check environment variables");
                 return default;
             }
+            try
+            {
 
-            return await cache.GetOrCreateAsync(
-                CacheKey,
-                async cacheEntry =>
-                {
-                    var tokenResponse = await RequestClientCredentialsTokenAsync(cancellationToken);
-                    TimeSpan absoluteExpiration = TimeSpan.FromSeconds(
-                        Math.Max(10, tokenResponse.ExpiresIn - 10)
-                    );
-                    cacheEntry.AbsoluteExpirationRelativeToNow = absoluteExpiration;
-                    logger.LogDebug(
-                        "New access token retrieved for {clientId} and saved in cache with key: {CacheKey}",
-                        clientId,
-                        CacheKey
-                    );
-                    return tokenResponse;
-                }
-            );
+                return await cache.GetOrCreateAsync(
+                    CacheKey,
+                    async cacheEntry =>
+                    {
+                        var tokenResponse = await RequestClientCredentialsTokenAsync(cancellationToken);
+                        TimeSpan absoluteExpiration = TimeSpan.FromSeconds(
+                            Math.Max(10, tokenResponse.ExpiresIn - 10)
+                        );
+                        cacheEntry.AbsoluteExpirationRelativeToNow = absoluteExpiration;
+                        logger.LogDebug(
+                            "New access token retrieved for {clientId} and saved in cache with key: {CacheKey}",
+                            clientId,
+                            CacheKey
+                        );
+                        return tokenResponse;
+                    }
+                );
+            }
+            catch (Exception)
+            {
+                logger.LogWarning("It's a me - MARIO");
+                throw;
+            }
         }
 
         /// <summary>
