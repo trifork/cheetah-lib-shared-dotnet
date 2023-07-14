@@ -70,6 +70,7 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
                     }
                     catch (OAuth2TokenException e)
                     {
+                        _logger.LogWarning("This is a message which shouldn't act all weird");
                         _logger.LogWarning($"Failed to retrieve token with message: '{e.Message}'");
                     }
                 } while (await timer.WaitForNextTickAsync(cancellationToken));
