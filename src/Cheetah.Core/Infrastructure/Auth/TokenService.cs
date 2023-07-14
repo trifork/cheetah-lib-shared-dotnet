@@ -109,9 +109,7 @@ namespace Cheetah.Core.Infrastructure.Auth
 
             return !tokenResponse.IsError 
                 ? tokenResponse 
-                : throw new OAuth2TokenException($"Failed to retrieve token. Received error: " +
-                    $"Description: '{tokenResponse.ErrorDescription}, " +
-                    $"Type: '{tokenResponse.ErrorType}'"); // Get the access token from the token response                
+                : throw new OAuth2TokenException(tokenResponse.Error);                
         }
     }
 }
