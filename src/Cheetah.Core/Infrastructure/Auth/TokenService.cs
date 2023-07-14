@@ -105,6 +105,11 @@ namespace Cheetah.Core.Infrastructure.Auth
                 .ConfigureAwait(false);
 
             // Check if the token request was successful
+            if (tokenResponse == null)
+            {
+                logger.LogWarning("TokenResponse is null");
+                throw new NullReferenceException(nameof(tokenResponse));
+            }
             return !tokenResponse.IsError ? tokenResponse : throw tokenResponse.Exception; // Get the access token from the token response                
         }
     }
