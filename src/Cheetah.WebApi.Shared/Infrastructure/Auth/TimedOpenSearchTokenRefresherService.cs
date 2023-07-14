@@ -66,13 +66,11 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
                 {
                     try
                     {
-                        _logger.LogInformation("Retrieving token");
                         await tokenService.RequestAccessTokenCachedAsync(cancellationToken);
-                        _logger.LogInformation("Successfully retrieved token");
                     }
                     catch (OAuth2TokenException e)
                     {
-                        _logger.LogError($"Failed to retrieve token with message: '{e.Message}'");
+                        _logger.LogWarning($"Failed to retrieve token with message: '{e.Message}'");
                     }
                 } while (await timer.WaitForNextTickAsync(cancellationToken));
             }
