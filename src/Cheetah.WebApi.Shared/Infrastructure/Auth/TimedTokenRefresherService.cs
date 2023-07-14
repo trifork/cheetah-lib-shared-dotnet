@@ -14,7 +14,7 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
     public class TimedOpenSearchTokenRefresherService : BackgroundService
     {
         private readonly ILogger<TimedOpenSearchTokenRefresherService> _logger;
-        private readonly TokenService tokenService;
+        private readonly TokenService? tokenService;
         private readonly IOptions<OpenSearchConfig> openSearchConfig;
 
         public TimedOpenSearchTokenRefresherService(
@@ -54,6 +54,8 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
                 );
                 return;
             }
+
+            // Where is this used? Why can it be called when tokenService is null?
             // When the timer should have no due-time, then do the work once now.
             await tokenService.RequestAccessTokenCachedAsync(cancellationToken);
 
