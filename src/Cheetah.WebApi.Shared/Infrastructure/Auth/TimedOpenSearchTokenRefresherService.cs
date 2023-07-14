@@ -42,7 +42,7 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
                 openSearchConfig.Value.ClientId,
                 openSearchConfig.Value.ClientSecret,
                 openSearchConfig.Value.TokenEndpoint,
-                openSearchConfig.Value.Scope
+                openSearchConfig.Value.OAuthScope
             );
         }
 
@@ -56,7 +56,7 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
                 );
                 return;
             }
-            
+
             _logger.LogInformation("TimedOpenSearchTokenRefresherService running.");
 
             try

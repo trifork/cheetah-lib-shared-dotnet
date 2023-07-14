@@ -38,10 +38,10 @@ namespace Cheetah.Core.Config
         public string ClientSecret { get; set; } = string.Empty;
 
         /// <summary>
-        /// Scope used to obtain JWT from token endpoint
+        /// OAuth2 specific. What scope to request from TokenEndpoint
         /// </summary>
         /// <value></value>
-        public string? Scope { get; set; }
+        public string? OAuthScope { get; set; }
 
         /// <summary>
         /// Token endpoint used to obtain token for authentication and authorization

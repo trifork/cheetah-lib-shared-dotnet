@@ -43,7 +43,7 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.CheetahOpenSearchClient
             string clientId,
             string clientSecret,
             string tokenEndpoint,
-            string? scope = null
+            string? oauthScope = null
         )
         {
             var openSearchConfig = new OpenSearchConfig
@@ -57,7 +57,7 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.CheetahOpenSearchClient
                 ClientId = clientId,
                 ClientSecret = clientSecret,
                 TokenEndpoint = tokenEndpoint,
-                Scope = scope
+                OAuthScope = oauthScope
             };
             var options = Options.Create(openSearchConfig);
             var env = new HostingEnvironment { EnvironmentName = Environments.Development };

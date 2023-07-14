@@ -18,12 +18,12 @@ namespace Cheetah.ComponentTest.OpenSearch;
 public class OpenSearchClient
 {
 
-    public OpenSearchClient(string osAddress, string clientId, string clientSecret, string authEndpoint, string? scope = null)
+    public OpenSearchClient(string osAddress, string clientId, string clientSecret, string authEndpoint, string? oauthScope = null)
     {
         OsAddress = osAddress;
         ClientId = clientId;
         ClientSecret = clientSecret;
-        Scope = scope;
+        OAuthScope = oauthScope;
         AuthEndpoint = authEndpoint;
 
         var openSearchConfig = new OpenSearchConfig
@@ -32,7 +32,7 @@ public class OpenSearchClient
             Url = OsAddress,
             ClientId = ClientId,
             ClientSecret = ClientSecret,
-            Scope = Scope,
+            OAuthScope = OAuthScope,
             TokenEndpoint = AuthEndpoint
         };
 
@@ -42,7 +42,7 @@ public class OpenSearchClient
     internal string OsAddress { get; set; }
     internal string ClientId { get; set; }
     internal string ClientSecret { get; set; }
-    internal string? Scope { get; set; }
+    internal string? OAuthScope { get; set; }
     internal string AuthEndpoint { get; set; }
     CheetahOpenSearchClient Client { get; set; }
 
@@ -55,7 +55,7 @@ public class OpenSearchClient
             Url = OsAddress,
             ClientId = ClientId,
             ClientSecret = ClientSecret,
-            Scope = Scope,
+            OAuthScope = OAuthScope,
             TokenEndpoint = AuthEndpoint
         };
 

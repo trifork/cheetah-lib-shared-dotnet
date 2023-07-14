@@ -18,7 +18,7 @@ namespace Cheetah.ComponentTest.Kafka
         private const string KAFKA_URL = "KAFKA:URL";
         private const string KAFKA_CLIENTID = "KAFKA:CLIENTID";
         private const string KAFKA_CLIENTSECRET = "KAFKA:CLIENTSECRET";
-        private const string KAFKA_SCOPE = "KAFKA:SCOPE";
+        private const string KAFKA_OAUTHSCOPE = "KAFKA:OAUTHSCOPE";
         private const string KAFKA_AUTH_ENDPOINT = "KAFKA:AUTHENDPOINT";
         private string? KafkaConfigurationPrefix;
         private string? Topic;
@@ -62,7 +62,7 @@ namespace Cheetah.ComponentTest.Kafka
                     writer.Server = Configuration.GetSection(KafkaConfigurationPrefix).GetValue<string>(KAFKA_URL);
                     writer.ClientId = Configuration.GetSection(KafkaConfigurationPrefix).GetValue<string>(KAFKA_CLIENTID);
                     writer.ClientSecret = Configuration.GetSection(KafkaConfigurationPrefix).GetValue<string>(KAFKA_CLIENTSECRET);
-                    writer.Scope = Configuration.GetSection(KafkaConfigurationPrefix).GetValue<string>(KAFKA_SCOPE);
+                    writer.OAuthScope = Configuration.GetSection(KafkaConfigurationPrefix).GetValue<string>(KAFKA_OAUTHSCOPE);
                     writer.AuthEndpoint = Configuration.GetSection(KafkaConfigurationPrefix).GetValue<string>(KAFKA_AUTH_ENDPOINT);
                 }
                 else
@@ -70,7 +70,7 @@ namespace Cheetah.ComponentTest.Kafka
                     writer.Server = Configuration.GetValue<string>(KAFKA_URL);
                     writer.ClientId = Configuration.GetValue<string>(KAFKA_CLIENTID);
                     writer.ClientSecret = Configuration.GetValue<string>(KAFKA_CLIENTSECRET);
-                    writer.Scope = Configuration.GetValue<string>(KAFKA_SCOPE);
+                    writer.OAuthScope = Configuration.GetValue<string>(KAFKA_OAUTHSCOPE);
                     writer.AuthEndpoint = Configuration.GetValue<string>(KAFKA_AUTH_ENDPOINT);
                 }
             }

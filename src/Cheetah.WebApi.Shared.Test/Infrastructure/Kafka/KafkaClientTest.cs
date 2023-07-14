@@ -22,7 +22,7 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.Kafka
                 ClientId = "tester",
                 ClientSecret = "1234",
                 TokenEndpoint = "http://cheetahoauthsimulator:1752/oauth2/token",
-                Scope = "kafka"
+                OAuthScope = "kafka"
             };
 
             var services = new ServiceCollection();

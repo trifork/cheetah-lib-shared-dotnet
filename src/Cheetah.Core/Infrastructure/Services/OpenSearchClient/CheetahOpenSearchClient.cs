@@ -88,7 +88,7 @@ namespace Cheetah.Core.Infrastructure.Services.OpenSearchClient
                     _openSearchConfig.ClientId,
                     _openSearchConfig.ClientSecret,
                     _openSearchConfig.TokenEndpoint,
-                    _openSearchConfig.Scope
+                    _openSearchConfig.OAuthScope
                 );
             }
             var settings = new ConnectionSettings(

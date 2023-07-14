@@ -95,4 +95,4 @@ To enable Oauth2 authentication you should also provide the following options th
 - `Kafka__TokenEndpoint` - Token endpoint used to obtain token for authentication and authorization
 - `Kafka__ClientId` - Client id used to obtain JWT from token endpoint
 - `Kafka__ClientSecret` - Client secret used to obtain JWT from token endpoint
-- `Kafka__Scope` (Optional) - Scope used to obtain JWT from token endpoint
+- `Kafka__OauthScope` (Optional) - Scope used to obtain JWT from token endpoint

@@ -17,7 +17,7 @@ namespace Cheetah.Core.Infrastructure.Services.OpenSearchClient
             string clientId,
             string clientSecret,
             string tokenEndpoint,
-            string? scope = null
+            string? oauthScope = null
         )
         {
             tokenService = new CheetahOpenSearchTokenService(
@@ -27,7 +27,7 @@ namespace Cheetah.Core.Infrastructure.Services.OpenSearchClient
                 clientId,
                 clientSecret,
                 tokenEndpoint,
-                scope
+                oauthScope
             );
         }
 
