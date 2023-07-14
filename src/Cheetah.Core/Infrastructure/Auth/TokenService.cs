@@ -55,20 +55,31 @@ namespace Cheetah.Core.Infrastructure.Auth
             try
             {
 
+                logger.LogWarning("1");
                 return await cache.GetOrCreateAsync(
                     CacheKey,
                     async cacheEntry =>
                     {
+                        
+                        logger.LogWarning("2");
                         var tokenResponse = await RequestClientCredentialsTokenAsync(cancellationToken);
+                        
+                        logger.LogWarning("Many");
                         TimeSpan absoluteExpiration = TimeSpan.FromSeconds(
                             Math.Max(10, tokenResponse.ExpiresIn - 10)
                         );
+                        
+                        logger.LogWarning("Many more");
                         cacheEntry.AbsoluteExpirationRelativeToNow = absoluteExpiration;
+                        
+                        logger.LogWarning("Many again");
                         logger.LogDebug(
                             "New access token retrieved for {clientId} and saved in cache with key: {CacheKey}",
                             clientId,
                             CacheKey
                         );
+                        
+                        logger.LogWarning("Many more again");
                         return tokenResponse;
                     }
                 );
@@ -88,11 +99,15 @@ namespace Cheetah.Core.Infrastructure.Auth
             CancellationToken cancellationToken
         )
         {
+            
+            logger.LogWarning("3");
             if (httpClientFactory == null)
             {
                 logger.LogWarning("Http client is null");
                 throw new NullReferenceException(nameof(httpClientFactory));
             }
+            
+            logger.LogWarning("4");
             if (
                 string.IsNullOrEmpty(clientId)
                 || string.IsNullOrEmpty(clientSecret)
@@ -103,7 +118,11 @@ namespace Cheetah.Core.Infrastructure.Auth
                 return new TokenResponse();
             }
 
+            
+            logger.LogWarning("5");
             using var httpClient = httpClientFactory.CreateClient(CacheKey);
+            
+            logger.LogWarning("6");
             var tokenClient = new TokenClient(
                 httpClient,
                 new TokenClientOptions()
@@ -113,16 +132,22 @@ namespace Cheetah.Core.Infrastructure.Auth
                     ClientSecret = clientSecret
                 }
             );
+            
+            logger.LogWarning("7");
             var tokenResponse = await tokenClient
                 .RequestClientCredentialsTokenAsync(cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
 
+            
+            logger.LogWarning("8");
             // Check if the token request was successful
             if (tokenResponse == null)
             {
                 logger.LogWarning("TokenResponse is null");
                 throw new NullReferenceException(nameof(tokenResponse));
             }
+            
+            logger.LogWarning("9");
             return !tokenResponse.IsError ? tokenResponse : throw tokenResponse.Exception; // Get the access token from the token response                
         }
     }
