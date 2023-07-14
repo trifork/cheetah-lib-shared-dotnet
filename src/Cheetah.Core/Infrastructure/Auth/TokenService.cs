@@ -80,6 +80,11 @@ namespace Cheetah.Core.Infrastructure.Auth
             CancellationToken cancellationToken
         )
         {
+            if (httpClientFactory == null)
+            {
+                logger.LogWarning("Http client is null");
+                throw new NullReferenceException(nameof(httpClientFactory));
+            }
             if (
                 string.IsNullOrEmpty(clientId)
                 || string.IsNullOrEmpty(clientSecret)
