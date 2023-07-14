@@ -53,43 +53,26 @@ namespace Cheetah.Core.Infrastructure.Auth
                 logger.LogError("Missing OAuth config! Please check environment variables");
                 return default;
             }
-            try
-            {
-
-                logger.LogWarning("1");
-                return await cache.GetOrCreateAsync(
-                    CacheKey,
-                    async cacheEntry =>
-                    {
-                        
-                        logger.LogWarning("2");
-                        var tokenResponse = await RequestClientCredentialsTokenAsync(cancellationToken);
-                        
-                        logger.LogWarning("Many");
-                        TimeSpan absoluteExpiration = TimeSpan.FromSeconds(
-                            Math.Max(10, tokenResponse.ExpiresIn - 10)
-                        );
-                        
-                        logger.LogWarning("Many more");
-                        cacheEntry.AbsoluteExpirationRelativeToNow = absoluteExpiration;
-                        
-                        logger.LogWarning("Many again");
-                        logger.LogDebug(
-                            "New access token retrieved for {clientId} and saved in cache with key: {CacheKey}",
-                            clientId,
-                            CacheKey
-                        );
-                        
-                        logger.LogWarning("Many more again");
-                        return tokenResponse;
-                    }
-                );
-            }
-            catch (Exception)
-            {
-                logger.LogWarning("It's a me - MARIO");
-                throw;
-            }
+            
+            return await cache.GetOrCreateAsync(
+                CacheKey,
+                async cacheEntry =>
+                {
+                    var tokenResponse = await RequestClientCredentialsTokenAsync(cancellationToken);
+                    TimeSpan absoluteExpiration = TimeSpan.FromSeconds(
+                        Math.Max(10, tokenResponse.ExpiresIn - 10)
+                    );
+                    
+                    cacheEntry.AbsoluteExpirationRelativeToNow = absoluteExpiration;
+                    logger.LogDebug(
+                        "New access token retrieved for {clientId} and saved in cache with key: {CacheKey}",
+                        clientId,
+                        CacheKey
+                    );
+                    
+                    return tokenResponse;
+                }
+            );
         }
 
         /// <summary>
@@ -100,30 +83,16 @@ namespace Cheetah.Core.Infrastructure.Auth
             CancellationToken cancellationToken
         )
         {
-            
-            logger.LogWarning("3");
-            if (httpClientFactory == null)
-            {
-                logger.LogWarning("Http client is null");
-                throw new NullReferenceException(nameof(httpClientFactory));
-            }
-            
-            logger.LogWarning("4");
             if (
                 string.IsNullOrEmpty(clientId)
                 || string.IsNullOrEmpty(clientSecret)
                 || string.IsNullOrEmpty(tokenEndpoint)
             )
             {
-                logger.LogError("Missing OAuth config! Please check environment variables");
-                return new TokenResponse();
+                throw new OAuth2TokenException("Missing OAuth config! Please check environment variables");
             }
-
             
-            logger.LogWarning("5");
             using var httpClient = httpClientFactory.CreateClient(CacheKey);
-            
-            logger.LogWarning("6");
             var tokenClient = new TokenClient(
                 httpClient,
                 new TokenClientOptions()
@@ -134,26 +103,17 @@ namespace Cheetah.Core.Infrastructure.Auth
                 }
             );
             
-            logger.LogWarning("7");
             var tokenResponse = await tokenClient
-                .RequestClientCredentialsTokenAsync(cancellationToken: cancellationToken)
+                .RequestClientCredentialsTokenAsync(scope, cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
 
-            
-            logger.LogWarning("8");
-            // Check if the token request was successful
-            if (tokenResponse == null)
-            {
-                logger.LogWarning("TokenResponse is null");
-                throw new NullReferenceException(nameof(tokenResponse));
-            }
-            
-            logger.LogWarning("9");
             if (tokenResponse.IsError)
             {
                 logger.LogWarning($"TokenResponse as json is: {tokenResponse.Json}");
             }
-            return !tokenResponse.IsError ? tokenResponse : throw tokenResponse.Exception; // Get the access token from the token response                
+            return !tokenResponse.IsError ? tokenResponse : throw new OAuth2TokenException($"Failed to retrieve token. Received error: " +
+                $"Description: '{tokenResponse.ErrorDescription}, " +
+                $"Type: '{tokenResponse.ErrorType}'"); // Get the access token from the token response                
         }
     }
 }
