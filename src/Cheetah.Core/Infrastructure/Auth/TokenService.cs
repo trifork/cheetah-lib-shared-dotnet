@@ -1,6 +1,7 @@
 using IdentityModel.Client;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace Cheetah.Core.Infrastructure.Auth
 {
@@ -148,6 +149,10 @@ namespace Cheetah.Core.Infrastructure.Auth
             }
             
             logger.LogWarning("9");
+            if (tokenResponse.IsError)
+            {
+                logger.LogWarning($"TokenResponse as json is: {tokenResponse.Json}");
+            }
             return !tokenResponse.IsError ? tokenResponse : throw tokenResponse.Exception; // Get the access token from the token response                
         }
     }
