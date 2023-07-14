@@ -107,13 +107,11 @@ namespace Cheetah.Core.Infrastructure.Auth
                 .RequestClientCredentialsTokenAsync(scope, cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
 
-            if (tokenResponse.IsError)
-            {
-                logger.LogWarning($"TokenResponse as json is: {tokenResponse.Json}");
-            }
-            return !tokenResponse.IsError ? tokenResponse : throw new OAuth2TokenException($"Failed to retrieve token. Received error: " +
-                $"Description: '{tokenResponse.ErrorDescription}, " +
-                $"Type: '{tokenResponse.ErrorType}'"); // Get the access token from the token response                
+            return !tokenResponse.IsError 
+                ? tokenResponse 
+                : throw new OAuth2TokenException($"Failed to retrieve token. Received error: " +
+                    $"Description: '{tokenResponse.ErrorDescription}, " +
+                    $"Type: '{tokenResponse.ErrorType}'"); // Get the access token from the token response                
         }
     }
 }
