@@ -109,7 +109,7 @@ namespace Cheetah.Core.Infrastructure.Auth
 
             return !tokenResponse.IsError 
                 ? tokenResponse 
-                : throw new OAuth2TokenException(tokenResponse.ErrorDescription);                
+                : throw new OAuth2TokenException(tokenResponse.Json.ToString());                
         }
     }
 }
