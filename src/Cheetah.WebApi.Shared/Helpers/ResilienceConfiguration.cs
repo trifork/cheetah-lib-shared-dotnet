@@ -8,7 +8,7 @@ using Polly;
 using Polly.Extensions.Http;
 using Polly.Timeout;
 
-namespace Cheetah.WebApi.Shared.Core.Extensions
+namespace Cheetah.WebApi.Shared.Helpers
 {
     public static class ResilienceConfiguration
     {

@@ -4,44 +4,54 @@
         <name>Cheetah.WebApi.Shared.fat</name>
     </assembly>
     <members>
-        <member name="M:Cheetah.WebApi.Shared.Core.Configure.ConfigureSwaggerOptions.#ctor(Microsoft.AspNetCore.Mvc.ApiExplorer.IApiVersionDescriptionProvider)">
+        <member name="M:Cheetah.WebApi.Shared.Configure.ConfigureSwaggerOptions.#ctor(Microsoft.AspNetCore.Mvc.ApiExplorer.IApiVersionDescriptionProvider)">
             <summary>
-            Initializes a new instance of the <see cref="T:Cheetah.WebApi.Shared.Core.Configure.ConfigureSwaggerOptions"/> class.
+            Initializes a new instance of the <see cref="T:Cheetah.WebApi.Shared.Configure.ConfigureSwaggerOptions"/> class.
             </summary>
             <param name="provider">The <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.IApiVersionDescriptionProvider">provider</see> used to generate Swagger documents.</param>
         </member>
-        <member name="M:Cheetah.WebApi.Shared.Core.Configure.ConfigureSwaggerOptions.Configure(Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions)">
+        <member name="M:Cheetah.WebApi.Shared.Configure.ConfigureSwaggerOptions.Configure(Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions)">
             <inheritdoc />
         </member>
-        <member name="T:Cheetah.WebApi.Shared.Core.Config.OAuthConfig">
+        <member name="T:Cheetah.WebApi.Shared.Config.OAuthConfig">
             <summary>
             OAuthConfig for IOptions. Can be used by WebApi's to authenticate user http requests.
             </summary>
         </member>
-        <member name="F:Cheetah.WebApi.Shared.Core.Config.OAuthConfig.Position">
+        <member name="F:Cheetah.WebApi.Shared.Config.OAuthConfig.Position">
             <summary>
             Prefix for options e.g. OAuth__
             </summary>
         </member>
-        <member name="P:Cheetah.WebApi.Shared.Core.Config.OAuthConfig.OAuthUrl">
+        <member name="P:Cheetah.WebApi.Shared.Config.OAuthConfig.OAuthUrl">
             <summary>
             OAuth url for WebApi to authenticate http requests bearer tokens
             </summary>
             <value></value>
         </member>
-        <member name="P:Cheetah.WebApi.Shared.Core.Config.OAuthConfig.Mode">
+        <member name="P:Cheetah.WebApi.Shared.Config.OAuthConfig.Mode">
             <summary>
             Can be used to determine if authentication should be validated symmetric or asymmetric
             </summary>
             <value></value>
         </member>
-        <member name="P:Cheetah.WebApi.Shared.Core.Config.OAuthConfig.SymmetricPrivateKey">
+        <member name="P:Cheetah.WebApi.Shared.Config.OAuthConfig.SymmetricPrivateKey">
             <summary>
             Secret used by Symmetric validation
             </summary>
             <value></value>
         </member>
-        <member name="M:Cheetah.WebApi.Shared.Core.Extensions.ResilienceConfiguration.GetRetryPolicy``1(System.IServiceProvider,System.Int32)">
+        <member name="M:Cheetah.WebApi.Shared.Extensions.ServiceCollectionConfigurationExtensions.ConfigureAndValidate``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)">
+            <summary>
+            Configures a configuration object using AddOptions<typeparamref name="T"/> and sets up DataAnnotations validation on startup.
+            This will cause an exception to be thrown on startup if any required configuration is missing.
+            </summary>
+            <param name="services">The service collection to add configuration to</param>
+            <param name="configurationSection">The section of configuration to read from</param>
+            <typeparam name="T">The type of configuration to configure</typeparam>
+            <returns>The service collection this method was called on to allow method-chaining</returns>
+        </member>
+        <member name="M:Cheetah.WebApi.Shared.Helpers.ResilienceConfiguration.GetRetryPolicy``1(System.IServiceProvider,System.Int32)">
             <summary>
             Adds a resilient and transient-fault handling policy
             </summary>
@@ -50,7 +60,7 @@
             <param name="retryCount"></param>
             <returns></returns>
         </member>
-        <member name="M:Cheetah.WebApi.Shared.Core.Extensions.ResilienceConfiguration.GetRetryPolicy(Microsoft.Extensions.Logging.ILogger,System.Int32,System.Int32)">
+        <member name="M:Cheetah.WebApi.Shared.Helpers.ResilienceConfiguration.GetRetryPolicy(Microsoft.Extensions.Logging.ILogger,System.Int32,System.Int32)">
             <summary>
             Adds a resilient and transient-fault handling policy
             </summary>

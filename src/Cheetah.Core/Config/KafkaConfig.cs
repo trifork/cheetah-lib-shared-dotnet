@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Cheetah.Core.Config
 {
     /// <summary>
@@ -14,7 +16,8 @@ namespace Cheetah.Core.Config
         /// Bootstrap Url
         /// </summary>
         /// <value></value>
-        public string Url { get; set; } = "kafka:19092";
+        [Required]
+        public string Url { get; set; } = null!;
 
         /// <summary>
         /// OAuth2 specific. What scope to request from TokenEndpoint
@@ -26,18 +29,18 @@ namespace Cheetah.Core.Config
         /// Client id used to obtain JWT from token endpoint
         /// </summary>
         /// <value></value>
-        public string ClientId { get; set; } = string.Empty;
-
+        public string ClientId { get; set; } = null!;
+        
         /// <summary>
         /// Client secret used to obtain JWT from token endpoint
         /// </summary>
         /// <value></value>
-        public string ClientSecret { get; set; } = string.Empty;
+        public string ClientSecret { get; set; } = null!;
 
         /// <summary>
         /// Token endpoint used to obtain token for authentication and authorization
         /// </summary>
         /// <value></value>
-        public string TokenEndpoint { get; set; } = "http://cheetahoauthsimulator:80/oauth2/token";
+        public string TokenEndpoint { get; set; } = null!;
     }
 }
