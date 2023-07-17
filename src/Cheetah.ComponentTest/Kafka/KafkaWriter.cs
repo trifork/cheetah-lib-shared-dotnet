@@ -15,6 +15,7 @@ namespace Cheetah.ComponentTest.Kafka
         internal string? Server { get; set; }
         internal string? ClientId { get; set; }
         internal string? ClientSecret { get; set; }
+        internal string? OAuthScope { get; set; }
         internal string? AuthEndpoint { get; set; }
         internal Func<T, TKey>? KeyFunction { get; set; }
         private IProducer<TKey, T>? Producer { get; set; }
@@ -35,7 +36,7 @@ namespace Cheetah.ComponentTest.Kafka
                 SecurityProtocol = SecurityProtocol.SaslPlaintext,
             })
             .SetValueSerializer(new Utf8Serializer<T>())
-            .AddCheetahOAuthentication(new TestTokenService(ClientId, ClientSecret, AuthEndpoint), Logger)
+            .AddCheetahOAuthentication(new TestTokenService(ClientId, ClientSecret, AuthEndpoint, OAuthScope), Logger)
             .Build();
         }
 

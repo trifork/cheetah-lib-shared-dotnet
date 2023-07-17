@@ -16,7 +16,8 @@ namespace Cheetah.Core.Infrastructure.Services.OpenSearchClient
             IHttpClientFactory httpClientFactory,
             string clientId,
             string clientSecret,
-            string tokenEndpoint
+            string tokenEndpoint,
+            string? oauthScope = null
         )
         {
             tokenService = new CheetahOpenSearchTokenService(
@@ -25,7 +26,8 @@ namespace Cheetah.Core.Infrastructure.Services.OpenSearchClient
                 cache,
                 clientId,
                 clientSecret,
-                tokenEndpoint
+                tokenEndpoint,
+                oauthScope
             );
         }
 
