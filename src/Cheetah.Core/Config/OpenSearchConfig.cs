@@ -38,6 +38,12 @@ namespace Cheetah.Core.Config
         public string ClientSecret { get; set; } = string.Empty;
 
         /// <summary>
+        /// OAuth2 specific. What scope to request from TokenEndpoint
+        /// </summary>
+        /// <value></value>
+        public string? OAuthScope { get; set; }
+
+        /// <summary>
         /// Token endpoint used to obtain token for authentication and authorization
         /// </summary>
         /// <value></value>
@@ -70,8 +76,8 @@ namespace Cheetah.Core.Config
             switch (AuthMode)
             {
                 case OpenSearchAuthMode.BasicAuth:
-                    _ = ClientId ?? throw new ArgumentNullException(nameof(UserName));
-                    _ = ClientSecret ?? throw new ArgumentNullException(nameof(Password));
+                    _ = UserName ?? throw new ArgumentNullException(nameof(UserName));
+                    _ = Password ?? throw new ArgumentNullException(nameof(Password));
                     break;
                 case OpenSearchAuthMode.OAuth2:
                     _ = ClientId ?? throw new ArgumentNullException(nameof(ClientId));

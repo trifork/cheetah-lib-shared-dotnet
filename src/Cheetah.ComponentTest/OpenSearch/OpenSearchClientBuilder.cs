@@ -8,6 +8,7 @@ public class OpenSearchClientBuilder
     private const string ADDRESS = "URL";
     private const string CLIENT_ID = "CLIENTID";
     private const string CLIENT_SECRET = "CLIENTSECRET";
+    private const string OAUTHSCOPE = "OAUTHSCOPE";
     private const string AUTH_ENDPOINT = "AUTHENDPOINT";
     private string ConfigurationPrefix = "";
     private IConfiguration? Configuration;
@@ -15,12 +16,12 @@ public class OpenSearchClientBuilder
     private OpenSearchClientBuilder()
     {
     }
-    
-    public static OpenSearchClientBuilder Create() 
+
+    public static OpenSearchClientBuilder Create()
     {
         return new OpenSearchClientBuilder();
     }
-    
+
     public OpenSearchClientBuilder WithOpenSearchConfigurationPrefix(IConfiguration configuration, string prefix = "")
     {
         Configuration = configuration;
@@ -38,8 +39,9 @@ public class OpenSearchClientBuilder
         var osAddress = configurationSection.GetValue<string>(ADDRESS);
         var clientId = configurationSection.GetValue<string>(CLIENT_ID);
         var clientSecret = configurationSection.GetValue<string>(CLIENT_SECRET);
+        var oauthScope = configurationSection.GetValue<string?>(OAUTHSCOPE);
         var authEndpoint = configurationSection.GetValue<string>(AUTH_ENDPOINT);
 
-        return new OpenSearchClient(osAddress, clientId, clientSecret, authEndpoint);
+        return new OpenSearchClient(osAddress, clientId, clientSecret, authEndpoint, oauthScope);
     }
 }

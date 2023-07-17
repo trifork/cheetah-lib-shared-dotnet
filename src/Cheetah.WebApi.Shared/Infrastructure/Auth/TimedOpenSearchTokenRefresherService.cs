@@ -41,14 +41,15 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
                 cache,
                 openSearchConfig.Value.ClientId,
                 openSearchConfig.Value.ClientSecret,
-                openSearchConfig.Value.TokenEndpoint
+                openSearchConfig.Value.TokenEndpoint,
+                openSearchConfig.Value.OAuthScope
             );
         }
 
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("TimedOpenSearchTokenRefresherService running.");
-            if (openSearchConfig.Value.AuthMode != OpenSearchConfig.OpenSearchAuthMode.OAuth2)
+            // Short-circuit if tokenService is null
+            if (tokenService == null)
             {
                 _logger.LogWarning(
                     $"{nameof(TimedOpenSearchTokenRefresherService)} will not be running. OAuth2 has not been enabled"
@@ -56,18 +57,22 @@ namespace Cheetah.WebApi.Shared.Infrastructure.Auth
                 return;
             }
 
-            // Where is this used? Why can it be called when tokenService is null?
-            // When the timer should have no due-time, then do the work once now.
-            await tokenService.RequestAccessTokenCachedAsync(cancellationToken);
-
-            using PeriodicTimer timer = new(TimeSpan.FromSeconds(1));
+            _logger.LogInformation("TimedOpenSearchTokenRefresherService running.");
 
             try
             {
-                while (await timer.WaitForNextTickAsync(cancellationToken))
+                using PeriodicTimer timer = new(TimeSpan.FromSeconds(1));
+                do // Run once, then every time the timer elapses.
                 {
-                    await tokenService.RequestAccessTokenCachedAsync(cancellationToken);
-                }
+                    try
+                    {
+                        await tokenService.RequestAccessTokenCachedAsync(cancellationToken);
+                    }
+                    catch (OAuth2TokenException e)
+                    {
+                        _logger.LogWarning($"Failed to retrieve OpenSearch auth token with error: '{e.Error}'");
+                    }
+                } while (await timer.WaitForNextTickAsync(cancellationToken));
             }
             catch (OperationCanceledException)
             {

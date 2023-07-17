@@ -17,10 +17,10 @@ namespace Cheetah.Core.Config
         public string Url { get; set; } = "kafka:19092";
 
         /// <summary>
-        /// OAuth2 specific. What scopes to request from TokenEndpoint
+        /// OAuth2 specific. What scope to request from TokenEndpoint
         /// </summary>
         /// <value></value>
-        public string OAuthScopes { get; set; } = string.Empty;
+        public string OAuthScope { get; set; } = string.Empty;
 
         /// <summary>
         /// Client id used to obtain JWT from token endpoint

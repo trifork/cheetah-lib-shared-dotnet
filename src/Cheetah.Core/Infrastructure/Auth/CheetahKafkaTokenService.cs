@@ -13,7 +13,7 @@ namespace Cheetah.Core.Infrastructure.Auth
             IMemoryCache cache,
             IOptions<KafkaConfig> kafkaConfig
         )
-            : base(logger, httpClientFactory, cache, kafkaConfig.Value.ClientId, kafkaConfig.Value.ClientSecret, kafkaConfig.Value.TokenEndpoint) { }
+            : base(logger, httpClientFactory, cache, kafkaConfig.Value.ClientId, kafkaConfig.Value.ClientSecret, kafkaConfig.Value.TokenEndpoint, kafkaConfig.Value.OAuthScope) { }
 
         public override string CacheKey => "kafka-access-token";
     }
