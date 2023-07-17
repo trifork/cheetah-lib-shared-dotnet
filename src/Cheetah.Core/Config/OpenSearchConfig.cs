@@ -31,35 +31,30 @@ namespace Cheetah.Core.Config
         /// Client id used to obtain JWT from token endpoint
         /// </summary>
         /// <value></value>
-        [Required]
         public string ClientId { get; set; } = null!;
 
         /// <summary>
         /// Client secret used to obtain JWT from token endpoint
         /// </summary>
         /// <value></value>
-        [Required]
         public string ClientSecret { get; set; } = null!;
 
         /// <summary>
         /// Token endpoint used to obtain token for authentication and authorization
         /// </summary>
         /// <value></value>
-        [Required]
         public string TokenEndpoint { get; set; } = null!;
 
         /// <summary>
         /// UserName for Basic Auth
         /// </summary>
         /// <value></value>
-        [Required]
         public string UserName { get; set; } = null!;
 
         /// <summary>
         /// Password for Basic Auth
         /// </summary>
         /// <value></value>
-        [Required]
         public string Password { get; set; } = null!;
 
         /// <summary>
