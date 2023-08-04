@@ -103,6 +103,12 @@ namespace Cheetah.Core.Infrastructure.Services.OpenSearchClient
                     );
                 }
             ).ThrowExceptions();
+            if (_openSearchConfig.DisableTlsValidation)
+            {
+                settings = settings.ServerCertificateValidationCallback(
+                    CertificateValidations.AllowAll
+                );
+            }
             if (_openSearchConfig.AuthMode == OpenSearchConfig.OpenSearchAuthMode.BasicAuth)
             {
                 logger.LogInformation(

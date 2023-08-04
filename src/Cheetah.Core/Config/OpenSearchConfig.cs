@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using Cheetah.Core.Infrastructure.Services.OpenSearchClient;
-using Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient;
 
 namespace Cheetah.Core.Config
 {
@@ -69,6 +68,12 @@ namespace Cheetah.Core.Config
         /// <value></value>
 
         public OpenSearchAuthMode AuthMode { get; set; } = OpenSearchAuthMode.BasicAuth;
+
+        /// <summary>
+        /// Disables TLS validation for OpenSearch
+        /// </summary>
+        /// <value></value>
+        public bool DisableTlsValidation { get; set; } = false;
 
         /// <summary>
         /// Validates and throws an error if values are not set for a given <see cref="AuthMode"/>.
