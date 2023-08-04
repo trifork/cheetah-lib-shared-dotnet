@@ -73,7 +73,7 @@ namespace Cheetah.Core.Config
         /// Disables TLS validation for OpenSearch
         /// </summary>
         /// <value></value>
-        public bool DisableTlsValidation { get; set; } = false;
+        public bool DisableTlsValidation { get; set; }
 
         /// <summary>
         /// Validates and throws an error if values are not set for a given <see cref="AuthMode"/>.
