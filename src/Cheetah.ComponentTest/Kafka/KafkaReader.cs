@@ -4,6 +4,9 @@ using System.Threading;
 using Cheetah.ComponentTest.TokenService;
 using Cheetah.Core.Infrastructure.Services.Kafka;
 using Confluent.Kafka;
+using Confluent.Kafka.SyncOverAsync;
+using Confluent.SchemaRegistry;
+using Confluent.SchemaRegistry.Serdes;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
@@ -20,6 +23,7 @@ namespace Cheetah.ComponentTest.Kafka
         internal string? ClientSecret { get; set; }
         internal string? OAuthScope { get; set; }
         internal string? AuthEndpoint { get; set; }
+        internal IDeserializer<T> Serializer { get; set; } = new Utf8Serializer<T>();
         private IConsumer<TKey, T>? Consumer { get; set; }
         internal string? ConsumerGroup { get; set; }
 
@@ -42,8 +46,8 @@ namespace Cheetah.ComponentTest.Kafka
                 AllowAutoCreateTopics = true,
                 AutoOffsetReset = AutoOffsetReset.Latest
             })
-            .SetValueDeserializer(new Utf8Serializer<T>())
-            .AddCheetahOAuthentication(new TestTokenService(ClientId, ClientSecret, AuthEndpoint, OAuthScope), Logger)
+            .SetValueDeserializer(Serializer)
+            .AddCheetahOAuthentication(new TestTokenService(ClientId, ClientSecret, AuthEndpoint), Logger)
             .Build();
             Consumer.Assign(new TopicPartition(Topic, 0));
             CancellationTokenSource cancellationTokenSource = new();

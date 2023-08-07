@@ -1,0 +1,12 @@
+﻿{
+    "type": "record",
+    "name": "SimpleAvroObject",
+    "namespace": "Cheetah.ComponentTest.XUnit.Model.Avro",
+    "fields": [{
+        "name": "Name",
+        "type": "string"
+    }, {
+        "name": "Number",
+        "type": "int"
+    }]
+}
