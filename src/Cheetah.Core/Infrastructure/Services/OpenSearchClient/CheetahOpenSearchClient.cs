@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Cheetah.Core.Config;
 using Cheetah.Core.Infrastructure.Services.IndexAccess;
@@ -107,6 +108,14 @@ namespace Cheetah.Core.Infrastructure.Services.OpenSearchClient
             {
                 settings = settings.ServerCertificateValidationCallback(
                     CertificateValidations.AllowAll
+                );
+            }
+            else if (!string.IsNullOrEmpty(_openSearchConfig.CaCertificatePath))
+            {
+                settings = settings.ServerCertificateValidationCallback(
+                    CertificateValidations.AuthorityIsRoot(
+                        new X509Certificate2(_openSearchConfig.CaCertificatePath)
+                    )
                 );
             }
             if (_openSearchConfig.AuthMode == OpenSearchConfig.OpenSearchAuthMode.BasicAuth)
