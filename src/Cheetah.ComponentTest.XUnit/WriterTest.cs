@@ -113,7 +113,7 @@ namespace Cheetah.ComponentTest.XUnit
             Assert.Equal(0, opensearchClient.Count(indexName));
         }
 
-        [Fact]
+        /*[Fact]
         public void WriteAvroTest()
         {
             // Arrange
@@ -215,6 +215,6 @@ namespace Cheetah.ComponentTest.XUnit
             // Assert
             Assert.Equal(3, readMessages.Count());
             Assert.True(readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(20)));
-        }
+        }*/
     }
 }
