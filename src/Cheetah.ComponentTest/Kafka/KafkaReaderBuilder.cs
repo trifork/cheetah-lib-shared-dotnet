@@ -1,5 +1,8 @@
 using System;
 using Confluent.Kafka;
+using Confluent.Kafka.SyncOverAsync;
+using Confluent.SchemaRegistry;
+using Confluent.SchemaRegistry.Serdes;
 using Microsoft.Extensions.Configuration;
 
 namespace Cheetah.ComponentTest.Kafka
@@ -7,14 +10,14 @@ namespace Cheetah.ComponentTest.Kafka
 
     public class KafkaReaderBuilder
     {
-        public static KafkaReaderBuilder<TKey, T> Create<TKey, T>()
+        public static KafkaReaderBuilder<TKey, T> Create<TKey, T>(IConfiguration configuration)
         {
-            return new KafkaReaderBuilder<TKey, T>();
+            return new KafkaReaderBuilder<TKey, T>(configuration);
         }
 
-        public static KafkaReaderBuilder<Null, T> Create<T>()
+        public static KafkaReaderBuilder<Null, T> Create<T>(IConfiguration configuration)
         {
-            return new KafkaReaderBuilder<Null, T>();
+            return new KafkaReaderBuilder<Null, T>(configuration);
         }
 
         private KafkaReaderBuilder() { }
@@ -26,15 +29,22 @@ namespace Cheetah.ComponentTest.Kafka
         private const string KAFKA_CLIENTSECRET = "KAFKA:CLIENTSECRET";
         private const string KAFKA_OAUTHSCOPE = "KAFKA:OAUTHSCOPE";
         private const string KAFKA_AUTH_ENDPOINT = "KAFKA:AUTHENDPOINT";
+        private const string? SCHEMA_REGISTRY_URL = "KAFKA:SCHEMAREGISTRYURL";
+        private bool IsAvro;
+        private SchemaRegistryConfig? SchemaRegistryConfig;
         private string? KafkaConfigurationPrefix;
         private string? Topic;
         private IConfiguration? Configuration;
         private string? GroupId;
 
-        public KafkaReaderBuilder<TKey, T> WithKafkaConfigurationPrefix(string prefix, IConfiguration configuration)
+        public KafkaReaderBuilder(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public KafkaReaderBuilder<TKey, T> WithKafkaConfigurationPrefix(string prefix)
         {
             KafkaConfigurationPrefix = prefix;
-            Configuration = configuration;
             return this;
         }
 
@@ -50,6 +60,18 @@ namespace Cheetah.ComponentTest.Kafka
             return this;
         }
 
+        public KafkaReaderBuilder<TKey, T> UsingAvro()
+        {
+            IsAvro = true;
+            return this;
+        }
+
+        public KafkaReaderBuilder<TKey, T> UsingAvro(SchemaRegistryConfig schemaRegistryConfig)
+        {
+            SchemaRegistryConfig = schemaRegistryConfig;
+            return UsingAvro();
+        }
+
         public KafkaReader<TKey, T> Build()
         {
             var reader = new KafkaReader<TKey, T>
@@ -57,29 +79,31 @@ namespace Cheetah.ComponentTest.Kafka
                 Topic = Topic,
                 ConsumerGroup = GroupId
             };
-            if (KafkaConfigurationPrefix != null && Configuration != null)
+
+            if (Configuration == null)
             {
-                if (!string.IsNullOrEmpty(KafkaConfigurationPrefix))
-                {
-                    reader.Server = Configuration.GetSection(KafkaConfigurationPrefix).GetValue<string>(KAFKA_URL);
-                    reader.ClientId = Configuration.GetSection(KafkaConfigurationPrefix).GetValue<string>(KAFKA_CLIENTID);
-                    reader.ClientSecret = Configuration.GetSection(KafkaConfigurationPrefix).GetValue<string>(KAFKA_CLIENTSECRET);
-                    reader.OAuthScope = Configuration.GetSection(KafkaConfigurationPrefix).GetValue<string>(KAFKA_OAUTHSCOPE);
-                    reader.AuthEndpoint = Configuration.GetSection(KafkaConfigurationPrefix).GetValue<string>(KAFKA_AUTH_ENDPOINT);
-                }
-                else
-                {
-                    reader.Server = Configuration.GetValue<string>(KAFKA_URL);
-                    reader.ClientId = Configuration.GetValue<string>(KAFKA_CLIENTID);
-                    reader.ClientSecret = Configuration.GetValue<string>(KAFKA_CLIENTSECRET);
-                    reader.OAuthScope = Configuration.GetValue<string>(KAFKA_OAUTHSCOPE);
-                    reader.AuthEndpoint = Configuration.GetValue<string>(KAFKA_AUTH_ENDPOINT);
-                }
+                throw new InvalidOperationException("No configuration provided. You must call 'WithKafkaConfiguration'");
             }
-            else
+
+            var configurationSection = string.IsNullOrWhiteSpace(KafkaConfigurationPrefix)
+                ? Configuration
+                : Configuration.GetSection(KafkaConfigurationPrefix);
+            
+            reader.Server = Configuration.GetValue<string>(KAFKA_URL);
+            reader.ClientId = Configuration.GetValue<string>(KAFKA_CLIENTID);
+            reader.ClientSecret = Configuration.GetValue<string>(KAFKA_CLIENTSECRET);
+            reader.AuthEndpoint = Configuration.GetValue<string>(KAFKA_AUTH_ENDPOINT);
+
+            if (IsAvro)
             {
-                throw new InvalidOperationException("KafkaConfigurationPrefix or Configuration is not set");
+                SchemaRegistryConfig ??= new SchemaRegistryConfig()
+                {
+                    Url = configurationSection.GetValue<string>(SCHEMA_REGISTRY_URL)
+                };
+                var schemaRegistry = new CachedSchemaRegistryClient(SchemaRegistryConfig);
+                reader.Serializer = new AvroDeserializer<T>(schemaRegistry).AsSyncOverAsync();
             }
+            
             reader.Prepare();
             return reader;
         }
