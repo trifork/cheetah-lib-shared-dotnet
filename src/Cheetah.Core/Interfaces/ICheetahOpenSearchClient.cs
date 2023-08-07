@@ -1,4 +1,3 @@
-using Cheetah.Core.Infrastructure.Services.IndexAccess;
 using OpenSearch.Client;
 
 namespace Cheetah.Core.Interfaces
@@ -11,6 +10,6 @@ namespace Cheetah.Core.Interfaces
         /// Queries the OpenSearch instance for all indexes
         /// </summary>
         /// <returns>A List containing all index-names</returns>
-        Task<List<string>> GetIndices(List<IndexDescriptor> indices);
+        Task<List<string>> GetIndices();
     }
 }
