@@ -1,6 +1,5 @@
 using System.Text;
 using Cheetah.Core.Config;
-using Cheetah.Core.Infrastructure.Services.IndexAccess;
 using Cheetah.Core.Interfaces;
 using Cheetah.WebApi.Shared.Util;
 using Microsoft.Extensions.Caching.Memory;
@@ -164,7 +163,7 @@ namespace Cheetah.Core.Infrastructure.Services.OpenSearchClient
         /// Queries the OpenSearch instance for all indices' names
         /// </summary>
         /// <returns>A List containing all index-names</returns>
-        public async Task<List<string>> GetIndices(List<IndexDescriptor> indices)
+        public async Task<List<string>> GetIndices()
         {
             var result = await InternalClient.Indices.GetAsync(new GetIndexRequest(Indices.All));
             return result.Indices

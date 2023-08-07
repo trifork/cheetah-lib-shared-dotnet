@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using Cheetah.Core.Infrastructure.Services.OpenSearchClient;
-using Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient;
 
 namespace Cheetah.Core.Config
 {
