@@ -1,9 +1,5 @@
 using System;
-using System.Collections.Generic;
 using Cheetah.Core.Config;
-using Cheetah.Core.Infrastructure.Services.IndexAccess;
-using Cheetah.WebApi.Shared.Core.Config;
-using Cheetah.WebApi.Shared.Infrastructure.Services.IndexAccess;
 using Cheetah.WebApi.Shared.Test.TestUtils;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Hosting;
@@ -42,7 +38,8 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.CheetahOpenSearchClient
             string password,
             string clientId,
             string clientSecret,
-            string tokenEndpoint
+            string tokenEndpoint,
+            string? oauthScope = null
         )
         {
             var openSearchConfig = new OpenSearchConfig
@@ -55,7 +52,8 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.CheetahOpenSearchClient
                 // Oauth2
                 ClientId = clientId,
                 ClientSecret = clientSecret,
-                TokenEndpoint = tokenEndpoint
+                TokenEndpoint = tokenEndpoint,
+                OAuthScope = oauthScope
             };
             var options = Options.Create(openSearchConfig);
             var env = new HostingEnvironment { EnvironmentName = Environments.Development };
@@ -70,8 +68,8 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.CheetahOpenSearchClient
             });
 
             var logger =
-                loggerFactory.CreateLogger<Cheetah.Core.Infrastructure.Services.OpenSearchClient.CheetahOpenSearchClient>();
-            Cheetah.Core.Infrastructure.Services.OpenSearchClient.CheetahOpenSearchClient client =
+                loggerFactory.CreateLogger<Core.Infrastructure.Services.OpenSearchClient.CheetahOpenSearchClient>();
+            Core.Infrastructure.Services.OpenSearchClient.CheetahOpenSearchClient client =
                 new(memoryCache, httpClientFactory, options, env, logger);
 
             var newIndexName = Guid.NewGuid().ToString();
@@ -80,12 +78,12 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.CheetahOpenSearchClient
             );
             Assert.True(newIndicesResponse.Acknowledged);
 
-            var indices = await client.GetIndices(new List<IndexDescriptor>());
+            var indices = await client.GetIndices();
             Assert.Contains(newIndexName, indices);
 
             client.InternalClient.Indices.Delete(new DeleteIndexRequest(newIndexName));
 
-            indices = await client.GetIndices(new List<IndexDescriptor>());
+            indices = await client.GetIndices();
             Assert.DoesNotContain(newIndexName, indices);
         }
     }

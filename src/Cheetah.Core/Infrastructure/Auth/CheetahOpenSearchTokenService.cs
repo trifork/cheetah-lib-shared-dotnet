@@ -11,9 +11,10 @@ namespace Cheetah.Core.Infrastructure.Auth
             IMemoryCache cache,
             string clientId,
             string clientSecret,
-            string tokenEndpoint
+            string tokenEndpoint,
+            string? oauthScope = null
         )
-            : base(logger, httpClientFactory, cache, clientId, clientSecret, tokenEndpoint) { }
+            : base(logger, httpClientFactory, cache, clientId, clientSecret, tokenEndpoint, oauthScope) { }
 
         public override string CacheKey => "opensearch-access-token";
     }

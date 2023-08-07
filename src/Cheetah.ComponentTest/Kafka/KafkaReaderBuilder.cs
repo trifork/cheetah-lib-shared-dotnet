@@ -27,6 +27,7 @@ namespace Cheetah.ComponentTest.Kafka
         private const string KAFKA_URL = "KAFKA:URL";
         private const string KAFKA_CLIENTID = "KAFKA:CLIENTID";
         private const string KAFKA_CLIENTSECRET = "KAFKA:CLIENTSECRET";
+        private const string KAFKA_OAUTHSCOPE = "KAFKA:OAUTHSCOPE";
         private const string KAFKA_AUTH_ENDPOINT = "KAFKA:AUTHENDPOINT";
         private const string? SCHEMA_REGISTRY_URL = "KAFKA:SCHEMAREGISTRYURL";
         private bool IsAvro;

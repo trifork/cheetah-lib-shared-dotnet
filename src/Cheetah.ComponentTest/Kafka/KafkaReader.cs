@@ -21,6 +21,7 @@ namespace Cheetah.ComponentTest.Kafka
         internal string? Server { get; set; }
         internal string? ClientId { get; set; }
         internal string? ClientSecret { get; set; }
+        internal string? OAuthScope { get; set; }
         internal string? AuthEndpoint { get; set; }
         internal IDeserializer<T> Serializer { get; set; } = new Utf8Serializer<T>();
         private IConsumer<TKey, T>? Consumer { get; set; }
