@@ -68,4 +68,4 @@ If the reader reads the amount of messages that is specified, it is possible to 
 reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(numberOfSeconds))
 ```
 
-This reads every messages on the topic until either `numberOfSeconds` is timed out or the tipic is EOF. 
+This reads every messages on the topic until either `numberOfSeconds` is timed out or the topic is EOF. 
