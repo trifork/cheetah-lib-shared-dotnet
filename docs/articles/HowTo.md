@@ -1,6 +1,6 @@
 # Component test using Kafaka
 
-How to get started using this libarys Kafaka `producer` and `comsumer` for making component tests.
+How to get started using this librarys Kafaka `producer` and `comsumer` for making component tests.
 
 ## Build a Kafka Writer
 To use a writer, which is this librarys abstration for a Kafka `producer`, it is a two step process. 
