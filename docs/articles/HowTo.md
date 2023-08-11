@@ -3,7 +3,7 @@
 How to get started using this libarys Kafaka `producer` and `comsumer` for making component tests.
 
 ## Build a Kafka Writer
-To use a writer, which is this libaries abstration for a Kafka `producer`, it is a two step process. 
+To use a writer, which is this librarys abstration for a Kafka `producer`, it is a two step process. 
 
 Building the writer takes a couple of required methods imputs to get started. Writer is build in the following way.
 
