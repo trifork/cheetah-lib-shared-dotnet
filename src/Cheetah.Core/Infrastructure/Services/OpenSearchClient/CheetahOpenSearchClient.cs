@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Cheetah.Core.Config;
 using Cheetah.Core.Interfaces;
@@ -102,9 +103,20 @@ namespace Cheetah.Core.Infrastructure.Services.OpenSearchClient
                     );
                 }
             ).ThrowExceptions();
-            settings = settings.ServerCertificateValidationCallback(
-                CertificateValidations.AllowAll
-            );
+            if (_openSearchConfig.DisableTlsValidation)
+            {
+                settings = settings.ServerCertificateValidationCallback(
+                    CertificateValidations.AllowAll
+                );
+            }
+            else if (!string.IsNullOrEmpty(_openSearchConfig.CaCertificatePath))
+            {
+                settings = settings.ServerCertificateValidationCallback(
+                    CertificateValidations.AuthorityIsRoot(
+                        new X509Certificate2(_openSearchConfig.CaCertificatePath)
+                    )
+                );
+            }
             if (_openSearchConfig.AuthMode == OpenSearchConfig.OpenSearchAuthMode.BasicAuth)
             {
                 logger.LogInformation(

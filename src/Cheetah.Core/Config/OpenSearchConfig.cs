@@ -70,6 +70,18 @@ namespace Cheetah.Core.Config
         public OpenSearchAuthMode AuthMode { get; set; } = OpenSearchAuthMode.BasicAuth;
 
         /// <summary>
+        /// Disables TLS validation for OpenSearch
+        /// </summary>
+        /// <value></value>
+        public bool DisableTlsValidation { get; set; }
+
+        /// <summary>
+        /// Path to CA certificate used to validate OpenSearch certificate
+        /// </summary>
+        /// <value></value>
+        public string? CaCertificatePath { get; set; } = null!;
+
+        /// <summary>
         /// Validates and throws an error if values are not set for a given <see cref="AuthMode"/>.
         /// </summary>
         public void ValidateConfig()
