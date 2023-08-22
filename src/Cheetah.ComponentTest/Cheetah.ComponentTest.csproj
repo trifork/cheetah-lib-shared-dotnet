@@ -35,4 +35,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Cheetah.Core\Cheetah.Core.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>$(AssemblyName).XUnit</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
 </Project>

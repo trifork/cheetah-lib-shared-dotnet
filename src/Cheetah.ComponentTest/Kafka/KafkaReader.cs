@@ -16,39 +16,27 @@ namespace Cheetah.ComponentTest.Kafka
     public class KafkaReader<TKey, T>
     {
         private static readonly ILogger Logger = new LoggerFactory().CreateLogger<KafkaReader<TKey, T>>();
+        internal string Topic { get; }
+        private IConsumer<TKey, T> Consumer { get;}
 
-        internal string? Topic { get; set; }
-        internal string? Server { get; set; }
-        internal string? ClientId { get; set; }
-        internal string? ClientSecret { get; set; }
-        internal string? OAuthScope { get; set; }
-        internal string? AuthEndpoint { get; set; }
-        internal IDeserializer<T> Serializer { get; set; } = new Utf8Serializer<T>();
-        private IConsumer<TKey, T>? Consumer { get; set; }
-        internal string? ConsumerGroup { get; set; }
-
-        internal KafkaReader() { }
-
-        internal void Prepare()
+        internal KafkaReader(KafkaReaderProps<T> props)
         {
+            Topic = props.Topic;
             Logger.LogInformation("Preparing kafka producer, producing to topic '{Topic}'", Topic);
-            if (ClientId == null || ClientSecret == null || AuthEndpoint == null)
-            {
-                throw new InvalidOperationException("ClientId, ClientSecret and AuthEndpoint must be set");
-            }
             Consumer = new ConsumerBuilder<TKey, T>(new ConsumerConfig
             {
-                BootstrapServers = Server,
+                BootstrapServers = props.KafkaUrl,
+                GroupId = props.ConsumerGroup,
                 SaslMechanism = SaslMechanism.OAuthBearer,
                 SecurityProtocol = SecurityProtocol.SaslPlaintext,
                 EnablePartitionEof = true,
-                GroupId = ConsumerGroup,
                 AllowAutoCreateTopics = true,
                 AutoOffsetReset = AutoOffsetReset.Latest
             })
-            .SetValueDeserializer(Serializer)
-            .AddCheetahOAuthentication(new TestTokenService(ClientId, ClientSecret, AuthEndpoint), Logger)
-            .Build();
+                .SetValueDeserializer(props.Deserializer)
+                .AddCheetahOAuthentication(props.TokenService, Logger)
+                .Build();
+            
             Consumer.Assign(new TopicPartition(Topic, 0));
             CancellationTokenSource cancellationTokenSource = new();
             cancellationTokenSource.CancelAfter(TimeSpan.FromSeconds(2));
@@ -82,9 +70,7 @@ namespace Cheetah.ComponentTest.Kafka
                 Topic,
                 count
             );
-            while (
-                messages.Count < count && !cancellationToken.IsCancellationRequested
-            )
+            while (messages.Count < count && !cancellationToken.IsCancellationRequested)
             {
                 try
                 {
@@ -114,9 +100,7 @@ namespace Cheetah.ComponentTest.Kafka
             CancellationTokenSource cancellationTokenSource = new();
             cancellationTokenSource.CancelAfter(timeout);
             var cancellationToken = cancellationTokenSource.Token;
-            while (
-                !cancellationToken.IsCancellationRequested
-            )
+            while (!cancellationToken.IsCancellationRequested)
             {
                 try
                 {
