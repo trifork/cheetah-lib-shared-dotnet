@@ -171,7 +171,6 @@ public class KafkaWriterReaderTests
             
         var invalidConfiguration = new ConfigurationBuilder()
             .AddInMemoryCollection(configurationDictionary)
-            .AddEnvironmentVariables()
             .Build();
 
         var writerBuilder = KafkaWriterBuilder.Create<string, string>(invalidConfiguration)
@@ -211,7 +210,6 @@ public class KafkaWriterReaderTests
             
         var invalidConfiguration = new ConfigurationBuilder()
             .AddInMemoryCollection(configurationDictionary)
-            .AddEnvironmentVariables()
             .Build();
 
         var writerBuilder = KafkaWriterBuilder.Create<string, string>(invalidConfiguration)
