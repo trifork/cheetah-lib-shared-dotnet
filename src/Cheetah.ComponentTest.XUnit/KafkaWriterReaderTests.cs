@@ -87,7 +87,7 @@ public class KafkaWriterReaderTests
     }
         
     [Fact]
-    public async Task Should_WriteAndReadComplexObjects_When_UsingAvro()
+    public async Task Should_WriteAndReadAdvancedObjects_When_UsingAvro()
     {
         // Arrange
         var writerAvro = KafkaWriterBuilder.Create<AdvancedAvroObject>(_configuration)
@@ -224,5 +224,21 @@ public class KafkaWriterReaderTests
 
         Assert.Throws<ArgumentException>(() => writerBuilder.Build());
         Assert.Throws<ArgumentException>(() => readerBuilder.Build());
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("my!cool:topic#")]
+    [InlineData("my$expensive$topic")]
+    // 249 characters is the maximum allowed length, this is 250 'a's
+    [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")]
+    public void Should_ThrowArgumentException_When_ProvidedInvalidTopicName(string topicName)
+    {
+        var writerBuilder = KafkaWriterBuilder.Create<string, string>(_configuration)
+            .WithTopic(topicName)
+            .WithKeyFunction(message => message);
+
+        Assert.Throws<ArgumentException>(() => writerBuilder.Build());
     }
 }

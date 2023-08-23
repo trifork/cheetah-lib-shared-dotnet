@@ -5,18 +5,18 @@ using Microsoft.Extensions.Configuration;
 namespace Cheetah.ComponentTest.XUnit;
 
 [Trait("TestType", "IntegrationTests")]
-public class OpenSearchWriterReaderTests
+public class OpenSearchClientTests
 {    
     readonly IConfiguration _configuration;
 
-    public OpenSearchWriterReaderTests()
+    public OpenSearchClientTests()
     {
         var conf = new Dictionary<string, string>
         {
-            { "OPENSEARCH:URL", "http://opensearch:9200"},
-            { "OPENSEARCH:CLIENTID", "opensearch"},
+            { "OPENSEARCH:URL", "http://localhost:9200"},
+            { "OPENSEARCH:CLIENTID", "ClientId"},
             { "OPENSEARCH:CLIENTSECRET", "1234"},
-            { "OPENSEARCH:AUTHENDPOINT", "http://cheetahoauthsimulator:80/oauth2/token"}
+            { "OPENSEARCH:AUTHENDPOINT", "http://localhost:1752/oauth2/token"}
         };
 
         _configuration = new ConfigurationBuilder()
@@ -37,8 +37,7 @@ public class OpenSearchWriterReaderTests
             new ("Document 4", 5),
         };
 
-        var opensearchClient = OpenSearchClientFactory.Create(_configuration)
-            .Build();
+        var opensearchClient = OpenSearchClientFactory.Create(_configuration);
 
         // the Index call takes around 365ms and the DeleteIndex calls take around 165ms so they seem to be running synchronously
         // which means we can use them without Thread.Sleep which is great

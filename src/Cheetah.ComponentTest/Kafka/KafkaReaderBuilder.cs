@@ -22,7 +22,7 @@ namespace Cheetah.ComponentTest.Kafka
 
         private KafkaReaderBuilder() { }
     }
-    public class KafkaReaderBuilder<TKey, T> : KafkaBuilderBase<KafkaReaderBuilder<TKey, T>>
+    public class KafkaReaderBuilder<TKey, T> : KafkaBuilderBase
     {
         private string? _consumerGroup;
 
@@ -39,6 +39,12 @@ namespace Cheetah.ComponentTest.Kafka
         public KafkaReaderBuilder<TKey, T> WithConsumerGroup(string consumerGroup)
         {
             _consumerGroup = consumerGroup;
+            return this;
+        }
+
+        public KafkaReaderBuilder<TKey, T> UsingAvro(SchemaRegistryConfig? config = null)
+        {
+            UsingAvroInternal(config);
             return this;
         }
 

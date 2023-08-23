@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Cheetah.ComponentTest.Kafka;
 
-public abstract class KafkaBuilderBase<TBuilder> where TBuilder : KafkaBuilderBase<TBuilder>
+public abstract class KafkaBuilderBase
 {
     protected const string KAFKA_PREFIX = "KAFKA:";
     protected const string KAFKA_URL_KEY = KAFKA_PREFIX + "URL";
@@ -28,7 +28,7 @@ public abstract class KafkaBuilderBase<TBuilder> where TBuilder : KafkaBuilderBa
         Configuration = configuration;
     }
 
-    public TBuilder UsingAvro(SchemaRegistryConfig? config = null)
+    protected KafkaBuilderBase UsingAvroInternal(SchemaRegistryConfig? config = null)
     {
         SchemaRegistryConfig = config ?? new SchemaRegistryConfig
         {
@@ -36,7 +36,7 @@ public abstract class KafkaBuilderBase<TBuilder> where TBuilder : KafkaBuilderBa
         };
             
         IsAvro = true;
-        return this as TBuilder;
+        return this;
     }
     
     protected ITokenService GetTokenService()

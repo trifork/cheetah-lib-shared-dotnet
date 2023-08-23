@@ -1,8 +1,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Cheetah.ComponentTest.TokenService;
-using Cheetah.Core.Infrastructure.Auth;
 using Cheetah.Core.Infrastructure.Services.Kafka;
 using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
@@ -15,8 +13,8 @@ namespace Cheetah.ComponentTest.Kafka
         private static readonly ILogger Logger = new LoggerFactory().CreateLogger<KafkaWriter<TKey, T>>();
 
         internal string Topic { get; }
-        internal Func<T, TKey> KeyFunction { get; set; }
-        private IProducer<TKey, T> Producer { get; set; }
+        internal Func<T, TKey> KeyFunction { get; }
+        private IProducer<TKey, T> Producer { get; }
 
         internal KafkaWriter(KafkaWriterProps<TKey, T> props)
         {

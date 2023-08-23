@@ -31,7 +31,7 @@ namespace Cheetah.ComponentTest.Kafka
         }
     }
 
-    public class KafkaWriterBuilder<TKey, T> : KafkaBuilderBase<KafkaWriterBuilder<TKey, T>>
+    public class KafkaWriterBuilder<TKey, T> : KafkaBuilderBase
     {
         Func<T, TKey>? _keyFunction;
         public KafkaWriterBuilder(IConfiguration configuration) : base(configuration)
@@ -47,6 +47,12 @@ namespace Cheetah.ComponentTest.Kafka
         public KafkaWriterBuilder<TKey, T> WithKeyFunction(Func<T, TKey> keyFunction)
         {
             _keyFunction = keyFunction;
+            return this;
+        }
+        
+        public KafkaWriterBuilder<TKey, T> UsingAvro(SchemaRegistryConfig? config = null)
+        {
+            UsingAvroInternal(config);
             return this;
         }
 
