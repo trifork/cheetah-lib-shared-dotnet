@@ -13,11 +13,11 @@ services:
       KAFKA__CLIENTID: kafka
       KAFKA__CLIENTSECRET: 1234
       KAFKA__AUTHENDPOINT: http://cheetahoauthsimulator:80/oauth2/token
+      KAFKA__SCHEMAREGISTRYURL: http://schema-registry:8080/apis/ccompat/v7
       OPENSEARCH__URL: http://opensearch:9200
       OPENSEARCH__CLIENTID: opensearch
       OPENSEARCH__CLIENTSECRET: 1234
       OPENSEARCH__AUTHENDPOINT: http://cheetahoauthsimulator:80/oauth2/token
-      KAFKA__SCHEMAREGISTRYURL: http://schema-registry:8080/apis/ccompat/v7
 
 networks:
   default:
