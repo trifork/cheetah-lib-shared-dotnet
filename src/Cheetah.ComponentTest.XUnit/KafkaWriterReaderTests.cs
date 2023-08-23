@@ -1,6 +1,4 @@
 using Cheetah.ComponentTest.Kafka;
-using Cheetah.ComponentTest.OpenSearch;
-using Cheetah.ComponentTest.XUnit.Model;
 using Cheetah.ComponentTest.XUnit.Model.Avro;
 using Microsoft.Extensions.Configuration;
 
@@ -137,8 +135,6 @@ public class KafkaWriterReaderTests
         Assert.Equal(3, readMessages.Count());
         Assert.True(readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(2)));
     }
-        
-        
 
     [Fact]
     public async Task Should_ThrowArgumentException_When_AttemptingToWrite0Messages()
