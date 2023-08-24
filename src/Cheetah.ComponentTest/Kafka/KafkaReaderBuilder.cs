@@ -1,4 +1,4 @@
-using System;
+using Cheetah.Core.Infrastructure.Auth;
 using Confluent.Kafka;
 using Confluent.Kafka.SyncOverAsync;
 using Confluent.SchemaRegistry;
@@ -22,30 +22,12 @@ namespace Cheetah.ComponentTest.Kafka
 
         private KafkaReaderBuilder() { }
     }
-    public class KafkaReaderBuilder<TKey, T>
+    public class KafkaReaderBuilder<TKey, T> : KafkaBuilderBase
     {
-        private const string KAFKA_URL = "KAFKA:URL";
-        private const string KAFKA_CLIENTID = "KAFKA:CLIENTID";
-        private const string KAFKA_CLIENTSECRET = "KAFKA:CLIENTSECRET";
-        private const string KAFKA_OAUTHSCOPE = "KAFKA:OAUTHSCOPE";
-        private const string KAFKA_AUTH_ENDPOINT = "KAFKA:AUTHENDPOINT";
-        private const string? SCHEMA_REGISTRY_URL = "KAFKA:SCHEMAREGISTRYURL";
-        private bool IsAvro;
-        private SchemaRegistryConfig? SchemaRegistryConfig;
-        private string? KafkaConfigurationPrefix;
-        private string? Topic;
-        private IConfiguration? Configuration;
-        private string? GroupId;
+        private string? _consumerGroup;
 
-        public KafkaReaderBuilder(IConfiguration configuration)
+        public KafkaReaderBuilder(IConfiguration configuration) : base(configuration)
         {
-            Configuration = configuration;
-        }
-
-        public KafkaReaderBuilder<TKey, T> WithKafkaConfigurationPrefix(string prefix)
-        {
-            KafkaConfigurationPrefix = prefix;
-            return this;
         }
 
         public KafkaReaderBuilder<TKey, T> WithTopic(string topic)
@@ -54,58 +36,43 @@ namespace Cheetah.ComponentTest.Kafka
             return this;
         }
 
-        public KafkaReaderBuilder<TKey, T> WithGroupId(string groupId)
+        public KafkaReaderBuilder<TKey, T> WithConsumerGroup(string consumerGroup)
         {
-            GroupId = groupId;
+            _consumerGroup = consumerGroup;
             return this;
         }
 
-        public KafkaReaderBuilder<TKey, T> UsingAvro()
+        public KafkaReaderBuilder<TKey, T> UsingAvro(SchemaRegistryConfig? config = null)
         {
-            IsAvro = true;
+            UsingAvroInternal(config);
             return this;
-        }
-
-        public KafkaReaderBuilder<TKey, T> UsingAvro(SchemaRegistryConfig schemaRegistryConfig)
-        {
-            SchemaRegistryConfig = schemaRegistryConfig;
-            return UsingAvro();
         }
 
         public KafkaReader<TKey, T> Build()
         {
-            var reader = new KafkaReader<TKey, T>
+            ValidateInput();
+         
+            var tokenService = GetTokenService();
+            
+            var props = new KafkaReaderProps<T>()
             {
+                ConsumerGroup = _consumerGroup,
                 Topic = Topic,
-                ConsumerGroup = GroupId
+                Deserializer = IsAvro 
+                    ? GetAvroDeserializer(tokenService) 
+                    : new Utf8Serializer<T>(),
+                KafkaUrl = Configuration.GetValue<string>(KAFKA_URL_KEY),
+                TokenService = tokenService
             };
 
-            if (Configuration == null)
-            {
-                throw new InvalidOperationException("No configuration provided. You must call 'WithKafkaConfiguration'");
-            }
-
-            var configurationSection = string.IsNullOrWhiteSpace(KafkaConfigurationPrefix)
-                ? Configuration
-                : Configuration.GetSection(KafkaConfigurationPrefix);
-            
-            reader.Server = Configuration.GetValue<string>(KAFKA_URL);
-            reader.ClientId = Configuration.GetValue<string>(KAFKA_CLIENTID);
-            reader.ClientSecret = Configuration.GetValue<string>(KAFKA_CLIENTSECRET);
-            reader.AuthEndpoint = Configuration.GetValue<string>(KAFKA_AUTH_ENDPOINT);
-
-            if (IsAvro)
-            {
-                SchemaRegistryConfig ??= new SchemaRegistryConfig()
-                {
-                    Url = configurationSection.GetValue<string>(SCHEMA_REGISTRY_URL)
-                };
-                var schemaRegistry = new CachedSchemaRegistryClient(SchemaRegistryConfig);
-                reader.Serializer = new AvroDeserializer<T>(schemaRegistry).AsSyncOverAsync();
-            }
-            
-            reader.Prepare();
-            return reader;
+            return new KafkaReader<TKey, T>(props);
+        }
+        
+        private IDeserializer<T> GetAvroDeserializer(ITokenService tokenService)
+        {
+            var authHeaderValueProvider = new OAuthHeaderValueProvider(tokenService);
+            var schemaRegistryClient = new CachedSchemaRegistryClient(SchemaRegistryConfig, authHeaderValueProvider);
+            return new AvroDeserializer<T>(schemaRegistryClient).AsSyncOverAsync();
         }
     }
 }
