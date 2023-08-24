@@ -6,6 +6,7 @@ namespace Cheetah.ComponentTest.XUnit;
 
 
 [Trait("TestType", "IntegrationTests")]
+[Collection("IntegrationTests")]
 public class OpenSearchClientTests
 {
     readonly IConfiguration _configuration;

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 namespace Cheetah.ComponentTest.XUnit;
 
 [Trait("TestType", "IntegrationTests")]
+[Collection("IntegrationTests")]
 public class KafkaWriterReaderTests
 {
     readonly IConfiguration _configuration;
