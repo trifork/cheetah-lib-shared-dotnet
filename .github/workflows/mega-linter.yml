@@ -34,10 +34,11 @@ jobs:
           github_actor: ${{ github.actor }}
           solution_filepath: ${{ env.SOLUTION_FILEPATH }}
 
-      - run: dotnet tool update -g docfx
+      - name: Build docfx
+        uses: trifork/cheetah-infrastructure-utils/.github/actions/build-docfx@main
+        with:
+          read_package_pat: ${{ secrets.PACKAGE_PAT }}
 
-      - run: docfx metadata --logLevel verbose docs/docfx.json
-      - run: docfx build --warningsAsErrors docs/docfx.json
   linting:
     name: MegaLinter
     runs-on: ubuntu-latest
