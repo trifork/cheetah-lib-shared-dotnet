@@ -12,13 +12,14 @@
     <RepositoryUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</RepositoryUrl>
     <RootNamespace>Cheetah.ComponentTest</RootNamespace>
     <TargetFramework>net6.0</TargetFramework>
-    <VersionPrefix>1.5.0</VersionPrefix>
+    <VersionPrefix>1.6.0</VersionPrefix>
   </PropertyGroup>
   <ItemGroup>
     <None Include="../../docs/articles/CheetahComponentTest.md" Pack="true" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Confluent.Kafka" Version="2.1.0" />
+    <PackageReference Include="Confluent.SchemaRegistry.Serdes.Avro" Version="2.1.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="OpenSearch.Client" Version="1.3.0" />
     <PackageReference Include="OpenSearch.Client.JsonNetSerializer" Version="1.3.0" />
@@ -33,5 +34,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cheetah.Core\Cheetah.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>$(AssemblyName).XUnit</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 </Project>

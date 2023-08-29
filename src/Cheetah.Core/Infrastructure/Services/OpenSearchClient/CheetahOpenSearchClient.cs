@@ -1,6 +1,6 @@
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Cheetah.Core.Config;
-using Cheetah.Core.Infrastructure.Services.IndexAccess;
 using Cheetah.Core.Interfaces;
 using Cheetah.WebApi.Shared.Util;
 using Microsoft.Extensions.Caching.Memory;
@@ -103,9 +103,20 @@ namespace Cheetah.Core.Infrastructure.Services.OpenSearchClient
                     );
                 }
             ).ThrowExceptions();
-            settings = settings.ServerCertificateValidationCallback(
-                CertificateValidations.AllowAll
-            );
+            if (_openSearchConfig.DisableTlsValidation)
+            {
+                settings = settings.ServerCertificateValidationCallback(
+                    CertificateValidations.AllowAll
+                );
+            }
+            else if (!string.IsNullOrEmpty(_openSearchConfig.CaCertificatePath))
+            {
+                settings = settings.ServerCertificateValidationCallback(
+                    CertificateValidations.AuthorityIsRoot(
+                        new X509Certificate2(_openSearchConfig.CaCertificatePath)
+                    )
+                );
+            }
             if (_openSearchConfig.AuthMode == OpenSearchConfig.OpenSearchAuthMode.BasicAuth)
             {
                 logger.LogInformation(
@@ -164,7 +175,7 @@ namespace Cheetah.Core.Infrastructure.Services.OpenSearchClient
         /// Queries the OpenSearch instance for all indices' names
         /// </summary>
         /// <returns>A List containing all index-names</returns>
-        public async Task<List<string>> GetIndices(List<IndexDescriptor> indices)
+        public async Task<List<string>> GetIndices()
         {
             var result = await InternalClient.Indices.GetAsync(new GetIndexRequest(Indices.All));
             return result.Indices

@@ -149,7 +149,7 @@ jobs:
 
       - name: Upload asset to github release page
         id: upload-release-asset
-        if: github.ref == 'refs/heads/main'
+        if: env.PACKAGE_EXISTS == 'false' && github.ref == 'refs/heads/main'
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
