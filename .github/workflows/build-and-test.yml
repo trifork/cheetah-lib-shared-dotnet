@@ -176,7 +176,7 @@ jobs:
           path: integrationtests
       - name: "Start e2e infrastructure"
         working-directory: integrationtests/
-        run: docker compose --profile kafka --profile oauth --profile opensearch up -d --build
+        run: docker compose --profile kafka --profile oauth --profile opensearch --profile schemaregistry up -d --build
       - name: "Test Integration"
         working-directory: src/Cheetah.ComponentTest.XUnit
         run: |
