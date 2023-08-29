@@ -24,7 +24,7 @@ env:
   SOLUTION_FILEPATH: ./Cheetah.WebApi.Shared.sln
 
 jobs:
-  publish-docs:
+  build-docs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -40,26 +40,29 @@ jobs:
           github_actor: ${{ github.actor }}
           solution_filepath: ${{ env.SOLUTION_FILEPATH }}
 
-      - run: dotnet tool update -g docfx
+  docfx-build:
+    uses: trifork/cheetah-infrastructure-utils/.github/workflows/build-docfx.yml@main
+    secrets:
+      GH_API_TOKEN: ${{ secrets.PACKAGE_PAT }}
 
-      - run: docfx metadata --logLevel verbose docs/docfx.json
-      - run: docfx build --warningsAsErrors docs/docfx.json
+  deploy-docfx:
+    runs-on: ubuntu-lastest
+    steps:
+    - name: create public/
+      run: |
+        mkdir -p public/
+        mv docs/ public/_source
+        mv src/ public/src
+        mv .gitignore public/.gitignore
+        cp README.md public/_source
+        rm public/_source/api/.gitignore
+        mv _site/ public/docs
 
-      - name: create public/
-        run: |
-          mkdir -p public/
-          mv docs/ public/_source
-          mv src/ public/src
-          mv .gitignore public/.gitignore
-          cp README.md public/_source
-          rm public/_source/api/.gitignore
-          mv _site/ public/docs
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-          exclude_assets: ""
-          force_orphan: true
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
+        exclude_assets: ""
+        force_orphan: true
