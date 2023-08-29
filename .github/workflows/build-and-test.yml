@@ -1,7 +1,10 @@
-name: Build and test Cheetah.shared nuget package
+name: Build and test Cheetah.shared nuget package (Will also be run nightly)
 
 on:
   workflow_dispatch: {}
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '30 22 * * *'
   pull_request: {}
   push:
     branches:
