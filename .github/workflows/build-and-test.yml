@@ -180,3 +180,8 @@ jobs:
           docker compose -f docker-compose.yaml up --abort-on-container-exit
         env:
           GITHUB_TOKEN: ${{ secrets.PACKAGE_PAT }}
+
+  docfx-test:
+    uses: trifork/cheetah-infrastructure-utils/.github/workflows/build-docfx.yml@main
+    secrets:
+      GH_API_TOKEN: ${{ secrets.PACKAGE_PAT }}

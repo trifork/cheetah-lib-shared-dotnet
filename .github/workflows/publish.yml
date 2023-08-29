@@ -66,3 +66,13 @@ jobs:
         publish_dir: ./public
         exclude_assets: ""
         force_orphan: true
+
+  repository-dispatch:
+    runs-on: ubuntu-lastest
+    steps:
+      - name: Dispatch repository
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.PACKAGE_PAT }}
+          repository: trifork/cheetah-artifact-documentation
+          event-type: docs-update
