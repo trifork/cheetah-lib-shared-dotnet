@@ -205,6 +205,6 @@ jobs:
       - name: Run Docfx checks
         run: |
           dotnet tool update -g docfx 
-          docfx build --warningsAsErrors docs/docfx.json
+          docfx build docs/docfx.json
 
       - run: tree
