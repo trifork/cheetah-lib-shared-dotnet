@@ -196,8 +196,6 @@ jobs:
         with:
           submodules: true
           token: ${{ secrets.PACKAGE_PAT }}
-
-      - run: tree
         
       - name: Setup dot Net
         uses: actions/setup-dotnet@v3
@@ -208,3 +206,5 @@ jobs:
         run: |
           dotnet tool update -g docfx 
           docfx build --warningsAsErrors docs/docfx.json
+
+      - run: tree
