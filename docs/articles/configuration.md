@@ -11,4 +11,4 @@ services.Configure<KafkaConfig>(configuration.GetSection(KafkaConfig.Position));
 
 Each setting can be overwritten by environment variables as `<position>__<property>=value` e.g. `Kafka__KafkaUrl=kafka:19092`.
 
-See [Available configuration](../api/Cheetah.WebApi.Shared.Core.Config.OAuthConfig.yml) in api docs.
+See [Available configuration](../api/Cheetah.WebApi.Shared.Config.yml) in api docs.
