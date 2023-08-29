@@ -2,7 +2,7 @@
 
 This library provide builders for reading and writing to and from Kafka queues and OpenSearch.
 
-All readers and writers are built upon the same setup.
+Kafka readers and writers are built upon the same setup.
 
 ```c#
 var writer = KafkaWriterBuilder.Create<string, string>()
@@ -15,13 +15,37 @@ var writer = KafkaWriterBuilder.Create<string, string>()
 
 The configuration needed must contain the following values:
 ```
- KAFKA:AUTHENDPOINT
- KAFKA:CLIENTID
- KAFKA:SECRET
- KAFKA:URL
+ KAFKA__AUTHENDPOINT
+ KAFKA__CLIENTID
+ KAFKA__SECRET
+ KAFKA__URL
 ```
 
-If using the OpenSearch replace `KAFKA` with `OPENSEARCH`
+Since OpenSearch do not use a `producer` and `consumer` like Kafa does. It's set up a bit different. To make a make an OpenSearch client use the following setup.
+
+```c#
+var opensearchClient = OpenSearchClientBuilder
+                .Create()
+                .WithOpenSearchConfigurationPrefix(configuration)
+                .Build();
+```
+
+This creates a client which can be used multiple times, and on differnt indices. The libery provides abstrations like deleting an index, or count documents in an index. Methods used like so.
+
+```c#
+opensearchClient.DeleteIndex(indexName);
+
+opensearchClient.Count(indexName)
+```
+
+The configuration needed must contain the following values:
+
+```
+OPENSEARCH__URL
+OPENSEARCH__CLIENTID
+OPENSEARCH__CLIENTSECRET
+OPENSEARCH__AUTHENDPOINT
+```
 
 ## Configuration for using NuGet package
 
