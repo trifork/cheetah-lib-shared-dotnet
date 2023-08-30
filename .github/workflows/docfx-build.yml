@@ -27,7 +27,7 @@ jobs:
 
       - run: |
           dotnet tool update -g docfx 
-          docfx docs/docfx.json
+          docfx --warningsAsErrors docs/docfx.json
 
       # - name: Build docfx
       #   uses: trifork/cheetah-infrastructure-utils/.github/actions/build-docfx@main
