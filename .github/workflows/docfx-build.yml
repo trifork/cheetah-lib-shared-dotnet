@@ -20,9 +20,19 @@ jobs:
           github_actor: ${{ github.actor }}
           solution_filepath: ${{ env.SOLUTION_FILEPATH }}
 
-      - run: tree
+      - name: Checkout the repo
+        uses: actions/checkout@v3
 
-      - name: Build docfx
-        uses: trifork/cheetah-infrastructure-utils/.github/actions/build-docfx@main
+      - name: Setup dot Net
+        uses: actions/setup-dotnet@v3
         with:
-          read_package_pat: ${{ secrets.PACKAGE_PAT }}
+          dotnet-version: "6.0"
+
+      - run: |
+          dotnet tool update -g docfx 
+          docfx build --warningsAsErrors docs/docfx.json
+
+      # - name: Build docfx
+      #   uses: trifork/cheetah-infrastructure-utils/.github/actions/build-docfx@main
+      #   with:
+      #     read_package_pat: ${{ secrets.PACKAGE_PAT }}
