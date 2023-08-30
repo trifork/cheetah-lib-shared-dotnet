@@ -20,6 +20,8 @@ jobs:
           github_actor: ${{ github.actor }}
           solution_filepath: ${{ env.SOLUTION_FILEPATH }}
 
+      - tree
+
       - name: Build docfx
         uses: trifork/cheetah-infrastructure-utils/.github/actions/build-docfx@main
         with:
