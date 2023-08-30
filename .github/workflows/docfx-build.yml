@@ -20,9 +20,6 @@ jobs:
           github_actor: ${{ github.actor }}
           solution_filepath: ${{ env.SOLUTION_FILEPATH }}
 
-      - name: Checkout the repo
-        uses: actions/checkout@v3
-
       - name: Setup dot Net
         uses: actions/setup-dotnet@v3
         with:
