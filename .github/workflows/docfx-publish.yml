@@ -1,4 +1,4 @@
-name: docs
+name: Docfx-publish
 
 on:
   # Runs on pushes targeting the default branch
@@ -39,37 +39,31 @@ jobs:
           dotnet-version: "6.0"
           github_actor: ${{ github.actor }}
           solution_filepath: ${{ env.SOLUTION_FILEPATH }}
+          
+      - name: Build docfx
+        uses: trifork/cheetah-infrastructure-utils/.github/actions/build-docfx@main
+        with:
+          read_package_pat: ${{ secrets.PACKAGE_PAT }}
+     
+      - name: create public/
+        run: |
+          mkdir -p public/
+          mv docs/ public/_source
+          mv src/ public/src
+          mv .gitignore public/.gitignore
+          cp README.md public/_source
+          rm public/_source/api/.gitignore
+          mv _site/ public/docs
 
-  docfx-build:
-    uses: trifork/cheetah-infrastructure-utils/.github/workflows/build-docfx.yml@main
-    secrets:
-      GH_API_TOKEN: ${{ secrets.PACKAGE_PAT }}
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          exclude_assets: ""
+          force_orphan: true
 
-  deploy-docfx:
-    runs-on: ubuntu-lastest
-    steps:
-    - name: create public/
-      run: |
-        mkdir -p public/
-        mv docs/ public/_source
-        mv src/ public/src
-        mv .gitignore public/.gitignore
-        cp README.md public/_source
-        rm public/_source/api/.gitignore
-        mv _site/ public/docs
-
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./public
-        exclude_assets: ""
-        force_orphan: true
-
-  repository-dispatch:
-    runs-on: ubuntu-lastest
-    steps:
       - name: Dispatch repository
         uses: peter-evans/repository-dispatch@v2
         with:
