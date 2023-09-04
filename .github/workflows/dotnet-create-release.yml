@@ -1,4 +1,4 @@
-name: ".NET Create Release"
+name: .NET Create Release
 
 on:
   workflow_dispatch:
@@ -19,7 +19,7 @@ jobs:
           echo "::error::Cannot create release from branch '${{ github.ref_name }}' since it does not start with 'release/'"
           exit 1
 
-  nuget-publish:
+  create-release:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"

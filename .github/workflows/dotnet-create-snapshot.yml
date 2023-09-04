@@ -1,16 +1,16 @@
-name: ".NET Create Snapshot"
+name: .NET Create Snapshot
 
 on:
   workflow_dispatch:
   
 jobs:
-  nuget-publish:
+  create-snapshot:
     runs-on: ubuntu-latest
     steps:
-      - name: "Checkout"
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: "dotnet build"
+      - name: Build
         uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
         with:
           read_package_pat: ${{ secrets.GITHUB_TOKEN }}
@@ -23,5 +23,5 @@ jobs:
         shell: pwsh
         run: ./scripts/Fat-Pack.ps1 -ProjectPath ./src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj -DestinationPath output -DotnetPackArgs "--version-suffix SNAPSHOT -c Release"
 
-      - name: "Publish to github packages"
+      - name: Publish to github packages
         run: dotnet nuget push output/*.nupkg --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --api-key ${{ secrets.GITHUB_TOKEN }}

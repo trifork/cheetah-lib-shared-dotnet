@@ -6,7 +6,7 @@ on:
       - "release/**"
 
 jobs:
-  nuget-publish:
+  create-release-candidate:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
