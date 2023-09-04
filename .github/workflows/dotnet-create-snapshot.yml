@@ -19,7 +19,7 @@ jobs:
           solution_filepath: ./src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj
           silent: "true"
 
-      - name: Pack NuGet release candidate
+      - name: Pack NuGet snapshot
         shell: pwsh
         run: ./scripts/Fat-Pack.ps1 -ProjectPath ./src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj -DestinationPath output -DotnetPackArgs "--version-suffix SNAPSHOT -c Release"
 
