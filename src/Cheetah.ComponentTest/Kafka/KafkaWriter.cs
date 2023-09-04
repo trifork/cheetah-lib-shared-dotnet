@@ -1,6 +1,6 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
-using Cheetah.Core.Infrastructure.Auth;
 using Cheetah.Core.Infrastructure.Services.Kafka;
 using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
@@ -16,32 +16,29 @@ namespace Cheetah.ComponentTest.Kafka
         internal Func<T, TKey> KeyFunction { get; }
         private IProducer<TKey, T> Producer { get; }
 
-        internal KafkaWriter(
-            string topic,
-            Func<T, TKey> keyFunction,
-            string url,
-            ITokenService tokenService,
-            ISerializer<T> serializer
-        )
+        internal KafkaWriter(KafkaWriterProps<TKey, T> props)
         {
-            Topic = topic;
-            KeyFunction = keyFunction;
+            Topic = props.Topic;
+            KeyFunction = props.KeyFunction;
             Logger.LogInformation("Preparing Kafka producer, producing to topic '{topic}'", Topic);
-
+            
             Producer = new ProducerBuilder<TKey, T>(
-                new ProducerConfig
-                {
-                    BootstrapServers = url,
+                new ProducerConfig {
+                    BootstrapServers = props.KafkaUrl,
                     SaslMechanism = SaslMechanism.OAuthBearer,
                     SecurityProtocol = SecurityProtocol.SaslPlaintext,
                 })
-                .SetValueSerializer(serializer)
-                .AddCheetahOAuthentication(tokenService, Logger)
+                .SetValueSerializer(props.Serializer)
+                .AddCheetahOAuthentication(props.TokenService, Logger)
                 .Build();
         }
-
+        
         public async Task WriteAsync(T message)
         {
+            if (KeyFunction == null)
+            {
+                throw new InvalidOperationException("KeyFunction must be set");
+            }
             var kafkaMessage = new Message<TKey, T>
             {
                 Key = KeyFunction(message),
@@ -52,6 +49,11 @@ namespace Cheetah.ComponentTest.Kafka
 
         public async Task WriteAsync(params T[] messages)
         {
+            if (!messages.Any())
+            {
+                throw new ArgumentException("WriteAsync was invoked with an empty list of messages.");
+            }
+            
             foreach (var message in messages)
             {
                 await WriteAsync(message);
