@@ -30,7 +30,7 @@ jobs:
   create-release-branch:
     uses: trifork/cheetah-infrastructure-utils/.github/workflows/dotnet-create-release-branch.yml@main
     with:
-      csproj-filepath: cheetah-dotnet-release-test.csproj
+      csproj-filepath: ./src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj
       main-increment: ${{ inputs.main-increment }}
       main-push-type: ${{ inputs.main-push-type }}
       dotnet-version: ${{ inputs.dotnet-version }}

@@ -6,9 +6,24 @@ on:
       - "release/**"
 
 jobs:
-  create-release-candidate:
-    uses: trifork/cheetah-infrastructure-utils/.github/workflows/dotnet-create-release-candidate.yml@main
-    with:
-      csproj-filepath: cheetah-dotnet-release-test.csproj
-    secrets:
-      PAT: ${{ secrets.PACKAGE_PAT }}
+  nuget-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+
+      - name: "dotnet build"
+        uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
+        with:
+          read_package_pat: ${{ secrets.GITHUB_TOKEN }}
+          dotnet-version: "7.0"
+          github_actor: ${{ github.actor }}
+          solution_filepath: ./src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj
+          silent: "true"
+
+      - name: Pack NuGet release candidate
+        shell: pwsh
+        run: ./scripts/Fat-Pack.ps1 -ProjectPath ./src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj -DestinationPath output -DotnetPackArgs "--version-suffix RC${{ github.run_number }} -c Release"
+
+      - name: "Publish to github packages"
+        run: dotnet nuget push output/*.nupkg --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --api-key ${{ secrets.GITHUB_TOKEN }}

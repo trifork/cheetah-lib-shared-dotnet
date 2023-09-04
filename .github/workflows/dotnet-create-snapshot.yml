@@ -1,17 +1,7 @@
-name: "Publish nuget package"
+name: ".NET Create Snapshot"
 
 on:
   workflow_dispatch:
-    inputs:
-      csproj-filepath:
-        type: string
-        required: true
-        description: "file path to .csproj file"
-      dotnet_version:
-        description: "6.0 or 7.x"
-        required: true
-        type: string
-        default: "7.0"
   
 jobs:
   nuget-publish:
@@ -24,14 +14,14 @@ jobs:
         uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
         with:
           read_package_pat: ${{ secrets.GITHUB_TOKEN }}
-          dotnet-version: ${{ inputs.dotnet_version }}
+          dotnet-version: "7.0"
           github_actor: ${{ github.actor }}
-          solution_filepath: ${{ inputs.csproj-filepath }}
+          solution_filepath: ./src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj
           silent: "true"
 
       - name: Pack NuGet release candidate
         shell: pwsh
-        run: ./scripts/Fat-Pack.ps1 -ProjectPath ${{ inputs.csproj-filepath }} -DestinationPath output -DotnetPackArgs "--version-suffix SNAPSHOT" -c Release
+        run: ./scripts/Fat-Pack.ps1 -ProjectPath ./src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj -DestinationPath output -DotnetPackArgs "--version-suffix SNAPSHOT -c Release"
 
       - name: "Publish to github packages"
         run: dotnet nuget push output/*.nupkg --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
