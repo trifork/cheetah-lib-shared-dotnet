@@ -18,12 +18,12 @@ public abstract class KafkaBuilderBase
     protected const string KAFKA_AUTH_ENDPOINT_KEY = KAFKA_PREFIX + "AUTHENDPOINT";
     protected const string SCHEMA_REGISTRY_URL_KEY = KAFKA_PREFIX + "SCHEMAREGISTRYURL";
     
-    protected IConfiguration? Configuration { get; }
+    protected IConfiguration Configuration { get; }
     protected string? Topic { get; set; }
     protected bool IsAvro { get; private set; }
     protected SchemaRegistryConfig? SchemaRegistryConfig { get; private set; }
 
-    protected KafkaBuilderBase(IConfiguration? configuration)
+    protected KafkaBuilderBase(IConfiguration configuration)
     {
         Configuration = configuration;
     }
