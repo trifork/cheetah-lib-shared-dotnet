@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using OpenSearch.Client;
+using OpenSearch.Net;
 
 namespace Cheetah.ComponentTest.OpenSearch;
 
@@ -14,8 +15,8 @@ public static class OpenSearchClientExtensions
     /// <param name="client">The <see cref="OpenSearchClient"/> used to access OpenSearch</param>
     /// <param name="indexName">The index to delete</param>
     /// <returns>A <see cref="DeleteIndexResponse"/> which can be used to verify the result of the delete operation</returns>
-    public static Task<DeleteIndexResponse> DeleteIndexAsync(this OpenSearchClient client, string indexName)
-        => client.Indices.DeleteAsync(indexName);
+    public static async Task<DeleteIndexResponse> DeleteIndexAsync(this OpenSearchClient client, string indexName)
+        => (await client.Indices.DeleteAsync(indexName)).ThrowIfNotValid();
 
     /// <summary>
     /// Asynchronously counts the amount of documents in a given index.
@@ -24,7 +25,7 @@ public static class OpenSearchClientExtensions
     /// <param name="indexName">The index to count documents in</param>
     /// <returns>The amount of documents present in the index</returns>
     public static async Task<long> CountIndexedDocumentsAsync(this OpenSearchClient client, string indexName) 
-        => (await client.CountAsync<object>(q => q.Index(indexName))).Count;
+        => (await client.CountAsync<object>(q => q.Index(indexName))).ThrowIfNotValid().Count;
 
     /// <summary>
     /// Asynchronously bulk inserts documents into an index.
@@ -35,9 +36,9 @@ public static class OpenSearchClientExtensions
     /// <typeparam name="T">The type of document to insert</typeparam>
     /// <returns>A <see cref="BulkResponse"/> which can be used to verify the result of the insert operation</returns>
     /// <exception cref="ArgumentException">Thrown when attempting to insert 0 documents into the index</exception>
-    public static Task<BulkResponse> InsertAsync<T>(this OpenSearchClient client, string indexName, params T[] documents) where T : class 
-        => documents.Any() 
-            ? client.BulkAsync(b => b.Index(indexName).CreateMany(documents)) 
+    public static async Task<BulkResponse> InsertAsync<T>(this OpenSearchClient client, string indexName, ICollection<T> documents) where T : class 
+        => documents.Any()
+            ? (await client.BulkAsync(b => b.Index(indexName).CreateMany(documents))).ThrowIfNotValid()
             : throw new ArgumentException($"Attempted to insert 0 documents into index {indexName}");
 
     /// <summary>
@@ -46,8 +47,8 @@ public static class OpenSearchClientExtensions
     /// <param name="client">The <see cref="OpenSearchClient"/> used to access OpenSearch</param>
     /// <param name="indexName">The index to refresh. If empty or null, will refresh all indexes.</param>
     /// <returns>A <see cref="RefreshResponse"/> which can be used to verify the result of the refresh operation</returns>
-    public static Task<RefreshResponse> RefreshIndexAsync(this OpenSearchClient client, string indexName)
-        => client.Indices.RefreshAsync(indexName);
+    public static async Task<RefreshResponse> RefreshIndexAsync(this OpenSearchClient client, string indexName)
+        => (await client.Indices.RefreshAsync(indexName)).ThrowIfNotValid();
 
     /// <summary>
     /// Asynchronously retrieves up to <param name="maxCount"> documents from an index</param>
@@ -59,4 +60,20 @@ public static class OpenSearchClientExtensions
     /// <returns>The retrieved collection of documents</returns>
     public static async Task<IEnumerable<T>> GetFromIndexAsync<T>(this OpenSearchClient client, string indexName, int maxCount = 100) where T : class
         => (await client.SearchAsync<T>(q => q.Index(indexName).Size(maxCount))).Hits.Select(x => x.Source);
+
+    /// <summary>
+    /// Utility method to simplify validation of responses from OpenSearch.
+    /// </summary>
+    /// <param name="response">The response to validate</param>
+    /// <typeparam name="T">The type of response. Must inherit from <see cref="ResponseBase"/></typeparam>
+    /// <returns>The validated response</returns>
+    /// <exception cref="OpenSearchClientException">Thrown when the response is not valid.</exception>
+    public static T ThrowIfNotValid<T>(this T response) where T : ResponseBase
+    {
+        if (!response.IsValid)
+        {
+            throw new OpenSearchClientException($"Response did not indicate success. Debug info: {response.DebugInformation}");
+        }
+        return response;
+    }
 }
