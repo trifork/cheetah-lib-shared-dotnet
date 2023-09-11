@@ -43,34 +43,25 @@ public class OpenSearchClientTests
         var openSearchClient = OpenSearchClientFactory.Create(_configuration);
 
         // Make sure the index is empty
-        await openSearchClient.Indices.DeleteAsync(indexName);
-        var count = (await openSearchClient.CountAsync<object>(q => q
-            .Index(indexName))).Count;
+        await openSearchClient.DeleteIndexAsync(indexName);
+        var count = await openSearchClient.CountIndexedDocumentsAsync(indexName);
         count.Should().Be(0);
 
         // Insert some data and verify its count
-        await openSearchClient.BulkAsync(b => b
-            .Index(indexName)
-            .CreateMany(documents)
-        );
-        await openSearchClient.Indices.RefreshAsync(indexName);
-        count = (await openSearchClient.CountAsync<object>(q => q
-            .Index(indexName))).Count;
+        await openSearchClient.InsertAsync(indexName, documents);
+        await openSearchClient.RefreshIndexAsync(indexName);
+        
+        count = await openSearchClient.CountIndexedDocumentsAsync(indexName);
         count.Should().Be(documents.Count);
         
         // Verify that all our documents were inserted
-        var hits = openSearchClient.Search<OpenSearchTestModel>(q => q
-            .Index(indexName)
-            .Size(100)
-        ).Hits;
-
-        hits.Select(x => x.Source).Should().BeEquivalentTo(documents, options => options.WithoutStrictOrdering());
+        var actualDocuments = openSearchClient.GetFromIndexAsync<OpenSearchTestModel>(indexName);
+        actualDocuments.Should().BeEquivalentTo(documents, options => options.WithoutStrictOrdering());
 
         // Verify that we can delete it all again and that nothing is left
-        await openSearchClient.Indices.DeleteAsync(indexName);
-        await openSearchClient.Indices.RefreshAsync(indexName);
-        count = (await openSearchClient.CountAsync<object>(q => q
-            .Index(indexName))).Count;
+        await openSearchClient.DeleteIndexAsync(indexName);
+        await openSearchClient.RefreshIndexAsync(indexName);
+        count = await openSearchClient.CountIndexedDocumentsAsync(indexName);
         count.Should().Be(0);
     }
 }
