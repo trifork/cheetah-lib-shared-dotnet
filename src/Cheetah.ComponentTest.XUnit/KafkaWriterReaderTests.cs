@@ -1,5 +1,6 @@
 using Cheetah.ComponentTest.Kafka;
 using Cheetah.ComponentTest.XUnit.Model.Avro;
+using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 
 namespace Cheetah.ComponentTest.XUnit;
@@ -12,7 +13,7 @@ public class KafkaWriterReaderTests
 
     public KafkaWriterReaderTests()
     {
-        var conf = new Dictionary<string, string>
+        var conf = new Dictionary<string, string?>
         {
             { "KAFKA:AUTHENDPOINT", "http://localhost:1752/oauth2/token" },
             { "KAFKA:CLIENTID", "ClientId" },
@@ -42,8 +43,8 @@ public class KafkaWriterReaderTests
 
         await writer.WriteAsync("Message4");
         var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(20));
-        Assert.Single(readMessages);
-        Assert.True(reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(2)));
+        readMessages.Should().HaveCount(1);
+        reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(2)).Should().BeTrue();
     }
         
     static AvroObjectWithEnum AvroObjWithEnum1 =>
@@ -83,8 +84,8 @@ public class KafkaWriterReaderTests
         var readMessages = readerAvro.ReadMessages(1, TimeSpan.FromSeconds(10));
             
         // Assert
-        Assert.Single(readMessages);
-        Assert.True(readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(2)));
+        readMessages.Should().HaveCount(1);
+        readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(2)).Should().BeTrue();
     }
         
     [Fact]
@@ -107,8 +108,8 @@ public class KafkaWriterReaderTests
         var readMessages = readerAvro.ReadMessages(1, TimeSpan.FromSeconds(10));
             
         // Assert
-        Assert.Single(readMessages);
-        Assert.True(readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(2)));
+        readMessages.Should().HaveCount(1);
+        readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(2)).Should().BeTrue();
     }
 
     [Fact]
@@ -133,8 +134,8 @@ public class KafkaWriterReaderTests
         var readMessages = readerAvro.ReadMessages(3, TimeSpan.FromSeconds(10));
             
         // Assert
-        Assert.Equal(3, readMessages.Count());
-        Assert.True(readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(2)));
+        readMessages.Count().Should().Be(3);
+        readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(2)).Should().BeTrue();
     }
 
     [Fact]
@@ -145,7 +146,9 @@ public class KafkaWriterReaderTests
             .WithKeyFunction(message => message)
             .Build();
 
-        await Assert.ThrowsAsync<ArgumentException>(() => writer.WriteAsync());
+        await writer.Invoking(w => w.WriteAsync())
+            .Should()
+            .ThrowAsync<ArgumentException>("it should not be possible to write 0 messages");
     }
 
     [Theory]
@@ -157,7 +160,7 @@ public class KafkaWriterReaderTests
 
     public void Should_ThrowArgumentException_When_RequiredConfigurationIsMissing(string missingKey, bool isAvro)
     {
-        var configurationDictionary = new Dictionary<string, string>
+        var configurationDictionary = new Dictionary<string, string?>
         {
             { "KAFKA:AUTHENDPOINT", "http://localhost:1752/oauth2/token" },
             { "KAFKA:CLIENTID", "ClientId" },
@@ -185,9 +188,9 @@ public class KafkaWriterReaderTests
             writerBuilder.UsingAvro();
             readerBuilder.UsingAvro();
         }
-            
-        Assert.Throws<ArgumentException>(() => writerBuilder.Build());
-        Assert.Throws<ArgumentException>(() => readerBuilder.Build());
+
+        writerBuilder.Invoking(wb => wb.Build()).Should().Throw<ArgumentException>("the builder should not successfully build if required configuration is missing");
+        readerBuilder.Invoking(rb => rb.Build()).Should().Throw<ArgumentException>("the builder should not successfully build if required configuration is missing");
     }
 
     [Theory]
@@ -198,7 +201,7 @@ public class KafkaWriterReaderTests
     [InlineData("://")]
     public void Should_ThrowArgumentException_When_KafkaUrlHasScheme(string kafkaUrlPrefix)
     {
-        var configurationDictionary = new Dictionary<string, string>
+        var configurationDictionary = new Dictionary<string, string?>
         {
             { "KAFKA:AUTHENDPOINT", "http://localhost:1752/oauth2/token" },
             { "KAFKA:CLIENTID", "ClientId" },
@@ -219,8 +222,8 @@ public class KafkaWriterReaderTests
             .WithTopic("MyThrowingTopic")
             .WithConsumerGroup("MyConsumerGroup");
 
-        Assert.Throws<ArgumentException>(() => writerBuilder.Build());
-        Assert.Throws<ArgumentException>(() => readerBuilder.Build());
+        writerBuilder.Invoking(wb => wb.Build()).Should().Throw<ArgumentException>("the builder should not successfully build if the kafka url has a scheme prefix");
+        readerBuilder.Invoking(rb => rb.Build()).Should().Throw<ArgumentException>("the builder should not successfully build if the kafka url has a scheme prefix");
     }
 
     [Theory]
@@ -236,6 +239,14 @@ public class KafkaWriterReaderTests
             .WithTopic(topicName)
             .WithKeyFunction(message => message);
 
-        Assert.Throws<ArgumentException>(() => writerBuilder.Build());
+        var readerBuilder = KafkaReaderBuilder.Create<string, string>(_configuration)
+            .WithTopic(topicName)
+            .WithConsumerGroup("MyConsumerGroup");
+
+        writerBuilder.Invoking(wb => wb.Build())
+            .Should().Throw<ArgumentException>("the builder should not successfully build if given an invalid topic");
+
+        readerBuilder.Invoking(rb => rb.Build())
+            .Should().Throw<ArgumentException>("the builder should not successfully build if given an invalid topic");
     }
 }

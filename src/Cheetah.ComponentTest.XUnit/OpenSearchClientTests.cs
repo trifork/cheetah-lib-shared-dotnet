@@ -1,5 +1,6 @@
 ﻿using Cheetah.ComponentTest.OpenSearch;
-using Cheetah.ComponentTest.XUnit.Model;
+using Cheetah.ComponentTest.XUnit.Model.OpenSearch;
+using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 
 namespace Cheetah.ComponentTest.XUnit;
@@ -12,7 +13,7 @@ public class OpenSearchClientTests
     readonly IConfiguration _configuration;
     public OpenSearchClientTests()
     {
-        var conf = new Dictionary<string, string>
+        var conf = new Dictionary<string, string?>
         {
             { "OPENSEARCH:URL", "http://localhost:9200"},
             { "OPENSEARCH:CLIENTID", "ClientId"},
@@ -39,20 +40,37 @@ public class OpenSearchClientTests
             new ("Document 4", 5),
         };
 
-        var opensearchClient = OpenSearchClientFactory.Create(_configuration);
+        var openSearchClient = OpenSearchClientFactory.Create(_configuration);
 
-        // the Index call takes around 365ms and the DeleteIndex calls take around 165ms so they seem to be running synchronously
-        // which means we can use them without Thread.Sleep which is great
-        opensearchClient.DeleteIndex(indexName);
-        Assert.Equal(0, opensearchClient.Count(indexName));
+        // Make sure the index is empty
+        await openSearchClient.Indices.DeleteAsync(indexName);
+        var count = (await openSearchClient.CountAsync<object>(q => q
+            .Index(indexName))).Count;
+        count.Should().Be(0);
 
-        opensearchClient.Index(indexName, documents);
-        opensearchClient.RefreshIndex(indexName);
-        Assert.Equal(documents.Count, opensearchClient.Count(indexName));
-        Assert.All(opensearchClient.Search<OpenSearchTestModel>(indexName), d => documents.Contains(d.Source));
+        // Insert some data and verify its count
+        await openSearchClient.BulkAsync(b => b
+            .Index(indexName)
+            .CreateMany(documents)
+        );
+        await openSearchClient.Indices.RefreshAsync(indexName);
+        count = (await openSearchClient.CountAsync<object>(q => q
+            .Index(indexName))).Count;
+        count.Should().Be(documents.Count);
+        
+        // Verify that all our documents were inserted
+        var hits = openSearchClient.Search<OpenSearchTestModel>(q => q
+            .Index(indexName)
+            .Size(100)
+        ).Hits;
 
-        opensearchClient.DeleteIndex(indexName);
-        opensearchClient.RefreshIndex(indexName);
-        Assert.Equal(0, opensearchClient.Count(indexName));
+        hits.Select(x => x.Source).Should().BeEquivalentTo(documents, options => options.WithoutStrictOrdering());
+
+        // Verify that we can delete it all again and that nothing is left
+        await openSearchClient.Indices.DeleteAsync(indexName);
+        await openSearchClient.Indices.RefreshAsync(indexName);
+        count = (await openSearchClient.CountAsync<object>(q => q
+            .Index(indexName))).Count;
+        count.Should().Be(0);
     }
 }

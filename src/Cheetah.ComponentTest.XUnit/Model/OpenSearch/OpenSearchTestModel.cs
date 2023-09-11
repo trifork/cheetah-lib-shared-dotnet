@@ -1,13 +1,3 @@
-﻿namespace Cheetah.ComponentTest.XUnit.Model;
+﻿namespace Cheetah.ComponentTest.XUnit.Model.OpenSearch;
 
-public class OpenSearchTestModel
-{
-    public string TestString { get; }
-    public int TestInteger { get; }
-
-    public OpenSearchTestModel(string testString, int testInteger)
-    {
-        TestString = testString;
-        TestInteger = testInteger;
-    }
-}
+public record OpenSearchTestModel(string TestString, int TestInteger) {}
