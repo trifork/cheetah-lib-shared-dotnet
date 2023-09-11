@@ -2,9 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Cheetah.WebApi.Shared.Util;
+using Cheetah.Core.Util;
 using Moq;
 using Newtonsoft.Json;
+using OpenSearch.Client;
 using Xunit;
 
 namespace Cheetah.WebApi.Shared.Test.Util
@@ -152,10 +153,35 @@ namespace Cheetah.WebApi.Shared.Test.Util
             var sb = new StringBuilder();
             var writer = new JsonTextWriter(new StringWriter(sb));
             _sut.WriteJson(writer, dateTime, JsonSerializer.CreateDefault());
+            
+            Assert.Equal((epochSeconds * 1000).ToString(), sb.ToString());
+        }
 
-            var value = sb.ToString();
+        [Theory]
+        [InlineData(-1)]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData((long)int.MaxValue + 1)]
+        public void Should_CorrectlyWriteDateTimeOffsets(long epochSeconds)
+        {
+            var date = DateTimeOffset.UnixEpoch.AddSeconds(epochSeconds);
 
-            Assert.Equal(value, (epochSeconds * 1000).ToString());
+            var sb = new StringBuilder();
+            var writer = new JsonTextWriter(new StringWriter(sb));
+            _sut.WriteJson(writer, date, JsonSerializer.CreateDefault());
+
+            Assert.Equal((epochSeconds * 1000).ToString(), sb.ToString());
+        }
+
+        [Fact]
+        public void Should_WriteNullAsNull()
+        {
+            object? date = null;
+            var sb = new StringBuilder();
+            var writer = new JsonTextWriter(new StringWriter(sb));
+            _sut.WriteJson(writer, date, JsonSerializer.CreateDefault());
+
+            Assert.Equal("null", sb.ToString());
         }
     }
 }

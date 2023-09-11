@@ -2,7 +2,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Cheetah.Core.Config;
 using Cheetah.Core.Interfaces;
-using Cheetah.WebApi.Shared.Util;
+using Cheetah.Core.Util;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
