@@ -45,14 +45,7 @@ public class OpenSearchClientTests
         var openSearchClient = OpenSearchClientFactory.Create(_configuration);
 
         // Make sure the index is empty
-        try
-        {
-            await openSearchClient.DeleteIndexAsync(indexName);
-        }
-        catch (OpenSearchClientException _)
-        {
-            // Suppress - It's okay if we can't delete the index, since it might not be there.
-        }
+        await openSearchClient.DeleteIndexAsync(indexName, allowFailure: true);
         
         // Insert some data and verify its count
         await openSearchClient.InsertAsync(indexName, documents);

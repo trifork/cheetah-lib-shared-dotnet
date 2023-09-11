@@ -14,9 +14,16 @@ public static class OpenSearchClientExtensions
     /// </summary>
     /// <param name="client">The <see cref="OpenSearchClient"/> used to access OpenSearch</param>
     /// <param name="indexName">The index to delete</param>
+    /// <param name="allowFailure">Whether or not deletion of the index is allowed to fail. Useful if you want to clean up before running a test.</param>
     /// <returns>A <see cref="DeleteIndexResponse"/> which can be used to verify the result of the delete operation</returns>
-    public static async Task<DeleteIndexResponse> DeleteIndexAsync(this OpenSearchClient client, string indexName)
-        => (await client.Indices.DeleteAsync(indexName)).ThrowIfNotValid();
+    public static async Task<DeleteIndexResponse> DeleteIndexAsync(this OpenSearchClient client, string indexName,
+        bool allowFailure = false)
+    {
+        var response = await client.Indices.DeleteAsync(indexName);
+        return allowFailure 
+            ? response 
+            : response.ThrowIfNotValid();
+    }
 
     /// <summary>
     /// Asynchronously counts the amount of documents in a given index.
