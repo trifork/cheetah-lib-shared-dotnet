@@ -5,7 +5,6 @@ using System.Text;
 using Cheetah.Core.Util;
 using Moq;
 using Newtonsoft.Json;
-using OpenSearch.Client;
 using Xunit;
 
 namespace Cheetah.WebApi.Shared.Test.Util
@@ -177,6 +176,28 @@ namespace Cheetah.WebApi.Shared.Test.Util
         public void Should_WriteNullAsNull()
         {
             object? date = null;
+            var sb = new StringBuilder();
+            var writer = new JsonTextWriter(new StringWriter(sb));
+            _sut.WriteJson(writer, date, JsonSerializer.CreateDefault());
+
+            Assert.Equal("null", sb.ToString());
+        }
+
+        [Fact]
+        public void Should_CorrectlySerializeDefaultDateTimeAsNull()
+        {
+            DateTime date = new();
+            var sb = new StringBuilder();
+            var writer = new JsonTextWriter(new StringWriter(sb));
+            _sut.WriteJson(writer, date, JsonSerializer.CreateDefault());
+
+            Assert.Equal("null", sb.ToString());
+        }
+        
+        [Fact]
+        public void Should_CorrectlySerializeDefaultDateTimeOffsetAsNull()
+        {            
+            DateTimeOffset date = new();
             var sb = new StringBuilder();
             var writer = new JsonTextWriter(new StringWriter(sb));
             _sut.WriteJson(writer, date, JsonSerializer.CreateDefault());
