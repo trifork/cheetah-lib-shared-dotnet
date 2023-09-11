@@ -1,53 +1,12 @@
-name: .NET Create Release
+name: .NET Create Release Call
 
 on:
   workflow_dispatch:
-  
+
 jobs:
-  verify-release-branch:
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Success"
-        if: ${{ startsWith(github.ref_name, 'release/') }}
-        run: |
-          echo "Creating a release for branch '${{ github.ref_name }}'"
-          exit 0
-
-      - name: "Error"
-        if: ${{ !startsWith(github.ref_name, 'release/') }}
-        run: |
-          echo "::error::Cannot create release from branch '${{ github.ref_name }}' since it does not start with 'release/'"
-          exit 1
-
   create-release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Checkout"
-        uses: actions/checkout@v3
-
-      - name: "dotnet build"
-        uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
-        with:
-          read_package_pat: ${{ secrets.GITHUB_TOKEN }}
-          dotnet-version: "7.0"
-          github_actor: ${{ github.actor }}
-          solution_filepath: ./src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj
-          silent: "true"
-
-      - name: Pack NuGet release
-        shell: pwsh
-        run: ./scripts/Fat-Pack.ps1 -ProjectPath ./src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj -DestinationPath output -DotnetPackArgs "-c Release"
-
-      - name: "Publish to github packages"
-        run: dotnet nuget push output/*.nupkg --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
-
-      # - name: Publish to Kamstrup GitLab
-      #   shell: bash
-      #   run: |
-      #     dotnet nuget add source "https://gitlab.com/api/v4/projects/45237329/packages/nuget/index.json" --name gitlab --username trifork --password ${{ vars.KAMSTRUP_GITLAB_TOKEN }} --store-password-in-clear-text
-      #     dotnet nuget push output/*.nupkg --source gitlab
-
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          generate_release_notes: true
+    uses: trifork/cheetah-infrastructure-utils/.github/workflows/dotnet-create-release.yml@main
+    with:
+      csproj-filepath: cheetah-dotnet-release-test.csproj
+    secrets:
+      PAT: ${{ secrets.PACKAGE_PAT }}

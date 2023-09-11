@@ -1,9 +1,9 @@
-name: .NET Create Release Branch
+name: .NET Create Release Branch Call
 
 on:
   workflow_dispatch:
     inputs:
-      main-increment:
+      bump-type:
         description: Increment Major or Minor semantic-version on main branch after release branch has been created
         required: true
         type: choice
@@ -12,27 +12,11 @@ on:
           - minor
         default: minor
 
-      main-push-type:
-        description: How to push to main branch (push or pullrequest)
-        required: true
-        type: choice
-        options:
-          - push
-          - pullrequest
-
-      dotnet-version:
-        description: The version of the dotnet framework
-        required: false
-        type: string
-        default: '7.0'
-
 jobs:
   create-release-branch:
     uses: trifork/cheetah-infrastructure-utils/.github/workflows/dotnet-create-release-branch.yml@main
     with:
-      csproj-filepath: ./src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj
-      main-increment: ${{ inputs.main-increment }}
-      main-push-type: ${{ inputs.main-push-type }}
-      dotnet-version: ${{ inputs.dotnet-version }}
+      csproj-filepath: cheetah-dotnet-release-test.csproj
+      bump-type: ${{ inputs.bump-type }}
     secrets:
       PAT: ${{ secrets.PACKAGE_PAT }}
