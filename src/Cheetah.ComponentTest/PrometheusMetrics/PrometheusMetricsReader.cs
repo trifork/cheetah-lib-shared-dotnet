@@ -10,6 +10,12 @@ namespace Observability.ComponentTest.PrometheusMetrics
     {
         private readonly HttpClient httpClient;
 
+
+        /// <summary>
+        /// Creates a reader allowing to read from a prometheus endpoint
+        /// </summary>
+        /// <param name="host">The host to connect to</param>
+        /// <param name="port">The port to connect to, defaults to 9249</param>
         public PrometheusMetricsReader(string host, int port = 9249)
         {
             httpClient = new HttpClient
@@ -18,6 +24,11 @@ namespace Observability.ComponentTest.PrometheusMetrics
             };
         }
 
+        /// <summary>
+        /// Returns all metrics returned by the metrics endpoint
+        /// </summary>
+        /// <param name="logMetricsLines">Íf set to true, all lines not starting with # are logged to Console</param>
+        /// <returns>All metrics returned by the metrics endpoint</returns>
         public async Task<Dictionary<string, string>> GetMetricsAsync(bool logMetricsLines = false)
         {
             var stream = await httpClient.GetStreamAsync("");
@@ -40,6 +51,12 @@ namespace Observability.ComponentTest.PrometheusMetrics
             return metrics;
         }
 
+        /// <summary>
+        /// Returns all metrics containing the input string, returned by the metrics endpoint
+        /// </summary>
+        /// <param name="logMetricsLines">Íf set to true, all lines not starting with #, containing the input string are logged to Console</param>
+        /// <param name="contains">The string which metrics should contain</param>
+        /// <returns>All metrics returned by the metrics endpoint</returns>
         public async Task<Dictionary<string, string>> GetMetricsAsync(string contains, bool logMetricsLines = false)
         {
             var stream = await httpClient.GetStreamAsync("");
@@ -52,7 +69,7 @@ namespace Observability.ComponentTest.PrometheusMetrics
                 {
                     continue;
                 }
-                if(logMetricsLines)
+                if (logMetricsLines)
                 {
                     Console.WriteLine(line);
                 }
