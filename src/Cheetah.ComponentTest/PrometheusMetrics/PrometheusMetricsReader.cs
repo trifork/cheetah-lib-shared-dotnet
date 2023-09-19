@@ -1,22 +1,20 @@
+﻿using OpenSearch.Client;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Observability.ComponentTest.PrometheusMetrics
 {
-    public class PrometheusMetricsReader : IDisposable
+    public class PrometheusMetricsReader
     {
-        private readonly HttpClient httpClient;
+        private const string QuantileString = "quantile=\"";
+        private HttpClient httpClient;
 
-
-        /// <summary>
-        /// Creates a reader allowing to read from a prometheus endpoint
-        /// </summary>
-        /// <param name="host">The host to connect to</param>
-        /// <param name="port">The port to connect to, defaults to 9249</param>
-        public PrometheusMetricsReader(string host, int port = 9249)
+        public PrometheusMetricsReader(string host, int port)
         {
             httpClient = new HttpClient
             {
@@ -24,11 +22,6 @@ namespace Observability.ComponentTest.PrometheusMetrics
             };
         }
 
-        /// <summary>
-        /// Returns all metrics returned by the metrics endpoint
-        /// </summary>
-        /// <param name="logMetricsLines">Íf set to true, all lines not starting with # are logged to Console</param>
-        /// <returns>All metrics returned by the metrics endpoint</returns>
         public async Task<Dictionary<string, string>> GetMetricsAsync(bool logMetricsLines = false)
         {
             var stream = await httpClient.GetStreamAsync("");
@@ -46,17 +39,11 @@ namespace Observability.ComponentTest.PrometheusMetrics
                     Console.WriteLine(line);
                 }
                 var split = line.LastIndexOf(' ');
-                metrics.Add(line[..(split - 1)], line[split..]);
+                metrics.Add(line.Substring(0, split - 1), line.Substring(split));
             }
             return metrics;
         }
 
-        /// <summary>
-        /// Returns all metrics containing the input string, returned by the metrics endpoint
-        /// </summary>
-        /// <param name="logMetricsLines">Íf set to true, all lines not starting with #, containing the input string are logged to Console</param>
-        /// <param name="contains">The string which metrics should contain</param>
-        /// <returns>All metrics returned by the metrics endpoint</returns>
         public async Task<Dictionary<string, string>> GetMetricsAsync(string contains, bool logMetricsLines = false)
         {
             var stream = await httpClient.GetStreamAsync("");
@@ -74,14 +61,101 @@ namespace Observability.ComponentTest.PrometheusMetrics
                     Console.WriteLine(line);
                 }
                 var split = line.LastIndexOf(' ');
-                metrics.Add(line[..(split - 1)], line[split..]);
+                metrics.Add(line.Substring(0, split - 1), line.Substring(split));
             }
             return metrics;
         }
 
-        public void Dispose()
+        public async Task<double> GetCounterValueAsync(string name, bool logMetricsLines = false)
         {
-            httpClient.Dispose();
+            var stream = await httpClient.GetStreamAsync("");
+            using var reader = new StreamReader(stream);
+            string line;
+            double sum = 0;
+            bool found = false;
+            while ((line = reader.ReadLine()) != null)
+            {
+                if (line.StartsWith("# HELP"))
+                {
+                    var split = line.Split(" ");
+                    if (split.Length > 4)
+                    {
+                        found = split[3] == name;
+                    }
+                    else
+                    {
+                        found = false;
+                    }
+                }
+                if (line.StartsWith("#"))
+                {
+                    continue;
+                }
+                if (found)
+                {
+
+                    if (logMetricsLines)
+                    {
+                        Console.WriteLine(line);
+                    }
+                    var lineSplit = line.LastIndexOf(' ');
+                    sum += double.Parse(line.Substring(lineSplit), NumberStyles.Any, CultureInfo.InvariantCulture);
+                }
+            }
+            return sum;
+        }
+
+        public async Task<List<PrometheusHistogram>> GetHistogramValueAsync(string name, bool logMetricsLines = false)
+        {
+            var stream = await httpClient.GetStreamAsync("");
+            using var reader = new StreamReader(stream);
+            string line;
+            List<PrometheusHistogram> histograms = new List<PrometheusHistogram>();
+            PrometheusHistogram histogram = null;
+            bool found = false;
+            while ((line = reader.ReadLine()) != null)
+            {
+                if (line.StartsWith("# HELP"))
+                {
+                    var split = line.Split(" ");
+                    if (split.Length > 4)
+                    {
+                        found = split[3] == name;
+                    }
+                    else
+                    {
+                        found = false;
+                    }
+                }
+                if (line.StartsWith("#"))
+                {
+                    continue;
+                }
+                if (found)
+                {
+                    if (logMetricsLines)
+                    {
+                        Console.WriteLine(line);
+                    }
+                    var lineSplit = line.LastIndexOf('{');
+                    if (line.Substring(0, lineSplit).EndsWith("_count"))
+                    {
+                        var spaceSplit = line.LastIndexOf(' ');
+                        var count = double.Parse(line.Substring(spaceSplit), NumberStyles.Any, CultureInfo.InvariantCulture);
+                        histogram = new PrometheusHistogram(count);
+                        histograms.Add(histogram);
+                    }
+                    else
+                    {
+                        var quantileSplit = line.LastIndexOf(QuantileString);
+                        var quantile = line.Substring(quantileSplit + QuantileString.Length, line.LastIndexOf('\"') - (quantileSplit + QuantileString.Length));
+                        var spaceSplit = line.LastIndexOf(' ');
+                        var value = double.Parse(line.Substring(spaceSplit + 1), NumberStyles.Any, CultureInfo.InvariantCulture);
+                        histogram.AddQuantile(quantile, value);
+                    }
+                }
+            }
+            return histograms;
         }
     }
 }
