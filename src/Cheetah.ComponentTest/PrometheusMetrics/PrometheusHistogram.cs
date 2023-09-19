@@ -1,10 +1,6 @@
-﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Observability.ComponentTest.PrometheusMetrics
+namespace Cheetah.ComponentTest.PrometheusMetrics
 {
     public class PrometheusHistogram
     {
@@ -14,8 +10,8 @@ namespace Observability.ComponentTest.PrometheusMetrics
 
         public PrometheusHistogram(double count)
         {
-            this.Count = count;
-            this.Quantiles = new List<KeyValuePair<string,double>>();
+            Count = count;
+            Quantiles = new List<KeyValuePair<string, double>>();
         }
 
         public void AddQuantile(string quantile, double value)
