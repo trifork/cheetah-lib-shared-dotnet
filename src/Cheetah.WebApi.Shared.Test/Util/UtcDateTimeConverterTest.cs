@@ -180,7 +180,7 @@ namespace Cheetah.WebApi.Shared.Test.Util
 
             Assert.Equal("0", sb.ToString());
         }
-        
+
         [Fact]
         public void Should_SerializeDefaultDateTimeOffsetAs0()
         {            
