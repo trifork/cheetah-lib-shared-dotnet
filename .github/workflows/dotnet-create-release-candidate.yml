@@ -1,4 +1,4 @@
-name: .NET Create Release Candidate Call
+name: .NET Create Release Candidate WebApi
 
 on:
   push:
@@ -9,6 +9,7 @@ jobs:
   create-release-candidate:
     uses: trifork/cheetah-infrastructure-utils/.github/workflows/dotnet-create-release-candidate.yml@main
     with:
-      csproj-filepath: cheetah-dotnet-release-test.csproj
+      fat-pack: true
+      csproj-filepath: src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj
     secrets:
       PAT: ${{ secrets.PACKAGE_PAT }}

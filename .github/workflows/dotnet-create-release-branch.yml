@@ -1,4 +1,4 @@
-name: .NET Create Release Branch Call
+name: .NET Create Release Branch WebApi
 
 on:
   workflow_dispatch:
@@ -16,7 +16,7 @@ jobs:
   create-release-branch:
     uses: trifork/cheetah-infrastructure-utils/.github/workflows/dotnet-create-release-branch.yml@main
     with:
-      csproj-filepath: cheetah-dotnet-release-test.csproj
+      csproj-filepath: src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj
       bump-type: ${{ inputs.bump-type }}
     secrets:
       PAT: ${{ secrets.PACKAGE_PAT }}

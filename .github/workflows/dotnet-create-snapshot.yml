@@ -1,12 +1,43 @@
-name: .NET Create Snapshot Call
+name: .NET Create Snapshot
 
 on:
   workflow_dispatch:
+    inputs:
+      project:
+        description: Which project to create a snapshot of
+        required: true
+        type: choice
+        options:
+          - Cheetah.WebApi.Shared
+          - Cheetah.ComponentTest
+        default: Cheetah.WebApi.Shared
 
 jobs:
+  get-csproj-filepath:
+    runs-on: ubuntu-latest
+    outputs:
+      csproj-filepath: ${{ steps.get-csproj-filepath.outputs.csproj-filepath }}
+    steps:
+      - name: Get csproj filepath
+        id: get-csproj-filepath
+        run: |
+          case ${{ inputs.project }} in
+            'Cheetah.WebApi.Shared')
+              echo "csproj-filepath=src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj" >> $GITHUB_OUTPUT;;
+
+            'Cheetah.ComponentTest')
+              echo "csproj-filepath=src/Cheetah.ComponentTest/Cheetah.ComponentTest.csproj" >> GITHUB_OUTPUT;;
+
+            *)
+              echo "Unexpected project ${{ inputs.project }}"
+              exit 1
+          esac
+
   create-release:
+    needs: get-csproj-filepath
     uses: trifork/cheetah-infrastructure-utils/.github/workflows/dotnet-create-snapshot.yml@main
     with:
-      csproj-filepath: cheetah-dotnet-release-test.csproj
+      fat-pack: true
+      csproj-filepath: ${{ needs.get-csproj-filepath.outputs.csproj-filepath }}
     secrets:
       PAT: ${{ secrets.PACKAGE_PAT }}
