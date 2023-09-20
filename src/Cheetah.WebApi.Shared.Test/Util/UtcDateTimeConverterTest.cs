@@ -22,30 +22,24 @@ namespace Cheetah.WebApi.Shared.Test.Util
         public static IEnumerable<object[]> ValidTestCases =>
             new List<object[]>
             {
+                new object[] { "-2147483647001", DateTime.UnixEpoch.AddSeconds(-int.MaxValue).AddMilliseconds(-1) }, // Survives Y2K38
+                new object[] { "-123", DateTime.UnixEpoch.AddMilliseconds(-123) },
                 new object[] { "0", DateTime.UnixEpoch },
                 new object[] { "123", DateTime.UnixEpoch.AddMilliseconds(123) },
-                new object[]
-                {
-                    "2147483647001",
-                    DateTime.UnixEpoch.AddSeconds(int.MaxValue).AddMilliseconds(1)
-                }, // Survives Y2K38
+                new object[] { "\"1970-01-01 00:00:00.123Z\"", DateTime.UnixEpoch.AddMilliseconds(123) },
+                new object[] { "2147483647001", DateTime.UnixEpoch.AddSeconds(int.MaxValue).AddMilliseconds(1) }, // Survives Y2K38
                 new object[] { "\"1970-01-01 00:00:00Z\"", DateTime.UnixEpoch },
                 new object[] { "\"1970-01-01 01:00:00+0100\"", DateTime.UnixEpoch },
-                new object[]
-                {
-                    "\"1970-01-01 00:00:00.123Z\"",
-                    DateTime.UnixEpoch.AddMilliseconds(123)
-                },
-                new object[]
-                {
-                    "\"2038-01-19 03:14:07.001Z\"",
-                    DateTime.UnixEpoch.AddSeconds(int.MaxValue).AddMilliseconds(1)
-                } // Survives Y2K38
+                new object[] { "\"1970-01-01T01:00:00+0100\"", DateTime.UnixEpoch },
+                new object[] { "\"1970-01-01T01:00:00Z\"", DateTime.UnixEpoch.AddHours(1) },
+                new object[] { "\"1969-01-01T00:00:00Z\"", DateTime.UnixEpoch.AddYears(-1000) },
+                new object[] { "\"970-01-01T00:00:00Z\"", DateTime.UnixEpoch.AddYears(-1000) },
+                new object[] { "\"2038-01-19 03:14:07.001Z\"", DateTime.UnixEpoch.AddSeconds(int.MaxValue).AddMilliseconds(1) } // Survives Y2K38
             };
 
         [Theory]
         [MemberData(nameof(ValidTestCases))]
-        public void Should_CorrectlyConvertJsonToDateTime_When_ProvidedValidDatetimeJson(
+        public void Should_ConvertJsonToDateTime_When_ProvidedValidDatetimeJson(
             string json,
             DateTime expected
         )
@@ -57,8 +51,7 @@ namespace Cheetah.WebApi.Shared.Test.Util
                     break;
             }
 
-            var actual = (DateTime)
-                _sut.ReadJson(reader, typeof(DateTime), null, JsonSerializer.CreateDefault());
+            var actual = (DateTime?) _sut.ReadJson(reader, typeof(DateTime), null, JsonSerializer.CreateDefault());
 
             Assert.Equal(expected, actual);
         }
@@ -67,10 +60,7 @@ namespace Cheetah.WebApi.Shared.Test.Util
 
         [Theory]
         [MemberData(nameof(ValidTestCases))]
-        public void Should_CorrectlyDeserializeDateTimeRepresentations_When_UsedInASerializer(
-            string valueJson,
-            DateTime expected
-        )
+        public void Should_DeserializeDateTimeRepresentations_When_UsedInASerializer(string valueJson, DateTime expected)
         {
             var json = $"{{ \"DateTime\": {valueJson} }}";
             var settings = new JsonSerializerSettings();
@@ -81,14 +71,9 @@ namespace Cheetah.WebApi.Shared.Test.Util
         }
 
         [Theory]
-        [InlineData("")]
-        [InlineData("{}")]
-        [InlineData("{\"someValue\":\"0\"")]
-        [InlineData("[0]")]
+        [InlineData("\"12345-1-123Q2:409:0.A!100:002\"")]
         [InlineData("\"ThisIsNotADateTime\"")]
-        public void Should_ThrowJsonSerializationException_When_ProvidedInvalidDatetimeJson(
-            string json
-        )
+        public void Should_ThrowJsonSerializationException_When_ProvidedInvalidDatetimeJson(string json)
         {
             var reader = new JsonTextReader(new StringReader(json));
             while (reader.TokenType == JsonToken.None)
@@ -103,13 +88,13 @@ namespace Cheetah.WebApi.Shared.Test.Util
         }
 
         [Fact]
-        public void Should_CorrectlyReadDateTime()
+        public void Should_ReadDateTime()
         {
             DateTime dateTime = DateTime.UnixEpoch;
             var readerMock = new Mock<JsonReader>();
             readerMock.SetupGet(x => x.Value).Returns(dateTime);
 
-            var value = (DateTime)
+            var value = (DateTime?)
                 _sut.ReadJson(
                     readerMock.Object,
                     typeof(DateTime),
@@ -121,13 +106,13 @@ namespace Cheetah.WebApi.Shared.Test.Util
         }
 
         [Fact]
-        public void Should_CorrectlyReadDateTimeOffset()
+        public void Should_ReadDateTimeOffset()
         {
-            var dateTime = DateTimeOffset.UnixEpoch;
+            DateTimeOffset? dateTime = DateTimeOffset.UnixEpoch;
             var readerMock = new Mock<JsonReader>();
             readerMock.SetupGet(x => x.Value).Returns(dateTime);
 
-            var value = (DateTime)
+            var value = (DateTime?)
                 _sut.ReadJson(
                     readerMock.Object,
                     typeof(DateTime),
@@ -139,11 +124,12 @@ namespace Cheetah.WebApi.Shared.Test.Util
         }
 
         [Theory]
+        [InlineData((long)int.MinValue - 1)]
         [InlineData(-1)]
         [InlineData(0)]
         [InlineData(1)]
         [InlineData((long)int.MaxValue + 1)] // Survives Y2K38
-        public void Should_CorrectlySerializeDateTimeIntoEpochMillis_When_ProvidedValidDateTime(
+        public void Should_SerializeDateTimeIntoEpochMillis_When_ProvidedValidDateTime(
             long epochSeconds
         )
         {
@@ -157,11 +143,12 @@ namespace Cheetah.WebApi.Shared.Test.Util
         }
 
         [Theory]
+        [InlineData((long)int.MinValue - 1)]
         [InlineData(-1)]
         [InlineData(0)]
         [InlineData(1)]
         [InlineData((long)int.MaxValue + 1)]
-        public void Should_CorrectlyWriteDateTimeOffsets(long epochSeconds)
+        public void Should_WriteDateTimeOffsets(long epochSeconds)
         {
             var date = DateTimeOffset.UnixEpoch.AddSeconds(epochSeconds);
 
@@ -184,25 +171,25 @@ namespace Cheetah.WebApi.Shared.Test.Util
         }
 
         [Fact]
-        public void Should_CorrectlySerializeDefaultDateTimeAsNull()
+        public void Should_SerializeDefaultDateTimeAs0()
         {
             DateTime date = new();
             var sb = new StringBuilder();
             var writer = new JsonTextWriter(new StringWriter(sb));
             _sut.WriteJson(writer, date, JsonSerializer.CreateDefault());
 
-            Assert.Equal("null", sb.ToString());
+            Assert.Equal("0", sb.ToString());
         }
         
         [Fact]
-        public void Should_CorrectlySerializeDefaultDateTimeOffsetAsNull()
+        public void Should_SerializeDefaultDateTimeOffsetAs0()
         {            
             DateTimeOffset date = new();
             var sb = new StringBuilder();
             var writer = new JsonTextWriter(new StringWriter(sb));
             _sut.WriteJson(writer, date, JsonSerializer.CreateDefault());
 
-            Assert.Equal("null", sb.ToString());
+            Assert.Equal("0", sb.ToString());
         }
     }
 }
