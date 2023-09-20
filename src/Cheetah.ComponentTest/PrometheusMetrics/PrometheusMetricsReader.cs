@@ -19,7 +19,7 @@ namespace Observability.ComponentTest.PrometheusMetrics
         /// </summary>
         /// <param name="host">The host to connect to</param>
         /// <param name="port">The port to connect to, defaults to 9249</param>
-        public PrometheusMetricsReader(string host, int port)
+        public PrometheusMetricsReader(string host, int port = 9249)
         {
             httpClient = new HttpClient
             {
@@ -28,12 +28,13 @@ namespace Observability.ComponentTest.PrometheusMetrics
         }
 
         /// <summary>
-        /// Returns all metrics returned by the metrics endpoint
+        /// Returns all metrics containing the input string, returned by the metrics endpoint.
         /// Multiple metrics with the same name, can happen if running multiple taskmanagers or setting taskmanager.numberOfTaskSlots higher than 1
         /// </summary>
-        /// <param name="logMetricsLines">Íf set to true, all lines not starting with # are logged to Console</param>
+        /// <param name="contains">The string which metrics should contain, if empty returns all metrics</param>
+        /// <param name="logMetricsLines">Íf set to true, all lines not starting with #, containing the input string are logged to Console</param>
         /// <returns>All metrics returned by the metrics endpoint</returns>
-        public async Task<Dictionary<string, string>> GetMetricsAsync(bool logMetricsLines = false)
+        public async Task<Dictionary<string, string>> GetMetricsAsync(string contains = "", bool logMetricsLines = false)
         {
             var stream = await httpClient.GetStreamAsync("");
             var metrics = new Dictionary<string, string>();
@@ -45,35 +46,12 @@ namespace Observability.ComponentTest.PrometheusMetrics
                 {
                     continue;
                 }
-                if (logMetricsLines)
-                {
-                    Console.WriteLine(line);
-                }
-                var split = line.LastIndexOf(' ');
-                metrics.Add(line[..(split - 1)], line[split..]);
-            }
-            return metrics;
-        }
 
-        /// <summary>
-        /// Returns all metrics containing the input string, returned by the metrics endpoint.
-        /// Multiple metrics with the same name, can happen if running multiple taskmanagers or setting taskmanager.numberOfTaskSlots higher than 1
-        /// </summary>
-        /// <param name="contains">The string which metrics should contain</param>
-        /// <param name="logMetricsLines">Íf set to true, all lines not starting with #, containing the input string are logged to Console</param>
-        /// <returns>All metrics returned by the metrics endpoint</returns>
-        public async Task<Dictionary<string, string>> GetMetricsAsync(string contains, bool logMetricsLines = false)
-        {
-            var stream = await httpClient.GetStreamAsync("");
-            var metrics = new Dictionary<string, string>();
-            using var reader = new StreamReader(stream);
-            string line;
-            while ((line = reader.ReadLine()) != null)
-            {
-                if (line.StartsWith("#") || !line.Contains(contains))
+                if (!string.IsNullOrEmpty(contains) && !line.Contains(contains))
                 {
                     continue;
                 }
+
                 if (logMetricsLines)
                 {
                     Console.WriteLine(line);
