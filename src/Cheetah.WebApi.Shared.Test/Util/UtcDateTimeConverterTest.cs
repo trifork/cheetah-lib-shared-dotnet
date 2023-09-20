@@ -32,7 +32,7 @@ namespace Cheetah.WebApi.Shared.Test.Util
                 new object[] { "\"1970-01-01 01:00:00+0100\"", DateTime.UnixEpoch },
                 new object[] { "\"1970-01-01T01:00:00+0100\"", DateTime.UnixEpoch },
                 new object[] { "\"1970-01-01T01:00:00Z\"", DateTime.UnixEpoch.AddHours(1) },
-                new object[] { "\"1969-01-01T00:00:00Z\"", DateTime.UnixEpoch.AddYears(-1000) },
+                new object[] { "\"1969-01-01T00:00:00Z\"", DateTime.UnixEpoch.AddYears(-1) },
                 new object[] { "\"970-01-01T00:00:00Z\"", DateTime.UnixEpoch.AddYears(-1000) },
                 new object[] { "\"2038-01-19 03:14:07.001Z\"", DateTime.UnixEpoch.AddSeconds(int.MaxValue).AddMilliseconds(1) } // Survives Y2K38
             };
