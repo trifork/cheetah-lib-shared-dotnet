@@ -33,11 +33,11 @@ jobs:
               exit 1
           esac
 
-  create-release:
+  create-snapshot:
     needs: get-csproj-filepath
     uses: trifork/cheetah-infrastructure-utils/.github/workflows/dotnet-create-snapshot.yml@main
     with:
       fat-pack: true
       csproj-filepath: ${{ needs.get-csproj-filepath.outputs.csproj-filepath }}
     secrets:
-      PAT: ${{ secrets.PACKAGE_PAT }}
+      PAT: ${{ secrets.PAT }}
