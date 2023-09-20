@@ -1,0 +1,12 @@
+name: .NET Create Snapshot Call
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create-release:
+    uses: trifork/cheetah-infrastructure-utils/.github/workflows/dotnet-create-snapshot.yml@main
+    with:
+      csproj-filepath: cheetah-dotnet-release-test.csproj
+    secrets:
+      PAT: ${{ secrets.PACKAGE_PAT }}

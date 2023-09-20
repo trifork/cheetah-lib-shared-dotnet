@@ -1,0 +1,22 @@
+name: .NET Create Release Branch Call
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump-type:
+        description: Increment Major or Minor semantic-version on main branch after release branch has been created
+        required: true
+        type: choice
+        options:
+          - major
+          - minor
+        default: minor
+
+jobs:
+  create-release-branch:
+    uses: trifork/cheetah-infrastructure-utils/.github/workflows/dotnet-create-release-branch.yml@main
+    with:
+      csproj-filepath: cheetah-dotnet-release-test.csproj
+      bump-type: ${{ inputs.bump-type }}
+    secrets:
+      PAT: ${{ secrets.PACKAGE_PAT }}

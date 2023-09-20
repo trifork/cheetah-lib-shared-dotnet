@@ -1,0 +1,28 @@
+name: Build docfx
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  SOLUTION_FILEPATH: ./Cheetah.WebApi.Shared.sln
+
+jobs:
+  publish-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: "dotnet build"
+        uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
+        with:
+          read_package_pat: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
+          dotnet-version: "6.0"
+          github_actor: ${{ github.actor }}
+          solution_filepath: ${{ env.SOLUTION_FILEPATH }}
+      
+      - name: Build docfx
+        uses: trifork/cheetah-infrastructure-utils/.github/actions/build-docfx@main
+        with:
+          read_package_pat: ${{ secrets.PACKAGE_PAT }}
