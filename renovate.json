@@ -1,0 +1,7 @@
+{
+    "extends": [
+        "github>trifork/cheetah-infrastructure-utils",
+        "github>trifork/cheetah-infrastructure-utils:groupMinorPatch",
+        "github>trifork/cheetah-infrastructure-utils:seperateMajor"
+    ]
+}
