@@ -1,9 +1,20 @@
-using System;
 using Cheetah.Core.Config;
+using Cheetah.Core.Infrastructure.Services.OpenSearchClient;
+using Cheetah.Core.Util;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Hosting.Internal;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using OpenSearch.Client;
+using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace Cheetah.ComponentTest.OpenSearch
 {
+    /// <summary>
+    /// Factory used for creating instances of <see cref="OpenSearchClient"/> which have pre-configured OAuth2 authentication.
+    /// </summary>
     public static class OpenSearchClientFactory
     {
         private const string OPENSEARCH_PREFIX = "OPENSEARCH:";
@@ -13,6 +24,45 @@ namespace Cheetah.ComponentTest.OpenSearch
         private const string OAUTHSCOPE_KEY = OPENSEARCH_PREFIX + "OAUTHSCOPE";
         private const string AUTHENDPOINT_KEY = OPENSEARCH_PREFIX + "AUTHENDPOINT";
 
+        /// <summary>
+        /// Creates a new instance of an <see cref="OpenSearchClient"/>.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Retrieves necessary configuration from the provided <see cref="IConfiguration"/>
+        /// </para>
+        /// <para>
+        /// Requires the following keys to be set in the provided configuration:
+        /// <list type="table">
+        ///     <listheader>
+        ///        <term>Key</term>
+        ///        <description>Description</description>
+        ///     </listheader>
+        ///     <item>
+        ///         <term><c>OPENSEARCH:URL</c></term>
+        ///         <description>Required - The URL where OpenSearch can be reached</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><c>OPENSEARCH:CLIENTID</c></term>
+        ///         <description>Required - The clientId to use when authenticating towards OpenSearch</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><c>OPENSEARCH:CLIENTSECRET</c></term>
+        ///         <description>Required - The client secret to use when authenticating towards OpenSearch</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><c>OPENSEARCH:AUTHENDPOINT</c></term>
+        ///         <description>Required - The endpoint to retrieve authentication tokens from</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><c>OPENSEARCH:OAUTHSCOPE</c></term>
+        ///         <description>Optional - The scope to request when retrieving authentication tokens</description>
+        ///     </item>
+        /// </list>
+        /// </para>
+        /// </remarks>
+        /// <param name="configuration">The configuration to use when constructing the client</param>
+        /// <returns>The created <see cref="OpenSearchClient"/></returns>
         public static OpenSearchClient Create(IConfiguration configuration)
         {
             var url = configuration.GetValue<string>(URL_KEY);
@@ -30,8 +80,21 @@ namespace Cheetah.ComponentTest.OpenSearch
                 OAuthScope = oauthScope,
                 TokenEndpoint = authEndpoint
             };
+            
+            var options = Options.Create(config);
+            var env = new HostingEnvironment { EnvironmentName = Environments.Development };
 
-            return new OpenSearchClient(config);
+            var memoryCache = new MemoryCache(new MemoryCacheOptions());
+            var httpClientFactory = new DefaultHttpClientFactory();
+            var loggerFactory = LoggerFactory.Create(builder =>
+            {
+                builder.SetMinimumLevel(LogLevel.Debug);
+                builder.AddConsole();
+            });
+
+            var logger = loggerFactory.CreateLogger<CheetahOpenSearchClient>();
+
+            return new CheetahOpenSearchClient(memoryCache, httpClientFactory, options, env, logger).InternalClient;
         }
     }
 }
