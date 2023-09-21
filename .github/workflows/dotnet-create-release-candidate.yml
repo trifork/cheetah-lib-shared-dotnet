@@ -21,7 +21,7 @@ jobs:
 
       - name: Get csproj filepath
         id: get-csproj-filepath
-        uses: ./.github/workflows/actions/get-csproj-filepath
+        uses: ./.github/actions/get-csproj-filepath
         with:
           project-name: ${{ steps.get-project-name.outputs.project-name }}
 
