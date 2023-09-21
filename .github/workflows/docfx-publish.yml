@@ -31,19 +31,13 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
       - name: "dotnet build"
-        uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
-        with:
-          read_package_pat: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
-          dotnet-version: "6.0"
-          github_actor: ${{ github.actor }}
-          solution_filepath: ${{ env.SOLUTION_FILEPATH }}
+        uses: trifork/cheetah-infrastructure-utils/.github/actions/dotnet/dotnet-build@main
       
       - name: Build docfx
-        uses: trifork/cheetah-infrastructure-utils/.github/actions/build-docfx@main
-        with:
-          read_package_pat: ${{ secrets.PACKAGE_PAT }}
+        uses: trifork/cheetah-infrastructure-utils/.github/actions/docfx/docfx-build@main
 
       - name: create public/
         run: |
