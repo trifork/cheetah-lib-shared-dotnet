@@ -1,4 +1,4 @@
-name: Build and test Cheetah.shared nuget package (Will also be run nightly)
+name: Test Cheetah.Hhared NuGet Package
 
 on:
   workflow_dispatch:
@@ -16,6 +16,7 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v4
+
       - name: "dotnet build"
         uses: trifork/cheetah-infrastructure-utils/.github/actions/dotnet/dotnet-build@main
 
@@ -23,6 +24,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - run: tree
       - name: "Test"
         run: dotnet test --logger trx --no-restore --filter 'TestType!=IntegrationTests' ${{ env.SOLUTION_FILEPATH }} /nowarn:cs1591
 
