@@ -107,5 +107,5 @@ The following types of info is logged on different log levels:
 ### WARN
 * Connection problems
 ### ERROR
-* Connections problems
+* Connection problems
 * Configuration errors
