@@ -6,10 +6,30 @@ on:
       - "release/**"
 
 jobs:
+  get-csproj-filepath:
+    runs-on: ubuntu-latest
+    outputs:
+      csproj-filepath: ${{ steps.get-csproj-filepath.outputs.csproj-filepath }}
+    steps:
+      - name: Get project name
+        id: get-project-name
+        run: |
+          ref_name=${{ github.ref_name }}
+          project_name_and_version=${ref_name#release/}
+          project_name=${project_name_and_version%*-v*}
+          echo "project-name=$project_name" >> $GITHUB_OUTPUT
+
+      - name: Get csproj filepath
+        id: get-csproj-filepath
+        uses: ./.github/workflows/actions/get-csproj-filepath
+        with:
+          project-name: ${{ steps.get-project-name.outputs.project-name }}
+
   create-release-candidate:
+    needs: get-csproj-filepath
     uses: trifork/cheetah-infrastructure-utils/.github/workflows/dotnet-create-release-candidate.yml@main
     with:
       fat-pack: true
-      csproj-filepath: src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj
+      csproj-filepath: ${{ needs.get-csproj-filepath.outputs.csproj-filepath }}
     secrets:
       PAT: ${{ secrets.PACKAGE_PAT }}

@@ -3,6 +3,14 @@ name: .NET Create Release Branch WebApi
 on:
   workflow_dispatch:
     inputs:
+      project:
+        description: Which project to create a snapshot of
+        required: true
+        type: choice
+        options:
+          - Cheetah.WebApi.Shared
+          - Cheetah.ComponentTest
+        default: Cheetah.WebApi.Shared
       bump-type:
         description: Increment Major or Minor semantic-version on main branch after release branch has been created
         required: true
@@ -13,10 +21,23 @@ on:
         default: minor
 
 jobs:
+  get-csproj-filepath:
+    runs-on: ubuntu-latest
+    outputs:
+      csproj-filepath: ${{ steps.get-csproj-filepath.outputs.csproj-filepath }}
+    steps:
+      - name: Get csproj filepath
+        id: get-csproj-filepath
+        uses: ./.github/workflows/actions/get-csproj-filepath
+        with:
+          project-name: ${{ inputs.project }}
+
   create-release-branch:
+    needs: get-csproj-filepath
     uses: trifork/cheetah-infrastructure-utils/.github/workflows/dotnet-create-release-branch.yml@main
     with:
-      csproj-filepath: src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj
+      project-name: ${{ inputs.project }}
       bump-type: ${{ inputs.bump-type }}
+      csproj-filepath: ${{ needs.get-csproj-filepath.outputs.csproj-filepath }}
     secrets:
       PAT: ${{ secrets.PACKAGE_PAT }}

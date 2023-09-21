@@ -20,18 +20,9 @@ jobs:
     steps:
       - name: Get csproj filepath
         id: get-csproj-filepath
-        run: |
-          case ${{ inputs.project }} in
-            'Cheetah.WebApi.Shared')
-              echo "csproj-filepath=src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj" >> $GITHUB_OUTPUT;;
-
-            'Cheetah.ComponentTest')
-              echo "csproj-filepath=src/Cheetah.ComponentTest/Cheetah.ComponentTest.csproj" >> $GITHUB_OUTPUT;;
-
-            *)
-              echo "Unexpected project ${{ inputs.project }}"
-              exit 1
-          esac
+        uses: ./.github/workflows/actions/get-csproj-filepath
+        with:
+          project-name: ${{ inputs.project }}
 
   create-snapshot:
     needs: get-csproj-filepath
