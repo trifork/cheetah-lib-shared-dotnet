@@ -1,0 +1,185 @@
+name: Build and test Cheetah.shared nuget package (Will also be run nightly)
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '30 22 * * *'
+  pull_request: {}
+  push:
+    branches:
+      - main
+
+env:
+  SOLUTION_FILEPATH: ./Cheetah.WebApi.Shared.sln
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+      - name: "dotnet build"
+        uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
+        with:
+          read_package_pat: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
+          silent: "false"
+          dotnet-version: "6.0"
+          github_actor: ${{ github.actor }}
+          solution_filepath: ${{ env.SOLUTION_FILEPATH }}
+
+  tests:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+      - name: "dotnet build"
+        uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
+        with:
+          read_package_pat: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
+          silent: "true"
+          dotnet-version: "6.0"
+          github_actor: ${{ github.actor }}
+          solution_filepath: ${{ env.SOLUTION_FILEPATH }}
+      - name: "Test"
+        run: dotnet test --logger trx --no-restore --filter 'TestType!=IntegrationTests' ${{ env.SOLUTION_FILEPATH }} /nowarn:cs1591
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Tests
+          path: src/Cheetah.WebApi.Shared.Test/TestResults/*.trx
+          reporter: dotnet-trx
+
+  test_opensearch:
+    needs: tests
+    name: "Integration testing: OpenSearch"
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_REGISTRY: ghcr.io/trifork/
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+      - name: "dotnet build"
+        uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
+        with:
+          read_package_pat: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
+          silent: "true"
+          dotnet-version: "6.0"
+          github_actor: ${{ github.actor }}
+          solution_filepath: ${{ env.SOLUTION_FILEPATH }}
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
+      - name: Checkout trifork/cheetah-development-infrastructure
+        uses: actions/checkout@v3
+        with:
+          repository: trifork/cheetah-development-infrastructure
+          token: ${{ secrets.PACKAGE_PAT }} # `PACKAGE_PAT` is a secret that contains your PAT
+          path: integrationtests
+      - name: "Start e2e infrastructure"
+        working-directory: integrationtests/
+        run: docker compose --profile opensearch --profile oauth up -d --build
+      - name: Add hosts to /etc/hosts
+        run: |
+          sudo echo "127.0.0.1 opensearch" | sudo tee -a /etc/hosts
+          sudo echo "127.0.0.1 cheetahoauthsimulator" | sudo tee -a /etc/hosts
+      - name: "Wait for opensearch, the slowest component"
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 3
+          max_attempts: 25
+          retry_wait_seconds: 5
+          warning_on_retry: false
+          command: 'curl -sS -X GET -H "Content-Type: application/json" http://admin:admin@opensearch:9200/_cat/indices'
+      - name: "Test Integration"
+        run: dotnet test --logger trx --no-restore --verbosity normal --filter 'Category=OpenSearch' ${{ env.SOLUTION_FILEPATH }}
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Tests
+          path: src/Cheetah.WebApi.Shared.Test/TestResults/*.trx
+          reporter: dotnet-trx
+
+  kafka-authentication-lib:
+    needs: tests
+    name: "Integration testing: Kafka"
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_REGISTRY: ghcr.io/trifork/
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+      - name: "dotnet build"
+        uses: trifork/cheetah-infrastructure-utils/.github/actions/build-dotnet@main
+        with:
+          read_package_pat: ${{ secrets.PACKAGE_PAT }} # we need this, as GITHUB_TOKEN only have permission to its own repo
+          silent: "true"
+          dotnet-version: "6.0"
+          github_actor: ${{ github.actor }}
+          solution_filepath: ${{ env.SOLUTION_FILEPATH }}
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.PACKAGE_PAT }}
+      - name: Checkout trifork/cheetah-development-infrastructure
+        uses: actions/checkout@v3
+        with:
+          repository: trifork/cheetah-development-infrastructure
+          token: ${{ secrets.PACKAGE_PAT }} # `PACKAGE_PAT` is a secret that contains your PAT
+          path: integrationtests
+      - name: "Start e2e infrastructure"
+        working-directory: integrationtests/
+        run: docker compose --profile kafka --profile oauth up -d --build
+      - name: Add hosts to /etc/hosts
+        run: |
+          sudo echo "127.0.0.1 kafka" | sudo tee -a /etc/hosts
+          sudo echo "127.0.0.1 cheetahoauthsimulator" | sudo tee -a /etc/hosts
+      - name: "Test Integration"
+        run: dotnet test --logger trx --no-restore --verbosity normal --filter 'Category=Kafka' ${{ env.SOLUTION_FILEPATH }}
+
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Tests
+          path: src/Cheetah.WebApi.Shared.Test/TestResults/*.trx
+          reporter: dotnet-trx
+
+  component-test:
+    needs: tests
+    name: "Integration testing: ComponentTest"
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_REGISTRY: ghcr.io/trifork/
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.PACKAGE_PAT }}
+      - name: Checkout trifork/cheetah-development-infrastructure
+        uses: actions/checkout@v3
+        with:
+          repository: trifork/cheetah-development-infrastructure
+          token: ${{ secrets.PACKAGE_PAT }} # `PACKAGE_PAT` is a secret that contains your PAT
+          path: integrationtests
+      - name: "Start e2e infrastructure"
+        working-directory: integrationtests/
+        run: docker compose --profile kafka --profile oauth --profile opensearch --profile schemaregistry up -d --build
+      - name: "Test Integration"
+        working-directory: src/Cheetah.ComponentTest.XUnit
+        run: |
+          docker compose -f docker-compose.yaml up --abort-on-container-exit
+        env:
+          GITHUB_TOKEN: ${{ secrets.PACKAGE_PAT }}

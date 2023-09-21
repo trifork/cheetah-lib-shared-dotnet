@@ -1,4 +1,4 @@
-name: .NET Create Release Branch WebApi
+name: .NET Create Release Branch
 
 on:
   workflow_dispatch:
@@ -21,8 +21,12 @@ on:
         default: minor
 
 jobs:
+  run-tests:
+    uses: ./.github/workflows/build-and-test.yml
+
   get-csproj-filepath:
     runs-on: ubuntu-latest
+    needs: run-tests
     outputs:
       csproj-filepath: ${{ steps.get-csproj-filepath.outputs.csproj-filepath }}
     steps:
