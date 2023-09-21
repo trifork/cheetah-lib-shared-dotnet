@@ -15,6 +15,7 @@ runs:
   steps:
     - name: Get csproj filepath
       id: get-csproj-filepath
+      shell: bash
       run: |
         case ${{ inputs.project-name }} in
           'Cheetah.WebApi.Shared')
