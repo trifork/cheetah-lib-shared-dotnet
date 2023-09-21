@@ -1,0 +1,24 @@
+name: Setup Ingeration Test
+description: Sets up for an integration test by logging into the GitHub container registry and checking out cheetah development infrastructure
+
+inputs:
+  PAT:
+    description: A personal access token for logging into GitHub container registry and cloning cheetah development infrastructure
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v3.0.0
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ inputs.PAT }} # we need this, as GITHUB_TOKEN only has permission to its own repo
+
+    - name: Checkout trifork/cheetah-development-infrastructure
+      uses: actions/checkout@v4
+      with:
+        repository: trifork/cheetah-development-infrastructure
+        token: ${{ inputs.PAT }} # `PAT` is a secret that contains your PAT
+        path: integrationtests
