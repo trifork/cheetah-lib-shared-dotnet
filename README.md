@@ -99,7 +99,7 @@ To enable Oauth2 authentication you should also provide the following options th
 
 
 ## Logging
-The following types of info is logged on different log levels:
+The following types of information is logged on different log levels:
 ### DEBUG
 * Detailed configuration (possibly sensitive info)
 ### INFO
