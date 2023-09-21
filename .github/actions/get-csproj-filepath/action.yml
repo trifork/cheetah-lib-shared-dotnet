@@ -28,3 +28,4 @@ runs:
             echo "Unexpected project ${{ inputs.project-name }}"
             exit 1
         esac
+        
