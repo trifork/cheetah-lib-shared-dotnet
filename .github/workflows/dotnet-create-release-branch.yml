@@ -26,6 +26,9 @@ jobs:
     outputs:
       csproj-filepath: ${{ steps.get-csproj-filepath.outputs.csproj-filepath }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
       - name: Get csproj filepath
         id: get-csproj-filepath
         uses: ./.github/actions/get-csproj-filepath
