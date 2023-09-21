@@ -2,15 +2,14 @@ name: Test Cheetah.Shared NuGet Package
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-      - 'release/**'
   schedule:
     - cron: '0 3 * * *'
+  push:
+    branches: [main]
+    paths: [src]
+  pull_request:
+    branches: [main, 'release/**']
+    paths: [src]
 
 concurrency:
   group: ${{ github.ref }}

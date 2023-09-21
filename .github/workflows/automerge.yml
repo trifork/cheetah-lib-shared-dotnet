@@ -1,10 +1,9 @@
 name: automerge
 
 on:
-  workflow_dispatch:
-  # pull_request:
-  #   types:
-  #     - opened
+  pull_request:
+    types:
+      - opened
       
 jobs:
   automerge:
