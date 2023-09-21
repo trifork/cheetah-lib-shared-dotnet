@@ -5,11 +5,11 @@ using Confluent.SchemaRegistry;
 
 namespace Cheetah.ComponentTest.Kafka;
 
-public class OAuthHeaderValueProvider : IAuthenticationHeaderValueProvider
+internal class OAuthHeaderValueProvider : IAuthenticationHeaderValueProvider
 {
     readonly ITokenService _tokenService;
 
-    public OAuthHeaderValueProvider(ITokenService tokenService)
+    internal OAuthHeaderValueProvider(ITokenService tokenService)
     {
         _tokenService = tokenService;
     }

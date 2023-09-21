@@ -1,12 +1,36 @@
-name: .NET Create Release Call
+name: .NET Create Release
 
 on:
   workflow_dispatch:
 
 jobs:
+  get-csproj-filepath:
+    runs-on: ubuntu-latest
+    outputs:
+      csproj-filepath: ${{ steps.get-csproj-filepath.outputs.csproj-filepath }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get project name
+        id: get-project-name
+        run: |
+          ref_name=${{ github.ref_name }}
+          project_name_and_version=${ref_name#release/}
+          project_name=${project_name_and_version%*-v*}
+          echo "project-name=$project_name" >> $GITHUB_OUTPUT
+
+      - name: Get csproj filepath
+        id: get-csproj-filepath
+        uses: ./.github/actions/get-csproj-filepath
+        with:
+          project-name: ${{ steps.get-project-name.outputs.project-name }}
+
   create-release:
+    needs: get-csproj-filepath
     uses: trifork/cheetah-infrastructure-utils/.github/workflows/dotnet-create-release.yml@main
     with:
-      csproj-filepath: cheetah-dotnet-release-test.csproj
+      fat-pack: true
+      csproj-filepath: ${{ needs.get-csproj-filepath.outputs.csproj-filepath }}
     secrets:
       PAT: ${{ secrets.PACKAGE_PAT }}

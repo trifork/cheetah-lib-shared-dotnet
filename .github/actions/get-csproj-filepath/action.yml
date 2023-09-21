@@ -1,0 +1,30 @@
+name: Get csproj filepath
+description: Gets the path to the .csproj file for the given project. This is specific for this repository
+
+inputs:
+  project-name:
+    description: The name of the project. Should be either Cheetah.WebApi.Shared or Cheetah.ComponentTest
+    required: true
+outputs:
+  csproj-filepath:
+    description: The path to the .csproj file
+    value: ${{ steps.get-csproj-filepath.outputs.csproj-filepath }}
+
+runs:
+  using: composite
+  steps:
+    - name: Get csproj filepath
+      id: get-csproj-filepath
+      shell: bash
+      run: |
+        case ${{ inputs.project-name }} in
+          'Cheetah.WebApi.Shared')
+            echo "csproj-filepath=src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj" >> $GITHUB_OUTPUT;;
+
+          'Cheetah.ComponentTest')
+            echo "csproj-filepath=src/Cheetah.ComponentTest/Cheetah.ComponentTest.csproj" >> $GITHUB_OUTPUT;;
+
+          *)
+            echo "Unexpected project ${{ inputs.project-name }}"
+            exit 1
+        esac
