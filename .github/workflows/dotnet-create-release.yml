@@ -1,4 +1,4 @@
-name: .NET Create Release WebApi
+name: .NET Create Release
 
 on:
   workflow_dispatch:

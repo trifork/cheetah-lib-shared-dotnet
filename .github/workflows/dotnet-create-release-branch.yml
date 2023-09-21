@@ -1,4 +1,4 @@
-name: .NET Create Release Branch WebApi
+name: .NET Create Release Branch
 
 on:
   workflow_dispatch:

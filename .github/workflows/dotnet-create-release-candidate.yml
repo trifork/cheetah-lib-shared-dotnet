@@ -1,4 +1,4 @@
-name: .NET Create Release Candidate WebApi
+name: .NET Create Release Candidate
 
 on:
   push:
