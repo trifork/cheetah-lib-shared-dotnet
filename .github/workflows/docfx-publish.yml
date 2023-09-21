@@ -1,4 +1,4 @@
-name: docs
+name: Pusblish docfx
 
 on:
   # Runs on pushes targeting the default branch
@@ -39,11 +39,11 @@ jobs:
           dotnet-version: "6.0"
           github_actor: ${{ github.actor }}
           solution_filepath: ${{ env.SOLUTION_FILEPATH }}
-
-      - run: dotnet tool update -g docfx
-
-      - run: docfx metadata --logLevel verbose docs/docfx.json
-      - run: docfx build --warningsAsErrors docs/docfx.json
+      
+      - name: Build docfx
+        uses: trifork/cheetah-infrastructure-utils/.github/actions/build-docfx@main
+        with:
+          read_package_pat: ${{ secrets.PACKAGE_PAT }}
 
       - name: create public/
         run: |
@@ -63,3 +63,10 @@ jobs:
           publish_dir: ./public
           exclude_assets: ""
           force_orphan: true
+      
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.PACKAGE_PAT }}
+          repository: trifork/cheetah-artifact-documentation
+          event-type: docs-update

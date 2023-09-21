@@ -4,7 +4,7 @@
     <AssemblyName>Cheetah.WebApi.Shared</AssemblyName>
     <Authors>Trifork</Authors>
     <DebugType>Embedded</DebugType>
-    <Description>This is a package that does web api things</Description>
+    <Description>Functionality for connecting to Kafka and OpenSearch using OAuth2</Description>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
 	  <NoWarn>$(NoWarn);1591</NoWarn>
@@ -12,14 +12,12 @@
     <PackageId>Cheetah.WebApi.Shared</PackageId>
     <RepositoryUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</RepositoryUrl>
     <TargetFramework>net6.0</TargetFramework>
-    <VersionPrefix>1.6.3</VersionPrefix>
+    <VersionPrefix>1.6.5</VersionPrefix>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="IdentityModel" Version="6.0.0" />
     <PackageReference Include="Confluent.Kafka" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.5" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
