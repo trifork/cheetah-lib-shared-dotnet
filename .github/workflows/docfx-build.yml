@@ -9,11 +9,8 @@ on:
     types:
       - completed
 
-env:
-  SOLUTION_FILEPATH: ./Cheetah.WebApi.Shared.sln
-
 jobs:
-  publish-docs:
+  build-docs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
