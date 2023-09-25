@@ -18,10 +18,11 @@ namespace Cheetah.ComponentTest.Kafka
 
         internal KafkaWriter(KafkaWriterProps<TKey, T> props)
         {
-            Topic = props.Topic;
-            KeyFunction = props.KeyFunction;
-            Logger.LogInformation("Preparing Kafka producer, producing to topic '{topic}'", Topic);
+            Topic = !string.IsNullOrWhiteSpace(props.Topic)
+                ? props.Topic
+                : throw new ArgumentException("Topic must not be null or empty");
             
+            KeyFunction = props.KeyFunction ?? throw new ArgumentException("KeyFunction cannot be null");
             Producer = new ProducerBuilder<TKey, T>(
                 new ProducerConfig {
                     BootstrapServers = props.KafkaUrl,
@@ -33,12 +34,12 @@ namespace Cheetah.ComponentTest.Kafka
                 .Build();
         }
         
+        /// <summary>
+        /// Asynchronously publishes a single message to Kafka
+        /// </summary>
+        /// <param name="message">The message to publish</param>
         public async Task WriteAsync(T message)
         {
-            if (KeyFunction == null)
-            {
-                throw new InvalidOperationException("KeyFunction must be set");
-            }
             var kafkaMessage = new Message<TKey, T>
             {
                 Key = KeyFunction(message),
@@ -47,6 +48,11 @@ namespace Cheetah.ComponentTest.Kafka
             await Producer.ProduceAsync(Topic, kafkaMessage);
         }
 
+        /// <summary>
+        /// Asynchronously publishes multiple messages to Kafka
+        /// </summary>
+        /// <param name="messages">The collection of messages to publish</param>
+        /// <exception cref="ArgumentException">Thrown if the provided collection of messages is empty</exception>
         public async Task WriteAsync(params T[] messages)
         {
             if (!messages.Any())

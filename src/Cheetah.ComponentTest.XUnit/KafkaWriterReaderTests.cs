@@ -1,5 +1,6 @@
 using Cheetah.ComponentTest.Kafka;
 using Cheetah.ComponentTest.XUnit.Model.Avro;
+using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 
 namespace Cheetah.ComponentTest.XUnit
@@ -13,14 +14,13 @@ namespace Cheetah.ComponentTest.XUnit
         public KafkaWriterReaderTests()
         {
             var conf = new Dictionary<string, string>
-        {
-            { "KAFKA:AUTHENDPOINT", "http://localhost:1752/oauth2/token" },
-            { "KAFKA:CLIENTID", "ClientId" },
-            { "KAFKA:CLIENTSECRET", "testsecret" },
-            { "KAFKA:URL", "localhost:9092" },
-            { "KAFKA:SCHEMAREGISTRYURL", "http://localhost:8081/apis/ccompat/v7" }
-        };
-
+            {
+                { "KAFKA:AUTHENDPOINT", "http://localhost:1752/oauth2/token" },
+                { "KAFKA:CLIENTID", "ClientId" },
+                { "KAFKA:CLIENTSECRET", "testsecret" },
+                { "KAFKA:URL", "localhost:9092" },
+                { "KAFKA:SCHEMAREGISTRYURL", "http://localhost:8081/apis/ccompat/v7" }
+            };
             _configuration = new ConfigurationBuilder()
                 .AddInMemoryCollection(conf)
                 .AddEnvironmentVariables()
@@ -42,8 +42,8 @@ namespace Cheetah.ComponentTest.XUnit
 
             await writer.WriteAsync("Message4");
             var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(20));
-            Assert.Single(readMessages);
-            Assert.True(reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(2)));
+            readMessages.Should().HaveCount(1);
+            reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(2)).Should().BeTrue();
         }
 
         static AvroObjectWithEnum AvroObjWithEnum1 =>
@@ -54,17 +54,12 @@ namespace Cheetah.ComponentTest.XUnit
 
         static AdvancedAvroObject AdvancedAvroObject1 => new()
         {
-            Id = "Id",
-            Name = "AvroName",
-            LongNumber = 11899823748932,
-            AvroObjectWithEnum = AvroObjWithEnum1
+            Id = "Id", Name = "AvroName", LongNumber = 11899823748932, AvroObjectWithEnum = AvroObjWithEnum1
         };
+
         static readonly AdvancedAvroObject AdvancedAvroObject2 = new()
         {
-            Id = "Id",
-            Name = "Foo",
-            LongNumber = 345342523454,
-            AvroObjectWithEnum = AvroObjWithEnum2
+            Id = "Id", Name = "Foo", LongNumber = 345342523454, AvroObjectWithEnum = AvroObjWithEnum2
         };
 
         [Fact]
@@ -89,8 +84,8 @@ namespace Cheetah.ComponentTest.XUnit
             var readMessages = readerAvro.ReadMessages(1, TimeSpan.FromSeconds(10));
 
             // Assert
-            Assert.Single(readMessages);
-            Assert.True(readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(2)));
+            readMessages.Should().HaveCount(1);
+            readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(2)).Should().BeTrue();
         }
 
         [Fact]
@@ -113,8 +108,8 @@ namespace Cheetah.ComponentTest.XUnit
             var readMessages = readerAvro.ReadMessages(1, TimeSpan.FromSeconds(10));
 
             // Assert
-            Assert.Single(readMessages);
-            Assert.True(readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(2)));
+            readMessages.Should().HaveCount(1);
+            readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(2)).Should().BeTrue();
         }
 
         [Fact]
@@ -139,8 +134,8 @@ namespace Cheetah.ComponentTest.XUnit
             var readMessages = readerAvro.ReadMessages(3, TimeSpan.FromSeconds(10));
 
             // Assert
-            Assert.Equal(3, readMessages.Count());
-            Assert.True(readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(2)));
+            readMessages.Count().Should().Be(3);
+            readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(2)).Should().BeTrue();
         }
 
         [Fact]
@@ -151,7 +146,9 @@ namespace Cheetah.ComponentTest.XUnit
                 .WithKeyFunction(message => message)
                 .Build();
 
-            await Assert.ThrowsAsync<ArgumentException>(() => writer.WriteAsync());
+            await writer.Invoking(w => w.WriteAsync())
+                .Should()
+                .ThrowAsync<ArgumentException>("it should not be possible to write 0 messages");
         }
 
         [Theory]
@@ -160,17 +157,16 @@ namespace Cheetah.ComponentTest.XUnit
         [InlineData("KAFKA:CLIENTSECRET", false)]
         [InlineData("KAFKA:URL", false)]
         [InlineData("KAFKA:SCHEMAREGISTRYURL", true)]
-
         public void Should_ThrowArgumentException_When_RequiredConfigurationIsMissing(string missingKey, bool isAvro)
         {
-            var configurationDictionary = new Dictionary<string, string>
-        {
-            { "KAFKA:AUTHENDPOINT", "http://localhost:1752/oauth2/token" },
-            { "KAFKA:CLIENTID", "ClientId" },
-            { "KAFKA:CLIENTSECRET", "testsecret" },
-            { "KAFKA:URL", "localhost:9092" },
-            { "KAFKA:SCHEMAREGISTRYURL", "http://localhost:8081/apis/ccompat/v7" }
-        };
+            var configurationDictionary = new Dictionary<string, string?>
+            {
+                { "KAFKA:AUTHENDPOINT", "http://localhost:1752/oauth2/token" },
+                { "KAFKA:CLIENTID", "ClientId" },
+                { "KAFKA:CLIENTSECRET", "testsecret" },
+                { "KAFKA:URL", "localhost:9092" },
+                { "KAFKA:SCHEMAREGISTRYURL", "http://localhost:8081/apis/ccompat/v7" }
+            };
 
             configurationDictionary.Remove(missingKey);
 
@@ -192,8 +188,12 @@ namespace Cheetah.ComponentTest.XUnit
                 readerBuilder.UsingAvro();
             }
 
-            Assert.Throws<ArgumentException>(() => writerBuilder.Build());
-            Assert.Throws<ArgumentException>(() => readerBuilder.Build());
+            writerBuilder.Invoking(wb => wb.Build()).Should()
+                .Throw<ArgumentException>(
+                    "the builder should not successfully build if required configuration is missing");
+            readerBuilder.Invoking(rb => rb.Build()).Should()
+                .Throw<ArgumentException>(
+                    "the builder should not successfully build if required configuration is missing");
         }
 
         [Theory]
@@ -204,19 +204,18 @@ namespace Cheetah.ComponentTest.XUnit
         [InlineData("://")]
         public void Should_ThrowArgumentException_When_KafkaUrlHasScheme(string kafkaUrlPrefix)
         {
-            var configurationDictionary = new Dictionary<string, string>
-        {
-            { "KAFKA:AUTHENDPOINT", "http://localhost:1752/oauth2/token" },
-            { "KAFKA:CLIENTID", "ClientId" },
-            { "KAFKA:CLIENTSECRET", "testsecret" },
-            { "KAFKA:URL", kafkaUrlPrefix + "localhost:9092" },
-            { "KAFKA:SCHEMAREGISTRYURL", "http://localhost:8081/apis/ccompat/v7" }
-        };
+            var configurationDictionary = new Dictionary<string, string?>
+            {
+                { "KAFKA:AUTHENDPOINT", "http://localhost:1752/oauth2/token" },
+                { "KAFKA:CLIENTID", "ClientId" },
+                { "KAFKA:CLIENTSECRET", "testsecret" },
+                { "KAFKA:URL", kafkaUrlPrefix + "localhost:9092" },
+                { "KAFKA:SCHEMAREGISTRYURL", "http://localhost:8081/apis/ccompat/v7" }
+            };
 
             var invalidConfiguration = new ConfigurationBuilder()
                 .AddInMemoryCollection(configurationDictionary)
                 .Build();
-
             var writerBuilder = KafkaWriterBuilder.Create<string, string>(invalidConfiguration)
                 .WithTopic("MyThrowingTopic")
                 .WithKeyFunction(message => message);
@@ -224,9 +223,12 @@ namespace Cheetah.ComponentTest.XUnit
             var readerBuilder = KafkaReaderBuilder.Create<string, string>(invalidConfiguration)
                 .WithTopic("MyThrowingTopic")
                 .WithConsumerGroup("MyConsumerGroup");
-
-            Assert.Throws<ArgumentException>(() => writerBuilder.Build());
-            Assert.Throws<ArgumentException>(() => readerBuilder.Build());
+            writerBuilder.Invoking(wb => wb.Build()).Should()
+                .Throw<ArgumentException>(
+                    "the builder should not successfully build if the kafka url has a scheme prefix");
+            readerBuilder.Invoking(rb => rb.Build()).Should()
+                .Throw<ArgumentException>(
+                    "the builder should not successfully build if the kafka url has a scheme prefix");
         }
 
         [Theory]
@@ -235,14 +237,25 @@ namespace Cheetah.ComponentTest.XUnit
         [InlineData("my!cool:topic#")]
         [InlineData("my$expensive$topic")]
         // 249 characters is the maximum allowed length, this is 250 'a's
-        [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")]
+        [InlineData(
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")]
         public void Should_ThrowArgumentException_When_ProvidedInvalidTopicName(string topicName)
         {
             var writerBuilder = KafkaWriterBuilder.Create<string, string>(_configuration)
                 .WithTopic(topicName)
                 .WithKeyFunction(message => message);
 
-            Assert.Throws<ArgumentException>(() => writerBuilder.Build());
+            var readerBuilder = KafkaReaderBuilder.Create<string, string>(_configuration)
+                .WithTopic(topicName)
+                .WithConsumerGroup("MyConsumerGroup");
+
+            writerBuilder.Invoking(wb => wb.Build())
+                .Should().Throw<ArgumentException>(
+                    "the builder should not successfully build if given an invalid topic");
+
+            readerBuilder.Invoking(rb => rb.Build())
+                .Should().Throw<ArgumentException>(
+                    "the builder should not successfully build if given an invalid topic");
         }
     }
 }

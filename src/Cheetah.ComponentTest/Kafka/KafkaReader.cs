@@ -1,12 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using Cheetah.ComponentTest.TokenService;
 using Cheetah.Core.Infrastructure.Services.Kafka;
 using Confluent.Kafka;
-using Confluent.Kafka.SyncOverAsync;
-using Confluent.SchemaRegistry;
-using Confluent.SchemaRegistry.Serdes;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
@@ -58,6 +54,17 @@ namespace Cheetah.ComponentTest.Kafka
             }
         }
 
+        /// <summary>
+        /// Reads up to <paramref name="count"/> messages from the configured Kafka topic.
+        /// </summary>
+        /// <remarks>
+        /// Usually this method will require a rather large timeout, especially if it is the first read in a test.
+        /// This recommendation is based on the fact that the tested job usually needs some time to start up.
+        /// </remarks>
+        /// <param name="count">The amount of messages to write</param>
+        /// <param name="timeout">The maximum time to wait for the required number of messages to be available</param>
+        /// <returns>The read messages</returns>
+        /// <exception cref="InvalidOperationException">Thrown when the reader could not read enough messages within the allotted time</exception>
         public IEnumerable<T> ReadMessages(int count, TimeSpan timeout)
         {
             var messages = new List<T>();
@@ -95,6 +102,15 @@ namespace Cheetah.ComponentTest.Kafka
             return messages;
         }
 
+        /// <summary>
+        /// Tests that there are no more available messages.
+        /// </summary>
+        /// <remarks>
+        /// This method is usually useful in conjunction with the <see cref="ReadMessages"/> method in order to ensure,
+        /// that we read not just the expected amount of messages, but also verify that there are no other, unexpected messages.
+        /// </remarks>
+        /// <param name="timeout">The amount of time to listen for unexpected messages.</param>
+        /// <returns><c>true</c> if no other messages were found after the timeout, otherwise <c>false</c></returns>
         public bool VerifyNoMoreMessages(TimeSpan timeout)
         {
             CancellationTokenSource cancellationTokenSource = new();

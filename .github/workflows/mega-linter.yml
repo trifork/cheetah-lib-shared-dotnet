@@ -6,8 +6,12 @@ name: MegaLinter
 on:
   # Trigger mega-linter at every push. Action will also be visible from Pull Requests to main
   #push: # Comment this line to trigger action only on pull-requests (not recommended if you don't pay for GH Actions)
+  push:
+    branches:
+      - main
   pull_request:
-    branches: [master, main]
+    branches:
+      - main
 
 env: # Comment env block if you do not want to apply fixes
   # Apply linter fixes configuration
@@ -50,7 +54,7 @@ jobs:
           DISABLE_LINTERS: "MARKDOWN_MARKDOWN_LINK_CHECK,HTML_HTMLHINT,JSON_V8R,REPOSITORY_GIT_DIFF,REPOSITORY_TRIVY,REPOSITORY_CHECKOV,POWERSHELL_POWERSHELL"
           DOCKERFILE_HADOLINT_ARGUMENTS: "--ignore ds026"
           #DOCKERFILE_HADOLINT_FILTER_REGEX_EXCLUDE: ".devcontainer"
-          FILTER_REGEX_EXCLUDE: '(\.automation/test|\.automation/generated|\.github/workflows|docs/javascripts|docs/overrides|docs/json-schemas|flavors|clj-kondo|TEMPLATES|.devcontainer)'
+          FILTER_REGEX_EXCLUDE: '(\.automation/test|\.automation/generated|\.github|docs/javascripts|docs/overrides|docs/json-schemas|flavors|clj-kondo|TEMPLATES|.devcontainer)'
           REPOSITORY_CHECKOV_ARGUMENTS: "--skip-check CKV2_GHA_1,CKV_DOCKER_7"
           EXCLUDED_DIRECTORIES: ".devcontainer"
           REPOSITORY_TRIVY_ARGUMENTS: "--skip-dirs .devcontainer"
