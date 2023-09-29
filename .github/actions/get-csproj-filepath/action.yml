@@ -16,15 +16,4 @@ runs:
     - name: Get csproj filepath
       id: get-csproj-filepath
       shell: bash
-      run: |
-        case ${{ inputs.project-name }} in
-          'Cheetah.WebApi.Shared')
-            echo "csproj-filepath=src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj" >> $GITHUB_OUTPUT;;
-
-          'Cheetah.ComponentTest')
-            echo "csproj-filepath=src/Cheetah.ComponentTest/Cheetah.ComponentTest.csproj" >> $GITHUB_OUTPUT;;
-
-          *)
-            echo "Unexpected project ${{ inputs.project-name }}"
-            exit 1
-        esac
+      run: echo "csproj-filepath=$(grep -Po '(?<=${{ inputs.project-name }}:).*' ${{ github.action_path }}/csproj-filepaths.yaml | awk '{$1=$1};1')" >> $GITHUB_OUTPUT
