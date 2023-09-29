@@ -38,3 +38,4 @@ jobs:
       csproj-filepath: ${{ needs.get-csproj-filepath.outputs.csproj-filepath }}
     secrets:
       PAT: ${{ secrets.PACKAGE_PAT }}
+      KAMSTRUP_GITLAB_PAT: ${{ secrets.KAMSTRUP_GITLAB_PAT }}
