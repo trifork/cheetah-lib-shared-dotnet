@@ -22,13 +22,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
 
       - name: Dotnet test
         run: dotnet test --logger trx --filter 'TestType!=IntegrationTests' /nowarn:cs1591
 
       - name: Display test report
-        uses: dorny/test-reporter@v1.6.0
+        uses: dorny/test-reporter@c9b3d0e2bd2a4e96aaf424dbaa31c46b42318226 # v1.6.0
         if: always()
         with:
           name: Tests
@@ -42,7 +42,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
 
       - name: Setup integration test
         uses: ./.github/actions/setup-integration-test
@@ -59,7 +59,7 @@ jobs:
           sudo echo "127.0.0.1 cheetahoauthsimulator" | sudo tee -a /etc/hosts
 
       - name: Wait for opensearch, the slowest component
-        uses: nick-fields/retry@v2.8.3
+        uses: nick-fields/retry@943e742917ac94714d2f408a0e8320f2d1fcafcd # v2.8.3
         with:
           timeout_minutes: 3
           max_attempts: 25
@@ -71,7 +71,7 @@ jobs:
         run: dotnet test --logger trx --verbosity normal --filter 'Category=OpenSearch'
 
       - name: Display test report
-        uses: dorny/test-reporter@v1.6.0
+        uses: dorny/test-reporter@c9b3d0e2bd2a4e96aaf424dbaa31c46b42318226 # v1.6.0
         if: always()
         with:
           name: Tests
@@ -85,7 +85,7 @@ jobs:
     
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
 
       - name: Setup integration test
         uses: ./.github/actions/setup-integration-test
@@ -105,7 +105,7 @@ jobs:
         run: dotnet test --logger trx --verbosity normal --filter 'Category=Kafka'
 
       - name: Display test report
-        uses: dorny/test-reporter@v1.6.0
+        uses: dorny/test-reporter@c9b3d0e2bd2a4e96aaf424dbaa31c46b42318226 # v1.6.0
         if: always()
         with:
           name: Tests
@@ -119,7 +119,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
 
       - name: Setup integration test
         uses: ./.github/actions/setup-integration-test
