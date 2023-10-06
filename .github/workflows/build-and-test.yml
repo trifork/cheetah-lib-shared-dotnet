@@ -7,10 +7,10 @@ on:
     - cron: '0 3 * * *'
   push:
     branches: [main]
-    paths: [src]
+    #paths: [src]
   pull_request:
     branches: [main, 'release/**']
-    paths: [src]
+    #paths: [src]
 
 concurrency:
   group: ${{ github.ref }}
