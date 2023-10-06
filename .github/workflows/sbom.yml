@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       #  image: public.ecr.aws/appthreat/cdxgen:latest
       - name: "generate sbom"
         run: |
