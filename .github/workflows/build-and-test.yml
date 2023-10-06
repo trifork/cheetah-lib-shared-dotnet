@@ -38,6 +38,7 @@ jobs:
   test-opensearch:
     name: Test OpenSearch
     runs-on: ubuntu-latest
+    if: ${{ contains(github.event.pull_request.labels.*.name, 'e2e-test') }}
     needs: dotnet-test
 
     steps:
@@ -81,6 +82,7 @@ jobs:
   test-kafka-auth:
     name: Test Kafka Auth
     runs-on: ubuntu-latest
+    if: ${{ contains(github.event.pull_request.labels.*.name, 'e2e-test') }}
     needs: dotnet-test
     
     steps:
@@ -115,6 +117,7 @@ jobs:
   component-test:
     name: Run Component Tests
     runs-on: ubuntu-latest
+    if: ${{ contains(github.event.pull_request.labels.*.name, 'e2e-test') }}
     needs: dotnet-test
 
     steps:
