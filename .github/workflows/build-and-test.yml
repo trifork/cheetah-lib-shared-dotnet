@@ -60,6 +60,7 @@ jobs:
     needs: should-run
     runs-on: ubuntu-latest
     if: ${{ needs.should-run.outputs.event-name-check == 'true' || needs.should-run.outputs.tag-check == 'true' }}
+    needs: dotnet-test
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -103,7 +104,7 @@ jobs:
     needs: should-run
     runs-on: ubuntu-latest
     if: ${{ needs.should-run.outputs.event-name-check == 'true' || needs.should-run.outputs.tag-check == 'true' }}
-
+    needs: dotnet-test
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -138,7 +139,6 @@ jobs:
     needs: should-run
     runs-on: ubuntu-latest
     if: ${{ needs.should-run.outputs.event-name-check == 'true' || needs.should-run.outputs.tag-check == 'true' }}
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
