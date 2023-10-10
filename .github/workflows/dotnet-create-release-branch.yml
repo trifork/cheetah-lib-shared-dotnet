@@ -23,6 +23,8 @@ on:
 jobs:
   run-tests:
     uses: ./.github/workflows/build-and-test.yml
+    secrets:
+      PAT: ${{ secrets.PAT }}
 
   get-csproj-filepath:
     runs-on: ubuntu-latest
