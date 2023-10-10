@@ -35,12 +35,31 @@ jobs:
           path: src/Cheetah.WebApi.Shared.Test/TestResults/*.trx
           reporter: dotnet-trx
 
+  should-run: # seperate step to support ci/cd status checks
+    needs: dotnet-test
+    runs-on: ubuntu-latest
+    outputs:
+      tag-check: ${{ steps.tag-check.outputs.value }}
+      event-name-check: ${{ steps.event-name-check.outputs.value }}
+
+    steps:
+      # the pull request contains the 'e2e-test' label
+      - name: Tag check
+        id: tag-check
+        if: ${{ contains(github.event.pull_request.labels.*.name, 'e2e-test') && !contains(github.event.pull_request.labels.*.name, 'blocked') }}
+        run: echo "value=true" >> "$GITHUB_OUTPUT"
+
+      # not started from a pull-request
+      - name: Check for specific label
+        id: event-name-check
+        if: ${{github.event_name != 'pull_request'}}
+        run: echo "value=true" >> "$GITHUB_OUTPUT"
+
   test-opensearch:
     name: Test OpenSearch
+    needs: should-run
     runs-on: ubuntu-latest
-    if: ${{ contains(github.event.pull_request.labels.*.name, 'e2e-test') && !contains(github.event.pull_request.labels.*.name, 'blocked') }}
-    needs: dotnet-test
-
+    if: ${{ needs.should-run.outputs.event-name-check == 'true' || needs.should-run.outputs.tag-check == 'true' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -81,10 +100,9 @@ jobs:
 
   test-kafka-auth:
     name: Test Kafka Auth
+    needs: should-run
     runs-on: ubuntu-latest
-    if: ${{ contains(github.event.pull_request.labels.*.name, 'e2e-test') && !contains(github.event.pull_request.labels.*.name, 'blocked') }}
-    needs: dotnet-test
-
+    if: ${{ needs.should-run.outputs.event-name-check == 'true' || needs.should-run.outputs.tag-check == 'true' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -116,10 +134,9 @@ jobs:
 
   component-test:
     name: Run Component Tests
+    needs: should-run
     runs-on: ubuntu-latest
-    if: ${{ contains(github.event.pull_request.labels.*.name, 'e2e-test') && !contains(github.event.pull_request.labels.*.name, 'blocked') }}
-    needs: dotnet-test
-
+    if: ${{ needs.should-run.outputs.event-name-check == 'true' || needs.should-run.outputs.tag-check == 'true' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
