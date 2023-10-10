@@ -1,4 +1,4 @@
-name: Setup Ingeration Test
+name: Setup Integration Test
 description: Sets up for an integration test by logging into the GitHub container registry and checking out cheetah development infrastructure
 
 inputs:
@@ -14,11 +14,11 @@ runs:
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
-        password: ${{ inputs.PAT }} # we need this, as GITHUB_TOKEN only has permission to its own repo
+        password: ${{ github.token }} # we need this, as GITHUB_TOKEN only has permission to its own repo
 
     - name: Checkout trifork/cheetah-development-infrastructure
       uses: actions/checkout@v4
       with:
         repository: trifork/cheetah-development-infrastructure
-        token: ${{ inputs.PAT }} # `PAT` is a secret that contains your PAT
+        token: ${{ github.token }} # `PAT` is a secret that contains your PAT
         path: integrationtests
