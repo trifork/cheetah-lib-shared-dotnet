@@ -14,7 +14,7 @@ runs:
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
-        password: ${{ github.token }} # we need this, as GITHUB_TOKEN only has permission to its own repo
+        password: ${{ inputs.PAT }} # we need this, as GITHUB_TOKEN only has permission to its own repo
 
     - name: Checkout trifork/cheetah-development-infrastructure
       uses: actions/checkout@v4
