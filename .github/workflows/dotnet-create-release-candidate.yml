@@ -1,9 +1,7 @@
 name: .NET Create Release Candidate
 
 on:
-  push:
-    branches:
-      - "release/**"
+  workflow_dispatch:
 
 jobs:
   get-csproj-filepath:
