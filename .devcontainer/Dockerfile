@@ -16,17 +16,12 @@ RUN curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
 #ADD https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker /etc/bash_completion.d/docker.sh
 
 USER vscode
+ARG GITHUB_ACTOR
+ARG GITHUB_TOKEN
 
-RUN --mount=type=secret,id=GITHUB_TOKEN \
-    --mount=type=secret,id=GITHUB_ACTOR \
-    --mount=type=cache,target=./.m2,sharing=locked \
-    GITHUB_TOKEN="$(cat /run/secrets/GITHUB_TOKEN)" \
-    GITHUB_ACTOR="$(cat /run/secrets/GITHUB_ACTOR)" \
-    dotnet nuget add source https://nuget.pkg.github.com/trifork/index.json -n trifork-github -u $GITHUB_ACTOR -p $GITHUB_TOKEN --store-password-in-clear-text
-
+RUN dotnet nuget add source https://nuget.pkg.github.com/trifork/index.json -n trifork-github -u $GITHUB_ACTOR -p $GITHUB_TOKEN --store-password-in-clear-text
 RUN dotnet tool update -g docfx
 
 # Install ACT
-
 #  ./bin/act -s GITHUB_TOKEN=${GITHUB_TOKEN} -s PACKAGE_PAT=${GITHUB_TOKEN}  -j component-test
 RUN curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
