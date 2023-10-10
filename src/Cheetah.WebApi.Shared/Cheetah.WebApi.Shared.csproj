@@ -7,12 +7,12 @@
     <Description>Functionality for connecting to Kafka and OpenSearch using OAuth2</Description>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
-	  <NoWarn>$(NoWarn);1591</NoWarn>
-	  <ImplicitUsings>false</ImplicitUsings>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <ImplicitUsings>false</ImplicitUsings>
     <PackageId>Cheetah.WebApi.Shared</PackageId>
     <RepositoryUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</RepositoryUrl>
     <TargetFramework>net6.0</TargetFramework>
-    <VersionPrefix>1.6.5</VersionPrefix>
+    <VersionPrefix>1.7.0</VersionPrefix>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="IdentityModel" Version="6.2.0" />
