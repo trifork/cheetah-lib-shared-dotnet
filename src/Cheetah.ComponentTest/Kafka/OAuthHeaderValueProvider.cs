@@ -1,22 +1,23 @@
-﻿using System.Net.Http.Headers;
+using System.Net.Http.Headers;
 using System.Threading;
 using Cheetah.Core.Infrastructure.Auth;
 using Confluent.SchemaRegistry;
 
-namespace Cheetah.ComponentTest.Kafka;
-
-internal class OAuthHeaderValueProvider : IAuthenticationHeaderValueProvider
+namespace Cheetah.ComponentTest.Kafka
 {
-    readonly ITokenService _tokenService;
-
-    internal OAuthHeaderValueProvider(ITokenService tokenService)
+    internal class OAuthHeaderValueProvider : IAuthenticationHeaderValueProvider
     {
-        _tokenService = tokenService;
-    }
+        readonly ITokenService _tokenService;
 
-    public AuthenticationHeaderValue GetAuthenticationHeader()
-    {
-        string? token = _tokenService.RequestAccessTokenCachedAsync(CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult()?.AccessToken;
-        return new AuthenticationHeaderValue("Bearer",token);
+        internal OAuthHeaderValueProvider(ITokenService tokenService)
+        {
+            _tokenService = tokenService;
+        }
+
+        public AuthenticationHeaderValue GetAuthenticationHeader()
+        {
+            string? token = _tokenService.RequestAccessTokenCachedAsync(CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult()?.AccessToken;
+            return new AuthenticationHeaderValue("Bearer", token);
+        }
     }
 }

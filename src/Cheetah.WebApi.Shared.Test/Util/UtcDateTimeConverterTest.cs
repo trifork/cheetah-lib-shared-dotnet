@@ -51,7 +51,7 @@ namespace Cheetah.WebApi.Shared.Test.Util
                     break;
             }
 
-            var actual = (DateTime?) _sut.ReadJson(reader, typeof(DateTime), null, JsonSerializer.CreateDefault());
+            var actual = (DateTime?)_sut.ReadJson(reader, typeof(DateTime), null, JsonSerializer.CreateDefault());
 
             Assert.Equal(expected, actual);
         }
@@ -138,7 +138,7 @@ namespace Cheetah.WebApi.Shared.Test.Util
             var sb = new StringBuilder();
             var writer = new JsonTextWriter(new StringWriter(sb));
             _sut.WriteJson(writer, dateTime, JsonSerializer.CreateDefault());
-            
+
             Assert.Equal((epochSeconds * 1000).ToString(), sb.ToString());
         }
 
@@ -183,7 +183,7 @@ namespace Cheetah.WebApi.Shared.Test.Util
 
         [Fact]
         public void Should_SerializeDefaultDateTimeOffsetAs0()
-        {            
+        {
             DateTimeOffset date = new();
             var sb = new StringBuilder();
             var writer = new JsonTextWriter(new StringWriter(sb));

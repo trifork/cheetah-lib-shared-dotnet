@@ -54,12 +54,18 @@ namespace Cheetah.ComponentTest.XUnit
 
         static AdvancedAvroObject AdvancedAvroObject1 => new()
         {
-            Id = "Id", Name = "AvroName", LongNumber = 11899823748932, AvroObjectWithEnum = AvroObjWithEnum1
+            Id = "Id",
+            Name = "AvroName",
+            LongNumber = 11899823748932,
+            AvroObjectWithEnum = AvroObjWithEnum1
         };
 
         static readonly AdvancedAvroObject AdvancedAvroObject2 = new()
         {
-            Id = "Id", Name = "Foo", LongNumber = 345342523454, AvroObjectWithEnum = AvroObjWithEnum2
+            Id = "Id",
+            Name = "Foo",
+            LongNumber = 345342523454,
+            AvroObjectWithEnum = AvroObjWithEnum2
         };
 
         [Fact]

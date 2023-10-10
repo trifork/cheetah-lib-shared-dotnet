@@ -30,7 +30,7 @@ namespace Cheetah.Core.Config
         /// </summary>
         /// <value></value>
         public string ClientId { get; set; } = null!;
-        
+
         /// <summary>
         /// Client secret used to obtain JWT from token endpoint
         /// </summary>

@@ -1,4 +1,4 @@
-﻿using IdentityModel.Client;
+using IdentityModel.Client;
 
 namespace Cheetah.Core.Infrastructure.Auth
 {

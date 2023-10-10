@@ -1,4 +1,4 @@
-﻿namespace Cheetah.Core.Util
+namespace Cheetah.Core.Util
 {
     public sealed class DefaultHttpClientFactory : IHttpClientFactory, IDisposable
     {

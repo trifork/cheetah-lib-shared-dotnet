@@ -44,12 +44,12 @@ namespace Cheetah.Core.Util
             long? unixTimeMilliseconds = value switch
             {
                 null => null,
-                DateTime dt => 
-                    dt == default 
+                DateTime dt =>
+                    dt == default
                         ? 0
                         : new DateTimeOffset(dt).ToUnixTimeMilliseconds(),
-                DateTimeOffset dto => 
-                    dto == default 
+                DateTimeOffset dto =>
+                    dto == default
                         ? 0
                         : dto.ToUnixTimeMilliseconds(),
                 _ => throw new ArgumentOutOfRangeException(nameof(value), value, $"Unable to extract epoch millis from object of type {value?.GetType().Name}")

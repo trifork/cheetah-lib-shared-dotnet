@@ -13,7 +13,7 @@ namespace Cheetah.ComponentTest.Kafka
     {
         private static readonly ILogger Logger = new LoggerFactory().CreateLogger<KafkaReader<TKey, T>>();
         internal string Topic { get; }
-        private IConsumer<TKey, T> Consumer { get;}
+        private IConsumer<TKey, T> Consumer { get; }
 
         internal KafkaReader(KafkaReaderProps<T> props)
         {
@@ -32,7 +32,7 @@ namespace Cheetah.ComponentTest.Kafka
                 .SetValueDeserializer(props.Deserializer)
                 .AddCheetahOAuthentication(props.TokenService, Logger)
                 .Build();
-            
+
             Consumer.Assign(new TopicPartition(Topic, 0));
             CancellationTokenSource cancellationTokenSource = new();
             cancellationTokenSource.CancelAfter(TimeSpan.FromSeconds(2));

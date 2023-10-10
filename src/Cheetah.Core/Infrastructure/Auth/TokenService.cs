@@ -1,7 +1,6 @@
 using IdentityModel.Client;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace Cheetah.Core.Infrastructure.Auth
 {

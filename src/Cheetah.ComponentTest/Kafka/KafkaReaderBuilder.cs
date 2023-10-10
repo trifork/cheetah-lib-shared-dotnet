@@ -154,15 +154,15 @@ namespace Cheetah.ComponentTest.Kafka
         public KafkaReader<TKey, T> Build()
         {
             ValidateInput();
-         
+
             var tokenService = GetTokenService();
-            
+
             var props = new KafkaReaderProps<T>()
             {
                 ConsumerGroup = ConsumerGroup,
                 Topic = Topic,
-                Deserializer = IsAvro 
-                    ? GetAvroDeserializer(tokenService) 
+                Deserializer = IsAvro
+                    ? GetAvroDeserializer(tokenService)
                     : new Utf8Serializer<T>(),
                 KafkaUrl = Configuration.GetValue<string>(KAFKA_URL_KEY),
                 TokenService = tokenService
@@ -170,7 +170,7 @@ namespace Cheetah.ComponentTest.Kafka
 
             return new KafkaReader<TKey, T>(props);
         }
-        
+
         private IDeserializer<T> GetAvroDeserializer(ITokenService tokenService)
         {
             var authHeaderValueProvider = new OAuthHeaderValueProvider(tokenService);

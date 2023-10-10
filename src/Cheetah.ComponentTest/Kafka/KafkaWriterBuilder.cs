@@ -54,7 +54,7 @@ namespace Cheetah.ComponentTest.Kafka
         {
             return new KafkaWriterBuilder<TKey, T>(configuration);
         }
-        
+
         /// <summary>
         /// Creates a new <see cref="KafkaWriterBuilder{Null, T}"/>. The resulting writer will publish messages without a key.
         /// </summary>
@@ -66,7 +66,7 @@ namespace Cheetah.ComponentTest.Kafka
             return Create<Null, T>(configuration).WithKeyFunction(_ => null!);
         }
     }
-    
+
     /// <summary>
     /// Builder used for building a <see cref="KafkaWriter{TKey, T}"/>.
     /// </summary>
@@ -131,7 +131,7 @@ namespace Cheetah.ComponentTest.Kafka
             KeyFunction = keyFunction;
             return this;
         }
-        
+
         /// <summary>
         /// Specifies that the resulting writer should use AVRO serialization.
         /// </summary>
@@ -154,7 +154,7 @@ namespace Cheetah.ComponentTest.Kafka
         public KafkaWriter<TKey, T> Build()
         {
             ValidateInput();
-            
+
             var tokenService = GetTokenService();
             var writerProps = new KafkaWriterProps<TKey, T>
             {
@@ -162,11 +162,11 @@ namespace Cheetah.ComponentTest.Kafka
                 KeyFunction = KeyFunction,
                 KafkaUrl = Configuration.GetValue<string>(KAFKA_URL_KEY),
                 TokenService = tokenService,
-                Serializer = IsAvro 
-                    ? GetAvroSerializer(tokenService) 
+                Serializer = IsAvro
+                    ? GetAvroSerializer(tokenService)
                     : new Utf8Serializer<T>(),
             };
-            
+
             return new KafkaWriter<TKey, T>(writerProps);
         }
 

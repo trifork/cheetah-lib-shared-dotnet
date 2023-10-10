@@ -1,10 +1,11 @@
-﻿namespace Cheetah.Core.Infrastructure.Auth;
-
-public class OAuth2TokenException : Exception
+namespace Cheetah.Core.Infrastructure.Auth
 {
-    public string Error { get; }
-    public OAuth2TokenException(string error) : base(error)
+    public class OAuth2TokenException : Exception
     {
-        this.Error = error;
+        public string Error { get; }
+        public OAuth2TokenException(string error) : base(error)
+        {
+            Error = error;
+        }
     }
 }

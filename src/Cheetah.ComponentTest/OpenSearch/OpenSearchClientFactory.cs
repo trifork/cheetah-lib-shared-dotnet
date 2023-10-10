@@ -80,7 +80,7 @@ namespace Cheetah.ComponentTest.OpenSearch
                 OAuthScope = oauthScope,
                 TokenEndpoint = authEndpoint
             };
-            
+
             var options = Options.Create(config);
             var env = new HostingEnvironment { EnvironmentName = Environments.Development };
 

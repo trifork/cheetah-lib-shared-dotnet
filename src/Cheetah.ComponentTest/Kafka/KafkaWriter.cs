@@ -21,10 +21,11 @@ namespace Cheetah.ComponentTest.Kafka
             Topic = !string.IsNullOrWhiteSpace(props.Topic)
                 ? props.Topic
                 : throw new ArgumentException("Topic must not be null or empty");
-            
+
             KeyFunction = props.KeyFunction ?? throw new ArgumentException("KeyFunction cannot be null");
             Producer = new ProducerBuilder<TKey, T>(
-                new ProducerConfig {
+                new ProducerConfig
+                {
                     BootstrapServers = props.KafkaUrl,
                     SaslMechanism = SaslMechanism.OAuthBearer,
                     SecurityProtocol = SecurityProtocol.SaslPlaintext,
@@ -33,7 +34,7 @@ namespace Cheetah.ComponentTest.Kafka
                 .AddCheetahOAuthentication(props.TokenService, Logger)
                 .Build();
         }
-        
+
         /// <summary>
         /// Asynchronously publishes a single message to Kafka
         /// </summary>
@@ -59,7 +60,7 @@ namespace Cheetah.ComponentTest.Kafka
             {
                 throw new ArgumentException("WriteAsync was invoked with an empty list of messages.");
             }
-            
+
             foreach (var message in messages)
             {
                 await WriteAsync(message);

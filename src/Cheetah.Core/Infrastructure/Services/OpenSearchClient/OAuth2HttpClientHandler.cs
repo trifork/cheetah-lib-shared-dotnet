@@ -1,7 +1,3 @@
-using System;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 using Cheetah.Core.Infrastructure.Auth;
 
 namespace Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient
