@@ -8,12 +8,20 @@ on:
         required: true
   workflow_dispatch:
   schedule:
-    - cron: '0 3 * * *'
+    - cron: "0 3 * * *"
   push:
     branches: [main]
-    paths: ['src/**']
+    paths: ["src/**"]
   pull_request:
-    branches: [main, 'release/**']
+    branches: [main, "release/**"]
+    types:
+      - labeled
+      - opened
+      - edited
+      - ready_for_review
+      - auto_merge_enabled
+      - synchronize
+      - reopened
 
 concurrency:
   group: ${{ github.ref }}
@@ -35,7 +43,7 @@ jobs:
   dotnet-test:
     needs: check-changed-files
     if: ${{ needs.check-changed-files.outputs.src-changed == 'true' }}
-    
+
     name: Dotnet Test
     runs-on: ubuntu-latest
     steps:
@@ -56,7 +64,7 @@ jobs:
   test-opensearch:
     needs: [check-changed-files, dotnet-test]
     if: ${{ needs.check-changed-files.outputs.src-changed == 'true' }}
-    
+
     name: Test OpenSearch
     runs-on: ubuntu-latest
 
@@ -104,7 +112,7 @@ jobs:
 
     name: Test Kafka Auth
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
