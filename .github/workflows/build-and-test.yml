@@ -42,7 +42,7 @@ jobs:
 
   dotnet-test:
     needs: check-changed-files
-    if: ${{ needs.check-changed-files.outputs.src-changed == 'true' }}
+    #if: ${{ needs.check-changed-files.outputs.src-changed == 'true' }}
 
     name: Dotnet Test
     runs-on: ubuntu-latest
