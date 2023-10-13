@@ -54,7 +54,7 @@ jobs:
         run: dotnet test --logger trx --filter 'TestType!=IntegrationTests' /nowarn:cs1591
 
       - name: Display test report
-        uses: dorny/test-reporter@v1.6.0
+        uses: dorny/test-reporter@v1.7.0
         if: always()
         with:
           name: Tests
@@ -99,7 +99,7 @@ jobs:
         run: dotnet test --logger trx --verbosity normal --filter 'Category=OpenSearch'
 
       - name: Display test report
-        uses: dorny/test-reporter@v1.6.0
+        uses: dorny/test-reporter@v1.7.0
         if: always()
         with:
           name: Tests
@@ -135,7 +135,7 @@ jobs:
         run: dotnet test --logger trx --verbosity normal --filter 'Category=Kafka'
 
       - name: Display test report
-        uses: dorny/test-reporter@v1.6.0
+        uses: dorny/test-reporter@v1.7.0
         if: always()
         with:
           name: Tests
