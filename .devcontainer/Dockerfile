@@ -1,5 +1,5 @@
 # [Choice] .NET version: 6.0-bullseye-slim, 6.0-jammy, 6.0-focal
-FROM mcr.microsoft.com/devcontainers/dotnet:0-6.0-jammy
+FROM mcr.microsoft.com/devcontainers/dotnet:1-6.0-jammy
 
 ENV DOCKER_BUILDKIT=1
 ENV DOCKER_DEFAULT_PLATFORM=linux/amd64
