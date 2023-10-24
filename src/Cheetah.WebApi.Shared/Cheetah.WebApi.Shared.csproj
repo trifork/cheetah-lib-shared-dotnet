@@ -13,8 +13,15 @@
     <RepositoryUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</RepositoryUrl>
     <TargetFramework>net6.0</TargetFramework>
     <VersionPrefix>1.8.0</VersionPrefix>
+
+    <Authors>Trifork</Authors>
+    <PackageProjectUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</PackageProjectUrl>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="IdentityModel" Version="6.2.0" />
     <PackageReference Include="Confluent.Kafka" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.23" />

@@ -5,9 +5,16 @@
     <RootNamespace>Cheetah.WebApi.Shared.Test</RootNamespace>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
+
+    <Authors>Trifork</Authors>
+    <PackageProjectUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     <PackageReference Include="Confluent.Kafka" Version="2.2.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
