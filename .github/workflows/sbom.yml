@@ -24,7 +24,7 @@ jobs:
 
       - name: Commit changes and open pull request
         if: github.ref == 'refs/heads/main'
-        uses: peter-evans/create-pull-request@7865f819b00a5efda8d9f9323a7d9a50dc071fbf
+        uses: peter-evans/create-pull-request@d4d7b4e3a6e698d8dd5442552c9b4a846c98a0ca
         with:
           title: Update sbom report
           commit-message: Update sbom to the latest version
