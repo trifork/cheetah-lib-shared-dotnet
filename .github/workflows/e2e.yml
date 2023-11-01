@@ -1,51 +1,27 @@
-name: Test Cheetah.Shared NuGet Package
+name: E2E
 
 on:
   workflow_call:
-    secrets:
-      PAT:
-        description: A pesonal access token for logging into the Docker ghcr
-        required: true
   workflow_dispatch:
   schedule:
     - cron: "0 3 * * *"
   push:
-    branches: [main]
-    paths: ["src/**"]
+    branches: [ 'main', 'release/v**' ]
   pull_request:
-    branches: [main, "release/**"]
-    types:
-      - labeled
-      - opened
-      - edited
-      - ready_for_review
-      - auto_merge_enabled
-      - synchronize
-      - reopened
+    branches: [ 'main', 'release/v**' ]
+    types: [ opened, synchronize, reopened, labeled ]
 
 concurrency:
-  group: ${{ github.ref }}
+  group: ${{ github.ref }}-${{ github.workflow }}
   cancel-in-progress: true
 
 jobs:
-  check-changed-files:
-    name: Check changed files
-    runs-on: ubuntu-latest
-    outputs:
-      src-changed: ${{ steps.changed-files.outputs.any_changed }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v40
-        with:
-          files: src/*
+  should-run:
+    uses: trifork/cheetah-infrastructure-utils/.github/workflows/e2e-should-run.yml@main
 
   dotnet-test:
-    needs: check-changed-files
-    #if: ${{ needs.check-changed-files.outputs.src-changed == 'true' }}
+    needs: should-run
+    if: ${{ needs.should-run.outputs.should-run }}
 
     name: Dotnet Test
     runs-on: ubuntu-latest
@@ -65,8 +41,7 @@ jobs:
           reporter: dotnet-trx
 
   test-opensearch:
-    needs: [check-changed-files, dotnet-test]
-    if: ${{ needs.check-changed-files.outputs.src-changed == 'true' }}
+    needs: dotnet-test
 
     name: Test OpenSearch
     runs-on: ubuntu-latest
@@ -110,8 +85,7 @@ jobs:
           reporter: dotnet-trx
 
   test-kafka-auth:
-    needs: [check-changed-files, dotnet-test]
-    if: ${{ needs.check-changed-files.outputs.src-changed == 'true' }}
+    needs: dotnet-test
 
     name: Test Kafka Auth
     runs-on: ubuntu-latest
@@ -146,8 +120,7 @@ jobs:
           reporter: dotnet-trx
 
   component-test:
-    needs: [check-changed-files, dotnet-test]
-    if: ${{ needs.check-changed-files.outputs.src-changed == 'true' }}
+    needs: dotnet-test
 
     name: Run Component Tests
     runs-on: ubuntu-latest
