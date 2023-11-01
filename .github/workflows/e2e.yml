@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   should-run:
-    uses: trifork/cheetah-infrastructure-utils/.github/workflows/e2e-should-run.yml@main
+    uses: trifork/cheetah-infrastructure-utils-workflows/.github/workflows/e2e-should-run.yml@main
 
   dotnet-test:
     needs: should-run
