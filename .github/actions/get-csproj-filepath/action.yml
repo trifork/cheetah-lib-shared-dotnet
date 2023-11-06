@@ -16,4 +16,4 @@ runs:
     - name: Get csproj filepath
       id: get-csproj-filepath
       shell: bash
-      run: echo "csproj-filepath=$(grep -Po '(?<=${{ inputs.project-name }}:).*' ${{ github.action_path }}/csproj-filepaths.yaml | awk '{$1=$1};1')" >> $GITHUB_OUTPUT
+      run: echo "csproj-filepath=$(grep -Po '(?<=${{ inputs.project-name }}:).*' ${{ github.action_path }}/csproj-filepaths.yaml | awk '{$1=$1};1')" >> $GITHUB_OUTPUT # Magic for retrieving the value of the given key in csproj-filepaths.yaml. The AWK command trims leading and trailing whitespaces
