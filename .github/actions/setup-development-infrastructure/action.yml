@@ -1,5 +1,5 @@
-name: Setup Integration Test
-description: Sets up for an integration test by logging into the GitHub container registry and checking out cheetah development infrastructure
+name: Setup Development Infrastructure
+description: Logs into the GitHub container registry and checks out cheetah development infrastructure
 
 inputs:
   PAT:
