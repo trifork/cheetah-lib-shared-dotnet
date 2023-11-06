@@ -31,7 +31,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Unit Tests
-        run: dotnet test --logger trx --verbosity quiet --filter 'TestType!=IntegrationTests'
+        run: dotnet test --logger trx --filter 'TestType!=IntegrationTests'
 
       - name: Setup development infrastructure
         uses: ./.github/actions/setup-development-infrastructure
@@ -59,7 +59,7 @@ jobs:
           command: 'curl -sS -X GET -H "Content-Type: application/json" http://admin:admin@opensearch:9200/_cat/indices'
 
       - name: Dotnet Test
-        run: dotnet test --logger trx --verbosity quiet --filter 'TestType=IntegrationTests'
+        run: dotnet test --logger trx --filter 'TestType=IntegrationTests'
 
       - name: Display test report
         uses: dorny/test-reporter@v1.7.0
