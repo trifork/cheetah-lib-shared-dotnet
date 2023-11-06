@@ -87,7 +87,7 @@ jobs:
 
       - name: Start development infrastructure
         working-directory: integrationtests/
-        run: docker compose --profile kafka --profile oauth --profile opensearch --profile schemaregistry up -d --build
+        run: docker compose --profile core up -d --build
 
       - name: Run component tests
         working-directory: src/Cheetah.ComponentTest.XUnit
