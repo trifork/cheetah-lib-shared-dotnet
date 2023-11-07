@@ -1,0 +1,14 @@
+{
+    "ProducerTopic": "producerTopic",
+    "ConsumerTopic": "consumerTopic",
+    "ProduceData": [
+      "Data1",
+      "Data2",
+      "Data3"
+    ],
+    "ConsumeData": [
+      "DataA",
+      "DataB",
+      "DataC"
+    ]
+  }

@@ -1,9 +1,12 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Cheetah.ComponentTest.JSON;
 using Cheetah.Core.Infrastructure.Services.Kafka;
 using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Cheetah.ComponentTest.Kafka
@@ -12,16 +15,12 @@ namespace Cheetah.ComponentTest.Kafka
     {
         private static readonly ILogger Logger = new LoggerFactory().CreateLogger<KafkaWriter<TKey, T>>();
 
-        internal string Topic { get; }
+        internal string? Topic { get; }
         internal Func<T, TKey> KeyFunction { get; }
         private IProducer<TKey, T> Producer { get; }
 
         internal KafkaWriter(KafkaWriterProps<TKey, T> props)
         {
-            Topic = !string.IsNullOrWhiteSpace(props.Topic)
-                ? props.Topic
-                : throw new ArgumentException("Topic must not be null or empty");
-
             KeyFunction = props.KeyFunction ?? throw new ArgumentException("KeyFunction cannot be null");
             Producer = new ProducerBuilder<TKey, T>(
                 new ProducerConfig
@@ -39,7 +38,7 @@ namespace Cheetah.ComponentTest.Kafka
         /// Asynchronously publishes a single message to Kafka
         /// </summary>
         /// <param name="message">The message to publish</param>
-        public async Task WriteAsync(T message)
+        public async Task WriteAsync(T message, string topic = "")
         {
             var kafkaMessage = new Message<TKey, T>
             {
@@ -54,8 +53,13 @@ namespace Cheetah.ComponentTest.Kafka
         /// </summary>
         /// <param name="messages">The collection of messages to publish</param>
         /// <exception cref="ArgumentException">Thrown if the provided collection of messages is empty</exception>
-        public async Task WriteAsync(params T[] messages)
+        public async Task WriteAsync(string topic = "", params T[] messages)
         {
+            if (string.IsNullOrEmpty(topic) && string.IsNullOrEmpty(Topic))
+            {
+                throw new ArgumentException("Topic must not be null or empty");
+            }
+            
             if (!messages.Any())
             {
                 throw new ArgumentException("WriteAsync was invoked with an empty list of messages.");
@@ -64,6 +68,27 @@ namespace Cheetah.ComponentTest.Kafka
             foreach (var message in messages)
             {
                 await WriteAsync(message);
+            }
+        }
+
+        public async Task WriteFromJson(string filePath, string topic)
+        {
+            if (!File.Exists(filePath))
+            {
+                throw new ArgumentException($"Can't find file: {filePath}");
+            }
+
+            string jsonFile = File.ReadAllText(filePath);
+
+            try
+            {
+                string jsonText = File.ReadAllText(jsonFile);
+                var config = JsonConvert.DeserializeObject<KafkaJsonFile>(jsonText);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error processing file {jsonFile}: {ex.Message}");
             }
         }
     }

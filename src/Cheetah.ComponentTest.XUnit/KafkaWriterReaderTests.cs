@@ -1,4 +1,5 @@
 using Cheetah.ComponentTest.Kafka;
+using Cheetah.ComponentTest.JSON;
 using Cheetah.ComponentTest.XUnit.Model.Avro;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
@@ -19,7 +20,8 @@ namespace Cheetah.ComponentTest.XUnit
                 { "KAFKA:CLIENTID", "ClientId" },
                 { "KAFKA:CLIENTSECRET", "testsecret" },
                 { "KAFKA:URL", "localhost:9092" },
-                { "KAFKA:SCHEMAREGISTRYURL", "http://localhost:8081/apis/ccompat/v7" }
+                { "KAFKA:SCHEMAREGISTRYURL", "http://localhost:8081/apis/ccompat/v7" },
+                { "FILEPATH", "./TestData.json" }
             };
             _configuration = new ConfigurationBuilder()
                 .AddInMemoryCollection(conf)
@@ -116,6 +118,48 @@ namespace Cheetah.ComponentTest.XUnit
             // Assert
             readMessages.Should().HaveCount(1);
             readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(2)).Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task Should_WriteJsonAndReadKafka()
+        {
+            // Arrange
+            var jsonReader = new JsonReader(_configuration);
+
+            
+            KafkaJsonWriter.WriteFromJson(_configuration.FilePath);
+
+            var jsonconfig = jsonReader.ConsumeJson();
+
+            var writerJson = KafkaWriterBuilder.Create<string>(_configuration)
+            .WithTopic(jsonconfig.ProducerTopic)
+            .Build();
+
+            var readerJson = KafkaReaderBuilder.Create<string>(_configuration)
+            .WithConsumerGroup("WriteJsonAndReadKafka")
+            .WithTopic(jsonconfig.ConsumerTopic)
+            .Build();
+
+            // Act
+            await writerJson.WriteAsync(jsonconfig.ProducerData.ToArray(), topic = "TestTopic");
+
+            var readMessages = readerJson.ReadMessages
+
+            // Then
+        }
+
+        [Fact]
+        public async Task Test()
+        {
+            var kafkaWriter = KafkaWriterBuilder.Create<string>(_configuration)
+            .Build();
+
+            var kafkaReader = KafkaReaderBuilder.Create<string>(_configuration)
+            .Build();
+
+            kafkaWriter.WriteFromJson(pathToJson);
+
+            kafkaReader.TestFromJson(pathToJson);
         }
 
         [Fact]

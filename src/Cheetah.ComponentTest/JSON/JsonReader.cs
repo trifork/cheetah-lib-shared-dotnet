@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
+
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 
@@ -26,7 +26,7 @@ namespace Cheetah.ComponentTest.JSON
             Configuration = configuration;
         }
 
-        protected JsonConfiguration ConsumeJson()
+        public JsonConfiguration ConsumeJson()
         {
             if (string.IsNullOrEmpty(FILE_PATH))
             {
@@ -40,7 +40,7 @@ namespace Cheetah.ComponentTest.JSON
             }
 
             string jsonFile = File.ReadAllText(filePath);
-            
+
             try
             {
                 string jsonText = File.ReadAllText(jsonFile);
@@ -51,12 +51,17 @@ namespace Cheetah.ComponentTest.JSON
                     throw new Exception("Could not deserialize file");
                 }
 
+                if (config.ProducerTopic == null)
+                {
+                    throw new Exception("Producer topic not set");
+                }
+
             }
             catch (Exception ex)
             {
                 throw new Exception($"Error processing file {jsonFile}: {ex.Message}");
             }
-            
+
             return config;
         }
 
