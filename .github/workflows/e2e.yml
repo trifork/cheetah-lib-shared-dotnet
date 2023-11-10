@@ -25,43 +25,28 @@ jobs:
 
     name: Dotnet Test
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Dotnet test
-        run: dotnet test --logger trx --filter 'TestType!=IntegrationTests' /nowarn:cs1591
-
-      - name: Display test report
-        uses: dorny/test-reporter@v1.7.0
-        if: always()
-        with:
-          name: Tests
-          path: src/Cheetah.WebApi.Shared.Test/TestResults/*.trx
-          reporter: dotnet-trx
-
-  test-opensearch:
-    needs: dotnet-test
-
-    name: Test OpenSearch
-    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup integration test
-        uses: ./.github/actions/setup-integration-test
+      - name: Unit Tests
+        run: dotnet test --logger trx --filter 'TestType!=IntegrationTests'
+
+      - name: Setup development infrastructure
+        uses: ./.github/actions/setup-development-infrastructure
         with:
           PAT: ${{ secrets.PAT }}
 
       - name: Start development infrastructure
         working-directory: integrationtests/
-        run: docker compose --profile opensearch --profile oauth up -d --build
+        run: docker compose --profile core up -d --build
 
       - name: Add hosts to /etc/hosts
         run: |
           sudo echo "127.0.0.1 opensearch" | sudo tee -a /etc/hosts
+          sudo echo "127.0.0.1 cheetahoauthsimulator" | sudo tee -a /etc/hosts
+          sudo echo "127.0.0.1 kafka" | sudo tee -a /etc/hosts
           sudo echo "127.0.0.1 cheetahoauthsimulator" | sudo tee -a /etc/hosts
 
       - name: Wait for opensearch, the slowest component
@@ -73,43 +58,8 @@ jobs:
           warning_on_retry: false
           command: 'curl -sS -X GET -H "Content-Type: application/json" http://admin:admin@opensearch:9200/_cat/indices'
 
-      - name: Test OpenSearch
-        run: dotnet test --logger trx --verbosity normal --filter 'Category=OpenSearch'
-
-      - name: Display test report
-        uses: dorny/test-reporter@v1.7.0
-        if: always()
-        with:
-          name: Tests
-          path: src/Cheetah.WebApi.Shared.Test/TestResults/*.trx
-          reporter: dotnet-trx
-
-  test-kafka-auth:
-    needs: dotnet-test
-
-    name: Test Kafka Auth
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup integration test
-        uses: ./.github/actions/setup-integration-test
-        with:
-          PAT: ${{ secrets.PAT }}
-
-      - name: Start development infrastructure
-        working-directory: integrationtests/
-        run: docker compose --profile kafka --profile oauth up -d --build
-
-      - name: Add hosts to /etc/hosts
-        run: |
-          sudo echo "127.0.0.1 kafka" | sudo tee -a /etc/hosts
-          sudo echo "127.0.0.1 cheetahoauthsimulator" | sudo tee -a /etc/hosts
-
-      - name: Test Kafka auth
-        run: dotnet test --logger trx --verbosity normal --filter 'Category=Kafka'
+      - name: Dotnet Test
+        run: dotnet test --logger trx --filter 'TestType=IntegrationTests'
 
       - name: Display test report
         uses: dorny/test-reporter@v1.7.0
@@ -120,7 +70,8 @@ jobs:
           reporter: dotnet-trx
 
   component-test:
-    needs: dotnet-test
+    needs: should-run
+    if: ${{ needs.should-run.outputs.should-run }}
 
     name: Run Component Tests
     runs-on: ubuntu-latest
@@ -130,16 +81,26 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup integration test
-        uses: ./.github/actions/setup-integration-test
+        uses: ./.github/actions/setup-development-infrastructure
         with:
           PAT: ${{ secrets.PAT }}
 
       - name: Start development infrastructure
         working-directory: integrationtests/
-        run: docker compose --profile kafka --profile oauth --profile opensearch --profile schemaregistry up -d --build
+        run: docker compose --profile core up -d --build
 
       - name: Run component tests
         working-directory: src/Cheetah.ComponentTest.XUnit
         run: docker compose -f docker-compose.yaml up --abort-on-container-exit
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
+
+  test-success:
+    needs: [dotnet-test, component-test]
+
+    name: Test Success
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Success
+        run: echo "Tests completed successfully"
