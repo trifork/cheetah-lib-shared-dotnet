@@ -36,35 +36,24 @@ namespace Cheetah.ComponentTest.Kafka
         }
 
         /// <summary>
-        /// Asynchronously publishes a single message to Kafka
-        /// </summary>
-        /// <param name="message">The message to publish</param>
-        public async Task WriteAsync(T message)
-        {
-            var kafkaMessage = new Message<TKey, T>
-            {
-                Key = KeyFunction(message),
-                Value = message
-            };
-            await Producer.ProduceAsync(Topic, kafkaMessage);
-        }
-
-        /// <summary>
-        /// Asynchronously publishes multiple messages to Kafka
+        /// Publishes multiple messages to Kafka
         /// </summary>
         /// <param name="messages">The collection of messages to publish</param>
         /// <exception cref="ArgumentException">Thrown if the provided collection of messages is empty</exception>
-        public async Task WriteAsync(params T[] messages)
+        public Task WriteAsync(params T[] messages)
         {
             if (!messages.Any())
             {
                 throw new ArgumentException("WriteAsync was invoked with an empty list of messages.");
             }
 
-            foreach (var message in messages)
+            var kafkaMessages = messages.Select(message => new Message<TKey, T>
             {
-                await WriteAsync(message);
-            }
+                Key = KeyFunction(message),
+                Value = message,
+            });
+            var produceTasks = kafkaMessages.Select(kafkaMessage => Producer.ProduceAsync(Topic, kafkaMessage));
+            return Task.WhenAll(produceTasks);
         }
     }
 }
