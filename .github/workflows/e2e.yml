@@ -73,7 +73,7 @@ jobs:
     needs: should-run
     if: ${{ needs.should-run.outputs.should-run }}
 
-    name: Run Component Tests
+    name: Component Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -94,13 +94,3 @@ jobs:
         run: docker compose -f docker-compose.yaml up --abort-on-container-exit
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
-
-  test-success:
-    needs: [dotnet-test, component-test]
-
-    name: Test Success
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Success
-        run: echo "Tests completed successfully"
