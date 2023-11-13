@@ -1,26 +1,27 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:be6d9d72-c878-44db-b6ce-94a8f862e0a6",
+  "serialNumber": "urn:uuid:30a0541b-8204-40f3-8d23-9ff68761d88b",
   "version": 1,
   "metadata": {
-    "timestamp": "2023-09-21T10:52:24.842Z",
+    "timestamp": "2023-11-13T08:47:59.998Z",
     "tools": {
       "components": [
         {
           "group": "@cyclonedx",
           "name": "cdxgen",
-          "version": "9.8.1",
-          "purl": "pkg:npm/%40cyclonedx/cdxgen@9.8.1",
+          "version": "9.9.3",
+          "purl": "pkg:npm/%40cyclonedx/cdxgen@9.9.3",
           "type": "application",
-          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@9.8.1"
+          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@9.9.3",
+          "author": "OWASP Foundation",
+          "publisher": "OWASP Foundation"
         }
       ]
     },
     "authors": [
       {
-        "name": "Prabhu Subramanian",
-        "email": "prabhu@appthreat.com"
+        "name": "OWASP Foundation"
       }
     ],
     "component": {
@@ -28,19 +29,932 @@
       "name": "src",
       "version": "latest",
       "type": "application",
-      "bom-ref": "pkg:application/src@latest",
-      "purl": "pkg:application/src@latest"
+      "bom-ref": "pkg:dotnet/src@latest",
+      "purl": "pkg:dotnet/src@latest"
     }
   },
   "components": [
     {
+      "author": "Microsoft",
       "group": "",
       "name": "Microsoft.Extensions.Hosting",
       "version": "6.0.1",
-      "licenses": [],
+      "description": "Hosting and startup infrastructures for applications.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
       "purl": "pkg:nuget/Microsoft.Extensions.Hosting@6.0.1",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Hosting/6.0.1/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://dot.net/"
+        }
+      ],
       "type": "library",
       "bom-ref": "pkg:nuget/Microsoft.Extensions.Hosting@6.0.1"
+    },
+    {
+      "author": "Confluent Inc.,Andreas Heider",
+      "group": "",
+      "name": "Confluent.Kafka",
+      "version": "2.3.0",
+      "description": "Confluent's .NET Client for Apache Kafka",
+      "licenses": [
+        {
+          "license": {
+            "name": "CUSTOM",
+            "url": "https://github.com/confluentinc/confluent-kafka-dotnet/blob/master/LICENSE"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Confluent.Kafka@2.3.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Confluent.Kafka/2.3.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/confluentinc/confluent-kafka-dotnet/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Confluent.Kafka@2.3.0"
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "Microsoft.NET.Test.Sdk",
+      "version": "17.8.0",
+      "description": "The MSbuild targets and properties for building .NET test projects.",
+      "licenses": [
+        {
+          "license": {
+            "name": "CUSTOM",
+            "url": "https://www.nuget.org/packages/Microsoft.NET.Test.Sdk/17.8.0/license"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Microsoft.NET.Test.Sdk@17.8.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Microsoft.NET.Test.Sdk/17.8.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/microsoft/vstest"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.NET.Test.Sdk@17.8.0"
+    },
+    {
+      "author": "Daniel Cazzulino, kzu",
+      "group": "",
+      "name": "Moq",
+      "version": "4.20.69",
+      "description": "Moq is the most popular and friendly mocking framework for .NET.",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause",
+            "url": "https://opensource.org/licenses/BSD-3-Clause"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Moq@4.20.69",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Moq/4.20.69/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/moq/moq"
+        }
+      ],
+      "type": "framework",
+      "bom-ref": "pkg:nuget/Moq@4.20.69"
+    },
+    {
+      "author": "Todd Benning",
+      "group": "",
+      "name": "Serilog.Sinks.XUnit",
+      "version": "3.0.5",
+      "description": "The xUnit test output sink for Serilog",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Serilog.Sinks.XUnit@3.0.5",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Serilog.Sinks.XUnit/3.0.5/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/trbenning/serilog-sinks-xunit"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Serilog.Sinks.XUnit@3.0.5"
+    },
+    {
+      "author": "jnewkirk,bradwilson",
+      "group": "",
+      "name": "xunit",
+      "version": "2.6.1",
+      "description": "xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.\n\nInstalling this package installs xunit.core, xunit.assert, and xunit.analyzers.",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "url": "https://opensource.org/licenses/Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/xunit@2.6.1",
+      "type": "framework",
+      "bom-ref": "pkg:nuget/xunit@2.6.1"
+    },
+    {
+      "author": "Andrew Arnott",
+      "group": "",
+      "name": "Xunit.SkippableFact",
+      "version": "1.4.13",
+      "description": "Make your Xunit test methods self-determine to report a \"skipped\" result. Useful for such cases as \"not supported on this platform\" results or other environmental inputs.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MS-PL",
+            "url": "https://opensource.org/licenses/MS-PL"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Xunit.SkippableFact@1.4.13",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Xunit.SkippableFact/1.4.13/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/AArnott/Xunit.SkippableFact"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Xunit.SkippableFact@1.4.13"
+    },
+    {
+      "author": "jnewkirk,bradwilson",
+      "group": "",
+      "name": "xunit.extensibility.execution",
+      "version": "2.6.1",
+      "description": "Includes xunit.execution.*.dll for extensibility purposes. Supports .NET 4.5.2 or later, and .NET Standard 1.1.",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "url": "https://opensource.org/licenses/Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/xunit.extensibility.execution@2.6.1",
+      "type": "library",
+      "bom-ref": "pkg:nuget/xunit.extensibility.execution@2.6.1"
+    },
+    {
+      "author": "jnewkirk,bradwilson",
+      "group": "",
+      "name": "xunit.runner.visualstudio",
+      "version": "2.5.3",
+      "description": "Visual Studio 2022+ Test Explorer runner for the xUnit.net framework. Capable of running xUnit.net v1.9.2 and v2.0+ tests. Supports .NET 4.6.2 or later, and .NET 6 or later.",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "url": "https://opensource.org/licenses/Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/xunit.runner.visualstudio@2.5.3",
+      "type": "framework",
+      "bom-ref": "pkg:nuget/xunit.runner.visualstudio@2.5.3"
+    },
+    {
+      "author": "tonerdo",
+      "group": "",
+      "name": "coverlet.collector",
+      "version": "6.0.0",
+      "description": "Coverlet is a cross platform code coverage library for .NET, with support for line, branch and method coverage.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/coverlet.collector@6.0.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/coverlet.collector/6.0.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/coverlet-coverage/coverlet"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/coverlet.collector@6.0.0"
+    },
+    {
+      "author": "Dominick Baier,Brock Allen",
+      "group": "",
+      "name": "IdentityModel",
+      "version": "6.2.0",
+      "description": "OpenID Connect & OAuth 2.0 client library",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "url": "https://opensource.org/licenses/Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/IdentityModel@6.2.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/IdentityModel/6.2.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/IdentityModel/IdentityModel"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/IdentityModel@6.2.0"
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "Microsoft.AspNetCore.Authentication.JwtBearer",
+      "version": "6.0.24",
+      "description": "ASP.NET Core middleware that enables an application to receive an OpenID Connect bearer token.\n\nThis package was built from the source code at https://github.com/dotnet/aspnetcore/tree/2aa401550574f93402eba13ff9a4827ef01a2f3a",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Microsoft.AspNetCore.Authentication.JwtBearer@6.0.24",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.JwtBearer/6.0.24/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://asp.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.AspNetCore.Authentication.JwtBearer@6.0.24"
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "Microsoft.Extensions.Caching.Abstractions",
+      "version": "6.0.0",
+      "description": "Caching abstractions for in-memory cache and distributed cache.\n\nCommonly Used Types:\nMicrosoft.Extensions.Caching.Distributed.IDistributedCache\nMicrosoft.Extensions.Caching.Memory.IMemoryCache",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Microsoft.Extensions.Caching.Abstractions@6.0.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Caching.Abstractions/6.0.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://dot.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Caching.Abstractions@6.0.0"
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "Microsoft.Extensions.DependencyInjection.Abstractions",
+      "version": "6.0.0",
+      "description": "Abstractions for dependency injection.\n\nCommonly Used Types:\nMicrosoft.Extensions.DependencyInjection.IServiceCollection",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@6.0.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection.Abstractions/6.0.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://dot.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@6.0.0"
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "Microsoft.Extensions.Hosting.Abstractions",
+      "version": "6.0.0",
+      "description": "Hosting and startup abstractions for applications.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Microsoft.Extensions.Hosting.Abstractions@6.0.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Hosting.Abstractions/6.0.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://dot.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Hosting.Abstractions@6.0.0"
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "Microsoft.Extensions.Http.Polly",
+      "version": "6.0.24",
+      "description": "The HttpClient factory is a pattern for configuring and retrieving named HttpClients in a composable way. This package integrates IHttpClientFactory with the Polly library, to add transient-fault-handling and resiliency through fluent policies such as Retry, Circuit Breaker, Timeout, Bulkhead Isolation, and Fallback.\n    \n\nThis package was built from the source code at https://github.com/dotnet/aspnetcore/tree/2aa401550574f93402eba13ff9a4827ef01a2f3a",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Microsoft.Extensions.Http.Polly@6.0.24",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Http.Polly/6.0.24/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://asp.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Http.Polly@6.0.24"
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "Microsoft.Extensions.Logging.Abstractions",
+      "version": "6.0.4",
+      "description": "Logging abstractions for Microsoft.Extensions.Logging.\n\nCommonly Used Types:\nMicrosoft.Extensions.Logging.ILogger\nMicrosoft.Extensions.Logging.ILoggerFactory\nMicrosoft.Extensions.Logging.ILogger<TCategoryName>\nMicrosoft.Extensions.Logging.LogLevel\nMicrosoft.Extensions.Logging.Logger<T>\nMicrosoft.Extensions.Logging.LoggerMessage\nMicrosoft.Extensions.Logging.Abstractions.NullLogger",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@6.0.4",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Logging.Abstractions/6.0.4/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://dot.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@6.0.4"
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "Microsoft.Extensions.Options",
+      "version": "6.0.0",
+      "description": "Provides a strongly typed way of specifying and accessing settings using dependency injection.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Microsoft.Extensions.Options@6.0.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Options/6.0.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://dot.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Options@6.0.0"
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "Microsoft.IdentityModel.Tokens",
+      "version": "6.33.0",
+      "description": "Includes types that provide support for SecurityTokens, Cryptographic operations: Signing, Verifying Signatures, Encryption.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Microsoft.IdentityModel.Tokens@6.33.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Microsoft.IdentityModel.Tokens/6.33.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.IdentityModel.Tokens@6.33.0"
+    },
+    {
+      "author": "OpenSearch and contributors",
+      "group": "",
+      "name": "OpenSearch.Client",
+      "version": "1.5.0",
+      "description": "Strongly typed interface to OpenSearch. Fluent and classic object initializer mappings of requests and \n      responses. Uses and exposes OpenSearch.Net.",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "url": "https://opensource.org/licenses/Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/OpenSearch.Client@1.5.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/OpenSearch.Client/1.5.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/opensearch-project/opensearch-net"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/OpenSearch.Client@1.5.0"
+    },
+    {
+      "author": "OpenSearch and contributors",
+      "group": "",
+      "name": "OpenSearch.Client.JsonNetSerializer",
+      "version": "1.5.0",
+      "description": "OpenSearch.Client uses an internal serializer. This package enables serialization for your documents using your own custom Json.NET serializer",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "url": "https://opensource.org/licenses/Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/OpenSearch.Client.JsonNetSerializer@1.5.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/OpenSearch.Client.JsonNetSerializer/1.5.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/opensearch-project/opensearch-net"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/OpenSearch.Client.JsonNetSerializer@1.5.0"
+    },
+    {
+      "author": "andrasm,qed-,lakario,sandersaares",
+      "group": "",
+      "name": "prometheus-net",
+      "version": "8.1.0",
+      "description": ".NET client library for the Prometheus monitoring and alerting system",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/prometheus-net@8.1.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/prometheus-net/8.1.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/prometheus-net/prometheus-net"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/prometheus-net@8.1.0"
+    },
+    {
+      "author": "andrasm,qed-,lakario,sandersaares",
+      "group": "",
+      "name": "prometheus-net.AspNetCore",
+      "version": "8.1.0",
+      "description": "ASP.NET Core middleware and stand-alone Kestrel server for exporting metrics to Prometheus",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/prometheus-net.AspNetCore@8.1.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/prometheus-net.AspNetCore/8.1.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/prometheus-net/prometheus-net"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/prometheus-net.AspNetCore@8.1.0"
+    },
+    {
+      "author": "Swashbuckle.AspNetCore.SwaggerGen",
+      "group": "",
+      "name": "Swashbuckle.AspNetCore.SwaggerGen",
+      "version": "6.5.0",
+      "description": "Swagger Generator for APIs built on ASP.NET Core",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Swashbuckle.AspNetCore.SwaggerGen@6.5.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerGen/6.5.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/domaindrivendev/Swashbuckle.AspNetCore"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Swashbuckle.AspNetCore.SwaggerGen@6.5.0"
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "System.IdentityModel.Tokens.Jwt",
+      "version": "6.33.0",
+      "description": "Includes types that provide support for creating, serializing and validating JSON Web Tokens.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/System.IdentityModel.Tokens.Jwt@6.33.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/System.IdentityModel.Tokens.Jwt/6.33.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.IdentityModel.Tokens.Jwt@6.33.0"
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "Microsoft.Extensions.Http",
+      "version": "6.0.0",
+      "description": "The HttpClient factory is a pattern for configuring and retrieving named HttpClients in a composable way. The HttpClient factory provides extensibility to plug in DelegatingHandlers that address cross-cutting concerns such as service location, load balancing, and reliability. The default HttpClient factory provides built-in diagnostics and logging and manages the lifetimes of connections in a performant way.\n\nCommonly Used Types:\nSystem.Net.Http.IHttpClientFactory",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Microsoft.Extensions.Http@6.0.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Http/6.0.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://dot.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Http@6.0.0"
+    },
+    {
+      "author": "James Newton-King",
+      "group": "",
+      "name": "Newtonsoft.Json",
+      "version": "13.0.3",
+      "description": "Json.NET is a popular high-performance JSON framework for .NET",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Newtonsoft.Json@13.0.3",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Newtonsoft.Json/13.0.3/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://www.newtonsoft.com/json"
+        }
+      ],
+      "type": "framework",
+      "bom-ref": "pkg:nuget/Newtonsoft.Json@13.0.3"
+    },
+    {
+      "author": "Serilog Contributors",
+      "group": "",
+      "name": "Serilog",
+      "version": "3.1.0",
+      "description": "Simple .NET logging with fully-structured events",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "url": "https://opensource.org/licenses/Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Serilog@3.1.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Serilog/3.1.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://serilog.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Serilog@3.1.0"
+    },
+    {
+      "author": "Dennis Doomen,Jonas Nyrup",
+      "group": "",
+      "name": "FluentAssertions",
+      "version": "6.12.0",
+      "description": "A very extensive set of extension methods that allow you to more naturally specify the expected outcome of a TDD or\n      BDD-style unit tests. Targets .NET Framework 4.7, .NET Core 2.1 and 3.0, .NET 6, as well as .NET Standard 2.0 and 2.1.\n      Supports the unit test frameworks MSTest2, NUnit3, XUnit2, MSpec, and NSpec3.\n\n      Supported by InfoSupport B.V.",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "url": "https://opensource.org/licenses/Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/FluentAssertions@6.12.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/FluentAssertions/6.12.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://www.fluentassertions.com/"
+        }
+      ],
+      "type": "framework",
+      "bom-ref": "pkg:nuget/FluentAssertions@6.12.0"
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "Microsoft.Extensions.Configuration",
+      "version": "7.0.0",
+      "description": "Implementation of key-value pair based configuration for Microsoft.Extensions.Configuration. Includes the memory configuration provider.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Microsoft.Extensions.Configuration@7.0.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Configuration/7.0.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://dot.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Configuration@7.0.0"
+    },
+    {
+      "author": "Confluent Inc.",
+      "group": "",
+      "name": "Confluent.SchemaRegistry.Serdes.Avro",
+      "version": "2.3.0",
+      "description": "Provides an Avro Serializer and Deserializer for use with Confluent.Kafka with Confluent Schema Registry integration",
+      "licenses": [
+        {
+          "license": {
+            "name": "CUSTOM",
+            "url": "https://github.com/confluentinc/confluent-kafka-dotnet/blob/master/LICENSE"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.3.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Confluent.SchemaRegistry.Serdes.Avro/2.3.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/confluentinc/confluent-kafka-dotnet/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.3.0"
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "Microsoft.Extensions.Caching.Memory",
+      "version": "6.0.1",
+      "description": "In-memory cache implementation of Microsoft.Extensions.Caching.Memory.IMemoryCache.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Microsoft.Extensions.Caching.Memory@6.0.1",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/6.0.1/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://dot.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Caching.Memory@6.0.1"
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "Microsoft.Extensions.Options.DataAnnotations",
+      "version": "6.0.0",
+      "description": "Provides additional DataAnnotations specific functionality related to Options.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Microsoft.Extensions.Options.DataAnnotations@6.0.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Options.DataAnnotations/6.0.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://dot.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Options.DataAnnotations@6.0.0"
+    },
+    {
+      "author": "Serilog Contributors",
+      "group": "",
+      "name": "Serilog.Sinks.Console",
+      "version": "5.0.0",
+      "description": "A Serilog sink that writes log events to the console/terminal.",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "url": "https://opensource.org/licenses/Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Serilog.Sinks.Console@5.0.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Serilog.Sinks.Console/5.0.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/serilog/serilog-sinks-console"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Serilog.Sinks.Console@5.0.0"
     }
   ],
   "dependencies": []
