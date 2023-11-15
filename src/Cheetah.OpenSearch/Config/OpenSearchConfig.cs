@@ -1,4 +1,6 @@
+using System;
 using System.ComponentModel.DataAnnotations;
+using Cheetah.OpenSearch.Client;
 
 namespace Cheetah.OpenSearch.Config
 {

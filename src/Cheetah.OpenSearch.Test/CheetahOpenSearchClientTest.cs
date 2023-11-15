@@ -1,7 +1,7 @@
 using System;
 using Cheetah.Core.Util;
+using Cheetah.OpenSearch.Client;
 using Cheetah.OpenSearch.Config;
-using Cheetah.OpenSearch.OpenSearchClient;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Hosting.Internal;
@@ -71,7 +71,7 @@ namespace Cheetah.OpenSearch.Test
             var logger =
                 loggerFactory.CreateLogger<CheetahOpenSearchClient>();
             CheetahOpenSearchClient client =
-                new(memoryCache, httpClientFactory, options, env, logger);
+                new CheetahOpenSearchClient(memoryCache, httpClientFactory, options, env, logger);
 
             var newIndexName = Guid.NewGuid().ToString();
             var newIndicesResponse = client.InternalClient.Indices.Create(

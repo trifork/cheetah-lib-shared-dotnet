@@ -1,6 +1,10 @@
+using System;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 using Cheetah.Core.Authentication;
 
-namespace Cheetah.OpenSearch.OpenSearchClient
+namespace Cheetah.OpenSearch.Client
 {
     internal class OAuth2HttpClientHandler : DelegatingHandler
     {

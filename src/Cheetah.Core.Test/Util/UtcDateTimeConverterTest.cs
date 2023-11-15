@@ -7,7 +7,7 @@ using Moq;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace Cheetah.WebApi.Test.Util
+namespace Cheetah.Core.Test.Util
 {
     [Trait("Category", "Utils"), Trait("TestType", "Unit")]
     public class UtcDateTimeConverterTest
@@ -56,7 +56,14 @@ namespace Cheetah.WebApi.Test.Util
             Assert.Equal(expected, actual);
         }
 
-        public record DummyDateTime(DateTime DateTime);
+        public class DummyDateTime
+        {
+            public DummyDateTime(DateTime dateTime)
+            {
+                DateTime = dateTime;
+            }
+            public DateTime DateTime { get; set; }
+        }
 
         [Theory]
         [MemberData(nameof(ValidTestCases))]
@@ -173,7 +180,7 @@ namespace Cheetah.WebApi.Test.Util
         [Fact]
         public void Should_SerializeDefaultDateTimeAs0()
         {
-            DateTime date = new();
+            DateTime date = new DateTime();
             var sb = new StringBuilder();
             var writer = new JsonTextWriter(new StringWriter(sb));
             _sut.WriteJson(writer, date, JsonSerializer.CreateDefault());
@@ -184,7 +191,7 @@ namespace Cheetah.WebApi.Test.Util
         [Fact]
         public void Should_SerializeDefaultDateTimeOffsetAs0()
         {
-            DateTimeOffset date = new();
+            DateTimeOffset date = new DateTimeOffset();
             var sb = new StringBuilder();
             var writer = new JsonTextWriter(new StringWriter(sb));
             _sut.WriteJson(writer, date, JsonSerializer.CreateDefault());

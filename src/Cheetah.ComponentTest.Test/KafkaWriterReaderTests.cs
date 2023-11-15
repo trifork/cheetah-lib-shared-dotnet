@@ -1,7 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Cheetah.ComponentTest.Kafka;
 using Cheetah.ComponentTest.Test.Model.Avro;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
+using Xunit;
 
 namespace Cheetah.ComponentTest.Test
 {
@@ -13,7 +18,7 @@ namespace Cheetah.ComponentTest.Test
 
         public KafkaWriterReaderTests()
         {
-            var conf = new Dictionary<string, string>
+            var conf = new Dictionary<string, string?>
             {
                 { "KAFKA:AUTHENDPOINT", "http://localhost:1752/oauth2/token" },
                 { "KAFKA:CLIENTID", "ClientId" },
@@ -47,12 +52,12 @@ namespace Cheetah.ComponentTest.Test
         }
 
         static AvroObjectWithEnum AvroObjWithEnum1 =>
-            new() { EnumType = EnumTypeAvro.EnumType1, NullableInt = null, NullableString = null };
+            new AvroObjectWithEnum { EnumType = EnumTypeAvro.EnumType1, NullableInt = null, NullableString = null };
 
         static AvroObjectWithEnum AvroObjWithEnum2 =>
-            new() { EnumType = EnumTypeAvro.EnumType2, NullableInt = 123, NullableString = "bar" };
+            new AvroObjectWithEnum { EnumType = EnumTypeAvro.EnumType2, NullableInt = 123, NullableString = "bar" };
 
-        static AdvancedAvroObject AdvancedAvroObject1 => new()
+        static AdvancedAvroObject AdvancedAvroObject1 => new AdvancedAvroObject
         {
             Id = "Id",
             Name = "AvroName",
@@ -60,7 +65,7 @@ namespace Cheetah.ComponentTest.Test
             AvroObjectWithEnum = AvroObjWithEnum1
         };
 
-        static readonly AdvancedAvroObject AdvancedAvroObject2 = new()
+        static readonly AdvancedAvroObject AdvancedAvroObject2 = new AdvancedAvroObject
         {
             Id = "Id",
             Name = "Foo",
@@ -72,7 +77,7 @@ namespace Cheetah.ComponentTest.Test
         public async Task Should_WriteAndReadSimpleObjects_When_UsingAvro()
         {
             // Arrange
-            var avroModel = new SimpleAvroObject() { Name = "foo", Number = 100 };
+            var avroModel = new SimpleAvroObject { Name = "foo", Number = 100 };
 
             var writerAvro = KafkaWriterBuilder.Create<SimpleAvroObject>(_configuration)
                 .WithTopic("SimpleAvroTopic")

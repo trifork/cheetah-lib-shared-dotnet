@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.WebApi", "src\Cheetah.WebApi\Cheetah.WebApi.csproj", "{D49DB3AA-20D7-4B7A-A5FD-5D093BAFD3CC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.WebApi.Test", "src\Cheetah.WebApi.Test\Cheetah.WebApi.Test.csproj", "{FE63BBB3-21CE-4469-9BE0-97A6B31D5DB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Core.Test", "src\Cheetah.Core.Test\Cheetah.Core.Test.csproj", "{FE63BBB3-21CE-4469-9BE0-97A6B31D5DB2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5CB19838-D0DD-411B-A401-F0FE3E063220}"
 	ProjectSection(SolutionItems) = preProject

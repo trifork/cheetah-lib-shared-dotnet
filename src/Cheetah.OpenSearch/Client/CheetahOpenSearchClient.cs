@@ -1,5 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading.Tasks;
 using Cheetah.Core.Util;
 using Cheetah.OpenSearch.Config;
 using Microsoft.Extensions.Caching.Memory;
@@ -11,7 +16,7 @@ using OpenSearch.Client;
 using OpenSearch.Client.JsonNetSerializer;
 using OpenSearch.Net;
 
-namespace Cheetah.OpenSearch.OpenSearchClient
+namespace Cheetah.OpenSearch.Client
 {
     /// <summary>Wrapper around OpenSearch, which introduces logging, authorization, and metrics
     /// <para>
@@ -42,14 +47,14 @@ namespace Cheetah.OpenSearch.OpenSearchClient
     public class CheetahOpenSearchClient : ICheetahOpenSearchClient
     {
         private readonly ILogger<CheetahOpenSearchClient> _logger;
-        public global::OpenSearch.Client.OpenSearchClient InternalClient { get; }
+        public IOpenSearchClient InternalClient { get; }
         private readonly OpenSearchConfig _openSearchConfig;
 
         private Func<JsonSerializerSettings>? jsonSerializerSettingsFactory;
 
         public CheetahOpenSearchClient(
             IMemoryCache cache,
-            IHttpClientFactory httpClientfactory,
+            IHttpClientFactory httpClientFactory,
             IOptions<OpenSearchConfig> openSearchConfig,
             IHostEnvironment hostEnvironment,
             ILogger<CheetahOpenSearchClient> logger
@@ -83,7 +88,7 @@ namespace Cheetah.OpenSearch.OpenSearchClient
                 cheetahConnection = new CheetahOpenSearchConnection(
                     logger,
                     cache,
-                    httpClientfactory,
+                    httpClientFactory,
                     _openSearchConfig.ClientId,
                     _openSearchConfig.ClientSecret,
                     _openSearchConfig.TokenEndpoint,
@@ -149,7 +154,7 @@ namespace Cheetah.OpenSearch.OpenSearchClient
         {
             if (jsonSerializerSettingsFactory == null) // Get default
             {
-                var jsonSerializerSettings = new JsonSerializerSettings()
+                var jsonSerializerSettings = new JsonSerializerSettings
                 {
                     MissingMemberHandling = MissingMemberHandling.Ignore
                 };

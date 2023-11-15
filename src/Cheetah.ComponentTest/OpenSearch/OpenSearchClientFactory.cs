@@ -1,6 +1,6 @@
 using Cheetah.Core.Util;
+using Cheetah.OpenSearch.Client;
 using Cheetah.OpenSearch.Config;
-using Cheetah.OpenSearch.OpenSearchClient;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -63,7 +63,7 @@ namespace Cheetah.ComponentTest.OpenSearch
         /// </remarks>
         /// <param name="configuration">The configuration to use when constructing the client</param>
         /// <returns>The created <see cref="OpenSearchClient"/></returns>
-        public static OpenSearchClient Create(IConfiguration configuration)
+        public static IOpenSearchClient Create(IConfiguration configuration)
         {
             var url = configuration.GetValue<string>(URL_KEY);
             var clientId = configuration.GetValue<string>(CLIENT_ID_KEY);

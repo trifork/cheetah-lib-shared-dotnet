@@ -1,7 +1,10 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Cheetah.ComponentTest.OpenSearch;
 using Cheetah.ComponentTest.Test.Model.OpenSearch;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
+using Xunit;
 
 namespace Cheetah.ComponentTest.Test
 {
@@ -13,7 +16,7 @@ namespace Cheetah.ComponentTest.Test
         readonly IConfiguration _configuration;
         public OpenSearchClientTests()
         {
-            var conf = new Dictionary<string, string>
+            var conf = new Dictionary<string, string?>
             {
                 { "OPENSEARCH:URL", "http://localhost:9200"},
                 { "OPENSEARCH:CLIENTID", "ClientId"},
@@ -34,7 +37,10 @@ namespace Cheetah.ComponentTest.Test
 
             var documents = new List<OpenSearchTestModel>
             {
-                new("Document 1", 2), new("Document 2", 3), new("Document 3", 4), new("Document 4", 5),
+                new OpenSearchTestModel("Document 1", 2), 
+                new OpenSearchTestModel("Document 2", 3), 
+                new OpenSearchTestModel("Document 3", 4), 
+                new OpenSearchTestModel("Document 4", 5),
             };
 
             var openSearchClient = OpenSearchClientFactory.Create(_configuration);

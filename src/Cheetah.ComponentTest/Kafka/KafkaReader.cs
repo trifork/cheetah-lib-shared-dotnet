@@ -34,7 +34,7 @@ namespace Cheetah.ComponentTest.Kafka
                 .Build();
 
             Consumer.Assign(new TopicPartition(Topic, 0));
-            CancellationTokenSource cancellationTokenSource = new();
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
             cancellationTokenSource.CancelAfter(TimeSpan.FromSeconds(2));
             var cancellationToken = cancellationTokenSource.Token;
             while (!cancellationToken.IsCancellationRequested)
@@ -69,7 +69,7 @@ namespace Cheetah.ComponentTest.Kafka
         {
             var messages = new List<T>();
 
-            CancellationTokenSource cancellationTokenSource = new();
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
             cancellationTokenSource.CancelAfter(timeout);
             var cancellationToken = cancellationTokenSource.Token;
             Log.Information(
@@ -113,7 +113,7 @@ namespace Cheetah.ComponentTest.Kafka
         /// <returns><c>true</c> if no other messages were found after the timeout, otherwise <c>false</c></returns>
         public bool VerifyNoMoreMessages(TimeSpan timeout)
         {
-            CancellationTokenSource cancellationTokenSource = new();
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
             cancellationTokenSource.CancelAfter(timeout);
             var cancellationToken = cancellationTokenSource.Token;
             while (!cancellationToken.IsCancellationRequested)

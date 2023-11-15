@@ -1,3 +1,5 @@
+using System.Threading;
+using System.Threading.Tasks;
 using IdentityModel.Client;
 
 namespace Cheetah.Core.Authentication

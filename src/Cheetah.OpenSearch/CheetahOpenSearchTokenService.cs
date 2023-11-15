@@ -1,3 +1,4 @@
+using System.Net.Http;
 using Cheetah.Core.Authentication;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;

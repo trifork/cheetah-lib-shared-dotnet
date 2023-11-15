@@ -157,7 +157,7 @@ namespace Cheetah.ComponentTest.Kafka
 
             var tokenService = GetTokenService();
 
-            var props = new KafkaReaderProps<T>()
+            var props = new KafkaReaderProps<T>
             {
                 ConsumerGroup = ConsumerGroup,
                 Topic = Topic,

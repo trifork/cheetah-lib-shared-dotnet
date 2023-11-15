@@ -74,13 +74,13 @@ namespace Cheetah.Kafka.Test
             };
 
             var producer = new ProducerBuilder<string, string>(producerConfig)
-                .SetErrorHandler((_, _) => { })
+                .SetErrorHandler((x, y) => { })
                 .AddCheetahOAuthentication(provider)
                 .Build();
 
             var consumer = new ConsumerBuilder<string, string>(consumerConfig)
                 .AddCheetahOAuthentication(provider)
-                .SetErrorHandler((_, _) => { })
+                .SetErrorHandler((x, y) => { })
                 .Build();
 
             consumer.Subscribe(topic);

@@ -1,9 +1,10 @@
+using System.Net.Http;
 using Cheetah.Core.Authentication;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using OpenSearch.Net;
 
-namespace Cheetah.OpenSearch.OpenSearchClient
+namespace Cheetah.OpenSearch.Client
 {
     internal class CheetahOpenSearchConnection : HttpConnection
     {

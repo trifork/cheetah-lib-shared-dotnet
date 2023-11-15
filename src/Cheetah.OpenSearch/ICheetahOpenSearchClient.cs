@@ -1,8 +1,12 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using OpenSearch.Client;
+
 namespace Cheetah.OpenSearch
 {
     public interface ICheetahOpenSearchClient
     {
-        public global::OpenSearch.Client.OpenSearchClient InternalClient { get; }
+        public IOpenSearchClient InternalClient { get; }
 
         /// <summary>
         /// Queries the OpenSearch instance for all indexes

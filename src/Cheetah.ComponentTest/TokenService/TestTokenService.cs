@@ -6,7 +6,7 @@ using IdentityModel.Client;
 
 namespace Cheetah.ComponentTest.TokenService
 {
-    public class TestTokenService : ITokenService
+    internal class TestTokenService : ITokenService
     {
         private readonly string tokenEndpoint;
         private readonly string clientId;
@@ -32,7 +32,7 @@ namespace Cheetah.ComponentTest.TokenService
             var httpClient = new HttpClient();
             var tokenClient = new TokenClient(
                             httpClient,
-                            new TokenClientOptions()
+                            new TokenClientOptions
                             {
                                 Address = tokenEndpoint,
                                 ClientId = clientId,
@@ -48,10 +48,8 @@ namespace Cheetah.ComponentTest.TokenService
             {
                 return tokenResponse;
             }
-            else
-            {
-                throw tokenResponse.Exception;
-            }
+
+            throw tokenResponse.Exception;
         }
     }
 }

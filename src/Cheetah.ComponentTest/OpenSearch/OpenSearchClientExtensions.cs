@@ -16,7 +16,7 @@ namespace Cheetah.ComponentTest.OpenSearch
         /// <param name="indexName">The index to delete</param>
         /// <param name="allowFailure">Whether or not deletion of the index is allowed to fail. Useful if you want to clean up before running a test.</param>
         /// <returns>A <see cref="DeleteIndexResponse"/> which can be used to verify the result of the delete operation</returns>
-        public static async Task<DeleteIndexResponse> DeleteIndexAsync(this OpenSearchClient client, string indexName,
+        public static async Task<DeleteIndexResponse> DeleteIndexAsync(this IOpenSearchClient client, string indexName,
             bool allowFailure = false)
         {
             var response = await client.Indices.DeleteAsync(indexName);
@@ -31,7 +31,7 @@ namespace Cheetah.ComponentTest.OpenSearch
         /// <param name="client">The <see cref="OpenSearchClient"/> used to access OpenSearch</param>
         /// <param name="indexName">The index to count documents in</param>
         /// <returns>The amount of documents present in the index</returns>
-        public static async Task<long> CountIndexedDocumentsAsync(this OpenSearchClient client, string indexName)
+        public static async Task<long> CountIndexedDocumentsAsync(this IOpenSearchClient client, string indexName)
         {
             return (await client.CountAsync<object>(q => q.Index(indexName))).ThrowIfNotValid().Count;
         }
@@ -45,7 +45,7 @@ namespace Cheetah.ComponentTest.OpenSearch
         /// <typeparam name="T">The type of document to insert</typeparam>
         /// <returns>A <see cref="BulkResponse"/> which can be used to verify the result of the insert operation</returns>
         /// <exception cref="ArgumentException">Thrown when attempting to insert 0 documents into the index</exception>
-        public static async Task<BulkResponse> InsertAsync<T>(this OpenSearchClient client, string indexName, ICollection<T> documents) where T : class
+        public static async Task<BulkResponse> InsertAsync<T>(this IOpenSearchClient client, string indexName, ICollection<T> documents) where T : class
         {
             return documents.Any()
                         ? (await client.BulkAsync(b => b.Index(indexName).CreateMany(documents))).ThrowIfNotValid()
@@ -58,7 +58,7 @@ namespace Cheetah.ComponentTest.OpenSearch
         /// <param name="client">The <see cref="OpenSearchClient"/> used to access OpenSearch</param>
         /// <param name="indexName">The index to refresh. If empty or null, will refresh all indexes.</param>
         /// <returns>A <see cref="RefreshResponse"/> which can be used to verify the result of the refresh operation</returns>
-        public static async Task<RefreshResponse> RefreshIndexAsync(this OpenSearchClient client, string indexName)
+        public static async Task<RefreshResponse> RefreshIndexAsync(this IOpenSearchClient client, string indexName)
         {
             return (await client.Indices.RefreshAsync(indexName)).ThrowIfNotValid();
         }
@@ -71,7 +71,7 @@ namespace Cheetah.ComponentTest.OpenSearch
         /// <param name="maxCount">The maximum number of documents to retrieve</param>
         /// <typeparam name="T">The type of document to retrieve</typeparam>
         /// <returns>The retrieved collection of documents</returns>
-        public static async Task<IEnumerable<T>> GetFromIndexAsync<T>(this OpenSearchClient client, string indexName, int maxCount = 100) where T : class
+        public static async Task<IEnumerable<T>> GetFromIndexAsync<T>(this IOpenSearchClient client, string indexName, int maxCount = 100) where T : class
         {
             return (await client.SearchAsync<T>(q => q.Index(indexName).Size(maxCount))).Hits.Select(x => x.Source);
         }

@@ -1,3 +1,7 @@
+using System;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 using IdentityModel.Client;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
@@ -94,7 +98,7 @@ namespace Cheetah.Core.Authentication
             using var httpClient = httpClientFactory.CreateClient(CacheKey);
             var tokenClient = new TokenClient(
                 httpClient,
-                new TokenClientOptions()
+                new TokenClientOptions
                 {
                     Address = tokenEndpoint,
                     ClientId = clientId,

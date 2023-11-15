@@ -1,3 +1,6 @@
+using System;
+using System.Net.Http;
+using System.Threading;
 using Cheetah.Core.Authentication;
 using Cheetah.Kafka.Config;
 using Confluent.Kafka;
