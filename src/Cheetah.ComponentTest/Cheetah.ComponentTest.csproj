@@ -37,6 +37,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cheetah.Core\Cheetah.Core.csproj" />
+    <ProjectReference Include="..\Cheetah.Kafka\Cheetah.Kafka.csproj" />
+    <ProjectReference Include="..\Cheetah.OpenSearch\Cheetah.OpenSearch.csproj" />
   </ItemGroup>
 
   <ItemGroup>
