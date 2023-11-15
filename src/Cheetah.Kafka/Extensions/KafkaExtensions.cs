@@ -93,6 +93,22 @@ namespace Cheetah.Kafka.Extensions
             return builder;
         }
 
+        /// <summary>
+        /// Setup OAuth authentication for Kafka producer
+        /// </summary>
+        public static AdminClientBuilder AddCheetahOAuthentication(
+            this AdminClientBuilder builder,
+            IServiceProvider provider
+        )
+        {
+            var logger = provider.GetRequiredService<ILogger<CheetahKafkaTokenService>>();
+            var tokenService = BuildTokenService(logger, provider);
+            builder.SetOAuthBearerTokenRefreshHandler(
+                (client, cfg) => TokenRefreshHandler(logger, tokenService, client, cfg)
+            );
+            return builder;
+        }
+        
         public static ConsumerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(this ConsumerBuilder<TKey, TValue> builder, ITokenService tokenService, ILogger logger)
         {
             return builder.SetOAuthBearerTokenRefreshHandler((client, cfg) => TokenRefreshHandler(logger, tokenService, client, cfg));

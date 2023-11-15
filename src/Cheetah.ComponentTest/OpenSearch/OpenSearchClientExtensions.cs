@@ -47,7 +47,7 @@ namespace Cheetah.ComponentTest.OpenSearch
         /// <exception cref="ArgumentException">Thrown when attempting to insert 0 documents into the index</exception>
         public static async Task<BulkResponse> InsertAsync<T>(this IOpenSearchClient client, string indexName, ICollection<T> documents) where T : class
         {
-            return documents.Any()
+            return documents.Count != 0
                         ? (await client.BulkAsync(b => b.Index(indexName).CreateMany(documents))).ThrowIfNotValid()
                         : throw new ArgumentException($"Attempted to insert 0 documents into index {indexName}");
         }

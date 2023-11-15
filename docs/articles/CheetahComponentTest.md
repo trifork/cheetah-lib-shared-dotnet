@@ -14,7 +14,7 @@ var writer = KafkaWriterBuilder.Create<string, string>()
 ```
 
 The configuration needed must contain the following values:
-```
+```text
  KAFKA__AUTHENDPOINT
  KAFKA__CLIENTID
  KAFKA__SECRET
@@ -40,7 +40,7 @@ opensearchClient.Count(indexName)
 
 The configuration needed must contain the following values:
 
-```
+```text
 OPENSEARCH__URL
 OPENSEARCH__CLIENTID
 OPENSEARCH__CLIENTSECRET

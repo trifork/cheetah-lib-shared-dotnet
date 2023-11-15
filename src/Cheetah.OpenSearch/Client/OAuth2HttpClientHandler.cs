@@ -6,7 +6,7 @@ using Cheetah.Core.Authentication;
 
 namespace Cheetah.OpenSearch.Client
 {
-    internal class OAuth2HttpClientHandler : DelegatingHandler
+    internal sealed class OAuth2HttpClientHandler : DelegatingHandler
     {
         private readonly TokenService tokenService;
 

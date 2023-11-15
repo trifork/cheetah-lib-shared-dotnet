@@ -100,8 +100,6 @@ namespace Cheetah.OpenSearch.Config
                     break;
                 case OpenSearchAuthMode.None:
                     break;
-                default:
-                    break;
             }
         }
 

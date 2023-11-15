@@ -9,7 +9,7 @@
     <NoWarn>$(NoWarn);1591</NoWarn>
     <PackageId>Cheetah.WebApi</PackageId>
     <RepositoryUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</RepositoryUrl>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFrameworks>netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
     <VersionPrefix>1.8.0</VersionPrefix>
   </PropertyGroup>
   <ItemGroup>
@@ -20,7 +20,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\Cheetah.Core\Cheetah.Core.csproj" />
     <ProjectReference Include="..\Cheetah.OpenSearch\Cheetah.OpenSearch.csproj" />
   </ItemGroup>
 </Project>

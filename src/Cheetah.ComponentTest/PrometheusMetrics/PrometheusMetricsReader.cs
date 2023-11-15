@@ -41,7 +41,7 @@ namespace Cheetah.ComponentTest.PrometheusMetrics
             string line;
             while ((line = reader.ReadLine()) != null)
             {
-                if (line.StartsWith("#"))
+                if (line.StartsWith('#'))
                 {
                     continue;
                 }
@@ -89,7 +89,7 @@ namespace Cheetah.ComponentTest.PrometheusMetrics
                         found = false;
                     }
                 }
-                if (line.StartsWith("#"))
+                if (line.StartsWith('#'))
                 {
                     continue;
                 }
@@ -136,7 +136,7 @@ namespace Cheetah.ComponentTest.PrometheusMetrics
                         found = false;
                     }
                 }
-                if (line.StartsWith("#"))
+                if (line.StartsWith('#'))
                 {
                     continue;
                 }

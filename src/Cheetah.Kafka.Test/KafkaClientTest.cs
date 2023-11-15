@@ -1,7 +1,11 @@
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Timers;
 using Cheetah.Kafka.Config;
 using Cheetah.Kafka.Extensions;
 using Confluent.Kafka;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -12,19 +16,29 @@ namespace Cheetah.Kafka.Test
     [Trait("Category", "Kafka"), Trait("TestType", "IntegrationTests")]
     public class KafkaIntegrationTests
     {
-        private readonly ServiceCollection _sut;
+        private readonly ServiceProvider _serviceProvider;
+        readonly IAdminClient _adminClient;
+        readonly ClientConfig _clientConfig;
 
         public KafkaIntegrationTests()
         {
-            var kafkaConfig = new KafkaConfig
+            var localConfig = new Dictionary<string, string?> 
             {
-                Url = "kafka:9092",
-                ClientId = "tester",
-                ClientSecret = "1234",
-                TokenEndpoint = "http://cheetahoauthsimulator:1752/oauth2/token",
-                OAuthScope = "kafka"
+                { "KAFKA:URL", "localhost:9092" },
+                { "KAFKA:CLIENTID", "tester" },
+                { "KAFKA:CLIENTSECRET", "1234" },
+                { "KAFKA:TOKENENDPOINT", "http://localhost:1752/oauth2/token" },
+                { "KAFKA:OAUTHSCOPE", "kafka" },
             };
+            
+            var configuration = new ConfigurationBuilder()
+                .AddInMemoryCollection(localConfig)
+                .AddEnvironmentVariables() // Allow override of config through environment variables if running in docker.
+                .Build();
 
+            var kafkaConfig = new KafkaConfig();
+            configuration.GetSection(KafkaConfig.Position).Bind(kafkaConfig);
+            
             var services = new ServiceCollection();
             services.AddTransient(_ => Options.Create(kafkaConfig));
             services.AddMemoryCache();
@@ -36,63 +50,55 @@ namespace Cheetah.Kafka.Test
                 s.AddConsole();
             });
 
-            _sut = services;
+            _serviceProvider = services.BuildServiceProvider();
+            _clientConfig = new ClientConfig {
+                BootstrapServers = kafkaConfig.Url,
+                SecurityProtocol = SecurityProtocol.SaslPlaintext,
+                SaslMechanism = SaslMechanism.OAuthBearer
+            };
+            _adminClient = new AdminClientBuilder(_clientConfig)
+                .AddCheetahOAuthentication(_serviceProvider)
+                .Build();
         }
 
-        //https://github.com/confluentinc/confluent-kafka-dotnet/blob/master/test/Confluent.Kafka.IntegrationTests/Tests/OauthBearerToken_PublishConsume.cs#L9
         [Fact]
-        public void OAuthBearerToken_PublishConsume()
+        public async Task OAuthBearerToken_PublishConsume()
         {
-            var provider = _sut.BuildServiceProvider();
-            var kafkaConfig = provider.GetRequiredService<IOptions<KafkaConfig>>();
-            var topic = $"dotnet_{nameof(OAuthBearerToken_PublishConsume)}_{Guid.NewGuid()}";
+            // Arrange
+            string topic = $"dotnet_{nameof(OAuthBearerToken_PublishConsume)}_{Guid.NewGuid()}";
+            await using var topicDeleter = new KafkaTopicDeleter(_adminClient, topic); // Will delete the created topic when the test concludes, regardless of outcome
+            
+            var consumerConfig = new ConsumerConfig(_clientConfig)
+            {
+                GroupId = $"{Guid.NewGuid()}",
+                AutoOffsetReset = AutoOffsetReset.Earliest
+            };
+            
+            var producer = new ProducerBuilder<string, string>(_clientConfig)
+                .AddCheetahOAuthentication(_serviceProvider)
+                .Build();
+            
+            var consumer = new ConsumerBuilder<string, string>(consumerConfig)
+                .AddCheetahOAuthentication(_serviceProvider)
+                .Build();
+
+            consumer.Subscribe(topic);
 
             var message = new Message<string, string>
             {
                 Key = $"{Guid.NewGuid()}",
                 Value = $"{DateTimeOffset.UtcNow:T}"
             };
-            var producerConfig = new ProducerConfig(
-                new ClientConfig
-                {
-                    BootstrapServers = kafkaConfig.Value.Url,
-                    SecurityProtocol = SecurityProtocol.SaslPlaintext,
-                    SaslMechanism = SaslMechanism.OAuthBearer
-                }
-            );
-            var consumerConfig = new ConsumerConfig(
-                new ClientConfig
-                {
-                    BootstrapServers = kafkaConfig.Value.Url,
-                    SecurityProtocol = SecurityProtocol.SaslPlaintext,
-                    SaslMechanism = SaslMechanism.OAuthBearer
-                }
-            )
-            {
-                GroupId = $"{Guid.NewGuid()}",
-                AutoOffsetReset = AutoOffsetReset.Earliest
-            };
-
-            var producer = new ProducerBuilder<string, string>(producerConfig)
-                .SetErrorHandler((x, y) => { })
-                .AddCheetahOAuthentication(provider)
-                .Build();
-
-            var consumer = new ConsumerBuilder<string, string>(consumerConfig)
-                .AddCheetahOAuthentication(provider)
-                .SetErrorHandler((x, y) => { })
-                .Build();
-
-            consumer.Subscribe(topic);
-            producer.Produce(topic, message);
-            producer.Flush(TimeSpan.FromSeconds(30));
-            var received = consumer.Consume(TimeSpan.FromSeconds(30));
-
+            
+            // Act
+            await producer.ProduceAsync(topic, message);
+            var received = consumer.Consume(TimeSpan.FromSeconds(5));
+            
+            // Assert
             Assert.NotNull(received);
-            consumer.Commit(received);
-
             Assert.Equal(message.Key, received.Message.Key);
             Assert.Equal(message.Value, received.Message.Value);
+            consumer.Commit(received);
         }
     }
 }

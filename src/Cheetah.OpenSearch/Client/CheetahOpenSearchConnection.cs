@@ -6,7 +6,7 @@ using OpenSearch.Net;
 
 namespace Cheetah.OpenSearch.Client
 {
-    internal class CheetahOpenSearchConnection : HttpConnection
+    internal sealed class CheetahOpenSearchConnection : HttpConnection
     {
         private readonly TokenService tokenService;
 
@@ -31,7 +31,7 @@ namespace Cheetah.OpenSearch.Client
             );
         }
 
-        protected virtual HttpMessageHandler InnerCreateHttpClientHandler(RequestData requestData)
+        private HttpMessageHandler InnerCreateHttpClientHandler(RequestData requestData)
         {
             return base.CreateHttpClientHandler(requestData);
         }

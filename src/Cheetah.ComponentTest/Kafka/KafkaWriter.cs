@@ -42,7 +42,7 @@ namespace Cheetah.ComponentTest.Kafka
         /// <exception cref="ArgumentException">Thrown if the provided collection of messages is empty</exception>
         public Task WriteAsync(params T[] messages)
         {
-            if (!messages.Any())
+            if (messages.Length == 0)
             {
                 throw new ArgumentException("WriteAsync was invoked with an empty list of messages.");
             }

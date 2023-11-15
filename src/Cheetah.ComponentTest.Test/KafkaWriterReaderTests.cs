@@ -46,9 +46,9 @@ namespace Cheetah.ComponentTest.Test
                 .Build();
 
             await writer.WriteAsync("Message4");
-            var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(20));
+            var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(5));
             readMessages.Should().HaveCount(1);
-            reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(2)).Should().BeTrue();
+            reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(1)).Should().BeTrue();
         }
 
         static AvroObjectWithEnum AvroObjWithEnum1 =>
@@ -92,11 +92,11 @@ namespace Cheetah.ComponentTest.Test
 
             // Act
             await writerAvro.WriteAsync(avroModel);
-            var readMessages = readerAvro.ReadMessages(1, TimeSpan.FromSeconds(10));
+            var readMessages = readerAvro.ReadMessages(1, TimeSpan.FromSeconds(5));
 
             // Assert
             readMessages.Should().HaveCount(1);
-            readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(2)).Should().BeTrue();
+            readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(1)).Should().BeTrue();
         }
 
         [Fact]
@@ -116,11 +116,11 @@ namespace Cheetah.ComponentTest.Test
 
             // Act
             await writerAvro.WriteAsync(AdvancedAvroObject1);
-            var readMessages = readerAvro.ReadMessages(1, TimeSpan.FromSeconds(10));
+            var readMessages = readerAvro.ReadMessages(1, TimeSpan.FromSeconds(5));
 
             // Assert
             readMessages.Should().HaveCount(1);
-            readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(2)).Should().BeTrue();
+            readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(1)).Should().BeTrue();
         }
 
         [Fact]
@@ -142,11 +142,11 @@ namespace Cheetah.ComponentTest.Test
             await writerAvro.WriteAsync(AdvancedAvroObject1);
             await writerAvro.WriteAsync(AdvancedAvroObject2);
             await writerAvro.WriteAsync(AdvancedAvroObject1);
-            var readMessages = readerAvro.ReadMessages(3, TimeSpan.FromSeconds(10));
+            var readMessages = readerAvro.ReadMessages(3, TimeSpan.FromSeconds(5));
 
             // Assert
             readMessages.Count().Should().Be(3);
-            readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(2)).Should().BeTrue();
+            readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(1)).Should().BeTrue();
         }
 
         [Fact]

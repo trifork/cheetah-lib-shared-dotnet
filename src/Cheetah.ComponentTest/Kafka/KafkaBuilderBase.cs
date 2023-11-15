@@ -71,7 +71,7 @@ namespace Cheetah.ComponentTest.Kafka
             }
 
             var missingKeys = requiredKeys.Where(key => string.IsNullOrWhiteSpace(Configuration.GetValue<string>(key))).ToList();
-            if (missingKeys.Any())
+            if (missingKeys.Count != 0)
             {
                 throw new ArgumentException($"Missing required configuration key(s): {string.Join(", ", missingKeys)}");
             }
@@ -98,6 +98,7 @@ namespace Cheetah.ComponentTest.Kafka
                 throw new ArgumentException("A topic must be provided");
             }
 
+            
             var hasOnlyValidCharacters = Regex.Match(Topic, "^[a-zA-Z0-9\\._\\-]+$");
             if (!hasOnlyValidCharacters.Success)
             {
