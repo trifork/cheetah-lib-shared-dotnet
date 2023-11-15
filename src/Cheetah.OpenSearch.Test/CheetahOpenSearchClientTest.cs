@@ -1,6 +1,7 @@
 using System;
-using Cheetah.Core.Config;
 using Cheetah.Core.Util;
+using Cheetah.OpenSearch.Config;
+using Cheetah.OpenSearch.OpenSearchClient;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Hosting.Internal;
@@ -9,7 +10,7 @@ using Microsoft.Extensions.Options;
 using OpenSearch.Client;
 using Xunit;
 
-namespace Cheetah.WebApi.Shared.Test.Infrastructure.CheetahOpenSearchClient
+namespace Cheetah.OpenSearch.Test
 {
     [Trait("Category", "OpenSearch"), Trait("TestType", "IntegrationTests")]
     public class OpenSearchIntegrationTest
@@ -68,8 +69,8 @@ namespace Cheetah.WebApi.Shared.Test.Infrastructure.CheetahOpenSearchClient
             });
 
             var logger =
-                loggerFactory.CreateLogger<Core.Infrastructure.Services.OpenSearchClient.CheetahOpenSearchClient>();
-            Core.Infrastructure.Services.OpenSearchClient.CheetahOpenSearchClient client =
+                loggerFactory.CreateLogger<CheetahOpenSearchClient>();
+            CheetahOpenSearchClient client =
                 new(memoryCache, httpClientFactory, options, env, logger);
 
             var newIndexName = Guid.NewGuid().ToString();

@@ -1,8 +1,7 @@
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using Cheetah.Core.Config;
-using Cheetah.Core.Interfaces;
 using Cheetah.Core.Util;
+using Cheetah.OpenSearch.Config;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -12,7 +11,7 @@ using OpenSearch.Client;
 using OpenSearch.Client.JsonNetSerializer;
 using OpenSearch.Net;
 
-namespace Cheetah.Core.Infrastructure.Services.OpenSearchClient
+namespace Cheetah.OpenSearch.OpenSearchClient
 {
     /// <summary>Wrapper around OpenSearch, which introduces logging, authorization, and metrics
     /// <para>
@@ -43,7 +42,7 @@ namespace Cheetah.Core.Infrastructure.Services.OpenSearchClient
     public class CheetahOpenSearchClient : ICheetahOpenSearchClient
     {
         private readonly ILogger<CheetahOpenSearchClient> _logger;
-        public OpenSearch.Client.OpenSearchClient InternalClient { get; }
+        public global::OpenSearch.Client.OpenSearchClient InternalClient { get; }
         private readonly OpenSearchConfig _openSearchConfig;
 
         private Func<JsonSerializerSettings>? jsonSerializerSettingsFactory;
@@ -142,7 +141,7 @@ namespace Cheetah.Core.Infrastructure.Services.OpenSearchClient
 
             // TODO: We should need to have some defaults when initializing the client
             // TODO: dive down in the settings for OpenSearch and see if we need to expose any of the options as easily changeable
-            InternalClient = new OpenSearch.Client.OpenSearchClient(settings);
+            InternalClient = new global::OpenSearch.Client.OpenSearchClient(settings);
         }
 
         #region GetJsonSerializerSettingsFactory

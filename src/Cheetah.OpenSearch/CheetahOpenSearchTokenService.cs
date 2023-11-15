@@ -1,7 +1,8 @@
+using Cheetah.Core.Authentication;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 
-namespace Cheetah.Core.Infrastructure.Auth
+namespace Cheetah.OpenSearch
 {
     public class CheetahOpenSearchTokenService : TokenService
     {

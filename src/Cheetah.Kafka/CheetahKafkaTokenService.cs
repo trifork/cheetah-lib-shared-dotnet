@@ -1,9 +1,10 @@
-using Cheetah.Core.Config;
+using Cheetah.Core.Authentication;
+using Cheetah.Kafka.Config;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Cheetah.Core.Infrastructure.Auth
+namespace Cheetah.Kafka
 {
     public class CheetahKafkaTokenService : TokenService
     {

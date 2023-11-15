@@ -1,5 +1,5 @@
 using System;
-using Cheetah.Core.Infrastructure.Auth;
+using Cheetah.Core.Authentication;
 using Confluent.Kafka;
 
 namespace Cheetah.ComponentTest.Kafka

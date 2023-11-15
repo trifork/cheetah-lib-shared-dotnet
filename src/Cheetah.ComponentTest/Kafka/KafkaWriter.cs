@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Cheetah.Core.Infrastructure.Services.Kafka;
+using Cheetah.Kafka.Extensions;
 using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
 using ILogger = Microsoft.Extensions.Logging.ILogger;

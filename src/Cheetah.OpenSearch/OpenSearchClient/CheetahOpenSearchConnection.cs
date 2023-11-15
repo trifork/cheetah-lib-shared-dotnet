@@ -1,10 +1,9 @@
-using Cheetah.Core.Infrastructure.Auth;
-using Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient;
+using Cheetah.Core.Authentication;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using OpenSearch.Net;
 
-namespace Cheetah.Core.Infrastructure.Services.OpenSearchClient
+namespace Cheetah.OpenSearch.OpenSearchClient
 {
     internal class CheetahOpenSearchConnection : HttpConnection
     {

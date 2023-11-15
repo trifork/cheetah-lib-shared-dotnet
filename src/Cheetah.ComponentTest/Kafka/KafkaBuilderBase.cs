@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Cheetah.ComponentTest.TokenService;
-using Cheetah.Core.Infrastructure.Auth;
+using Cheetah.Core.Authentication;
 using Confluent.SchemaRegistry;
 using Microsoft.Extensions.Configuration;
 

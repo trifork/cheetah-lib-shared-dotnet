@@ -1,6 +1,6 @@
 using IdentityModel.Client;
 
-namespace Cheetah.Core.Infrastructure.Auth
+namespace Cheetah.Core.Authentication
 {
     public interface ITokenService
     {

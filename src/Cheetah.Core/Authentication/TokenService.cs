@@ -2,7 +2,7 @@ using IdentityModel.Client;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 
-namespace Cheetah.Core.Infrastructure.Auth
+namespace Cheetah.Core.Authentication
 {
     public abstract class TokenService : ITokenService
     {

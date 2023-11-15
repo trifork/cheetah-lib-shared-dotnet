@@ -1,12 +1,12 @@
-using Cheetah.Core.Config;
-using Cheetah.Core.Infrastructure.Auth;
+using Cheetah.Core.Authentication;
+using Cheetah.Kafka.Config;
 using Confluent.Kafka;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Cheetah.Core.Infrastructure.Services.Kafka
+namespace Cheetah.Kafka.Extensions
 {
     public static class CheetahKafkaExtensions
     {

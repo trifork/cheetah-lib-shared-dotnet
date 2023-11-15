@@ -1,6 +1,6 @@
-using Cheetah.Core.Infrastructure.Auth;
+using Cheetah.Core.Authentication;
 
-namespace Cheetah.WebApi.Shared.Infrastructure.Services.CheetahOpenSearchClient
+namespace Cheetah.OpenSearch.OpenSearchClient
 {
     internal class OAuth2HttpClientHandler : DelegatingHandler
     {

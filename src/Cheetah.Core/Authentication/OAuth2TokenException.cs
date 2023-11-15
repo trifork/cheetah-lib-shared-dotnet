@@ -1,4 +1,4 @@
-namespace Cheetah.Core.Infrastructure.Auth
+namespace Cheetah.Core.Authentication
 {
     public class OAuth2TokenException : Exception
     {

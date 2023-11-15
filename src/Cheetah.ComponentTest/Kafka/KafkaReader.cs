@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using Cheetah.Core.Infrastructure.Services.Kafka;
+using Cheetah.Kafka.Extensions;
 using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
 using Serilog;

@@ -1,7 +1,7 @@
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Cheetah.Core.Infrastructure.Auth;
+using Cheetah.Core.Authentication;
 using IdentityModel.Client;
 
 namespace Cheetah.ComponentTest.TokenService

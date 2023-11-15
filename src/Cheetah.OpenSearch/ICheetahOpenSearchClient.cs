@@ -1,10 +1,8 @@
-using OpenSearch.Client;
-
-namespace Cheetah.Core.Interfaces
+namespace Cheetah.OpenSearch
 {
     public interface ICheetahOpenSearchClient
     {
-        public OpenSearchClient InternalClient { get; }
+        public global::OpenSearch.Client.OpenSearchClient InternalClient { get; }
 
         /// <summary>
         /// Queries the OpenSearch instance for all indexes

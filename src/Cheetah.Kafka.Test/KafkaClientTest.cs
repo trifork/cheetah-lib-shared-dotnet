@@ -1,13 +1,13 @@
 using System;
-using Cheetah.Core.Config;
-using Cheetah.Core.Infrastructure.Services.Kafka;
+using Cheetah.Kafka.Config;
+using Cheetah.Kafka.Extensions;
 using Confluent.Kafka;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Xunit;
 
-namespace Cheetah.WebApi.Shared.Test.Infrastructure.Kafka
+namespace Cheetah.Kafka.Test
 {
     [Trait("Category", "Kafka"), Trait("TestType", "IntegrationTests")]
     public class KafkaIntegrationTests

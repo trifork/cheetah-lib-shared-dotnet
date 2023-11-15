@@ -1,6 +1,6 @@
 using System.Net.Http.Headers;
 using System.Threading;
-using Cheetah.Core.Infrastructure.Auth;
+using Cheetah.Core.Authentication;
 using Confluent.SchemaRegistry;
 
 namespace Cheetah.ComponentTest.Kafka

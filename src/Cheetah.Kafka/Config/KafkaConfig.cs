@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Cheetah.Core.Config
+namespace Cheetah.Kafka.Config
 {
     /// <summary>
     /// KafkaConfig for IOptions

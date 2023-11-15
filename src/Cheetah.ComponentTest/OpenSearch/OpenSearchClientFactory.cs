@@ -1,6 +1,6 @@
-using Cheetah.Core.Config;
-using Cheetah.Core.Infrastructure.Services.OpenSearchClient;
 using Cheetah.Core.Util;
+using Cheetah.OpenSearch.Config;
+using Cheetah.OpenSearch.OpenSearchClient;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
