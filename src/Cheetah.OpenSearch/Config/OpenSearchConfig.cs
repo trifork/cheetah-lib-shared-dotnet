@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using Cheetah.OpenSearch.Client;
 
 namespace Cheetah.OpenSearch.Config
 {
@@ -15,72 +14,56 @@ namespace Cheetah.OpenSearch.Config
         public const string Position = "OpenSearch";
 
         /// <summary>
-        /// Can be used to set prefix when querying indices
-        /// </summary>
-        /// <value></value>
-        public string IndexNamePrefix { get; set; } = string.Empty;
-
-        /// <summary>
         /// Url for OpenSearch
         /// </summary>
-        /// <value></value>
         [Required]
         public string Url { get; set; } = null!;
 
         /// <summary>
         /// Client id used to obtain JWT from token endpoint
         /// </summary>
-        /// <value></value>
         public string ClientId { get; set; } = null!;
 
         /// <summary>
         /// Client secret used to obtain JWT from token endpoint
         /// </summary>
-        /// <value></value>
         public string ClientSecret { get; set; } = null!;
 
         /// <summary>
         /// OAuth2 specific. What scope to request from TokenEndpoint
         /// </summary>
-        /// <value></value>
         public string? OAuthScope { get; set; }
 
         /// <summary>
         /// Token endpoint used to obtain token for authentication and authorization
         /// </summary>
-        /// <value></value>
         public string TokenEndpoint { get; set; } = null!;
 
         /// <summary>
         /// UserName for Basic Auth
         /// </summary>
-        /// <value></value>
         public string UserName { get; set; } = null!;
 
         /// <summary>
         /// Password for Basic Auth
         /// </summary>
-        /// <value></value>
         public string Password { get; set; } = null!;
 
         /// <summary>
-        /// Authentication mode used by <see cref="CheetahOpenSearchClient"/>
+        /// Authentication mode used by the OpenSearchClient
         /// </summary>
-        /// <value></value>
 
-        public OpenSearchAuthMode AuthMode { get; set; } = OpenSearchAuthMode.BasicAuth;
+        public OpenSearchAuthMode AuthMode { get; set; } = OpenSearchAuthMode.Basic;
 
         /// <summary>
         /// Disables TLS validation for OpenSearch
         /// </summary>
-        /// <value></value>
         public bool DisableTlsValidation { get; set; }
 
         /// <summary>
         /// Path to CA certificate used to validate OpenSearch certificate
         /// </summary>
-        /// <value></value>
-        public string? CaCertificatePath { get; set; } = null!;
+        public string? CaCertificatePath { get; set; }
 
         /// <summary>
         /// Validates and throws an error if values are not set for a given <see cref="AuthMode"/>.
@@ -89,7 +72,7 @@ namespace Cheetah.OpenSearch.Config
         {
             switch (AuthMode)
             {
-                case OpenSearchAuthMode.BasicAuth:
+                case OpenSearchAuthMode.Basic:
                     _ = UserName ?? throw new ArgumentNullException(nameof(UserName));
                     _ = Password ?? throw new ArgumentNullException(nameof(Password));
                     break;
@@ -100,13 +83,15 @@ namespace Cheetah.OpenSearch.Config
                     break;
                 case OpenSearchAuthMode.None:
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
         public enum OpenSearchAuthMode
         {
             None,
-            BasicAuth,
+            Basic,
             OAuth2
         }
     }

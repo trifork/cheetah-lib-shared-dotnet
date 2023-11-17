@@ -1,5 +1,6 @@
+using Cheetah.ComponentTest.TokenService;
 using Cheetah.Core.Util;
-using Cheetah.OpenSearch.Client;
+using Cheetah.OpenSearch;
 using Cheetah.OpenSearch.Config;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
@@ -92,9 +93,12 @@ namespace Cheetah.ComponentTest.OpenSearch
                 builder.AddConsole();
             });
 
-            var logger = loggerFactory.CreateLogger<CheetahOpenSearchClient>();
+            var logger = loggerFactory.CreateLogger<CheetahOpenSearchTokenService>();
 
-            return new CheetahOpenSearchClient(memoryCache, httpClientFactory, options, env, logger).InternalClient;
+            return new Cheetah.OpenSearch.OpenSearchClientFactory(
+                new CheetahOpenSearchTokenService(logger, httpClientFactory, memoryCache, options),
+                options, env, loggerFactory.CreateLogger<OpenSearchClient>(), loggerFactory.CreateLogger<Cheetah.OpenSearch.OpenSearchClientFactory>())
+                .CreateOpenSearchClient();
         }
     }
 }

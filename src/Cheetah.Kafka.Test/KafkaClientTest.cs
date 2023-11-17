@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Timers;
 using Cheetah.Kafka.Config;
 using Cheetah.Kafka.Extensions;
 using Confluent.Kafka;

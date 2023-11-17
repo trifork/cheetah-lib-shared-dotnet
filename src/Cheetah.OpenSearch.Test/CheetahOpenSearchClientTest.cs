@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Cheetah.Core.Util;
-using Cheetah.OpenSearch.Client;
 using Cheetah.OpenSearch.Config;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.Extensions.Logging;
@@ -35,29 +36,29 @@ namespace Cheetah.OpenSearch.Test
             yield return new object[]
             {
                 "Basic Auth",
-                new Action<OpenSearchConfig>(config =>
+                new List<KeyValuePair<string, string?>>
                 {
-                    config.AuthMode = OpenSearchConfig.OpenSearchAuthMode.BasicAuth;
-                    config.UserName = "admin";
-                    config.Password = "admin";
-                })
+                    new ("OPENSEARCH:AUTHMODE", "Basic"),
+                    new ("OPENSEARCH:USERNAME", "admin"),
+                    new ("OPENSEARCH:PASSWORD", "admin")
+                }
             };
 
             yield return new object[]
             {
                 "OAuth2",
-                new Action<OpenSearchConfig>(config =>
+                new List<KeyValuePair<string, string?>>
                 {
-                    config.AuthMode = OpenSearchConfig.OpenSearchAuthMode.OAuth2;
-                    config.ClientId = "clientId";
-                    config.ClientSecret = "1234";
-                })
+                    new ("OPENSEARCH:AUTHMODE", "OAuth2"),
+                    new ("OPENSEARCH:CLIENTID", "clientId"),
+                    new ("OPENSEARCH:CLIENTSECRET", "1234")
+                }
             };
         }
 
         [Theory]
         [MemberData(nameof(TestConfigurationActions))]
-        public async Task Should_WriteAndReadToOpenSearch_When_UsingAuthentication(string authType, Action<OpenSearchConfig> openSearchConfigAction)
+        public async Task Should_WriteAndReadToOpenSearch_When_UsingAuthentication(string authType, List<KeyValuePair<string, string?>> additionalConfiguration)
         {
             // This line and the parameter are really just here to make it easier to see which test is running (or failing)
             _testOutputHelper.WriteLine($"Testing OpenSearch connectivity using {authType}");
@@ -69,28 +70,36 @@ namespace Cheetah.OpenSearch.Test
              * or through environment variables (running in docker)
              */
             
-            var config = GetDefaultConfig();
-            openSearchConfigAction.Invoke(config);
+            var config = GetDefaultConfigurationBuilder().AddInMemoryCollection(additionalConfiguration).Build();
             var sut = CreateClient(config);
             
             var newIndexName = Guid.NewGuid().ToString();
-            var newIndicesResponse = await sut.InternalClient.Indices.CreateAsync(new CreateIndexRequest(newIndexName));
+            var newIndicesResponse = await sut.Indices.CreateAsync(new CreateIndexRequest(newIndexName));
             Assert.True(newIndicesResponse.Acknowledged);
 
-            var indices = await sut.GetIndices();
+            var indices = await IndicesWithoutInternal(sut);
+
             Assert.Contains(newIndexName, indices);
 
-            await sut.InternalClient.Indices.DeleteAsync(new DeleteIndexRequest(newIndexName));
+            await sut.Indices.DeleteAsync(new DeleteIndexRequest(newIndexName));
 
-            indices = await sut.GetIndices();
+            indices = await IndicesWithoutInternal(sut);
             Assert.DoesNotContain(newIndexName, indices);
         }
-        
+
+        static async Task<List<string>> IndicesWithoutInternal(IOpenSearchClient sut)
+        {
+            var indicesResponse = await sut.Indices.GetAsync(new GetIndexRequest(Indices.All));
+            var indicesWithoutInternal = indicesResponse.Indices.Select(index => index.Key.ToString())
+                .Where(x => !x.StartsWith('.')).ToList();
+            return indicesWithoutInternal;
+        }
+
         /// <summary>
         /// Gets the default configuration based on static dictionary of local values, with the option to override using environment variables
         /// </summary>
         /// <returns>A configuration with default values, optionally overriden by environment variables</returns>
-        private static OpenSearchConfig GetDefaultConfig()
+        private static IConfigurationBuilder GetDefaultConfigurationBuilder()
         {
             var configurationDict = new Dictionary<string, string?>
             {
@@ -98,29 +107,22 @@ namespace Cheetah.OpenSearch.Test
                 { "OPENSEARCH:TOKENENDPOINT", "http://localhost:1752/oauth2/token" }
             };
             
-            var configuration = new ConfigurationBuilder()
+            return new ConfigurationBuilder()
                 .AddInMemoryCollection(configurationDict)
-                .AddEnvironmentVariables().Build();
-
-            var defaultConfig = new OpenSearchConfig();
-            configuration.GetSection(OpenSearchConfig.Position).Bind(defaultConfig);
-            return defaultConfig;
+                .AddEnvironmentVariables();
         }
 
-        private static CheetahOpenSearchClient CreateClient(OpenSearchConfig config)
+        private static IOpenSearchClient CreateClient(IConfiguration config)
         {
-            var options = Options.Create(config);
-            var env = new HostingEnvironment { EnvironmentName = Environments.Development };
-            var memoryCache = new MemoryCache(new MemoryCacheOptions());
-            var httpClientFactory = new DefaultHttpClientFactory();
-            var loggerFactory = LoggerFactory.Create(builder =>
+            var serviceCollection = new ServiceCollection();
+            serviceCollection.AddLogging();
+            serviceCollection.AddSingleton<IHostEnvironment>(new HostingEnvironment()
             {
-                builder.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Debug);
-                builder.AddConsole();
+                EnvironmentName = "Development"
             });
-
-            var logger = loggerFactory.CreateLogger<CheetahOpenSearchClient>();
-            return new CheetahOpenSearchClient(memoryCache, httpClientFactory, options, env, logger);
+            serviceCollection.AddCheetahOpenSearch(config);
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+            return serviceProvider.GetRequiredService<IOpenSearchClient>();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Cheetah.Kafka.Extensions
     public static class CheetahKafkaExtensions
     {
         private static void TokenRefreshHandler(
-            ILogger logger,
+            ILogger<CheetahKafkaTokenService> logger,
             ITokenService tokenService,
             IClient client,
             string cfg
@@ -43,7 +43,7 @@ namespace Cheetah.Kafka.Extensions
         }
 
         private static CheetahKafkaTokenService BuildTokenService(
-            ILogger logger,
+            ILogger<CheetahKafkaTokenService> logger,
             IServiceProvider provider
         ) // We are not using DI, as we do not know which settings to look at
         {
@@ -109,12 +109,12 @@ namespace Cheetah.Kafka.Extensions
             return builder;
         }
         
-        public static ConsumerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(this ConsumerBuilder<TKey, TValue> builder, ITokenService tokenService, ILogger logger)
+        public static ConsumerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(this ConsumerBuilder<TKey, TValue> builder, ITokenService tokenService, ILogger<CheetahKafkaTokenService> logger)
         {
             return builder.SetOAuthBearerTokenRefreshHandler((client, cfg) => TokenRefreshHandler(logger, tokenService, client, cfg));
         }
 
-        public static ProducerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(this ProducerBuilder<TKey, TValue> builder, ITokenService tokenService, ILogger logger)
+        public static ProducerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(this ProducerBuilder<TKey, TValue> builder, ITokenService tokenService, ILogger<CheetahKafkaTokenService> logger)
         {
             return builder.SetOAuthBearerTokenRefreshHandler((client, cfg) => TokenRefreshHandler(logger, tokenService, client, cfg));
         }

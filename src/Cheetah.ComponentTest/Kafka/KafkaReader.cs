@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using Cheetah.Kafka;
 using Cheetah.Kafka.Extensions;
 using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
@@ -30,7 +31,7 @@ namespace Cheetah.ComponentTest.Kafka
                 AutoOffsetReset = AutoOffsetReset.Latest
             })
                 .SetValueDeserializer(props.Deserializer)
-                .AddCheetahOAuthentication(props.TokenService, Logger)
+                .AddCheetahOAuthentication(props.TokenService, new LoggerFactory().CreateLogger<CheetahKafkaTokenService>())
                 .Build();
 
             Consumer.Assign(new TopicPartition(Topic, 0));

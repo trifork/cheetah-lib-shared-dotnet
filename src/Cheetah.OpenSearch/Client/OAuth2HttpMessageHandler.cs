@@ -6,12 +6,11 @@ using Cheetah.Core.Authentication;
 
 namespace Cheetah.OpenSearch.Client
 {
-    internal sealed class OAuth2HttpClientHandler : DelegatingHandler
+    internal sealed class OAuth2HttpMessageHandler : DelegatingHandler
     {
-        private readonly TokenService tokenService;
+        private readonly ITokenService tokenService;
 
-        public OAuth2HttpClientHandler(TokenService tokenService, HttpMessageHandler innerHandler)
-            : base(innerHandler)
+        public OAuth2HttpMessageHandler(ITokenService tokenService, HttpMessageHandler innerHandler) : base(innerHandler)
         {
             this.tokenService = tokenService;
         }
@@ -21,9 +20,7 @@ namespace Cheetah.OpenSearch.Client
             CancellationToken cancellationToken
         )
         {
-            var cachedAccessToken = await tokenService.RequestAccessTokenCachedAsync(
-                cancellationToken
-            );
+            var cachedAccessToken = await tokenService.RequestAccessTokenCachedAsync(cancellationToken);
             if (cachedAccessToken == null || string.IsNullOrEmpty(cachedAccessToken.AccessToken))
             {
                 throw new UnauthorizedAccessException(

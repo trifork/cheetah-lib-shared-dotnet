@@ -21,7 +21,7 @@ namespace Cheetah.Core.Authentication
         public abstract string CacheKey { get; }
 
         public TokenService(
-            ILogger logger,
+            ILogger<TokenService> logger,
             IHttpClientFactory httpClientFactory,
             IMemoryCache cache,
             string clientId,

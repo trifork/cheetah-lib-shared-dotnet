@@ -10,7 +10,7 @@ namespace Cheetah.Kafka
     public class CheetahKafkaTokenService : TokenService
     {
         public CheetahKafkaTokenService(
-            ILogger logger,
+            ILogger<CheetahKafkaTokenService> logger,
             IHttpClientFactory httpClientFactory,
             IMemoryCache cache,
             IOptions<KafkaConfig> kafkaConfig
