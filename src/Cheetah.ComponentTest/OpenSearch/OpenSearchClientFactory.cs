@@ -1,15 +1,7 @@
-using Cheetah.ComponentTest.TokenService;
-using Cheetah.Core.Util;
-using Cheetah.OpenSearch;
 using Cheetah.OpenSearch.Config;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Hosting.Internal;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using OpenSearch.Client;
-using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace Cheetah.ComponentTest.OpenSearch
 {
@@ -78,27 +70,13 @@ namespace Cheetah.ComponentTest.OpenSearch
                 Url = url,
                 ClientId = clientId,
                 ClientSecret = clientSecret,
-                OAuthScope = oauthScope,
+                AuthScope = oauthScope,
                 TokenEndpoint = authEndpoint
             };
 
-            var options = Options.Create(config);
-            var env = new HostingEnvironment { EnvironmentName = Environments.Development };
+            var env = new HostingEnvironment { EnvironmentName = "Development" };
 
-            var memoryCache = new MemoryCache(new MemoryCacheOptions());
-            var httpClientFactory = new DefaultHttpClientFactory();
-            var loggerFactory = LoggerFactory.Create(builder =>
-            {
-                builder.SetMinimumLevel(LogLevel.Debug);
-                builder.AddConsole();
-            });
-
-            var logger = loggerFactory.CreateLogger<CheetahOpenSearchTokenService>();
-
-            return new Cheetah.OpenSearch.OpenSearchClientFactory(
-                new CheetahOpenSearchTokenService(logger, httpClientFactory, memoryCache, options),
-                options, env, loggerFactory.CreateLogger<OpenSearchClient>(), loggerFactory.CreateLogger<Cheetah.OpenSearch.OpenSearchClientFactory>())
-                .CreateOpenSearchClient();
+            return Cheetah.OpenSearch.OpenSearchClientFactory.CreateClientFromConfiguration(config, env);
         }
     }
 }

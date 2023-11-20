@@ -2,12 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Cheetah.Core.Util;
 using Moq;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace Cheetah.Core.Test.Util
+namespace Cheetah.OpenSearch.Test
 {
     [Trait("Category", "Utils"), Trait("TestType", "Unit")]
     public class UtcDateTimeConverterTest

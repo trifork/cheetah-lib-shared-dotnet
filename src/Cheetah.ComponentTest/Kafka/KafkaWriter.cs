@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Cheetah.Core.Authentication;
 using Cheetah.Kafka;
 using Cheetah.Kafka.Extensions;
 using Confluent.Kafka;
@@ -32,7 +33,7 @@ namespace Cheetah.ComponentTest.Kafka
                     SecurityProtocol = SecurityProtocol.SaslPlaintext,
                 })
                 .SetValueSerializer(props.Serializer)
-                .AddCheetahOAuthentication(props.TokenService, new LoggerFactory().CreateLogger<CheetahKafkaTokenService>())
+                .AddCheetahOAuthentication(props.TokenService, new LoggerFactory().CreateLogger<OAuth2TokenService>())
                 .Build();
         }
 

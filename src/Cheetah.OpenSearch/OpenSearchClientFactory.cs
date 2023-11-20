@@ -1,11 +1,13 @@
 ﻿using System;
-using System.Linq;
 using System.Text;
+using Cheetah.Core;
 using Cheetah.Core.Authentication;
 using Cheetah.Core.Util;
 using Cheetah.OpenSearch.Client;
 using Cheetah.OpenSearch.Config;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -18,25 +20,52 @@ namespace Cheetah.OpenSearch
 {
     public class OpenSearchClientFactory
     {
-        private readonly ITokenService _tokenService;
         private readonly ILogger<OpenSearchClientFactory> _logger;
+        readonly IConnectionPool _connectionPool;
         private readonly ILogger<OpenSearchClient> _clientLogger;
         private readonly OpenSearchConfig _clientConfig;
-        private readonly IHostEnvironment _hostEnvironment;
+        private readonly IHostEnvironment? _hostEnvironment;
+        private readonly IConnection? _connection;
 
         public OpenSearchClientFactory(
-            ITokenService tokenService, 
             IOptions<OpenSearchConfig> clientConfig,
-            IHostEnvironment hostEnvironment,
             ILogger<OpenSearchClient> clientLogger,
-            ILogger<OpenSearchClientFactory> logger)
+            ILogger<OpenSearchClientFactory> logger,
+            IConnectionPool connectionPool,
+            IConnection? connection = null,
+            IHostEnvironment? hostEnvironment = null
+        )
         {
-            _tokenService = tokenService;
             _clientConfig = clientConfig.Value;
-            _clientConfig.ValidateConfig();
             _hostEnvironment = hostEnvironment;
             _clientLogger = clientLogger;
             _logger = logger;
+            _connectionPool = connectionPool;
+            _connection = connection;
+        }
+
+        public static IOpenSearchClient CreateClientFromConfiguration(OpenSearchConfig config, IHostEnvironment? hostEnvironment = null)
+        {
+            var loggerFactory = new LoggerFactory();
+
+            var options = Options.Create<OpenSearchConfig>(config);
+            IConnection? connection = null;
+            if (config.AuthMode == OpenSearchConfig.OpenSearchAuthMode.OAuth2)
+            {
+                var tokenService = new OAuth2TokenService(
+                    loggerFactory.CreateLogger<OAuth2TokenService>(), new DefaultHttpClientFactory(),
+                    new MemoryCache(new MemoryCacheOptions()), options, "opensearch-access-token");
+                connection = new CheetahOpenSearchConnection(tokenService);
+            }
+            
+            return new OpenSearchClientFactory(
+                options, 
+                new Logger<OpenSearchClient>(loggerFactory),
+                new Logger<OpenSearchClientFactory>(loggerFactory),
+                ConnectionPoolHelper.GetConnectionPool(config.Url),
+                connection: connection,
+                hostEnvironment: hostEnvironment)
+                .CreateOpenSearchClient();
         }
 
         public OpenSearchClient CreateOpenSearchClient()
@@ -58,27 +87,17 @@ namespace Cheetah.OpenSearch
             // TODO: We should need to have some defaults when initializing the client
             // TODO: dive down in the settings for OpenSearch and see if we need to expose any of the options as easily changeable
             return new ConnectionSettings(
-                    GetConnectionPool(),
-                    GetConnection(),
+                    _connectionPool,
+                    _connection, // If this is null, a default connection will be used.
                     GetSourceSerializerFactory()
                 )
                 .ConfigureBasicAuthIfEnabled(_clientConfig)
                 .ConfigureTlsValidation(_clientConfig)
                 .OnRequestCompleted(LogRequestBody)
                 .ThrowExceptions()
-                .DisableDirectStreaming(_hostEnvironment.IsDevelopment());
+                .DisableDirectStreaming(ShouldDisableDirectStreaming());
         }
 
-        private CheetahOpenSearchConnection? GetConnection()
-        {
-            return _clientConfig.AuthMode switch
-            {
-                OpenSearchConfig.OpenSearchAuthMode.None => null, // providing a null connection will use the default in OpenSearchClient
-                OpenSearchConfig.OpenSearchAuthMode.Basic => null,
-                OpenSearchConfig.OpenSearchAuthMode.OAuth2 => new CheetahOpenSearchConnection(_tokenService),
-                _ => throw new ArgumentOutOfRangeException()
-            };
-        }
 
         private static ConnectionSettings.SourceSerializerFactory GetSourceSerializerFactory()
         {
@@ -95,16 +114,15 @@ namespace Cheetah.OpenSearch
                 () => jsonSerializerSettings 
             );
         }
-        
-        private IConnectionPool GetConnectionPool()
+
+        private bool ShouldDisableDirectStreaming()
         {
-            string urlString = _clientConfig.Url;
-            if (urlString.Contains(','))
+            bool shouldDisableDirectStreaming = _hostEnvironment?.IsDevelopment() ?? false; // Assume production mode if we can't determine the environment
+            if (shouldDisableDirectStreaming)
             {
-                return new StaticConnectionPool(urlString.Split(',').Select(url => new Uri(url)));
+                _logger.LogWarning("OpenSearch direct streaming is disabled, which allows easier debugging, but potentially impacts performance. This should only be enabled in development mode.");   
             }
-            
-            return new SingleNodeConnectionPool(new Uri(urlString));
+            return shouldDisableDirectStreaming;
         }
         
         private void LogRequestBody(IApiCallDetails apiCallDetails)

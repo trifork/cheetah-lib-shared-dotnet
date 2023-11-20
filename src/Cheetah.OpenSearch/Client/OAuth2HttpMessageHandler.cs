@@ -8,11 +8,11 @@ namespace Cheetah.OpenSearch.Client
 {
     internal sealed class OAuth2HttpMessageHandler : DelegatingHandler
     {
-        private readonly ITokenService tokenService;
+        private readonly ITokenService _tokenService;
 
         public OAuth2HttpMessageHandler(ITokenService tokenService, HttpMessageHandler innerHandler) : base(innerHandler)
         {
-            this.tokenService = tokenService;
+            this._tokenService = tokenService;
         }
 
         protected override async Task<HttpResponseMessage> SendAsync(
@@ -20,7 +20,7 @@ namespace Cheetah.OpenSearch.Client
             CancellationToken cancellationToken
         )
         {
-            var cachedAccessToken = await tokenService.RequestAccessTokenCachedAsync(cancellationToken);
+            var cachedAccessToken = await _tokenService.RequestAccessTokenCachedAsync(cancellationToken);
             if (cachedAccessToken == null || string.IsNullOrEmpty(cachedAccessToken.AccessToken))
             {
                 throw new UnauthorizedAccessException(

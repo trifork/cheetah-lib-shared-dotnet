@@ -2,10 +2,23 @@ using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Cheetah.Core.Util
+namespace Cheetah.OpenSearch
 {
+    /// <summary>
+    /// Converts a <see cref="DateTime"/> to and from Unix epoch time (milliseconds)
+    /// </summary>
     public class UtcDateTimeConverter : DateTimeConverterBase
     {
+        /// <summary>
+        /// Converts a <see cref="DateTime"/> to and from Unix epoch time (milliseconds)
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="objectType"></param>
+        /// <param name="existingValue"></param>
+        /// <param name="serializer"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="JsonSerializationException"></exception>
         public override object? ReadJson(
             JsonReader reader,
             Type objectType,

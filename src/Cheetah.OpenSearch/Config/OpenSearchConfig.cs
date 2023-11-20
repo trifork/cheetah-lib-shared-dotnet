@@ -1,12 +1,13 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Cheetah.Core;
 
 namespace Cheetah.OpenSearch.Config
 {
     /// <summary>
     /// OpenSearchConfig for IOptions
     /// </summary>
-    public class OpenSearchConfig
+    public class OpenSearchConfig : OAuth2Config
     {
         /// <summary>
         /// Prefix for options e.g. OpenSearch__
@@ -18,26 +19,6 @@ namespace Cheetah.OpenSearch.Config
         /// </summary>
         [Required]
         public string Url { get; set; } = null!;
-
-        /// <summary>
-        /// Client id used to obtain JWT from token endpoint
-        /// </summary>
-        public string ClientId { get; set; } = null!;
-
-        /// <summary>
-        /// Client secret used to obtain JWT from token endpoint
-        /// </summary>
-        public string ClientSecret { get; set; } = null!;
-
-        /// <summary>
-        /// OAuth2 specific. What scope to request from TokenEndpoint
-        /// </summary>
-        public string? OAuthScope { get; set; }
-
-        /// <summary>
-        /// Token endpoint used to obtain token for authentication and authorization
-        /// </summary>
-        public string TokenEndpoint { get; set; } = null!;
 
         /// <summary>
         /// UserName for Basic Auth

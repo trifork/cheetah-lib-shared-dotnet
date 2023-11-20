@@ -1,11 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using Cheetah.Core;
 
 namespace Cheetah.Kafka.Config
 {
     /// <summary>
     /// KafkaConfig for IOptions
     /// </summary>
-    public class KafkaConfig
+    public class KafkaConfig : OAuth2Config
     {
         /// <summary>
         /// Prefix for options e.g. Kafka__
@@ -18,29 +19,5 @@ namespace Cheetah.Kafka.Config
         /// <value></value>
         [Required]
         public string Url { get; set; } = null!;
-
-        /// <summary>
-        /// OAuth2 specific. What scope to request from TokenEndpoint
-        /// </summary>
-        /// <value></value>
-        public string OAuthScope { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Client id used to obtain JWT from token endpoint
-        /// </summary>
-        /// <value></value>
-        public string ClientId { get; set; } = null!;
-
-        /// <summary>
-        /// Client secret used to obtain JWT from token endpoint
-        /// </summary>
-        /// <value></value>
-        public string ClientSecret { get; set; } = null!;
-
-        /// <summary>
-        /// Token endpoint used to obtain token for authentication and authorization
-        /// </summary>
-        /// <value></value>
-        public string TokenEndpoint { get; set; } = null!;
     }
 }

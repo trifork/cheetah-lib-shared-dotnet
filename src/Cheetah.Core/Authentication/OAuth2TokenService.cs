@@ -5,38 +5,31 @@ using System.Threading.Tasks;
 using IdentityModel.Client;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Cheetah.Core.Authentication
 {
-    public abstract class TokenService : ITokenService
+    public class OAuth2TokenService : ITokenService
     {
-        private readonly ILogger logger;
-        private readonly IHttpClientFactory httpClientFactory;
-        private readonly string clientId;
-        private readonly string clientSecret;
-        private readonly string? oauthScope;
-        private readonly string tokenEndpoint;
-        private readonly IMemoryCache cache;
+        private readonly ILogger<OAuth2TokenService> _logger;
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly OAuth2Config _config;
+        private readonly IMemoryCache _cache;
+        private readonly string _cacheKey;
 
-        public abstract string CacheKey { get; }
-
-        public TokenService(
-            ILogger<TokenService> logger,
+        public OAuth2TokenService(
+            ILogger<OAuth2TokenService> logger,
             IHttpClientFactory httpClientFactory,
             IMemoryCache cache,
-            string clientId,
-            string clientSecret,
-            string tokenEndpoint,
-            string? oauthScope = null
+            IOptions<OAuth2Config> config,
+            string cacheKey
         )
         {
-            this.cache = cache;
-            this.logger = logger;
-            this.httpClientFactory = httpClientFactory;
-            this.clientId = clientId;
-            this.clientSecret = clientSecret;
-            this.tokenEndpoint = tokenEndpoint;
-            this.oauthScope = oauthScope;
+            _cache = cache;
+            _logger = logger;
+            _httpClientFactory = httpClientFactory;
+            _cacheKey = cacheKey;
+            _config = config.Value;
         }
 
         /// <summary>
@@ -48,17 +41,17 @@ namespace Cheetah.Core.Authentication
         )
         {
             if (
-                string.IsNullOrEmpty(clientId)
-                || string.IsNullOrEmpty(clientSecret)
-                || string.IsNullOrEmpty(tokenEndpoint)
+                string.IsNullOrEmpty(_config.ClientId)
+                || string.IsNullOrEmpty(_config.ClientSecret)
+                || string.IsNullOrEmpty(_config.TokenEndpoint)
             )
             {
-                logger.LogError("Missing OAuth config! Please check environment variables");
+                _logger.LogError("Missing OAuth config! Please check environment variables");
                 return default;
             }
 
-            return await cache.GetOrCreateAsync(
-                CacheKey,
+            return await _cache.GetOrCreateAsync(
+                _cacheKey,
                 async cacheEntry =>
                 {
                     var tokenResponse = await RequestClientCredentialsTokenAsync(cancellationToken);
@@ -67,11 +60,7 @@ namespace Cheetah.Core.Authentication
                     );
 
                     cacheEntry.AbsoluteExpirationRelativeToNow = absoluteExpiration;
-                    logger.LogDebug(
-                        "New access token retrieved for {clientId} and saved in cache with key: {CacheKey}",
-                        clientId,
-                        CacheKey
-                    );
+                    _logger.LogDebug("New access token retrieved for {clientId} and saved in cache with key: {CacheKey}", _config.ClientId, _cacheKey);
 
                     return tokenResponse;
                 }
@@ -87,27 +76,27 @@ namespace Cheetah.Core.Authentication
         )
         {
             if (
-                string.IsNullOrEmpty(clientId)
-                || string.IsNullOrEmpty(clientSecret)
-                || string.IsNullOrEmpty(tokenEndpoint)
+                string.IsNullOrEmpty(_config.ClientId)
+                || string.IsNullOrEmpty(_config.ClientSecret)
+                || string.IsNullOrEmpty(_config.TokenEndpoint)
             )
             {
                 throw new OAuth2TokenException("Missing OAuth config! Please check environment variables");
             }
 
-            using var httpClient = httpClientFactory.CreateClient(CacheKey);
+            using var httpClient = _httpClientFactory.CreateClient(_cacheKey);
             var tokenClient = new TokenClient(
                 httpClient,
                 new TokenClientOptions
                 {
-                    Address = tokenEndpoint,
-                    ClientId = clientId,
-                    ClientSecret = clientSecret
+                    Address = _config.TokenEndpoint,
+                    ClientId = _config.ClientId,
+                    ClientSecret = _config.ClientSecret
                 }
             );
 
             var tokenResponse = await tokenClient
-                .RequestClientCredentialsTokenAsync(scope: oauthScope, cancellationToken: cancellationToken)
+                .RequestClientCredentialsTokenAsync(scope: _config.AuthScope, cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
 
             return !tokenResponse.IsError
