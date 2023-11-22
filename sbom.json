@@ -1,19 +1,19 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:30a0541b-8204-40f3-8d23-9ff68761d88b",
+  "serialNumber": "urn:uuid:74156eeb-22e7-488d-9433-2ef680e4c965",
   "version": 1,
   "metadata": {
-    "timestamp": "2023-11-13T08:47:59.998Z",
+    "timestamp": "2023-11-22T00:18:36.846Z",
     "tools": {
       "components": [
         {
           "group": "@cyclonedx",
           "name": "cdxgen",
-          "version": "9.9.3",
-          "purl": "pkg:npm/%40cyclonedx/cdxgen@9.9.3",
+          "version": "9.9.4",
+          "purl": "pkg:npm/%40cyclonedx/cdxgen@9.9.4",
           "type": "application",
-          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@9.9.3",
+          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@9.9.4",
           "author": "OWASP Foundation",
           "publisher": "OWASP Foundation"
         }
@@ -178,7 +178,7 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit",
-      "version": "2.6.1",
+      "version": "2.6.2",
       "description": "xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.\n\nInstalling this package installs xunit.core, xunit.assert, and xunit.analyzers.",
       "licenses": [
         {
@@ -188,9 +188,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit@2.6.1",
+      "purl": "pkg:nuget/xunit@2.6.2",
       "type": "framework",
-      "bom-ref": "pkg:nuget/xunit@2.6.1"
+      "bom-ref": "pkg:nuget/xunit@2.6.2"
     },
     {
       "author": "Andrew Arnott",
@@ -224,7 +224,7 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit.extensibility.execution",
-      "version": "2.6.1",
+      "version": "2.6.2",
       "description": "Includes xunit.execution.*.dll for extensibility purposes. Supports .NET 4.5.2 or later, and .NET Standard 1.1.",
       "licenses": [
         {
@@ -234,15 +234,15 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.extensibility.execution@2.6.1",
+      "purl": "pkg:nuget/xunit.extensibility.execution@2.6.2",
       "type": "library",
-      "bom-ref": "pkg:nuget/xunit.extensibility.execution@2.6.1"
+      "bom-ref": "pkg:nuget/xunit.extensibility.execution@2.6.2"
     },
     {
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit.runner.visualstudio",
-      "version": "2.5.3",
+      "version": "2.5.4",
       "description": "Visual Studio 2022+ Test Explorer runner for the xUnit.net framework. Capable of running xUnit.net v1.9.2 and v2.0+ tests. Supports .NET 4.6.2 or later, and .NET 6 or later.",
       "licenses": [
         {
@@ -252,9 +252,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.runner.visualstudio@2.5.3",
+      "purl": "pkg:nuget/xunit.runner.visualstudio@2.5.4",
       "type": "framework",
-      "bom-ref": "pkg:nuget/xunit.runner.visualstudio@2.5.3"
+      "bom-ref": "pkg:nuget/xunit.runner.visualstudio@2.5.4"
     },
     {
       "author": "tonerdo",
@@ -316,8 +316,8 @@
       "author": "Microsoft",
       "group": "",
       "name": "Microsoft.AspNetCore.Authentication.JwtBearer",
-      "version": "6.0.24",
-      "description": "ASP.NET Core middleware that enables an application to receive an OpenID Connect bearer token.\n\nThis package was built from the source code at https://github.com/dotnet/aspnetcore/tree/2aa401550574f93402eba13ff9a4827ef01a2f3a",
+      "version": "6.0.25",
+      "description": "ASP.NET Core middleware that enables an application to receive an OpenID Connect bearer token.\n\nThis package was built from the source code at https://github.com/dotnet/aspnetcore/tree/36be7ed6d6d56b7da0a2891e3de7ecc2aa48eecd",
       "licenses": [
         {
           "license": {
@@ -326,11 +326,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Microsoft.AspNetCore.Authentication.JwtBearer@6.0.24",
+      "purl": "pkg:nuget/Microsoft.AspNetCore.Authentication.JwtBearer@6.0.25",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.JwtBearer/6.0.24/"
+          "url": "https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.JwtBearer/6.0.25/"
         },
         {
           "type": "vcs",
@@ -338,7 +338,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.AspNetCore.Authentication.JwtBearer@6.0.24"
+      "bom-ref": "pkg:nuget/Microsoft.AspNetCore.Authentication.JwtBearer@6.0.25"
     },
     {
       "author": "Microsoft",
@@ -428,8 +428,8 @@
       "author": "Microsoft",
       "group": "",
       "name": "Microsoft.Extensions.Http.Polly",
-      "version": "6.0.24",
-      "description": "The HttpClient factory is a pattern for configuring and retrieving named HttpClients in a composable way. This package integrates IHttpClientFactory with the Polly library, to add transient-fault-handling and resiliency through fluent policies such as Retry, Circuit Breaker, Timeout, Bulkhead Isolation, and Fallback.\n    \n\nThis package was built from the source code at https://github.com/dotnet/aspnetcore/tree/2aa401550574f93402eba13ff9a4827ef01a2f3a",
+      "version": "6.0.25",
+      "description": "The HttpClient factory is a pattern for configuring and retrieving named HttpClients in a composable way. This package integrates IHttpClientFactory with the Polly library, to add transient-fault-handling and resiliency through fluent policies such as Retry, Circuit Breaker, Timeout, Bulkhead Isolation, and Fallback.\n    \n\nThis package was built from the source code at https://github.com/dotnet/aspnetcore/tree/36be7ed6d6d56b7da0a2891e3de7ecc2aa48eecd",
       "licenses": [
         {
           "license": {
@@ -438,11 +438,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Microsoft.Extensions.Http.Polly@6.0.24",
+      "purl": "pkg:nuget/Microsoft.Extensions.Http.Polly@6.0.25",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Http.Polly/6.0.24/"
+          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Http.Polly/6.0.25/"
         },
         {
           "type": "vcs",
@@ -450,7 +450,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Extensions.Http.Polly@6.0.24"
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Http.Polly@6.0.25"
     },
     {
       "author": "Microsoft",
@@ -764,7 +764,7 @@
       "author": "Serilog Contributors",
       "group": "",
       "name": "Serilog",
-      "version": "3.1.0",
+      "version": "3.1.1",
       "description": "Simple .NET logging with fully-structured events",
       "licenses": [
         {
@@ -774,11 +774,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Serilog@3.1.0",
+      "purl": "pkg:nuget/Serilog@3.1.1",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Serilog/3.1.0/"
+          "url": "https://www.nuget.org/packages/Serilog/3.1.1/"
         },
         {
           "type": "vcs",
@@ -786,7 +786,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Serilog@3.1.0"
+      "bom-ref": "pkg:nuget/Serilog@3.1.1"
     },
     {
       "author": "Dennis Doomen,Jonas Nyrup",
