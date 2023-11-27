@@ -3,7 +3,7 @@ using Cheetah.OpenSearch.Config;
 using OpenSearch.Client;
 using OpenSearch.Net;
 
-namespace Cheetah.OpenSearch
+namespace Cheetah.OpenSearch.Extensions
 {
     internal static class ConnectionSettingsExtensions
     {

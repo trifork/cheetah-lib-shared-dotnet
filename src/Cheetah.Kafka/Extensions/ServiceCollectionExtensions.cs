@@ -1,16 +1,14 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using Cheetah.Core;
 using Cheetah.Core.Authentication;
 using Cheetah.Kafka.Config;
-using Confluent.Kafka;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Cheetah.Kafka
+namespace Cheetah.Kafka.Extensions
 {
     public static class ServiceCollectionExtensions
     {

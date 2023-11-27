@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cheetah.Core.Authentication;
 using Cheetah.Kafka.Config;
 using Cheetah.Kafka.Extensions;
+using Cheetah.Kafka.Util;
 using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;

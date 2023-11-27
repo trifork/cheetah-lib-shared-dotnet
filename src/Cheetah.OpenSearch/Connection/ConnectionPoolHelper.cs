@@ -2,7 +2,7 @@
 using System.Linq;
 using OpenSearch.Net;
 
-namespace Cheetah.OpenSearch
+namespace Cheetah.OpenSearch.Connection
 {
     public static class ConnectionPoolHelper
     {

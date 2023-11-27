@@ -1,6 +1,7 @@
 using System;
 using Cheetah.Core.Authentication;
 using Cheetah.Kafka;
+using Cheetah.Kafka.Util;
 using Confluent.Kafka;
 using Confluent.Kafka.SyncOverAsync;
 using Confluent.SchemaRegistry;

@@ -2,8 +2,10 @@
 using System.Text;
 using Cheetah.Core.Authentication;
 using Cheetah.Core.Util;
-using Cheetah.OpenSearch.Client;
 using Cheetah.OpenSearch.Config;
+using Cheetah.OpenSearch.Connection;
+using Cheetah.OpenSearch.Extensions;
+using Cheetah.OpenSearch.Util;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;

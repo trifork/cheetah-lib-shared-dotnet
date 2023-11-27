@@ -1,10 +1,8 @@
-﻿using System;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using Cheetah.Core;
 using Cheetah.Core.Authentication;
-using Cheetah.OpenSearch.Client;
 using Cheetah.OpenSearch.Config;
+using Cheetah.OpenSearch.Connection;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +11,7 @@ using Microsoft.Extensions.Options;
 using OpenSearch.Client;
 using OpenSearch.Net;
 
-namespace Cheetah.OpenSearch
+namespace Cheetah.OpenSearch.Extensions
 {
     public static class ServiceCollectionExtensions
     {

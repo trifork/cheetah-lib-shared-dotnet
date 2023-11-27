@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cheetah.Core.Authentication;
 
-namespace Cheetah.OpenSearch.Client
+namespace Cheetah.OpenSearch.Connection
 {
     internal sealed class OAuth2HttpMessageHandler : DelegatingHandler
     {

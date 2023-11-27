@@ -3,7 +3,7 @@ using System.Text;
 using System.Text.Json;
 using Confluent.Kafka;
 
-namespace Cheetah.Kafka
+namespace Cheetah.Kafka.Util
 {
     /// <summary>
     /// Serializer which serializes data with UTF8-encoding

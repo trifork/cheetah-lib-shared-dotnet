@@ -2,7 +2,7 @@ using System.Net.Http;
 using Cheetah.Core.Authentication;
 using OpenSearch.Net;
 
-namespace Cheetah.OpenSearch.Client
+namespace Cheetah.OpenSearch.Connection
 {
     internal sealed class CheetahOpenSearchConnection : HttpConnection
     {

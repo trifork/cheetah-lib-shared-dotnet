@@ -2,7 +2,7 @@ using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Cheetah.OpenSearch
+namespace Cheetah.OpenSearch.Util
 {
     /// <summary>
     /// Converts a <see cref="DateTime"/> to and from Unix epoch time (milliseconds)

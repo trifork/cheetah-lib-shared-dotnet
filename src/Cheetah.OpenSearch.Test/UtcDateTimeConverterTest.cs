@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Cheetah.OpenSearch.Util;
 using Moq;
 using Newtonsoft.Json;
 using Xunit;
