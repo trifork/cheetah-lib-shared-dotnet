@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Text;
-using Cheetah.Core;
 using Cheetah.Core.Authentication;
 using Cheetah.Core.Util;
 using Cheetah.OpenSearch.Client;
 using Cheetah.OpenSearch.Config;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -42,30 +40,6 @@ namespace Cheetah.OpenSearch
             _logger = logger;
             _connectionPool = connectionPool;
             _connection = connection;
-        }
-
-        public static IOpenSearchClient CreateClientFromConfiguration(OpenSearchConfig config, IHostEnvironment? hostEnvironment = null)
-        {
-            var loggerFactory = new LoggerFactory();
-
-            var options = Options.Create<OpenSearchConfig>(config);
-            IConnection? connection = null;
-            if (config.AuthMode == OpenSearchConfig.OpenSearchAuthMode.OAuth2)
-            {
-                var tokenService = new OAuth2TokenService(
-                    loggerFactory.CreateLogger<OAuth2TokenService>(), new DefaultHttpClientFactory(),
-                    new MemoryCache(new MemoryCacheOptions()), options, "opensearch-access-token");
-                connection = new CheetahOpenSearchConnection(tokenService);
-            }
-            
-            return new OpenSearchClientFactory(
-                options, 
-                new Logger<OpenSearchClient>(loggerFactory),
-                new Logger<OpenSearchClientFactory>(loggerFactory),
-                ConnectionPoolHelper.GetConnectionPool(config.Url),
-                connection: connection,
-                hostEnvironment: hostEnvironment)
-                .CreateOpenSearchClient();
         }
 
         public OpenSearchClient CreateOpenSearchClient()
@@ -132,6 +106,44 @@ namespace Cheetah.OpenSearch
             {
                 _logger.LogDebug("Sent raw query: {json}", Encoding.UTF8.GetString(apiCallDetails.RequestBodyInBytes));
             }
+        }
+        
+        
+        /// <summary>
+        /// <b>WARNING</b> This method should <i>only</i> be used if you for some reason cannot use dependency injection and need to create a client manually.
+        /// In any other circumstances, you should use the <see cref="ServiceCollectionExtensions.AddCheetahOpenSearch"/> method during service registration and inject
+        /// <see cref="IOpenSearchClient"/> into your service.
+        /// 
+        /// Creates an IOpenSearchClient from the provided configuration.
+        /// </summary>
+        /// <param name="config">The configuration to create the client from</param>
+        /// <param name="hostEnvironment">An optional host environment, used to determine whether additional debug information should be available on the returned client</param>
+        /// <returns>A pre-configured <see cref="OpenSearchClient"/></returns>
+        public static IOpenSearchClient CreateClientFromConfiguration(OpenSearchConfig config, IHostEnvironment? hostEnvironment = null)
+        {
+            var loggerFactory = new LoggerFactory();
+
+            var options = Options.Create<OpenSearchConfig>(config);
+            IConnection? connection = null;
+            if (config.AuthMode == OpenSearchConfig.OpenSearchAuthMode.OAuth2)
+            {
+                var tokenService = new OAuth2TokenService(
+                    loggerFactory.CreateLogger<OAuth2TokenService>(), 
+                    new DefaultHttpClientFactory(),
+                    new MemoryCache(new MemoryCacheOptions()), 
+                    options,
+                    "opensearch-access-token");
+                connection = new CheetahOpenSearchConnection(tokenService);
+            }
+            
+            return new OpenSearchClientFactory(
+                    options, 
+                    new Logger<OpenSearchClient>(loggerFactory),
+                    new Logger<OpenSearchClientFactory>(loggerFactory),
+                    ConnectionPoolHelper.GetConnectionPool(config.Url),
+                    connection: connection,
+                    hostEnvironment: hostEnvironment)
+                .CreateOpenSearchClient();
         }
     }
 }

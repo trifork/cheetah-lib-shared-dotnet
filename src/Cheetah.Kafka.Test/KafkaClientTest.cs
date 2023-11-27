@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cheetah.Kafka.Config;
 using Cheetah.Kafka.Extensions;
+using Cheetah.Kafka.Test.Util;
 using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,10 +16,8 @@ namespace Cheetah.Kafka.Test
     [Trait("Category", "Kafka"), Trait("TestType", "IntegrationTests")]
     public class KafkaIntegrationTests
     {
-        private readonly ServiceProvider _serviceProvider;
-        readonly IAdminClient _adminClient;
-        readonly ClientConfig _clientConfig;
-
+        readonly KafkaClientFactory _clientFactory;
+        
         public KafkaIntegrationTests()
         {
             var localConfig = new Dictionary<string, string?> 
@@ -35,13 +34,8 @@ namespace Cheetah.Kafka.Test
                 .AddEnvironmentVariables() // Allow override of config through environment variables if running in docker.
                 .Build();
 
-            var kafkaConfig = new KafkaConfig();
-            configuration.GetSection(KafkaConfig.Position).Bind(kafkaConfig);
             
             var services = new ServiceCollection();
-            services.AddTransient(_ => Options.Create(kafkaConfig));
-            services.AddMemoryCache();
-            services.AddHttpClient();
             services.AddLogging(s =>
             {
                 s.SetMinimumLevel(LogLevel.Debug);
@@ -49,15 +43,9 @@ namespace Cheetah.Kafka.Test
                 s.AddConsole();
             });
 
-            _serviceProvider = services.BuildServiceProvider();
-            _clientConfig = new ClientConfig {
-                BootstrapServers = kafkaConfig.Url,
-                SecurityProtocol = SecurityProtocol.SaslPlaintext,
-                SaslMechanism = SaslMechanism.OAuthBearer
-            };
-            _adminClient = new AdminClientBuilder(_clientConfig)
-                .AddCheetahOAuthentication(_serviceProvider)
-                .Build();
+            services.AddCheetahKafkaClientFactory(configuration);
+
+            _clientFactory = services.BuildServiceProvider().GetRequiredService<KafkaClientFactory>();
         }
 
         [Fact]
@@ -65,21 +53,14 @@ namespace Cheetah.Kafka.Test
         {
             // Arrange
             string topic = $"dotnet_{nameof(OAuthBearerToken_PublishConsume)}_{Guid.NewGuid()}";
-            await using var topicDeleter = new KafkaTopicDeleter(_adminClient, topic); // Will delete the created topic when the test concludes, regardless of outcome
-            
-            var consumerConfig = new ConsumerConfig(_clientConfig)
+            await using var topicDeleter = new KafkaTopicDeleter(_clientFactory.CreateAdminClient(), topic); // Will delete the created topic when the test concludes, regardless of outcome
+
+            var producer = _clientFactory.CreateProducer<string, string>();
+            var consumer = _clientFactory.CreateConsumer<string, string>(cfg =>
             {
-                GroupId = $"{Guid.NewGuid()}",
-                AutoOffsetReset = AutoOffsetReset.Earliest
-            };
-            
-            var producer = new ProducerBuilder<string, string>(_clientConfig)
-                .AddCheetahOAuthentication(_serviceProvider)
-                .Build();
-            
-            var consumer = new ConsumerBuilder<string, string>(consumerConfig)
-                .AddCheetahOAuthentication(_serviceProvider)
-                .Build();
+                cfg.GroupId = $"{nameof(OAuthBearerToken_PublishConsume)}_{Guid.NewGuid()}";
+                cfg.AutoOffsetReset = AutoOffsetReset.Earliest;
+            });
 
             consumer.Subscribe(topic);
 

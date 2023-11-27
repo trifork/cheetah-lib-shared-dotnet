@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Confluent.Kafka;
 
-namespace Cheetah.Kafka.Test;
+namespace Cheetah.Kafka.Test.Util;
 
 public class KafkaTopicDeleter : IAsyncDisposable
 {

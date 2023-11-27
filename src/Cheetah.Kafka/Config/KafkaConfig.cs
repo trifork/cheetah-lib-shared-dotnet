@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Cheetah.Core;
+using Confluent.Kafka;
 
 namespace Cheetah.Kafka.Config
 {
@@ -19,5 +20,27 @@ namespace Cheetah.Kafka.Config
         /// <value></value>
         [Required]
         public string Url { get; set; } = null!;
+
+        public SecurityProtocol SecurityProtocol { get; set; } = SecurityProtocol.SaslPlaintext;
+
+        public ProducerConfig ToProducerConfig()
+        {
+            return new ProducerConfig
+            {
+                BootstrapServers = Url,
+                SaslMechanism = SaslMechanism.OAuthBearer,
+                SecurityProtocol = SecurityProtocol,
+            };
+        }
+        
+        public ConsumerConfig ToConsumerConfig()
+        {
+            return new ConsumerConfig
+            {
+                BootstrapServers = Url,
+                SaslMechanism = SaslMechanism.OAuthBearer,
+                SecurityProtocol = SecurityProtocol,
+            };
+        }
     }
 }

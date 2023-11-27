@@ -28,8 +28,8 @@ namespace Cheetah.Core.Authentication
             _cache = cache;
             _logger = logger;
             _httpClientFactory = httpClientFactory;
-            _cacheKey = cacheKey;
             _config = config.Value;
+            _cacheKey = cacheKey;
         }
 
         /// <summary>
