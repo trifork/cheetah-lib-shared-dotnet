@@ -16,7 +16,7 @@ namespace Cheetah.ComponentTest.Kafka
 
         public AuthenticationHeaderValue GetAuthenticationHeader()
         {
-            string? token = _tokenService.RequestAccessTokenCachedAsync(CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult()?.AccessToken;
+            string? token = _tokenService.RequestAccessTokenAsync(CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult()?.AccessToken;
             return new AuthenticationHeaderValue("Bearer", token);
         }
     }

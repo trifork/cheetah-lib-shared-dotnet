@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Cheetah.Core.Authentication;
 using Cheetah.Kafka.Config;
 using Cheetah.Kafka.Extensions;
@@ -34,7 +36,7 @@ namespace Cheetah.Kafka
             configAction?.Invoke(config);
             
             return new ProducerBuilder<TKey, T>(config)
-                .AddCheetahOAuthentication(_tokenService, _logger)
+                .AddCheetahOAuthentication(TokenRetrievalFunction, _logger)
                 .SetValueSerializer(serializer ?? new Utf8Serializer<T>());
         }
         
@@ -49,7 +51,7 @@ namespace Cheetah.Kafka
             configAction?.Invoke(config);
             
             return new ConsumerBuilder<TKey, T>(config)
-                .AddCheetahOAuthentication(_tokenService, _logger)
+                .AddCheetahOAuthentication(TokenRetrievalFunction, _logger)
                 .SetValueDeserializer(deserializer ?? new Utf8Serializer<T>());
         }
         
@@ -61,7 +63,10 @@ namespace Cheetah.Kafka
         public AdminClientBuilder CreateAdminClientBuilder()
         {
             return new AdminClientBuilder(_config.ToConsumerConfig())
-                .AddCheetahOAuthentication(_tokenService, _logger);
+                .AddCheetahOAuthentication(TokenRetrievalFunction, _logger);
         }
+        
+        private Func<Task<(string AccessToken, long Expiration, string PrincipalName)?>> TokenRetrievalFunction => 
+            () => _tokenService.RequestAccessTokenAsync(CancellationToken.None);  
     }
 }

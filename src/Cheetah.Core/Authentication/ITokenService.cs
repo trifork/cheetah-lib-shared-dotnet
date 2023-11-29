@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using IdentityModel.Client;
@@ -6,7 +7,6 @@ namespace Cheetah.Core.Authentication
 {
     public interface ITokenService
     {
-        Task<TokenResponse?> RequestAccessTokenCachedAsync(CancellationToken cancellationToken);
-        Task<TokenResponse> RequestClientCredentialsTokenAsync(CancellationToken cancellationToken);
+        Task<(string AccessToken, long Expiration, string? PrincipalName)?> RequestAccessTokenAsync(CancellationToken cancellationToken);
     }
 }

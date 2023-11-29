@@ -20,14 +20,14 @@ namespace Cheetah.OpenSearch.Connection
             CancellationToken cancellationToken
         )
         {
-            var cachedAccessToken = await _tokenService.RequestAccessTokenCachedAsync(cancellationToken);
-            if (cachedAccessToken == null || string.IsNullOrEmpty(cachedAccessToken.AccessToken))
+            var accessToken = await _tokenService.RequestAccessTokenAsync(cancellationToken);
+            if (accessToken == null || string.IsNullOrEmpty(accessToken.Value.AccessToken))
             {
                 throw new UnauthorizedAccessException(
                     "Could not retrieve access token from IDP. Look at environment values to ensure they are correct"
                 );
             }
-            request.Headers.Add("Authorization", $"bearer {cachedAccessToken.AccessToken}");
+            request.Headers.Add("Authorization", $"bearer {accessToken.Value.AccessToken}");
             return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
         }
     }

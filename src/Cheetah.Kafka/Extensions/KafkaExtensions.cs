@@ -1,6 +1,5 @@
 using System;
-using System.Threading;
-using Cheetah.Core.Authentication;
+using System.Threading.Tasks;
 using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
 
@@ -8,40 +7,90 @@ namespace Cheetah.Kafka.Extensions
 {
     public static class CheetahKafkaExtensions
     {
-
-        public static ConsumerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(this ConsumerBuilder<TKey, TValue> builder, ITokenService tokenService, ILogger logger)
+        // We need one for each, since the return type must match the builder and they share no common interface.
+        // Allows supplying an asynchronous token function
+        public static ConsumerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(
+            this ConsumerBuilder<TKey, TValue> builder, 
+            Func<Task<(string AccessToken, long Expiration, string? PrincipalName)?>> asyncTokenRequestFunc, 
+            ILogger logger)
         {
-            return builder.SetOAuthBearerTokenRefreshHandler((client, _) => TokenRefreshHandler(client, tokenService, logger));
+            return AddCheetahOAuthentication(builder, Synchronize(asyncTokenRequestFunc), logger);
         }
 
-        public static ProducerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(this ProducerBuilder<TKey, TValue> builder, ITokenService tokenService, ILogger logger)
+        public static ProducerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(
+            this ProducerBuilder<TKey, TValue> builder, 
+            Func<Task<(string AccessToken, long Expiration, string? PrincipalName)?>> asyncTokenRequestFunc, 
+            ILogger logger)
         {
-            return builder.SetOAuthBearerTokenRefreshHandler((client, _) => TokenRefreshHandler(client, tokenService, logger));
+            return AddCheetahOAuthentication(builder, Synchronize(asyncTokenRequestFunc), logger);
+        }
+
+        public static AdminClientBuilder AddCheetahOAuthentication(
+            this AdminClientBuilder builder, 
+            Func<Task<(string AccessToken, long Expiration, string? PrincipalName)?>> asyncTokenRequestFunc, 
+            ILogger logger)
+        {
+            return AddCheetahOAuthentication(builder, Synchronize(asyncTokenRequestFunc), logger);
         }
         
-        public static AdminClientBuilder AddCheetahOAuthentication(this AdminClientBuilder builder, ITokenService tokenService, ILogger logger)
-        {
-            return builder.SetOAuthBearerTokenRefreshHandler((client, _) => TokenRefreshHandler(client, tokenService, logger));
-        }
+        // Allows supplying a synchronous token function
         
-        private static void TokenRefreshHandler(
-            IClient client,
-            ITokenService tokenService,
-            ILogger logger
-        )
+        public static ConsumerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(
+            this ConsumerBuilder<TKey, TValue> builder, 
+            Func<(string AccessToken, long Expiration, string? PrincipalName)?> tokenRequestFunc, 
+            ILogger logger)
         {
-            var token = tokenService.RequestClientCredentialsTokenAsync(CancellationToken.None).GetAwaiter().GetResult();
-            if (string.IsNullOrEmpty(token.AccessToken))
+            return builder.SetOAuthBearerTokenRefreshHandler(GetTokenRefreshHandler(tokenRequestFunc, logger));
+        }
+
+        public static ProducerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(
+            this ProducerBuilder<TKey, TValue> builder, 
+            Func<(string AccessToken, long Expiration, string? PrincipalName)?> tokenRequestFunc, 
+            ILogger logger)
+        {
+            return builder.SetOAuthBearerTokenRefreshHandler(GetTokenRefreshHandler(tokenRequestFunc, logger));
+        }
+
+        public static AdminClientBuilder AddCheetahOAuthentication(
+            this AdminClientBuilder builder, 
+            Func<(string AccessToken, long Expiration, string? PrincipalName)?> tokenRequestFunc, 
+            ILogger logger)
+        {
+            return builder.SetOAuthBearerTokenRefreshHandler(GetTokenRefreshHandler(tokenRequestFunc, logger));
+        }
+
+        // Convenience to avoid spreading "GetAwaiter().GetResult()"
+        private static Func<T> Synchronize<T>(Func<Task<T>> asyncTokenRequestFunc) => 
+            () => asyncTokenRequestFunc().GetAwaiter().GetResult();
+
+        // Convenience to avoid spreading lambdas
+        private static Action<IClient, string> GetTokenRefreshHandler(Func<(string AccessToken, long Expiration, string? PrincipalName)?> func, ILogger logger) =>
+            (client, _) => TokenRefreshHandler(client, func, logger); 
+
+        private static void TokenRefreshHandler(IClient client, Func<(string AccessToken, long Expiration, string? PrincipalName)?> tokenRequestFunc, ILogger logger)
+        {
+            try
             {
-                logger.LogError("Could not retrieve oauth2 accesstoken from provided token service");
-                client.OAuthBearerSetTokenFailure(
-                    "Could not retrieve access token from IDP. Look at environment values to ensure they are correct"
-                );
-                return;
+                var token = tokenRequestFunc();
+                if (token == null || string.IsNullOrWhiteSpace(token.Value.AccessToken))
+                {
+                    SetFailure(client, logger, "Supplied token function returned null or a valueless access token.");
+                    return;
+                }
+                
+                client.OAuthBearerSetToken(token.Value.AccessToken, token.Value.Expiration, token.Value.PrincipalName);
             }
+            catch (Exception ex)
+            {
+                SetFailure(client, logger, $"Unhandled exception thrown when attempting to retrieve access token from IDP. {ex.GetType().Name}: {ex.Message}");
+                throw;
+            }
+        }
 
-            long expiration = DateTimeOffset.UtcNow.AddSeconds(token.ExpiresIn).ToUnixTimeMilliseconds();
-            client.OAuthBearerSetToken(token.AccessToken, expiration, "unused");
+        private static void SetFailure(IClient client, ILogger logger, string errorMsg)
+        {
+            logger.LogError(errorMsg);
+            client.OAuthBearerSetTokenFailure(errorMsg);
         }
     }
 }

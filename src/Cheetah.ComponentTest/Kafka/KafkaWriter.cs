@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Cheetah.Core.Authentication;
 using Cheetah.Kafka;
@@ -33,7 +34,7 @@ namespace Cheetah.ComponentTest.Kafka
                     SecurityProtocol = SecurityProtocol.SaslPlaintext,
                 })
                 .SetValueSerializer(props.Serializer)
-                .AddCheetahOAuthentication(props.TokenService, new LoggerFactory().CreateLogger<OAuth2TokenService>())
+                .AddCheetahOAuthentication(() => props.TokenService.RequestAccessTokenAsync(CancellationToken.None), new LoggerFactory().CreateLogger<OAuth2TokenService>())
                 .Build();
         }
 

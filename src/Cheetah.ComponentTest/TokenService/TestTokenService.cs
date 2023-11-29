@@ -1,3 +1,4 @@
+using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,13 +22,19 @@ namespace Cheetah.ComponentTest.TokenService
             this.oauthScope = oauthScope;
         }
 
-        public async Task<TokenResponse?> RequestAccessTokenCachedAsync(CancellationToken cancellationToken)
+        public async Task<(string AccessToken, long Expiration, string? PrincipalName)?> RequestAccessTokenAsync(CancellationToken cancellationToken)
         {
-            var tokenResponse = await RequestClientCredentialsTokenAsync(cancellationToken);
-            return tokenResponse;
+            var tokenResponse = await FetchAccessTokenAsync(cancellationToken);
+            
+            if(tokenResponse.AccessToken == null)
+            {
+                return null;
+            }
+            
+            return (tokenResponse.AccessToken, DateTimeOffset.UtcNow.AddSeconds(tokenResponse.ExpiresIn).ToUnixTimeMilliseconds(), null);
         }
 
-        public async Task<TokenResponse> RequestClientCredentialsTokenAsync(CancellationToken cancellationToken)
+        private async Task<TokenResponse> FetchAccessTokenAsync(CancellationToken cancellationToken)
         {
             var httpClient = new HttpClient();
             var tokenClient = new TokenClient(

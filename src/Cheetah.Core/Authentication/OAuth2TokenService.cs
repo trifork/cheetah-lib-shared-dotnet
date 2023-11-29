@@ -31,12 +31,27 @@ namespace Cheetah.Core.Authentication
             _config = config.Value;
             _cacheKey = cacheKey;
         }
+        
+        
+        public async Task<(string AccessToken, long Expiration, string? PrincipalName)?> RequestAccessTokenAsync(CancellationToken cancellationToken)
+        {
+            var tokenResponse = await RequestAccessTokenCachedAsync(cancellationToken);
+            
+            if(tokenResponse == null || tokenResponse.IsError || tokenResponse.AccessToken == null)
+            {
+                _logger.LogError("Failed to retrieve access token for {clientId}. Error: {error}", _config.ClientId, tokenResponse.Error);
+                return null;
+            }
+            
+            return (tokenResponse.AccessToken, DateTimeOffset.UtcNow.AddSeconds(tokenResponse.ExpiresIn).ToUnixTimeMilliseconds(), null);
+        }
+        
 
         /// <summary>
         /// Request access token
         /// </summary>
         /// <returns>Token response</returns>
-        public async Task<TokenResponse?> RequestAccessTokenCachedAsync(
+        private async Task<TokenResponse?> RequestAccessTokenCachedAsync(
             CancellationToken cancellationToken
         )
         {
@@ -54,7 +69,7 @@ namespace Cheetah.Core.Authentication
                 _cacheKey,
                 async cacheEntry =>
                 {
-                    var tokenResponse = await RequestClientCredentialsTokenAsync(cancellationToken);
+                    var tokenResponse = await FetchAccessTokenAsync(cancellationToken);
                     TimeSpan absoluteExpiration = TimeSpan.FromSeconds(
                         Math.Max(10, tokenResponse.ExpiresIn - 10)
                     );
@@ -71,7 +86,7 @@ namespace Cheetah.Core.Authentication
         /// Request access token with client credentials
         /// </summary>
         /// <returns>Token response</returns>
-        public async Task<TokenResponse> RequestClientCredentialsTokenAsync(
+        private async Task<TokenResponse> FetchAccessTokenAsync(
             CancellationToken cancellationToken
         )
         {

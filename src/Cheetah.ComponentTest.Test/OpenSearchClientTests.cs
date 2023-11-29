@@ -37,10 +37,10 @@ namespace Cheetah.ComponentTest.Test
 
             var documents = new List<OpenSearchTestModel>
             {
-                new OpenSearchTestModel("Document 1", 2), 
-                new OpenSearchTestModel("Document 2", 3), 
-                new OpenSearchTestModel("Document 3", 4), 
-                new OpenSearchTestModel("Document 4", 5),
+                new ("Document 1", 2), 
+                new ("Document 2", 3), 
+                new ("Document 3", 4), 
+                new ("Document 4", 5),
             };
 
             var openSearchClient = OpenSearchClientFactory.Create(_configuration);
