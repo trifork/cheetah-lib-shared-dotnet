@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using Cheetah.Core;
 using Cheetah.Core.Authentication;
+using Cheetah.Core.Configuration;
 using Cheetah.Kafka.Config;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;

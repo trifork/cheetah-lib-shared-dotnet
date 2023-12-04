@@ -2,6 +2,7 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Cheetah.Core.Configuration;
 using IdentityModel.Client;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
@@ -9,6 +10,9 @@ using Microsoft.Extensions.Options;
 
 namespace Cheetah.Core.Authentication
 {
+    /// <summary>
+    /// Service for retrieving OAuth2 access tokens
+    /// </summary>
     public class OAuth2TokenService : ITokenService
     {
         private readonly ILogger<OAuth2TokenService> _logger;
@@ -17,6 +21,14 @@ namespace Cheetah.Core.Authentication
         private readonly IMemoryCache _cache;
         private readonly string _cacheKey;
 
+        /// <summary>
+        /// Create a new instance of <see cref="OAuth2TokenService"/>
+        /// </summary>
+        /// <param name="logger">The <see cref="ILogger{OAuth2TokenService}"/> to use for logging</param>
+        /// <param name="httpClientFactory">The <see cref="IHttpClientFactory"/> to use for creating necessary <see cref="HttpClient"/>s</param>
+        /// <param name="cache">The <see cref="IMemoryCache"/> to use for token caching</param>
+        /// <param name="config">An <see cref="IOptions{OAuth2Config}"/> containing necessary configuration</param>
+        /// <param name="cacheKey">The key to use when storing and retrieving tokens from the cache</param>
         public OAuth2TokenService(
             ILogger<OAuth2TokenService> logger,
             IHttpClientFactory httpClientFactory,
@@ -32,25 +44,20 @@ namespace Cheetah.Core.Authentication
             _cacheKey = cacheKey;
         }
         
-        
+        /// <inheritdoc cref="ITokenService.RequestAccessTokenAsync"/>
         public async Task<(string AccessToken, long Expiration, string? PrincipalName)?> RequestAccessTokenAsync(CancellationToken cancellationToken)
         {
             var tokenResponse = await RequestAccessTokenCachedAsync(cancellationToken);
             
             if(tokenResponse == null || tokenResponse.IsError || tokenResponse.AccessToken == null)
             {
-                _logger.LogError("Failed to retrieve access token for {clientId}. Error: {error}", _config.ClientId, tokenResponse.Error);
+                _logger.LogError("Failed to retrieve access token for {clientId}. Error: {error}", _config.ClientId, tokenResponse?.Error);
                 return null;
             }
             
             return (tokenResponse.AccessToken, DateTimeOffset.UtcNow.AddSeconds(tokenResponse.ExpiresIn).ToUnixTimeMilliseconds(), null);
         }
         
-
-        /// <summary>
-        /// Request access token
-        /// </summary>
-        /// <returns>Token response</returns>
         private async Task<TokenResponse?> RequestAccessTokenCachedAsync(
             CancellationToken cancellationToken
         )
@@ -81,11 +88,7 @@ namespace Cheetah.Core.Authentication
                 }
             );
         }
-
-        /// <summary>
-        /// Request access token with client credentials
-        /// </summary>
-        /// <returns>Token response</returns>
+        
         private async Task<TokenResponse> FetchAccessTokenAsync(
             CancellationToken cancellationToken
         )

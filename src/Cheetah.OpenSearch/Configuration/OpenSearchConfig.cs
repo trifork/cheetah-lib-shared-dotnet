@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using Cheetah.Core;
+using Cheetah.Core.Configuration;
 
 namespace Cheetah.OpenSearch.Config
 {
@@ -69,10 +70,22 @@ namespace Cheetah.OpenSearch.Config
             }
         }
 
+        /// <summary>
+        /// Authentication method to use when connecting to OpenSearch
+        /// </summary>
         public enum OpenSearchAuthMode
         {
+            /// <summary>
+            /// No authentication
+            /// </summary>
             None,
+            /// <summary>
+            /// Basic username/password authentication
+            /// </summary>
             Basic,
+            /// <summary>
+            /// OAuth2 token authentication
+            /// </summary>
             OAuth2
         }
     }

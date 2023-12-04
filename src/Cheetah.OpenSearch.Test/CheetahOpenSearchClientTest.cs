@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cheetah.Core.Authentication;
 using Cheetah.OpenSearch.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -63,7 +64,7 @@ namespace Cheetah.OpenSearch.Test
             var configurationRoot = GetDefaultConfigurationBuilder().AddInMemoryCollection(additionalConfiguration).Build();
             var serviceProvider = CreateServiceProvider(configurationRoot);
             var client = serviceProvider.GetRequiredService<IOpenSearchClient>();
-            
+            var tokenService = serviceProvider.GetRequiredService<OAuth2TokenService>();
             var newIndexName = Guid.NewGuid().ToString();
             var newIndicesResponse = await client.Indices.CreateAsync(new CreateIndexRequest(newIndexName));
             
@@ -114,11 +115,7 @@ namespace Cheetah.OpenSearch.Test
             });
             serviceCollection.AddCheetahOpenSearch(config);
             return serviceCollection.BuildServiceProvider();
-        }
-
-        private static void CreateOtherWay()
-        {
-            var client = new OpenSearchClient();
+            
         }
     }
 }

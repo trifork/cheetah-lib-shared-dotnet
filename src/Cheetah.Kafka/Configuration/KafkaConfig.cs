@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Cheetah.Core;
+using Cheetah.Core.Configuration;
 using Confluent.Kafka;
 
 namespace Cheetah.Kafka.Config

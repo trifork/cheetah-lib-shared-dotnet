@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using Cheetah.Core;
 using Cheetah.Core.Authentication;
+using Cheetah.Core.Configuration;
 using Cheetah.OpenSearch.Config;
 using Cheetah.OpenSearch.Connection;
 using Microsoft.Extensions.Caching.Memory;
@@ -13,8 +14,20 @@ using OpenSearch.Net;
 
 namespace Cheetah.OpenSearch.Extensions
 {
+    /// <summary>
+    /// OpenSearch extension methods for <see cref="IServiceCollection"/>
+    /// </summary>
     public static class ServiceCollectionExtensions
     {
+        /// <summary>
+        /// Registers and configures an <see cref="IOpenSearchClient"/> for dependency injection, along with its required services.
+        /// </summary>
+        /// <remarks>
+        /// This method requires that the <see cref="OpenSearchConfig"/> section is configured in the supplied <see cref="IConfiguration"/> instance.
+        /// </remarks>
+        /// <param name="serviceCollection">The <see cref="IServiceCollection"/> to register the <see cref="IOpenSearchClient"/> and its required services with.</param>
+        /// <param name="configuration">The <see cref="IConfiguration"/> instance to use for configuration.</param>
+        /// <returns>The supplied <see cref="IServiceCollection"/> instance for method chaining.</returns>
         public static IServiceCollection AddCheetahOpenSearch(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
             var config = serviceCollection.ConfigureAndGetOpenSearchConfig(configuration);

@@ -47,8 +47,9 @@ namespace Cheetah.ComponentTest.OpenSearch
         /// <exception cref="ArgumentException">Thrown when attempting to insert 0 documents into the index</exception>
         public static async Task<BulkResponse> InsertAsync<T>(this IOpenSearchClient client, string indexName, ICollection<T> documents) where T : class
         {
+
             return documents.Count != 0
-                        ? (await client.BulkAsync(b => b.Index(indexName).CreateMany(documents))).ThrowIfNotValid()
+                        ? await client.BulkAsync(b => b.Index(indexName).CreateMany(documents)).ThrowIfNotValid()
                         : throw new ArgumentException($"Attempted to insert 0 documents into index {indexName}");
         }
 
@@ -60,7 +61,7 @@ namespace Cheetah.ComponentTest.OpenSearch
         /// <returns>A <see cref="RefreshResponse"/> which can be used to verify the result of the refresh operation</returns>
         public static async Task<RefreshResponse> RefreshIndexAsync(this IOpenSearchClient client, string indexName)
         {
-            return (await client.Indices.RefreshAsync(indexName)).ThrowIfNotValid();
+            return await client.Indices.RefreshAsync(indexName).ThrowIfNotValid();
         }
 
         /// <summary>
@@ -73,23 +74,35 @@ namespace Cheetah.ComponentTest.OpenSearch
         /// <returns>The retrieved collection of documents</returns>
         public static async Task<IEnumerable<T>> GetFromIndexAsync<T>(this IOpenSearchClient client, string indexName, int maxCount = 100) where T : class
         {
-            return (await client.SearchAsync<T>(q => q.Index(indexName).Size(maxCount))).Hits.Select(x => x.Source);
+            return (await client.SearchAsync<T>(q => q.Index(indexName).Size(maxCount))).ThrowIfNotValid().Hits.Select(x => x.Source);
         }
 
         /// <summary>
         /// Utility method to simplify validation of responses from OpenSearch.
         /// </summary>
         /// <param name="response">The response to validate</param>
-        /// <typeparam name="T">The type of response. Must inherit from <see cref="ResponseBase"/></typeparam>
+        /// <typeparam name="T">The type of response. Must implement <see cref="IResponse"/></typeparam>
         /// <returns>The validated response</returns>
         /// <exception cref="OpenSearchClientException">Thrown when the response is not valid.</exception>
-        public static T ThrowIfNotValid<T>(this T response) where T : ResponseBase
+        public static T ThrowIfNotValid<T>(this T response) where T : IResponse
         {
             if (!response.IsValid)
             {
                 throw new OpenSearchClientException($"Response did not indicate success. Debug info: {response.DebugInformation}");
             }
             return response;
+        }
+
+        /// <summary>
+        /// Utility method to simplify validation of responses from OpenSearch.
+        /// </summary>
+        /// <param name="response">A task that returns a response to validate</param>
+        /// <typeparam name="T">The type of response. Must implement <see cref="IResponse"/></typeparam>
+        /// <returns>A task that returns the validated response</returns>
+        /// <exception cref="OpenSearchClientException">Thrown when the response is not valid.</exception>
+        public static async Task<T> ThrowIfNotValid<T>(this Task<T> response) where T : IResponse
+        {
+            return (await response).ThrowIfNotValid();
         }
     }
 }

@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.WebApi", "src\Cheetah.WebApi\Cheetah.WebApi.csproj", "{D49DB3AA-20D7-4B7A-A5FD-5D093BAFD3CC}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5CB19838-D0DD-411B-A401-F0FE3E063220}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
@@ -14,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.ComponentTest", "src\Cheetah.ComponentTest\Cheetah.ComponentTest.csproj", "{218D3E64-0A50-44D4-B78B-4E56B963B281}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Core", "src\Cheetah.Core\Cheetah.Core.csproj", "{1DE5990E-1317-45CF-992E-A0036A6E0E36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Auth", "src\Cheetah.Auth\Cheetah.Auth.csproj", "{1DE5990E-1317-45CF-992E-A0036A6E0E36}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.ComponentTest.Test", "src\Cheetah.ComponentTest.Test\Cheetah.ComponentTest.Test.csproj", "{15D6D6AE-0AAA-4CA5-9070-40900F62E02D}"
 EndProject
@@ -32,10 +30,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D49DB3AA-20D7-4B7A-A5FD-5D093BAFD3CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D49DB3AA-20D7-4B7A-A5FD-5D093BAFD3CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D49DB3AA-20D7-4B7A-A5FD-5D093BAFD3CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D49DB3AA-20D7-4B7A-A5FD-5D093BAFD3CC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{218D3E64-0A50-44D4-B78B-4E56B963B281}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{218D3E64-0A50-44D4-B78B-4E56B963B281}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{218D3E64-0A50-44D4-B78B-4E56B963B281}.Release|Any CPU.ActiveCfg = Release|Any CPU

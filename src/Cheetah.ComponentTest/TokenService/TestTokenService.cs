@@ -51,12 +51,13 @@ namespace Cheetah.ComponentTest.TokenService
                 .ConfigureAwait(false);
 
             // Check if the token request was successful
-            if (!tokenResponse.IsError)
+            if (tokenResponse.IsError)
             {
-                return tokenResponse;
+                throw tokenResponse.Exception ?? new OAuth2TokenException("Failed to retrieve access token, but the error had no accompagnying exception");
             }
+            
+            return tokenResponse;
 
-            throw tokenResponse.Exception;
         }
     }
 }

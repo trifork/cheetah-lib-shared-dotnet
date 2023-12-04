@@ -18,6 +18,9 @@ using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace Cheetah.OpenSearch
 {
+    /// <summary>
+    /// Factory for creating <see cref="OpenSearchClient"/> instances
+    /// </summary>
     public class OpenSearchClientFactory
     {
         private readonly ILogger<OpenSearchClientFactory> _logger;
@@ -27,6 +30,15 @@ namespace Cheetah.OpenSearch
         private readonly IHostEnvironment? _hostEnvironment;
         private readonly IConnection? _connection;
 
+        /// <summary>
+        /// Create a new instance of <see cref="OpenSearchClientFactory"/>
+        /// </summary>
+        /// <param name="clientConfig">The <see cref="OpenSearchConfig"/> to use for configuring the client.</param>
+        /// <param name="clientLogger">The <see cref="ILogger{OpenSearchClient}"/> to use for logging in the client.</param>
+        /// <param name="logger">The <see cref="ILogger{OpenSearchClientFactory}"/> to use for logging in the factory.</param>
+        /// <param name="connectionPool">The <see cref="IConnectionPool"/> to use for generated clients.</param>
+        /// <param name="connection">The <see cref="IConnection"/> to use for generated clients.</param>
+        /// <param name="hostEnvironment">The <see cref="IHostEnvironment"/> that the client is running in.</param>
         public OpenSearchClientFactory(
             IOptions<OpenSearchConfig> clientConfig,
             ILogger<OpenSearchClient> clientLogger,
@@ -44,6 +56,10 @@ namespace Cheetah.OpenSearch
             _connection = connection;
         }
 
+        /// <summary>
+        /// Create a new, pre-configured <see cref="OpenSearchClient"/> instance
+        /// </summary>
+        /// <returns></returns>
         public OpenSearchClient CreateOpenSearchClient()
         {
             _logger.LogInformation("Creating OpenSearchClient. Authentication is {authMode}", GetAuthModeLogString());
@@ -112,12 +128,12 @@ namespace Cheetah.OpenSearch
         
         
         /// <summary>
-        /// <b>WARNING</b> This method should <i>only</i> be used if you for some reason cannot use dependency injection and need to create a client manually.
-        /// In any other circumstances, you should use the <see cref="ServiceCollectionExtensions.AddCheetahOpenSearch"/> method during service registration and inject
-        /// <see cref="IOpenSearchClient"/> into your service.
-        /// 
         /// Creates an IOpenSearchClient from the provided configuration.
         /// </summary>
+        /// <remarks>
+        /// <b>WARNING</b>: This method should <i>only</i> be used if you for some reason cannot use dependency injection and need to create a client manually.
+        /// In any other circumstances, you should use the <see cref="ServiceCollectionExtensions.AddCheetahOpenSearch"/> method during service registration and inject <see cref="IOpenSearchClient"/> into your service.
+        /// </remarks>
         /// <param name="config">The configuration to create the client from</param>
         /// <param name="hostEnvironment">An optional host environment, used to determine whether additional debug information should be available on the returned client</param>
         /// <returns>A pre-configured <see cref="OpenSearchClient"/></returns>
