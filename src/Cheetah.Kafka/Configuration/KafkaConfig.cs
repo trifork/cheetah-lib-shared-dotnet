@@ -1,9 +1,8 @@
 using System.ComponentModel.DataAnnotations;
-using Cheetah.Core;
 using Cheetah.Core.Configuration;
 using Confluent.Kafka;
 
-namespace Cheetah.Kafka.Config
+namespace Cheetah.Kafka.Configuration
 {
     /// <summary>
     /// KafkaConfig for IOptions
@@ -22,8 +21,15 @@ namespace Cheetah.Kafka.Config
         [Required]
         public string Url { get; set; } = null!;
 
+        /// <summary>
+        /// The security protocol used to communicate with brokers.
+        /// </summary>
         public SecurityProtocol SecurityProtocol { get; set; } = SecurityProtocol.SaslPlaintext;
 
+        /// <summary>
+        /// Converts the configuration to a <see cref="ProducerConfig"/> for use with <see cref="ProducerBuilder{TKey,TValue}"/>.
+        /// </summary>
+        /// <returns>The converted <see cref="ProducerConfig"/></returns>
         public ProducerConfig ToProducerConfig()
         {
             return new ProducerConfig
@@ -34,6 +40,10 @@ namespace Cheetah.Kafka.Config
             };
         }
         
+        /// <summary>
+        /// Converts the configuration to a <see cref="ConsumerConfig"/> for use with <see cref="ConsumerBuilder{TKey,TValue}"/>.
+        /// </summary>
+        /// <returns>The converted <see cref="ConsumerConfig"/></returns>
         public ConsumerConfig ToConsumerConfig()
         {
             return new ConsumerConfig
