@@ -56,6 +56,20 @@ namespace Cheetah.WebApi.Shared.Test.Util
             Assert.Equal(expected, actual);
         }
         
+        public record DummyDateTime(DateTime DateTime);
+
+        [Theory]
+        [MemberData(nameof(ValidDateTimeTestCases))]
+        public void Should_DeserializeDateTimeRepresentations_When_UsedInASerializer(string valueJson, DateTime expected)
+        {
+            var json = $"{{ \"DateTime\": {valueJson} }}";
+            var settings = new JsonSerializerSettings();
+            settings.Converters.Add(_sut);
+            var actual = JsonConvert.DeserializeObject<DummyDateTime>(json, settings);
+
+            Assert.Equal(expected, actual?.DateTime);
+        }
+        
         public static IEnumerable<object[]> ValidDateTimeOffsetTestCases =>
             new List<object[]>
             {
@@ -93,18 +107,18 @@ namespace Cheetah.WebApi.Shared.Test.Util
             Assert.Equal(expected, actual);
         }
 
-        public record DummyDateTime(DateTime DateTime);
+        public record DummyDateTimeOffset(DateTimeOffset DateTimeOffset);
 
         [Theory]
-        [MemberData(nameof(ValidDateTimeTestCases))]
-        public void Should_DeserializeDateTimeRepresentations_When_UsedInASerializer(string valueJson, DateTime expected)
+        [MemberData(nameof(ValidDateTimeOffsetTestCases))]
+        public void Should_DeserializeDateTimeOffsetRepresentations_When_UsedInASerializer(string valueJson, DateTimeOffset expected)
         {
-            var json = $"{{ \"DateTime\": {valueJson} }}";
+            var json = $"{{ \"DateTimeOffset\": {valueJson} }}";
             var settings = new JsonSerializerSettings();
             settings.Converters.Add(_sut);
-            var actual = JsonConvert.DeserializeObject<DummyDateTime>(json, settings);
+            var actual = JsonConvert.DeserializeObject<DummyDateTimeOffset>(json, settings);
 
-            Assert.Equal(expected, actual?.DateTime);
+            Assert.Equal(expected, actual?.DateTimeOffset);
         }
 
         [Theory]
