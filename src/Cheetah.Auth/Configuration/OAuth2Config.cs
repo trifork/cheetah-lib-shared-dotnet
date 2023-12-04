@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Core.Configuration
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace Cheetah.Auth.Configuration
 {
     /// <summary>
     /// Configuration for OAuth2 authentication
@@ -8,21 +11,48 @@
         /// <summary>
         /// The endpoint to retrieve the token from
         /// </summary>
+        [Required]
         public string TokenEndpoint { get; set; } = null!;
         
         /// <summary>
         /// The client id to use when authenticating
         /// </summary>
+        
+        [Required]
         public string ClientId { get; set; } = null!;
         
         /// <summary>
         /// The client secret to use when authenticating
         /// </summary>
+        
+        [Required]
         public string ClientSecret { get; set; } = null!;
         
         /// <summary>
         /// Optional scope to request when authenticating
         /// </summary>
         public string? AuthScope { get; set; }
+        
+        /// <summary>
+        /// Validates that configuration has minimum values
+        /// </summary>
+        /// <exception cref="ArgumentException"></exception>
+        public void Validate()
+        {
+            if (string.IsNullOrEmpty(TokenEndpoint))
+            {
+                throw new ArgumentException("TokenEndpoint must be set");
+            }
+            
+            if (string.IsNullOrEmpty(ClientId))
+            {
+                throw new ArgumentException("ClientId must be set");
+            }
+            
+            if (string.IsNullOrEmpty(ClientSecret))
+            {
+                throw new ArgumentException("ClientSecret must be set");
+            }
+        }
     }
 }

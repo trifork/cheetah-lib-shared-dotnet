@@ -1,4 +1,4 @@
-using Cheetah.Core.Authentication;
+using Cheetah.Auth.Authentication;
 using Cheetah.Kafka;
 using Cheetah.Kafka.Util;
 using Confluent.Kafka;

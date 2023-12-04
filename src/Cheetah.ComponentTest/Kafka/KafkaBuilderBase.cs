@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Cheetah.Auth.Authentication;
 using Cheetah.ComponentTest.TokenService;
-using Cheetah.Core.Authentication;
 using Confluent.SchemaRegistry;
 using Microsoft.Extensions.Configuration;
 

@@ -2,13 +2,13 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Cheetah.Core.Configuration;
+using Cheetah.Auth.Configuration;
 using IdentityModel.Client;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Cheetah.Core.Authentication
+namespace Cheetah.Auth.Authentication
 {
     /// <summary>
     /// Service for retrieving OAuth2 access tokens
@@ -41,6 +41,7 @@ namespace Cheetah.Core.Authentication
             _logger = logger;
             _httpClientFactory = httpClientFactory;
             _config = config.Value;
+            _config.Validate();
             _cacheKey = cacheKey;
         }
         

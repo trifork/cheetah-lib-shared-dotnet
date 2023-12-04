@@ -1,6 +1,6 @@
 using System;
 
-namespace Cheetah.Core.Authentication
+namespace Cheetah.Auth.Authentication
 {
     /// <summary>
     /// Exception thrown when an OAuth2 token could not be retrieved

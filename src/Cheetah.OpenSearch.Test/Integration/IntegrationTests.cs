@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Cheetah.Core.Authentication;
 using Cheetah.OpenSearch.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,14 +11,14 @@ using OpenSearch.Client;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Cheetah.OpenSearch.Test
+namespace Cheetah.OpenSearch.Test.Integration
 {
     [Trait("Category", "OpenSearch"), Trait("TestType", "IntegrationTests")]
-    public class OpenSearchIntegrationTest
+    public class IntegrationTests
     {
         readonly ITestOutputHelper _testOutputHelper;
 
-        public OpenSearchIntegrationTest(ITestOutputHelper testOutputHelper)
+        public IntegrationTests(ITestOutputHelper testOutputHelper)
         {
             _testOutputHelper = testOutputHelper;
         }
@@ -47,8 +46,8 @@ namespace Cheetah.OpenSearch.Test
                 new List<KeyValuePair<string, string?>>
                 {
                     new ("OPENSEARCH:AUTHMODE", "OAuth2"),
-                    new ("OPENSEARCH:CLIENTID", "clientId"),
-                    new ("OPENSEARCH:CLIENTSECRET", "1234")
+                    new ("OPENSEARCH:OAUTH2:CLIENTID", "clientId"),
+                    new ("OPENSEARCH:OAUTH2:CLIENTSECRET", "1234")
                 }
             };
         }
@@ -64,7 +63,6 @@ namespace Cheetah.OpenSearch.Test
             var configurationRoot = GetDefaultConfigurationBuilder().AddInMemoryCollection(additionalConfiguration).Build();
             var serviceProvider = CreateServiceProvider(configurationRoot);
             var client = serviceProvider.GetRequiredService<IOpenSearchClient>();
-            var tokenService = serviceProvider.GetRequiredService<OAuth2TokenService>();
             var newIndexName = Guid.NewGuid().ToString();
             var newIndicesResponse = await client.Indices.CreateAsync(new CreateIndexRequest(newIndexName));
             
@@ -79,15 +77,7 @@ namespace Cheetah.OpenSearch.Test
             
             Assert.DoesNotContain(newIndexName, indices);
         }
-
-        static async Task<List<string>> IndicesWithoutInternal(IOpenSearchClient sut)
-        {
-            var indicesResponse = await sut.Indices.GetAsync(new GetIndexRequest(Indices.All));
-            var indicesWithoutInternal = indicesResponse.Indices.Select(index => index.Key.ToString())
-                .Where(x => !x.StartsWith('.')).ToList();
-            return indicesWithoutInternal;
-        }
-
+        
         /// <summary>
         /// Gets the default configuration based on static dictionary of local values, with the option to override using environment variables
         /// </summary>
@@ -97,12 +87,25 @@ namespace Cheetah.OpenSearch.Test
             var configurationDict = new Dictionary<string, string?>
             {
                 { "OPENSEARCH:URL", "http://localhost:9200" },
-                { "OPENSEARCH:TOKENENDPOINT", "http://localhost:1752/oauth2/token" }
+                { "OPENSEARCH:OAUTH2:TOKENENDPOINT", "http://localhost:1752/oauth2/token" }
             };
             
             return new ConfigurationBuilder()
                 .AddInMemoryCollection(configurationDict)
                 .AddEnvironmentVariables();
+        }
+
+        /// <summary>
+        /// Retrieves all indices from OpenSearch, excluding internal indices
+        /// </summary>
+        /// <param name="sut"></param>
+        /// <returns></returns>
+        private static async Task<List<string>> IndicesWithoutInternal(IOpenSearchClient sut)
+        {
+            var indicesResponse = await sut.Indices.GetAsync(new GetIndexRequest(Indices.All));
+            var indicesWithoutInternal = indicesResponse.Indices.Select(index => index.Key.ToString())
+                .Where(x => !x.StartsWith('.')).ToList();
+            return indicesWithoutInternal;
         }
 
         private static ServiceProvider CreateServiceProvider(IConfiguration config)
@@ -115,7 +118,6 @@ namespace Cheetah.OpenSearch.Test
             });
             serviceCollection.AddCheetahOpenSearch(config);
             return serviceCollection.BuildServiceProvider();
-            
         }
     }
 }

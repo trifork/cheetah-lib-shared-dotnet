@@ -1,8 +1,7 @@
 ﻿using System.Net.Http;
-using Cheetah.Core;
-using Cheetah.Core.Authentication;
-using Cheetah.Core.Configuration;
-using Cheetah.OpenSearch.Config;
+using Cheetah.Auth.Authentication;
+using Cheetah.Auth.Configuration;
+using Cheetah.OpenSearch.Configuration;
 using Cheetah.OpenSearch.Connection;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
@@ -66,9 +65,10 @@ namespace Cheetah.OpenSearch.Extensions
         {
             var config = new OpenSearchConfig();
             configuration.GetSection(OpenSearchConfig.Position).Bind(config);
-            config.ValidateConfig();
-            serviceCollection.Configure<OpenSearchConfig>(configuration.GetSection(OpenSearchConfig.Position));
-            serviceCollection.Configure<OAuth2Config>(configuration.GetSection(OpenSearchConfig.Position));
+            serviceCollection.AddOptionsWithValidateOnStart<OpenSearchConfig>()
+                .Bind(configuration.GetSection(OpenSearchConfig.Position));
+            serviceCollection.AddOptionsWithValidateOnStart<OAuth2Config>()
+                .Bind(configuration.GetSection(OpenSearchConfig.Position).GetSection(nameof(OpenSearchConfig.OAuth2)));
             
             return config;
         }

@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cheetah.Core.Authentication;
+using Cheetah.Auth.Authentication;
 using Cheetah.Kafka;
 using Cheetah.Kafka.Extensions;
 using Confluent.Kafka;

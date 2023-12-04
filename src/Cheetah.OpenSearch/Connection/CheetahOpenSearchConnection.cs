@@ -1,5 +1,5 @@
 using System.Net.Http;
-using Cheetah.Core.Authentication;
+using Cheetah.Auth.Authentication;
 using OpenSearch.Net;
 
 namespace Cheetah.OpenSearch.Connection

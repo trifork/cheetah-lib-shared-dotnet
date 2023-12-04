@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cheetah.Core.Authentication;
+using Cheetah.Auth.Authentication;
 using Cheetah.Kafka.Configuration;
 using Cheetah.Kafka.Extensions;
 using Cheetah.Kafka.Util;
@@ -17,7 +17,8 @@ namespace Cheetah.Kafka
     public class KafkaClientFactory
     {
         private readonly ITokenService _tokenService;
-        private readonly ILogger _authLogger;
+        private readonly ILogger<KafkaClientFactory> _logger;
+        private readonly ILoggerFactory _loggerFactory;
         private readonly KafkaConfig _config;
 
         /// <summary>
@@ -26,11 +27,12 @@ namespace Cheetah.Kafka
         /// <param name="tokenService">The token service to use</param>
         /// <param name="authLogger">The logger to use when logging authentication-related messages</param>
         /// <param name="config">The configuration to use when creating clients</param>
-        public KafkaClientFactory(ITokenService tokenService, ILogger authLogger, IOptions<KafkaConfig> config)
+        public KafkaClientFactory(ITokenService tokenService, ILoggerFactory loggerFactory, IOptions<KafkaConfig> config)
         {
             _tokenService = tokenService;
-            _authLogger = authLogger;
+            _loggerFactory = loggerFactory;
             _config = config.Value;
+            _logger = _loggerFactory.CreateLogger<KafkaClientFactory>();
         }
 
         /// <summary>
@@ -57,7 +59,7 @@ namespace Cheetah.Kafka
             configAction?.Invoke(config);
             
             return new ProducerBuilder<TKey, TValue>(config)
-                .AddCheetahOAuthentication(TokenRetrievalFunction, _authLogger)
+                .AddCheetahOAuthentication(TokenRetrievalFunction, _loggerFactory.CreateLogger<IProducer<TKey, TValue>>())
                 .SetValueSerializer(serializer ?? new Utf8Serializer<TValue>());
         }
         
@@ -85,7 +87,7 @@ namespace Cheetah.Kafka
             configAction?.Invoke(config);
             
             return new ConsumerBuilder<TKey, TValue>(config)
-                .AddCheetahOAuthentication(TokenRetrievalFunction, _authLogger)
+                .AddCheetahOAuthentication(TokenRetrievalFunction, _loggerFactory.CreateLogger<IConsumer<TKey, TValue>>())
                 .SetValueDeserializer(deserializer ?? new Utf8Serializer<TValue>());
         }
         
@@ -105,7 +107,7 @@ namespace Cheetah.Kafka
         public AdminClientBuilder CreateAdminClientBuilder()
         {
             return new AdminClientBuilder(_config.ToConsumerConfig())
-                .AddCheetahOAuthentication(TokenRetrievalFunction, _authLogger);
+                .AddCheetahOAuthentication(TokenRetrievalFunction, _loggerFactory.CreateLogger<IAdminClient>());
         }
         
         // Convenience to avoid spreading lambdas

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Text;
-using Cheetah.Core.Authentication;
-using Cheetah.Core.Util;
-using Cheetah.OpenSearch.Config;
+using Cheetah.Auth.Authentication;
+using Cheetah.Auth.Util;
+using Cheetah.OpenSearch.Configuration;
 using Cheetah.OpenSearch.Connection;
 using Cheetah.OpenSearch.Extensions;
 using Cheetah.OpenSearch.Util;
@@ -48,6 +48,7 @@ namespace Cheetah.OpenSearch
             IHostEnvironment? hostEnvironment = null
         )
         {
+            clientConfig.Value.ValidateConfig();
             _clientConfig = clientConfig.Value;
             _hostEnvironment = hostEnvironment;
             _clientLogger = clientLogger;
@@ -70,7 +71,7 @@ namespace Cheetah.OpenSearch
             _clientConfig.AuthMode switch {
                 OpenSearchConfig.OpenSearchAuthMode.None => "disabled",
                 OpenSearchConfig.OpenSearchAuthMode.Basic => $"enabled using Basic Auth, username=${_clientConfig.UserName}",
-                OpenSearchConfig.OpenSearchAuthMode.OAuth2 => $"enabled using OAuth2, clientId=${_clientConfig.ClientId}",
+                OpenSearchConfig.OpenSearchAuthMode.OAuth2 => $"enabled using OAuth2, clientId=${_clientConfig.OAuth2.ClientId}",
                 _ => throw new ArgumentOutOfRangeException()
             };
 
@@ -139,8 +140,9 @@ namespace Cheetah.OpenSearch
         /// <returns>A pre-configured <see cref="OpenSearchClient"/></returns>
         public static IOpenSearchClient CreateClientFromConfiguration(OpenSearchConfig config, IHostEnvironment? hostEnvironment = null)
         {
-            var loggerFactory = new LoggerFactory();
+            config.ValidateConfig();
 
+            var loggerFactory = new LoggerFactory();
             var options = Options.Create<OpenSearchConfig>(config);
             IConnection? connection = null;
             if (config.AuthMode == OpenSearchConfig.OpenSearchAuthMode.OAuth2)
@@ -149,7 +151,7 @@ namespace Cheetah.OpenSearch
                     loggerFactory.CreateLogger<OAuth2TokenService>(), 
                     new DefaultHttpClientFactory(),
                     new MemoryCache(new MemoryCacheOptions()), 
-                    options,
+                    Options.Create(config.OAuth2),
                     "opensearch-access-token");
                 connection = new CheetahOpenSearchConnection(tokenService);
             }

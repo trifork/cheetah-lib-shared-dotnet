@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cheetah.Core.Authentication
+namespace Cheetah.Auth.Authentication
 {
     /// <summary>
     /// Service for retrieving OAuth2 access tokens

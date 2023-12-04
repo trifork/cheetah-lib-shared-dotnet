@@ -1,7 +1,7 @@
 using System;
 using System.Net.Http;
 
-namespace Cheetah.Core.Util
+namespace Cheetah.Auth.Util
 {
     /// <summary>
     /// Default implementation of <see cref="IHttpClientFactory"/>

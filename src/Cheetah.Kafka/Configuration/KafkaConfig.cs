@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using Cheetah.Core.Configuration;
+using Cheetah.Auth.Configuration;
 using Confluent.Kafka;
 
 namespace Cheetah.Kafka.Configuration
@@ -7,7 +7,7 @@ namespace Cheetah.Kafka.Configuration
     /// <summary>
     /// KafkaConfig for IOptions
     /// </summary>
-    public class KafkaConfig : OAuth2Config
+    public class KafkaConfig
     {
         /// <summary>
         /// Prefix for options e.g. Kafka__
@@ -20,11 +20,17 @@ namespace Cheetah.Kafka.Configuration
         /// <value></value>
         [Required]
         public string Url { get; set; } = null!;
+        
 
         /// <summary>
         /// The security protocol used to communicate with brokers.
         /// </summary>
         public SecurityProtocol SecurityProtocol { get; set; } = SecurityProtocol.SaslPlaintext;
+        
+        /// <summary>
+        /// The OAuth2 configuration
+        /// </summary>
+        public OAuth2Config OAuth2 { get; set; } = null!;
 
         /// <summary>
         /// Converts the configuration to a <see cref="ProducerConfig"/> for use with <see cref="ProducerBuilder{TKey,TValue}"/>.

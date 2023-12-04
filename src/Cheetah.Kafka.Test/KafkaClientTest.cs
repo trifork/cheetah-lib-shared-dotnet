@@ -22,10 +22,10 @@ namespace Cheetah.Kafka.Test
             var localConfig = new Dictionary<string, string?> 
             {
                 { "KAFKA:URL", "localhost:9092" },
-                { "KAFKA:CLIENTID", "tester" },
-                { "KAFKA:CLIENTSECRET", "1234" },
-                { "KAFKA:TOKENENDPOINT", "http://localhost:1752/oauth2/token" },
-                { "KAFKA:OAUTHSCOPE", "kafka" },
+                { "KAFKA:OAUTH2:CLIENTID", "tester" },
+                { "KAFKA:OAUTH2:CLIENTSECRET", "1234" },
+                { "KAFKA:OAUTH2:TOKENENDPOINT", "http://localhost:1752/oauth2/token" },
+                { "KAFKA:OAUTH2:OAUTHSCOPE", "kafka" },
             };
             
             var configuration = new ConfigurationBuilder()

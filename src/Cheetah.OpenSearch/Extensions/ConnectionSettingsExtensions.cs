@@ -1,5 +1,5 @@
 ﻿using System.Security.Cryptography.X509Certificates;
-using Cheetah.OpenSearch.Config;
+using Cheetah.OpenSearch.Configuration;
 using OpenSearch.Client;
 using OpenSearch.Net;
 

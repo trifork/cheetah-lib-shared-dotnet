@@ -1,14 +1,13 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using Cheetah.Core;
-using Cheetah.Core.Configuration;
+using Cheetah.Auth.Configuration;
 
-namespace Cheetah.OpenSearch.Config
+namespace Cheetah.OpenSearch.Configuration
 {
     /// <summary>
     /// OpenSearchConfig for IOptions
     /// </summary>
-    public class OpenSearchConfig : OAuth2Config
+    public class OpenSearchConfig
     {
         /// <summary>
         /// Prefix for options e.g. OpenSearch__
@@ -46,22 +45,27 @@ namespace Cheetah.OpenSearch.Config
         /// Path to CA certificate used to validate OpenSearch certificate
         /// </summary>
         public string? CaCertificatePath { get; set; }
+        
+        /// <summary>
+        /// The config to use when authenticating with OAuth2
+        /// </summary>
+        public OAuth2Config OAuth2 { get; set; } = null!;
 
         /// <summary>
         /// Validates and throws an error if values are not set for a given <see cref="AuthMode"/>.
         /// </summary>
         public void ValidateConfig()
         {
+            _ = string.IsNullOrWhiteSpace(Url) ? throw new ArgumentNullException(nameof(Url)) : 0;
             switch (AuthMode)
             {
                 case OpenSearchAuthMode.Basic:
-                    _ = UserName ?? throw new ArgumentNullException(nameof(UserName));
-                    _ = Password ?? throw new ArgumentNullException(nameof(Password));
+                    _ = string.IsNullOrWhiteSpace(UserName) ? throw new ArgumentNullException(nameof(UserName)) : 0;
+                    _ = string.IsNullOrWhiteSpace(Password) ? throw new ArgumentNullException(nameof(Password)) : 0;
                     break;
                 case OpenSearchAuthMode.OAuth2:
-                    _ = ClientId ?? throw new ArgumentNullException(nameof(ClientId));
-                    _ = ClientSecret ?? throw new ArgumentNullException(nameof(ClientSecret));
-                    _ = TokenEndpoint ?? throw new ArgumentNullException(nameof(TokenEndpoint));
+                    _ = OAuth2 ?? throw new ArgumentNullException(nameof(OAuth2));
+                    OAuth2.Validate();
                     break;
                 case OpenSearchAuthMode.None:
                     break;

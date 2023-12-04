@@ -1,7 +1,6 @@
 ﻿using System.Net.Http;
-using Cheetah.Core;
-using Cheetah.Core.Authentication;
-using Cheetah.Core.Configuration;
+using Cheetah.Auth.Authentication;
+using Cheetah.Auth.Configuration;
 using Cheetah.Kafka.Configuration;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
@@ -27,8 +26,10 @@ namespace Cheetah.Kafka.Extensions
         /// <returns>The supplied <see cref="IServiceCollection"/> instance for method chaining.</returns>
         public static IServiceCollection AddCheetahKafkaClientFactory(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
-            serviceCollection.Configure<KafkaConfig>(configuration.GetSection(KafkaConfig.Position));
-            serviceCollection.Configure<OAuth2Config>(configuration.GetSection(KafkaConfig.Position));
+            serviceCollection.AddOptionsWithValidateOnStart<KafkaConfig>()
+                .Bind(configuration.GetSection(KafkaConfig.Position));
+            serviceCollection.AddOptionsWithValidateOnStart<OAuth2Config>()
+                .Bind(configuration.GetSection(KafkaConfig.Position).GetSection(nameof(KafkaConfig.OAuth2)));
             serviceCollection.AddHttpClient<OAuth2TokenService>();
             serviceCollection.AddMemoryCache();
             serviceCollection.AddSingleton<ITokenService>(sp =>

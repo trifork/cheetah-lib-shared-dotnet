@@ -7,9 +7,9 @@ using Moq;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace Cheetah.OpenSearch.Test
+namespace Cheetah.OpenSearch.Test.Util
 {
-    [Trait("Category", "Utils"), Trait("TestType", "Unit")]
+    [Trait("Category", "Util"), Trait("TestType", "Unit")]
     public class UtcDateTimeConverterTest
     {
         private readonly UtcDateTimeConverter _sut;

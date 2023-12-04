@@ -1,4 +1,5 @@
-using Cheetah.OpenSearch.Config;
+using Cheetah.Auth.Configuration;
+using Cheetah.OpenSearch.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting.Internal;
 using OpenSearch.Client;
@@ -68,10 +69,13 @@ namespace Cheetah.ComponentTest.OpenSearch
             {
                 AuthMode = OpenSearchConfig.OpenSearchAuthMode.OAuth2,
                 Url = url,
-                ClientId = clientId,
-                ClientSecret = clientSecret,
-                AuthScope = oauthScope,
-                TokenEndpoint = authEndpoint
+                OAuth2 = new OAuth2Config()
+                {
+                    ClientId = clientId,
+                    ClientSecret = clientSecret,
+                    AuthScope = oauthScope,
+                    TokenEndpoint = authEndpoint
+                }
             };
 
             var env = new HostingEnvironment { EnvironmentName = "Development" };
