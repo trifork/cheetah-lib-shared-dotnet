@@ -48,7 +48,7 @@ namespace Cheetah.OpenSearch
             IHostEnvironment? hostEnvironment = null
         )
         {
-            clientConfig.Value.ValidateConfig();
+            clientConfig.Value.Validate();
             _clientConfig = clientConfig.Value;
             _hostEnvironment = hostEnvironment;
             _clientLogger = clientLogger;
@@ -140,7 +140,7 @@ namespace Cheetah.OpenSearch
         /// <returns>A pre-configured <see cref="OpenSearchClient"/></returns>
         public static IOpenSearchClient CreateClientFromConfiguration(OpenSearchConfig config, IHostEnvironment? hostEnvironment = null)
         {
-            config.ValidateConfig();
+            config.Validate();
 
             var loggerFactory = new LoggerFactory();
             var options = Options.Create<OpenSearchConfig>(config);

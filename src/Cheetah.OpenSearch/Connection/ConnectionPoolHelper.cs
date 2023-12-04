@@ -16,6 +16,11 @@ namespace Cheetah.OpenSearch.Connection
         /// <returns></returns>
         public static IConnectionPool GetConnectionPool(string url)
         {
+            if (string.IsNullOrWhiteSpace(url))
+            {
+                throw new ArgumentNullException(nameof(url));
+            }
+            
             if (url.Contains(','))
             {
                 return new StaticConnectionPool(url.Split(',').Select(x => new Uri(x)));

@@ -65,6 +65,7 @@ namespace Cheetah.OpenSearch.Extensions
         {
             var config = new OpenSearchConfig();
             configuration.GetSection(OpenSearchConfig.Position).Bind(config);
+            config.Validate();
             serviceCollection.AddOptionsWithValidateOnStart<OpenSearchConfig>()
                 .Bind(configuration.GetSection(OpenSearchConfig.Position));
             serviceCollection.AddOptionsWithValidateOnStart<OAuth2Config>()

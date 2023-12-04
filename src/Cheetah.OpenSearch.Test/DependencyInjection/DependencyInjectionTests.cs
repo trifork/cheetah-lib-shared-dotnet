@@ -109,7 +109,7 @@ public class DependencyInjectionTests
         setupAction
             .Invoking(x => x())
             .Should()
-            .Throw<Exception>($"because we should not be able to instantiate a client when {missingKey} is not set");
+            .Throw<ArgumentNullException>($"because we should not be able to instantiate a client when {missingKey} is not set");
     }
     
     private static ServiceProvider CreateServiceProvider(IConfiguration config)

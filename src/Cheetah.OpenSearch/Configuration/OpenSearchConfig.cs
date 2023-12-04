@@ -54,7 +54,7 @@ namespace Cheetah.OpenSearch.Configuration
         /// <summary>
         /// Validates and throws an error if values are not set for a given <see cref="AuthMode"/>.
         /// </summary>
-        public void ValidateConfig()
+        public void Validate()
         {
             _ = string.IsNullOrWhiteSpace(Url) ? throw new ArgumentNullException(nameof(Url)) : 0;
             switch (AuthMode)

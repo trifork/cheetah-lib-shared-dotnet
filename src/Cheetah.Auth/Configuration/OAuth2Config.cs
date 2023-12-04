@@ -41,17 +41,17 @@ namespace Cheetah.Auth.Configuration
         {
             if (string.IsNullOrEmpty(TokenEndpoint))
             {
-                throw new ArgumentException("TokenEndpoint must be set");
+                throw new ArgumentNullException(nameof(TokenEndpoint));
             }
             
             if (string.IsNullOrEmpty(ClientId))
             {
-                throw new ArgumentException("ClientId must be set");
+                throw new ArgumentNullException(nameof(ClientId));
             }
             
             if (string.IsNullOrEmpty(ClientSecret))
             {
-                throw new ArgumentException("ClientSecret must be set");
+                throw new ArgumentNullException(nameof(ClientSecret));
             }
         }
     }
