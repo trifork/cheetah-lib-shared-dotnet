@@ -17,7 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Cheetah.Core\Cheetah.Core.csproj" />
+        <ProjectReference Include="..\Cheetah.Auth\Cheetah.Auth.csproj" />
     </ItemGroup>
 
 </Project>

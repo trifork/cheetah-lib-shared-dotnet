@@ -10,19 +10,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.github\workflows\shared-nuget.yml = .github\workflows\shared-nuget.yml
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.ComponentTest", "src\Cheetah.ComponentTest\Cheetah.ComponentTest.csproj", "{218D3E64-0A50-44D4-B78B-4E56B963B281}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Auth", "src\Cheetah.Auth\Cheetah.Auth.csproj", "{1DE5990E-1317-45CF-992E-A0036A6E0E36}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.ComponentTest", "src\Cheetah.ComponentTest\Cheetah.ComponentTest.csproj", "{218D3E64-0A50-44D4-B78B-4E56B963B281}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.ComponentTest.Test", "src\Cheetah.ComponentTest.Test\Cheetah.ComponentTest.Test.csproj", "{15D6D6AE-0AAA-4CA5-9070-40900F62E02D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheetah.OpenSearch", "src\Cheetah.OpenSearch\Cheetah.OpenSearch.csproj", "{5F2E230C-7513-4EB2-9EBA-2FBB846EB2A2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheetah.Kafka", "src\Cheetah.Kafka\Cheetah.Kafka.csproj", "{1726C32F-95CD-4CA3-9BB4-B2AEF348C52E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheetah.OpenSearch.Test", "src\Cheetah.OpenSearch.Test\Cheetah.OpenSearch.Test.csproj", "{BCE6E9F0-9ED3-48F4-8B36-D09C71C5C471}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheetah.Kafka.Test", "src\Cheetah.Kafka.Test\Cheetah.Kafka.Test.csproj", "{D0309E13-0DD4-4651-A261-1564CBA402BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheetah.OpenSearch", "src\Cheetah.OpenSearch\Cheetah.OpenSearch.csproj", "{5F2E230C-7513-4EB2-9EBA-2FBB846EB2A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheetah.OpenSearch.Test", "src\Cheetah.OpenSearch.Test\Cheetah.OpenSearch.Test.csproj", "{BCE6E9F0-9ED3-48F4-8B36-D09C71C5C471}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -17,8 +17,8 @@
       <PackageReference Include="OpenSearch.Client.JsonNetSerializer" Version="1.5.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Cheetah.Core\Cheetah.Core.csproj" />
+    <ItemGroup>        
+        <ProjectReference Include="..\Cheetah.Auth\Cheetah.Auth.csproj" />
     </ItemGroup>
 
 </Project>
