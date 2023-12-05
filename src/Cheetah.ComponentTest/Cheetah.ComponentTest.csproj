@@ -12,7 +12,7 @@
     <RepositoryUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</RepositoryUrl>
     <RootNamespace>Cheetah.ComponentTest</RootNamespace>
     <TargetFramework>net6.0</TargetFramework>
-    <VersionPrefix>1.7.0</VersionPrefix>
+    <VersionPrefix>1.7.1</VersionPrefix>
   </PropertyGroup>
   <ItemGroup>
     <None Include="../../docs/articles/CheetahComponentTest.md" Pack="true" PackagePath="\" />
