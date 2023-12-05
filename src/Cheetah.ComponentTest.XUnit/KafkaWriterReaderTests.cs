@@ -245,7 +245,7 @@ namespace Cheetah.ComponentTest.XUnit
         // 249 characters is the maximum allowed length, this is 250 'a's
         [InlineData(
             "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")]
-        public void Should_ThrowArgumentException_When_ProvidedInvalidTopicName(string topicName)
+        public void Should_ThrowArgumentException_When_ProvidedInvalidTopicName(string? topicName)
         {
             var writerBuilder = KafkaWriterBuilder.Create<string, string>(_configuration)
                 .WithTopic(topicName)
