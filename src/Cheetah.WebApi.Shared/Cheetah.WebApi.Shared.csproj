@@ -12,7 +12,7 @@
     <PackageId>Cheetah.WebApi.Shared</PackageId>
     <RepositoryUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</RepositoryUrl>
     <TargetFramework>net6.0</TargetFramework>
-    <VersionPrefix>1.8.0</VersionPrefix>
+    <VersionPrefix>1.9.0</VersionPrefix>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="IdentityModel" Version="6.2.0" />
