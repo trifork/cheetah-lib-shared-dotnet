@@ -1,19 +1,19 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:74156eeb-22e7-488d-9433-2ef680e4c965",
+  "serialNumber": "urn:uuid:725f64ac-a9af-45e7-a3ed-98d9a1c433a0",
   "version": 1,
   "metadata": {
-    "timestamp": "2023-11-22T00:18:36.846Z",
+    "timestamp": "2023-12-05T12:04:37.011Z",
     "tools": {
       "components": [
         {
           "group": "@cyclonedx",
           "name": "cdxgen",
-          "version": "9.9.4",
-          "purl": "pkg:npm/%40cyclonedx/cdxgen@9.9.4",
+          "version": "9.9.6",
+          "purl": "pkg:npm/%40cyclonedx/cdxgen@9.9.6",
           "type": "application",
-          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@9.9.4",
+          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@9.9.6",
           "author": "OWASP Foundation",
           "publisher": "OWASP Foundation"
         }
@@ -71,8 +71,8 @@
       "licenses": [
         {
           "license": {
-            "name": "CUSTOM",
-            "url": "https://github.com/confluentinc/confluent-kafka-dotnet/blob/master/LICENSE"
+            "url": "https://github.com/confluentinc/confluent-kafka-dotnet/blob/master/LICENSE",
+            "id": "Apache-2.0"
           }
         }
       ],
@@ -99,8 +99,8 @@
       "licenses": [
         {
           "license": {
-            "name": "CUSTOM",
-            "url": "https://www.nuget.org/packages/Microsoft.NET.Test.Sdk/17.8.0/license"
+            "url": "https://github.com/microsoft/vstest/blob/main/LICENSE",
+            "id": "MIT"
           }
         }
       ],
@@ -122,21 +122,21 @@
       "author": "Daniel Cazzulino, kzu",
       "group": "",
       "name": "Moq",
-      "version": "4.20.69",
+      "version": "4.20.70",
       "description": "Moq is the most popular and friendly mocking framework for .NET.",
       "licenses": [
         {
           "license": {
-            "id": "BSD-3-Clause",
-            "url": "https://opensource.org/licenses/BSD-3-Clause"
+            "url": "https://github.com/devlooped/moq/blob/main/License.txt",
+            "id": "0BSD"
           }
         }
       ],
-      "purl": "pkg:nuget/Moq@4.20.69",
+      "purl": "pkg:nuget/Moq@4.20.70",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Moq/4.20.69/"
+          "url": "https://www.nuget.org/packages/Moq/4.20.70/"
         },
         {
           "type": "vcs",
@@ -144,7 +144,7 @@
         }
       ],
       "type": "framework",
-      "bom-ref": "pkg:nuget/Moq@4.20.69"
+      "bom-ref": "pkg:nuget/Moq@4.20.70"
     },
     {
       "author": "Todd Benning",
@@ -155,8 +155,8 @@
       "licenses": [
         {
           "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
+            "url": "https://github.com/trbenning/serilog-sinks-xunit/blob/master/LICENSE",
+            "id": "MIT"
           }
         }
       ],
@@ -265,8 +265,8 @@
       "licenses": [
         {
           "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
+            "url": "https://github.com/coverlet-coverage/coverlet/blob/master/LICENSE",
+            "id": "MIT"
           }
         }
       ],
@@ -293,8 +293,8 @@
       "licenses": [
         {
           "license": {
-            "id": "Apache-2.0",
-            "url": "https://opensource.org/licenses/Apache-2.0"
+            "url": "https://github.com/IdentityModel/IdentityModel/blob/main/LICENSE",
+            "id": "Apache-2.0"
           }
         }
       ],
@@ -517,8 +517,8 @@
       "licenses": [
         {
           "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
+            "url": "https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet/blob/dev/LICENSE.txt",
+            "id": "MIT"
           }
         }
       ],
@@ -545,8 +545,8 @@
       "licenses": [
         {
           "license": {
-            "id": "Apache-2.0",
-            "url": "https://opensource.org/licenses/Apache-2.0"
+            "url": "https://github.com/opensearch-project/opensearch-net/blob/main/LICENSE.txt",
+            "id": "Apache-2.0"
           }
         }
       ],
@@ -573,8 +573,8 @@
       "licenses": [
         {
           "license": {
-            "id": "Apache-2.0",
-            "url": "https://opensource.org/licenses/Apache-2.0"
+            "url": "https://github.com/opensearch-project/opensearch-net/blob/main/LICENSE.txt",
+            "id": "Apache-2.0"
           }
         }
       ],
@@ -596,21 +596,21 @@
       "author": "andrasm,qed-,lakario,sandersaares",
       "group": "",
       "name": "prometheus-net",
-      "version": "8.1.0",
+      "version": "8.1.1",
       "description": ".NET client library for the Prometheus monitoring and alerting system",
       "licenses": [
         {
           "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
+            "url": "https://github.com/prometheus-net/prometheus-net/blob/master/LICENSE",
+            "id": "MIT"
           }
         }
       ],
-      "purl": "pkg:nuget/prometheus-net@8.1.0",
+      "purl": "pkg:nuget/prometheus-net@8.1.1",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/prometheus-net/8.1.0/"
+          "url": "https://www.nuget.org/packages/prometheus-net/8.1.1/"
         },
         {
           "type": "vcs",
@@ -618,27 +618,27 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/prometheus-net@8.1.0"
+      "bom-ref": "pkg:nuget/prometheus-net@8.1.1"
     },
     {
       "author": "andrasm,qed-,lakario,sandersaares",
       "group": "",
       "name": "prometheus-net.AspNetCore",
-      "version": "8.1.0",
+      "version": "8.1.1",
       "description": "ASP.NET Core middleware and stand-alone Kestrel server for exporting metrics to Prometheus",
       "licenses": [
         {
           "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
+            "url": "https://github.com/prometheus-net/prometheus-net/blob/master/LICENSE",
+            "id": "MIT"
           }
         }
       ],
-      "purl": "pkg:nuget/prometheus-net.AspNetCore@8.1.0",
+      "purl": "pkg:nuget/prometheus-net.AspNetCore@8.1.1",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/prometheus-net.AspNetCore/8.1.0/"
+          "url": "https://www.nuget.org/packages/prometheus-net.AspNetCore/8.1.1/"
         },
         {
           "type": "vcs",
@@ -646,7 +646,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/prometheus-net.AspNetCore@8.1.0"
+      "bom-ref": "pkg:nuget/prometheus-net.AspNetCore@8.1.1"
     },
     {
       "author": "Swashbuckle.AspNetCore.SwaggerGen",
@@ -657,8 +657,8 @@
       "licenses": [
         {
           "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
+            "url": "https://github.com/domaindrivendev/Swashbuckle.AspNetCore/blob/master/LICENSE",
+            "id": "MIT"
           }
         }
       ],
@@ -685,8 +685,8 @@
       "licenses": [
         {
           "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
+            "url": "https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet/blob/dev/LICENSE.txt",
+            "id": "MIT"
           }
         }
       ],
@@ -853,8 +853,8 @@
       "licenses": [
         {
           "license": {
-            "name": "CUSTOM",
-            "url": "https://github.com/confluentinc/confluent-kafka-dotnet/blob/master/LICENSE"
+            "url": "https://github.com/confluentinc/confluent-kafka-dotnet/blob/master/LICENSE",
+            "id": "Apache-2.0"
           }
         }
       ],
@@ -932,21 +932,21 @@
       "author": "Serilog Contributors",
       "group": "",
       "name": "Serilog.Sinks.Console",
-      "version": "5.0.0",
+      "version": "5.0.1",
       "description": "A Serilog sink that writes log events to the console/terminal.",
       "licenses": [
         {
           "license": {
-            "id": "Apache-2.0",
-            "url": "https://opensource.org/licenses/Apache-2.0"
+            "url": "https://github.com/serilog/serilog-sinks-console/blob/dev/LICENSE",
+            "id": "Apache-2.0"
           }
         }
       ],
-      "purl": "pkg:nuget/Serilog.Sinks.Console@5.0.0",
+      "purl": "pkg:nuget/Serilog.Sinks.Console@5.0.1",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Serilog.Sinks.Console/5.0.0/"
+          "url": "https://www.nuget.org/packages/Serilog.Sinks.Console/5.0.1/"
         },
         {
           "type": "vcs",
@@ -954,7 +954,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Serilog.Sinks.Console@5.0.0"
+      "bom-ref": "pkg:nuget/Serilog.Sinks.Console@5.0.1"
     }
   ],
   "dependencies": []
