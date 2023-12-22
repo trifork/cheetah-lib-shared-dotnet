@@ -30,9 +30,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Unit Tests
-        run: dotnet test --logger trx --filter 'TestType!=IntegrationTests'
-
       - name: Setup development infrastructure
         uses: ./.github/actions/setup-development-infrastructure
         with:
@@ -54,10 +51,26 @@ jobs:
       - name: Dotnet Test
         run: dotnet test --logger trx
 
-      - name: Display test report
+      - name: Display test report OpenSearch
         uses: dorny/test-reporter@v1.7.0
         if: always()
         with:
           name: Tests
           path: src/Cheetah.OpenSearch.Test/TestResults/*.trx
+          reporter: dotnet-trx
+
+      - name: Display test report Kafka
+        uses: dorny/test-reporter@v1.7.0
+        if: always()
+        with:
+          name: Tests
+          path: src/Cheetah.Kafka.Test/TestResults/*.trx
+          reporter: dotnet-trx
+
+      - name: Display test report ComponentTest
+        uses: dorny/test-reporter@v1.7.0
+        if: always()
+        with:
+          name: Tests
+          path: src/Cheetah.ComponentTest.Test/TestResults/*.trx
           reporter: dotnet-trx
