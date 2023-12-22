@@ -14,6 +14,7 @@ namespace Cheetah.ComponentTest.Kafka
             _tokenService = tokenService;
         }
 
+        // TODO: Move to Cheetah.Kafka
         public AuthenticationHeaderValue GetAuthenticationHeader()
         {
             string? token = _tokenService.RequestAccessTokenAsync(CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult()?.AccessToken;

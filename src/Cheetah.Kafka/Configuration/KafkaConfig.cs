@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using Cheetah.Auth.Configuration;
 using Confluent.Kafka;
@@ -15,7 +16,7 @@ namespace Cheetah.Kafka.Configuration
         public const string Position = "Kafka";
 
         /// <summary>
-        /// Bootstrap Url
+        /// Bootstrap Url.
         /// </summary>
         /// <value></value>
         [Required]
@@ -33,26 +34,12 @@ namespace Cheetah.Kafka.Configuration
         public OAuth2Config OAuth2 { get; set; } = null!;
 
         /// <summary>
-        /// Converts the configuration to a <see cref="ProducerConfig"/> for use with <see cref="ProducerBuilder{TKey,TValue}"/>.
+        /// Converts the configuration to a <see cref="ClientConfig"/>/>.
         /// </summary>
-        /// <returns>The converted <see cref="ProducerConfig"/></returns>
-        public ProducerConfig ToProducerConfig()
+        /// <returns>The converted <see cref="ClientConfig"/></returns>
+        public ClientConfig GetClientConfig()
         {
-            return new ProducerConfig
-            {
-                BootstrapServers = Url,
-                SaslMechanism = SaslMechanism.OAuthBearer,
-                SecurityProtocol = SecurityProtocol,
-            };
-        }
-        
-        /// <summary>
-        /// Converts the configuration to a <see cref="ConsumerConfig"/> for use with <see cref="ConsumerBuilder{TKey,TValue}"/>.
-        /// </summary>
-        /// <returns>The converted <see cref="ConsumerConfig"/></returns>
-        public ConsumerConfig ToConsumerConfig()
-        {
-            return new ConsumerConfig
+            return new ClientConfig
             {
                 BootstrapServers = Url,
                 SaslMechanism = SaslMechanism.OAuthBearer,

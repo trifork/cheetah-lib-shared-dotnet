@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using Cheetah.Auth.Authentication;
 using Cheetah.Auth.Configuration;
 using Cheetah.Kafka.Configuration;
@@ -24,12 +25,17 @@ namespace Cheetah.Kafka.Extensions
         /// <param name="serviceCollection">The <see cref="IServiceCollection"/> to register the <see cref="KafkaClientFactory"/> and its required services with.</param>
         /// <param name="configuration">The <see cref="IConfiguration"/> instance to use for configuration.</param>
         /// <returns>The supplied <see cref="IServiceCollection"/> instance for method chaining.</returns>
-        public static IServiceCollection AddCheetahKafkaClientFactory(this IServiceCollection serviceCollection, IConfiguration configuration)
+        public static CheetahKafkaInjector AddCheetahKafka(this IServiceCollection serviceCollection, IConfiguration configuration, Action<KafkaClientFactoryOptions>? configure = null)
         {
+            var options = new KafkaClientFactoryOptions();
+            configure?.Invoke(options);
+
             serviceCollection.AddOptionsWithValidateOnStart<KafkaConfig>()
                 .Bind(configuration.GetSection(KafkaConfig.Position));
+            
             serviceCollection.AddOptionsWithValidateOnStart<OAuth2Config>()
                 .Bind(configuration.GetSection(KafkaConfig.Position).GetSection(nameof(KafkaConfig.OAuth2)));
+            
             serviceCollection.AddHttpClient<OAuth2TokenService>();
             serviceCollection.AddMemoryCache();
             serviceCollection.AddSingleton<ITokenService>(sp =>
@@ -39,8 +45,10 @@ namespace Cheetah.Kafka.Extensions
                     sp.GetRequiredService<IMemoryCache>(),
                     sp.GetRequiredService<IOptions<OAuth2Config>>(), 
                     "kafka-access-token"));
-            serviceCollection.AddSingleton<KafkaClientFactory>();
-            return serviceCollection;
+            serviceCollection.AddSingleton<KafkaClientFactoryOptions>(options);
+            serviceCollection.AddSingleton<IKafkaClientFactory, KafkaClientFactory>();
+
+            return new CheetahKafkaInjector(serviceCollection);
         }
     }
 }

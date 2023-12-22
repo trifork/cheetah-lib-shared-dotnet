@@ -10,7 +10,13 @@ using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Cheetah.ComponentTest.Kafka
 {
-    public class KafkaReader<TKey, T>
+    public interface IKafkaReader<T>
+    {
+        public IEnumerable<T> ReadMessages(int count, TimeSpan timeout);
+        public bool VerifyNoMoreMessages(TimeSpan timeout);
+    }
+    
+    public class KafkaReader<TKey, T> : IKafkaReader<T>
     {
         private static readonly ILogger Logger = new LoggerFactory().CreateLogger<KafkaReader<TKey, T>>();
         internal string Topic { get; }

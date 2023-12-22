@@ -115,7 +115,7 @@ namespace Cheetah.Auth.Authentication
             );
 
             var tokenResponse = await tokenClient
-                .RequestClientCredentialsTokenAsync(scope: _config.AuthScope, cancellationToken: cancellationToken)
+                .RequestClientCredentialsTokenAsync(scope: _config.Scope, cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
 
             return !tokenResponse.IsError

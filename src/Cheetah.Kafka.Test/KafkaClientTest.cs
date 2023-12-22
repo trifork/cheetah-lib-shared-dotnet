@@ -15,7 +15,7 @@ namespace Cheetah.Kafka.Test
     [Trait("Category", "Kafka"), Trait("TestType", "IntegrationTests")]
     public class KafkaIntegrationTests
     {
-        readonly KafkaClientFactory _clientFactory;
+        readonly IKafkaClientFactory _clientFactory;
         
         public KafkaIntegrationTests()
         {
@@ -25,7 +25,7 @@ namespace Cheetah.Kafka.Test
                 { "KAFKA:OAUTH2:CLIENTID", "tester" },
                 { "KAFKA:OAUTH2:CLIENTSECRET", "1234" },
                 { "KAFKA:OAUTH2:TOKENENDPOINT", "http://localhost:1752/oauth2/token" },
-                { "KAFKA:OAUTH2:OAUTHSCOPE", "kafka" },
+                { "KAFKA:OAUTH2:SCOPE", "kafka" },
             };
             
             var configuration = new ConfigurationBuilder()
@@ -42,9 +42,9 @@ namespace Cheetah.Kafka.Test
                 s.AddConsole();
             });
 
-            services.AddCheetahKafkaClientFactory(configuration);
+            services.AddCheetahKafka(configuration);
 
-            _clientFactory = services.BuildServiceProvider().GetRequiredService<KafkaClientFactory>();
+            _clientFactory = services.BuildServiceProvider().GetRequiredService<IKafkaClientFactory>();
         }
 
         [Fact]

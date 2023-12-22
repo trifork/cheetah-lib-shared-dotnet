@@ -116,10 +116,6 @@ public class DependencyInjectionTests
     {
         var serviceCollection = new ServiceCollection();
         serviceCollection.AddLogging();
-        serviceCollection.AddSingleton<IHostEnvironment>(new HostingEnvironment()
-        {
-            EnvironmentName = "Development"
-        });
         serviceCollection.AddCheetahOpenSearch(config);
         return serviceCollection.BuildServiceProvider();
     }

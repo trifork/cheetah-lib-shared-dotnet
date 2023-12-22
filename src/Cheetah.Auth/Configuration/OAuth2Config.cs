@@ -31,7 +31,7 @@ namespace Cheetah.Auth.Configuration
         /// <summary>
         /// Optional scope to request when authenticating
         /// </summary>
-        public string? AuthScope { get; set; }
+        public string? Scope { get; set; }
         
         /// <summary>
         /// Validates that configuration has minimum values

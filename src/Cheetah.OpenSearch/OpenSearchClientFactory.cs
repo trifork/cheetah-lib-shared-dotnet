@@ -5,12 +5,9 @@ using Cheetah.Auth.Util;
 using Cheetah.OpenSearch.Configuration;
 using Cheetah.OpenSearch.Connection;
 using Cheetah.OpenSearch.Extensions;
-using Cheetah.OpenSearch.Util;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using OpenSearch.Client;
 using OpenSearch.Client.JsonNetSerializer;
 using OpenSearch.Net;
@@ -27,7 +24,7 @@ namespace Cheetah.OpenSearch
         readonly IConnectionPool _connectionPool;
         private readonly ILogger<OpenSearchClient> _clientLogger;
         private readonly OpenSearchConfig _clientConfig;
-        private readonly IHostEnvironment? _hostEnvironment;
+        private readonly OpenSearchClientOptions _clientOptions;
         private readonly IConnection? _connection;
 
         /// <summary>
@@ -36,23 +33,22 @@ namespace Cheetah.OpenSearch
         /// <param name="clientConfig">The <see cref="OpenSearchConfig"/> to use for configuring the client.</param>
         /// <param name="clientLogger">The <see cref="ILogger{OpenSearchClient}"/> to use for logging in the client.</param>
         /// <param name="logger">The <see cref="ILogger{OpenSearchClientFactory}"/> to use for logging in the factory.</param>
+        /// <param name="clientOptions">The <see cref="OpenSearchClientOptions"/> used to modify client behavior</param>
         /// <param name="connectionPool">The <see cref="IConnectionPool"/> to use for generated clients.</param>
         /// <param name="connection">The <see cref="IConnection"/> to use for generated clients.</param>
-        /// <param name="hostEnvironment">The <see cref="IHostEnvironment"/> that the client is running in.</param>
         public OpenSearchClientFactory(
             IOptions<OpenSearchConfig> clientConfig,
             ILogger<OpenSearchClient> clientLogger,
             ILogger<OpenSearchClientFactory> logger,
+            OpenSearchClientOptions clientOptions,
             IConnectionPool connectionPool,
-            IConnection? connection = null,
-            IHostEnvironment? hostEnvironment = null
-        )
+            IConnection? connection = null)
         {
             clientConfig.Value.Validate();
             _clientConfig = clientConfig.Value;
-            _hostEnvironment = hostEnvironment;
             _clientLogger = clientLogger;
             _logger = logger;
+            _clientOptions = clientOptions;
             _connectionPool = connectionPool;
             _connection = connection;
         }
@@ -92,25 +88,18 @@ namespace Cheetah.OpenSearch
         }
 
 
-        private static ConnectionSettings.SourceSerializerFactory GetSourceSerializerFactory()
+        private ConnectionSettings.SourceSerializerFactory GetSourceSerializerFactory()
         {
-            var jsonSerializerSettings = new JsonSerializerSettings
-            {
-                MissingMemberHandling = MissingMemberHandling.Ignore
-            };
-            
-            jsonSerializerSettings.Converters.Add(new UtcDateTimeConverter());
-            
             return (builtin, settings) => new JsonNetSerializer(
                 builtin,
                 settings,
-                () => jsonSerializerSettings 
+                () => _clientOptions.JsonSerializerSettings 
             );
         }
 
         private bool ShouldDisableDirectStreaming()
         {
-            bool shouldDisableDirectStreaming = _hostEnvironment?.IsDevelopment() ?? false; // Assume production mode if we can't determine the environment
+            bool shouldDisableDirectStreaming = _clientOptions.DisableDirectStreaming; // Assume production mode if we can't determine the environment
             if (shouldDisableDirectStreaming)
             {
                 _logger.LogWarning("OpenSearch direct streaming is disabled, which allows easier debugging, but potentially impacts performance. This should only be enabled in development mode.");   
@@ -123,11 +112,11 @@ namespace Cheetah.OpenSearch
             // Only call this if the relevant log level is enabled, in order to avoid unnecessary allocations and decoding
             if (apiCallDetails.RequestBodyInBytes != null && _clientLogger.IsEnabled(LogLevel.Debug))
             {
-                _logger.LogDebug("Sent raw query: {json}", Encoding.UTF8.GetString(apiCallDetails.RequestBodyInBytes));
+                _clientLogger.LogDebug("Sent raw query: {json}", Encoding.UTF8.GetString(apiCallDetails.RequestBodyInBytes));
             }
         }
-        
-        
+
+
         /// <summary>
         /// Creates an IOpenSearchClient from the provided configuration.
         /// </summary>
@@ -135,15 +124,16 @@ namespace Cheetah.OpenSearch
         /// <b>WARNING</b>: This method should <i>only</i> be used if you for some reason cannot use dependency injection and need to create a client manually.
         /// In any other circumstances, you should use the <see cref="ServiceCollectionExtensions.AddCheetahOpenSearch"/> method during service registration and inject <see cref="IOpenSearchClient"/> into your service.
         /// </remarks>
-        /// <param name="config">The configuration to create the client from</param>
-        /// <param name="hostEnvironment">An optional host environment, used to determine whether additional debug information should be available on the returned client</param>
+        /// <param name="config">The <see cref="OpenSearchConfig"/> to create the client from</param>
+        /// <param name="options">The <see cref="OpenSearchClientOptions"/> used to modify client behavior</param>
         /// <returns>A pre-configured <see cref="OpenSearchClient"/></returns>
-        public static IOpenSearchClient CreateClientFromConfiguration(OpenSearchConfig config, IHostEnvironment? hostEnvironment = null)
+        public static IOpenSearchClient CreateTestClientFromConfiguration(OpenSearchConfig config, OpenSearchClientOptions? options = null)
         {
             config.Validate();
 
             var loggerFactory = new LoggerFactory();
-            var options = Options.Create<OpenSearchConfig>(config);
+            var clientOptions = options ?? new OpenSearchClientOptions();
+
             IConnection? connection = null;
             if (config.AuthMode == OpenSearchConfig.OpenSearchAuthMode.OAuth2)
             {
@@ -157,12 +147,12 @@ namespace Cheetah.OpenSearch
             }
             
             return new OpenSearchClientFactory(
-                    options, 
+                    Options.Create(config), 
                     new Logger<OpenSearchClient>(loggerFactory),
                     new Logger<OpenSearchClientFactory>(loggerFactory),
+                    clientOptions,
                     ConnectionPoolHelper.GetConnectionPool(config.Url),
-                    connection: connection,
-                    hostEnvironment: hostEnvironment)
+                    connection: connection)
                 .CreateOpenSearchClient();
         }
     }

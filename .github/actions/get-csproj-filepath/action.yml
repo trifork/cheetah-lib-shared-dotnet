@@ -3,7 +3,7 @@ description: Gets the path to the .csproj file for the given project. This is sp
 
 inputs:
   project-name:
-    description: The name of the project. Should be either Cheetah.WebApi.Shared or Cheetah.ComponentTest
+    description: The name of the project. Should be either Cheetah.Kafka or Cheetah.OpenSearch
     required: true
 outputs:
   csproj-filepath:

@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using Cheetah.Auth.Authentication;
 using Cheetah.Auth.Configuration;
 using Cheetah.OpenSearch.Configuration;
@@ -26,8 +27,9 @@ namespace Cheetah.OpenSearch.Extensions
         /// </remarks>
         /// <param name="serviceCollection">The <see cref="IServiceCollection"/> to register the <see cref="IOpenSearchClient"/> and its required services with.</param>
         /// <param name="configuration">The <see cref="IConfiguration"/> instance to use for configuration.</param>
+        /// <param name="configureClientOptions">Optional action used to configure the generated OpenSearchClients</param>
         /// <returns>The supplied <see cref="IServiceCollection"/> instance for method chaining.</returns>
-        public static IServiceCollection AddCheetahOpenSearch(this IServiceCollection serviceCollection, IConfiguration configuration)
+        public static IServiceCollection AddCheetahOpenSearch(this IServiceCollection serviceCollection, IConfiguration configuration, Action<OpenSearchClientOptions>? configureClientOptions = null)
         {
             var config = serviceCollection.ConfigureAndGetOpenSearchConfig(configuration);
 
@@ -37,15 +39,19 @@ namespace Cheetah.OpenSearch.Extensions
                 serviceCollection.AddCheetahOpenSearchOAuth2Connection();
             }
 
+            var clientOptions = new OpenSearchClientOptions();
+            configureClientOptions?.Invoke(clientOptions);
+            
             serviceCollection
                 .AddSingleton<IConnectionPool>(ConnectionPoolHelper.GetConnectionPool(config.Url))
+                .AddSingleton<OpenSearchClientOptions>(clientOptions)
                 .AddSingleton<OpenSearchClientFactory>()
                 .AddSingleton<IOpenSearchClient>(sp => 
                     sp.GetRequiredService<OpenSearchClientFactory>().CreateOpenSearchClient());
             
             return serviceCollection;
         }
-
+        
         internal static IServiceCollection AddCheetahOpenSearchOAuth2Connection(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddHttpClient<OAuth2TokenService>();

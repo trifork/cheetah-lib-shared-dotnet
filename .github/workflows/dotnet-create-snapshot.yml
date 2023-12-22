@@ -8,9 +8,9 @@ on:
         required: true
         type: choice
         options:
-          - Cheetah.WebApi.Shared
-          - Cheetah.ComponentTest
-        default: Cheetah.WebApi.Shared
+          - Cheetah.OpenSearch
+          - Cheetah.Kafka
+        default: Cheetah.OpenSearch
 
 jobs:
   get-csproj-filepath:

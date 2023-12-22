@@ -5,9 +5,9 @@
       "src": [
         {
           "files": [
-            "**/Cheetah.WebApi.Shared.csproj",
-            "**/Cheetah.ComponentTest.csproj",
-            "**/Cheetah.Core.csproj"
+            "**/Cheetah.OpenSearch.csproj",
+            "**/Cheetah.Kafka.csproj",
+            "**/Cheetah.Auth.csproj"
           ],
           "src": "../"
         }

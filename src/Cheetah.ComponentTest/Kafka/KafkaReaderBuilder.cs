@@ -153,7 +153,7 @@ namespace Cheetah.ComponentTest.Kafka
         /// </summary>
         /// <remarks><c>WithTopic(string)</c> and <c>WithConsumerGroup(string)</c> must have been called prior to this.</remarks>
         /// <returns>The built <see cref="KafkaReader{TKey, T}"/></returns>
-        public KafkaReader<TKey, T> Build()
+        public IKafkaReader<T> Build()
         {
             ValidateInput();
 

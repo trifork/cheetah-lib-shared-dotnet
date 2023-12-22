@@ -1,7 +1,10 @@
 using Cheetah.Auth.Configuration;
+using Cheetah.OpenSearch;
 using Cheetah.OpenSearch.Configuration;
+using Cheetah.OpenSearch.Util;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting.Internal;
+using Newtonsoft.Json;
 using OpenSearch.Client;
 
 namespace Cheetah.ComponentTest.OpenSearch
@@ -73,14 +76,22 @@ namespace Cheetah.ComponentTest.OpenSearch
                 {
                     ClientId = clientId,
                     ClientSecret = clientSecret,
-                    AuthScope = oauthScope,
+                    Scope = oauthScope,
                     TokenEndpoint = authEndpoint
                 }
             };
 
-            var env = new HostingEnvironment { EnvironmentName = "Development" };
-
-            return Cheetah.OpenSearch.OpenSearchClientFactory.CreateClientFromConfiguration(config, env);
+            var openSearchClientOptions = new OpenSearchClientOptions {
+                DisableDirectStreaming = true
+            };
+            
+            openSearchClientOptions.WithJsonSerializerSettings(settings =>
+            {
+                settings.MissingMemberHandling = MissingMemberHandling.Ignore;
+                settings.Converters.Add(new UtcDateTimeConverter());
+            });
+            
+            return Cheetah.OpenSearch.OpenSearchClientFactory.CreateTestClientFromConfiguration(config);
         }
     }
 }

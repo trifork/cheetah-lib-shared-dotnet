@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cheetah.Auth.Authentication;
-using Cheetah.Kafka;
 using Cheetah.Kafka.Extensions;
 using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
@@ -11,7 +10,14 @@ using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Cheetah.ComponentTest.Kafka
 {
-    public class KafkaWriter<TKey, T>
+
+    public interface IKafkaWriter<T>
+    {
+        public Task WriteAsync(params T[] messages);
+    }
+    
+    // TODO: Evaluate if we should move KafkaWriter and KafkaReader to Cheetah.Kafka
+    public class KafkaWriter<TKey, T> : IKafkaWriter<T>
     {
         private static readonly ILogger Logger = new LoggerFactory().CreateLogger<KafkaWriter<TKey, T>>();
 

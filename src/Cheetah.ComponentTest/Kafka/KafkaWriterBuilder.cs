@@ -153,7 +153,7 @@ namespace Cheetah.ComponentTest.Kafka
         /// </summary>
         /// <remarks><c>WithTopic(string)</c> and <c>WithKeyFunction(Func&lt;T, TKey&gt;)</c> must have been called prior to this.</remarks>
         /// <returns>The built <see cref="KafkaWriter{TKey, T}"/></returns>
-        public KafkaWriter<TKey, T> Build()
+        public IKafkaWriter<T> Build()
         {
             ValidateInput();
 
