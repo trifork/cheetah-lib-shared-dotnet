@@ -2,7 +2,7 @@ using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Cheetah.Core.Util
+namespace Cheetah.OpenSearch.Util
 {
     /// <summary>
     /// Converts <see cref="DateTime"/>s and <see cref="DateTimeOffset"/> to and from Unix epoch time (milliseconds)
@@ -13,15 +13,7 @@ namespace Cheetah.Core.Util
     /// </remarks>
     public class UtcDateTimeConverter : DateTimeConverterBase
     {
-        /// <summary>
-        /// Reads a <see cref="DateTime"/> from Unix epoch time (milliseconds)
-        /// </summary>
-        /// <param name="reader">The <see cref="JsonReader"/> to read from </param>
-        /// <param name="objectType">The type of the object being read.</param>
-        /// <param name="existingValue">The existing value of object being read. If there is no existing value then null will be used.</param>
-        /// <param name="serializer">The calling serializer. If you need to call <see cref="JsonSerializer"/> methods on this object, use this.</param>
-        /// <returns>A <see cref="DateTime"/> populated from the reader.</returns>
-        /// <exception cref="JsonSerializationException">Thrown if the value read from the reader cannot be converted into a <see cref="DateTime"/>.</exception>
+        /// <inheritdoc/>
         public override object? ReadJson(
             JsonReader reader,
             Type objectType,
@@ -40,7 +32,7 @@ namespace Cheetah.Core.Util
                 {
                     var dateTime = ReadDateTime(reader, objectType, existingValue, serializer);
                     return dateTime.HasValue
-                        ? new DateTimeOffset(dateTime.Value)
+                        ? new DateTimeOffset(dateTime.Value) as object // This cast seems unnecessary, but is required before C# 9
                         : null;
                 }
                 
@@ -77,6 +69,7 @@ namespace Cheetah.Core.Util
             };
         }
 
+        /// <inheritdoc/>
         public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
             long? unixTimeMilliseconds = value switch
