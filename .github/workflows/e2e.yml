@@ -2,6 +2,10 @@ name: E2E
 
 on:
   workflow_call:
+    secrets:
+      PAT:
+        description: A personal access token with permission to publish a package and push to all branches
+        required: true
   workflow_dispatch:
   schedule:
     - cron: "0 3 * * *"

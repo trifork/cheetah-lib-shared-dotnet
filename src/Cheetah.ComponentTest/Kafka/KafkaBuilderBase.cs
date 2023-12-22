@@ -16,6 +16,7 @@ namespace Cheetah.ComponentTest.Kafka
         protected const string KAFKA_CLIENTID_KEY = KAFKA_PREFIX + "CLIENTID";
         protected const string KAFKA_CLIENTSECRET_KEY = KAFKA_PREFIX + "CLIENTSECRET";
         protected const string KAFKA_AUTH_ENDPOINT_KEY = KAFKA_PREFIX + "AUTHENDPOINT";
+        protected const string KAFKA_AUTH_SCOPE_KEY = KAFKA_PREFIX + "AUTHSCOPE";
         protected const string SCHEMA_REGISTRY_URL_KEY = KAFKA_PREFIX + "SCHEMAREGISTRYURL";
 
         protected IConfiguration? Configuration { get; }
@@ -44,7 +45,8 @@ namespace Cheetah.ComponentTest.Kafka
             return new TestTokenService(
                 Configuration.GetValue<string>(KAFKA_CLIENTID_KEY),
                 Configuration.GetValue<string>(KAFKA_CLIENTSECRET_KEY),
-                Configuration.GetValue<string>(KAFKA_AUTH_ENDPOINT_KEY)
+                Configuration.GetValue<string>(KAFKA_AUTH_ENDPOINT_KEY),
+                Configuration.GetValue<string>(KAFKA_AUTH_SCOPE_KEY)
             );
         }
 

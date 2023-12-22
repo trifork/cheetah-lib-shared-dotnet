@@ -10,7 +10,7 @@
     <RepositoryUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</RepositoryUrl>
     <RootNamespace>Cheetah.ComponentTest</RootNamespace>
     <TargetFrameworks>netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
-    <VersionPrefix>1.6.4</VersionPrefix>
+    <VersionPrefix>1.8.0</VersionPrefix>
     <NoWarn>
       $(NoWarn);
       SYSLIB1045 <!-- Supress GeneratedRegex warning, since we're not using regex in hot paths -->

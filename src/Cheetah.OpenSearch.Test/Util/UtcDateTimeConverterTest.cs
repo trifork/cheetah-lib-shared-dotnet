@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Cheetah.OpenSearch.Util;
@@ -19,26 +18,26 @@ namespace Cheetah.OpenSearch.Test.Util
             _sut = new UtcDateTimeConverter();
         }
 
-        public static IEnumerable<object[]> ValidTestCases =>
-            new List<object[]>
+        public static TheoryData<string, DateTime> ValidDateTimeTestCases =>
+            new TheoryData<string, DateTime>
             {
-                new object[] { "-2147483647001", DateTime.UnixEpoch.AddSeconds(-int.MaxValue).AddMilliseconds(-1) }, // Survives Y2K38
-                new object[] { "-123", DateTime.UnixEpoch.AddMilliseconds(-123) },
-                new object[] { "0", DateTime.UnixEpoch },
-                new object[] { "123", DateTime.UnixEpoch.AddMilliseconds(123) },
-                new object[] { "\"1970-01-01 00:00:00.123Z\"", DateTime.UnixEpoch.AddMilliseconds(123) },
-                new object[] { "2147483647001", DateTime.UnixEpoch.AddSeconds(int.MaxValue).AddMilliseconds(1) }, // Survives Y2K38
-                new object[] { "\"1970-01-01 00:00:00Z\"", DateTime.UnixEpoch },
-                new object[] { "\"1970-01-01 01:00:00+0100\"", DateTime.UnixEpoch },
-                new object[] { "\"1970-01-01T01:00:00+0100\"", DateTime.UnixEpoch },
-                new object[] { "\"1970-01-01T01:00:00Z\"", DateTime.UnixEpoch.AddHours(1) },
-                new object[] { "\"1969-01-01T00:00:00Z\"", DateTime.UnixEpoch.AddYears(-1) },
-                new object[] { "\"970-01-01T00:00:00Z\"", DateTime.UnixEpoch.AddYears(-1000) },
-                new object[] { "\"2038-01-19 03:14:07.001Z\"", DateTime.UnixEpoch.AddSeconds(int.MaxValue).AddMilliseconds(1) } // Survives Y2K38
+                { "-2147483647001", DateTime.UnixEpoch.AddSeconds(-int.MaxValue).AddMilliseconds(-1) }, // Survives Y2K38
+                { "-123", DateTime.UnixEpoch.AddMilliseconds(-123) },
+                { "0", DateTime.UnixEpoch },
+                { "123", DateTime.UnixEpoch.AddMilliseconds(123) },
+                { "\"1970-01-01 00:00:00.123Z\"", DateTime.UnixEpoch.AddMilliseconds(123) },
+                { "2147483647001", DateTime.UnixEpoch.AddSeconds(int.MaxValue).AddMilliseconds(1) }, // Survives Y2K38
+                { "\"1970-01-01 00:00:00Z\"", DateTime.UnixEpoch },
+                { "\"1970-01-01 01:00:00+0100\"", DateTime.UnixEpoch },
+                { "\"1970-01-01T01:00:00+0100\"", DateTime.UnixEpoch },
+                { "\"1970-01-01T01:00:00Z\"", DateTime.UnixEpoch.AddHours(1) },
+                { "\"1969-01-01T00:00:00Z\"", DateTime.UnixEpoch.AddYears(-1) },
+                { "\"970-01-01T00:00:00Z\"", DateTime.UnixEpoch.AddYears(-1000) },
+                { "\"2038-01-19 03:14:07.001Z\"", DateTime.UnixEpoch.AddSeconds(int.MaxValue).AddMilliseconds(1) } // Survives Y2K38
             };
 
         [Theory]
-        [MemberData(nameof(ValidTestCases))]
+        [MemberData(nameof(ValidDateTimeTestCases))]
         public void Should_ConvertJsonToDateTime_When_ProvidedValidDatetimeJson(
             string json,
             DateTime expected
@@ -66,7 +65,7 @@ namespace Cheetah.OpenSearch.Test.Util
         }
 
         [Theory]
-        [MemberData(nameof(ValidTestCases))]
+        [MemberData(nameof(ValidDateTimeTestCases))]
         public void Should_DeserializeDateTimeRepresentations_When_UsedInASerializer(string valueJson, DateTime expected)
         {
             var json = $"{{ \"DateTime\": {valueJson} }}";
@@ -75,6 +74,57 @@ namespace Cheetah.OpenSearch.Test.Util
             var actual = JsonConvert.DeserializeObject<DummyDateTime>(json, settings);
 
             Assert.Equal(expected, actual?.DateTime);
+        }
+
+        public static TheoryData<string, DateTimeOffset> ValidDateTimeOffsetTestCases =>
+            new TheoryData<string, DateTimeOffset>
+            {
+                { "-2147483647001", DateTimeOffset.UnixEpoch.AddSeconds(-int.MaxValue).AddMilliseconds(-1) }, // Survives Y2K38
+                { "-123", DateTimeOffset.UnixEpoch.AddMilliseconds(-123) },
+                { "0", DateTimeOffset.UnixEpoch },
+                { "123", DateTimeOffset.UnixEpoch.AddMilliseconds(123) },
+                { "\"1970-01-01 00:00:00.123Z\"", DateTimeOffset.UnixEpoch.AddMilliseconds(123) },
+                { "2147483647001", DateTimeOffset.UnixEpoch.AddSeconds(int.MaxValue).AddMilliseconds(1) }, // Survives Y2K38
+                { "\"1970-01-01 00:00:00Z\"", DateTimeOffset.UnixEpoch },
+                { "\"1970-01-01 01:00:00+0100\"", DateTimeOffset.UnixEpoch },
+                { "\"1970-01-01T01:00:00+0100\"", DateTimeOffset.UnixEpoch },
+                { "\"1970-01-01T01:00:00Z\"", DateTimeOffset.UnixEpoch.AddHours(1) },
+                { "\"1969-01-01T00:00:00Z\"", DateTimeOffset.UnixEpoch.AddYears(-1) },
+                { "\"970-01-01T00:00:00Z\"", DateTimeOffset.UnixEpoch.AddYears(-1000) },
+                { "\"2038-01-19 03:14:07.001Z\"", DateTimeOffset.UnixEpoch.AddSeconds(int.MaxValue).AddMilliseconds(1) } // Survives Y2K38
+            };
+
+        [Theory]
+        [MemberData(nameof(ValidDateTimeOffsetTestCases))]
+        public void Should_ConvertJsonToDateTimeOffset_When_ProvidedValidDatetimeJson(
+            string json,
+            DateTimeOffset expected
+        )
+        {
+            var reader = new JsonTextReader(new StringReader(json));
+            while (reader.TokenType == JsonToken.None)
+            {
+                if (!reader.Read())
+                    break;
+            }
+
+            var actual = (DateTimeOffset?)_sut.ReadJson(reader, typeof(DateTimeOffset), null, JsonSerializer.CreateDefault());
+
+            Assert.Equal(expected, actual);
+        }
+
+        public record DummyDateTimeOffset(DateTimeOffset DateTimeOffset);
+
+        [Theory]
+        [MemberData(nameof(ValidDateTimeOffsetTestCases))]
+        public void Should_DeserializeDateTimeOffsetRepresentations_When_UsedInASerializer(string valueJson, DateTimeOffset expected)
+        {
+            var json = $"{{ \"DateTimeOffset\": {valueJson} }}";
+            var settings = new JsonSerializerSettings();
+            settings.Converters.Add(_sut);
+            var actual = JsonConvert.DeserializeObject<DummyDateTimeOffset>(json, settings);
+
+            Assert.Equal(expected, actual?.DateTimeOffset);
         }
 
         [Theory]
@@ -119,10 +169,10 @@ namespace Cheetah.OpenSearch.Test.Util
             var readerMock = new Mock<JsonReader>();
             readerMock.SetupGet(x => x.Value).Returns(dateTime);
 
-            var value = (DateTime?)
+            var value = (DateTimeOffset?)
                 _sut.ReadJson(
                     readerMock.Object,
-                    typeof(DateTime),
+                    typeof(DateTimeOffset),
                     null,
                     JsonSerializer.CreateDefault()
                 );

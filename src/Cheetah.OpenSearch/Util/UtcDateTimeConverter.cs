@@ -2,7 +2,7 @@ using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Cheetah.OpenSearch.Util
+namespace Cheetah.Core.Util
 {
     /// <summary>
     /// Converts <see cref="DateTime"/>s and <see cref="DateTimeOffset"/> to and from Unix epoch time (milliseconds)
@@ -31,21 +31,22 @@ namespace Cheetah.OpenSearch.Util
         {
             try
             {
-                return reader.Value switch
+                if(objectType == typeof(DateTime))
                 {
-                    long val => DateTime.UnixEpoch.AddMilliseconds(val).ToUniversalTime(),
-                    string val => DateTime.TryParse(val, out var dateTime)
-                            ? dateTime.ToUniversalTime()
-                            : throw new ArgumentException(
-                                $"Attempted to deserialize the string '{val}', into a DateTime, but it could not be parsed"
-                            ),
-                    DateTime val => val.ToUniversalTime(),
-                    DateTimeOffset val => new DateTime(val.ToUniversalTime().Ticks, DateTimeKind.Utc),
-                    null => null,
-                    _ => throw new ArgumentException(
-                            $"Unable to deserialize type '{reader.Value?.GetType().FullName}' into a DateTime."
-                        )
-                };
+                    return ReadDateTime(reader, objectType, existingValue, serializer);
+                }
+
+                if (objectType == typeof(DateTimeOffset))
+                {
+                    var dateTime = ReadDateTime(reader, objectType, existingValue, serializer);
+                    return dateTime.HasValue
+                        ? new DateTimeOffset(dateTime.Value)
+                        : null;
+                }
+                
+                throw new ArgumentException(
+                    $"Cannot convert to requested object type: {objectType.FullName}. " +
+                    $"Supported types are {typeof(DateTime).FullName} and {typeof(DateTimeOffset).FullName}");
             }
             catch (Exception e)
             {
@@ -56,13 +57,26 @@ namespace Cheetah.OpenSearch.Util
             }
         }
 
-        /// <summary>
-        /// Writes a <see cref="DateTime"/> or <see cref="DateTimeOffset"/> to Unix epoch time (milliseconds)
-        /// </summary>
-        /// <param name="writer">The <see cref="JsonWriter"/> to write to</param>
-        /// <param name="value">The <see cref="DateTime"/> or <see cref="DateTimeOffset"/> to write.</param>
-        /// <param name="serializer">The calling serializer. If you need to call <see cref="JsonSerializer"/> methods on this object, use this.</param>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="value"/> is not a <see cref="DateTime"/> or <see cref="DateTimeOffset"/></exception>
+        private static DateTime? ReadDateTime(JsonReader reader, Type objectType, object? existingValue,
+            JsonSerializer serializer)
+        {
+            return reader.Value switch
+            {
+                long val => DateTime.UnixEpoch.AddMilliseconds(val).ToUniversalTime(),
+                string val => DateTime.TryParse(val, out var dateTime)
+                    ? dateTime.ToUniversalTime()
+                    : throw new ArgumentException(
+                        $"Attempted to deserialize the string '{val}', into a DateTime, but it could not be parsed"
+                    ),
+                DateTime val => val.ToUniversalTime(),
+                DateTimeOffset val => new DateTime(val.ToUniversalTime().Ticks, DateTimeKind.Utc),
+                null => null,
+                _ => throw new ArgumentException(
+                    $"Unable to deserialize type '{reader.Value?.GetType().FullName}' into a DateTime."
+                )
+            };
+        }
+
         public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
             long? unixTimeMilliseconds = value switch
@@ -76,7 +90,10 @@ namespace Cheetah.OpenSearch.Util
                     dto == default
                         ? 0
                         : dto.ToUnixTimeMilliseconds(),
-                _ => throw new ArgumentOutOfRangeException(nameof(value), value, $"Unable to extract epoch millis from object of type {value?.GetType().Name}")
+                _ => throw new ArgumentOutOfRangeException(
+                    nameof(value), 
+                    value, 
+                    $"Unable to extract epoch millis from object of type {value.GetType().Name}")
             };
             writer.WriteValue(unixTimeMilliseconds);
         }

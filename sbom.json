@@ -1,19 +1,19 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:30a0541b-8204-40f3-8d23-9ff68761d88b",
+  "serialNumber": "urn:uuid:58cae2df-d72e-4e4e-8078-554cae33d259",
   "version": 1,
   "metadata": {
-    "timestamp": "2023-11-13T08:47:59.998Z",
+    "timestamp": "2023-12-13T08:46:57.841Z",
     "tools": {
       "components": [
         {
           "group": "@cyclonedx",
           "name": "cdxgen",
-          "version": "9.9.3",
-          "purl": "pkg:npm/%40cyclonedx/cdxgen@9.9.3",
+          "version": "9.9.9",
+          "purl": "pkg:npm/%40cyclonedx/cdxgen@9.9.9",
           "type": "application",
-          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@9.9.3",
+          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@9.9.9",
           "author": "OWASP Foundation",
           "publisher": "OWASP Foundation"
         }
@@ -60,7 +60,26 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Extensions.Hosting@6.0.1"
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Hosting@6.0.1",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+        }
+      ]
     },
     {
       "author": "Confluent Inc.,Andreas Heider",
@@ -71,8 +90,8 @@
       "licenses": [
         {
           "license": {
-            "name": "CUSTOM",
-            "url": "https://github.com/confluentinc/confluent-kafka-dotnet/blob/master/LICENSE"
+            "url": "https://github.com/confluentinc/confluent-kafka-dotnet/blob/master/LICENSE",
+            "id": "Apache-2.0"
           }
         }
       ],
@@ -88,7 +107,26 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Confluent.Kafka@2.3.0"
+      "bom-ref": "pkg:nuget/Confluent.Kafka@2.3.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+        }
+      ]
     },
     {
       "author": "Microsoft",
@@ -99,8 +137,8 @@
       "licenses": [
         {
           "license": {
-            "name": "CUSTOM",
-            "url": "https://www.nuget.org/packages/Microsoft.NET.Test.Sdk/17.8.0/license"
+            "url": "https://github.com/microsoft/vstest/blob/main/LICENSE",
+            "id": "MIT"
           }
         }
       ],
@@ -116,27 +154,46 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.NET.Test.Sdk@17.8.0"
+      "bom-ref": "pkg:nuget/Microsoft.NET.Test.Sdk@17.8.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+        }
+      ]
     },
     {
       "author": "Daniel Cazzulino, kzu",
       "group": "",
       "name": "Moq",
-      "version": "4.20.69",
+      "version": "4.20.70",
       "description": "Moq is the most popular and friendly mocking framework for .NET.",
       "licenses": [
         {
           "license": {
-            "id": "BSD-3-Clause",
-            "url": "https://opensource.org/licenses/BSD-3-Clause"
+            "url": "https://github.com/devlooped/moq/blob/main/License.txt",
+            "id": "0BSD"
           }
         }
       ],
-      "purl": "pkg:nuget/Moq@4.20.69",
+      "purl": "pkg:nuget/Moq@4.20.70",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Moq/4.20.69/"
+          "url": "https://www.nuget.org/packages/Moq/4.20.70/"
         },
         {
           "type": "vcs",
@@ -144,7 +201,26 @@
         }
       ],
       "type": "framework",
-      "bom-ref": "pkg:nuget/Moq@4.20.69"
+      "bom-ref": "pkg:nuget/Moq@4.20.70",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+        }
+      ]
     },
     {
       "author": "Todd Benning",
@@ -155,8 +231,8 @@
       "licenses": [
         {
           "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
+            "url": "https://github.com/trbenning/serilog-sinks-xunit/blob/master/LICENSE",
+            "id": "MIT"
           }
         }
       ],
@@ -172,13 +248,32 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Serilog.Sinks.XUnit@3.0.5"
+      "bom-ref": "pkg:nuget/Serilog.Sinks.XUnit@3.0.5",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+        }
+      ]
     },
     {
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit",
-      "version": "2.6.1",
+      "version": "2.6.3",
       "description": "xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.\n\nInstalling this package installs xunit.core, xunit.assert, and xunit.analyzers.",
       "licenses": [
         {
@@ -188,9 +283,28 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit@2.6.1",
+      "purl": "pkg:nuget/xunit@2.6.3",
       "type": "framework",
-      "bom-ref": "pkg:nuget/xunit@2.6.1"
+      "bom-ref": "pkg:nuget/xunit@2.6.3",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+        }
+      ]
     },
     {
       "author": "Andrew Arnott",
@@ -218,13 +332,32 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Xunit.SkippableFact@1.4.13"
+      "bom-ref": "pkg:nuget/Xunit.SkippableFact@1.4.13",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+        }
+      ]
     },
     {
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit.extensibility.execution",
-      "version": "2.6.1",
+      "version": "2.6.3",
       "description": "Includes xunit.execution.*.dll for extensibility purposes. Supports .NET 4.5.2 or later, and .NET Standard 1.1.",
       "licenses": [
         {
@@ -234,15 +367,34 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.extensibility.execution@2.6.1",
+      "purl": "pkg:nuget/xunit.extensibility.execution@2.6.3",
       "type": "library",
-      "bom-ref": "pkg:nuget/xunit.extensibility.execution@2.6.1"
+      "bom-ref": "pkg:nuget/xunit.extensibility.execution@2.6.3",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+        }
+      ]
     },
     {
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit.runner.visualstudio",
-      "version": "2.5.3",
+      "version": "2.5.5",
       "description": "Visual Studio 2022+ Test Explorer runner for the xUnit.net framework. Capable of running xUnit.net v1.9.2 and v2.0+ tests. Supports .NET 4.6.2 or later, and .NET 6 or later.",
       "licenses": [
         {
@@ -252,9 +404,28 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.runner.visualstudio@2.5.3",
+      "purl": "pkg:nuget/xunit.runner.visualstudio@2.5.5",
       "type": "framework",
-      "bom-ref": "pkg:nuget/xunit.runner.visualstudio@2.5.3"
+      "bom-ref": "pkg:nuget/xunit.runner.visualstudio@2.5.5",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+        }
+      ]
     },
     {
       "author": "tonerdo",
@@ -265,8 +436,8 @@
       "licenses": [
         {
           "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
+            "url": "https://github.com/coverlet-coverage/coverlet/blob/master/LICENSE",
+            "id": "MIT"
           }
         }
       ],
@@ -282,7 +453,26 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/coverlet.collector@6.0.0"
+      "bom-ref": "pkg:nuget/coverlet.collector@6.0.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+        }
+      ]
     },
     {
       "author": "Dominick Baier,Brock Allen",
@@ -293,8 +483,8 @@
       "licenses": [
         {
           "license": {
-            "id": "Apache-2.0",
-            "url": "https://opensource.org/licenses/Apache-2.0"
+            "url": "https://github.com/IdentityModel/IdentityModel/blob/main/LICENSE",
+            "id": "Apache-2.0"
           }
         }
       ],
@@ -310,14 +500,33 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/IdentityModel@6.2.0"
+      "bom-ref": "pkg:nuget/IdentityModel@6.2.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+        }
+      ]
     },
     {
       "author": "Microsoft",
       "group": "",
       "name": "Microsoft.AspNetCore.Authentication.JwtBearer",
-      "version": "6.0.24",
-      "description": "ASP.NET Core middleware that enables an application to receive an OpenID Connect bearer token.\n\nThis package was built from the source code at https://github.com/dotnet/aspnetcore/tree/2aa401550574f93402eba13ff9a4827ef01a2f3a",
+      "version": "6.0.25",
+      "description": "ASP.NET Core middleware that enables an application to receive an OpenID Connect bearer token.\n\nThis package was built from the source code at https://github.com/dotnet/aspnetcore/tree/36be7ed6d6d56b7da0a2891e3de7ecc2aa48eecd",
       "licenses": [
         {
           "license": {
@@ -326,11 +535,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Microsoft.AspNetCore.Authentication.JwtBearer@6.0.24",
+      "purl": "pkg:nuget/Microsoft.AspNetCore.Authentication.JwtBearer@6.0.25",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.JwtBearer/6.0.24/"
+          "url": "https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.JwtBearer/6.0.25/"
         },
         {
           "type": "vcs",
@@ -338,7 +547,26 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.AspNetCore.Authentication.JwtBearer@6.0.24"
+      "bom-ref": "pkg:nuget/Microsoft.AspNetCore.Authentication.JwtBearer@6.0.25",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+        }
+      ]
     },
     {
       "author": "Microsoft",
@@ -366,7 +594,26 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Extensions.Caching.Abstractions@6.0.0"
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Caching.Abstractions@6.0.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+        }
+      ]
     },
     {
       "author": "Microsoft",
@@ -394,7 +641,26 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@6.0.0"
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@6.0.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+        }
+      ]
     },
     {
       "author": "Microsoft",
@@ -422,14 +688,33 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Extensions.Hosting.Abstractions@6.0.0"
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Hosting.Abstractions@6.0.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+        }
+      ]
     },
     {
       "author": "Microsoft",
       "group": "",
       "name": "Microsoft.Extensions.Http.Polly",
-      "version": "6.0.24",
-      "description": "The HttpClient factory is a pattern for configuring and retrieving named HttpClients in a composable way. This package integrates IHttpClientFactory with the Polly library, to add transient-fault-handling and resiliency through fluent policies such as Retry, Circuit Breaker, Timeout, Bulkhead Isolation, and Fallback.\n    \n\nThis package was built from the source code at https://github.com/dotnet/aspnetcore/tree/2aa401550574f93402eba13ff9a4827ef01a2f3a",
+      "version": "6.0.25",
+      "description": "The HttpClient factory is a pattern for configuring and retrieving named HttpClients in a composable way. This package integrates IHttpClientFactory with the Polly library, to add transient-fault-handling and resiliency through fluent policies such as Retry, Circuit Breaker, Timeout, Bulkhead Isolation, and Fallback.\n    \n\nThis package was built from the source code at https://github.com/dotnet/aspnetcore/tree/36be7ed6d6d56b7da0a2891e3de7ecc2aa48eecd",
       "licenses": [
         {
           "license": {
@@ -438,11 +723,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Microsoft.Extensions.Http.Polly@6.0.24",
+      "purl": "pkg:nuget/Microsoft.Extensions.Http.Polly@6.0.25",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Http.Polly/6.0.24/"
+          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Http.Polly/6.0.25/"
         },
         {
           "type": "vcs",
@@ -450,7 +735,26 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Extensions.Http.Polly@6.0.24"
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Http.Polly@6.0.25",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+        }
+      ]
     },
     {
       "author": "Microsoft",
@@ -478,7 +782,26 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@6.0.4"
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@6.0.4",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+        }
+      ]
     },
     {
       "author": "Microsoft",
@@ -506,7 +829,26 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Extensions.Options@6.0.0"
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Options@6.0.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+        }
+      ]
     },
     {
       "author": "Microsoft",
@@ -517,8 +859,8 @@
       "licenses": [
         {
           "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
+            "url": "https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet/blob/dev/LICENSE.txt",
+            "id": "MIT"
           }
         }
       ],
@@ -534,27 +876,46 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.IdentityModel.Tokens@6.33.0"
+      "bom-ref": "pkg:nuget/Microsoft.IdentityModel.Tokens@6.33.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+        }
+      ]
     },
     {
       "author": "OpenSearch and contributors",
       "group": "",
       "name": "OpenSearch.Client",
-      "version": "1.5.0",
+      "version": "1.6.0",
       "description": "Strongly typed interface to OpenSearch. Fluent and classic object initializer mappings of requests and \n      responses. Uses and exposes OpenSearch.Net.",
       "licenses": [
         {
           "license": {
-            "id": "Apache-2.0",
-            "url": "https://opensource.org/licenses/Apache-2.0"
+            "url": "https://github.com/opensearch-project/opensearch-net/blob/main/LICENSE.txt",
+            "id": "Apache-2.0"
           }
         }
       ],
-      "purl": "pkg:nuget/OpenSearch.Client@1.5.0",
+      "purl": "pkg:nuget/OpenSearch.Client@1.6.0",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/OpenSearch.Client/1.5.0/"
+          "url": "https://www.nuget.org/packages/OpenSearch.Client/1.6.0/"
         },
         {
           "type": "vcs",
@@ -562,27 +923,46 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/OpenSearch.Client@1.5.0"
+      "bom-ref": "pkg:nuget/OpenSearch.Client@1.6.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+        }
+      ]
     },
     {
       "author": "OpenSearch and contributors",
       "group": "",
       "name": "OpenSearch.Client.JsonNetSerializer",
-      "version": "1.5.0",
+      "version": "1.6.0",
       "description": "OpenSearch.Client uses an internal serializer. This package enables serialization for your documents using your own custom Json.NET serializer",
       "licenses": [
         {
           "license": {
-            "id": "Apache-2.0",
-            "url": "https://opensource.org/licenses/Apache-2.0"
+            "url": "https://github.com/opensearch-project/opensearch-net/blob/main/LICENSE.txt",
+            "id": "Apache-2.0"
           }
         }
       ],
-      "purl": "pkg:nuget/OpenSearch.Client.JsonNetSerializer@1.5.0",
+      "purl": "pkg:nuget/OpenSearch.Client.JsonNetSerializer@1.6.0",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/OpenSearch.Client.JsonNetSerializer/1.5.0/"
+          "url": "https://www.nuget.org/packages/OpenSearch.Client.JsonNetSerializer/1.6.0/"
         },
         {
           "type": "vcs",
@@ -590,27 +970,46 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/OpenSearch.Client.JsonNetSerializer@1.5.0"
+      "bom-ref": "pkg:nuget/OpenSearch.Client.JsonNetSerializer@1.6.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+        }
+      ]
     },
     {
       "author": "andrasm,qed-,lakario,sandersaares",
       "group": "",
       "name": "prometheus-net",
-      "version": "8.1.0",
+      "version": "8.2.0",
       "description": ".NET client library for the Prometheus monitoring and alerting system",
       "licenses": [
         {
           "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
+            "url": "https://github.com/prometheus-net/prometheus-net/blob/master/LICENSE",
+            "id": "MIT"
           }
         }
       ],
-      "purl": "pkg:nuget/prometheus-net@8.1.0",
+      "purl": "pkg:nuget/prometheus-net@8.2.0",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/prometheus-net/8.1.0/"
+          "url": "https://www.nuget.org/packages/prometheus-net/8.2.0/"
         },
         {
           "type": "vcs",
@@ -618,27 +1017,46 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/prometheus-net@8.1.0"
+      "bom-ref": "pkg:nuget/prometheus-net@8.2.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+        }
+      ]
     },
     {
       "author": "andrasm,qed-,lakario,sandersaares",
       "group": "",
       "name": "prometheus-net.AspNetCore",
-      "version": "8.1.0",
+      "version": "8.2.0",
       "description": "ASP.NET Core middleware and stand-alone Kestrel server for exporting metrics to Prometheus",
       "licenses": [
         {
           "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
+            "url": "https://github.com/prometheus-net/prometheus-net/blob/master/LICENSE",
+            "id": "MIT"
           }
         }
       ],
-      "purl": "pkg:nuget/prometheus-net.AspNetCore@8.1.0",
+      "purl": "pkg:nuget/prometheus-net.AspNetCore@8.2.0",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/prometheus-net.AspNetCore/8.1.0/"
+          "url": "https://www.nuget.org/packages/prometheus-net.AspNetCore/8.2.0/"
         },
         {
           "type": "vcs",
@@ -646,7 +1064,26 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/prometheus-net.AspNetCore@8.1.0"
+      "bom-ref": "pkg:nuget/prometheus-net.AspNetCore@8.2.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+        }
+      ]
     },
     {
       "author": "Swashbuckle.AspNetCore.SwaggerGen",
@@ -657,8 +1094,8 @@
       "licenses": [
         {
           "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
+            "url": "https://github.com/domaindrivendev/Swashbuckle.AspNetCore/blob/master/LICENSE",
+            "id": "MIT"
           }
         }
       ],
@@ -674,7 +1111,26 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Swashbuckle.AspNetCore.SwaggerGen@6.5.0"
+      "bom-ref": "pkg:nuget/Swashbuckle.AspNetCore.SwaggerGen@6.5.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+        }
+      ]
     },
     {
       "author": "Microsoft",
@@ -685,8 +1141,8 @@
       "licenses": [
         {
           "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
+            "url": "https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet/blob/dev/LICENSE.txt",
+            "id": "MIT"
           }
         }
       ],
@@ -702,7 +1158,26 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/System.IdentityModel.Tokens.Jwt@6.33.0"
+      "bom-ref": "pkg:nuget/System.IdentityModel.Tokens.Jwt@6.33.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+        }
+      ]
     },
     {
       "author": "Microsoft",
@@ -730,7 +1205,26 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Extensions.Http@6.0.0"
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Http@6.0.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.Core/Cheetah.Core.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.Core/Cheetah.Core.csproj"
+        }
+      ]
     },
     {
       "author": "James Newton-King",
@@ -758,13 +1252,32 @@
         }
       ],
       "type": "framework",
-      "bom-ref": "pkg:nuget/Newtonsoft.Json@13.0.3"
+      "bom-ref": "pkg:nuget/Newtonsoft.Json@13.0.3",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.Core/Cheetah.Core.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.Core/Cheetah.Core.csproj"
+        }
+      ]
     },
     {
       "author": "Serilog Contributors",
       "group": "",
       "name": "Serilog",
-      "version": "3.1.0",
+      "version": "3.1.1",
       "description": "Simple .NET logging with fully-structured events",
       "licenses": [
         {
@@ -774,11 +1287,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Serilog@3.1.0",
+      "purl": "pkg:nuget/Serilog@3.1.1",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Serilog/3.1.0/"
+          "url": "https://www.nuget.org/packages/Serilog/3.1.1/"
         },
         {
           "type": "vcs",
@@ -786,7 +1299,26 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Serilog@3.1.0"
+      "bom-ref": "pkg:nuget/Serilog@3.1.1",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.Core/Cheetah.Core.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.Core/Cheetah.Core.csproj"
+        }
+      ]
     },
     {
       "author": "Dennis Doomen,Jonas Nyrup",
@@ -814,7 +1346,26 @@
         }
       ],
       "type": "framework",
-      "bom-ref": "pkg:nuget/FluentAssertions@6.12.0"
+      "bom-ref": "pkg:nuget/FluentAssertions@6.12.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.ComponentTest.XUnit/Cheetah.ComponentTest.XUnit.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.ComponentTest.XUnit/Cheetah.ComponentTest.XUnit.csproj"
+        }
+      ]
     },
     {
       "author": "Microsoft",
@@ -842,7 +1393,26 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Extensions.Configuration@7.0.0"
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Configuration@7.0.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.ComponentTest.XUnit/Cheetah.ComponentTest.XUnit.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.ComponentTest.XUnit/Cheetah.ComponentTest.XUnit.csproj"
+        }
+      ]
     },
     {
       "author": "Confluent Inc.",
@@ -853,8 +1423,8 @@
       "licenses": [
         {
           "license": {
-            "name": "CUSTOM",
-            "url": "https://github.com/confluentinc/confluent-kafka-dotnet/blob/master/LICENSE"
+            "url": "https://github.com/confluentinc/confluent-kafka-dotnet/blob/master/LICENSE",
+            "id": "Apache-2.0"
           }
         }
       ],
@@ -870,7 +1440,26 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.3.0"
+      "bom-ref": "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.3.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.ComponentTest/Cheetah.ComponentTest.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.ComponentTest/Cheetah.ComponentTest.csproj"
+        }
+      ]
     },
     {
       "author": "Microsoft",
@@ -898,7 +1487,26 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Extensions.Caching.Memory@6.0.1"
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Caching.Memory@6.0.1",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.ComponentTest/Cheetah.ComponentTest.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.ComponentTest/Cheetah.ComponentTest.csproj"
+        }
+      ]
     },
     {
       "author": "Microsoft",
@@ -926,27 +1534,46 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Extensions.Options.DataAnnotations@6.0.0"
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Options.DataAnnotations@6.0.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.ComponentTest/Cheetah.ComponentTest.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.ComponentTest/Cheetah.ComponentTest.csproj"
+        }
+      ]
     },
     {
       "author": "Serilog Contributors",
       "group": "",
       "name": "Serilog.Sinks.Console",
-      "version": "5.0.0",
+      "version": "5.0.1",
       "description": "A Serilog sink that writes log events to the console/terminal.",
       "licenses": [
         {
           "license": {
-            "id": "Apache-2.0",
-            "url": "https://opensource.org/licenses/Apache-2.0"
+            "url": "https://github.com/serilog/serilog-sinks-console/blob/dev/LICENSE",
+            "id": "Apache-2.0"
           }
         }
       ],
-      "purl": "pkg:nuget/Serilog.Sinks.Console@5.0.0",
+      "purl": "pkg:nuget/Serilog.Sinks.Console@5.0.1",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Serilog.Sinks.Console/5.0.0/"
+          "url": "https://www.nuget.org/packages/Serilog.Sinks.Console/5.0.1/"
         },
         {
           "type": "vcs",
@@ -954,7 +1581,26 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Serilog.Sinks.Console@5.0.0"
+      "bom-ref": "pkg:nuget/Serilog.Sinks.Console@5.0.1",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.ComponentTest/Cheetah.ComponentTest.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.ComponentTest/Cheetah.ComponentTest.csproj"
+        }
+      ]
     }
   ],
   "dependencies": []

@@ -2,8 +2,7 @@ name: automerge
 
 on:
   pull_request:
-    types:
-      - opened
+    types: [opened, synchronize, reopened, labeled]
       
 jobs:
   automerge:
