@@ -16,25 +16,25 @@ namespace Cheetah.OpenSearch.Test.DependencyInjection;
 [Trait("Category", "OpenSearch"), Trait("TestType", "Unit")]
 public class DependencyInjectionTests
 {
-    public static IEnumerable<object[]> RequiredConfigurationTestCases()
+    public static TheoryData<OpenSearchConfig.OpenSearchAuthMode, List<KeyValuePair<string, string?>>> RequiredConfigurationTestCases()
     {
-        yield return new object[] {
-            OpenSearchConfig.OpenSearchAuthMode.None,
-            new List<KeyValuePair<string, string?>>
-            {
+        var testCases = new TheoryData<OpenSearchConfig.OpenSearchAuthMode, List<KeyValuePair<string, string?>>>();
+        testCases.Add(
+            OpenSearchConfig.OpenSearchAuthMode.None, 
+            new List<KeyValuePair<string, string?>> {
                 new ("OPENSEARCH:URL", "http://localhost:9200")
-            }};
+            });
         
-        yield return new object[] {
+        testCases.Add(
             OpenSearchConfig.OpenSearchAuthMode.Basic,
             new List<KeyValuePair<string, string?>>
             {
                 new ("OPENSEARCH:URL", "http://localhost:9200"),
                 new ("OPENSEARCH:USERNAME", "admin"),
                 new ("OPENSEARCH:PASSWORD", "admin"),
-            }};
+            });
 
-        yield return new object[] {
+        testCases.Add(
             OpenSearchConfig.OpenSearchAuthMode.OAuth2,
             new List<KeyValuePair<string, string?>>
             {
@@ -42,12 +42,15 @@ public class DependencyInjectionTests
                 new ("OPENSEARCH:OAUTH2:CLIENTID", "clientId"),
                 new ("OPENSEARCH:OAUTH2:CLIENTSECRET", "1234"),
                 new ("OPENSEARCH:OAUTH2:TOKENENDPOINT", "http://localhost:1752/oauth2/token")
-            }};
+            });
+
+        return testCases;
     }
     
     
-    public static IEnumerable<object[]> MissingRequiredKeyTestCases()
+    public static TheoryData<string, List<KeyValuePair<string, string?>>> MissingRequiredKeyTestCases()
     {
+        var testCases = new TheoryData<string, List<KeyValuePair<string, string?>>>();
         // For all positive test cases
         foreach(var testCase in RequiredConfigurationTestCases())
         {
@@ -59,16 +62,17 @@ public class DependencyInjectionTests
             foreach(var configuration in requiredConfigurations)
             {
                 // Generate a new test case, where a single key is missing and the auth mode is added to configuration
-                yield return new object[]
-                {
+                testCases.Add(
                     configuration.Key,
                     requiredConfigurations
                         .Except(new[] { configuration })
                         .Append(new KeyValuePair<string, string?>("OPENSEARCH:AUTHMODE", authMode.ToString()))
                         .ToList()
-                };
+                    );
             }
         }
+
+        return testCases;
     }
 
     [Theory]

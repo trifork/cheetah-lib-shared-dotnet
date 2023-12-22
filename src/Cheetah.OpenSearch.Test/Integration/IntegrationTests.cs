@@ -27,29 +27,30 @@ namespace Cheetah.OpenSearch.Test.Integration
         /// Supplies test cases to the OpenSearch integration test
         /// </summary>
         /// <returns>A list of test names and actions to apply to the default configuration</returns>
-        public static IEnumerable<object[]> TestConfigurationActions()
+        public static TheoryData<string, List<KeyValuePair<string, string?>>> TestConfigurationActions()
         {
-            yield return new object[]
-            {
+            var testCases = new TheoryData<string, List<KeyValuePair<string, string?>>>();
+            testCases.Add(
                 "Basic Auth",
                 new List<KeyValuePair<string, string?>>
                 {
-                    new ("OPENSEARCH:AUTHMODE", "Basic"),
-                    new ("OPENSEARCH:USERNAME", "admin"),
-                    new ("OPENSEARCH:PASSWORD", "admin")
+                    new("OPENSEARCH:AUTHMODE", "Basic"),
+                    new("OPENSEARCH:USERNAME", "admin"),
+                    new("OPENSEARCH:PASSWORD", "admin")
                 }
-            };
+            );
 
-            yield return new object[]
-            {
+            testCases.Add(
                 "OAuth2",
                 new List<KeyValuePair<string, string?>>
                 {
-                    new ("OPENSEARCH:AUTHMODE", "OAuth2"),
-                    new ("OPENSEARCH:OAUTH2:CLIENTID", "clientId"),
-                    new ("OPENSEARCH:OAUTH2:CLIENTSECRET", "1234")
+                    new("OPENSEARCH:AUTHMODE", "OAuth2"),
+                    new("OPENSEARCH:OAUTH2:CLIENTID", "clientId"),
+                    new("OPENSEARCH:OAUTH2:CLIENTSECRET", "1234")
                 }
-            };
+            );
+
+            return testCases;
         }
 
         [Theory]
