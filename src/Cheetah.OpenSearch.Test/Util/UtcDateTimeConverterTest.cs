@@ -1,8 +1,8 @@
 using System;
 using System.IO;
 using System.Text;
-using Cheetah.OpenSearch.Util;
 using Moq;
+using Cheetah.OpenSearch.Util;
 using Newtonsoft.Json;
 using Xunit;
 
