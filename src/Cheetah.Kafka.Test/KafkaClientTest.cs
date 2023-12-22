@@ -50,7 +50,6 @@ namespace Cheetah.Kafka.Test
         [Fact]
         public async Task OAuthBearerToken_PublishConsume()
         {
-            return;
             // Arrange
             string topic = $"dotnet_{nameof(OAuthBearerToken_PublishConsume)}_{Guid.NewGuid()}";
             await using var topicDeleter = new KafkaTopicDeleter(_clientFactory.CreateAdminClient(), topic); // Will delete the created topic when the test concludes, regardless of outcome
