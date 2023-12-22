@@ -1,5 +1,4 @@
 ﻿using Cheetah.Kafka.ExampleProcessor.Models;
-using Cheetah.Kafka.Extensions;
 using Confluent.Kafka;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;

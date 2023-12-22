@@ -3,7 +3,6 @@
 using Cheetah.Kafka.ExampleProcessor.Models;
 using Cheetah.Kafka.ExampleProcessor.Services;
 using Cheetah.Kafka.Extensions;
-using Config;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,21 +30,9 @@ builder.Services.AddCheetahKafka(builder.Configuration, options =>
     })
     .WithProducer<string, ExampleModel>();
 
-builder.Services.Configure<TopicConfig>(builder.Configuration.GetSection(TopicConfig.Position));
 builder.Services.AddHostedService<ProducerService>();
 builder.Services.AddHostedService<AConsumerService>();
 builder.Services.AddHostedService<BConsumerService>();
 
 
 await builder.Build().RunAsync();
-
-namespace Config
-{
-    public class TopicConfig
-    {
-        public const string Position = "Config";
-
-        public string TopicName { get; set; }
-    }
-}
-
