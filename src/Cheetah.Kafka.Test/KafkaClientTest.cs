@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Cheetah.Kafka.Test
 {
@@ -16,9 +17,12 @@ namespace Cheetah.Kafka.Test
     public class KafkaIntegrationTests
     {
         readonly IKafkaClientFactory _clientFactory;
+        readonly ITestOutputHelper _testOutput;
         
-        public KafkaIntegrationTests()
+        public KafkaIntegrationTests(ITestOutputHelper testOutput)
         {
+            _testOutput = testOutput;
+            
             var localConfig = new Dictionary<string, string?> 
             {
                 { "KAFKA:URL", "localhost:9092" },
@@ -50,6 +54,7 @@ namespace Cheetah.Kafka.Test
         [Fact]
         public async Task OAuthBearerToken_PublishConsume()
         {
+            _testOutput.WriteLine("We started the test!");
             // Arrange
             string topic = $"dotnet_{nameof(OAuthBearerToken_PublishConsume)}_{Guid.NewGuid()}";
             await using var topicDeleter = new KafkaTopicDeleter(_clientFactory.CreateAdminClient(), topic); // Will delete the created topic when the test concludes, regardless of outcome
@@ -73,11 +78,13 @@ namespace Cheetah.Kafka.Test
             await producer.ProduceAsync(topic, message);
             var received = consumer.Consume(TimeSpan.FromSeconds(5));
             
+            _testOutput.WriteLine("We got a message!");
             // Assert
             Assert.NotNull(received);
             Assert.Equal(message.Key, received.Message.Key);
             Assert.Equal(message.Value, received.Message.Value);
             consumer.Commit(received);
+            _testOutput.WriteLine("We asserted and everything was at it was supposed to!");
         }
     }
 }

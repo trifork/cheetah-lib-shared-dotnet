@@ -59,8 +59,8 @@ namespace Cheetah.Kafka.Extensions
         /// <summary>
         /// Registers a pre-configured, keyed <see cref="IConsumer{TKey,TValue}"/>/>
         /// </summary>
-        /// <param name="configAction">Additional configuration that this specific consumer should use</param>
         /// <param name="key">The key that the consumer should be registered with</param>
+        /// <param name="configAction">Additional configuration that this specific consumer should use</param>
         /// <typeparam name="TKey">The type of key that the injected consumer will consume</typeparam>
         /// <typeparam name="TValue">The type of value that the injected consumer will consume</typeparam>
         /// <returns>This <see cref="CheetahKafkaInjector"/> instance for method chaining</returns>
@@ -74,13 +74,19 @@ namespace Cheetah.Kafka.Extensions
         /// Registers a pre-configured <see cref="IAdminClient"/>/>
         /// </summary>
         /// <param name="configAction">Additional configuration that this specific admin client should use</param>
-        /// <returns></returns>
+        /// <returns>This <see cref="CheetahKafkaInjector"/> instance for method chaining</returns>
         public CheetahKafkaInjector WithAdminClient(Action<AdminClientConfig>? configAction = null)
         {
             _serviceCollection.AddSingleton(provider => GetFactory(provider).CreateAdminClient(configAction));
             return this;
         }
         
+        /// <summary>
+        /// Registers a pre-configured <see cref="IAdminClient"/>/>
+        /// </summary>
+        /// <param name="key">The key that the admin client should be registered with</param>
+        /// <param name="configAction">Additional configuration that this specific admin client should use</param>>
+        /// <returns>This <see cref="CheetahKafkaInjector"/> instance for method chaining</returns>
         public CheetahKafkaInjector WithKeyedAdminClient(object? key, Action<AdminClientConfig>? configAction = null)
         {
             _serviceCollection.AddKeyedSingleton(key, (provider, o) => GetFactory(provider).CreateAdminClient(configAction));

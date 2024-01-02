@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Hosting.Internal;
 using OpenSearch.Client;
 using Xunit;
+using Xunit.Sdk;
 
 namespace Cheetah.OpenSearch.Test.DependencyInjection;
 
