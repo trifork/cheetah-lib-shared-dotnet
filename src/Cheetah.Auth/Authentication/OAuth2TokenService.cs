@@ -81,9 +81,11 @@ namespace Cheetah.Auth.Authentication
                     TimeSpan absoluteExpiration = TimeSpan.FromSeconds(
                         Math.Max(10, tokenResponse.ExpiresIn - 10)
                     );
-
+                        
                     cacheEntry.AbsoluteExpirationRelativeToNow = absoluteExpiration;
-                    _logger.LogDebug("New access token retrieved for {clientId} and saved in cache with key: {CacheKey}", _config.ClientId, _cacheKey);
+                    _logger.LogDebug(
+                        "New access token retrieved for {clientId} and saved in cache with key: {CacheKey}, Response: {debugInfo}",
+                        _config.ClientId, _cacheKey, tokenResponse.TokenType);
 
                     return tokenResponse;
                 }
@@ -120,7 +122,7 @@ namespace Cheetah.Auth.Authentication
 
             return !tokenResponse.IsError
                 ? tokenResponse
-                : throw new OAuth2TokenException(tokenResponse.Error);
+                : throw new OAuth2TokenException(tokenResponse.ErrorDescription);
         }
     }
 }
