@@ -51,11 +51,6 @@ jobs:
           warning_on_retry: false
           command: 'curl -sS -X GET -H "Content-Type: application/json" http://admin:admin@localhost:9200/_cat/indices'
 
-      - uses: actions/setup-dotnet@v3
-
-      - name: Dotnet info
-        run: dotnet --info
-
       - name: Dotnet Test
         working-directory: src/Cheetah.Kafka.Test
         run: dotnet test -l "console;verbosity=detailed"

@@ -68,23 +68,23 @@ namespace Cheetah.Kafka.Test
 
             consumer.Subscribe(topic);
 
-            // var message = new Message<string, string>
-            // {
-            //     Key = $"{Guid.NewGuid()}",
-            //     Value = $"{DateTimeOffset.UtcNow:T}"
-            // };
-            //
-            // // Act
-            // await producer.ProduceAsync(topic, message);
-            // var received = consumer.Consume(TimeSpan.FromSeconds(5));
-            //
-            // _testOutput.WriteLine("We got a message!");
-            // // Assert
-            // Assert.NotNull(received);
-            // Assert.Equal(message.Key, received.Message.Key);
-            // Assert.Equal(message.Value, received.Message.Value);
-            // consumer.Commit(received);
-            // _testOutput.WriteLine("We asserted and everything was at it was supposed to!");
+            var message = new Message<string, string>
+            {
+                Key = $"{Guid.NewGuid()}",
+                Value = $"{DateTimeOffset.UtcNow:T}"
+            };
+            
+            // Act
+            await producer.ProduceAsync(topic, message);
+            var received = consumer.Consume(TimeSpan.FromSeconds(5));
+            
+            _testOutput.WriteLine("We got a message!");
+            // Assert
+            Assert.NotNull(received);
+            Assert.Equal(message.Key, received.Message.Key);
+            Assert.Equal(message.Value, received.Message.Value);
+            consumer.Commit(received);
+            _testOutput.WriteLine("We asserted and everything was at it was supposed to!");
         }
     }
 }
