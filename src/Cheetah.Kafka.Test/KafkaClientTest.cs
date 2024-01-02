@@ -57,7 +57,7 @@ namespace Cheetah.Kafka.Test
             _testOutput.WriteLine("We started the test!");
             // Arrange
             string topic = $"dotnet_{nameof(OAuthBearerToken_PublishConsume)}_{Guid.NewGuid()}";
-            // await using var topicDeleter = new KafkaTopicDeleter(_clientFactory.CreateAdminClient(), topic); // Will delete the created topic when the test concludes, regardless of outcome
+            await using var topicDeleter = new KafkaTopicDeleter(_clientFactory.CreateAdminClient(), topic); // Will delete the created topic when the test concludes, regardless of outcome
 
             var producer = _clientFactory.CreateProducer<string, string>();
             var consumer = _clientFactory.CreateConsumer<string, string>(cfg =>
