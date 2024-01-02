@@ -7,7 +7,6 @@ using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -17,12 +16,9 @@ namespace Cheetah.Kafka.Test
     public class KafkaIntegrationTests
     {
         readonly IKafkaClientFactory _clientFactory;
-        readonly ITestOutputHelper _testOutput;
         
-        public KafkaIntegrationTests(ITestOutputHelper testOutput)
+        public KafkaIntegrationTests()
         {
-            _testOutput = testOutput;
-            
             var localConfig = new Dictionary<string, string?> 
             {
                 { "KAFKA:URL", "localhost:9092" },
