@@ -135,7 +135,7 @@ namespace Cheetah.Kafka.Extensions
                     return;
                 }
 
-                logger.LogDebug("Retrieved access token from IDP.");
+                logger.LogDebug("Retrieved access token from IDP. {AccessToken}, {Expiration}, {PrincipalName}", token.Value.AccessToken, token.Value.Expiration, token.Value.PrincipalName);
                 client.OAuthBearerSetToken(token.Value.AccessToken, token.Value.Expiration, token.Value.PrincipalName);
                 logger.LogDebug("Token was set!");
             }
