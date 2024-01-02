@@ -12,7 +12,7 @@ on:
           - Cheetah.ComponentTest
         default: Cheetah.WebApi.Shared
       bump-type:
-        description: Increment Major or Minor semantic-version on main branch after release branch has been created
+        description: Increment major or minor semantic version on main branch after release branch has been created
         required: true
         type: choice
         options:
