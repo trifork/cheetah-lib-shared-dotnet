@@ -117,7 +117,6 @@ namespace Cheetah.OpenSearch
             }
         }
 
-
         /// <summary>
         /// Creates an IOpenSearchClient from the provided configuration.
         /// </summary>

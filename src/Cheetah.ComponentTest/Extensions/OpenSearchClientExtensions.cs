@@ -68,7 +68,7 @@ namespace Cheetah.ComponentTest.Extensions
         }
 
         /// <summary>
-        /// Asynchronously retrieves up to <param name="maxCount"> documents from an index</param>
+        /// Asynchronously retrieves up to <paramref name="maxCount"/> documents from an index
         /// </summary>
         /// <param name="client">The <see cref="OpenSearchClient"/> used to access OpenSearch</param>
         /// <param name="indexName">The index to retrieve documents from</param>
