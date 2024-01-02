@@ -56,7 +56,7 @@ namespace Cheetah.Auth.Authentication
                 return null;
             }
             
-            return (tokenResponse.AccessToken, DateTimeOffset.UtcNow.AddSeconds(tokenResponse.ExpiresIn).ToUnixTimeMilliseconds(), null);
+            return (tokenResponse.AccessToken, DateTimeOffset.UtcNow.AddSeconds(tokenResponse.ExpiresIn).ToUnixTimeMilliseconds(), "unused");
         }
         
         private async Task<TokenResponse?> RequestAccessTokenCachedAsync(
