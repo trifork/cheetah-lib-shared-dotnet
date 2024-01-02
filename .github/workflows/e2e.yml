@@ -52,8 +52,7 @@ jobs:
           command: 'curl -sS -X GET -H "Content-Type: application/json" http://admin:admin@localhost:9200/_cat/indices'
 
       - name: Dotnet Test
-        working-directory: src/Cheetah.Kafka.Test
-        run: dotnet test -l "console;verbosity=detailed"
+        run: dotnet test --logger trx
 
       - name: Display test report OpenSearch
         uses: dorny/test-reporter@v1.7.0
