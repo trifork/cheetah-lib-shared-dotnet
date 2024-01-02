@@ -127,14 +127,17 @@ namespace Cheetah.Kafka.Extensions
         {
             try
             {
+                logger.LogDebug("Attempting to retrieve access token from IDP.");
                 var token = tokenRequestFunc();
                 if (token == null || string.IsNullOrWhiteSpace(token.Value.AccessToken))
                 {
                     SetFailure(client, logger, "Supplied token function returned null or a valueless access token.");
                     return;
                 }
-                
+
+                logger.LogDebug("Retrieved access token from IDP.");
                 client.OAuthBearerSetToken(token.Value.AccessToken, token.Value.Expiration, token.Value.PrincipalName);
+                logger.LogDebug("Token was set!");
             }
             catch (Exception ex)
             {
