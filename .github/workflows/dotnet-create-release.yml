@@ -14,7 +14,7 @@ jobs:
     needs: run-tests
     outputs:
       project-name: ${{ steps.get-project-name.outputs.project-name }}
-      csproj-filepath: ${{ steps.get-csproj-filepath.outputs.csproj-filepath }}
+      csproj-filepath: ${{ steps.get-csproj-filepath.outputs.value }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,9 +29,10 @@ jobs:
 
       - name: Get csproj filepath
         id: get-csproj-filepath
-        uses: ./.github/actions/get-csproj-filepath
+        uses: trifork/cheetah-infrastructure-utils/.github/actions/get-from-map@main
         with:
-          project-name: ${{ steps.get-project-name.outputs.project-name }}
+          file-path: ./.github/csproj-filepaths.yaml
+          key: ${{ steps.get-project-name.outputs.project-name }}
 
   create-release:
     needs: get-csproj-filepath

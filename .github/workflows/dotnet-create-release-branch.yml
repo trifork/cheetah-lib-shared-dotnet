@@ -24,16 +24,17 @@ jobs:
   get-csproj-filepath:
     runs-on: ubuntu-latest
     outputs:
-      csproj-filepath: ${{ steps.get-csproj-filepath.outputs.csproj-filepath }}
+      csproj-filepath: ${{ steps.get-csproj-filepath.outputs.value }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         
       - name: Get csproj filepath
         id: get-csproj-filepath
-        uses: ./.github/actions/get-csproj-filepath
+        uses: trifork/cheetah-infrastructure-utils/.github/actions/get-from-map@main
         with:
-          project-name: ${{ inputs.project }}
+          file-path: ./.github/csproj-filepaths.yaml
+          key: ${{ inputs.project }}
 
   create-release-branch:
     needs: get-csproj-filepath
