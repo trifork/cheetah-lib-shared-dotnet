@@ -53,6 +53,9 @@ jobs:
 
       - uses: actions/setup-dotnet@v3
 
+      - name: Dotnet info
+        run: dotnet --info
+
       - name: Dotnet Test
         run: dotnet test -l "console;verbosity=detailed"
 

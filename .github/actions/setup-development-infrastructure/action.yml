@@ -19,6 +19,6 @@ runs:
     - name: Checkout trifork/cheetah-development-infrastructure
       uses: actions/checkout@v4
       with:
-        repository: trifork/cheetah-development-infrastructure
+        repository: trifork/cheetah-development-infrastructure@v1.1.0
         token: ${{ github.token }}
         path: integrationtests
