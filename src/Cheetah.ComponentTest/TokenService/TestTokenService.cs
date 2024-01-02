@@ -22,16 +22,16 @@ namespace Cheetah.ComponentTest.TokenService
             this.oauthScope = oauthScope;
         }
 
-        public async Task<(string AccessToken, long Expiration, string? PrincipalName)?> RequestAccessTokenAsync(CancellationToken cancellationToken)
+        public async Task<(string AccessToken, long Expiration)> RequestAccessTokenAsync(CancellationToken cancellationToken)
         {
             var tokenResponse = await FetchAccessTokenAsync(cancellationToken);
             
             if(tokenResponse.AccessToken == null)
             {
-                return null;
+                throw new OAuth2TokenException($"Failed to retrieve access token for  {clientId}, Error: {tokenResponse.Error}");
             }
             
-            return (tokenResponse.AccessToken, DateTimeOffset.UtcNow.AddSeconds(tokenResponse.ExpiresIn).ToUnixTimeMilliseconds(), null);
+            return (tokenResponse.AccessToken, DateTimeOffset.UtcNow.AddSeconds(tokenResponse.ExpiresIn).ToUnixTimeMilliseconds());
         }
 
         private async Task<TokenResponse> FetchAccessTokenAsync(CancellationToken cancellationToken)

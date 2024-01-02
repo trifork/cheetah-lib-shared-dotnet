@@ -21,13 +21,13 @@ namespace Cheetah.OpenSearch.Connection
         )
         {
             var accessToken = await _tokenService.RequestAccessTokenAsync(cancellationToken);
-            if (accessToken == null || string.IsNullOrEmpty(accessToken.Value.AccessToken))
+            if (string.IsNullOrEmpty(accessToken.AccessToken))
             {
                 throw new UnauthorizedAccessException(
                     "Could not retrieve access token from IDP. Look at environment values to ensure they are correct"
                 );
             }
-            request.Headers.Add("Authorization", $"bearer {accessToken.Value.AccessToken}");
+            request.Headers.Add("Authorization", $"bearer {accessToken.AccessToken}");
             return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
         }
     }

@@ -54,7 +54,6 @@ namespace Cheetah.Kafka.Test
         [Fact]
         public async Task OAuthBearerToken_PublishConsume()
         {
-            _testOutput.WriteLine("We started the test!");
             // Arrange
             string topic = $"dotnet_{nameof(OAuthBearerToken_PublishConsume)}_{Guid.NewGuid()}";
             await using var topicDeleter = new KafkaTopicDeleter(_clientFactory.CreateAdminClient(), topic); // Will delete the created topic when the test concludes, regardless of outcome
@@ -78,13 +77,11 @@ namespace Cheetah.Kafka.Test
             await producer.ProduceAsync(topic, message);
             var received = consumer.Consume(TimeSpan.FromSeconds(5));
             
-            _testOutput.WriteLine("We got a message!");
             // Assert
             Assert.NotNull(received);
             Assert.Equal(message.Key, received.Message.Key);
             Assert.Equal(message.Value, received.Message.Value);
             consumer.Commit(received);
-            _testOutput.WriteLine("We asserted and everything was at it was supposed to!");
         }
     }
 }

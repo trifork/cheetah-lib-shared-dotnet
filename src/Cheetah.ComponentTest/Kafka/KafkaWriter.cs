@@ -40,7 +40,11 @@ namespace Cheetah.ComponentTest.Kafka
                     SecurityProtocol = SecurityProtocol.SaslPlaintext,
                 })
                 .SetValueSerializer(props.Serializer)
-                .AddCheetahOAuthentication(() => props.TokenService.RequestAccessTokenAsync(CancellationToken.None), new LoggerFactory().CreateLogger<OAuth2TokenService>())
+                .AddCheetahOAuthentication(async () =>
+                {
+                    var token = await props.TokenService.RequestAccessTokenAsync(CancellationToken.None);
+                    return (token.AccessToken, token.Expiration, "unused");
+                }, new LoggerFactory().CreateLogger<OAuth2TokenService>())
                 .Build();
         }
 

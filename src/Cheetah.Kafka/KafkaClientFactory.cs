@@ -72,6 +72,8 @@ namespace Cheetah.Kafka
         private readonly ILoggerFactory _loggerFactory;
         private readonly ClientConfig _defaultClientConfig;
         private readonly KafkaClientFactoryOptions _options;
+        // TODO: This could be provided as configuration
+        private const string PrincipalName = "unused";
 
         /// <summary>
         /// Creates a new instance of <see cref="KafkaClientFactory"/>
@@ -115,7 +117,7 @@ namespace Cheetah.Kafka
             configAction?.Invoke(configInstance);
             
             return new ProducerBuilder<TKey, TValue>(configInstance)
-                .AddCheetahOAuthentication(TokenRetrievalFunction, _loggerFactory.CreateLogger<IProducer<TKey, TValue>>())
+                .AddCheetahOAuthentication(GetTokenRetrievalFunction(), _loggerFactory.CreateLogger<IProducer<TKey, TValue>>())
                 .SetValueSerializer(serializer ?? new Utf8Serializer<TValue>());
         }
         
@@ -144,7 +146,7 @@ namespace Cheetah.Kafka
             configAction?.Invoke(config);
             
             return new ConsumerBuilder<TKey, TValue>(config)
-                .AddCheetahOAuthentication(TokenRetrievalFunction, _loggerFactory.CreateLogger<IConsumer<TKey, TValue>>())
+                .AddCheetahOAuthentication(GetTokenRetrievalFunction(), _loggerFactory.CreateLogger<IConsumer<TKey, TValue>>())
                 .SetValueDeserializer(deserializer ?? new Utf8Serializer<TValue>());
         }
         
@@ -168,11 +170,15 @@ namespace Cheetah.Kafka
             configAction?.Invoke(config);
             
             return new AdminClientBuilder(config)
-                .AddCheetahOAuthentication(TokenRetrievalFunction, _loggerFactory.CreateLogger<IAdminClient>());
+                .AddCheetahOAuthentication(GetTokenRetrievalFunction(), _loggerFactory.CreateLogger<IAdminClient>());
         }
         
-        // Convenience to avoid spreading lambdas
-        private Func<Task<(string AccessToken, long Expiration, string? PrincipalName)?>> TokenRetrievalFunction => 
-            () => _tokenService.RequestAccessTokenAsync(CancellationToken.None);  
+        private Func<Task<(string AccessToken, long Expiration, string PrincipalName)>> GetTokenRetrievalFunction() {
+            return async () =>
+            {
+                var response = await _tokenService.RequestAccessTokenAsync(CancellationToken.None);
+                return (response.AccessToken, response.Expiration, PrincipalName);
+            };
+        }
     }
 }

@@ -37,7 +37,10 @@ namespace Cheetah.ComponentTest.Kafka
                 AutoOffsetReset = AutoOffsetReset.Latest
             })
                 .SetValueDeserializer(props.Deserializer)
-                .AddCheetahOAuthentication(() => props.TokenService.RequestAccessTokenAsync(CancellationToken.None), new LoggerFactory().CreateLogger<OAuth2TokenService>())
+                .AddCheetahOAuthentication(async () => {
+                    var token = await props.TokenService.RequestAccessTokenAsync(CancellationToken.None);
+                    return (token.AccessToken, token.Expiration, "unused");
+                }, new LoggerFactory().CreateLogger<OAuth2TokenService>())
                 .Build();
 
             Consumer.Assign(new TopicPartition(Topic, 0));

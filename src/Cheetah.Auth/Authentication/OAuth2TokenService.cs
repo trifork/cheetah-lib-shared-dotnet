@@ -46,20 +46,20 @@ namespace Cheetah.Auth.Authentication
         }
         
         /// <inheritdoc cref="ITokenService.RequestAccessTokenAsync"/>
-        public async Task<(string AccessToken, long Expiration, string? PrincipalName)?> RequestAccessTokenAsync(CancellationToken cancellationToken)
+        public async Task<(string AccessToken, long Expiration)> RequestAccessTokenAsync(CancellationToken cancellationToken)
         {
             var tokenResponse = await RequestAccessTokenCachedAsync(cancellationToken);
             
             if(tokenResponse == null || tokenResponse.IsError || tokenResponse.AccessToken == null)
             {
-                _logger.LogError("Failed to retrieve access token for {clientId}. Error: {error}", _config.ClientId, tokenResponse?.Error);
-                return null;
+
+                throw new OAuth2TokenException($"Failed to retrieve access token for  {_config.ClientId}, Error: {tokenResponse?.Error}");
             }
             
-            return (tokenResponse.AccessToken, DateTimeOffset.UtcNow.AddSeconds(tokenResponse.ExpiresIn).ToUnixTimeMilliseconds(), "unused");
+            return (tokenResponse.AccessToken, DateTimeOffset.UtcNow.AddSeconds(tokenResponse.ExpiresIn).ToUnixTimeMilliseconds());
         }
         
-        private async Task<TokenResponse?> RequestAccessTokenCachedAsync(
+        private async Task<TokenResponse> RequestAccessTokenCachedAsync(
             CancellationToken cancellationToken
         )
         {
@@ -69,11 +69,10 @@ namespace Cheetah.Auth.Authentication
                 || string.IsNullOrEmpty(_config.TokenEndpoint)
             )
             {
-                _logger.LogError("Missing OAuth config! Please check environment variables");
-                return default;
+                throw new ArgumentException("Missing OAuth config! Please check environment variables");
             }
 
-            return await _cache.GetOrCreateAsync(
+            var tokenResponse = await _cache.GetOrCreateAsync(
                 _cacheKey,
                 async cacheEntry =>
                 {
@@ -90,6 +89,14 @@ namespace Cheetah.Auth.Authentication
                     return tokenResponse;
                 }
             );
+
+            if (tokenResponse == null)
+            {
+                throw new OAuth2TokenException(
+                    "Retrieved access token was null, even though this should be impossible");
+            }
+            
+            return tokenResponse;
         }
         
         private async Task<TokenResponse> FetchAccessTokenAsync(

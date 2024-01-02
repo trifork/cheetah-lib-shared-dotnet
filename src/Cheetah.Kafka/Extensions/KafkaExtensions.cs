@@ -27,7 +27,7 @@ namespace Cheetah.Kafka.Extensions
         /// <returns>The builder for method chaining</returns>
         public static ConsumerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(
             this ConsumerBuilder<TKey, TValue> builder, 
-            Func<Task<(string AccessToken, long Expiration, string? PrincipalName)?>> asyncTokenRequestFunc, 
+            Func<Task<(string AccessToken, long Expiration, string PrincipalName)>> asyncTokenRequestFunc, 
             ILogger logger)
         {
             return AddCheetahOAuthentication(builder, Synchronize(asyncTokenRequestFunc), logger);
@@ -45,7 +45,7 @@ namespace Cheetah.Kafka.Extensions
         /// <returns>The builder for method chaining</returns>
         public static ProducerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(
             this ProducerBuilder<TKey, TValue> builder, 
-            Func<Task<(string AccessToken, long Expiration, string? PrincipalName)?>> asyncTokenRequestFunc, 
+            Func<Task<(string AccessToken, long Expiration, string PrincipalName)>> asyncTokenRequestFunc, 
             ILogger logger)
         {
             return AddCheetahOAuthentication(builder, Synchronize(asyncTokenRequestFunc), logger);
@@ -60,7 +60,7 @@ namespace Cheetah.Kafka.Extensions
         /// <returns>The builder for method chaining</returns>
         public static AdminClientBuilder AddCheetahOAuthentication(
             this AdminClientBuilder builder, 
-            Func<Task<(string AccessToken, long Expiration, string? PrincipalName)?>> asyncTokenRequestFunc, 
+            Func<Task<(string AccessToken, long Expiration, string PrincipalName)>> asyncTokenRequestFunc, 
             ILogger logger)
         {
             return AddCheetahOAuthentication(builder, Synchronize(asyncTokenRequestFunc), logger);
@@ -77,7 +77,7 @@ namespace Cheetah.Kafka.Extensions
         /// <returns>The builder for method chaining</returns>
         public static ConsumerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(
             this ConsumerBuilder<TKey, TValue> builder, 
-            Func<(string AccessToken, long Expiration, string? PrincipalName)?> tokenRequestFunc, 
+            Func<(string AccessToken, long Expiration, string PrincipalName)> tokenRequestFunc, 
             ILogger logger)
         {
             return builder.SetOAuthBearerTokenRefreshHandler(GetTokenRefreshHandler(tokenRequestFunc, logger));
@@ -94,7 +94,7 @@ namespace Cheetah.Kafka.Extensions
         /// <returns>The builder for method chaining</returns>
         public static ProducerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(
             this ProducerBuilder<TKey, TValue> builder, 
-            Func<(string AccessToken, long Expiration, string? PrincipalName)?> tokenRequestFunc, 
+            Func<(string AccessToken, long Expiration, string PrincipalName)> tokenRequestFunc, 
             ILogger logger)
         {
             return builder.SetOAuthBearerTokenRefreshHandler(GetTokenRefreshHandler(tokenRequestFunc, logger));
@@ -109,7 +109,7 @@ namespace Cheetah.Kafka.Extensions
         /// <returns>The builder for method chaining</returns>
         public static AdminClientBuilder AddCheetahOAuthentication(
             this AdminClientBuilder builder, 
-            Func<(string AccessToken, long Expiration, string? PrincipalName)?> tokenRequestFunc, 
+            Func<(string AccessToken, long Expiration, string PrincipalName)> tokenRequestFunc, 
             ILogger logger)
         {
             return builder.SetOAuthBearerTokenRefreshHandler(GetTokenRefreshHandler(tokenRequestFunc, logger));
@@ -117,27 +117,25 @@ namespace Cheetah.Kafka.Extensions
 
         // Convenience to avoid spreading "GetAwaiter().GetResult()"
         private static Func<T> Synchronize<T>(Func<Task<T>> asyncTokenRequestFunc) => 
-            () => Task.Run(asyncTokenRequestFunc).Result;
+            () => asyncTokenRequestFunc().GetAwaiter().GetResult();
 
         // Convenience to avoid spreading lambdas
-        private static Action<IClient, string> GetTokenRefreshHandler(Func<(string AccessToken, long Expiration, string? PrincipalName)?> func, ILogger logger) =>
+        private static Action<IClient, string> GetTokenRefreshHandler(Func<(string AccessToken, long Expiration, string PrincipalName)> func, ILogger logger) =>
             (client, _) => TokenRefreshHandler(client, func, logger); 
 
-        private static void TokenRefreshHandler(IClient client, Func<(string AccessToken, long Expiration, string? PrincipalName)?> tokenRequestFunc, ILogger logger)
+        private static void TokenRefreshHandler(IClient client, Func<(string AccessToken, long Expiration, string PrincipalName)> tokenRequestFunc, ILogger logger)
         {
             try
             {
-                logger.LogDebug("Attempting to retrieve access token from IDP.");
                 var token = tokenRequestFunc();
-                if (token == null || string.IsNullOrWhiteSpace(token.Value.AccessToken))
+                
+                if (string.IsNullOrWhiteSpace(token.AccessToken))
                 {
                     SetFailure(client, logger, "Supplied token function returned null or a valueless access token.");
                     return;
                 }
 
-                logger.LogDebug("Retrieved access token from IDP. {AccessToken}, {Expiration}, {PrincipalName}", token.Value.AccessToken, token.Value.Expiration, token.Value.PrincipalName);
-                client.OAuthBearerSetToken(token.Value.AccessToken, token.Value.Expiration, token.Value.PrincipalName);
-                logger.LogDebug("Token was set!");
+                client.OAuthBearerSetToken(token.AccessToken, token.Expiration, token.PrincipalName);
             }
             catch (Exception ex)
             {
