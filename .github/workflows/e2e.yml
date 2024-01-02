@@ -40,7 +40,7 @@ jobs:
 
       - name: Start development infrastructure
         working-directory: integrationtests/
-        run: docker compose --profile core up -d
+        run: docker compose --profile core up -d --quiet-pull
 
       - name: Wait for opensearch, the slowest component
         uses: nick-fields/retry@v2.9.0
@@ -57,6 +57,7 @@ jobs:
         run: dotnet --info
 
       - name: Dotnet Test
+        working-directory: src/Cheetah.Kafka.Test
         run: dotnet test -l "console;verbosity=detailed"
 
       - name: Display test report OpenSearch
