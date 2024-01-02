@@ -93,7 +93,7 @@ namespace Cheetah.Kafka.Extensions
             return this;
         }
 
-        private static IKafkaClientFactory GetFactory(IServiceProvider provider) => provider.GetRequiredService<IKafkaClientFactory>();
+        private static KafkaClientFactory GetFactory(IServiceProvider provider) => provider.GetRequiredService<KafkaClientFactory>();
     }
 }
 

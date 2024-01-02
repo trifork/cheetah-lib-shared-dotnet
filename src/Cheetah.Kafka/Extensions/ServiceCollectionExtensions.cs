@@ -24,6 +24,7 @@ namespace Cheetah.Kafka.Extensions
         /// </remarks>
         /// <param name="serviceCollection">The <see cref="IServiceCollection"/> to register the <see cref="KafkaClientFactory"/> and its required services with.</param>
         /// <param name="configuration">The <see cref="IConfiguration"/> instance to use for configuration.</param>
+        /// <param name="configure">Optional action to configure Kafka behavior</param>
         /// <returns>The supplied <see cref="IServiceCollection"/> instance for method chaining.</returns>
         public static CheetahKafkaInjector AddCheetahKafka(this IServiceCollection serviceCollection, IConfiguration configuration, Action<KafkaClientFactoryOptions>? configure = null)
         {
@@ -46,7 +47,7 @@ namespace Cheetah.Kafka.Extensions
                     sp.GetRequiredService<IOptions<OAuth2Config>>(), 
                     "kafka-access-token"));
             serviceCollection.AddSingleton<KafkaClientFactoryOptions>(options);
-            serviceCollection.AddSingleton<IKafkaClientFactory, KafkaClientFactory>();
+            serviceCollection.AddSingleton<KafkaClientFactory>();
 
             return new CheetahKafkaInjector(serviceCollection);
         }

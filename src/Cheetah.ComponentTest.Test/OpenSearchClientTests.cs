@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Cheetah.ComponentTest.Extensions;
 using Cheetah.ComponentTest.OpenSearch;
 using Cheetah.ComponentTest.Test.Model.OpenSearch;
 using FluentAssertions;

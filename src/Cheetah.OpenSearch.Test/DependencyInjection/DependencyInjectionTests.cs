@@ -6,11 +6,8 @@ using Cheetah.OpenSearch.Extensions;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Hosting.Internal;
 using OpenSearch.Client;
 using Xunit;
-using Xunit.Sdk;
 
 namespace Cheetah.OpenSearch.Test.DependencyInjection;
 

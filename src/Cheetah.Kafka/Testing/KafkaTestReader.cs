@@ -1,48 +1,42 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using Cheetah.Auth.Authentication;
-using Cheetah.Kafka.Extensions;
 using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
-namespace Cheetah.ComponentTest.Kafka
+namespace Cheetah.Kafka.Testing
 {
-    public interface IKafkaReader<T>
+    /// <inheritdoc cref="KafkaTestReader{TKey,T}"/>
+    public interface IKafkaTestReader<T>
     {
+        /// <inheritdoc cref="KafkaTestReader{TKey,T}.ReadMessages"/>
         public IEnumerable<T> ReadMessages(int count, TimeSpan timeout);
+        /// <inheritdoc cref="KafkaTestReader{TKey,T}.VerifyNoMoreMessages"/>
         public bool VerifyNoMoreMessages(TimeSpan timeout);
     }
-    
-    public class KafkaReader<TKey, T> : IKafkaReader<T>
+
+    /// <summary>
+    /// A simple Kafka client used to read messages from a Kafka topic.
+    /// </summary>
+    /// <remarks>
+    /// This should only be used for testing purposes, and has no performance guarantees.
+    /// </remarks>
+    /// <typeparam name="TKey">The type of key that read messages have</typeparam>
+    /// <typeparam name="T">The type of message to read</typeparam>
+    public class KafkaTestReader<TKey, T> : IKafkaTestReader<T>
     {
-        private static readonly ILogger Logger = new LoggerFactory().CreateLogger<KafkaReader<TKey, T>>();
-        internal string Topic { get; }
+        private static readonly ILogger Logger = new LoggerFactory().CreateLogger<KafkaTestReader<TKey, T>>();
+        private string Topic { get; }
         private IConsumer<TKey, T> Consumer { get; }
-
-        internal KafkaReader(KafkaReaderProps<T> props)
+        
+        internal KafkaTestReader(IConsumer<TKey, T> consumer, string topic)
         {
-            Topic = props.Topic;
+            Topic = topic;
             Logger.LogInformation("Preparing kafka producer, producing to topic '{Topic}'", Topic);
-            Consumer = new ConsumerBuilder<TKey, T>(new ConsumerConfig
-            {
-                BootstrapServers = props.KafkaUrl,
-                GroupId = props.ConsumerGroup,
-                SaslMechanism = SaslMechanism.OAuthBearer,
-                SecurityProtocol = SecurityProtocol.SaslPlaintext,
-                EnablePartitionEof = true,
-                AllowAutoCreateTopics = true,
-                AutoOffsetReset = AutoOffsetReset.Latest
-            })
-                .SetValueDeserializer(props.Deserializer)
-                .AddCheetahOAuthentication(async () => {
-                    var token = await props.TokenService.RequestAccessTokenAsync(CancellationToken.None);
-                    return (token.AccessToken, token.Expiration, "unused");
-                }, new LoggerFactory().CreateLogger<OAuth2TokenService>())
-                .Build();
-
+            Consumer = consumer;
+            
             Consumer.Assign(new TopicPartition(Topic, 0));
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
             cancellationTokenSource.CancelAfter(TimeSpan.FromSeconds(2));

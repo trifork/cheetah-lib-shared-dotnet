@@ -3,9 +3,9 @@ using System.Threading;
 using Cheetah.Auth.Authentication;
 using Confluent.SchemaRegistry;
 
-namespace Cheetah.ComponentTest.Kafka
+namespace Cheetah.Kafka.Util
 {
-    internal class OAuthHeaderValueProvider : IAuthenticationHeaderValueProvider
+    internal sealed class OAuthHeaderValueProvider : IAuthenticationHeaderValueProvider
     {
         readonly ITokenService _tokenService;
 

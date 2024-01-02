@@ -8,14 +8,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Cheetah.Kafka.Test
 {
     [Trait("Category", "Kafka"), Trait("TestType", "IntegrationTests")]
     public class KafkaIntegrationTests
     {
-        readonly IKafkaClientFactory _clientFactory;
+        readonly IServiceProvider _serviceProvider;
         
         public KafkaIntegrationTests()
         {
@@ -33,7 +32,6 @@ namespace Cheetah.Kafka.Test
                 .AddEnvironmentVariables() // Allow override of config through environment variables if running in docker.
                 .Build();
 
-            
             var services = new ServiceCollection();
             services.AddLogging(s =>
             {
@@ -42,9 +40,16 @@ namespace Cheetah.Kafka.Test
                 s.AddConsole();
             });
 
-            services.AddCheetahKafka(configuration);
+            services.AddCheetahKafka(configuration)
+                .WithProducer<string, string>()
+                .WithConsumer<string, string>(cfg =>
+                {
+                    cfg.GroupId = $"{nameof(KafkaIntegrationTests)}_{Guid.NewGuid()}";
+                    cfg.AutoOffsetReset = AutoOffsetReset.Earliest;
+                })
+                .WithAdminClient();
 
-            _clientFactory = services.BuildServiceProvider().GetRequiredService<IKafkaClientFactory>();
+            _serviceProvider = services.BuildServiceProvider();
         }
 
         [Fact]
@@ -52,14 +57,11 @@ namespace Cheetah.Kafka.Test
         {
             // Arrange
             string topic = $"dotnet_{nameof(OAuthBearerToken_PublishConsume)}_{Guid.NewGuid()}";
-            await using var topicDeleter = new KafkaTopicDeleter(_clientFactory.CreateAdminClient(), topic); // Will delete the created topic when the test concludes, regardless of outcome
-
-            var producer = _clientFactory.CreateProducer<string, string>();
-            var consumer = _clientFactory.CreateConsumer<string, string>(cfg =>
-            {
-                cfg.GroupId = $"{nameof(OAuthBearerToken_PublishConsume)}_{Guid.NewGuid()}";
-                cfg.AutoOffsetReset = AutoOffsetReset.Earliest;
-            });
+            
+            // Emulate a service injecting an IAdminClient, IProducer and IConsumer
+            await using var topicDeleter = new KafkaTopicDeleter(_serviceProvider.GetRequiredService<IAdminClient>(), topic); // Will delete the created topic when the test concludes, regardless of outcome
+            var producer = _serviceProvider.GetRequiredService<IProducer<string, string>>();
+            var consumer = _serviceProvider.GetRequiredService<IConsumer<string, string>>();
 
             consumer.Subscribe(topic);
 

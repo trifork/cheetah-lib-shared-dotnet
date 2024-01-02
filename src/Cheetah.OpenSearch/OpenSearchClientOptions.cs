@@ -4,6 +4,9 @@ using OpenSearch.Client;
 
 namespace Cheetah.OpenSearch
 {
+    /// <summary>
+    /// Options for configuring the <see cref="OpenSearchClient"/>
+    /// </summary>
     public class OpenSearchClientOptions
     {
         /// <summary>

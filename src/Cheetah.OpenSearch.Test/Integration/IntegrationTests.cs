@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using Cheetah.OpenSearch.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Hosting.Internal;
 using OpenSearch.Client;
 using Xunit;
 using Xunit.Abstractions;

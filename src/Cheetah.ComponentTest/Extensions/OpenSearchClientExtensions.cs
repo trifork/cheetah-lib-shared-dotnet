@@ -5,8 +5,11 @@ using System.Threading.Tasks;
 using OpenSearch.Client;
 using OpenSearch.Net;
 
-namespace Cheetah.ComponentTest.OpenSearch
+namespace Cheetah.ComponentTest.Extensions
 {
+    /// <summary>
+    /// Extension methods for <see cref="IOpenSearchClient"/> to simplify common operations.
+    /// </summary>
     public static class OpenSearchClientExtensions
     {
         /// <summary>

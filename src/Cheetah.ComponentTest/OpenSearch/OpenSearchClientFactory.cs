@@ -3,7 +3,6 @@ using Cheetah.OpenSearch;
 using Cheetah.OpenSearch.Configuration;
 using Cheetah.OpenSearch.Util;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting.Internal;
 using Newtonsoft.Json;
 using OpenSearch.Client;
 

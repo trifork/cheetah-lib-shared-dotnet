@@ -24,10 +24,7 @@ builder.Services.AddCheetahKafka(builder.Configuration, options =>
     .WithKeyedConsumer<string, ExampleModel>("A", cfg => {
         cfg.GroupId = "a-group";
     })
-    .WithKeyedConsumer<string, ExampleModel>("B", cfg =>
-    {
-        // cfg.GroupId = "b-group";
-    })
+    .WithKeyedConsumer<string, ExampleModel>("B")
     .WithProducer<string, ExampleModel>();
 
 builder.Services.AddHostedService<ProducerService>();

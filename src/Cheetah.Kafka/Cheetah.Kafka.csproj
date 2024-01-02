@@ -4,6 +4,9 @@
         <TargetFrameworks>netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
         <Nullable>enable</Nullable>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>
+            SYSLIB1045 <!-- Supress GeneratedRegex warning, since we're not using regex in hot paths -->
+        </NoWarn>
     </PropertyGroup>
 
     <ItemGroup>

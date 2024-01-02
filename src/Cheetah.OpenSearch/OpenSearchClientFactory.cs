@@ -75,6 +75,7 @@ namespace Cheetah.OpenSearch
         {
             // TODO: We should need to have some defaults when initializing the client
             // TODO: dive down in the settings for OpenSearch and see if we need to expose any of the options as easily changeable
+            // MNR-note 02-01-2024: This note was left after a larger refactoring. I'm unsure if this is still relevant. TODO: remove me if not.
             return new ConnectionSettings(
                     _connectionPool,
                     _connection, // If this is null, a default connection will be used.
@@ -132,7 +133,7 @@ namespace Cheetah.OpenSearch
             config.Validate();
 
             var loggerFactory = new LoggerFactory();
-            var clientOptions = options ?? new OpenSearchClientOptions();
+            options ??= new OpenSearchClientOptions();
 
             IConnection? connection = null;
             if (config.AuthMode == OpenSearchConfig.OpenSearchAuthMode.OAuth2)
@@ -150,7 +151,7 @@ namespace Cheetah.OpenSearch
                     Options.Create(config), 
                     new Logger<OpenSearchClient>(loggerFactory),
                     new Logger<OpenSearchClientFactory>(loggerFactory),
-                    clientOptions,
+                    options,
                     ConnectionPoolHelper.GetConnectionPool(config.Url),
                     connection: connection)
                 .CreateOpenSearchClient();
