@@ -1,19 +1,19 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:58cae2df-d72e-4e4e-8078-554cae33d259",
+  "serialNumber": "urn:uuid:41aecadb-5efc-4a60-ba18-d300bd0f948e",
   "version": 1,
   "metadata": {
-    "timestamp": "2023-12-13T08:46:57.841Z",
+    "timestamp": "2023-12-26T01:26:49.307Z",
     "tools": {
       "components": [
         {
           "group": "@cyclonedx",
           "name": "cdxgen",
-          "version": "9.9.9",
-          "purl": "pkg:npm/%40cyclonedx/cdxgen@9.9.9",
+          "version": "9.10.1",
+          "purl": "pkg:npm/%40cyclonedx/cdxgen@9.10.1",
           "type": "application",
-          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@9.9.9",
+          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@9.10.1",
           "author": "OWASP Foundation",
           "publisher": "OWASP Foundation"
         }
@@ -273,7 +273,7 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit",
-      "version": "2.6.3",
+      "version": "2.6.4",
       "description": "xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.\n\nInstalling this package installs xunit.core, xunit.assert, and xunit.analyzers.",
       "licenses": [
         {
@@ -283,9 +283,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit@2.6.3",
+      "purl": "pkg:nuget/xunit@2.6.4",
       "type": "framework",
-      "bom-ref": "pkg:nuget/xunit@2.6.3",
+      "bom-ref": "pkg:nuget/xunit@2.6.4",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -357,7 +357,7 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit.extensibility.execution",
-      "version": "2.6.3",
+      "version": "2.6.4",
       "description": "Includes xunit.execution.*.dll for extensibility purposes. Supports .NET 4.5.2 or later, and .NET Standard 1.1.",
       "licenses": [
         {
@@ -367,9 +367,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.extensibility.execution@2.6.3",
+      "purl": "pkg:nuget/xunit.extensibility.execution@2.6.4",
       "type": "library",
-      "bom-ref": "pkg:nuget/xunit.extensibility.execution@2.6.3",
+      "bom-ref": "pkg:nuget/xunit.extensibility.execution@2.6.4",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -394,7 +394,7 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit.runner.visualstudio",
-      "version": "2.5.5",
+      "version": "2.5.6",
       "description": "Visual Studio 2022+ Test Explorer runner for the xUnit.net framework. Capable of running xUnit.net v1.9.2 and v2.0+ tests. Supports .NET 4.6.2 or later, and .NET 6 or later.",
       "licenses": [
         {
@@ -404,9 +404,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.runner.visualstudio@2.5.5",
+      "purl": "pkg:nuget/xunit.runner.visualstudio@2.5.6",
       "type": "framework",
-      "bom-ref": "pkg:nuget/xunit.runner.visualstudio@2.5.5",
+      "bom-ref": "pkg:nuget/xunit.runner.visualstudio@2.5.6",
       "evidence": {
         "identity": {
           "field": "purl",
