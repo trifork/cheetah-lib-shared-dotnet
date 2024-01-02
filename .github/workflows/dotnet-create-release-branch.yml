@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       project:
-        description: Which project to create a snapshot of
+        description: Which project to create a release branch for
         required: true
         type: choice
         options:
