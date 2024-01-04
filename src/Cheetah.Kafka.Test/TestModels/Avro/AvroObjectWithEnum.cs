@@ -68,7 +68,7 @@ namespace Cheetah.ComponentTest.Test.Model.Avro
 			case 1: return this.NullableInt;
 			case 2: return this.NullableString;
 			default: throw new global::Avro.AvroRuntimeException("Bad index " + fieldPos + " in Get()");
-			};
+			}
 		}
 		public virtual void Put(int fieldPos, object fieldValue)
 		{

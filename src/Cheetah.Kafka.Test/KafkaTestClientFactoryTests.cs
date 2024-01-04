@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,15 +8,15 @@ using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 
-namespace Cheetah.ComponentTest.Test
-{
-    [Trait("TestType", "IntegrationTests")]
-    [Collection("IntegrationTests")]
-    public class KafkaWriterReaderTests
-    {
-        readonly KafkaTestClientFactory _testClientFactory;
+namespace Cheetah.Kafka.Test;
 
-        public KafkaWriterReaderTests()
+[Trait("TestType", "IntegrationTests")]
+[Collection("IntegrationTests")]
+public class KafkaTestClientFactoryTests
+{
+    readonly KafkaTestClientFactory _testClientFactory;
+
+        public KafkaTestClientFactoryTests()
         {
             var conf = new Dictionary<string, string?>
             {
@@ -242,5 +242,4 @@ namespace Cheetah.ComponentTest.Test
         // }
         //
 
-    }
 }

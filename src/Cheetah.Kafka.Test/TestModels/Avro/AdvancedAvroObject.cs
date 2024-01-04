@@ -81,7 +81,7 @@ namespace Cheetah.ComponentTest.Test.Model.Avro
 			case 2: return this.AvroObjectWithEnum;
 			case 3: return this.LongNumber;
 			default: throw new global::Avro.AvroRuntimeException("Bad index " + fieldPos + " in Get()");
-			};
+			}
 		}
 		public virtual void Put(int fieldPos, object fieldValue)
 		{

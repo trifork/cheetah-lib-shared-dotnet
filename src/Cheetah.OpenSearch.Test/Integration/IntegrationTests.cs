@@ -2,7 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cheetah.ComponentTest.Extensions;
+using Cheetah.ComponentTest.Test.Model.OpenSearch;
 using Cheetah.OpenSearch.Extensions;
+using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenSearch.Client;
@@ -62,19 +65,33 @@ namespace Cheetah.OpenSearch.Test.Integration
             var configurationRoot = GetDefaultConfigurationBuilder().AddInMemoryCollection(additionalConfiguration).Build();
             var serviceProvider = CreateServiceProvider(configurationRoot);
             var client = serviceProvider.GetRequiredService<IOpenSearchClient>();
-            var newIndexName = Guid.NewGuid().ToString();
-            var newIndicesResponse = await client.Indices.CreateAsync(new CreateIndexRequest(newIndexName));
+            var indexName = Guid.NewGuid().ToString();
             
-            Assert.True(newIndicesResponse.Acknowledged);
+            var documents = new List<OpenSearchTestModel>
+            {
+                new ("Document 1", 2), 
+                new ("Document 2", 3), 
+                new ("Document 3", 4), 
+                new ("Document 4", 5),
+            };
 
-            var indices = await IndicesWithoutInternal(client);
+            // Make sure the index is empty - Okay if this fails, since the index might not be there.
+            await client.DeleteIndexAsync(indexName, allowFailure: true);
 
-            Assert.Contains(newIndexName, indices);
+            // Insert some data and verify its count
+            await client.InsertAsync(indexName, documents);
+            await client.RefreshIndexAsync(indexName);
 
-            await client.Indices.DeleteAsync(new DeleteIndexRequest(newIndexName));
-            indices = await IndicesWithoutInternal(client);
-            
-            Assert.DoesNotContain(newIndexName, indices);
+            // Verify the correct count
+            (await client.CountIndexedDocumentsAsync(indexName))
+                .Should().Be(documents.Count);
+
+            // Verify that all our documents were inserted
+            var actualDocuments = await client.GetFromIndexAsync<OpenSearchTestModel>(indexName);
+            actualDocuments.Should().BeEquivalentTo(documents, options => options.WithoutStrictOrdering());
+
+            // Verify that we can delete it all again and that nothing is left
+            await client.DeleteIndexAsync(indexName);
         }
         
         /// <summary>
@@ -93,20 +110,7 @@ namespace Cheetah.OpenSearch.Test.Integration
                 .AddInMemoryCollection(configurationDict)
                 .AddEnvironmentVariables();
         }
-
-        /// <summary>
-        /// Retrieves all indices from OpenSearch, excluding internal indices
-        /// </summary>
-        /// <param name="sut"></param>
-        /// <returns></returns>
-        private static async Task<List<string>> IndicesWithoutInternal(IOpenSearchClient sut)
-        {
-            var indicesResponse = await sut.Indices.GetAsync(new GetIndexRequest(Indices.All));
-            var indicesWithoutInternal = indicesResponse.Indices.Select(index => index.Key.ToString())
-                .Where(x => !x.StartsWith('.')).ToList();
-            return indicesWithoutInternal;
-        }
-
+        
         private static ServiceProvider CreateServiceProvider(IConfiguration config)
         {
             var serviceCollection = new ServiceCollection();

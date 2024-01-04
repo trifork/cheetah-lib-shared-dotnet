@@ -4,6 +4,7 @@
         <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
         <Nullable>enable</Nullable>
         <IsPackable>false</IsPackable>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     </PropertyGroup>
 
     <ItemGroup>
@@ -25,7 +26,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Cheetah.OpenSearch\Cheetah.OpenSearch.csproj" />
+        <ProjectReference Include="..\Cheetah.OpenSearch\Cheetah.OpenSearch.csproj" />
+        <ProjectReference Include="..\Cheetah.OpenSearch.Extensions\Cheetah.OpenSearch.Extensions.csproj" />
     </ItemGroup>
 
 </Project>

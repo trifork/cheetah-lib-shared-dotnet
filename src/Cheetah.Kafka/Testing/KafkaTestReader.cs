@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading;
 using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
-using Serilog;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Cheetah.Kafka.Testing
@@ -76,7 +75,7 @@ namespace Cheetah.Kafka.Testing
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
             cancellationTokenSource.CancelAfter(timeout);
             var cancellationToken = cancellationTokenSource.Token;
-            Log.Information(
+            Logger.LogInformation(
                 "Consuming messages from '{topic}', expecting a total of {count} messages...",
                 Topic,
                 count

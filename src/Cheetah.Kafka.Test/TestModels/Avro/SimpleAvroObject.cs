@@ -57,7 +57,7 @@ namespace Cheetah.ComponentTest.Test.Model.Avro
 			case 0: return this.Name;
 			case 1: return this.Number;
 			default: throw new global::Avro.AvroRuntimeException("Bad index " + fieldPos + " in Get()");
-			};
+			}
 		}
 		public virtual void Put(int fieldPos, object fieldValue)
 		{
@@ -66,7 +66,7 @@ namespace Cheetah.ComponentTest.Test.Model.Avro
 			case 0: this.Name = (System.String)fieldValue; break;
 			case 1: this.Number = (System.Int32)fieldValue; break;
 			default: throw new global::Avro.AvroRuntimeException("Bad index " + fieldPos + " in Put()");
-			};
+			}
 		}
 	}
 }

@@ -1,9 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>        
-        <TargetFrameworks>netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
-        <Nullable>enable</Nullable>
+    <PropertyGroup>
+        <AssemblyName>Cheetah.OpenSearch</AssemblyName>
+        <Authors>Trifork</Authors>
+        <Description>Allows easy bootstrapping and connection to OpenSearch within the context of the Cheetah data platform</Description>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <RepositoryUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</RepositoryUrl>
+        <RootNamespace>Cheetah.OpenSearch</RootNamespace>
+        <TargetFrameworks>netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <Nullable>enable</Nullable>
+        <VersionPrefix>0.0.1</VersionPrefix>
     </PropertyGroup>
 
     <ItemGroup>

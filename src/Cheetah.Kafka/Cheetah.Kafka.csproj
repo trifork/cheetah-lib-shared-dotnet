@@ -1,10 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
-        <Nullable>enable</Nullable>
+        <AssemblyName>Cheetah.Kafka</AssemblyName>
+        <Authors>Trifork</Authors>
+        <Description>Allows easy bootstrapping and connection to Kafka within the context of the Cheetah data platform</Description>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <RepositoryUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</RepositoryUrl>
+        <RootNamespace>Cheetah.Kafka</RootNamespace>
+        <TargetFrameworks>netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <Nullable>enable</Nullable>
+        <VersionPrefix>0.0.1</VersionPrefix>
         <NoWarn>
+            $(NoWarn);
             SYSLIB1045 <!-- Supress GeneratedRegex warning, since we're not using regex in hot paths -->
         </NoWarn>
     </PropertyGroup>

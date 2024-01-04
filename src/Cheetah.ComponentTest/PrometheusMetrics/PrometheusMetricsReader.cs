@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace Cheetah.ComponentTest.PrometheusMetrics
 {
-
+    /// <summary>
+    /// Utility class used to read metrics from a prometheus endpoint
+    /// </summary>
     public class PrometheusMetricsReader : IDisposable
     {
         private const string QuantileString = "quantile=\"";
@@ -38,7 +40,7 @@ namespace Cheetah.ComponentTest.PrometheusMetrics
             var stream = await httpClient.GetStreamAsync("");
             var metrics = new Dictionary<string, string>();
             using var reader = new StreamReader(stream);
-            string line;
+            string? line;
             while ((line = reader.ReadLine()) != null)
             {
                 if (line.StartsWith('#'))
@@ -72,7 +74,7 @@ namespace Cheetah.ComponentTest.PrometheusMetrics
         {
             var stream = await httpClient.GetStreamAsync("");
             using var reader = new StreamReader(stream);
-            string line;
+            string? line;
             double sum = 0;
             bool found = false;
             while ((line = reader.ReadLine()) != null)
@@ -118,11 +120,11 @@ namespace Cheetah.ComponentTest.PrometheusMetrics
         {
             var stream = await httpClient.GetStreamAsync("");
             using var reader = new StreamReader(stream);
-            string line;
+            string? line;
             List<PrometheusHistogram> histograms = new List<PrometheusHistogram>();
-            PrometheusHistogram histogram = null;
+            PrometheusHistogram? histogram = null;
             bool found = false;
-            while ((line = reader.ReadLine()) != null)
+            while ((line = await reader.ReadLineAsync()) != null)
             {
                 if (line.StartsWith("# HELP"))
                 {
@@ -156,17 +158,20 @@ namespace Cheetah.ComponentTest.PrometheusMetrics
                     }
                     else
                     {
-                        var quantileSplit = line.LastIndexOf(QuantileString);
+                        var quantileSplit = line.LastIndexOf(QuantileString, StringComparison.InvariantCulture);
                         var quantile = line[(quantileSplit + QuantileString.Length)..line.LastIndexOf('\"')];
                         var spaceSplit = line.LastIndexOf(' ');
                         var value = double.Parse(line.AsSpan(spaceSplit + 1), NumberStyles.Any, CultureInfo.InvariantCulture);
-                        histogram.AddQuantile(quantile, value);
+                        histogram?.AddQuantile(quantile, value);
                     }
                 }
             }
             return histograms;
         }
 
+        /// <summary>
+        /// Disposes the <see cref="HttpClient"/> used by this reader
+        /// </summary>
         public void Dispose()
         {
             httpClient.Dispose();
