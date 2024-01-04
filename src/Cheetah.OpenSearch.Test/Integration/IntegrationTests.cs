@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Cheetah.OpenSearch.Extensions;
 using Cheetah.OpenSearch.Test.Models;
