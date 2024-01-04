@@ -8,9 +8,8 @@ on:
         required: true
         type: choice
         options:
-          - Cheetah.WebApi.Shared
-          - Cheetah.ComponentTest
-        default: Cheetah.WebApi.Shared
+          - Cheetah.Kafka
+          - Cheetah.OpenSearch
       bump-type:
         description: Increment major or minor semantic version on main branch after release branch has been created
         required: true
