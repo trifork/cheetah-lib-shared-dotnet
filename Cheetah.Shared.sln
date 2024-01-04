@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Auth", "src\Cheetah.Auth\Cheetah.Auth.csproj", "{1DE5990E-1317-45CF-992E-A0036A6E0E36}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.ComponentTest", "src\Cheetah.ComponentTest\Cheetah.ComponentTest.csproj", "{218D3E64-0A50-44D4-B78B-4E56B963B281}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.MetricsTesting", "src\Cheetah.MetricsTesting\Cheetah.MetricsTesting.csproj", "{218D3E64-0A50-44D4-B78B-4E56B963B281}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheetah.Kafka", "src\Cheetah.Kafka\Cheetah.Kafka.csproj", "{1726C32F-95CD-4CA3-9BB4-B2AEF348C52E}"
 EndProject
