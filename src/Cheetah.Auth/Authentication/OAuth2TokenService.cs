@@ -52,7 +52,6 @@ namespace Cheetah.Auth.Authentication
             
             if(tokenResponse == null || tokenResponse.IsError || tokenResponse.AccessToken == null)
             {
-
                 throw new OAuth2TokenException($"Failed to retrieve access token for  {_config.ClientId}, Error: {tokenResponse?.Error}");
             }
             

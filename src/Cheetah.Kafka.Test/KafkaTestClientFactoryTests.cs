@@ -18,7 +18,7 @@ public class KafkaTestClientFactoryTests
 
         public KafkaTestClientFactoryTests()
         {
-            var conf = new Dictionary<string, string?>
+            var localConfig = new Dictionary<string, string?>
             {
                 { "KAFKA:URL", "localhost:9092" },
                 { "KAFKA:OAUTH2:CLIENTID", "tester" },
@@ -29,7 +29,7 @@ public class KafkaTestClientFactoryTests
             };
             
             var configuration = new ConfigurationBuilder()
-                .AddInMemoryCollection(conf)
+                .AddInMemoryCollection(localConfig)
                 .AddEnvironmentVariables()
                 .Build();
             

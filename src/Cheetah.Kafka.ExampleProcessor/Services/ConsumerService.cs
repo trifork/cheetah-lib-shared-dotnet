@@ -25,7 +25,7 @@ public class BConsumerService : ConsumerService
 {
     public BConsumerService(
         ILogger<ConsumerService> logger, 
-        [FromKeyedServices("B")] 
+        [FromKeyedServices("B")]
         IConsumer<string, ExampleModel> consumer) : base(logger, consumer)
     {
     }
