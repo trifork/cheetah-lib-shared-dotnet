@@ -1,2 +1,2 @@
-Cheetah.WebApi.Shared: src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj
-Cheetah.ComponentTest: src/Cheetah.ComponentTest/Cheetah.ComponentTest.csproj
+Cheetah.Kafka: src/Cheetah.Kafka/Cheetah.Kafka.csproj
+Cheetah.OpenSearch: src/Cheetah.OpenSearch/Cheetah.OpenSearch.csproj

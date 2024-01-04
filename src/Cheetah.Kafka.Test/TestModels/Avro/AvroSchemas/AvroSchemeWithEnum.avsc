@@ -1,0 +1,57 @@
+﻿{
+    "type": "record",
+    "name": "AdvancedAvroObject",
+    "namespace": "Cheetah.Kafka.Test.TestModels.Avro",
+    "fields": [
+        {
+            "name": "Id",
+            "type": "string"
+        },
+        {
+            "name": "Name",
+            "type": "string"
+        },
+        {
+            "name": "AvroObjectWithEnum",
+            "type": 
+                {
+                    "type": "record",
+                    "name": "AvroObjectWithEnum",
+                    "fields": [
+                        {
+                            "name": "EnumType",
+                            "type": {
+                                "name": "EnumTypeAvro",
+                                "type": "enum",
+                                "symbols": [
+                                    "EnumType1",
+                                    "EnumType2",
+                                    "EnumType3"
+                                   ]
+                            }
+                        },
+                        {
+                            "name": "NullableInt",
+                            "type": [
+                                "null",
+                                "int"
+                            ],
+                            "default": null
+                        },
+                        {
+                            "name": "NullableString",
+                            "type": [
+                                "null",
+                                "string"
+                            ],
+                            "default": null
+                        }
+                    ]
+                }
+        },
+        {
+            "name": "LongNumber",
+            "type": "long"
+        }
+    ]
+}

@@ -13,7 +13,6 @@ on:
     branches: [ 'main', 'release/v**' ]
   pull_request:
     branches: [ 'main', 'release/v**' ]
-    types: [ opened, synchronize, reopened, labeled ]
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
@@ -34,9 +33,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Unit Tests
-        run: dotnet test --logger trx --filter 'TestType!=IntegrationTests'
-
       - name: Setup development infrastructure
         uses: ./.github/actions/setup-development-infrastructure
         with:
@@ -44,14 +40,7 @@ jobs:
 
       - name: Start development infrastructure
         working-directory: integrationtests/
-        run: docker compose --profile core up -d --build
-
-      - name: Add hosts to /etc/hosts
-        run: |
-          sudo echo "127.0.0.1 opensearch" | sudo tee -a /etc/hosts
-          sudo echo "127.0.0.1 cheetahoauthsimulator" | sudo tee -a /etc/hosts
-          sudo echo "127.0.0.1 kafka" | sudo tee -a /etc/hosts
-          sudo echo "127.0.0.1 cheetahoauthsimulator" | sudo tee -a /etc/hosts
+        run: docker compose --profile core up -d --quiet-pull
 
       - name: Wait for opensearch, the slowest component
         uses: nick-fields/retry@v2.9.0
@@ -60,41 +49,23 @@ jobs:
           max_attempts: 25
           retry_wait_seconds: 5
           warning_on_retry: false
-          command: 'curl -sS -X GET -H "Content-Type: application/json" http://admin:admin@opensearch:9200/_cat/indices'
+          command: 'curl -sS -X GET -H "Content-Type: application/json" http://admin:admin@localhost:9200/_cat/indices'
 
       - name: Dotnet Test
-        run: dotnet test --logger trx --filter 'TestType=IntegrationTests'
+        run: dotnet test --logger trx
 
-      - name: Display test report
+      - name: Display test report OpenSearch
         uses: dorny/test-reporter@v1.7.0
         if: always()
         with:
           name: Tests
-          path: src/Cheetah.WebApi.Shared.Test/TestResults/*.trx
+          path: src/Cheetah.OpenSearch.Test/TestResults/*.trx
           reporter: dotnet-trx
 
-  component-test:
-    needs: should-run
-    if: ${{ needs.should-run.outputs.should-run }}
-
-    name: Component Tests
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup integration test
-        uses: ./.github/actions/setup-development-infrastructure
+      - name: Display test report Kafka
+        uses: dorny/test-reporter@v1.7.0
+        if: always()
         with:
-          PAT: ${{ secrets.PAT }}
-
-      - name: Start development infrastructure
-        working-directory: integrationtests/
-        run: docker compose --profile core up -d --build
-
-      - name: Run component tests
-        working-directory: src/Cheetah.ComponentTest.XUnit
-        run: docker compose -f docker-compose.yaml up --abort-on-container-exit
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          name: Tests
+          path: src/Cheetah.Kafka.Test/TestResults/*.trx
+          reporter: dotnet-trx
