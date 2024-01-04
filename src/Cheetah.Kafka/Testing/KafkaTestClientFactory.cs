@@ -59,10 +59,10 @@ namespace Cheetah.Kafka.Testing
             loggerFactory ??= LoggerFactory.Create(builder => builder.AddConsole());
             tokenService ??= new OAuth2TokenService(
                 loggerFactory.CreateLogger<OAuth2TokenService>(),
-                new DefaultHttpClientFactory(), 
+                new DefaultHttpClientFactory(),
                 new MemoryCache(new MemoryCacheOptions()),
                 Options.Create(configuration.OAuth2), 
-                "kafka-test-client");
+                "kafka-test-client");           
 
             var clientFactory = new KafkaClientFactory(tokenService, loggerFactory, config, options);
             return new KafkaTestClientFactory(clientFactory);

@@ -69,11 +69,3 @@ jobs:
           name: Tests
           path: src/Cheetah.Kafka.Test/TestResults/*.trx
           reporter: dotnet-trx
-
-      - name: Display test report ComponentTest
-        uses: dorny/test-reporter@v1.7.0
-        if: always()
-        with:
-          name: Tests
-          path: src/Cheetah.ComponentTest.Test/TestResults/*.trx
-          reporter: dotnet-trx
