@@ -1,4 +1,4 @@
-namespace Cheetah.ComponentTest.Test.Model.OpenSearch
+namespace Cheetah.OpenSearch.Test.Models
 {
     public class OpenSearchTestModel
     {

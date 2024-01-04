@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Cheetah.ComponentTest.PrometheusMetrics
+namespace Cheetah.MetricsTesting.PrometheusMetrics
 {
     /// <summary>
     /// Represents a prometheus histogram

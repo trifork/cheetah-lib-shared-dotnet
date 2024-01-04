@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>Cheetah.ComponentTest</AssemblyName>
+    <AssemblyName>Cheetah.MetricsTesting</AssemblyName>
     <Authors>Trifork</Authors>
-    <Description>Cheetah.ComponentTest</Description>
+    <Description>Cheetah.MetricsTesting</Description>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
     <PackageReadmeFile>CheetahComponentTest.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</RepositoryUrl>
-    <RootNamespace>Cheetah.ComponentTest</RootNamespace>
+    <RootNamespace>Cheetah.MetricsTesting</RootNamespace>
     <TargetFrameworks>netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
     <VersionPrefix>1.8.0</VersionPrefix>
     <NoWarn>
@@ -34,9 +34,5 @@
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
       <_Parameter1>$(AssemblyName).Test</_Parameter1>
     </AssemblyAttribute>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Extensions" />
   </ItemGroup>
 </Project>

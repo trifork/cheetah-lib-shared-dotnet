@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using OpenSearch.Client;
 using OpenSearch.Net;
 
-namespace Cheetah.ComponentTest.Extensions
+namespace Cheetah.OpenSearch.Extensions
 {
     // TODO: Should this be removed entirely or moved to Cheetah.OpenSearch?
     /// <summary>

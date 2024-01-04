@@ -5,7 +5,7 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Cheetah.ComponentTest.PrometheusMetrics
+namespace Cheetah.MetricsTesting.PrometheusMetrics
 {
     /// <summary>
     /// Utility class used to read metrics from a prometheus endpoint

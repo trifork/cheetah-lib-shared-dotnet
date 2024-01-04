@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Cheetah.ComponentTest.Test.Model.Avro;
+using Cheetah.Kafka.Test.TestModels.Avro;
 using Cheetah.Kafka.Testing;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;

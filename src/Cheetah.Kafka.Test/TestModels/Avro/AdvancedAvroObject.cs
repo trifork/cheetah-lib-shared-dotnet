@@ -5,7 +5,7 @@
 //    is regenerated
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Cheetah.ComponentTest.Test.Model.Avro
+namespace Cheetah.Kafka.Test.TestModels.Avro
 {
 	using System;
 	using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace Cheetah.ComponentTest.Test.Model.Avro
 	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("avrogen", "1.11.1")]
 	public partial class AdvancedAvroObject : global::Avro.Specific.ISpecificRecord
 	{
-		public static global::Avro.Schema _SCHEMA = global::Avro.Schema.Parse(@"{""type"":""record"",""name"":""AdvancedAvroObject"",""namespace"":""Cheetah.ComponentTest.Test.Model.Avro"",""fields"":[{""name"":""Id"",""type"":""string""},{""name"":""Name"",""type"":""string""},{""name"":""AvroObjectWithEnum"",""type"":{""type"":""record"",""name"":""AvroObjectWithEnum"",""namespace"":""Cheetah.ComponentTest.Test.Model.Avro"",""fields"":[{""name"":""EnumType"",""type"":{""type"":""enum"",""name"":""EnumTypeAvro"",""namespace"":""Cheetah.ComponentTest.Test.Model.Avro"",""symbols"":[""EnumType1"",""EnumType2"",""EnumType3""]}},{""name"":""NullableInt"",""default"":null,""type"":[""null"",""int""]},{""name"":""NullableString"",""default"":null,""type"":[""null"",""string""]}]}},{""name"":""LongNumber"",""type"":""long""}]}");
+		public static global::Avro.Schema _SCHEMA = global::Avro.Schema.Parse(@"{""type"":""record"",""name"":""AdvancedAvroObject"",""namespace"":""Cheetah.Kafka.Test.TestModels.Avro"",""fields"":[{""name"":""Id"",""type"":""string""},{""name"":""Name"",""type"":""string""},{""name"":""AvroObjectWithEnum"",""type"":{""type"":""record"",""name"":""AvroObjectWithEnum"",""namespace"":""Cheetah.Kafka.Test.TestModels.Avro"",""fields"":[{""name"":""EnumType"",""type"":{""type"":""enum"",""name"":""EnumTypeAvro"",""namespace"":""Cheetah.Kafka.Test.TestModels.Avro"",""symbols"":[""EnumType1"",""EnumType2"",""EnumType3""]}},{""name"":""NullableInt"",""default"":null,""type"":[""null"",""int""]},{""name"":""NullableString"",""default"":null,""type"":[""null"",""string""]}]}},{""name"":""LongNumber"",""type"":""long""}]}");
 		private string _Id;
 		private string _Name;
 		private AvroObjectWithEnum _AvroObjectWithEnum;
