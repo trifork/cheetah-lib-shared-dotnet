@@ -1,19 +1,19 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:41aecadb-5efc-4a60-ba18-d300bd0f948e",
+  "serialNumber": "urn:uuid:cd2e6749-fee3-4624-a6f7-830e61637b04",
   "version": 1,
   "metadata": {
-    "timestamp": "2023-12-26T01:26:49.307Z",
+    "timestamp": "2024-01-05T07:40:46.106Z",
     "tools": {
       "components": [
         {
           "group": "@cyclonedx",
           "name": "cdxgen",
-          "version": "9.10.1",
-          "purl": "pkg:npm/%40cyclonedx/cdxgen@9.10.1",
+          "version": "9.10.2",
+          "purl": "pkg:npm/%40cyclonedx/cdxgen@9.10.2",
           "type": "application",
-          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@9.10.1",
+          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@9.10.2",
           "author": "OWASP Foundation",
           "publisher": "OWASP Foundation"
         }
@@ -35,10 +35,104 @@
   },
   "components": [
     {
+      "author": "Dennis Doomen,Jonas Nyrup",
+      "group": "",
+      "name": "FluentAssertions",
+      "version": "6.12.0",
+      "description": "A very extensive set of extension methods that allow you to more naturally specify the expected outcome of a TDD or\n      BDD-style unit tests. Targets .NET Framework 4.7, .NET Core 2.1 and 3.0, .NET 6, as well as .NET Standard 2.0 and 2.1.\n      Supports the unit test frameworks MSTest2, NUnit3, XUnit2, MSpec, and NSpec3.\n\n      Supported by InfoSupport B.V.",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "url": "https://opensource.org/licenses/Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/FluentAssertions@6.12.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/FluentAssertions/6.12.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://www.fluentassertions.com/"
+        }
+      ],
+      "type": "framework",
+      "bom-ref": "pkg:nuget/FluentAssertions@6.12.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.OpenSearch.Test/Cheetah.OpenSearch.Test.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.OpenSearch.Test/Cheetah.OpenSearch.Test.csproj"
+        }
+      ]
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "Microsoft.Extensions.Caching.Memory",
+      "version": "8.0.0",
+      "description": "In-memory cache implementation of Microsoft.Extensions.Caching.Memory.IMemoryCache.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Microsoft.Extensions.Caching.Memory@8.0.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/8.0.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://dot.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Caching.Memory@8.0.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.OpenSearch.Test/Cheetah.OpenSearch.Test.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.OpenSearch.Test/Cheetah.OpenSearch.Test.csproj"
+        }
+      ]
+    },
+    {
       "author": "Microsoft",
       "group": "",
       "name": "Microsoft.Extensions.Hosting",
-      "version": "6.0.1",
+      "version": "8.0.0",
       "description": "Hosting and startup infrastructures for applications.",
       "licenses": [
         {
@@ -48,11 +142,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Microsoft.Extensions.Hosting@6.0.1",
+      "purl": "pkg:nuget/Microsoft.Extensions.Hosting@8.0.0",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Hosting/6.0.1/"
+          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Hosting/8.0.0/"
         },
         {
           "type": "vcs",
@@ -60,7 +154,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Extensions.Hosting@6.0.1",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Hosting@8.0.0",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -69,7 +163,7 @@
             {
               "technique": "manifest-analysis",
               "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+              "value": "/app/src/Cheetah.OpenSearch.Test/Cheetah.OpenSearch.Test.csproj"
             }
           ]
         }
@@ -77,54 +171,7 @@
       "properties": [
         {
           "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
-        }
-      ]
-    },
-    {
-      "author": "Confluent Inc.,Andreas Heider",
-      "group": "",
-      "name": "Confluent.Kafka",
-      "version": "2.3.0",
-      "description": "Confluent's .NET Client for Apache Kafka",
-      "licenses": [
-        {
-          "license": {
-            "url": "https://github.com/confluentinc/confluent-kafka-dotnet/blob/master/LICENSE",
-            "id": "Apache-2.0"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/Confluent.Kafka@2.3.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/Confluent.Kafka/2.3.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://github.com/confluentinc/confluent-kafka-dotnet/"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/Confluent.Kafka@2.3.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 0.7,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+          "value": "/app/src/Cheetah.OpenSearch.Test/Cheetah.OpenSearch.Test.csproj"
         }
       ]
     },
@@ -163,7 +210,7 @@
             {
               "technique": "manifest-analysis",
               "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+              "value": "/app/src/Cheetah.OpenSearch.Test/Cheetah.OpenSearch.Test.csproj"
             }
           ]
         }
@@ -171,7 +218,7 @@
       "properties": [
         {
           "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+          "value": "/app/src/Cheetah.OpenSearch.Test/Cheetah.OpenSearch.Test.csproj"
         }
       ]
     },
@@ -210,7 +257,7 @@
             {
               "technique": "manifest-analysis",
               "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+              "value": "/app/src/Cheetah.OpenSearch.Test/Cheetah.OpenSearch.Test.csproj"
             }
           ]
         }
@@ -218,54 +265,7 @@
       "properties": [
         {
           "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
-        }
-      ]
-    },
-    {
-      "author": "Todd Benning",
-      "group": "",
-      "name": "Serilog.Sinks.XUnit",
-      "version": "3.0.5",
-      "description": "The xUnit test output sink for Serilog",
-      "licenses": [
-        {
-          "license": {
-            "url": "https://github.com/trbenning/serilog-sinks-xunit/blob/master/LICENSE",
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/Serilog.Sinks.XUnit@3.0.5",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/Serilog.Sinks.XUnit/3.0.5/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://github.com/trbenning/serilog-sinks-xunit"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/Serilog.Sinks.XUnit@3.0.5",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 0.7,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+          "value": "/app/src/Cheetah.OpenSearch.Test/Cheetah.OpenSearch.Test.csproj"
         }
       ]
     },
@@ -294,7 +294,7 @@
             {
               "technique": "manifest-analysis",
               "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+              "value": "/app/src/Cheetah.OpenSearch.Test/Cheetah.OpenSearch.Test.csproj"
             }
           ]
         }
@@ -302,63 +302,16 @@
       "properties": [
         {
           "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
-        }
-      ]
-    },
-    {
-      "author": "Andrew Arnott",
-      "group": "",
-      "name": "Xunit.SkippableFact",
-      "version": "1.4.13",
-      "description": "Make your Xunit test methods self-determine to report a \"skipped\" result. Useful for such cases as \"not supported on this platform\" results or other environmental inputs.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MS-PL",
-            "url": "https://opensource.org/licenses/MS-PL"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/Xunit.SkippableFact@1.4.13",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/Xunit.SkippableFact/1.4.13/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://github.com/AArnott/Xunit.SkippableFact"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/Xunit.SkippableFact@1.4.13",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 0.7,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+          "value": "/app/src/Cheetah.OpenSearch.Test/Cheetah.OpenSearch.Test.csproj"
         }
       ]
     },
     {
       "author": "jnewkirk,bradwilson",
       "group": "",
-      "name": "xunit.extensibility.execution",
+      "name": "xunit.extensibility.core",
       "version": "2.6.4",
-      "description": "Includes xunit.execution.*.dll for extensibility purposes. Supports .NET 4.5.2 or later, and .NET Standard 1.1.",
+      "description": "Includes xunit.core.dll for extensibility purposes. Supports .NET 4.5.2 or later, and .NET Standard 1.1.",
       "licenses": [
         {
           "license": {
@@ -367,9 +320,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.extensibility.execution@2.6.4",
+      "purl": "pkg:nuget/xunit.extensibility.core@2.6.4",
       "type": "library",
-      "bom-ref": "pkg:nuget/xunit.extensibility.execution@2.6.4",
+      "bom-ref": "pkg:nuget/xunit.extensibility.core@2.6.4",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -378,7 +331,7 @@
             {
               "technique": "manifest-analysis",
               "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+              "value": "/app/src/Cheetah.OpenSearch.Test/Cheetah.OpenSearch.Test.csproj"
             }
           ]
         }
@@ -386,7 +339,7 @@
       "properties": [
         {
           "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+          "value": "/app/src/Cheetah.OpenSearch.Test/Cheetah.OpenSearch.Test.csproj"
         }
       ]
     },
@@ -415,7 +368,7 @@
             {
               "technique": "manifest-analysis",
               "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+              "value": "/app/src/Cheetah.OpenSearch.Test/Cheetah.OpenSearch.Test.csproj"
             }
           ]
         }
@@ -423,7 +376,7 @@
       "properties": [
         {
           "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+          "value": "/app/src/Cheetah.OpenSearch.Test/Cheetah.OpenSearch.Test.csproj"
         }
       ]
     },
@@ -462,7 +415,7 @@
             {
               "technique": "manifest-analysis",
               "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
+              "value": "/app/src/Cheetah.OpenSearch.Test/Cheetah.OpenSearch.Test.csproj"
             }
           ]
         }
@@ -470,430 +423,7 @@
       "properties": [
         {
           "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared.Test/Cheetah.WebApi.Shared.Test.csproj"
-        }
-      ]
-    },
-    {
-      "author": "Dominick Baier,Brock Allen",
-      "group": "",
-      "name": "IdentityModel",
-      "version": "6.2.0",
-      "description": "OpenID Connect & OAuth 2.0 client library",
-      "licenses": [
-        {
-          "license": {
-            "url": "https://github.com/IdentityModel/IdentityModel/blob/main/LICENSE",
-            "id": "Apache-2.0"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/IdentityModel@6.2.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/IdentityModel/6.2.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://github.com/IdentityModel/IdentityModel"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/IdentityModel@6.2.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 0.7,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-        }
-      ]
-    },
-    {
-      "author": "Microsoft",
-      "group": "",
-      "name": "Microsoft.AspNetCore.Authentication.JwtBearer",
-      "version": "6.0.25",
-      "description": "ASP.NET Core middleware that enables an application to receive an OpenID Connect bearer token.\n\nThis package was built from the source code at https://github.com/dotnet/aspnetcore/tree/36be7ed6d6d56b7da0a2891e3de7ecc2aa48eecd",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/Microsoft.AspNetCore.Authentication.JwtBearer@6.0.25",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.JwtBearer/6.0.25/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://asp.net/"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.AspNetCore.Authentication.JwtBearer@6.0.25",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 0.7,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-        }
-      ]
-    },
-    {
-      "author": "Microsoft",
-      "group": "",
-      "name": "Microsoft.Extensions.Caching.Abstractions",
-      "version": "6.0.0",
-      "description": "Caching abstractions for in-memory cache and distributed cache.\n\nCommonly Used Types:\nMicrosoft.Extensions.Caching.Distributed.IDistributedCache\nMicrosoft.Extensions.Caching.Memory.IMemoryCache",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/Microsoft.Extensions.Caching.Abstractions@6.0.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Caching.Abstractions/6.0.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://dot.net/"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Extensions.Caching.Abstractions@6.0.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 0.7,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-        }
-      ]
-    },
-    {
-      "author": "Microsoft",
-      "group": "",
-      "name": "Microsoft.Extensions.DependencyInjection.Abstractions",
-      "version": "6.0.0",
-      "description": "Abstractions for dependency injection.\n\nCommonly Used Types:\nMicrosoft.Extensions.DependencyInjection.IServiceCollection",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@6.0.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection.Abstractions/6.0.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://dot.net/"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@6.0.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 0.7,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-        }
-      ]
-    },
-    {
-      "author": "Microsoft",
-      "group": "",
-      "name": "Microsoft.Extensions.Hosting.Abstractions",
-      "version": "6.0.0",
-      "description": "Hosting and startup abstractions for applications.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/Microsoft.Extensions.Hosting.Abstractions@6.0.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Hosting.Abstractions/6.0.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://dot.net/"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Extensions.Hosting.Abstractions@6.0.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 0.7,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-        }
-      ]
-    },
-    {
-      "author": "Microsoft",
-      "group": "",
-      "name": "Microsoft.Extensions.Http.Polly",
-      "version": "6.0.25",
-      "description": "The HttpClient factory is a pattern for configuring and retrieving named HttpClients in a composable way. This package integrates IHttpClientFactory with the Polly library, to add transient-fault-handling and resiliency through fluent policies such as Retry, Circuit Breaker, Timeout, Bulkhead Isolation, and Fallback.\n    \n\nThis package was built from the source code at https://github.com/dotnet/aspnetcore/tree/36be7ed6d6d56b7da0a2891e3de7ecc2aa48eecd",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/Microsoft.Extensions.Http.Polly@6.0.25",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Http.Polly/6.0.25/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://asp.net/"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Extensions.Http.Polly@6.0.25",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 0.7,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-        }
-      ]
-    },
-    {
-      "author": "Microsoft",
-      "group": "",
-      "name": "Microsoft.Extensions.Logging.Abstractions",
-      "version": "6.0.4",
-      "description": "Logging abstractions for Microsoft.Extensions.Logging.\n\nCommonly Used Types:\nMicrosoft.Extensions.Logging.ILogger\nMicrosoft.Extensions.Logging.ILoggerFactory\nMicrosoft.Extensions.Logging.ILogger<TCategoryName>\nMicrosoft.Extensions.Logging.LogLevel\nMicrosoft.Extensions.Logging.Logger<T>\nMicrosoft.Extensions.Logging.LoggerMessage\nMicrosoft.Extensions.Logging.Abstractions.NullLogger",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@6.0.4",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Logging.Abstractions/6.0.4/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://dot.net/"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@6.0.4",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 0.7,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-        }
-      ]
-    },
-    {
-      "author": "Microsoft",
-      "group": "",
-      "name": "Microsoft.Extensions.Options",
-      "version": "6.0.0",
-      "description": "Provides a strongly typed way of specifying and accessing settings using dependency injection.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/Microsoft.Extensions.Options@6.0.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Options/6.0.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://dot.net/"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Extensions.Options@6.0.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 0.7,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-        }
-      ]
-    },
-    {
-      "author": "Microsoft",
-      "group": "",
-      "name": "Microsoft.IdentityModel.Tokens",
-      "version": "6.33.0",
-      "description": "Includes types that provide support for SecurityTokens, Cryptographic operations: Signing, Verifying Signatures, Encryption.",
-      "licenses": [
-        {
-          "license": {
-            "url": "https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet/blob/dev/LICENSE.txt",
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/Microsoft.IdentityModel.Tokens@6.33.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.IdentityModel.Tokens/6.33.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.IdentityModel.Tokens@6.33.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 0.7,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+          "value": "/app/src/Cheetah.OpenSearch.Test/Cheetah.OpenSearch.Test.csproj"
         }
       ]
     },
@@ -932,7 +462,7 @@
             {
               "technique": "manifest-analysis",
               "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+              "value": "/app/src/Cheetah.OpenSearch.Extensions/Cheetah.OpenSearch.Extensions.csproj"
             }
           ]
         }
@@ -940,7 +470,289 @@
       "properties": [
         {
           "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+          "value": "/app/src/Cheetah.OpenSearch.Extensions/Cheetah.OpenSearch.Extensions.csproj"
+        }
+      ]
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "Microsoft.AspNetCore.OpenApi",
+      "version": "8.0.0",
+      "description": "Provides APIs for annotating route handler endpoints in ASP.NET Core with OpenAPI annotations.\n\nThis package was built from the source code at https://github.com/dotnet/aspnetcore/tree/3f1acb59718cadf111a0a796681e3d3509bb3381",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Microsoft.AspNetCore.OpenApi/8.0.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://asp.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.OpenSearch.ExampleAPI/Cheetah.OpenSearch.ExampleAPI.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.OpenSearch.ExampleAPI/Cheetah.OpenSearch.ExampleAPI.csproj"
+        }
+      ]
+    },
+    {
+      "author": "Swashbuckle.AspNetCore",
+      "group": "",
+      "name": "Swashbuckle.AspNetCore",
+      "version": "6.5.0",
+      "description": "Swagger tools for documenting APIs built on ASP.NET Core",
+      "licenses": [
+        {
+          "license": {
+            "url": "https://github.com/domaindrivendev/Swashbuckle.AspNetCore/blob/master/LICENSE",
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Swashbuckle.AspNetCore@6.5.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Swashbuckle.AspNetCore/6.5.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/domaindrivendev/Swashbuckle.AspNetCore"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Swashbuckle.AspNetCore@6.5.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.OpenSearch.ExampleAPI/Cheetah.OpenSearch.ExampleAPI.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.OpenSearch.ExampleAPI/Cheetah.OpenSearch.ExampleAPI.csproj"
+        }
+      ]
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "Microsoft.Extensions.Configuration",
+      "version": "8.0.0",
+      "description": "Implementation of key-value pair based configuration for Microsoft.Extensions.Configuration. Includes the memory configuration provider.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Microsoft.Extensions.Configuration@8.0.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Configuration/8.0.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://dot.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Configuration@8.0.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.OpenSearch/Cheetah.OpenSearch.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.OpenSearch/Cheetah.OpenSearch.csproj"
+        }
+      ]
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "Microsoft.Extensions.DependencyInjection",
+      "version": "8.0.0",
+      "description": "Default implementation of dependency injection for Microsoft.Extensions.DependencyInjection.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Microsoft.Extensions.DependencyInjection@8.0.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection/8.0.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://dot.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.DependencyInjection@8.0.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.OpenSearch/Cheetah.OpenSearch.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.OpenSearch/Cheetah.OpenSearch.csproj"
+        }
+      ]
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "Microsoft.Extensions.Logging.Abstractions",
+      "version": "8.0.0",
+      "description": "Logging abstractions for Microsoft.Extensions.Logging.\n\nCommonly Used Types:\nMicrosoft.Extensions.Logging.ILogger\nMicrosoft.Extensions.Logging.ILoggerFactory\nMicrosoft.Extensions.Logging.ILogger<TCategoryName>\nMicrosoft.Extensions.Logging.LogLevel\nMicrosoft.Extensions.Logging.Logger<T>\nMicrosoft.Extensions.Logging.LoggerMessage\nMicrosoft.Extensions.Logging.Abstractions.NullLogger",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@8.0.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Logging.Abstractions/8.0.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://dot.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@8.0.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.OpenSearch/Cheetah.OpenSearch.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.OpenSearch/Cheetah.OpenSearch.csproj"
+        }
+      ]
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "Microsoft.Extensions.Options.ConfigurationExtensions",
+      "version": "8.0.0",
+      "description": "Provides additional configuration specific functionality related to Options.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Microsoft.Extensions.Options.ConfigurationExtensions@8.0.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Options.ConfigurationExtensions/8.0.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://dot.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Options.ConfigurationExtensions@8.0.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.OpenSearch/Cheetah.OpenSearch.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.OpenSearch/Cheetah.OpenSearch.csproj"
         }
       ]
     },
@@ -979,7 +791,7 @@
             {
               "technique": "manifest-analysis",
               "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
+              "value": "/app/src/Cheetah.OpenSearch/Cheetah.OpenSearch.csproj"
             }
           ]
         }
@@ -987,430 +799,7 @@
       "properties": [
         {
           "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-        }
-      ]
-    },
-    {
-      "author": "andrasm,qed-,lakario,sandersaares",
-      "group": "",
-      "name": "prometheus-net",
-      "version": "8.2.0",
-      "description": ".NET client library for the Prometheus monitoring and alerting system",
-      "licenses": [
-        {
-          "license": {
-            "url": "https://github.com/prometheus-net/prometheus-net/blob/master/LICENSE",
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/prometheus-net@8.2.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/prometheus-net/8.2.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://github.com/prometheus-net/prometheus-net"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/prometheus-net@8.2.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 0.7,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-        }
-      ]
-    },
-    {
-      "author": "andrasm,qed-,lakario,sandersaares",
-      "group": "",
-      "name": "prometheus-net.AspNetCore",
-      "version": "8.2.0",
-      "description": "ASP.NET Core middleware and stand-alone Kestrel server for exporting metrics to Prometheus",
-      "licenses": [
-        {
-          "license": {
-            "url": "https://github.com/prometheus-net/prometheus-net/blob/master/LICENSE",
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/prometheus-net.AspNetCore@8.2.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/prometheus-net.AspNetCore/8.2.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://github.com/prometheus-net/prometheus-net"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/prometheus-net.AspNetCore@8.2.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 0.7,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-        }
-      ]
-    },
-    {
-      "author": "Swashbuckle.AspNetCore.SwaggerGen",
-      "group": "",
-      "name": "Swashbuckle.AspNetCore.SwaggerGen",
-      "version": "6.5.0",
-      "description": "Swagger Generator for APIs built on ASP.NET Core",
-      "licenses": [
-        {
-          "license": {
-            "url": "https://github.com/domaindrivendev/Swashbuckle.AspNetCore/blob/master/LICENSE",
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/Swashbuckle.AspNetCore.SwaggerGen@6.5.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerGen/6.5.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://github.com/domaindrivendev/Swashbuckle.AspNetCore"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/Swashbuckle.AspNetCore.SwaggerGen@6.5.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 0.7,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-        }
-      ]
-    },
-    {
-      "author": "Microsoft",
-      "group": "",
-      "name": "System.IdentityModel.Tokens.Jwt",
-      "version": "6.33.0",
-      "description": "Includes types that provide support for creating, serializing and validating JSON Web Tokens.",
-      "licenses": [
-        {
-          "license": {
-            "url": "https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet/blob/dev/LICENSE.txt",
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/System.IdentityModel.Tokens.Jwt@6.33.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/System.IdentityModel.Tokens.Jwt/6.33.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/System.IdentityModel.Tokens.Jwt@6.33.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 0.7,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 0.7,
-              "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.WebApi.Shared/Cheetah.WebApi.Shared.csproj"
-        }
-      ]
-    },
-    {
-      "author": "Microsoft",
-      "group": "",
-      "name": "Microsoft.Extensions.Http",
-      "version": "6.0.0",
-      "description": "The HttpClient factory is a pattern for configuring and retrieving named HttpClients in a composable way. The HttpClient factory provides extensibility to plug in DelegatingHandlers that address cross-cutting concerns such as service location, load balancing, and reliability. The default HttpClient factory provides built-in diagnostics and logging and manages the lifetimes of connections in a performant way.\n\nCommonly Used Types:\nSystem.Net.Http.IHttpClientFactory",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/Microsoft.Extensions.Http@6.0.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Http/6.0.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://dot.net/"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Extensions.Http@6.0.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 0.7,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 0.7,
-              "value": "/app/src/Cheetah.Core/Cheetah.Core.csproj"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.Core/Cheetah.Core.csproj"
-        }
-      ]
-    },
-    {
-      "author": "James Newton-King",
-      "group": "",
-      "name": "Newtonsoft.Json",
-      "version": "13.0.3",
-      "description": "Json.NET is a popular high-performance JSON framework for .NET",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/Newtonsoft.Json@13.0.3",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/Newtonsoft.Json/13.0.3/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://www.newtonsoft.com/json"
-        }
-      ],
-      "type": "framework",
-      "bom-ref": "pkg:nuget/Newtonsoft.Json@13.0.3",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 0.7,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 0.7,
-              "value": "/app/src/Cheetah.Core/Cheetah.Core.csproj"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.Core/Cheetah.Core.csproj"
-        }
-      ]
-    },
-    {
-      "author": "Serilog Contributors",
-      "group": "",
-      "name": "Serilog",
-      "version": "3.1.1",
-      "description": "Simple .NET logging with fully-structured events",
-      "licenses": [
-        {
-          "license": {
-            "id": "Apache-2.0",
-            "url": "https://opensource.org/licenses/Apache-2.0"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/Serilog@3.1.1",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/Serilog/3.1.1/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://serilog.net/"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/Serilog@3.1.1",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 0.7,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 0.7,
-              "value": "/app/src/Cheetah.Core/Cheetah.Core.csproj"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.Core/Cheetah.Core.csproj"
-        }
-      ]
-    },
-    {
-      "author": "Dennis Doomen,Jonas Nyrup",
-      "group": "",
-      "name": "FluentAssertions",
-      "version": "6.12.0",
-      "description": "A very extensive set of extension methods that allow you to more naturally specify the expected outcome of a TDD or\n      BDD-style unit tests. Targets .NET Framework 4.7, .NET Core 2.1 and 3.0, .NET 6, as well as .NET Standard 2.0 and 2.1.\n      Supports the unit test frameworks MSTest2, NUnit3, XUnit2, MSpec, and NSpec3.\n\n      Supported by InfoSupport B.V.",
-      "licenses": [
-        {
-          "license": {
-            "id": "Apache-2.0",
-            "url": "https://opensource.org/licenses/Apache-2.0"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/FluentAssertions@6.12.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/FluentAssertions/6.12.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://www.fluentassertions.com/"
-        }
-      ],
-      "type": "framework",
-      "bom-ref": "pkg:nuget/FluentAssertions@6.12.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 0.7,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 0.7,
-              "value": "/app/src/Cheetah.ComponentTest.XUnit/Cheetah.ComponentTest.XUnit.csproj"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.ComponentTest.XUnit/Cheetah.ComponentTest.XUnit.csproj"
-        }
-      ]
-    },
-    {
-      "author": "Microsoft",
-      "group": "",
-      "name": "Microsoft.Extensions.Configuration",
-      "version": "7.0.0",
-      "description": "Implementation of key-value pair based configuration for Microsoft.Extensions.Configuration. Includes the memory configuration provider.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/Microsoft.Extensions.Configuration@7.0.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Configuration/7.0.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://dot.net/"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Extensions.Configuration@7.0.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 0.7,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 0.7,
-              "value": "/app/src/Cheetah.ComponentTest.XUnit/Cheetah.ComponentTest.XUnit.csproj"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.ComponentTest.XUnit/Cheetah.ComponentTest.XUnit.csproj"
+          "value": "/app/src/Cheetah.OpenSearch/Cheetah.OpenSearch.csproj"
         }
       ]
     },
@@ -1449,7 +838,7 @@
             {
               "technique": "manifest-analysis",
               "confidence": 0.7,
-              "value": "/app/src/Cheetah.ComponentTest/Cheetah.ComponentTest.csproj"
+              "value": "/app/src/Cheetah.MetricsTesting/Cheetah.MetricsTesting.csproj"
             }
           ]
         }
@@ -1457,16 +846,16 @@
       "properties": [
         {
           "name": "SrcFile",
-          "value": "/app/src/Cheetah.ComponentTest/Cheetah.ComponentTest.csproj"
+          "value": "/app/src/Cheetah.MetricsTesting/Cheetah.MetricsTesting.csproj"
         }
       ]
     },
     {
       "author": "Microsoft",
       "group": "",
-      "name": "Microsoft.Extensions.Caching.Memory",
-      "version": "6.0.1",
-      "description": "In-memory cache implementation of Microsoft.Extensions.Caching.Memory.IMemoryCache.",
+      "name": "Microsoft.Extensions.Http",
+      "version": "8.0.0",
+      "description": "The HttpClient factory is a pattern for configuring and retrieving named HttpClients in a composable way. The HttpClient factory provides extensibility to plug in DelegatingHandlers that address cross-cutting concerns such as service location, load balancing, and reliability. The default HttpClient factory provides built-in diagnostics and logging and manages the lifetimes of connections in a performant way.\n\nCommonly Used Types:\nSystem.Net.Http.IHttpClientFactory",
       "licenses": [
         {
           "license": {
@@ -1475,11 +864,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Microsoft.Extensions.Caching.Memory@6.0.1",
+      "purl": "pkg:nuget/Microsoft.Extensions.Http@8.0.0",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/6.0.1/"
+          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Http/8.0.0/"
         },
         {
           "type": "vcs",
@@ -1487,7 +876,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Extensions.Caching.Memory@6.0.1",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Http@8.0.0",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -1496,7 +885,7 @@
             {
               "technique": "manifest-analysis",
               "confidence": 0.7,
-              "value": "/app/src/Cheetah.ComponentTest/Cheetah.ComponentTest.csproj"
+              "value": "/app/src/Cheetah.MetricsTesting/Cheetah.MetricsTesting.csproj"
             }
           ]
         }
@@ -1504,16 +893,16 @@
       "properties": [
         {
           "name": "SrcFile",
-          "value": "/app/src/Cheetah.ComponentTest/Cheetah.ComponentTest.csproj"
+          "value": "/app/src/Cheetah.MetricsTesting/Cheetah.MetricsTesting.csproj"
         }
       ]
     },
     {
       "author": "Microsoft",
       "group": "",
-      "name": "Microsoft.Extensions.Options.DataAnnotations",
-      "version": "6.0.0",
-      "description": "Provides additional DataAnnotations specific functionality related to Options.",
+      "name": "Microsoft.Extensions.Caching.Abstractions",
+      "version": "8.0.0",
+      "description": "Caching abstractions for in-memory cache and distributed cache.\n\nCommonly Used Types:\nMicrosoft.Extensions.Caching.Distributed.IDistributedCache\nMicrosoft.Extensions.Caching.Memory.IMemoryCache",
       "licenses": [
         {
           "license": {
@@ -1522,11 +911,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Microsoft.Extensions.Options.DataAnnotations@6.0.0",
+      "purl": "pkg:nuget/Microsoft.Extensions.Caching.Abstractions@8.0.0",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Options.DataAnnotations/6.0.0/"
+          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Caching.Abstractions/8.0.0/"
         },
         {
           "type": "vcs",
@@ -1534,7 +923,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Extensions.Options.DataAnnotations@6.0.0",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Caching.Abstractions@8.0.0",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -1543,7 +932,7 @@
             {
               "technique": "manifest-analysis",
               "confidence": 0.7,
-              "value": "/app/src/Cheetah.ComponentTest/Cheetah.ComponentTest.csproj"
+              "value": "/app/src/Cheetah.Kafka.Test/Cheetah.Kafka.Test.csproj"
             }
           ]
         }
@@ -1551,37 +940,84 @@
       "properties": [
         {
           "name": "SrcFile",
-          "value": "/app/src/Cheetah.ComponentTest/Cheetah.ComponentTest.csproj"
+          "value": "/app/src/Cheetah.Kafka.Test/Cheetah.Kafka.Test.csproj"
         }
       ]
     },
     {
-      "author": "Serilog Contributors",
+      "author": "Todd Benning",
       "group": "",
-      "name": "Serilog.Sinks.Console",
-      "version": "5.0.1",
-      "description": "A Serilog sink that writes log events to the console/terminal.",
+      "name": "Serilog.Sinks.XUnit",
+      "version": "3.0.5",
+      "description": "The xUnit test output sink for Serilog",
       "licenses": [
         {
           "license": {
-            "url": "https://github.com/serilog/serilog-sinks-console/blob/dev/LICENSE",
+            "url": "https://github.com/trbenning/serilog-sinks-xunit/blob/master/LICENSE",
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Serilog.Sinks.XUnit@3.0.5",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Serilog.Sinks.XUnit/3.0.5/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/trbenning/serilog-sinks-xunit"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Serilog.Sinks.XUnit@3.0.5",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.Kafka.Test/Cheetah.Kafka.Test.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.Kafka.Test/Cheetah.Kafka.Test.csproj"
+        }
+      ]
+    },
+    {
+      "author": "Confluent Inc.,Andreas Heider",
+      "group": "",
+      "name": "Confluent.Kafka",
+      "version": "2.3.0",
+      "description": "Confluent's .NET Client for Apache Kafka",
+      "licenses": [
+        {
+          "license": {
+            "url": "https://github.com/confluentinc/confluent-kafka-dotnet/blob/master/LICENSE",
             "id": "Apache-2.0"
           }
         }
       ],
-      "purl": "pkg:nuget/Serilog.Sinks.Console@5.0.1",
+      "purl": "pkg:nuget/Confluent.Kafka@2.3.0",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Serilog.Sinks.Console/5.0.1/"
+          "url": "https://www.nuget.org/packages/Confluent.Kafka/2.3.0/"
         },
         {
           "type": "vcs",
-          "url": "https://github.com/serilog/serilog-sinks-console"
+          "url": "https://github.com/confluentinc/confluent-kafka-dotnet/"
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Serilog.Sinks.Console@5.0.1",
+      "bom-ref": "pkg:nuget/Confluent.Kafka@2.3.0",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -1590,7 +1026,7 @@
             {
               "technique": "manifest-analysis",
               "confidence": 0.7,
-              "value": "/app/src/Cheetah.ComponentTest/Cheetah.ComponentTest.csproj"
+              "value": "/app/src/Cheetah.Kafka/Cheetah.Kafka.csproj"
             }
           ]
         }
@@ -1598,7 +1034,101 @@
       "properties": [
         {
           "name": "SrcFile",
-          "value": "/app/src/Cheetah.ComponentTest/Cheetah.ComponentTest.csproj"
+          "value": "/app/src/Cheetah.Kafka/Cheetah.Kafka.csproj"
+        }
+      ]
+    },
+    {
+      "author": "Dominick Baier,Brock Allen",
+      "group": "",
+      "name": "IdentityModel",
+      "version": "6.2.0",
+      "description": "OpenID Connect & OAuth 2.0 client library",
+      "licenses": [
+        {
+          "license": {
+            "url": "https://github.com/IdentityModel/IdentityModel/blob/main/LICENSE",
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/IdentityModel@6.2.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/IdentityModel/6.2.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/IdentityModel/IdentityModel"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/IdentityModel@6.2.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.Auth/Cheetah.Auth.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.Auth/Cheetah.Auth.csproj"
+        }
+      ]
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "Microsoft.Extensions.Hosting.Abstractions",
+      "version": "8.0.0",
+      "description": "Hosting and startup abstractions for applications.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Microsoft.Extensions.Hosting.Abstractions@8.0.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Hosting.Abstractions/8.0.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://dot.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Hosting.Abstractions@8.0.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.Auth/Cheetah.Auth.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.Auth/Cheetah.Auth.csproj"
         }
       ]
     }
