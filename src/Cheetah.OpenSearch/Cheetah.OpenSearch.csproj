@@ -10,7 +10,7 @@
         <TargetFrameworks>netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <Nullable>enable</Nullable>
-        <VersionPrefix>0.0.1</VersionPrefix>
+        <VersionPrefix>0.1.0</VersionPrefix>
     </PropertyGroup>
 
     <ItemGroup>
@@ -20,8 +20,8 @@
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
       <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
       <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
-      <PackageReference Include="OpenSearch.Client" Version="1.5.0" />
-      <PackageReference Include="OpenSearch.Client.JsonNetSerializer" Version="1.5.0" />
+      <PackageReference Include="OpenSearch.Client" Version="1.6.0" />
+      <PackageReference Include="OpenSearch.Client.JsonNetSerializer" Version="1.6.0" />
     </ItemGroup>
 
     <ItemGroup>        
