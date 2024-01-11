@@ -1,0 +1,8 @@
+﻿{
+  "ClientId": "ClientId",
+  "ClientSecret": "Secret",
+  "TokenEndpoint": "http://localhost:1752/oauth2/token",
+  "KafkaUrl": "localhost:9092",
+  "Topic": "ConsoleTestTopic",
+  "Messages": ["First", "Second", "Third"]
+}

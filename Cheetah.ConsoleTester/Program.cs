@@ -1,11 +1,10 @@
-﻿using Cheetah.ConsoleTester.DataModel;
-using Cheetah.ConsoleTester.Kafka;
+﻿using Cheetah.ConsoleTester.Kafka;
 
 namespace Cheetah.ConsoleTester;
 
-internal class ConsoleTester
+internal static class ConsoleTester
 {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
         if (args.Length != 1)
         {
@@ -27,7 +26,7 @@ internal class ConsoleTester
         
         try
         { 
-            kafkaWriter.WriteAsync();
+            await kafkaWriter.WriteAsync();
         }
         catch (Exception ex)
         {

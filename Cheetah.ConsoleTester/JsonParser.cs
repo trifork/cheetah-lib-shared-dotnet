@@ -43,7 +43,7 @@ public class JsonParser
                 throw new InvalidOperationException("Topic must be set in the JSON configuration.");
             }
             
-            if(string.IsNullOrWhiteSpace(kafkaConfig.Data))
+            if(kafkaConfig.Messages?.Any() != true)
             {
                 throw new InvalidOperationException("Data must be set in the JSON configuration.");
             }

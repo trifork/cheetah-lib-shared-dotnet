@@ -31,13 +31,16 @@ public class KafkaJsonWriter
             .Build();
     }
 
-    public async void WriteAsync()
+    public async Task WriteAsync()
     {
-        var kafkaMessage = new Message<string, string>
+        foreach (var message in _config.Messages)
         {
-            Value = _config.Data
-        };
-        await Producer.ProduceAsync(Topic, kafkaMessage);
+            var kafkaMessage = new Message<string, string>
+            {
+                Value = message
+            };
+            await Producer.ProduceAsync(Topic, kafkaMessage);
+        }
     }
     
     private ITokenService GetTokenService()

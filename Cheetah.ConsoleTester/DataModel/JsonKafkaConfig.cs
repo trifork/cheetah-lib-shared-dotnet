@@ -12,5 +12,5 @@ public class JsonKafkaConfig
 
     public string? Topic { get; set; }
     
-    public string? Data { get; set; }
+    public List<string>? Messages { get; set; }
 }
