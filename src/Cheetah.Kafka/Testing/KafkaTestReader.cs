@@ -29,13 +29,13 @@ namespace Cheetah.Kafka.Testing
         private static readonly ILogger Logger = new LoggerFactory().CreateLogger<KafkaTestReader<TKey, T>>();
         private string Topic { get; }
         private IConsumer<TKey, T> Consumer { get; }
-        
+
         internal KafkaTestReader(IConsumer<TKey, T> consumer, string topic)
         {
             Topic = topic;
             Logger.LogInformation("Preparing kafka producer, producing to topic '{Topic}'", Topic);
             Consumer = consumer;
-            
+
             Consumer.Assign(new TopicPartition(Topic, 0));
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
             cancellationTokenSource.CancelAfter(TimeSpan.FromSeconds(2));

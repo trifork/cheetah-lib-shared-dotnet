@@ -8,31 +8,31 @@ using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 
-namespace Cheetah.Kafka.Test;
-
-[Trait("TestType", "IntegrationTests")]
-[Collection("IntegrationTests")]
-public class KafkaTestClientFactoryTests
+namespace Cheetah.Kafka.Test
 {
-    readonly KafkaTestClientFactory _testClientFactory;
+    [Trait("TestType", "IntegrationTests")]
+    [Collection("IntegrationTests")]
+    public class KafkaTestClientFactoryTests
+    {
+        readonly KafkaTestClientFactory _testClientFactory;
 
         public KafkaTestClientFactoryTests()
         {
             var localConfig = new Dictionary<string, string?>
-            {
-                { "KAFKA:URL", "localhost:9092" },
-                { "KAFKA:OAUTH2:CLIENTID", "tester" },
-                { "KAFKA:OAUTH2:CLIENTSECRET", "1234" },
-                { "KAFKA:OAUTH2:TOKENENDPOINT", "http://localhost:1752/oauth2/token" },
-                { "KAFKA:OAUTH2:SCOPE", "kafka" },
-                { "KAFKA:SCHEMAREGISTRYURL", "http://localhost:8081/apis/ccompat/v7" }
-            };
-            
+                {
+                    { "KAFKA:URL", "localhost:9092" },
+                    { "KAFKA:OAUTH2:CLIENTID", "default-access" },
+                    { "KAFKA:OAUTH2:CLIENTSECRET", "default-access-secret" },
+                    { "KAFKA:OAUTH2:TOKENENDPOINT", "http://localhost:1852/realms/local-development/protocol/openid-connect/token" },
+                    { "KAFKA:OAUTH2:SCOPE", "kafka schema-registry" },
+                    { "KAFKA:SCHEMAREGISTRYURL", "http://localhost:8081/apis/ccompat/v7" }
+                };
+
             var configuration = new ConfigurationBuilder()
                 .AddInMemoryCollection(localConfig)
                 .AddEnvironmentVariables()
                 .Build();
-            
+
             _testClientFactory = KafkaTestClientFactory.Create(configuration);
         }
 
@@ -40,7 +40,7 @@ public class KafkaTestClientFactoryTests
         public async Task Should_WriteAndRead_When_UsingJson()
         {
             var writer = _testClientFactory.CreateTestWriter<string, string>("MyJsonTopic", message => message);
-            var reader = _testClientFactory.CreateTestReader<string, string>( "MyJsonTopic", "MyConsumerGroup");
+            var reader = _testClientFactory.CreateTestReader<string, string>("MyJsonTopic", "MyConsumerGroup");
 
             await writer.WriteAsync("Message4");
             var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(5));
@@ -94,7 +94,7 @@ public class KafkaTestClientFactoryTests
             // Arrange
             var writerAvro = _testClientFactory.CreateAvroTestWriter<AdvancedAvroObject>("AvroAdvancedTopic");
             var readerAvro = _testClientFactory.CreateAvroTestReader<AdvancedAvroObject>("AvroAdvancedTopic", "AvroAdvancedGroup");
-            
+
             // Act
             await writerAvro.WriteAsync(AdvancedAvroObject1);
             var readMessages = readerAvro.ReadMessages(1, TimeSpan.FromSeconds(5));
@@ -126,12 +126,12 @@ public class KafkaTestClientFactoryTests
         public async Task Should_ThrowArgumentException_When_AttemptingToWrite0Messages()
         {
             var writer = _testClientFactory.CreateTestWriter<string, string>("MyThrowinTopic", message => message);
-            
+
             await writer.Invoking(w => w.WriteAsync())
                 .Should()
                 .ThrowAsync<ArgumentException>("it should not be possible to write 0 messages");
         }
-        
+
         [Theory]
         [InlineData("")]
         [InlineData("my!cool:topic#")]
@@ -145,16 +145,16 @@ public class KafkaTestClientFactoryTests
                 .Invoking(factory => factory.CreateTestWriter<string>(topicName))
                 .Should().Throw<ArgumentException>(
                     "the factory should not be able to create clients with invalid topic names");
-            
+
             _testClientFactory
                 .Invoking(factory => factory.CreateAvroTestWriter<string>(topicName))
                 .Should().Throw<ArgumentException>(
                     "the factory should not be able to create clients with invalid topic names");
-            
+
             _testClientFactory.Invoking(factory => factory.CreateTestReader<string>(topicName))
                 .Should().Throw<ArgumentException>(
                     "the factory should not be able to create clients with invalid topic names");
-            
+
             _testClientFactory.Invoking(factory => factory.CreateAvroTestReader<string>(topicName))
                 .Should().Throw<ArgumentException>(
                     "the factory should not be able to create clients with invalid topic names");
@@ -242,4 +242,5 @@ public class KafkaTestClientFactoryTests
         // }
         //
 
+    }
 }

@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Confluent.Kafka;
 
-namespace Cheetah.Kafka.Test.Util;
-
-public class KafkaTopicDeleter : IAsyncDisposable
+namespace Cheetah.Kafka.Test.Util
 {
-    readonly IAdminClient _adminClient;
-    readonly IEnumerable<string> _topicsToDelete;
-    public KafkaTopicDeleter(IAdminClient adminClient, params string[] topicsToDelete)
+    public class KafkaTopicDeleter : IAsyncDisposable
     {
-        _adminClient = adminClient;
-        _topicsToDelete = topicsToDelete;
-    }
-    public async ValueTask DisposeAsync()
-    {
-        await _adminClient.DeleteTopicsAsync(_topicsToDelete);
+        readonly IAdminClient _adminClient;
+        readonly IEnumerable<string> _topicsToDelete;
+        public KafkaTopicDeleter(IAdminClient adminClient, params string[] topicsToDelete)
+        {
+            _adminClient = adminClient;
+            _topicsToDelete = topicsToDelete;
+        }
+        public async ValueTask DisposeAsync()
+        {
+            await _adminClient.DeleteTopicsAsync(_topicsToDelete);
+        }
     }
 }

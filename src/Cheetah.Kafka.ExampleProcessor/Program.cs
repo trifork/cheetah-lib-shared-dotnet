@@ -3,6 +3,7 @@
 using Cheetah.Kafka.ExampleProcessor.Models;
 using Cheetah.Kafka.ExampleProcessor.Services;
 using Cheetah.Kafka.Extensions;
+using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,7 +22,8 @@ builder.Services.AddCheetahKafka(builder.Configuration, options =>
             config.GroupId = "the-group";
         });
     })
-    .WithKeyedConsumer<string, ExampleModel>("A", cfg => {
+    .WithKeyedConsumer<string, ExampleModel>("A", cfg =>
+    {
         cfg.GroupId = "a-group";
     })
     .WithKeyedConsumer<string, ExampleModel>("B")

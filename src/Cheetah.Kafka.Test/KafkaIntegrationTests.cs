@@ -15,18 +15,18 @@ namespace Cheetah.Kafka.Test
     public class KafkaIntegrationTests
     {
         readonly IServiceProvider _serviceProvider;
-        
+
         public KafkaIntegrationTests()
         {
-            var localConfig = new Dictionary<string, string?> 
+            var localConfig = new Dictionary<string, string?>
             {
                 { "KAFKA:URL", "localhost:9092" },
-                { "KAFKA:OAUTH2:CLIENTID", "tester" },
-                { "KAFKA:OAUTH2:CLIENTSECRET", "1234" },
-                { "KAFKA:OAUTH2:TOKENENDPOINT", "http://localhost:1752/oauth2/token" },
+                { "KAFKA:OAUTH2:CLIENTID", "default-access" },
+                { "KAFKA:OAUTH2:CLIENTSECRET", "default-access-secret" },
+                { "KAFKA:OAUTH2:TOKENENDPOINT", "http://localhost:1852/realms/local-development/protocol/openid-connect/token" },
                 { "KAFKA:OAUTH2:SCOPE", "kafka" },
             };
-            
+
             var configuration = new ConfigurationBuilder()
                 .AddInMemoryCollection(localConfig)
                 .AddEnvironmentVariables() // Allow override of config through environment variables if running in docker.
@@ -57,7 +57,7 @@ namespace Cheetah.Kafka.Test
         {
             // Arrange
             string topic = $"dotnet_{nameof(OAuthBearerToken_PublishConsume)}_{Guid.NewGuid()}";
-            
+
             // Emulate a service injecting an IAdminClient, IProducer and IConsumer
             await using var topicDeleter = new KafkaTopicDeleter(_serviceProvider.GetRequiredService<IAdminClient>(), topic); // Will delete the created topic when the test concludes, regardless of outcome
             var producer = _serviceProvider.GetRequiredService<IProducer<string, string>>();
@@ -70,11 +70,11 @@ namespace Cheetah.Kafka.Test
                 Key = $"{Guid.NewGuid()}",
                 Value = $"{DateTimeOffset.UtcNow:T}"
             };
-            
+
             // Act
             await producer.ProduceAsync(topic, message);
             var received = consumer.Consume(TimeSpan.FromSeconds(5));
-            
+
             // Assert
             Assert.NotNull(received);
             Assert.Equal(message.Key, received.Message.Key);

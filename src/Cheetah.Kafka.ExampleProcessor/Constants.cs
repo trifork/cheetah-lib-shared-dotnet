@@ -1,6 +1,7 @@
-﻿namespace Cheetah.Kafka.ExampleProcessor;
-
-public class Constants
+﻿namespace Cheetah.Kafka.ExampleProcessor
 {
-    public const string TopicName = "example-topic";
+    public class Constants
+    {
+        public const string TopicName = "example-topic";
+    }
 }
