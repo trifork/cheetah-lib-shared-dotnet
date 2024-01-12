@@ -26,26 +26,39 @@ namespace Cheetah.Kafka.Extensions
         /// <param name="configuration">The <see cref="IConfiguration"/> instance to use for configuration.</param>
         /// <param name="configure">Optional action to configure Kafka behavior</param>
         /// <returns>The supplied <see cref="IServiceCollection"/> instance for method chaining.</returns>
-        public static CheetahKafkaInjector AddCheetahKafka(this IServiceCollection serviceCollection, IConfiguration configuration, Action<KafkaClientFactoryOptions>? configure = null)
+        public static CheetahKafkaInjector AddCheetahKafka(
+            this IServiceCollection serviceCollection,
+            IConfiguration configuration,
+            Action<KafkaClientFactoryOptions>? configure = null
+        )
         {
             var options = new KafkaClientFactoryOptions();
             configure?.Invoke(options);
 
-            serviceCollection.AddOptionsWithValidateOnStart<KafkaConfig>()
+            serviceCollection
+                .AddOptionsWithValidateOnStart<KafkaConfig>()
                 .Bind(configuration.GetSection(KafkaConfig.Position));
 
-            serviceCollection.AddOptionsWithValidateOnStart<OAuth2Config>()
-                .Bind(configuration.GetSection(KafkaConfig.Position).GetSection(nameof(KafkaConfig.OAuth2)));
+            serviceCollection
+                .AddOptionsWithValidateOnStart<OAuth2Config>()
+                .Bind(
+                    configuration
+                        .GetSection(KafkaConfig.Position)
+                        .GetSection(nameof(KafkaConfig.OAuth2))
+                );
 
             serviceCollection.AddHttpClient<OAuth2TokenService>();
             serviceCollection.AddMemoryCache();
-            serviceCollection.AddSingleton<ITokenService>(sp =>
-                new OAuth2TokenService(
-                    sp.GetRequiredService<ILogger<OAuth2TokenService>>(),
-                    sp.GetRequiredService<IHttpClientFactory>(),
-                    sp.GetRequiredService<IMemoryCache>(),
-                    sp.GetRequiredService<IOptions<OAuth2Config>>(),
-                    "kafka-access-token"));
+            serviceCollection.AddSingleton<ITokenService>(
+                sp =>
+                    new OAuth2TokenService(
+                        sp.GetRequiredService<ILogger<OAuth2TokenService>>(),
+                        sp.GetRequiredService<IHttpClientFactory>(),
+                        sp.GetRequiredService<IMemoryCache>(),
+                        sp.GetRequiredService<IOptions<OAuth2Config>>(),
+                        "kafka-access-token"
+                    )
+            );
             serviceCollection.AddSingleton<KafkaClientFactoryOptions>(options);
             serviceCollection.AddSingleton<KafkaClientFactory>();
 

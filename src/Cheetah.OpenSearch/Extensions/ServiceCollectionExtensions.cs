@@ -29,7 +29,11 @@ namespace Cheetah.OpenSearch.Extensions
         /// <param name="configuration">The <see cref="IConfiguration"/> instance to use for configuration.</param>
         /// <param name="configureClientOptions">Optional action used to configure the generated OpenSearchClients</param>
         /// <returns>The supplied <see cref="IServiceCollection"/> instance for method chaining.</returns>
-        public static IServiceCollection AddCheetahOpenSearch(this IServiceCollection serviceCollection, IConfiguration configuration, Action<OpenSearchClientOptions>? configureClientOptions = null)
+        public static IServiceCollection AddCheetahOpenSearch(
+            this IServiceCollection serviceCollection,
+            IConfiguration configuration,
+            Action<OpenSearchClientOptions>? configureClientOptions = null
+        )
         {
             var config = serviceCollection.ConfigureAndGetOpenSearchConfig(configuration);
 
@@ -41,42 +45,57 @@ namespace Cheetah.OpenSearch.Extensions
 
             var clientOptions = new OpenSearchClientOptions();
             configureClientOptions?.Invoke(clientOptions);
-            
+
             serviceCollection
                 .AddSingleton<IConnectionPool>(ConnectionPoolHelper.GetConnectionPool(config.Url))
                 .AddSingleton<OpenSearchClientOptions>(clientOptions)
                 .AddSingleton<OpenSearchClientFactory>()
-                .AddSingleton<IOpenSearchClient>(sp => 
-                    sp.GetRequiredService<OpenSearchClientFactory>().CreateOpenSearchClient());
-            
+                .AddSingleton<IOpenSearchClient>(
+                    sp => sp.GetRequiredService<OpenSearchClientFactory>().CreateOpenSearchClient()
+                );
+
             return serviceCollection;
         }
-        
-        internal static IServiceCollection AddCheetahOpenSearchOAuth2Connection(this IServiceCollection serviceCollection)
+
+        internal static IServiceCollection AddCheetahOpenSearchOAuth2Connection(
+            this IServiceCollection serviceCollection
+        )
         {
             serviceCollection.AddHttpClient<OAuth2TokenService>();
             serviceCollection.AddMemoryCache();
-            serviceCollection.AddSingleton<ITokenService>(sp =>
+            serviceCollection.AddSingleton<ITokenService>(
+                sp =>
                     new OAuth2TokenService(
                         sp.GetRequiredService<ILogger<OAuth2TokenService>>(),
                         sp.GetRequiredService<IHttpClientFactory>(),
                         sp.GetRequiredService<IMemoryCache>(),
-                        sp.GetRequiredService<IOptions<OAuth2Config>>(), 
-                        "opensearch-access-token"));
+                        sp.GetRequiredService<IOptions<OAuth2Config>>(),
+                        "opensearch-access-token"
+                    )
+            );
             serviceCollection.AddSingleton<IConnection, CheetahOpenSearchConnection>();
             return serviceCollection;
         }
-        
-        private static OpenSearchConfig ConfigureAndGetOpenSearchConfig(this IServiceCollection serviceCollection, IConfiguration configuration)
+
+        private static OpenSearchConfig ConfigureAndGetOpenSearchConfig(
+            this IServiceCollection serviceCollection,
+            IConfiguration configuration
+        )
         {
             var config = new OpenSearchConfig();
             configuration.GetSection(OpenSearchConfig.Position).Bind(config);
             config.Validate();
-            serviceCollection.AddOptionsWithValidateOnStart<OpenSearchConfig>()
+            serviceCollection
+                .AddOptionsWithValidateOnStart<OpenSearchConfig>()
                 .Bind(configuration.GetSection(OpenSearchConfig.Position));
-            serviceCollection.AddOptionsWithValidateOnStart<OAuth2Config>()
-                .Bind(configuration.GetSection(OpenSearchConfig.Position).GetSection(nameof(OpenSearchConfig.OAuth2)));
-            
+            serviceCollection
+                .AddOptionsWithValidateOnStart<OAuth2Config>()
+                .Bind(
+                    configuration
+                        .GetSection(OpenSearchConfig.Position)
+                        .GetSection(nameof(OpenSearchConfig.OAuth2))
+                );
+
             return config;
         }
     }

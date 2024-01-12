@@ -16,6 +16,8 @@ namespace Cheetah.Auth.Authentication
 
         // Developer note: It is tempting to make this return some well-named POCO instead of a tuple, but in the end we want to rely only on a standard language type
         // so that library consumers can use their own implementation without needing to reference Cheetah.Auth
-        Task<(string AccessToken, long Expiration)> RequestAccessTokenAsync(CancellationToken cancellationToken);
+        Task<(string AccessToken, long Expiration)> RequestAccessTokenAsync(
+            CancellationToken cancellationToken
+        );
     }
 }

@@ -14,42 +14,54 @@ namespace Cheetah.OpenSearch.Test.DependencyInjection
     [Trait("Category", "OpenSearch"), Trait("TestType", "Unit")]
     public class DependencyInjectionTests
     {
-        public static TheoryData<OpenSearchConfig.OpenSearchAuthMode, List<KeyValuePair<string, string?>>> RequiredConfigurationTestCases()
+        public static TheoryData<
+            OpenSearchConfig.OpenSearchAuthMode,
+            List<KeyValuePair<string, string?>>
+        > RequiredConfigurationTestCases()
         {
-            var testCases = new TheoryData<OpenSearchConfig.OpenSearchAuthMode, List<KeyValuePair<string, string?>>>
+            var testCases = new TheoryData<
+                OpenSearchConfig.OpenSearchAuthMode,
+                List<KeyValuePair<string, string?>>
+            >
             {
                 {
                     OpenSearchConfig.OpenSearchAuthMode.None,
-                    new List<KeyValuePair<string, string?>> {
-                    new ("OPENSEARCH:URL", "http://localhost:9200")
-                }
+                    new List<KeyValuePair<string, string?>>
+                    {
+                        new("OPENSEARCH:URL", "http://localhost:9200")
+                    }
                 },
                 {
                     OpenSearchConfig.OpenSearchAuthMode.Basic,
                     new List<KeyValuePair<string, string?>>
-                {
-                    new ("OPENSEARCH:URL", "http://localhost:9200"),
-                    new ("OPENSEARCH:USERNAME", "admin"),
-                    new ("OPENSEARCH:PASSWORD", "admin"),
-                }
+                    {
+                        new("OPENSEARCH:URL", "http://localhost:9200"),
+                        new("OPENSEARCH:USERNAME", "admin"),
+                        new("OPENSEARCH:PASSWORD", "admin"),
+                    }
                 },
                 {
                     OpenSearchConfig.OpenSearchAuthMode.OAuth2,
                     new List<KeyValuePair<string, string?>>
-                {
-                    new ("OPENSEARCH:URL", "http://localhost:9200"),
-                    new ("OPENSEARCH:OAUTH2:CLIENTID", "default-access"),
-                    new ("OPENSEARCH:OAUTH2:CLIENTSECRET", "default-access-secret"),
-                    new ("OPENSEARCH:OAUTH2:TOKENENDPOINT", "http://localhost:1852/realms/local-development/protocol/openid-connect/token")
-                }
+                    {
+                        new("OPENSEARCH:URL", "http://localhost:9200"),
+                        new("OPENSEARCH:OAUTH2:CLIENTID", "default-access"),
+                        new("OPENSEARCH:OAUTH2:CLIENTSECRET", "default-access-secret"),
+                        new(
+                            "OPENSEARCH:OAUTH2:TOKENENDPOINT",
+                            "http://localhost:1852/realms/local-development/protocol/openid-connect/token"
+                        )
+                    }
                 }
             };
 
             return testCases;
         }
 
-
-        public static TheoryData<string, List<KeyValuePair<string, string?>>> MissingRequiredKeyTestCases()
+        public static TheoryData<
+            string,
+            List<KeyValuePair<string, string?>>
+        > MissingRequiredKeyTestCases()
         {
             var testCases = new TheoryData<string, List<KeyValuePair<string, string?>>>();
             // For all positive test cases
@@ -67,9 +79,14 @@ namespace Cheetah.OpenSearch.Test.DependencyInjection
                         configuration.Key,
                         requiredConfigurations
                             .Except(new[] { configuration })
-                            .Append(new KeyValuePair<string, string?>("OPENSEARCH:AUTHMODE", authMode.ToString()))
+                            .Append(
+                                new KeyValuePair<string, string?>(
+                                    "OPENSEARCH:AUTHMODE",
+                                    authMode.ToString()
+                                )
+                            )
                             .ToList()
-                        );
+                    );
                 }
             }
 
@@ -78,14 +95,18 @@ namespace Cheetah.OpenSearch.Test.DependencyInjection
 
         [Theory]
         [MemberData(nameof(RequiredConfigurationTestCases))]
-        public void Should_NotThrowExceptionDuringInitialization_When_AllRequiredConfigurationIsPresent(OpenSearchConfig.OpenSearchAuthMode authMode, List<KeyValuePair<string, string?>> requiredConfiguration)
+        public void Should_NotThrowExceptionDuringInitialization_When_AllRequiredConfigurationIsPresent(
+            OpenSearchConfig.OpenSearchAuthMode authMode,
+            List<KeyValuePair<string, string?>> requiredConfiguration
+        )
         {
             // To be able to reuse the test cases, we explicitly add the auth mode seperately.
             // This is due to the fact that while the AuthMode is required, it also changes the remaining required configuration
             var configuration = new ConfigurationBuilder()
-                .AddInMemoryCollection(requiredConfiguration
-                    .Append(new("OPENSEARCH:AUTHMODE", authMode.ToString()))
-                ).Build();
+                .AddInMemoryCollection(
+                    requiredConfiguration.Append(new("OPENSEARCH:AUTHMODE", authMode.ToString()))
+                )
+                .Build();
 
             var setupAction = new Action(() =>
             {
@@ -93,16 +114,24 @@ namespace Cheetah.OpenSearch.Test.DependencyInjection
                 serviceProvider.GetRequiredService<IOpenSearchClient>();
             });
 
-            setupAction.Invoking(x => x())
+            setupAction
+                .Invoking(x => x())
                 .Should()
-                .NotThrow("because we should be able to instantiate a client when all required configuration is set");
+                .NotThrow(
+                    "because we should be able to instantiate a client when all required configuration is set"
+                );
         }
 
         [Theory]
         [MemberData(nameof(MissingRequiredKeyTestCases))]
-        public void Should_ThrowExceptionDuringInitialization_When_SingleKeyIsMissingFromRequiredConfiguration(string missingKey, List<KeyValuePair<string, string?>> configuration)
+        public void Should_ThrowExceptionDuringInitialization_When_SingleKeyIsMissingFromRequiredConfiguration(
+            string missingKey,
+            List<KeyValuePair<string, string?>> configuration
+        )
         {
-            var configurationRoot = new ConfigurationBuilder().AddInMemoryCollection(configuration).Build();
+            var configurationRoot = new ConfigurationBuilder()
+                .AddInMemoryCollection(configuration)
+                .Build();
 
             // Simulate code that will register and DI an IOpenSearchClient
             var setupAction = new Action(() =>
@@ -114,7 +143,9 @@ namespace Cheetah.OpenSearch.Test.DependencyInjection
             setupAction
                 .Invoking(x => x())
                 .Should()
-                .Throw<ArgumentNullException>($"because we should not be able to instantiate a client when {missingKey} is not set");
+                .Throw<ArgumentNullException>(
+                    $"because we should not be able to instantiate a client when {missingKey} is not set"
+                );
         }
 
         private static ServiceProvider CreateServiceProvider(IConfiguration config)

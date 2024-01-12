@@ -9,11 +9,13 @@ namespace Cheetah.Kafka.Test.Util
     {
         readonly IAdminClient _adminClient;
         readonly IEnumerable<string> _topicsToDelete;
+
         public KafkaTopicDeleter(IAdminClient adminClient, params string[] topicsToDelete)
         {
             _adminClient = adminClient;
             _topicsToDelete = topicsToDelete;
         }
+
         public async ValueTask DisposeAsync()
         {
             await _adminClient.DeleteTopicsAsync(_topicsToDelete);

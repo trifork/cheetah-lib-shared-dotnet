@@ -19,14 +19,17 @@ namespace Cheetah.Kafka.Test
         public KafkaTestClientFactoryTests()
         {
             var localConfig = new Dictionary<string, string?>
+            {
+                { "KAFKA:URL", "localhost:9092" },
+                { "KAFKA:OAUTH2:CLIENTID", "default-access" },
+                { "KAFKA:OAUTH2:CLIENTSECRET", "default-access-secret" },
                 {
-                    { "KAFKA:URL", "localhost:9092" },
-                    { "KAFKA:OAUTH2:CLIENTID", "default-access" },
-                    { "KAFKA:OAUTH2:CLIENTSECRET", "default-access-secret" },
-                    { "KAFKA:OAUTH2:TOKENENDPOINT", "http://localhost:1852/realms/local-development/protocol/openid-connect/token" },
-                    { "KAFKA:OAUTH2:SCOPE", "kafka schema-registry" },
-                    { "KAFKA:SCHEMAREGISTRYURL", "http://localhost:8081/apis/ccompat/v7" }
-                };
+                    "KAFKA:OAUTH2:TOKENENDPOINT",
+                    "http://localhost:1852/realms/local-development/protocol/openid-connect/token"
+                },
+                { "KAFKA:OAUTH2:SCOPE", "kafka schema-registry" },
+                { "KAFKA:SCHEMAREGISTRYURL", "http://localhost:8081/apis/ccompat/v7" }
+            };
 
             var configuration = new ConfigurationBuilder()
                 .AddInMemoryCollection(localConfig)
@@ -39,8 +42,14 @@ namespace Cheetah.Kafka.Test
         [Fact]
         public async Task Should_WriteAndRead_When_UsingJson()
         {
-            var writer = _testClientFactory.CreateTestWriter<string, string>("MyJsonTopic", message => message);
-            var reader = _testClientFactory.CreateTestReader<string, string>("MyJsonTopic", "MyConsumerGroup");
+            var writer = _testClientFactory.CreateTestWriter<string, string>(
+                "MyJsonTopic",
+                message => message
+            );
+            var reader = _testClientFactory.CreateTestReader<string, string>(
+                "MyJsonTopic",
+                "MyConsumerGroup"
+            );
 
             await writer.WriteAsync("Message4");
             var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(5));
@@ -49,18 +58,29 @@ namespace Cheetah.Kafka.Test
         }
 
         static AvroObjectWithEnum AvroObjWithEnum1 =>
-            new AvroObjectWithEnum { EnumType = EnumTypeAvro.EnumType1, NullableInt = null, NullableString = null };
+            new AvroObjectWithEnum
+            {
+                EnumType = EnumTypeAvro.EnumType1,
+                NullableInt = null,
+                NullableString = null
+            };
 
         static AvroObjectWithEnum AvroObjWithEnum2 =>
-            new AvroObjectWithEnum { EnumType = EnumTypeAvro.EnumType2, NullableInt = 123, NullableString = "bar" };
+            new AvroObjectWithEnum
+            {
+                EnumType = EnumTypeAvro.EnumType2,
+                NullableInt = 123,
+                NullableString = "bar"
+            };
 
-        static AdvancedAvroObject AdvancedAvroObject1 => new AdvancedAvroObject
-        {
-            Id = "Id",
-            Name = "AvroName",
-            LongNumber = 11899823748932,
-            AvroObjectWithEnum = AvroObjWithEnum1
-        };
+        static AdvancedAvroObject AdvancedAvroObject1 =>
+            new AdvancedAvroObject
+            {
+                Id = "Id",
+                Name = "AvroName",
+                LongNumber = 11899823748932,
+                AvroObjectWithEnum = AvroObjWithEnum1
+            };
 
         static readonly AdvancedAvroObject AdvancedAvroObject2 = new AdvancedAvroObject
         {
@@ -76,8 +96,13 @@ namespace Cheetah.Kafka.Test
             // Arrange
             var avroModel = new SimpleAvroObject { Name = "foo", Number = 100 };
 
-            var writerAvro = _testClientFactory.CreateAvroTestWriter<SimpleAvroObject>("SimpleAvroTopic");
-            var readerAvro = _testClientFactory.CreateAvroTestReader<SimpleAvroObject>("SimpleAvroTopic", "MyAvroGroup");
+            var writerAvro = _testClientFactory.CreateAvroTestWriter<SimpleAvroObject>(
+                "SimpleAvroTopic"
+            );
+            var readerAvro = _testClientFactory.CreateAvroTestReader<SimpleAvroObject>(
+                "SimpleAvroTopic",
+                "MyAvroGroup"
+            );
 
             // Act
             await writerAvro.WriteAsync(avroModel);
@@ -92,8 +117,13 @@ namespace Cheetah.Kafka.Test
         public async Task Should_WriteAndReadAdvancedObjects_When_UsingAvro()
         {
             // Arrange
-            var writerAvro = _testClientFactory.CreateAvroTestWriter<AdvancedAvroObject>("AvroAdvancedTopic");
-            var readerAvro = _testClientFactory.CreateAvroTestReader<AdvancedAvroObject>("AvroAdvancedTopic", "AvroAdvancedGroup");
+            var writerAvro = _testClientFactory.CreateAvroTestWriter<AdvancedAvroObject>(
+                "AvroAdvancedTopic"
+            );
+            var readerAvro = _testClientFactory.CreateAvroTestReader<AdvancedAvroObject>(
+                "AvroAdvancedTopic",
+                "AvroAdvancedGroup"
+            );
 
             // Act
             await writerAvro.WriteAsync(AdvancedAvroObject1);
@@ -108,8 +138,12 @@ namespace Cheetah.Kafka.Test
         public async Task Should_WriteAndReadMultipleAdvancedObjects_When_UsingAvro()
         {
             // Arrange
-            var writerAvro = _testClientFactory.CreateAvroTestWriter<AdvancedAvroObject>("AvroTopicAsync_2");
-            var readerAvro = _testClientFactory.CreateAvroTestReader<AdvancedAvroObject>("AvroTopicAsync_2");
+            var writerAvro = _testClientFactory.CreateAvroTestWriter<AdvancedAvroObject>(
+                "AvroTopicAsync_2"
+            );
+            var readerAvro = _testClientFactory.CreateAvroTestReader<AdvancedAvroObject>(
+                "AvroTopicAsync_2"
+            );
 
             // Act
             await writerAvro.WriteAsync(AdvancedAvroObject1);
@@ -125,9 +159,13 @@ namespace Cheetah.Kafka.Test
         [Fact]
         public async Task Should_ThrowArgumentException_When_AttemptingToWrite0Messages()
         {
-            var writer = _testClientFactory.CreateTestWriter<string, string>("MyThrowinTopic", message => message);
+            var writer = _testClientFactory.CreateTestWriter<string, string>(
+                "MyThrowinTopic",
+                message => message
+            );
 
-            await writer.Invoking(w => w.WriteAsync())
+            await writer
+                .Invoking(w => w.WriteAsync())
                 .Should()
                 .ThrowAsync<ArgumentException>("it should not be possible to write 0 messages");
         }
@@ -138,26 +176,37 @@ namespace Cheetah.Kafka.Test
         [InlineData("my$expensive$topic")]
         // 249 characters is the maximum allowed length, this is 250 'a's
         [InlineData(
-            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")]
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        )]
         public void Should_ThrowArgumentException_When_ProvidedInvalidTopicName(string topicName)
         {
             _testClientFactory
                 .Invoking(factory => factory.CreateTestWriter<string>(topicName))
-                .Should().Throw<ArgumentException>(
-                    "the factory should not be able to create clients with invalid topic names");
+                .Should()
+                .Throw<ArgumentException>(
+                    "the factory should not be able to create clients with invalid topic names"
+                );
 
             _testClientFactory
                 .Invoking(factory => factory.CreateAvroTestWriter<string>(topicName))
-                .Should().Throw<ArgumentException>(
-                    "the factory should not be able to create clients with invalid topic names");
+                .Should()
+                .Throw<ArgumentException>(
+                    "the factory should not be able to create clients with invalid topic names"
+                );
 
-            _testClientFactory.Invoking(factory => factory.CreateTestReader<string>(topicName))
-                .Should().Throw<ArgumentException>(
-                    "the factory should not be able to create clients with invalid topic names");
+            _testClientFactory
+                .Invoking(factory => factory.CreateTestReader<string>(topicName))
+                .Should()
+                .Throw<ArgumentException>(
+                    "the factory should not be able to create clients with invalid topic names"
+                );
 
-            _testClientFactory.Invoking(factory => factory.CreateAvroTestReader<string>(topicName))
-                .Should().Throw<ArgumentException>(
-                    "the factory should not be able to create clients with invalid topic names");
+            _testClientFactory
+                .Invoking(factory => factory.CreateAvroTestReader<string>(topicName))
+                .Should()
+                .Throw<ArgumentException>(
+                    "the factory should not be able to create clients with invalid topic names"
+                );
         }
 
         // TODO: Reintroduce these test on a different testing level
@@ -241,6 +290,5 @@ namespace Cheetah.Kafka.Test
         //             "the builder should not successfully build if the kafka url has a scheme prefix");
         // }
         //
-
     }
 }

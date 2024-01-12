@@ -10,14 +10,15 @@ namespace Cheetah.Kafka.ExampleProcessor.Services
     {
         public AConsumerService(
             ILogger<ConsumerService> logger,
-            [FromKeyedServices("A")]
-            IConsumer<string, ExampleModel> consumer) : base(logger, consumer)
-        {
-        }
+            [FromKeyedServices("A")] IConsumer<string, ExampleModel> consumer
+        )
+            : base(logger, consumer) { }
 
         protected override void LogMessage(ExampleModel message)
         {
-            Logger.LogInformation($"Received message in A: {message.Id} {message.Value} {message.Timestamp}");
+            Logger.LogInformation(
+                $"Received message in A: {message.Id} {message.Value} {message.Timestamp}"
+            );
         }
     }
 
@@ -25,14 +26,15 @@ namespace Cheetah.Kafka.ExampleProcessor.Services
     {
         public BConsumerService(
             ILogger<ConsumerService> logger,
-            [FromKeyedServices("B")]
-            IConsumer<string, ExampleModel> consumer) : base(logger, consumer)
-        {
-        }
+            [FromKeyedServices("B")] IConsumer<string, ExampleModel> consumer
+        )
+            : base(logger, consumer) { }
 
         protected override void LogMessage(ExampleModel message)
         {
-            Logger.LogInformation($"Received message in B: {message.Id} {message.Value} {message.Timestamp}");
+            Logger.LogInformation(
+                $"Received message in B: {message.Id} {message.Value} {message.Timestamp}"
+            );
         }
     }
 
@@ -43,7 +45,10 @@ namespace Cheetah.Kafka.ExampleProcessor.Services
 
         protected abstract void LogMessage(ExampleModel message);
 
-        public ConsumerService(ILogger<ConsumerService> logger, IConsumer<string, ExampleModel> consumer)
+        public ConsumerService(
+            ILogger<ConsumerService> logger,
+            IConsumer<string, ExampleModel> consumer
+        )
         {
             Logger = logger;
             Consumer = consumer;
@@ -53,16 +58,19 @@ namespace Cheetah.Kafka.ExampleProcessor.Services
         {
             try
             {
-                return Task.Run(() =>
-                {
-                    Consumer.Assign(new TopicPartition(Constants.TopicName, 0));
-                    while (!stoppingToken.IsCancellationRequested)
+                return Task.Run(
+                    () =>
                     {
-                        var result = Consumer.Consume(stoppingToken);
-                        LogMessage(result.Message.Value);
-                        Consumer.Commit(result);
-                    }
-                }, stoppingToken);
+                        Consumer.Assign(new TopicPartition(Constants.TopicName, 0));
+                        while (!stoppingToken.IsCancellationRequested)
+                        {
+                            var result = Consumer.Consume(stoppingToken);
+                            LogMessage(result.Message.Value);
+                            Consumer.Commit(result);
+                        }
+                    },
+                    stoppingToken
+                );
             }
             catch (Exception ex) when (ex is TaskCanceledException or OperationCanceledException)
             {

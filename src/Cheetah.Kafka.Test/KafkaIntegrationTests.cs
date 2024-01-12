@@ -23,7 +23,10 @@ namespace Cheetah.Kafka.Test
                 { "KAFKA:URL", "localhost:9092" },
                 { "KAFKA:OAUTH2:CLIENTID", "default-access" },
                 { "KAFKA:OAUTH2:CLIENTSECRET", "default-access-secret" },
-                { "KAFKA:OAUTH2:TOKENENDPOINT", "http://localhost:1852/realms/local-development/protocol/openid-connect/token" },
+                {
+                    "KAFKA:OAUTH2:TOKENENDPOINT",
+                    "http://localhost:1852/realms/local-development/protocol/openid-connect/token"
+                },
                 { "KAFKA:OAUTH2:SCOPE", "kafka" },
             };
 
@@ -40,7 +43,8 @@ namespace Cheetah.Kafka.Test
                 s.AddConsole();
             });
 
-            services.AddCheetahKafka(configuration)
+            services
+                .AddCheetahKafka(configuration)
                 .WithProducer<string, string>()
                 .WithConsumer<string, string>(cfg =>
                 {
@@ -59,7 +63,10 @@ namespace Cheetah.Kafka.Test
             string topic = $"dotnet_{nameof(OAuthBearerToken_PublishConsume)}_{Guid.NewGuid()}";
 
             // Emulate a service injecting an IAdminClient, IProducer and IConsumer
-            await using var topicDeleter = new KafkaTopicDeleter(_serviceProvider.GetRequiredService<IAdminClient>(), topic); // Will delete the created topic when the test concludes, regardless of outcome
+            await using var topicDeleter = new KafkaTopicDeleter(
+                _serviceProvider.GetRequiredService<IAdminClient>(),
+                topic
+            ); // Will delete the created topic when the test concludes, regardless of outcome
             var producer = _serviceProvider.GetRequiredService<IProducer<string, string>>();
             var consumer = _serviceProvider.GetRequiredService<IConsumer<string, string>>();
 

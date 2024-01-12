@@ -46,16 +46,23 @@ namespace Cheetah.Auth.Authentication
         }
 
         /// <inheritdoc cref="ITokenService.RequestAccessTokenAsync"/>
-        public async Task<(string AccessToken, long Expiration)> RequestAccessTokenAsync(CancellationToken cancellationToken)
+        public async Task<(string AccessToken, long Expiration)> RequestAccessTokenAsync(
+            CancellationToken cancellationToken
+        )
         {
             var tokenResponse = await RequestAccessTokenCachedAsync(cancellationToken);
 
             if (tokenResponse == null || tokenResponse.IsError || tokenResponse.AccessToken == null)
             {
-                throw new OAuth2TokenException($"Failed to retrieve access token for  {_config.ClientId}, Error: {tokenResponse?.Error}");
+                throw new OAuth2TokenException(
+                    $"Failed to retrieve access token for  {_config.ClientId}, Error: {tokenResponse?.Error}"
+                );
             }
 
-            return (tokenResponse.AccessToken, DateTimeOffset.UtcNow.AddSeconds(tokenResponse.ExpiresIn).ToUnixTimeMilliseconds());
+            return (
+                tokenResponse.AccessToken,
+                DateTimeOffset.UtcNow.AddSeconds(tokenResponse.ExpiresIn).ToUnixTimeMilliseconds()
+            );
         }
 
         private async Task<TokenResponse> RequestAccessTokenCachedAsync(
@@ -68,7 +75,9 @@ namespace Cheetah.Auth.Authentication
                 || string.IsNullOrEmpty(_config.TokenEndpoint)
             )
             {
-                throw new ArgumentException("Missing OAuth config! Please check environment variables");
+                throw new ArgumentException(
+                    "Missing OAuth config! Please check environment variables"
+                );
             }
 
             var tokenResponse = await _cache.GetOrCreateAsync(
@@ -83,7 +92,10 @@ namespace Cheetah.Auth.Authentication
                     cacheEntry.AbsoluteExpirationRelativeToNow = absoluteExpiration;
                     _logger.LogDebug(
                         "New access token retrieved for {clientId} and saved in cache with key: {CacheKey}, Response: {debugInfo}",
-                        _config.ClientId, _cacheKey, tokenResponse.TokenType);
+                        _config.ClientId,
+                        _cacheKey,
+                        tokenResponse.TokenType
+                    );
 
                     return tokenResponse;
                 }
@@ -92,15 +104,14 @@ namespace Cheetah.Auth.Authentication
             if (tokenResponse == null)
             {
                 throw new OAuth2TokenException(
-                    "Retrieved access token was null, even though this should be impossible");
+                    "Retrieved access token was null, even though this should be impossible"
+                );
             }
 
             return tokenResponse;
         }
 
-        private async Task<TokenResponse> FetchAccessTokenAsync(
-            CancellationToken cancellationToken
-        )
+        private async Task<TokenResponse> FetchAccessTokenAsync(CancellationToken cancellationToken)
         {
             if (
                 string.IsNullOrEmpty(_config.ClientId)
@@ -108,7 +119,9 @@ namespace Cheetah.Auth.Authentication
                 || string.IsNullOrEmpty(_config.TokenEndpoint)
             )
             {
-                throw new OAuth2TokenException("Missing OAuth config! Please check environment variables");
+                throw new OAuth2TokenException(
+                    "Missing OAuth config! Please check environment variables"
+                );
             }
 
             using var httpClient = _httpClientFactory.CreateClient(_cacheKey);
@@ -123,7 +136,10 @@ namespace Cheetah.Auth.Authentication
             );
 
             var tokenResponse = await tokenClient
-                .RequestClientCredentialsTokenAsync(scope: _config.Scope, cancellationToken: cancellationToken)
+                .RequestClientCredentialsTokenAsync(
+                    scope: _config.Scope,
+                    cancellationToken: cancellationToken
+                )
                 .ConfigureAwait(false);
 
             return !tokenResponse.IsError

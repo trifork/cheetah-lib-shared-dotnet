@@ -9,7 +9,11 @@ namespace Cheetah.Kafka.ExampleProcessor.Services
     {
         private readonly ILogger<ProducerService> _logger;
         private readonly IProducer<string, ExampleModel> _producer;
-        public ProducerService(IProducer<string, ExampleModel> producer, ILogger<ProducerService> logger)
+
+        public ProducerService(
+            IProducer<string, ExampleModel> producer,
+            ILogger<ProducerService> logger
+        )
         {
             _logger = logger;
             _producer = producer;
@@ -24,9 +28,15 @@ namespace Cheetah.Kafka.ExampleProcessor.Services
                     var message = new ExampleModel(
                         Guid.NewGuid().ToString(),
                         new Random().Next(0, 100),
-                        DateTimeOffset.UtcNow);
-                    _logger.LogInformation($"Sending message: {message.Id} {message.Value} {message.Timestamp}");
-                    _producer.Produce(Constants.TopicName, new Message<string, ExampleModel> { Key = message.Id, Value = message });
+                        DateTimeOffset.UtcNow
+                    );
+                    _logger.LogInformation(
+                        $"Sending message: {message.Id} {message.Value} {message.Timestamp}"
+                    );
+                    _producer.Produce(
+                        Constants.TopicName,
+                        new Message<string, ExampleModel> { Key = message.Id, Value = message }
+                    );
 
                     await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
                 }
