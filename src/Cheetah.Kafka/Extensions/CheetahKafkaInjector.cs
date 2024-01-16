@@ -15,7 +15,7 @@ namespace Cheetah.Kafka.Extensions
         {
             _serviceCollection = serviceCollection;
         }
-        
+
         /// <summary>
         /// Registers a pre-configured <see cref="IProducer{TKey,TValue}"/>/>
         /// </summary>
@@ -28,7 +28,7 @@ namespace Cheetah.Kafka.Extensions
             _serviceCollection.AddSingleton(provider => GetFactory(provider).CreateProducer<TKey, TValue>(configAction));
             return this;
         }
-        
+
         /// <summary>
         /// Registers a pre-configured, keyed <see cref="IProducer{TKey,TValue}"/>/>
         /// </summary>
@@ -39,10 +39,10 @@ namespace Cheetah.Kafka.Extensions
         /// <returns>This <see cref="CheetahKafkaInjector"/> instance for method chaining</returns>
         public CheetahKafkaInjector WithKeyedProducer<TKey, TValue>(object? key, Action<ProducerConfig>? configAction = null)
         {
-            _serviceCollection.AddKeyedSingleton(key, (provider, o) => GetFactory(provider).CreateProducer<TKey, TValue>(configAction) );
+            _serviceCollection.AddKeyedSingleton(key, (provider, o) => GetFactory(provider).CreateProducer<TKey, TValue>(configAction));
             return this;
         }
-        
+
         /// <summary>
         /// Registers a pre-configured <see cref="IConsumer{TKey,TValue}"/>/>
         /// </summary>
@@ -80,7 +80,7 @@ namespace Cheetah.Kafka.Extensions
             _serviceCollection.AddSingleton(provider => GetFactory(provider).CreateAdminClient(configAction));
             return this;
         }
-        
+
         /// <summary>
         /// Registers a pre-configured <see cref="IAdminClient"/>/>
         /// </summary>

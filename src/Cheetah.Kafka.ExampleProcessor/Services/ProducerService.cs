@@ -14,7 +14,7 @@ public class ProducerService : BackgroundService
         _logger = logger;
         _producer = producer;
     }
-    
+
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         try

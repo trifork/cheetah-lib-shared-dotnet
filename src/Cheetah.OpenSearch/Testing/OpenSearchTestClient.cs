@@ -24,7 +24,7 @@ namespace Cheetah.OpenSearch.Testing
             configuration.Bind(OpenSearchConfig.Position, config);
             return Create(config, options);
         }
-        
+
         /// <summary>
         /// Creates an IOpenSearchClient from the provided configuration.
         /// </summary>
@@ -46,16 +46,16 @@ namespace Cheetah.OpenSearch.Testing
             if (config.AuthMode == OpenSearchConfig.OpenSearchAuthMode.OAuth2)
             {
                 var tokenService = new OAuth2TokenService(
-                    loggerFactory.CreateLogger<OAuth2TokenService>(), 
+                    loggerFactory.CreateLogger<OAuth2TokenService>(),
                     new DefaultHttpClientFactory(),
-                    new MemoryCache(new MemoryCacheOptions()), 
+                    new MemoryCache(new MemoryCacheOptions()),
                     Options.Create(config.OAuth2),
                     "opensearch-access-token");
                 connection = new CheetahOpenSearchConnection(tokenService);
             }
-            
+
             return new OpenSearchClientFactory(
-                    Options.Create(config), 
+                    Options.Create(config),
                     new Logger<OpenSearchClient>(loggerFactory),
                     new Logger<OpenSearchClientFactory>(loggerFactory),
                     options,

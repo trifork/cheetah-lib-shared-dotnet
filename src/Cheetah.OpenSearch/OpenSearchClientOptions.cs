@@ -16,7 +16,7 @@ namespace Cheetah.OpenSearch
         {
             MissingMemberHandling = MissingMemberHandling.Ignore
         };
-        
+
         /// <summary>
         /// Gets or sets a value indicating whether direct streaming of the response content should be disabled.<br/>
         /// This should <c>false</c> in production environments to avoid buffering of the response content in memory.<br/>

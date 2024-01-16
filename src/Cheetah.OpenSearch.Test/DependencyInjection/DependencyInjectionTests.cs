@@ -18,11 +18,11 @@ public class DependencyInjectionTests
     {
         var testCases = new TheoryData<OpenSearchConfig.OpenSearchAuthMode, List<KeyValuePair<string, string?>>>();
         testCases.Add(
-            OpenSearchConfig.OpenSearchAuthMode.None, 
+            OpenSearchConfig.OpenSearchAuthMode.None,
             new List<KeyValuePair<string, string?>> {
                 new ("OPENSEARCH:URL", "http://localhost:9200")
             });
-        
+
         testCases.Add(
             OpenSearchConfig.OpenSearchAuthMode.Basic,
             new List<KeyValuePair<string, string?>>
@@ -44,20 +44,20 @@ public class DependencyInjectionTests
 
         return testCases;
     }
-    
-    
+
+
     public static TheoryData<string, List<KeyValuePair<string, string?>>> MissingRequiredKeyTestCases()
     {
         var testCases = new TheoryData<string, List<KeyValuePair<string, string?>>>();
         // For all positive test cases
-        foreach(var testCase in RequiredConfigurationTestCases())
+        foreach (var testCase in RequiredConfigurationTestCases())
         {
             // Obtain the test input
-            var authMode = (OpenSearchConfig.OpenSearchAuthMode) testCase[0];
-            var requiredConfigurations = (List<KeyValuePair<string, string?>>) testCase[1];
-                
+            var authMode = (OpenSearchConfig.OpenSearchAuthMode)testCase[0];
+            var requiredConfigurations = (List<KeyValuePair<string, string?>>)testCase[1];
+
             // For each key in the test input
-            foreach(var configuration in requiredConfigurations)
+            foreach (var configuration in requiredConfigurations)
             {
                 // Generate a new test case, where a single key is missing and the auth mode is added to configuration
                 testCases.Add(
@@ -81,15 +81,15 @@ public class DependencyInjectionTests
         // This is due to the fact that while the AuthMode is required, it also changes the remaining required configuration
         var configuration = new ConfigurationBuilder()
             .AddInMemoryCollection(requiredConfiguration
-                .Append(new ("OPENSEARCH:AUTHMODE", authMode.ToString()))
+                .Append(new("OPENSEARCH:AUTHMODE", authMode.ToString()))
             ).Build();
-        
+
         var setupAction = new Action(() =>
         {
             var serviceProvider = CreateServiceProvider(configuration);
             serviceProvider.GetRequiredService<IOpenSearchClient>();
         });
-        
+
         setupAction.Invoking(x => x())
             .Should()
             .NotThrow("because we should be able to instantiate a client when all required configuration is set");
@@ -100,20 +100,20 @@ public class DependencyInjectionTests
     public void Should_ThrowExceptionDuringInitialization_When_SingleKeyIsMissingFromRequiredConfiguration(string missingKey, List<KeyValuePair<string, string?>> configuration)
     {
         var configurationRoot = new ConfigurationBuilder().AddInMemoryCollection(configuration).Build();
-        
+
         // Simulate code that will register and DI an IOpenSearchClient
         var setupAction = new Action(() =>
         {
             var serviceProvider = CreateServiceProvider(configurationRoot);
             serviceProvider.GetRequiredService<IOpenSearchClient>();
         });
-        
+
         setupAction
             .Invoking(x => x())
             .Should()
             .Throw<ArgumentNullException>($"because we should not be able to instantiate a client when {missingKey} is not set");
     }
-    
+
     private static ServiceProvider CreateServiceProvider(IConfiguration config)
     {
         var serviceCollection = new ServiceCollection();

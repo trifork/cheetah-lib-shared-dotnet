@@ -11,7 +11,7 @@ namespace Cheetah.MetricsTesting.PrometheusMetrics
         /// The count of observations for the histogram
         /// </summary>
         public double Count { get; }
-        
+
         /// <summary>
         /// The quantiles for the histogram
         /// </summary>

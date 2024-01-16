@@ -12,7 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddCheetahOpenSearch(builder.Configuration, cfg =>
 {
     cfg.DisableDirectStreaming = builder.Environment.IsDevelopment();
-    cfg.WithJsonSerializerSettings(settings => {
+    cfg.WithJsonSerializerSettings(settings =>
+    {
         settings.MissingMemberHandling = MissingMemberHandling.Error;
         settings.Converters.Add(new UtcDateTimeConverter());
     });

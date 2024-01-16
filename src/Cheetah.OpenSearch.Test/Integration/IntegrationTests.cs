@@ -64,12 +64,12 @@ namespace Cheetah.OpenSearch.Test.Integration
             var serviceProvider = CreateServiceProvider(configurationRoot);
             var client = serviceProvider.GetRequiredService<IOpenSearchClient>();
             var indexName = Guid.NewGuid().ToString();
-            
+
             var documents = new List<OpenSearchTestModel>
             {
-                new ("Document 1", 2), 
-                new ("Document 2", 3), 
-                new ("Document 3", 4), 
+                new ("Document 1", 2),
+                new ("Document 2", 3),
+                new ("Document 3", 4),
                 new ("Document 4", 5),
             };
 
@@ -91,7 +91,7 @@ namespace Cheetah.OpenSearch.Test.Integration
             // Verify that we can delete it all again and that nothing is left
             await client.DeleteIndexAsync(indexName);
         }
-        
+
         /// <summary>
         /// Gets the default configuration based on static dictionary of local values, with the option to override using environment variables
         /// </summary>
@@ -103,12 +103,12 @@ namespace Cheetah.OpenSearch.Test.Integration
                 { "OPENSEARCH:URL", "http://localhost:9200" },
                 { "OPENSEARCH:OAUTH2:TOKENENDPOINT", "http://localhost:1752/oauth2/token" }
             };
-            
+
             return new ConfigurationBuilder()
                 .AddInMemoryCollection(configurationDict)
                 .AddEnvironmentVariables();
         }
-        
+
         private static ServiceProvider CreateServiceProvider(IConfiguration config)
         {
             var serviceCollection = new ServiceCollection();

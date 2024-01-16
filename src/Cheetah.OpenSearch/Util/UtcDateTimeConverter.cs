@@ -23,7 +23,7 @@ namespace Cheetah.OpenSearch.Util
         {
             try
             {
-                if(objectType == typeof(DateTime))
+                if (objectType == typeof(DateTime))
                 {
                     return ReadDateTime(reader, objectType, existingValue, serializer);
                 }
@@ -35,7 +35,7 @@ namespace Cheetah.OpenSearch.Util
                         ? new DateTimeOffset(dateTime.Value) as object // This cast seems unnecessary, but is required before C# 9
                         : null;
                 }
-                
+
                 throw new ArgumentException(
                     $"Cannot convert to requested object type: {objectType.FullName}. " +
                     $"Supported types are {typeof(DateTime).FullName} and {typeof(DateTimeOffset).FullName}");
@@ -84,8 +84,8 @@ namespace Cheetah.OpenSearch.Util
                         ? 0
                         : dto.ToUnixTimeMilliseconds(),
                 _ => throw new ArgumentOutOfRangeException(
-                    nameof(value), 
-                    value, 
+                    nameof(value),
+                    value,
                     $"Unable to extract epoch millis from object of type {value.GetType().Name}")
             };
             writer.WriteValue(unixTimeMilliseconds);

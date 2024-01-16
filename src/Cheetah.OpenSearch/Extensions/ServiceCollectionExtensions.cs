@@ -41,17 +41,17 @@ namespace Cheetah.OpenSearch.Extensions
 
             var clientOptions = new OpenSearchClientOptions();
             configureClientOptions?.Invoke(clientOptions);
-            
+
             serviceCollection
                 .AddSingleton<IConnectionPool>(ConnectionPoolHelper.GetConnectionPool(config.Url))
                 .AddSingleton<OpenSearchClientOptions>(clientOptions)
                 .AddSingleton<OpenSearchClientFactory>()
-                .AddSingleton<IOpenSearchClient>(sp => 
+                .AddSingleton<IOpenSearchClient>(sp =>
                     sp.GetRequiredService<OpenSearchClientFactory>().CreateOpenSearchClient());
-            
+
             return serviceCollection;
         }
-        
+
         internal static IServiceCollection AddCheetahOpenSearchOAuth2Connection(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddHttpClient<OAuth2TokenService>();
@@ -61,12 +61,12 @@ namespace Cheetah.OpenSearch.Extensions
                         sp.GetRequiredService<ILogger<OAuth2TokenService>>(),
                         sp.GetRequiredService<IHttpClientFactory>(),
                         sp.GetRequiredService<IMemoryCache>(),
-                        sp.GetRequiredService<IOptions<OAuth2Config>>(), 
+                        sp.GetRequiredService<IOptions<OAuth2Config>>(),
                         "opensearch-access-token"));
             serviceCollection.AddSingleton<IConnection, CheetahOpenSearchConnection>();
             return serviceCollection;
         }
-        
+
         private static OpenSearchConfig ConfigureAndGetOpenSearchConfig(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
             var config = new OpenSearchConfig();
@@ -76,7 +76,7 @@ namespace Cheetah.OpenSearch.Extensions
                 .Bind(configuration.GetSection(OpenSearchConfig.Position));
             serviceCollection.AddOptionsWithValidateOnStart<OAuth2Config>()
                 .Bind(configuration.GetSection(OpenSearchConfig.Position).GetSection(nameof(OpenSearchConfig.OAuth2)));
-            
+
             return config;
         }
     }

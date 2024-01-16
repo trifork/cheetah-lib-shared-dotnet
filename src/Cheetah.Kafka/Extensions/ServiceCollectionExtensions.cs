@@ -30,13 +30,14 @@ namespace Cheetah.Kafka.Extensions
         {
             var options = new KafkaClientFactoryOptions();
             configure?.Invoke(options);
+            serviceCollection.AddSingleton(options);
 
             serviceCollection.AddOptionsWithValidateOnStart<KafkaConfig>()
                 .Bind(configuration.GetSection(KafkaConfig.Position));
-            
+
             serviceCollection.AddOptionsWithValidateOnStart<OAuth2Config>()
                 .Bind(configuration.GetSection(KafkaConfig.Position).GetSection(nameof(KafkaConfig.OAuth2)));
-            
+
             serviceCollection.AddHttpClient<OAuth2TokenService>();
             serviceCollection.AddMemoryCache();
             serviceCollection.AddSingleton<ITokenService>(sp =>
@@ -44,9 +45,8 @@ namespace Cheetah.Kafka.Extensions
                     sp.GetRequiredService<ILogger<OAuth2TokenService>>(),
                     sp.GetRequiredService<IHttpClientFactory>(),
                     sp.GetRequiredService<IMemoryCache>(),
-                    sp.GetRequiredService<IOptions<OAuth2Config>>(), 
+                    sp.GetRequiredService<IOptions<OAuth2Config>>(),
                     "kafka-access-token"));
-            serviceCollection.AddSingleton<KafkaClientFactoryOptions>(options);
             serviceCollection.AddSingleton<KafkaClientFactory>();
 
             return new CheetahKafkaInjector(serviceCollection);

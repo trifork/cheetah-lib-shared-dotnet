@@ -59,8 +59,9 @@ namespace Cheetah.OpenSearch
             return new OpenSearchClient(GetConnectionSettings());
         }
 
-        string GetAuthModeLogString() => 
-            _clientConfig.AuthMode switch {
+        string GetAuthModeLogString() =>
+            _clientConfig.AuthMode switch
+            {
                 OpenSearchConfig.OpenSearchAuthMode.None => "disabled",
                 OpenSearchConfig.OpenSearchAuthMode.Basic => $"enabled using Basic Auth, username=${_clientConfig.UserName}",
                 OpenSearchConfig.OpenSearchAuthMode.OAuth2 => $"enabled using OAuth2, clientId=${_clientConfig.OAuth2.ClientId}",
@@ -90,7 +91,7 @@ namespace Cheetah.OpenSearch
             return (builtin, settings) => new JsonNetSerializer(
                 builtin,
                 settings,
-                () => _clientOptions.JsonSerializerSettings 
+                () => _clientOptions.JsonSerializerSettings
             );
         }
 
@@ -99,7 +100,7 @@ namespace Cheetah.OpenSearch
             bool shouldDisableDirectStreaming = _clientOptions.DisableDirectStreaming; // Assume production mode if we can't determine the environment
             if (shouldDisableDirectStreaming)
             {
-                _logger.LogWarning("OpenSearch direct streaming is disabled, which allows easier debugging, but potentially impacts performance. This should only be enabled in development mode.");   
+                _logger.LogWarning("OpenSearch direct streaming is disabled, which allows easier debugging, but potentially impacts performance. This should only be enabled in development mode.");
             }
             return shouldDisableDirectStreaming;
         }

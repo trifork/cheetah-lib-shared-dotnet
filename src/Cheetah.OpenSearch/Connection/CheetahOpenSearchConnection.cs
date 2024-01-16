@@ -13,7 +13,7 @@ namespace Cheetah.OpenSearch.Connection
             this._tokenService = tokenService;
         }
 
-        protected override HttpMessageHandler CreateHttpClientHandler(RequestData requestData) 
+        protected override HttpMessageHandler CreateHttpClientHandler(RequestData requestData)
             => new OAuth2HttpMessageHandler(_tokenService, base.CreateHttpClientHandler(requestData));
     }
 }

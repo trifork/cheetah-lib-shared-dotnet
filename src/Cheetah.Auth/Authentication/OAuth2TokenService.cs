@@ -44,20 +44,20 @@ namespace Cheetah.Auth.Authentication
             _config.Validate();
             _cacheKey = cacheKey;
         }
-        
+
         /// <inheritdoc cref="ITokenService.RequestAccessTokenAsync"/>
         public async Task<(string AccessToken, long Expiration)> RequestAccessTokenAsync(CancellationToken cancellationToken)
         {
             var tokenResponse = await RequestAccessTokenCachedAsync(cancellationToken);
-            
-            if(tokenResponse == null || tokenResponse.IsError || tokenResponse.AccessToken == null)
+
+            if (tokenResponse == null || tokenResponse.IsError || tokenResponse.AccessToken == null)
             {
                 throw new OAuth2TokenException($"Failed to retrieve access token for  {_config.ClientId}, Error: {tokenResponse?.Error}");
             }
-            
+
             return (tokenResponse.AccessToken, DateTimeOffset.UtcNow.AddSeconds(tokenResponse.ExpiresIn).ToUnixTimeMilliseconds());
         }
-        
+
         private async Task<TokenResponse> RequestAccessTokenCachedAsync(
             CancellationToken cancellationToken
         )
@@ -79,7 +79,7 @@ namespace Cheetah.Auth.Authentication
                     TimeSpan absoluteExpiration = TimeSpan.FromSeconds(
                         Math.Max(10, tokenResponse.ExpiresIn - 10)
                     );
-                        
+
                     cacheEntry.AbsoluteExpirationRelativeToNow = absoluteExpiration;
                     _logger.LogDebug(
                         "New access token retrieved for {clientId} and saved in cache with key: {CacheKey}, Response: {debugInfo}",
@@ -94,10 +94,10 @@ namespace Cheetah.Auth.Authentication
                 throw new OAuth2TokenException(
                     "Retrieved access token was null, even though this should be impossible");
             }
-            
+
             return tokenResponse;
         }
-        
+
         private async Task<TokenResponse> FetchAccessTokenAsync(
             CancellationToken cancellationToken
         )

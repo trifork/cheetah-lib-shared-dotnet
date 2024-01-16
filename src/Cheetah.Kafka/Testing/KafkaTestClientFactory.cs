@@ -28,7 +28,7 @@ namespace Cheetah.Kafka.Testing
         /// provides and should <b>NOT</b> be used in production to generate actual clients. Use <see cref="ServiceCollectionExtensions.AddCheetahKafka"/> instead.
         /// </remarks>
         public KafkaClientFactory ClientFactory { get; }
-        
+
         /// <summary>
         /// Creates a <see cref="KafkaTestClientFactory"/> using the provided <see cref="IConfiguration"/> instance
         /// </summary>
@@ -39,19 +39,19 @@ namespace Cheetah.Kafka.Testing
         /// <returns></returns>
         public static KafkaTestClientFactory Create(IConfiguration configuration,
             KafkaClientFactoryOptions? options = null,
-            ITokenService? tokenService = null, 
+            ITokenService? tokenService = null,
             ILoggerFactory? loggerFactory = null)
         {
             var config = new KafkaConfig();
             configuration.Bind(KafkaConfig.Position, config);
             return Create(config, options, tokenService, loggerFactory);
         }
-        
-        /// <inheritdoc cref="Create(Microsoft.Extensions.Configuration.IConfiguration,Cheetah.Kafka.KafkaClientFactoryOptions?,Cheetah.Auth.Authentication.ITokenService?,Microsoft.Extensions.Logging.ILoggerFactory?)"/>
+
+        /// <inheritdoc cref="Create(IConfiguration,Cheetah.Kafka.KafkaClientFactoryOptions?,Cheetah.Auth.Authentication.ITokenService?,Microsoft.Extensions.Logging.ILoggerFactory?)"/>
         public static KafkaTestClientFactory Create(
             KafkaConfig configuration,
             KafkaClientFactoryOptions? options = null,
-            ITokenService? tokenService = null, 
+            ITokenService? tokenService = null,
             ILoggerFactory? loggerFactory = null)
         {
             var config = Options.Create(configuration);
@@ -61,18 +61,18 @@ namespace Cheetah.Kafka.Testing
                 loggerFactory.CreateLogger<OAuth2TokenService>(),
                 new DefaultHttpClientFactory(),
                 new MemoryCache(new MemoryCacheOptions()),
-                Options.Create(configuration.OAuth2), 
-                "kafka-test-client");           
+                Options.Create(configuration.OAuth2),
+                "kafka-test-client");
 
             var clientFactory = new KafkaClientFactory(tokenService, loggerFactory, config, options);
             return new KafkaTestClientFactory(clientFactory);
         }
-        
+
         private KafkaTestClientFactory(KafkaClientFactory clientFactory)
         {
             ClientFactory = clientFactory;
         }
-        
+
         /// <summary>
         /// Creates an <see cref="IKafkaTestWriter{Null, T}"/> for the provided topic. This writer will not produce keys.
         /// </summary>
@@ -84,7 +84,7 @@ namespace Cheetah.Kafka.Testing
         {
             return CreateTestWriter<Null, T>(topic, _ => null!);
         }
-        
+
         /// <summary>
         /// Creates an <see cref="IKafkaTestWriter{TKey, T}"/> for the provided topic.
         /// </summary>
@@ -109,7 +109,7 @@ namespace Cheetah.Kafka.Testing
         {
             return CreateAvroTestWriter<Null, T>(topic, _ => null!);
         }
-        
+
         /// <inheritdoc cref="CreateTestWriter{TKey, T}"/>
         /// <summary>
         /// Creates an <see cref="IKafkaTestWriter{TKey, T}"/> for the provided topic, which serializes messages using Avro.
@@ -120,7 +120,7 @@ namespace Cheetah.Kafka.Testing
             var producer = ClientFactory.CreateAvroProducer<TKey, T>();
             return new KafkaTestWriter<TKey, T>(producer, keyFunction, topic);
         }
-        
+
         /// <summary>
         /// Creates an <see cref="IKafkaTestReader{T}"/> for the provided topic. This reader will not read keys.
         /// </summary>
@@ -132,7 +132,7 @@ namespace Cheetah.Kafka.Testing
         {
             return CreateTestReader<Null, T>(topic, groupId);
         }
-        
+
         /// <summary>
         /// Creates an <see cref="IKafkaTestReader{T}"/> for the provided topic.
         /// </summary>
@@ -145,11 +145,11 @@ namespace Cheetah.Kafka.Testing
         {
             ValidateTopic(topic);
             groupId ??= Guid.NewGuid().ToString();
-            
+
             var consumer = ClientFactory.CreateConsumer<TKey, T>(DefaultReaderConfiguration(groupId));
             return new KafkaTestReader<TKey, T>(consumer, topic);
         }
-        
+
         /// <inheritdoc cref="CreateTestReader{T}"/>
         /// <summary>
         /// Creates an <see cref="IKafkaTestReader{T}"/> for the provided topic, which deserializes messages using Avro. This reader will not read keys.
@@ -167,11 +167,11 @@ namespace Cheetah.Kafka.Testing
         {
             ValidateTopic(topic);
             groupId ??= Guid.NewGuid().ToString();
-            
+
             var consumer = ClientFactory.CreateAvroConsumer<TKey, T>(DefaultReaderConfiguration(groupId));
             return new KafkaTestReader<TKey, T>(consumer, topic);
         }
-        
+
         private static Action<ConsumerConfig> DefaultReaderConfiguration(string groupId)
         {
             return cfg =>

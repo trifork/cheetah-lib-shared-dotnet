@@ -9,8 +9,8 @@ namespace Cheetah.Kafka.ExampleProcessor.Services;
 public class AConsumerService : ConsumerService
 {
     public AConsumerService(
-        ILogger<ConsumerService> logger, 
-        [FromKeyedServices("A")] 
+        ILogger<ConsumerService> logger,
+        [FromKeyedServices("A")]
         IConsumer<string, ExampleModel> consumer) : base(logger, consumer)
     {
     }
@@ -24,7 +24,7 @@ public class AConsumerService : ConsumerService
 public class BConsumerService : ConsumerService
 {
     public BConsumerService(
-        ILogger<ConsumerService> logger, 
+        ILogger<ConsumerService> logger,
         [FromKeyedServices("B")]
         IConsumer<string, ExampleModel> consumer) : base(logger, consumer)
     {
@@ -68,7 +68,7 @@ public abstract class ConsumerService : BackgroundService
         {
             // Ignore
         }
-        
+
         return Task.CompletedTask;
     }
 }

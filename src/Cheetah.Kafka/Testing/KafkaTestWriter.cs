@@ -12,7 +12,7 @@ namespace Cheetah.Kafka.Testing
         /// <inheritdoc cref="KafkaTestWriter{TKey, T}.WriteAsync"/>
         public Task<DeliveryResult<TKey, T>[]> WriteAsync(params T[] messages);
     }
-    
+
     /// <summary>
     /// A simple Kafka client used to write messages to a Kafka topic.
     /// </summary>

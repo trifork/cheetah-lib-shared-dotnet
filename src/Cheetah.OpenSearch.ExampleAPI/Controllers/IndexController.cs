@@ -27,7 +27,7 @@ public class IndexController : ControllerBase
         await _client.Indices.CreateAsync(indexName);
         return Ok();
     }
-    
+
     [HttpDelete("indices/{indexName}")]
     public async Task<IActionResult> DeleteIndex([FromRoute] string indexName)
     {
