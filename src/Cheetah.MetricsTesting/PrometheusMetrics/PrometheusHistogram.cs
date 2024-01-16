@@ -17,7 +17,6 @@ namespace Cheetah.MetricsTesting.PrometheusMetrics
         /// </summary>
         public List<KeyValuePair<string, double>> Quantiles { get; }
 
-
         /// <summary>
         /// Creates a new instance of <see cref="PrometheusHistogram"/>
         /// </summary>

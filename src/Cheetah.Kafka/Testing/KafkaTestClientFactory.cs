@@ -37,10 +37,12 @@ namespace Cheetah.Kafka.Testing
         /// <param name="loggerFactory">An optional logger factory</param>
         /// <param name="options">An optional </param>
         /// <returns></returns>
-        public static KafkaTestClientFactory Create(IConfiguration configuration,
+        public static KafkaTestClientFactory Create(
+            IConfiguration configuration,
             KafkaClientFactoryOptions? options = null,
             ITokenService? tokenService = null,
-            ILoggerFactory? loggerFactory = null)
+            ILoggerFactory? loggerFactory = null
+        )
         {
             var config = new KafkaConfig();
             configuration.Bind(KafkaConfig.Position, config);
@@ -52,7 +54,8 @@ namespace Cheetah.Kafka.Testing
             KafkaConfig configuration,
             KafkaClientFactoryOptions? options = null,
             ITokenService? tokenService = null,
-            ILoggerFactory? loggerFactory = null)
+            ILoggerFactory? loggerFactory = null
+        )
         {
             var config = Options.Create(configuration);
             options ??= new KafkaClientFactoryOptions();
@@ -62,9 +65,15 @@ namespace Cheetah.Kafka.Testing
                 new DefaultHttpClientFactory(),
                 new MemoryCache(new MemoryCacheOptions()),
                 Options.Create(configuration.OAuth2),
-                "kafka-test-client");
+                "kafka-test-client"
+            );
 
-            var clientFactory = new KafkaClientFactory(tokenService, loggerFactory, config, options);
+            var clientFactory = new KafkaClientFactory(
+                tokenService,
+                loggerFactory,
+                config,
+                options
+            );
             return new KafkaTestClientFactory(clientFactory);
         }
 
@@ -94,7 +103,10 @@ namespace Cheetah.Kafka.Testing
         /// <typeparam name="T">The type of messages to produce</typeparam>
         /// <returns>The created <see cref="IKafkaTestWriter{TKey,T}"/></returns>
         /// <exception cref="ArgumentException">Thrown if the provided topic is invalid</exception>
-        public IKafkaTestWriter<TKey, T> CreateTestWriter<TKey, T>(string topic, Func<T, TKey> keyFunction)
+        public IKafkaTestWriter<TKey, T> CreateTestWriter<TKey, T>(
+            string topic,
+            Func<T, TKey> keyFunction
+        )
         {
             ValidateTopic(topic);
             var producer = ClientFactory.CreateProducer<TKey, T>();
@@ -114,7 +126,10 @@ namespace Cheetah.Kafka.Testing
         /// <summary>
         /// Creates an <see cref="IKafkaTestWriter{TKey, T}"/> for the provided topic, which serializes messages using Avro.
         /// </summary>
-        public IKafkaTestWriter<TKey, T> CreateAvroTestWriter<TKey, T>(string topic, Func<T, TKey> keyFunction)
+        public IKafkaTestWriter<TKey, T> CreateAvroTestWriter<TKey, T>(
+            string topic,
+            Func<T, TKey> keyFunction
+        )
         {
             ValidateTopic(topic);
             var producer = ClientFactory.CreateAvroProducer<TKey, T>();
@@ -146,7 +161,9 @@ namespace Cheetah.Kafka.Testing
             ValidateTopic(topic);
             groupId ??= Guid.NewGuid().ToString();
 
-            var consumer = ClientFactory.CreateConsumer<TKey, T>(DefaultReaderConfiguration(groupId));
+            var consumer = ClientFactory.CreateConsumer<TKey, T>(
+                DefaultReaderConfiguration(groupId)
+            );
             return new KafkaTestReader<TKey, T>(consumer, topic);
         }
 
@@ -163,12 +180,17 @@ namespace Cheetah.Kafka.Testing
         /// <summary>
         /// Creates an <see cref="IKafkaTestReader{T}"/> for the provided topic, which deserializes messages using Avro.
         /// </summary>
-        public IKafkaTestReader<T> CreateAvroTestReader<TKey, T>(string topic, string? groupId = null)
+        public IKafkaTestReader<T> CreateAvroTestReader<TKey, T>(
+            string topic,
+            string? groupId = null
+        )
         {
             ValidateTopic(topic);
             groupId ??= Guid.NewGuid().ToString();
 
-            var consumer = ClientFactory.CreateAvroConsumer<TKey, T>(DefaultReaderConfiguration(groupId));
+            var consumer = ClientFactory.CreateAvroConsumer<TKey, T>(
+                DefaultReaderConfiguration(groupId)
+            );
             return new KafkaTestReader<TKey, T>(consumer, topic);
         }
 
@@ -193,7 +215,9 @@ namespace Cheetah.Kafka.Testing
             var hasOnlyValidCharacters = Regex.Match(topic, "^[a-zA-Z0-9\\._\\-]+$");
             if (!hasOnlyValidCharacters.Success)
             {
-                throw new ArgumentException($"Received topic with invalid characters '{topic}'. Topic names can only contain alphanumeric characters, '.', '-' and '_'.");
+                throw new ArgumentException(
+                    $"Received topic with invalid characters '{topic}'. Topic names can only contain alphanumeric characters, '.', '-' and '_'."
+                );
             }
 
             if (topic.Length > 249)
@@ -203,4 +227,3 @@ namespace Cheetah.Kafka.Testing
         }
     }
 }
-

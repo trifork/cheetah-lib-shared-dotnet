@@ -66,7 +66,9 @@ namespace Cheetah.Kafka.Configuration
             var hasSchemePrefix = Regex.Match(Url, "(.*://).*");
             if (hasSchemePrefix.Success)
             {
-                throw new ArgumentException($"Found Kafka address: '{Url}'. The Kafka URL cannot contain a scheme prefix - Remove the '{hasSchemePrefix.Groups[1].Value}'-prefix");
+                throw new ArgumentException(
+                    $"Found Kafka address: '{Url}'. The Kafka URL cannot contain a scheme prefix - Remove the '{hasSchemePrefix.Groups[1].Value}'-prefix"
+                );
             }
         }
 
@@ -95,10 +97,7 @@ namespace Cheetah.Kafka.Configuration
                 throw new ArgumentException("The provided Schema Registry Url is invalid");
             }
 
-            return new SchemaRegistryConfig
-            {
-                Url = SchemaRegistryUrl
-            };
+            return new SchemaRegistryConfig { Url = SchemaRegistryUrl };
         }
     }
 }

@@ -15,9 +15,12 @@ namespace Cheetah.Kafka
         internal Action<ClientConfig> DefaultClientConfigure { get; private set; } = config => { };
 
         // This structure allows us to easily access the combined configuration for each client type
-        internal Action<ProducerConfig> DefaultProducerConfigure => MergeActions(DefaultClientConfigure, _defaultProducerConfigure);
-        internal Action<ConsumerConfig> DefaultConsumerConfigure => MergeActions(DefaultClientConfigure, _defaultConsumerConfigure);
-        internal Action<AdminClientConfig> DefaultAdminClientConfigure => MergeActions(DefaultClientConfigure, _defaultAdminClientConfigure);
+        internal Action<ProducerConfig> DefaultProducerConfigure =>
+            MergeActions(DefaultClientConfigure, _defaultProducerConfigure);
+        internal Action<ConsumerConfig> DefaultConsumerConfigure =>
+            MergeActions(DefaultClientConfigure, _defaultConsumerConfigure);
+        internal Action<AdminClientConfig> DefaultAdminClientConfigure =>
+            MergeActions(DefaultClientConfigure, _defaultAdminClientConfigure);
 
         /// <summary>
         /// Configures the default <see cref="ClientConfig"/> that will be used for all clients created by the factory
@@ -41,6 +44,7 @@ namespace Cheetah.Kafka
             _defaultProducerConfigure = configure;
             return this;
         }
+
         /// <summary>
         /// Configures the default <see cref="ConsumerConfig"/> that will be used for all consumers created by the factory
         /// </summary>
@@ -59,7 +63,9 @@ namespace Cheetah.Kafka
         /// <remarks>This is applied <b>after</b> the default client configuration</remarks>
         /// <param name="configure">The configuration to apply</param>
         /// <returns>This <see cref="KafkaClientFactoryOptions"/> instance for method chaining</returns>
-        public KafkaClientFactoryOptions ConfigureDefaultAdminClient(Action<AdminClientConfig> configure)
+        public KafkaClientFactoryOptions ConfigureDefaultAdminClient(
+            Action<AdminClientConfig> configure
+        )
         {
             _defaultAdminClientConfigure = configure;
             return this;

@@ -7,24 +7,29 @@ namespace Cheetah.OpenSearch.Extensions
 {
     internal static class ConnectionSettingsExtensions
     {
-        internal static ConnectionSettings ConfigureBasicAuthIfEnabled(this ConnectionSettings settings, OpenSearchConfig config)
+        internal static ConnectionSettings ConfigureBasicAuthIfEnabled(
+            this ConnectionSettings settings,
+            OpenSearchConfig config
+        )
         {
             if (config.AuthMode == OpenSearchConfig.OpenSearchAuthMode.Basic)
             {
-                settings = settings.BasicAuthentication(
-                    config.UserName,
-                    config.Password
-                );
+                settings = settings.BasicAuthentication(config.UserName, config.Password);
             }
 
             return settings;
         }
 
-        internal static ConnectionSettings ConfigureTlsValidation(this ConnectionSettings settings, OpenSearchConfig config)
+        internal static ConnectionSettings ConfigureTlsValidation(
+            this ConnectionSettings settings,
+            OpenSearchConfig config
+        )
         {
             if (config.DisableTlsValidation)
             {
-                settings = settings.ServerCertificateValidationCallback(CertificateValidations.AllowAll);
+                settings = settings.ServerCertificateValidationCallback(
+                    CertificateValidations.AllowAll
+                );
             }
             else if (!string.IsNullOrWhiteSpace(config.CaCertificatePath))
             {

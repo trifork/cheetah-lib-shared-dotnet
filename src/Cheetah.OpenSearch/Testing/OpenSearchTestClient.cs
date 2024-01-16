@@ -17,8 +17,11 @@ namespace Cheetah.OpenSearch.Testing
     /// </summary>
     public static class OpenSearchTestClient
     {
-        /// <inheritdoc cref="Create(Microsoft.Extensions.Configuration.IConfiguration,Cheetah.OpenSearch.OpenSearchClientOptions?)"/>
-        public static IOpenSearchClient Create(IConfiguration configuration, OpenSearchClientOptions? options = null)
+        /// <inheritdoc cref="Create(IConfiguration,Cheetah.OpenSearch.OpenSearchClientOptions?)"/>
+        public static IOpenSearchClient Create(
+            IConfiguration configuration,
+            OpenSearchClientOptions? options = null
+        )
         {
             var config = new OpenSearchConfig();
             configuration.Bind(OpenSearchConfig.Position, config);
@@ -35,7 +38,10 @@ namespace Cheetah.OpenSearch.Testing
         /// <param name="config">The <see cref="OpenSearchConfig"/> to create the client from</param>
         /// <param name="options">The <see cref="OpenSearchClientOptions"/> used to modify client behavior</param>
         /// <returns>A pre-configured <see cref="OpenSearchClient"/></returns>
-        public static IOpenSearchClient Create(OpenSearchConfig config, OpenSearchClientOptions? options = null)
+        public static IOpenSearchClient Create(
+            OpenSearchConfig config,
+            OpenSearchClientOptions? options = null
+        )
         {
             config.Validate();
 
@@ -50,19 +56,19 @@ namespace Cheetah.OpenSearch.Testing
                     new DefaultHttpClientFactory(),
                     new MemoryCache(new MemoryCacheOptions()),
                     Options.Create(config.OAuth2),
-                    "opensearch-access-token");
+                    "opensearch-access-token"
+                );
                 connection = new CheetahOpenSearchConnection(tokenService);
             }
 
             return new OpenSearchClientFactory(
-                    Options.Create(config),
-                    new Logger<OpenSearchClient>(loggerFactory),
-                    new Logger<OpenSearchClientFactory>(loggerFactory),
-                    options,
-                    ConnectionPoolHelper.GetConnectionPool(config.Url),
-                    connection: connection)
-                .CreateOpenSearchClient();
+                Options.Create(config),
+                new Logger<OpenSearchClient>(loggerFactory),
+                new Logger<OpenSearchClientFactory>(loggerFactory),
+                options,
+                ConnectionPoolHelper.GetConnectionPool(config.Url),
+                connection: connection
+            ).CreateOpenSearchClient();
         }
     }
 }
-
