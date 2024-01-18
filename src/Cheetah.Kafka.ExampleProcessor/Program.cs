@@ -3,6 +3,9 @@
 using Cheetah.Kafka.ExampleProcessor.Models;
 using Cheetah.Kafka.ExampleProcessor.Services;
 using Cheetah.Kafka.Extensions;
+using Cheetah.Kafka.Util;
+using Confluent.SchemaRegistry;
+using Confluent.SchemaRegistry.Serdes;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -13,19 +16,30 @@ builder.Configuration
     .AddJsonFile("appsettings.development.json", true)
     .AddEnvironmentVariables();
 
+builder.Services.AddCheetahSchemaRegistry(builder.Configuration);
+
 builder.Services.AddCheetahKafka(builder.Configuration, options =>
     {
+        options.SerializerFactory = AvroSerializerFactory.GetFromServices();
         options.ConfigureDefaultConsumer(config =>
         {
             config.AllowAutoCreateTopics = true;
             config.GroupId = "the-group";
         });
     })
-    .WithKeyedConsumer<string, ExampleModel>("A", cfg => {
+    .WithKeyedConsumer<string, ExampleModel>("A", cfg =>
+    {
         cfg.GroupId = "a-group";
     })
     .WithKeyedConsumer<string, ExampleModel>("B")
-    .WithProducer<string, ExampleModel>();
+    .WithProducer<string, ExampleModel>(options =>
+    {
+        options.SetSerializerFactory(AvroSerializerFactory.GetFromServices());
+        options.ConfigureClient(cfg =>
+        {
+            cfg.BatchSize = 100;
+        });
+    });
 
 builder.Services.AddHostedService<ProducerService>();
 builder.Services.AddHostedService<AConsumerService>();

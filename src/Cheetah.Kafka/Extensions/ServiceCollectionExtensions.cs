@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Net.Http;
-using Cheetah.Auth.Authentication;
 using Cheetah.Auth.Configuration;
 using Cheetah.Kafka.Configuration;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using static Cheetah.Auth.Extensions.ServiceExtentionCollection;
 
 namespace Cheetah.Kafka.Extensions
 {
@@ -31,21 +27,18 @@ namespace Cheetah.Kafka.Extensions
             var options = new KafkaClientFactoryOptions();
             configure?.Invoke(options);
 
+            // if schema registry yes do good instantiation of schemaregistryclient
+
+            serviceCollection.AddSingleton<ISerializerFactory>(options.SerializerFactory);
             serviceCollection.AddOptionsWithValidateOnStart<KafkaConfig>()
                 .Bind(configuration.GetSection(KafkaConfig.Position));
             
             serviceCollection.AddOptionsWithValidateOnStart<OAuth2Config>()
                 .Bind(configuration.GetSection(KafkaConfig.Position).GetSection(nameof(KafkaConfig.OAuth2)));
             
-            serviceCollection.AddHttpClient<OAuth2TokenService>();
-            serviceCollection.AddMemoryCache();
-            serviceCollection.AddSingleton<ITokenService>(sp =>
-                new OAuth2TokenService(
-                    sp.GetRequiredService<ILogger<OAuth2TokenService>>(),
-                    sp.GetRequiredService<IHttpClientFactory>(),
-                    sp.GetRequiredService<IMemoryCache>(),
-                    sp.GetRequiredService<IOptions<OAuth2Config>>(), 
-                    "kafka-access-token"));
+            AddTokenService(serviceCollection,"kafka");
+            AddTokenService(serviceCollection,"schema-registry");
+
             serviceCollection.AddSingleton<KafkaClientFactoryOptions>(options);
             serviceCollection.AddSingleton<KafkaClientFactory>();
 

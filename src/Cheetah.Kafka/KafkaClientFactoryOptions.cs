@@ -13,6 +13,11 @@ namespace Cheetah.Kafka
         private Action<AdminClientConfig> _defaultAdminClientConfigure = config => { };
 
         internal Action<ClientConfig> DefaultClientConfigure { get; private set; } = config => { };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Func<IServiceProvider, ISerializerFactory> SerializerFactory { get; set; } = _ => new Utf8SerializerFactory();
         
         // This structure allows us to easily access the combined configuration for each client type
         internal Action<ProducerConfig> DefaultProducerConfigure => MergeActions(DefaultClientConfigure, _defaultProducerConfigure);

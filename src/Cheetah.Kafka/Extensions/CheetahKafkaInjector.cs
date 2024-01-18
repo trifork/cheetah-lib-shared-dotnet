@@ -11,7 +11,7 @@ namespace Cheetah.Kafka.Extensions
     {
         private readonly IServiceCollection _serviceCollection;
 
-        internal CheetahKafkaInjector(IServiceCollection serviceCollection)
+        public CheetahKafkaInjector(IServiceCollection serviceCollection)
         {
             _serviceCollection = serviceCollection;
         }
@@ -23,7 +23,7 @@ namespace Cheetah.Kafka.Extensions
         /// <typeparam name="TKey">The type of key that the injected producer will produce</typeparam>
         /// <typeparam name="TValue">The type of value that the injected producer will produce</typeparam>
         /// <returns>This <see cref="CheetahKafkaInjector"/> instance for method chaining</returns>
-        public CheetahKafkaInjector WithProducer<TKey, TValue>(Action<ProducerConfig>? configAction = null)
+        public CheetahKafkaInjector WithProducer<TKey, TValue>(Action<ProducerClientOptions>? configAction = null)
         {
             _serviceCollection.AddSingleton(provider => GetFactory(provider).CreateProducer<TKey, TValue>(configAction));
             return this;
@@ -42,17 +42,27 @@ namespace Cheetah.Kafka.Extensions
             _serviceCollection.AddKeyedSingleton(key, (provider, o) => GetFactory(provider).CreateProducer<TKey, TValue>(configAction) );
             return this;
         }
-        
+
         /// <summary>
         /// Registers a pre-configured <see cref="IConsumer{TKey,TValue}"/>/>
         /// </summary>
         /// <param name="configAction">Additional configuration that this specific consumer should use</param>
+        /// <param name="serializerFactory"></param>
         /// <typeparam name="TKey">The type of key that the injected consumer will consume</typeparam>
         /// <typeparam name="TValue">The type of value that the injected consumer will consume</typeparam>
         /// <returns>This <see cref="CheetahKafkaInjector"/> instance for method chaining</returns>
-        public CheetahKafkaInjector WithConsumer<TKey, TValue>(Action<ConsumerConfig>? configAction = null)
+        public CheetahKafkaInjector WithConsumer<TKey, TValue>(Action<ConsumerConfig>? configAction = null, Func<IServiceProvider, IDeserializer<TValue>>? serializerFactory = null)
         {
-            _serviceCollection.AddSingleton(provider => GetFactory(provider).CreateConsumer<TKey, TValue>(configAction));
+            if (serializerFactory != null)
+            {
+                _serviceCollection.AddSingleton(provider =>
+                    GetFactory(provider).CreateConsumer<TKey, TValue>(configAction, serializerFactory(provider)));
+            }
+            else
+            {
+                _serviceCollection.AddSingleton(provider => GetFactory(provider).CreateConsumer<TKey, TValue>(configAction));
+            }
+            
             return this;
         }
 
@@ -93,7 +103,7 @@ namespace Cheetah.Kafka.Extensions
             return this;
         }
 
-        private static KafkaClientFactory GetFactory(IServiceProvider provider) => provider.GetRequiredService<KafkaClientFactory>();
+        protected virtual KafkaClientFactory GetFactory(IServiceProvider provider) => provider.GetRequiredService<KafkaClientFactory>();
     }
 }
 
