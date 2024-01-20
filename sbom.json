@@ -1,19 +1,19 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:cd2e6749-fee3-4624-a6f7-830e61637b04",
+  "serialNumber": "urn:uuid:8ef32188-c715-4284-ad2e-7e3f3859c71a",
   "version": 1,
   "metadata": {
-    "timestamp": "2024-01-05T07:40:46.106Z",
+    "timestamp": "2024-01-20T15:29:35.897Z",
     "tools": {
       "components": [
         {
           "group": "@cyclonedx",
           "name": "cdxgen",
-          "version": "9.10.2",
-          "purl": "pkg:npm/%40cyclonedx/cdxgen@9.10.2",
+          "version": "9.11.1",
+          "purl": "pkg:npm/%40cyclonedx/cdxgen@9.11.1",
           "type": "application",
-          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@9.10.2",
+          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@9.11.1",
           "author": "OWASP Foundation",
           "publisher": "OWASP Foundation"
         }
@@ -273,7 +273,7 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit",
-      "version": "2.6.4",
+      "version": "2.6.6",
       "description": "xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.\n\nInstalling this package installs xunit.core, xunit.assert, and xunit.analyzers.",
       "licenses": [
         {
@@ -283,9 +283,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit@2.6.4",
+      "purl": "pkg:nuget/xunit@2.6.6",
       "type": "framework",
-      "bom-ref": "pkg:nuget/xunit@2.6.4",
+      "bom-ref": "pkg:nuget/xunit@2.6.6",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -310,7 +310,7 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit.extensibility.core",
-      "version": "2.6.4",
+      "version": "2.6.6",
       "description": "Includes xunit.core.dll for extensibility purposes. Supports .NET 4.5.2 or later, and .NET Standard 1.1.",
       "licenses": [
         {
@@ -320,9 +320,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.extensibility.core@2.6.4",
+      "purl": "pkg:nuget/xunit.extensibility.core@2.6.6",
       "type": "library",
-      "bom-ref": "pkg:nuget/xunit.extensibility.core@2.6.4",
+      "bom-ref": "pkg:nuget/xunit.extensibility.core@2.6.6",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -478,8 +478,8 @@
       "author": "Microsoft",
       "group": "",
       "name": "Microsoft.AspNetCore.OpenApi",
-      "version": "8.0.0",
-      "description": "Provides APIs for annotating route handler endpoints in ASP.NET Core with OpenAPI annotations.\n\nThis package was built from the source code at https://github.com/dotnet/aspnetcore/tree/3f1acb59718cadf111a0a796681e3d3509bb3381",
+      "version": "8.0.1",
+      "description": "Provides APIs for annotating route handler endpoints in ASP.NET Core with OpenAPI annotations.\n\nThis package was built from the source code at https://github.com/dotnet/aspnetcore/tree/8e941eb42f819adb116b881195158b3887a70a1c",
       "licenses": [
         {
           "license": {
@@ -488,11 +488,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.0",
+      "purl": "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.1",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.AspNetCore.OpenApi/8.0.0/"
+          "url": "https://www.nuget.org/packages/Microsoft.AspNetCore.OpenApi/8.0.1/"
         },
         {
           "type": "vcs",
@@ -500,7 +500,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.0",
+      "bom-ref": "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.1",
       "evidence": {
         "identity": {
           "field": "purl",
