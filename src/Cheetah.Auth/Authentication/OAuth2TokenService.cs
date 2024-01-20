@@ -7,6 +7,7 @@ using IdentityModel.Client;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Primitives;
 
 namespace Cheetah.Auth.Authentication
 {
@@ -44,20 +45,20 @@ namespace Cheetah.Auth.Authentication
             _config.Validate();
             _cacheKey = cacheKey;
         }
-        
+
         /// <inheritdoc cref="ITokenService.RequestAccessTokenAsync"/>
         public async Task<(string AccessToken, long Expiration)> RequestAccessTokenAsync(CancellationToken cancellationToken)
         {
             var tokenResponse = await RequestAccessTokenCachedAsync(cancellationToken);
-            
-            if(tokenResponse == null || tokenResponse.IsError || tokenResponse.AccessToken == null)
+
+            if (tokenResponse == null || tokenResponse.IsError || tokenResponse.AccessToken == null)
             {
                 throw new OAuth2TokenException($"Failed to retrieve access token for  {_config.ClientId}, Error: {tokenResponse?.Error}");
             }
-            
+
             return (tokenResponse.AccessToken, DateTimeOffset.UtcNow.AddSeconds(tokenResponse.ExpiresIn).ToUnixTimeMilliseconds());
         }
-        
+
         private async Task<TokenResponse> RequestAccessTokenCachedAsync(
             CancellationToken cancellationToken
         )
@@ -71,33 +72,61 @@ namespace Cheetah.Auth.Authentication
                 throw new ArgumentException("Missing OAuth config! Please check environment variables");
             }
 
-            var tokenResponse = await _cache.GetOrCreateAsync(
-                _cacheKey,
-                async cacheEntry =>
+            TokenResponse? tokenResponse = null;
+            if (!_cache.TryGetValue(_cacheKey, out object? value))
+            {
+                // no cache entry, create new one
+                using var cacheEntry = _cache.CreateEntry(_cacheKey);
+                tokenResponse = await FetchAccessTokenAsync(cancellationToken);
+                var clockSkew = TimeSpan.FromMinutes(5); // todo: move to setting
+                var absoluteExpiration = TimeSpan.FromSeconds(tokenResponse.ExpiresIn) - clockSkew;
+                if (tokenResponse.ExpiresIn <= 0)
                 {
-                    var tokenResponse = await FetchAccessTokenAsync(cancellationToken);
-                    TimeSpan absoluteExpiration = TimeSpan.FromSeconds(
-                        Math.Max(10, tokenResponse.ExpiresIn - 10)
-                    );
-                        
-                    cacheEntry.AbsoluteExpirationRelativeToNow = absoluteExpiration;
-                    _logger.LogDebug(
-                        "New access token retrieved for {clientId} and saved in cache with key: {CacheKey}, Response: {debugInfo}",
-                        _config.ClientId, _cacheKey, tokenResponse.TokenType);
+                    throw new OAuth2TokenException("Token response did not contain an expiration time");
+                }
+                else if (tokenResponse.ExpiresIn < clockSkew.TotalSeconds)
+                {
+                    absoluteExpiration = TimeSpan.FromSeconds(1);
+                }
+                else
+                {
+                    absoluteExpiration = TimeSpan.FromSeconds(tokenResponse.ExpiresIn) - clockSkew;
+                }
 
+                //cacheEntry.AddExpirationToken(new CancellationChangeToken(cancellationToken));
+                cacheEntry.AbsoluteExpirationRelativeToNow = absoluteExpiration;
+                _logger.LogDebug(
+                    "New access token retrieved for {clientId} and saved in cache with key: {CacheKey}, TokenType: {tokentype}",
+                    _config.ClientId, _cacheKey, tokenResponse.TokenType);
+                cacheEntry.SetValue(tokenResponse)
+                .RegisterPostEvictionCallback(
+                    (key, value, reason, state) =>
+                    {
+                        _logger.LogDebug(
+                            "Access token evicted from cache for {clientId} with key: {CacheKey}, Reason: {reason}",
+                            _config.ClientId, _cacheKey, reason);
+                    }
+                );
+            }
+            else
+            {
+                tokenResponse = value as TokenResponse;
+                if (tokenResponse != null)
+                {
+                    _logger.LogDebug(
+                        "Access token retrieved from cache for {clientId} with key: {CacheKey}, TokenType: {tokentype}",
+                        _config.ClientId, _cacheKey, tokenResponse.TokenType);
                     return tokenResponse;
                 }
-            );
-
-            if (tokenResponse == null)
-            {
-                throw new OAuth2TokenException(
-                    "Retrieved access token was null, even though this should be impossible");
+                else
+                {
+                    throw new OAuth2TokenException("Retrieved access token was null, even though this should be impossible");
+                }
             }
-            
+
             return tokenResponse;
         }
-        
+
         private async Task<TokenResponse> FetchAccessTokenAsync(
             CancellationToken cancellationToken
         )
