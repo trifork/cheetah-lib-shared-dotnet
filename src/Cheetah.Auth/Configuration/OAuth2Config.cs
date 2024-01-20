@@ -34,6 +34,12 @@ namespace Cheetah.Auth.Configuration
         public string? Scope { get; set; }
 
         /// <summary>
+        /// The number of seconds to allow for clock skew when validating tokens
+        /// </summary>
+        /// <remarks>Default 300s / 5 minutes</remarks>
+        public int ClockSkewSeconds { get; set; } = 60 * 5;
+
+        /// <summary>
         /// Validates that configuration has minimum values
         /// </summary>
         /// <exception cref="ArgumentException"></exception>

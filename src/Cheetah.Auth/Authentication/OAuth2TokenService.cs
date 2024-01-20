@@ -100,8 +100,8 @@ namespace Cheetah.Auth.Authentication
             var tokenResponse = await FetchAccessTokenAsync(cancellationToken);
             cacheEntry.AbsoluteExpirationRelativeToNow = GetCacheEntryExpiration(tokenResponse);
 
-            _logger.LogDebug("New access token retrieved for {ClientId} and saved in cache with key: {CacheKey}, TokenType: {TokenType}",
-                             _config.ClientId, _cacheKey, tokenResponse.TokenType);
+            _logger.LogDebug("New access token retrieved for {ClientId} and saved in cache with key: {CacheKey} and expiry {expiry}, TokenType: {TokenType}",
+                             _config.ClientId, _cacheKey, cacheEntry.AbsoluteExpirationRelativeToNow, tokenResponse.TokenType);
             cacheEntry.SetValue(tokenResponse)
                 .RegisterPostEvictionCallback((key, value, reason, state) =>
                 {
@@ -112,14 +112,13 @@ namespace Cheetah.Auth.Authentication
             return tokenResponse;
         }
 
-        private static TimeSpan GetCacheEntryExpiration(TokenResponse tokenResponse)
+        private TimeSpan GetCacheEntryExpiration(TokenResponse tokenResponse)
         {
-            var clockSkew = TimeSpan.FromMinutes(5); // todo: move to setting
             if (tokenResponse.ExpiresIn <= 0)
             {
                 throw new OAuth2TokenException("Token response did not contain an expiration time");
             }
-            var absoluteExpirationSeconds = Math.Max(10, tokenResponse.ExpiresIn - clockSkew.TotalSeconds);
+            var absoluteExpirationSeconds = Math.Max(10, tokenResponse.ExpiresIn - _config.ClockSkewSeconds);
             return TimeSpan.FromSeconds(absoluteExpirationSeconds);
         }
 
