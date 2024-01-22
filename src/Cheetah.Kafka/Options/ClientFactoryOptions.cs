@@ -1,4 +1,5 @@
 ﻿using System;
+using Cheetah.Kafka.Serialization;
 using Confluent.Kafka;
 
 namespace Cheetah.Kafka
@@ -6,32 +7,32 @@ namespace Cheetah.Kafka
     /// <summary>
     /// Options for configuring the <see cref="KafkaClientFactory"/>
     /// </summary>
-    public class KafkaClientFactoryOptions
+    public class ClientFactoryOptions
     {
         private Action<ProducerConfig> _defaultProducerConfigure = config => { };
         private Action<ConsumerConfig> _defaultConsumerConfigure = config => { };
         private Action<AdminClientConfig> _defaultAdminClientConfigure = config => { };
 
-        internal Action<ClientConfig> DefaultClientConfigure { get; private set; } = config => { };
+        internal Action<ClientConfig> ClientConfigure { get; private set; } = config => { };
 
         /// <summary>
         /// 
         /// </summary>
-        public Func<IServiceProvider, ISerializerFactory> SerializerFactory { get; set; } = _ => new Utf8SerializerFactory();
+        internal Func<IServiceProvider, ISerializerProvider> SerializerProviderFactory = Utf8SerializerProvider.FromServices();
         
         // This structure allows us to easily access the combined configuration for each client type
-        internal Action<ProducerConfig> DefaultProducerConfigure => MergeActions(DefaultClientConfigure, _defaultProducerConfigure);
-        internal Action<ConsumerConfig> DefaultConsumerConfigure => MergeActions(DefaultClientConfigure, _defaultConsumerConfigure);
-        internal Action<AdminClientConfig> DefaultAdminClientConfigure => MergeActions(DefaultClientConfigure, _defaultAdminClientConfigure);
+        internal Action<ProducerConfig> ProducerConfigure => MergeActions(ClientConfigure, _defaultProducerConfigure);
+        internal Action<ConsumerConfig> ConsumerConfigure => MergeActions(ClientConfigure, _defaultConsumerConfigure);
+        internal Action<AdminClientConfig> AdminClientConfigure => MergeActions(ClientConfigure, _defaultAdminClientConfigure);
         
         /// <summary>
         /// Configures the default <see cref="ClientConfig"/> that will be used for all clients created by the factory
         /// </summary>
         /// <param name="configure">The configuration to apply</param>
-        /// <returns>This <see cref="KafkaClientFactoryOptions"/> instance for method chaining</returns>
-        public KafkaClientFactoryOptions ConfigureDefaultClient(Action<ClientConfig> configure)
+        /// <returns>This <see cref="ClientFactoryOptions"/> instance for method chaining</returns>
+        public ClientFactoryOptions ConfigureDefaultClient(Action<ClientConfig> configure)
         {
-            DefaultClientConfigure = configure;
+            ClientConfigure = configure;
             return this;
         }
 
@@ -40,8 +41,8 @@ namespace Cheetah.Kafka
         /// </summary>
         /// <remarks>This is applied <b>after</b> the default client configuration</remarks>
         /// <param name="configure">The configuration to apply</param>
-        /// <returns>This <see cref="KafkaClientFactoryOptions"/> instance for method chaining</returns>
-        public KafkaClientFactoryOptions ConfigureDefaultProducer(Action<ProducerConfig> configure)
+        /// <returns>This <see cref="ClientFactoryOptions"/> instance for method chaining</returns>
+        public ClientFactoryOptions ConfigureDefaultProducer(Action<ProducerConfig> configure)
         {
             _defaultProducerConfigure = configure;
             return this;
@@ -51,8 +52,8 @@ namespace Cheetah.Kafka
         /// </summary>
         /// <remarks>This is applied <b>after</b> the default client configuration</remarks>
         /// <param name="configure">The configuration to apply</param>
-        /// <returns>This <see cref="KafkaClientFactoryOptions"/> instance for method chaining</returns>
-        public KafkaClientFactoryOptions ConfigureDefaultConsumer(Action<ConsumerConfig> configure)
+        /// <returns>This <see cref="ClientFactoryOptions"/> instance for method chaining</returns>
+        public ClientFactoryOptions ConfigureDefaultConsumer(Action<ConsumerConfig> configure)
         {
             _defaultConsumerConfigure = configure;
             return this;
@@ -63,10 +64,22 @@ namespace Cheetah.Kafka
         /// </summary>
         /// <remarks>This is applied <b>after</b> the default client configuration</remarks>
         /// <param name="configure">The configuration to apply</param>
-        /// <returns>This <see cref="KafkaClientFactoryOptions"/> instance for method chaining</returns>
-        public KafkaClientFactoryOptions ConfigureDefaultAdminClient(Action<AdminClientConfig> configure)
+        /// <returns>This <see cref="ClientFactoryOptions"/> instance for method chaining</returns>
+        public ClientFactoryOptions ConfigureDefaultAdminClient(Action<AdminClientConfig> configure)
         {
             _defaultAdminClientConfigure = configure;
+            return this;
+        }
+        
+        public ClientFactoryOptions ConfigureDefaultSerializerProvider(Func<IServiceProvider, ISerializerProvider> serializerProviderFactory)
+        {
+            SerializerProviderFactory = serializerProviderFactory;
+            return this;
+        }
+        
+        public ClientFactoryOptions ConfigureDefaultSerializerProvider(ISerializerProvider serializerProvider)
+        {
+            SerializerProviderFactory = _ => serializerProvider;
             return this;
         }
         

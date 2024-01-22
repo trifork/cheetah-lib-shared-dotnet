@@ -9,6 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Cheetah.SchemaRegistry\Cheetah.SchemaRegistry.csproj" />
       <ProjectReference Include="..\Cheetah.Kafka\Cheetah.Kafka.csproj" />
     </ItemGroup>
 

@@ -38,7 +38,7 @@ namespace Cheetah.Kafka.Testing
         /// <param name="options">An optional </param>
         /// <returns></returns>
         public static KafkaTestClientFactory Create(IConfiguration configuration,
-            KafkaClientFactoryOptions? options = null,
+            ClientFactoryOptions? options = null,
             ITokenService? tokenService = null, 
             ILoggerFactory? loggerFactory = null)
         {
@@ -47,15 +47,15 @@ namespace Cheetah.Kafka.Testing
             return Create(config, options, tokenService, loggerFactory);
         }
         
-        /// <inheritdoc cref="Create(Microsoft.Extensions.Configuration.IConfiguration,Cheetah.Kafka.KafkaClientFactoryOptions?,Cheetah.Auth.Authentication.ITokenService?,Microsoft.Extensions.Logging.ILoggerFactory?)"/>
+        /// <inheritdoc cref="Create(Microsoft.Extensions.Configuration.IConfiguration,ClientFactoryOptions?,Cheetah.Auth.Authentication.ITokenService?,Microsoft.Extensions.Logging.ILoggerFactory?)"/>
         public static KafkaTestClientFactory Create(
             KafkaConfig configuration,
-            KafkaClientFactoryOptions? options = null,
+            ClientFactoryOptions? options = null,
             ITokenService? tokenService = null, 
             ILoggerFactory? loggerFactory = null)
         {
             var config = Options.Create(configuration);
-            options ??= new KafkaClientFactoryOptions();
+            options ??= new ClientFactoryOptions();
             loggerFactory ??= LoggerFactory.Create(builder => builder.AddConsole());
             tokenService ??= new OAuth2TokenService(
                 loggerFactory.CreateLogger<OAuth2TokenService>(),

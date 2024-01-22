@@ -1,10 +1,13 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using Cheetah.Kafka.Avro;
 using Cheetah.Kafka.ExampleProcessor.Models;
 using Cheetah.Kafka.ExampleProcessor.Services;
 using Cheetah.Kafka.Extensions;
+using Cheetah.Kafka.Serialization;
 using Cheetah.Kafka.Util;
-using Confluent.SchemaRegistry;
+using Cheetah.SchemaRegistry;
+using Cheetah.SchemaRegistry.Extensions;
 using Confluent.SchemaRegistry.Serdes;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,7 +23,7 @@ builder.Services.AddCheetahSchemaRegistry(builder.Configuration);
 
 builder.Services.AddCheetahKafka(builder.Configuration, options =>
     {
-        options.SerializerFactory = AvroSerializerFactory.GetFromServices();
+        options.ConfigureDefaultSerializerProvider(AvroSerializerProvider.FromServices());
         options.ConfigureDefaultConsumer(config =>
         {
             config.AllowAutoCreateTopics = true;
@@ -34,7 +37,10 @@ builder.Services.AddCheetahKafka(builder.Configuration, options =>
     .WithKeyedConsumer<string, ExampleModel>("B")
     .WithProducer<string, ExampleModel>(options =>
     {
-        options.SetSerializerFactory(AvroSerializerFactory.GetFromServices());
+        options.SetSerializer(AvroSerializer.FromServices<ExampleModel>(new AvroSerializerConfig()
+        {
+            AutoRegisterSchemas = false
+        }));
         options.ConfigureClient(cfg =>
         {
             cfg.BatchSize = 100;

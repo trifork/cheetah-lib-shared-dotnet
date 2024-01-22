@@ -1,6 +1,7 @@
 ﻿using System;
 using Cheetah.Auth.Configuration;
 using Cheetah.Kafka.Configuration;
+using Cheetah.Kafka.Serialization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using static Cheetah.Auth.Extensions.ServiceExtentionCollection;
@@ -22,14 +23,11 @@ namespace Cheetah.Kafka.Extensions
         /// <param name="configuration">The <see cref="IConfiguration"/> instance to use for configuration.</param>
         /// <param name="configure">Optional action to configure Kafka behavior</param>
         /// <returns>The supplied <see cref="IServiceCollection"/> instance for method chaining.</returns>
-        public static CheetahKafkaInjector AddCheetahKafka(this IServiceCollection serviceCollection, IConfiguration configuration, Action<KafkaClientFactoryOptions>? configure = null)
+        public static ClientInjector AddCheetahKafka(this IServiceCollection serviceCollection, IConfiguration configuration, Action<ClientFactoryOptions>? configure = null)
         {
-            var options = new KafkaClientFactoryOptions();
+            var options = new ClientFactoryOptions();
             configure?.Invoke(options);
 
-            // if schema registry yes do good instantiation of schemaregistryclient
-
-            serviceCollection.AddSingleton<ISerializerFactory>(options.SerializerFactory);
             serviceCollection.AddOptionsWithValidateOnStart<KafkaConfig>()
                 .Bind(configuration.GetSection(KafkaConfig.Position));
             
@@ -39,10 +37,11 @@ namespace Cheetah.Kafka.Extensions
             AddTokenService(serviceCollection,"kafka");
             AddTokenService(serviceCollection,"schema-registry");
 
-            serviceCollection.AddSingleton<KafkaClientFactoryOptions>(options);
+            serviceCollection.AddSingleton<ClientFactoryOptions>(options);
+            serviceCollection.AddSingleton<ISerializerProvider>(options.SerializerProviderFactory);
             serviceCollection.AddSingleton<KafkaClientFactory>();
 
-            return new CheetahKafkaInjector(serviceCollection);
+            return new ClientInjector(serviceCollection);
         }
     }
 }
