@@ -20,7 +20,7 @@ namespace Cheetah.OpenSearch.Connection
             {
                 throw new ArgumentNullException(nameof(url));
             }
-            
+
             if (url.Contains(','))
             {
                 return new StaticConnectionPool(url.Split(',').Select(x => new Uri(x)));

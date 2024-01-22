@@ -22,10 +22,7 @@ namespace Cheetah.MetricsTesting.PrometheusMetrics
         /// <param name="port">The port to connect to, defaults to 9249</param>
         public PrometheusMetricsReader(string host, int port = 9249)
         {
-            httpClient = new HttpClient
-            {
-                BaseAddress = new Uri("http://" + host + ":" + port)
-            };
+            httpClient = new HttpClient { BaseAddress = new Uri("http://" + host + ":" + port) };
         }
 
         /// <summary>
@@ -35,7 +32,10 @@ namespace Cheetah.MetricsTesting.PrometheusMetrics
         /// <param name="contains">The string which metrics should contain, if empty returns all metrics</param>
         /// <param name="logMetricsLines">Íf set to true, all lines not starting with #, containing the input string are logged to Console</param>
         /// <returns>All metrics returned by the metrics endpoint</returns>
-        public async Task<Dictionary<string, string>> GetMetricsAsync(string contains = "", bool logMetricsLines = false)
+        public async Task<Dictionary<string, string>> GetMetricsAsync(
+            string contains = "",
+            bool logMetricsLines = false
+        )
         {
             var stream = await httpClient.GetStreamAsync("");
             var metrics = new Dictionary<string, string>();
@@ -97,13 +97,16 @@ namespace Cheetah.MetricsTesting.PrometheusMetrics
                 }
                 if (found)
                 {
-
                     if (logMetricsLines)
                     {
                         Console.WriteLine(line);
                     }
                     var lineSplit = line.LastIndexOf(' ');
-                    sum += double.Parse(line[lineSplit..], NumberStyles.Any, CultureInfo.InvariantCulture);
+                    sum += double.Parse(
+                        line[lineSplit..],
+                        NumberStyles.Any,
+                        CultureInfo.InvariantCulture
+                    );
                 }
             }
             return sum;
@@ -116,7 +119,10 @@ namespace Cheetah.MetricsTesting.PrometheusMetrics
         /// <param name="name">The name of the histogram</param>
         /// <param name="logMetricsLines">Íf set to true, all lines not starting with #, containing the input string are logged to Console</param>
         /// <returns>A list of histograms, each containing their list of quantiles</returns>
-        public async Task<List<PrometheusHistogram>> GetHistogramValueAsync(string name, bool logMetricsLines = false)
+        public async Task<List<PrometheusHistogram>> GetHistogramValueAsync(
+            string name,
+            bool logMetricsLines = false
+        )
         {
             var stream = await httpClient.GetStreamAsync("");
             using var reader = new StreamReader(stream);
@@ -152,16 +158,29 @@ namespace Cheetah.MetricsTesting.PrometheusMetrics
                     if (line[..lineSplit].EndsWith("_count"))
                     {
                         var spaceSplit = line.LastIndexOf(' ');
-                        var count = double.Parse(line.AsSpan(spaceSplit + 1), NumberStyles.Any, CultureInfo.InvariantCulture);
+                        var count = double.Parse(
+                            line.AsSpan(spaceSplit + 1),
+                            NumberStyles.Any,
+                            CultureInfo.InvariantCulture
+                        );
                         histogram = new PrometheusHistogram(count);
                         histograms.Add(histogram);
                     }
                     else
                     {
-                        var quantileSplit = line.LastIndexOf(QuantileString, StringComparison.InvariantCulture);
-                        var quantile = line[(quantileSplit + QuantileString.Length)..line.LastIndexOf('\"')];
+                        var quantileSplit = line.LastIndexOf(
+                            QuantileString,
+                            StringComparison.InvariantCulture
+                        );
+                        var quantile = line[
+                            (quantileSplit + QuantileString.Length)..line.LastIndexOf('\"')
+                        ];
                         var spaceSplit = line.LastIndexOf(' ');
-                        var value = double.Parse(line.AsSpan(spaceSplit + 1), NumberStyles.Any, CultureInfo.InvariantCulture);
+                        var value = double.Parse(
+                            line.AsSpan(spaceSplit + 1),
+                            NumberStyles.Any,
+                            CultureInfo.InvariantCulture
+                        );
                         histogram?.AddQuantile(quantile, value);
                     }
                 }

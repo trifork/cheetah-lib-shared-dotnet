@@ -27,12 +27,14 @@ namespace Cheetah.Kafka.Extensions
         /// <returns>The builder for method chaining</returns>
         public static ConsumerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(
             this ConsumerBuilder<TKey, TValue> builder,
-            Func<Task<(string AccessToken, long Expiration, string Principal)>> asyncTokenRequestFunc,
-            ILogger logger)
+            Func<
+                Task<(string AccessToken, long Expiration, string Principal)>
+            > asyncTokenRequestFunc,
+            ILogger logger
+        )
         {
             return AddCheetahOAuthentication(builder, Synchronize(asyncTokenRequestFunc), logger);
         }
-
 
         /// <summary>
         /// Adds Cheetah OAuth2 authentication to a Kafka producer.
@@ -45,8 +47,11 @@ namespace Cheetah.Kafka.Extensions
         /// <returns>The builder for method chaining</returns>
         public static ProducerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(
             this ProducerBuilder<TKey, TValue> builder,
-            Func<Task<(string AccessToken, long Expiration, string Principal)>> asyncTokenRequestFunc,
-            ILogger logger)
+            Func<
+                Task<(string AccessToken, long Expiration, string Principal)>
+            > asyncTokenRequestFunc,
+            ILogger logger
+        )
         {
             return AddCheetahOAuthentication(builder, Synchronize(asyncTokenRequestFunc), logger);
         }
@@ -60,8 +65,11 @@ namespace Cheetah.Kafka.Extensions
         /// <returns>The builder for method chaining</returns>
         public static AdminClientBuilder AddCheetahOAuthentication(
             this AdminClientBuilder builder,
-            Func<Task<(string AccessToken, long Expiration, string Principal)>> asyncTokenRequestFunc,
-            ILogger logger)
+            Func<
+                Task<(string AccessToken, long Expiration, string Principal)>
+            > asyncTokenRequestFunc,
+            ILogger logger
+        )
         {
             return AddCheetahOAuthentication(builder, Synchronize(asyncTokenRequestFunc), logger);
         }
@@ -78,9 +86,12 @@ namespace Cheetah.Kafka.Extensions
         public static ConsumerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(
             this ConsumerBuilder<TKey, TValue> builder,
             Func<(string AccessToken, long Expiration, string Principal)> tokenRequestFunc,
-            ILogger logger)
+            ILogger logger
+        )
         {
-            return builder.SetOAuthBearerTokenRefreshHandler(GetTokenRefreshHandler(tokenRequestFunc, logger));
+            return builder.SetOAuthBearerTokenRefreshHandler(
+                GetTokenRefreshHandler(tokenRequestFunc, logger)
+            );
         }
 
         /// <summary>
@@ -95,9 +106,12 @@ namespace Cheetah.Kafka.Extensions
         public static ProducerBuilder<TKey, TValue> AddCheetahOAuthentication<TKey, TValue>(
             this ProducerBuilder<TKey, TValue> builder,
             Func<(string AccessToken, long Expiration, string Principal)> tokenRequestFunc,
-            ILogger logger)
+            ILogger logger
+        )
         {
-            return builder.SetOAuthBearerTokenRefreshHandler(GetTokenRefreshHandler(tokenRequestFunc, logger));
+            return builder.SetOAuthBearerTokenRefreshHandler(
+                GetTokenRefreshHandler(tokenRequestFunc, logger)
+            );
         }
 
         /// <summary>
@@ -110,9 +124,12 @@ namespace Cheetah.Kafka.Extensions
         public static AdminClientBuilder AddCheetahOAuthentication(
             this AdminClientBuilder builder,
             Func<(string AccessToken, long Expiration, string Principal)> tokenRequestFunc,
-            ILogger logger)
+            ILogger logger
+        )
         {
-            return builder.SetOAuthBearerTokenRefreshHandler(GetTokenRefreshHandler(tokenRequestFunc, logger));
+            return builder.SetOAuthBearerTokenRefreshHandler(
+                GetTokenRefreshHandler(tokenRequestFunc, logger)
+            );
         }
 
         // Convenience to avoid spreading "GetAwaiter().GetResult()"
@@ -120,10 +137,16 @@ namespace Cheetah.Kafka.Extensions
             () => asyncTokenRequestFunc().GetAwaiter().GetResult();
 
         // Convenience to avoid spreading lambdas
-        private static Action<IClient, string> GetTokenRefreshHandler(Func<(string AccessToken, long Expiration, string Principal)> func, ILogger logger) =>
-            (client, _) => TokenRefreshHandler(client, func, logger);
+        private static Action<IClient, string> GetTokenRefreshHandler(
+            Func<(string AccessToken, long Expiration, string Principal)> func,
+            ILogger logger
+        ) => (client, _) => TokenRefreshHandler(client, func, logger);
 
-        private static void TokenRefreshHandler(IClient client, Func<(string AccessToken, long Expiration, string Principal)> tokenRequestFunc, ILogger logger)
+        private static void TokenRefreshHandler(
+            IClient client,
+            Func<(string AccessToken, long Expiration, string Principal)> tokenRequestFunc,
+            ILogger logger
+        )
         {
             try
             {
@@ -131,7 +154,11 @@ namespace Cheetah.Kafka.Extensions
 
                 if (string.IsNullOrWhiteSpace(token.AccessToken))
                 {
-                    SetFailure(client, logger, "Supplied token function returned null or a valueless access token.");
+                    SetFailure(
+                        client,
+                        logger,
+                        "Supplied token function returned null or a valueless access token."
+                    );
                     return;
                 }
 
@@ -139,7 +166,11 @@ namespace Cheetah.Kafka.Extensions
             }
             catch (Exception ex)
             {
-                SetFailure(client, logger, $"Unhandled exception thrown when attempting to retrieve access token from IDP. {ex.GetType().Name}: {ex.Message}");
+                SetFailure(
+                    client,
+                    logger,
+                    $"Unhandled exception thrown when attempting to retrieve access token from IDP. {ex.GetType().Name}: {ex.Message}"
+                );
                 throw;
             }
         }

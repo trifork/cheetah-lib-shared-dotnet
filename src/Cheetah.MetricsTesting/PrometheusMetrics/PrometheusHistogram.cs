@@ -11,12 +11,11 @@ namespace Cheetah.MetricsTesting.PrometheusMetrics
         /// The count of observations for the histogram
         /// </summary>
         public double Count { get; }
-        
+
         /// <summary>
         /// The quantiles for the histogram
         /// </summary>
         public List<KeyValuePair<string, double>> Quantiles { get; }
-
 
         /// <summary>
         /// Creates a new instance of <see cref="PrometheusHistogram"/>

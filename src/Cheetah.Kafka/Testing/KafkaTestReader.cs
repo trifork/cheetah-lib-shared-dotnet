@@ -12,6 +12,7 @@ namespace Cheetah.Kafka.Testing
     {
         /// <inheritdoc cref="KafkaTestReader{TKey,T}.ReadMessages"/>
         public IEnumerable<T> ReadMessages(int count, TimeSpan timeout);
+
         /// <inheritdoc cref="KafkaTestReader{TKey,T}.VerifyNoMoreMessages"/>
         public bool VerifyNoMoreMessages(TimeSpan timeout);
     }
@@ -26,16 +27,18 @@ namespace Cheetah.Kafka.Testing
     /// <typeparam name="T">The type of message to read</typeparam>
     public class KafkaTestReader<TKey, T> : IKafkaTestReader<T>
     {
-        private static readonly ILogger Logger = new LoggerFactory().CreateLogger<KafkaTestReader<TKey, T>>();
+        private static readonly ILogger Logger = new LoggerFactory().CreateLogger<
+            KafkaTestReader<TKey, T>
+        >();
         private string Topic { get; }
         private IConsumer<TKey, T> Consumer { get; }
-        
+
         internal KafkaTestReader(IConsumer<TKey, T> consumer, string topic)
         {
             Topic = topic;
             Logger.LogInformation("Preparing kafka producer, producing to topic '{Topic}'", Topic);
             Consumer = consumer;
-            
+
             Consumer.Assign(new TopicPartition(Topic, 0));
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
             cancellationTokenSource.CancelAfter(TimeSpan.FromSeconds(2));
@@ -100,7 +103,9 @@ namespace Cheetah.Kafka.Testing
 
             if (messages.Count < count)
             {
-                throw new InvalidOperationException($"Could not read enough messages from {Topic}, read {messages.Count}, expected {count}");
+                throw new InvalidOperationException(
+                    $"Could not read enough messages from {Topic}, read {messages.Count}, expected {count}"
+                );
             }
             return messages;
         }
@@ -132,9 +137,7 @@ namespace Cheetah.Kafka.Testing
 
                     return false;
                 }
-                catch (OperationCanceledException)
-                {
-                }
+                catch (OperationCanceledException) { }
             }
             return true;
         }
