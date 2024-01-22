@@ -2,18 +2,28 @@
 
     <PropertyGroup>
         <AssemblyName>Cheetah.Kafka</AssemblyName>
+        <LangVersion>11</LangVersion>
         <Authors>Trifork</Authors>
-        <Description>Allows easy bootstrapping and connection to Kafka within the context of the Cheetah data platform</Description>
+        <Description>Allows easy bootstrapping and connection to Kafka within the context of the
+            Cheetah data platform</Description>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <RepositoryUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</RepositoryUrl>
         <RootNamespace>Cheetah.Kafka</RootNamespace>
-        <TargetFrameworks>netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
+        <OutputType>Library</OutputType>
+        <TargetFrameworks>netstandard2.1</TargetFrameworks>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <Nullable>enable</Nullable>
         <VersionPrefix>0.3.0</VersionPrefix>
-        <NoWarn>
-            $(NoWarn);
-            SYSLIB1045 <!-- Supress GeneratedRegex warning, since we're not using regex in hot paths -->
+        <Nullable>enable</Nullable>
+        <RepositoryUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <AllowedOutputExtensionsInPackageBuildOutputFolder>
+            $(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+        <Company>Trifork</Company>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <NoWarn> $(NoWarn); SYSLIB1045 <!-- Supress GeneratedRegex warning, since we're not using regex in hot paths -->
         </NoWarn>
     </PropertyGroup>
 
@@ -25,7 +35,19 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions"
+            Version="8.0.0" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(EnableSourceLink)' != 'false'">
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\..\README.md">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
