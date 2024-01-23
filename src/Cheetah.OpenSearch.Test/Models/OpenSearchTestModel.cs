@@ -7,7 +7,7 @@ namespace Cheetah.OpenSearch.Test.Models
             TestString = testString;
             TestInteger = testInteger;
         }
-        
+
         public string TestString { get; set; }
         public int TestInteger { get; set; }
     }

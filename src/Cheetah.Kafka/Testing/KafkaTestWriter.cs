@@ -5,14 +5,13 @@ using Confluent.Kafka;
 
 namespace Cheetah.Kafka.Testing
 {
-
     /// <inheritdoc cref="KafkaTestWriter{TKey, T}"/>
     public interface IKafkaTestWriter<TKey, T>
     {
         /// <inheritdoc cref="KafkaTestWriter{TKey, T}.WriteAsync"/>
         public Task<DeliveryResult<TKey, T>[]> WriteAsync(params T[] messages);
     }
-    
+
     /// <summary>
     /// A simple Kafka client used to write messages to a Kafka topic.
     /// </summary>
@@ -27,7 +26,11 @@ namespace Cheetah.Kafka.Testing
         private Func<T, TKey> KeyFunction { get; }
         private IProducer<TKey, T> Producer { get; }
 
-        internal KafkaTestWriter(IProducer<TKey, T> producer, Func<T, TKey> keyFunction, string topic)
+        internal KafkaTestWriter(
+            IProducer<TKey, T> producer,
+            Func<T, TKey> keyFunction,
+            string topic
+        )
         {
             Topic = topic;
             KeyFunction = keyFunction;
@@ -43,7 +46,9 @@ namespace Cheetah.Kafka.Testing
         {
             if (messages.Length == 0)
             {
-                throw new ArgumentException("WriteAsync was invoked with an empty list of messages.");
+                throw new ArgumentException(
+                    "WriteAsync was invoked with an empty list of messages."
+                );
             }
 
             var kafkaMessages = messages.Select(message => new Message<TKey, T>
@@ -52,7 +57,9 @@ namespace Cheetah.Kafka.Testing
                 Value = message,
             });
 
-            var produceTasks = kafkaMessages.Select(kafkaMessage => Producer.ProduceAsync(Topic, kafkaMessage));
+            var produceTasks = kafkaMessages.Select(kafkaMessage =>
+                Producer.ProduceAsync(Topic, kafkaMessage)
+            );
             return Task.WhenAll(produceTasks);
         }
     }
