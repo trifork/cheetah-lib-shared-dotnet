@@ -43,11 +43,11 @@
 
 
     <ItemGroup>
-		<None Include="..\..\README.md">
-		  <Pack>True</Pack>
-		  <PackagePath>\</PackagePath>
-		</None>
-	</ItemGroup>
+        <None Include="..\..\README.md">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+    </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\Cheetah.Auth\Cheetah.Auth.csproj" />

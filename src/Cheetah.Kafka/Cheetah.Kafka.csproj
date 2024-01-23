@@ -23,7 +23,8 @@
         <Company>Trifork</Company>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <NoWarn> $(NoWarn); SYSLIB1045 <!-- Supress GeneratedRegex warning, since we're not using regex in hot paths -->
+        <NoWarn> $(NoWarn); SYSLIB1045 <!-- Supress GeneratedRegex warning, since we're not using
+            regex in hot paths -->
         </NoWarn>
     </PropertyGroup>
 
