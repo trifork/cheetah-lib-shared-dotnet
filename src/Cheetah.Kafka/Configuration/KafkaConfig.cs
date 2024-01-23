@@ -60,6 +60,12 @@ namespace Cheetah.Kafka.Configuration
                 throw new ArgumentException($"The provided Kafka Url is invalid: {Url})");
             }
             ValidateKafkaUrlHasNoScheme();
+
+            if (SecurityProtocol == SecurityProtocol.SaslSsl && string.IsNullOrEmpty(SslCaLocation))
+            {
+                throw new ArgumentException("The SslCaLocation must be set when using SecurityProtocol.SaslSsl");
+            }
+
             OAuth2.Validate();
         }
 
@@ -88,12 +94,9 @@ namespace Cheetah.Kafka.Configuration
                 BootstrapServers = Url,
                 SaslMechanism = SaslMechanism.OAuthBearer,
                 SecurityProtocol = SecurityProtocol,
+                SslCaLocation = SslCaLocation,
             };
 
-            if (SecurityProtocol == SecurityProtocol.SaslSsl)
-            {
-                clientConfig.SslCaLocation = SslCaLocation;
-            }
             return clientConfig;
         }
 
