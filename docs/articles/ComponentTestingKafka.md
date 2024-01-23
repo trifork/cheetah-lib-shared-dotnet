@@ -9,7 +9,7 @@ The clients generated using the methods described here are intended to be short-
 
 ---
 
-To get started we first create a `KafkaTestClientFactory`. This requires either a `KafkaConfig` instance or an `IConfiguration` with the same configuration requirements as described in [Using Cheetah.Kafka](/docs/articles/UsingCheetahKafka.md).
+To get started we first create a `KafkaTestClientFactory`. This requires either a `KafkaConfig` instance or an `IConfiguration` with the same configuration requirements as described in [Using Cheetah.Kafka | Configuration](/docs/articles/UsingCheetahKafka.md#configuration).
 
 ```csharp
 var configuration = new ConfigurationBuilder()
