@@ -45,7 +45,7 @@ namespace Cheetah.OpenSearch.Configuration
         /// Path to CA certificate used to validate OpenSearch certificate
         /// </summary>
         public string? CaCertificatePath { get; set; }
-        
+
         /// <summary>
         /// The config to use when authenticating with OAuth2
         /// </summary>
