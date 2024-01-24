@@ -41,16 +41,7 @@ jobs:
 
       - name: Start development infrastructure
         working-directory: integrationtests/
-        run: docker compose --profile core up -d --quiet-pull
-
-      - name: Wait for opensearch, the slowest component
-        uses: nick-fields/retry@v2.9.0
-        with:
-          timeout_minutes: 3
-          max_attempts: 25
-          retry_wait_seconds: 5
-          warning_on_retry: false
-          command: 'curl -sS -X GET -H "Content-Type: application/json" http://admin:admin@localhost:9200/_cat/indices'
+        run: docker compose --profile core up --wait
 
       - name: Dotnet Test
         run: dotnet test --logger trx
