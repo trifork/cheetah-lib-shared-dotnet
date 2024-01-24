@@ -52,7 +52,8 @@ The configuration would then need to carry the same prefix.
 
 `WithTopic` defines the topic used for the writer. Since Kafka operates on a `producer` and `consumer`, these will be bound to a topic. So that the reader can't change topics or read from topis it's not assigned to.
 
-`WithGroupId` is used to make sure the reader does not have to read the whole topic every time it is reading from the topic. This also means that if the writer writes to the topic and reader reads those messages, it is possible to use the same writer to write to the same topic, without having to do any clean up, as the reader keeps track of the offset of the topic, for the group. Read more about consumer groups and offsets [here.](https://docs.confluent.io/platform/current/clients/consumer.html)
+`WithGroupId` is used to make sure the reader does not have to read the whole topic every time it is reading from the topic.
+This also means that if the writer writes to the topic and reader reads those messages, it is possible to use the same writer to write to the same topic, without having to do any clean up, as the reader keeps track of the offset of the topic, for the group. Read more about consumer groups and offsets [here.](https://docs.confluent.io/platform/current/clients/consumer.html)
 
 ## Using the Kafka Reader
 
