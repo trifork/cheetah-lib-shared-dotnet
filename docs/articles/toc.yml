@@ -1,9 +1,0 @@
----
-- name: Configuration
-  href: configuration.md
-- name: CheetahOpenSearchClient
-  href: CheetahOpenSearchClient.md
-- name: CheetahComponentTest
-  href: CheetahComponentTest.md
-- name: HowTo
-  href: HowTo.md
