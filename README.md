@@ -1,111 +1,94 @@
-# Cheetah.Shared (Nuget Package)
+# Cheetah Nuget Packages
 
-This is a project containing shared functionality for .net projects interacting with the data platform.
+This repository is a mono-repo containing all of the NuGet packages offered as part of the Cheetah data platform.
 
-See reference projects
+## Project structure
 
-- <https://github.com/trifork/cheetah-example-webapi>
-- <https://github.com/trifork/cheetah-example-alertservice>
+The project is structured as follows:
+- `/.github` - Contains GitHub actions pipelines used to build, test, release, etc.
+- `/docs` - Contains all publicly visible documentation.
+- `/src` - Contains all source code. The root contains `/Cheetah.Shared.sln`, which includes all of the projects in `/src`.
+- `README.md` - This file, contains internal developer documentation.
 
-and other utilities using the library:
+## Prerequisites
+- [cheetah-development-infrastructure](https://github.com/trifork/cheetah-development-infrastructure) is cloned and running.
 
-- <https://github.com/trifork/cheetah-lib-templates-dotnet>
+## Developing locally
 
-features offered by this library:
+For each major package, there is an associated example project:
+- `Cheetah.OpenSearch` -> `Cheetah.OpenSearch.ExampleAPI`
+- `Cheetah.Kafka` -> `Cheetah.Kafka.ExampleProcessor`
 
-- Prometheus exposed on a kestrel server
-- Helper methods for connecting and authentication against OpenSearch
-- Helper methods for Authentication against Kafka
-- Helper methods for building OpenSearch-search indices
+These example projects are not built and run as a part of any pipeline, but are intended to be easy-to-alter playgrounds which can quickly be run to verify new changes locally.
 
-## Functionality
+Functionality should of course secured through proper tests, but the example projects provide a way to easily test out new functionality as a "regular" service, which uses the package.
 
-### OpenSearch
+### Running tests
 
-This library provides a `CheetahOpenSearchClient` wrapper which contains a wrapped `OpenSearchClient` with some standard configuration and authentication setup.  
-The internal client can be accessed directly at `_cheetahOpenSearchClient.InternalClient` for interacting with OpenSearch.
+Most projects in the repository contains an associateed `.Test` project. These tests are and should be designed to run directly from an IDE or `dotnet test` without any alterations, given that development infrastructure is running with the necessary services.
 
-```c#
-# Register the client for dependency injection
-services.AddMemoryCache();
-services.AddHttpClient();
-services.AddTransient<IMetricReporter, MetricReporter>();
-services.AddTransient<ICheetahOpenSearchClient, CheetahOpenSearchClient>();
+A consequence of this is that all integration tests, that use services from development infrastructure, should always default to using `localhost` exposed ports. Ideally the configuration of these tests should also be possible to override through environment variables, so that we may change it in other environments.
+
+### Building and serving docs
+
+The publicly facing documentation, which gets included in [cheetah-artifact-documentation](https://github.com/trifork/cheetah-artifact-documentation) and served at http://docs.cheetah.trifork.dev is found in `/docs`. 
+
+We use docfx to compile and build documentation, which, assuming docfx is installed, can be built and served locally by running the following command from the `/docs` directory:
+
+```sh
+docfx docfx.json --serve
 ```
 
-#### OpenSearch OAuth2 authentication
+This will compile all articles into html and build api documentation based on XML docs in the code. The locally hosted docfx is served at http://localhost:8080
 
-To enable Oauth2 authentication you can provide the following options through environment variables:
+## Releasing a new version
 
-- `OpenSearch__AuthMode=OAuth2` - Token endpoint used to obtain token for authentication and authorization
-- `OpenSearch__TokenEndpoint` - Token endpoint used to obtain token for authentication and authorization
-- `OpenSearch__ClientId` - Client id used to obtain JWT from token endpoint
-- `OpenSearch__ClientSecret` - Client secret used to obtain JWT from token endpoint
+[Run actions from here](https://github.com/trifork/cheetah-lib-shared-dotnet/actions)
 
-If these environment variables are not provided, the `CheetahOpenSearchClient` will try to communicate with OpenSearch using basic auth.
+In order to create a new release, you must first create a new release branch.
 
-#### OpenSearch Naming Strategies
+This can be done by running the `.NET Create Release Branch` action and specifying which package you want to release, as well as the version increment to perform on main.
 
-In order to store data in OpenSearch, you need an Index.
-We are providing a number of different naming strategies for querying Indexes:
+Each release branch is responsible for a minor version of a single package, e.g. `release/Cheetah.Kafka-v0.2` is responsible for releasing `Cheetah.Kafka` in versions `0.2.X`, starting with `0.2.0`.
 
-The `<>` indicates required param, while `[]` indicates optional. e.g `prefix` is always optional.
+Once the release branch is successfully created, run the `.NET Create Release` branch from the release branch. It will automatically build, test and release the new version of the package.
 
-- `SimpleIndexNamingStrategy`: follows the pattern `<base>_[prefix]`.
-  This is the simplest Index naming
-- `CustomerIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_*`.
-  (For querying) This gives us all the Indexes for a customer - all years/months
-- `YearResolutionIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_<year>`.
-  This builds on top of the `CustomerIndexNamingStrategy` but adds sharding based on the year
-- `MonthResolutionIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_<year>_<zero-padded month>`.
-  This builds on top of the `YearResolutionIndexNamingStrategy` but adds sharding based on month as well.
-- `YearResolutionWithWildcardIndexNamingStrategy`: follows the pattern `<base>_[prefix]_<customer>_<year>*`.
-  (For querying) This gives us all the Indexes a given customer and year - all the months
+### Releasing a patch
 
-See an example at <https://github.com/trifork/cheetah-example-webapi>.
+Releasing a patch of an existing release is a straight-forward process. Simply make your changes onto the relevant release branch, then run the `.NET Create Release` action manually on the release branch
 
-### Kafka
+Make sure to merge your changes back onto main and any release branches with higher versions to that fixes are applied to all relevant version and to main.
 
-We are using the Confluent.Net client library and have added an additional extension method for authentication.  
-<https://github.com/trifork/cheetah-example-alertservice> has a working example of using the library to connect to kafka.
+### Note on version bumps
 
-#### Kafka OAuth2 authentication
+Be aware that when you create a release branch, you create it based on the _current_ `VersionPrefix` value in the project's .csproj on `main`. This means that the version increment you select doesn't determine the version that you're about to release, but instead determines next bump.
 
-```c#
-# Setup a consumer or producer with OAuth
-var clientConfig = new ClientConfig
-                {
-                    BootstrapServers = kafkaConfig.Value.KafkaUrl,
-                    SaslMechanism = SaslMechanism.OAuthBearer,
-                    SecurityProtocol = SecurityProtocol.SaslPlaintext,
-                };
-var consumer = new ConsumerBuilder<Ignore, string>(new ConsumerConfig(clientConfig)
-                {
-                    GroupId = webApiOptions.Value.ConsumerName,
-                    AutoOffsetReset = AutoOffsetReset.Latest,
-                    EnableAutoCommit = true,
-                })
-                ...
-                .AddCheetahOAuthentication(localProvider)
-                .Build();
-```
+This is usually not an issue when creating minor updates, but can cause issues when you're intending to release a new major, since the major bump needs to either be expected by the person who released previously, or you need to first create a release branch which bumps to the next major and then create another release branch which bumps to the following minor.
 
-To enable Oauth2 authentication you should also provide the following options through environment variables:
+Imagine the following scenario:
+- Cheetah.Kafka's newest version is 1.1, main has been minor bumped to 1.2
+- We make breaking changes to Cheetah.Kafka on main
+- We create a new release branch and ask it to do a major bump
+- A new release branch is created called `release/Cheetah.Kafka-v1.2`
 
-- `Kafka__TokenEndpoint` - Token endpoint used to obtain token for authentication and authorization
-- `Kafka__ClientId` - Client id used to obtain JWT from token endpoint
-- `Kafka__ClientSecret` - Client secret used to obtain JWT from token endpoint
-- `Kafka__OauthScope` (Optional) - Scope used to obtain JWT from token endpoint
+At this point, if we create a release from the new release branch, we end up releasing breaking changes in a minor increment. Instead:
+- Delete `release/Cheetah.kafka-v1.2`
+- Create another release branch, this time selecting to only do a minor bump
+- A new release branch is created called `release/Cheetah.Kafka-v2.0`
+- Create a release from the new release branch.
 
+An alternate approach is to instead do a major bump before merging breaking changes to main. This also ensures that we do not accidentally release breaking changes in a minor by forgetting that someone has made unreleased breaking changes on main (This has happened before).
 
-## Logging
-The following types of information is logged on different log levels:
-### DEBUG
-* Detailed configuration (possibly sensitive info)
-### INFO
-* Configuration
-### WARN
-* Connection problems
-### ERROR
-* Connection problems
-* Configuration errors
+## Published Nuget packages
+
+The following packages are published as NuGet packages to both the GitHub NuGet repository and customer NuGet repositories:
+- Cheetah.Kafka
+- Cheetah.OpenSearch
+
+Any other projects that these two projects refer to are also implicitly published, since they will get baked into the NuGet package through the [`Fat-Pack` script](https://github.com/trifork/cheetah-infrastructure-utils/blob/main/.github/actions/dotnet/dotnet-fat-pack/Fat-Pack.ps1). 
+
+This currently only applies to `Cheetah.Auth` which is built-in to both the Kafka and OpenSearch packages.
+
+Bear in mind that there are several packages in the solution that are _NOT_ published anywhere. These packages primarily contain functionality from before the restructuring into Cheetah.Kafka and Cheetah.OpenSearch. 
+
+At some point, that currently dead code should either be reintroduced as their own packages, migrated to one of the published packages or properly burried and deleted.
