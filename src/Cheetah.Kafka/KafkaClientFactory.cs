@@ -20,7 +20,6 @@ namespace Cheetah.Kafka
     public class KafkaClientFactory
     {
         private readonly ITokenService _tokenService;
-        private readonly ILogger<KafkaClientFactory> _logger;
         private readonly ILoggerFactory _loggerFactory;
         private readonly KafkaConfig _config;
         private readonly KafkaClientFactoryOptions _options;
@@ -44,7 +43,6 @@ namespace Cheetah.Kafka
             _config = config.Value;
             _config.Validate();
             _options = options;
-            _logger = _loggerFactory.CreateLogger<KafkaClientFactory>();
         }
 
         /// <summary>
@@ -77,7 +75,7 @@ namespace Cheetah.Kafka
         /// <summary>
         /// Creates a pre-configured <see cref="ProducerBuilder{TKey,TValue}"/>/>
         /// </summary>
-        /// <inheritdoc cref="KafkaClientFactory.CreateConsumer{TKey, TValue}"/>
+        /// <inheritdoc cref="CreateConsumer{TKey, TValue}"/>
         /// <returns>A pre-configured <see cref="ProducerBuilder{TKey, TValue}"/></returns>
         public ProducerBuilder<TKey, TValue> CreateProducerBuilder<TKey, TValue>(
             Action<ProducerConfig>? configAction = null,
@@ -148,7 +146,7 @@ namespace Cheetah.Kafka
         /// <summary>
         /// Creates a pre-configured <see cref="ConsumerBuilder{TKey,TValue}"/>/>
         /// </summary>
-        /// <inheritdoc cref="KafkaClientFactory.CreateConsumer{TKey, TValue}"/>
+        /// <inheritdoc cref="CreateConsumer{TKey, TValue}"/>
         /// <returns>A pre-configured <see cref="ConsumerBuilder{TKey,TValue}"/></returns>
         public ConsumerBuilder<TKey, TValue> CreateConsumerBuilder<TKey, TValue>(
             Action<ConsumerConfig>? configAction = null,
