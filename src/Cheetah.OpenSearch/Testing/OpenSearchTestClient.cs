@@ -18,8 +18,6 @@ namespace Cheetah.OpenSearch.Testing
     public static class OpenSearchTestClient
     {
         /// <inheritdoc cref="Create(OpenSearchConfig,OpenSearchClientOptions?)"/>
-        /// <param name="configuration">The <see cref="IConfiguration"/> to create the client from</param>
-        /// <param name="options">The <see cref="OpenSearchClientOptions"/> used to modify client behavior</param>
         public static IOpenSearchClient Create(
             IConfiguration configuration,
             OpenSearchClientOptions? options = null
@@ -37,7 +35,7 @@ namespace Cheetah.OpenSearch.Testing
         /// <b>WARNING</b>: This method should <i>only</i> be used if you for some reason cannot use dependency injection and need to create a client manually.
         /// In any other circumstances, you should use the <see cref="ServiceCollectionExtensions.AddCheetahOpenSearch"/> method during service registration and inject <see cref="IOpenSearchClient"/> into your service.
         /// </remarks>
-        /// <param name="configuration">The <see cref="OpenSearchConfig"/> to create the client from</param>
+        /// <param name="configuration">The configuration to create the client from</param>
         /// <param name="options">The <see cref="OpenSearchClientOptions"/> used to modify client behavior</param>
         /// <returns>A pre-configured <see cref="OpenSearchClient"/></returns>
         public static IOpenSearchClient Create(
