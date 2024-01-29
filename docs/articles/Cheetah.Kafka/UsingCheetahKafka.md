@@ -6,7 +6,7 @@
 - Basic understanding of Kafka and [the Apache Kafka .NET Client](https://docs.confluent.io/kafka-clients/dotnet/current/overview.html)
 
 ## Getting started
- 
+
 In an .NET application with some sort of `HostBuilder` startup, all you need to get started is the following lines in your `Program.cs`:
 The snippet below will add Kafka's required dependencies and then register a pre-configured `IConsumer<string, ExampleModel>` for dependency injection:
 
@@ -59,13 +59,13 @@ public class MyService {
 
 You'll need to provide the following configuration to use `Cheetah.Kafka`:
 
-| Key                        	    | Description                                                  	| Example                                                                       	| Required 	|
-|------------------------------  	|--------------------------------------------------------------	|-------------------------------------------------------------------------------	|----------	|
-| `Kafka__Url`                  	| The url to kafka. Must *not* include a scheme prefix.        	| `kafka:19092`                                                                  	| ✓        	|
-| `Kafka__OAuth2__ClientId`      	| The Client Id to use when retrieving tokens using OAuth2     	| `default-access`                                                                	| ✓        	|
-| `Kafka__OAuth2__ClientSecret`  	| The Client Secret to use when retrieving tokens using OAuth2 	| `default-access-secret`                                                          	| ✓        	|
-| `Kafka__OAuth2__TokenEndpoint` 	| The endpoint where tokens should be retrieved from           	| `http://keycloak:1852/realms/local-development/protocol/openid-connect/token` 	| ✓        	|
-| `Kafka__OAuth2__Scope`         	| The scope that the requested token should have               	| `kafka`                                                                       	|          	|
+| Key                             | Description                                                   | Example                                                                        | Required  |
+|------------------------------   |-------------------------------------------------------------- |------------------------------------------------------------------------------- |---------- |
+| `Kafka__Url`                    | The url to kafka. Must *not* include a scheme prefix.         | `kafka:19092`                                                                  | ✓         |
+| `Kafka__OAuth2__ClientId`       | The Client Id to use when retrieving tokens using OAuth2      | `default-access`                                                               | ✓         |
+| `Kafka__OAuth2__ClientSecret`   | The Client Secret to use when retrieving tokens using OAuth2  | `default-access-secret`                                                        | ✓         |
+| `Kafka__OAuth2__TokenEndpoint`  | The endpoint where tokens should be retrieved from            | `http://keycloak:1852/realms/local-development/protocol/openid-connect/token`  | ✓         |
+| `Kafka__OAuth2__Scope`          | The scope that the requested token should have                | `kafka`                                                                        |           |
 
 The below example configuration can be placed in an `appsettings.json` to supply the necessary keys in development. These should be supplied through environment variables when running through docker-compose or in cluster.
 
@@ -145,7 +145,7 @@ public class MyService {
 
 > [!NOTE]
 > The following method of using the package is both possible and valid, but makes it the reader's responsibility to handle client lifetimes and individual client configuration
-> 
+>
 > We recommend registering and configuring clients using the methods described in the previous sections.
 
 Internally, the package uses a `KafkaClientFactory` to create the clients that get registered. This factory can be dependency injected into order services to create clients without injecting them directly:
@@ -169,6 +169,6 @@ public class MyService {
 }
 ```
 
-The above snippet uses the KafkaClientFactory and essentially enables MyService to publish any type of Message. 
+The above snippet uses the KafkaClientFactory and essentially enables MyService to publish any type of Message.
 
-Bear in mind that creating and disposing producers this often is not generally recommended and that the above example is primarily to showcase what _can_ be done and not what _should_ be done. 
+Bear in mind that creating and disposing producers this often is not generally recommended and that the above example is primarily to showcase what *can* be done and not what *should* be done.

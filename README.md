@@ -31,7 +31,7 @@ A consequence of this is that all integration tests, that use services from deve
 
 ### Building and serving docs
 
-The publicly facing documentation, which gets included in [cheetah-artifact-documentation](https://github.com/trifork/cheetah-artifact-documentation) and served at http://docs.cheetah.trifork.dev is found in `/docs`. 
+The publicly facing documentation, which gets included in [cheetah-artifact-documentation](https://github.com/trifork/cheetah-artifact-documentation) and served at [Cheetah Data Platform Documentation](http://docs.cheetah.trifork.dev) is found in `/docs`. 
 
 We use docfx to compile and build documentation, which, assuming docfx is installed, can be built and served locally by running the following command from the `/docs` directory:
 
@@ -39,7 +39,7 @@ We use docfx to compile and build documentation, which, assuming docfx is instal
 docfx docfx.json --serve
 ```
 
-This will compile all articles into html and build api documentation based on XML docs in the code. The locally hosted docfx is served at http://localhost:8080
+This will compile all articles into html and build api documentation based on XML docs in the code. The locally hosted docfx is served at [http://localhost:8080](http://localhost:8080)
 
 ## Releasing a new version
 
