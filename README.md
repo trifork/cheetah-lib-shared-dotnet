@@ -92,3 +92,29 @@ This currently only applies to `Cheetah.Auth` which is built-in to both the Kafk
 Bear in mind that there are several packages in the solution that are _NOT_ published anywhere. These packages primarily contain functionality from before the restructuring into Cheetah.Kafka and Cheetah.OpenSearch.
 
 At some point, that currently dead code should either be reintroduced as their own packages, migrated to one of the published packages or properly burried and deleted.
+
+## Development Recommendations
+
+### Be mindful of when to use `internal` instead of `public`
+
+Anything that is public can and will be used and miused by users, make sure that it's intentional that they have access to it.
+
+Using the `internal` keyword instead of `public` allows you to use it within the same project as if it was public, while denying access to it for anyone using the package.
+
+### Test out the "feel"
+
+When developing packages for other developers, the developer experience is important. Ideally you want others to be able to use the package without first needing to read an entire book's worth of documentation - It also saves you from having to write the book.
+
+Ensure that new features and changes are intuitive to use and makes sense from a user perspective by trying it out using the example projects.
+
+### Don't leave empty XML comments
+
+During active development, it is tempting to accept the suggestion of bootstrapping XML docs when creating a new publicly visible method because of the red squiggly that screams that it is missing.
+
+If you're not ready to write the docs immediately, leave the error there untill you are ready to write the docs. If you bootstrap it early with the intention of coming back to it later, you *will* at some point forget to fill it in, and you no longer have an error to warn you.
+
+### Be careful with wrappers
+
+It is sometimes tempting to gain control over external packages by wrapping their functionality in a wrapper class of some sorts. This has proven to often cause more issues than benefits, since it leaves us with the responsibility of implementing and documenting wrapping logic for everything that whatever we wrap can do.
+
+Whenever possible, avoid wrapping and prefer using either extension methods to expand functionality or factories to simplify creation of objects that require complex initialization.
