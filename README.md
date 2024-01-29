@@ -31,7 +31,7 @@ A consequence of this is that all integration tests, that use services from deve
 
 ### Building and serving docs
 
-The publicly facing documentation, which gets included in [cheetah-artifact-documentation](https://github.com/trifork/cheetah-artifact-documentation) and served at [Cheetah Data Platform Documentation](http://docs.cheetah.trifork.dev) is found in `/docs`. 
+The publicly facing documentation, which gets included in [cheetah-artifact-documentation](https://github.com/trifork/cheetah-artifact-documentation) and served at [Cheetah Data Platform Documentation](http://docs.cheetah.trifork.dev) is found in `/docs`.
 
 We use docfx to compile and build documentation, which, assuming docfx is installed, can be built and served locally by running the following command from the `/docs` directory:
 
@@ -85,10 +85,10 @@ The following packages are published as NuGet packages to both the GitHub NuGet 
 - Cheetah.Kafka
 - Cheetah.OpenSearch
 
-Any other projects that these two projects refer to are also implicitly published, since they will get baked into the NuGet package through the [`Fat-Pack` script](https://github.com/trifork/cheetah-infrastructure-utils/blob/main/.github/actions/dotnet/dotnet-fat-pack/Fat-Pack.ps1). 
+Any other projects that these two projects refer to are also implicitly published, since they will get baked into the NuGet package through the [`Fat-Pack` script](https://github.com/trifork/cheetah-infrastructure-utils/blob/main/.github/actions/dotnet/dotnet-fat-pack/Fat-Pack.ps1).
 
 This currently only applies to `Cheetah.Auth` which is built-in to both the Kafka and OpenSearch packages.
 
-Bear in mind that there are several packages in the solution that are _NOT_ published anywhere. These packages primarily contain functionality from before the restructuring into Cheetah.Kafka and Cheetah.OpenSearch. 
+Bear in mind that there are several packages in the solution that are _NOT_ published anywhere. These packages primarily contain functionality from before the restructuring into Cheetah.Kafka and Cheetah.OpenSearch.
 
 At some point, that currently dead code should either be reintroduced as their own packages, migrated to one of the published packages or properly burried and deleted.
