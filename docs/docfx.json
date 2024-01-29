@@ -4,9 +4,7 @@
       "filter": "filterConfig.yml",
       "src": [
         {
-          "files": [
-            "**/Cheetah.Kafka.csproj"
-          ],
+          "files": ["**/Cheetah.Kafka.csproj"],
           "src": "../"
         }
       ],
@@ -21,9 +19,7 @@
       "filter": "filterConfig.yml",
       "src": [
         {
-          "files": [
-            "**/Cheetah.OpenSearch.csproj"
-          ],
+          "files": ["**/Cheetah.OpenSearch.csproj"],
           "src": "../"
         }
       ],
@@ -38,9 +34,7 @@
       "filter": "filterConfig.yml",
       "src": [
         {
-          "files": [
-            "**/Cheetah.Auth.csproj"
-          ],
+          "files": ["**/Cheetah.Auth.csproj"],
           "src": "../"
         }
       ],
