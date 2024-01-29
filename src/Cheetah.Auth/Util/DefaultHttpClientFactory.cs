@@ -8,7 +8,9 @@ namespace Cheetah.Auth.Util
     /// </summary>
     public sealed class DefaultHttpClientFactory : IHttpClientFactory, IDisposable
     {
-        private readonly Lazy<HttpMessageHandler> _handlerLazy = new Lazy<HttpMessageHandler>(() => new HttpClientHandler());
+        private readonly Lazy<HttpMessageHandler> _handlerLazy = new Lazy<HttpMessageHandler>(
+            () => new HttpClientHandler()
+        );
 
         /// <summary>
         /// Create a <see cref="HttpClient"/> with the supplied name/>

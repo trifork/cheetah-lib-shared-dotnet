@@ -10,7 +10,8 @@ namespace Cheetah.OpenSearch.Connection
     {
         private readonly ITokenService _tokenService;
 
-        public OAuth2HttpMessageHandler(ITokenService tokenService, HttpMessageHandler innerHandler) : base(innerHandler)
+        public OAuth2HttpMessageHandler(ITokenService tokenService, HttpMessageHandler innerHandler)
+            : base(innerHandler)
         {
             this._tokenService = tokenService;
         }

@@ -67,9 +67,7 @@
     ],
     "resource": [
       {
-        "files": [
-          "images/**"
-        ]
+        "files": ["images/**"]
       }
     ],
     "globalMetadata": {
@@ -80,10 +78,7 @@
     "dest": "../_site",
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
-    "template": [
-      "default",
-      "modern"
-    ],
+    "template": ["default", "modern"],
     "postProcessors": [],
     "keepFileLink": false,
     "disableGitFeatures": false

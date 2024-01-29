@@ -23,7 +23,7 @@ namespace Cheetah.OpenSearch.Util
         {
             try
             {
-                if(objectType == typeof(DateTime))
+                if (objectType == typeof(DateTime))
                 {
                     return ReadDateTime(reader, objectType, existingValue, serializer);
                 }
@@ -35,10 +35,11 @@ namespace Cheetah.OpenSearch.Util
                         ? new DateTimeOffset(dateTime.Value) as object // This cast seems unnecessary, but is required before C# 9
                         : null;
                 }
-                
+
                 throw new ArgumentException(
-                    $"Cannot convert to requested object type: {objectType.FullName}. " +
-                    $"Supported types are {typeof(DateTime).FullName} and {typeof(DateTimeOffset).FullName}");
+                    $"Cannot convert to requested object type: {objectType.FullName}. "
+                        + $"Supported types are {typeof(DateTime).FullName} and {typeof(DateTimeOffset).FullName}"
+                );
             }
             catch (Exception e)
             {
@@ -49,23 +50,29 @@ namespace Cheetah.OpenSearch.Util
             }
         }
 
-        private static DateTime? ReadDateTime(JsonReader reader, Type objectType, object? existingValue,
-            JsonSerializer serializer)
+        private static DateTime? ReadDateTime(
+            JsonReader reader,
+            Type objectType,
+            object? existingValue,
+            JsonSerializer serializer
+        )
         {
             return reader.Value switch
             {
                 long val => DateTime.UnixEpoch.AddMilliseconds(val).ToUniversalTime(),
-                string val => DateTime.TryParse(val, out var dateTime)
-                    ? dateTime.ToUniversalTime()
-                    : throw new ArgumentException(
-                        $"Attempted to deserialize the string '{val}', into a DateTime, but it could not be parsed"
-                    ),
+                string val
+                    => DateTime.TryParse(val, out var dateTime)
+                        ? dateTime.ToUniversalTime()
+                        : throw new ArgumentException(
+                            $"Attempted to deserialize the string '{val}', into a DateTime, but it could not be parsed"
+                        ),
                 DateTime val => val.ToUniversalTime(),
                 DateTimeOffset val => new DateTime(val.ToUniversalTime().Ticks, DateTimeKind.Utc),
                 null => null,
-                _ => throw new ArgumentException(
-                    $"Unable to deserialize type '{reader.Value?.GetType().FullName}' into a DateTime."
-                )
+                _
+                    => throw new ArgumentException(
+                        $"Unable to deserialize type '{reader.Value?.GetType().FullName}' into a DateTime."
+                    )
             };
         }
 
@@ -75,18 +82,14 @@ namespace Cheetah.OpenSearch.Util
             long? unixTimeMilliseconds = value switch
             {
                 null => null,
-                DateTime dt =>
-                    dt == default
-                        ? 0
-                        : new DateTimeOffset(dt).ToUnixTimeMilliseconds(),
-                DateTimeOffset dto =>
-                    dto == default
-                        ? 0
-                        : dto.ToUnixTimeMilliseconds(),
-                _ => throw new ArgumentOutOfRangeException(
-                    nameof(value), 
-                    value, 
-                    $"Unable to extract epoch millis from object of type {value.GetType().Name}")
+                DateTime dt => dt == default ? 0 : new DateTimeOffset(dt).ToUnixTimeMilliseconds(),
+                DateTimeOffset dto => dto == default ? 0 : dto.ToUnixTimeMilliseconds(),
+                _
+                    => throw new ArgumentOutOfRangeException(
+                        nameof(value),
+                        value,
+                        $"Unable to extract epoch millis from object of type {value.GetType().Name}"
+                    )
             };
             writer.WriteValue(unixTimeMilliseconds);
         }

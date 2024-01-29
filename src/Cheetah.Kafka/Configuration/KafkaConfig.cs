@@ -23,12 +23,12 @@ namespace Cheetah.Kafka.Configuration
         /// <value></value>
         [Required]
         public string Url { get; set; } = null!;
-        
+
         /// <summary>
         /// Optional schema registry url.
         /// </summary>
         public string? SchemaRegistryUrl { get; set; }
-        
+
         /// <summary>
         /// The principal used for authentication. Defaults to <c>unused</c> and is <i>usually</i> not required.
         /// </summary>
@@ -38,7 +38,7 @@ namespace Cheetah.Kafka.Configuration
         /// The security protocol used to communicate with brokers.
         /// </summary>
         public SecurityProtocol SecurityProtocol { get; set; } = SecurityProtocol.SaslPlaintext;
-        
+
         /// <summary>
         /// The OAuth2 configuration
         /// </summary>
@@ -50,7 +50,7 @@ namespace Cheetah.Kafka.Configuration
         /// <exception cref="ArgumentException">Thrown if the configuration is invalid</exception>
         public void Validate()
         {
-            if(!Uri.IsWellFormedUriString(Url, UriKind.Absolute))
+            if (!Uri.IsWellFormedUriString(Url, UriKind.Absolute))
             {
                 throw new ArgumentException($"The provided Kafka Url is invalid: {Url})");
             }
@@ -66,7 +66,9 @@ namespace Cheetah.Kafka.Configuration
             var hasSchemePrefix = Regex.Match(Url, "(.*://).*");
             if (hasSchemePrefix.Success)
             {
-                throw new ArgumentException($"Found Kafka address: '{Url}'. The Kafka URL cannot contain a scheme prefix - Remove the '{hasSchemePrefix.Groups[1].Value}'-prefix");
+                throw new ArgumentException(
+                    $"Found Kafka address: '{Url}'. The Kafka URL cannot contain a scheme prefix - Remove the '{hasSchemePrefix.Groups[1].Value}'-prefix"
+                );
             }
         }
 
@@ -94,11 +96,8 @@ namespace Cheetah.Kafka.Configuration
             {
                 throw new ArgumentException("The provided Schema Registry Url is invalid");
             }
-            
-            return new SchemaRegistryConfig
-            {
-                Url = SchemaRegistryUrl
-            };
+
+            return new SchemaRegistryConfig { Url = SchemaRegistryUrl };
         }
     }
 }
