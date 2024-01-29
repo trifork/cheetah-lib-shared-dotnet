@@ -17,7 +17,7 @@ namespace Cheetah.OpenSearch.Testing
     /// </summary>
     public static class OpenSearchTestClient
     {
-        /// <inheritdoc cref="Create(Microsoft.Extensions.Configuration.IConfiguration,Cheetah.OpenSearch.OpenSearchClientOptions?)"/>
+        /// <inheritdoc cref="Create(OpenSearchConfig,OpenSearchClientOptions?)"/>
         public static IOpenSearchClient Create(IConfiguration configuration, OpenSearchClientOptions? options = null)
         {
             var config = new OpenSearchConfig();

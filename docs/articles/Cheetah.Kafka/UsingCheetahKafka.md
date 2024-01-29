@@ -7,56 +7,63 @@
 
 ## Getting started
  
-In an .NET application with some sort of `HostBuilder` startup, all you need to get started is the following line in your `Program.cs`:
-
-```csharp
-builder.Services.AddCheetahKafka(builder.Configuration);
-```
-
-This will register a `KafkaClientFactory` for dependency injection, which can be used to instantiate clients.
-
-Although using `KafkaClientFactory` directly is possible and a perfectly valid way to use the library, we instead recommend registering your clients explicitly.
-
+In an .NET application with some sort of `HostBuilder` startup, all you need to get started is the following lines in your `Program.cs`:
 The snippet below will add Kafka's required dependencies and then register a pre-configured `IConsumer<string, ExampleModel>` for dependency injection:
 
 ```csharp
-// In Program.cs
-builder.Services.AddCheetahKafka(builder.Configuration)
+builder.Services
+    .AddCheetahKafka(builder.Configuration)
     .WithConsumer<string, ExampleModel>();
+```
 
-builder.Services.AddHostedService<MyConsumerService>();
+This will add necessary dependencies and register an `IConsumer<string, ExampleModel>`, where `string` and `ExampleModeL` are the key and value type of consumed messages.
 
-// In MyConsumerService.cs
-public class MyConsumerService : BackgroundService {
+This consumer can then be injected into other services like so:
+
+```csharp
+public class MyService {
     private readonly IConsumer<string, ExampleModel> _consumer;
 
-    public MyConsumerService(IConsumer<string, ExampleModel> consumer)
+    public MyService(IConsumer<string, ExampleModel> consumer)
     {
         _consumer = consumer;
-    }
-
-    protected override Task ExecuteAsync(CancellationToken stoppingToken)
-    {
-        // Consume message using _consumer
     }
 }
 ```
 
 The injected consumer is pre-configured to:
 * Authenticate towards Kafka using OAuth2
-* Serialize message values using an `Utf8Serializer<ExampleModel>`
+* Deserialize message values from json with UTF8-encoding.
 
-The same concept applies for registering and injecting `IProducer<TKey, TValue>` and `IAdminClient` instances.
+The same concept applies for producers and admin clients. The following example shows a producer and admin client being registered and injected:
+
+```csharp
+// in Program.cs
+builder.Services.AddCheetahKafka(builder.Configuration)
+    .WithProducer<string, ExampleModel>()
+    .WithAdminClient();
+
+// in MyService.cs
+public class MyService {
+    private readonly IProducer<string, ExampleModel> _producer;
+    private readonly IAdminClient _adminClient;
+
+    public MyService(IProducer<string, ExampleModel> producer, IAdminClient adminClient){
+        _producer = producer;
+        _adminClient = adminClient;
+    }
+}
+```
 
 ## Configuration
 
 You'll need to provide the following configuration to use `Cheetah.Kafka`:
 
-| Key                        	| Description                                                  	| Example                                                                       	| Required 	|
-|----------------------------	|--------------------------------------------------------------	|-------------------------------------------------------------------------------	|----------	|
+| Key                        	    | Description                                                  	| Example                                                                       	| Required 	|
+|------------------------------  	|--------------------------------------------------------------	|-------------------------------------------------------------------------------	|----------	|
 | `Kafka__Url`                  	| The url to kafka. Must *not* include a scheme prefix.        	| `kafka:19092`                                                                  	| ✓        	|
 | `Kafka__OAuth2__ClientId`      	| The Client Id to use when retrieving tokens using OAuth2     	| `default-access`                                                                	| ✓        	|
-| `Kafka__OAuth2__ClientSecret`  	| The Client Secret to use when retrieving tokens using OAuth2 	| `default-access-secret`                                                                	| ✓        	|
+| `Kafka__OAuth2__ClientSecret`  	| The Client Secret to use when retrieving tokens using OAuth2 	| `default-access-secret`                                                          	| ✓        	|
 | `Kafka__OAuth2__TokenEndpoint` 	| The endpoint where tokens should be retrieved from           	| `http://keycloak:1852/realms/local-development/protocol/openid-connect/token` 	| ✓        	|
 | `Kafka__OAuth2__Scope`         	| The scope that the requested token should have               	| `kafka`                                                                       	|          	|
 
@@ -133,3 +140,35 @@ public class MyService {
         }
 }
 ```
+
+## Using KafkaClientFactory
+
+> [!NOTE]
+> The following method of using the package is both possible and valid, but makes it the reader's responsibility to handle client lifetimes and individual client configuration
+> 
+> We recommend registering and configuring clients using the methods described in the previous sections.
+
+Internally, the package uses a `KafkaClientFactory` to create the clients that get registered. This factory can be dependency injected into order services to create clients without injecting them directly:
+
+```csharp
+// In Program.cs
+builder.Services.AddCheetahKafka(builder.Configuration);
+
+// In MyService.cs
+public class MyService {
+    private readonly KafkaClientFactory _factory;
+
+    public MyService(KafkaClientFactory factory){
+        _factory = factory;
+    }
+
+    public void PublishMessage<TKey, TValue>(TKey key, TValue message, string topicName){
+        var producer = _factory.CreateProducer<TKey, TValue>();
+        producer.Produce(topicName, new Message<TKey, TValue> { Key = key, Value = message });
+    }
+}
+```
+
+The above snippet uses the KafkaClientFactory and essentially enables MyService to publish any type of Message. 
+
+Bear in mind that creating and disposing producers this often is not generally recommended and that the above example is primarily to showcase what _can_ be done and not what _should_ be done. 

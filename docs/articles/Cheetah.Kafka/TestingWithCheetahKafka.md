@@ -1,15 +1,11 @@
-# Testing using Cheetah.Kafka
+# Testing with Cheetah.Kafka
 
 In order to easily test other components which communicate with Kafka, Cheetah.Kafka includes a simple way to generate test clients that can be used to verify the behavior of other components.
 
----
-**WARNING**
+> [!CAUTION]
+> The clients generated using the methods described here are intended to be short-lived and used solely for testing purposes. They have not been tested to work in long-running applications and should not be used in production scenarios. Instead, use the clients registered through `serviceCollection.AddCheetahKafka()`;
 
-The clients generated using the methods described here are intended to be short-lived and used solely for testing purposes. They have not been tested to work in long-running applications and should not be used in production scenarios. Instead, use the clients registered through `serviceCollection.AddCheetahKafka()`;
-
----
-
-To get started we first create a `KafkaTestClientFactory`. This requires either a `KafkaConfig` instance or an `IConfiguration` with the same configuration requirements as described in [Using Cheetah.Kafka | Configuration](/docs/articles/UsingCheetahKafka.md#configuration).
+To get started we first create a `KafkaTestClientFactory`. This requires either a `KafkaConfig` instance or an `IConfiguration` with the same configuration requirements as described in [Using Cheetah.Kafka | Configuration](/articles/Cheetah.Kafka/UsingCheetahKafka.html#configuration).
 
 ```csharp
 var configuration = new ConfigurationBuilder()

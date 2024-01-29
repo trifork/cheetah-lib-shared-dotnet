@@ -41,19 +41,19 @@ public class IndexController : ControllerBase
 
 In order for Cheetah.OpenSearch to work, you must provide the following configuration:
 
-| Key                                	| Description                                                                                      	| Example      	| Required               	|
-|------------------------------------	|--------------------------------------------------------------------------------------------------	|--------------	|------------------------	|
-| OpenSearch:Url                     	| The url to OpenSearch.                                                                           	| `kafka:9092` 	| x                      	|
-| OpenSearch:AuthMode                	| The authentication method to use. Valid values: `None`, `Basic`, `OAuth2`. Default: `Basic`      	| `OAuth2`     	|                        	|
-| OpenSearch:UserName                	| The username to use when authenticating using `Basic` authentication.                            	| `admin`      	| When `AuthMode=Basic`  	|
-| OpenSearch:Password                	| The password to use when authenticating using `Basic` authentication.                            	| `p4$$w0rD    	| When `AuthMode=Basic`  	|
-| OpenSearch:OAuth2:TokenEndpoint    	| The endpoint to retrieve tokens from when using `OAuth2` authentication.                         	| `kafka`      	| When `AuthMode=OAuth2` 	|
-| OpenSearch:OAuth2:ClientId         	| The client id to retrieve tokens for when using `OAuth2` authentication.                         	|              	| When `AuthMode=OAuth2` 	|
-| OpenSearch:OAuth2:ClientSecret     	| The client secret to use when retrieving tokens for `OAuth2` authentication.                     	|              	| When `AuthMode=OAuth2` 	|
-| OpenSearch:OAuth2:Scope            	| The scope to request when retrieving tokens for `OAuth2` authentication.                         	|              	| When `AuthMode=OAuth2` 	|
-| OpenSearch:OAuth2:ClockSkewSeconds 	| The number of seconds of clock skew to allow for when validating `OAuth2` tokens. Default: `300` 	|              	|                        	|
-| OpenSearch:DisableTlsValidation    	| Whether or not to disable TLS validation towards OpenSearch. Default: `false`                    	| `true`       	|                        	|
-| OpenSearch:CaCertificatePath       	| The path to the CA certificate used to validate OpenSearch's certificate.                        	|              	|                        	|
+| Key                                	| Description                                                                                      	| Example                                                                       	| Required               	|
+|------------------------------------	|--------------------------------------------------------------------------------------------------	|-------------------------------------------------------------------------------	|------------------------	|
+| `OpenSearch:Url`                     	| The url to OpenSearch.                                                                           	| `http://opensearch:9200`                                                      	| ✓                      	|
+| `OpenSearch:AuthMode`                	| The authentication method to use. Valid values: `None`, `Basic`, `OAuth2`. Default: `Basic`      	| `OAuth2`                                                                      	|                        	|
+| `OpenSearch:UserName`                	| The username to use when authenticating using `Basic` authentication.                            	| `admin`                                                                       	| When `AuthMode=Basic`  	|
+| `OpenSearch:Password`                	| The password to use when authenticating using `Basic` authentication.                            	| `p4$$w0rD`                                                                     	| When `AuthMode=Basic`  	|
+| `OpenSearch:OAuth2:TokenEndpoint`    	| The endpoint to retrieve tokens from when using `OAuth2` authentication.                         	| `http://keycloak:1852/realms/local-development/protocol/openid-connect/token` 	| When `AuthMode=OAuth2` 	|
+| `OpenSearch:OAuth2:ClientId`         	| The client id to retrieve tokens for when using `OAuth2` authentication.                         	| `default-access`                                                              	| When `AuthMode=OAuth2` 	|
+| `OpenSearch:OAuth2:ClientSecret`     	| The client secret to use when retrieving tokens for `OAuth2` authentication.                     	| `default-access-secret`                                                       	| When `AuthMode=OAuth2` 	|
+| `OpenSearch:OAuth2:Scope`            	| The scope to request when retrieving tokens for `OAuth2` authentication.                         	| `opensearch`                                                                  	| When `AuthMode=OAuth2` 	|
+| `OpenSearch:OAuth2:ClockSkewSeconds` 	| The number of seconds of clock skew to allow for when validating `OAuth2` tokens. Default: `300` 	| `300`                                                                         	|                        	|
+| `OpenSearch:DisableTlsValidation`    	| Whether or not to disable TLS validation towards OpenSearch. Default: `false`                    	| `true`                                                                        	|                        	|
+| `OpenSearch:CaCertificatePath`       	| The path to the CA certificate used to validate OpenSearch's certificate.                        	| `/path/to/my/cert.pem`                                                        	|                        	|
 
 The below example configuration can be placed in an `appsettings.json` to supply the necessary keys in development. These should be supplied through environment variables when running through docker-compose or in cluster.
 

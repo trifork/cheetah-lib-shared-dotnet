@@ -82,7 +82,7 @@ namespace Cheetah.Kafka
         }
 
         /// <summary>
-        /// Creates a pre-configured <see cref="IProducer{TKey,TValue}"/> which serializes values using Avro/>
+        /// Creates a pre-configured <see cref="IProducer{TKey,TValue}"/> which serializes values using Avro
         /// </summary>
         /// <inheritdoc cref="CreateProducerBuilder{TKey,TValue}"/>
         public ProducerBuilder<TKey, TValue> CreateAvroProducerBuilder<TKey, TValue>(
@@ -93,9 +93,9 @@ namespace Cheetah.Kafka
         
                         
         /// <summary>
-        /// Creates a pre-configured <see cref="IProducer{TKey,TValue}"/> which serializes values using Avro/>
+        /// Creates a pre-configured <see cref="IProducer{TKey,TValue}"/> which serializes values using Avro
         /// </summary>
-        /// <inheritdoc cref="CreateProducer{TKey,TValue}"/>
+        /// <inheritdoc cref="CreateConsumer{TKey,TValue}"/>
         public IConsumer<TKey, TValue> CreateAvroConsumer<TKey, TValue>(Action<ConsumerConfig>? configAction = null)
         {
             return CreateAvroConsumerBuilder<TKey, TValue>(configAction)
@@ -116,7 +116,7 @@ namespace Cheetah.Kafka
         }
         
         /// <summary>
-        /// Creates a pre-configured <see cref="IProducer{TKey,TValue}"/> which serializes values using Avro/>
+        /// Creates a pre-configured <see cref="IProducer{TKey,TValue}"/> which serializes values using Avro
         /// </summary>
         /// <inheritdoc cref="CreateProducerBuilder{TKey,TValue}"/>
         public ConsumerBuilder<TKey, TValue> CreateAvroConsumerBuilder<TKey, TValue>(
@@ -144,6 +144,7 @@ namespace Cheetah.Kafka
         /// <summary>
         /// Creates a pre-configured <see cref="IAdminClient"/>/>
         /// </summary>
+        /// <param name="configAction">Optional action to modify the used <see cref="AdminClientConfig"/></param>
         /// <returns>A pre-configured <see cref="IAdminClient"/></returns>
         public IAdminClient CreateAdminClient(Action<AdminClientConfig>? configAction = null)
         {

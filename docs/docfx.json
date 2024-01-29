@@ -5,16 +5,48 @@
       "src": [
         {
           "files": [
-            "**/Cheetah.OpenSearch.csproj",
-            "**/Cheetah.Kafka.csproj",
+            "**/Cheetah.Kafka.csproj"
+          ],
+          "src": "../"
+        }
+      ],
+      "dest": "api/Cheetah.Kafka",
+      "properties": {
+        "TargetFramework": "net8.0"
+      },
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false
+    },
+    {
+      "filter": "filterConfig.yml",
+      "src": [
+        {
+          "files": [
+            "**/Cheetah.OpenSearch.csproj"
+          ],
+          "src": "../"
+        }
+      ],
+      "dest": "api/Cheetah.OpenSearch",
+      "properties": {
+        "TargetFramework": "net8.0"
+      },
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false
+    },
+    {
+      "filter": "filterConfig.yml",
+      "src": [
+        {
+          "files": [
             "**/Cheetah.Auth.csproj"
           ],
           "src": "../"
         }
       ],
-      "dest": "api",
+      "dest": "api/Cheetah.Auth",
       "properties": {
-        "TargetFramework": "net6.0"
+        "TargetFramework": "net8.0"
       },
       "disableGitFeatures": false,
       "disableDefaultFilter": false
@@ -24,19 +56,8 @@
     "content": [
       {
         "files": [
-          "README.md"
-        ],
-        "src": "../",
-        "dest": "./"
-      },
-      {
-        "files": [
+          "api/**/index.md",
           "api/**.yml",
-          "api/index.md"
-        ]
-      },
-      {
-        "files": [
           "articles/**.md",
           "articles/**/toc.yml",
           "toc.yml",
@@ -52,7 +73,7 @@
       }
     ],
     "globalMetadata": {
-      "_appTitle": "Cheetah.Shared (Nuget Package)",
+      "_appTitle": "Cheetah Nuget Packages",
       "_disableContribution": true,
       "_disableToc": false
     },

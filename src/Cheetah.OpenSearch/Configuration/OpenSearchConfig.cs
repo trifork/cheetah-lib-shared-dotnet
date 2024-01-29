@@ -5,7 +5,7 @@ using Cheetah.Auth.Configuration;
 namespace Cheetah.OpenSearch.Configuration
 {
     /// <summary>
-    /// OpenSearchConfig for IOptions
+    /// OpenSearch related configuration intended to be set from appsettings.json or environment variables
     /// </summary>
     public class OpenSearchConfig
     {
