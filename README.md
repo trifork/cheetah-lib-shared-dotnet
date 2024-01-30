@@ -59,26 +59,6 @@ Releasing a patch of an existing release is a straight-forward process. Simply m
 
 Make sure to merge your changes back onto main and any release branches with higher versions to that fixes are applied to all relevant version and to main.
 
-### Note on version bumps
-
-Be aware that when you create a release branch, you create it based on the _current_ `VersionPrefix` value in the project's .csproj on `main`. This means that the version increment you select doesn't determine the version that you're about to release, but instead determines next bump.
-
-This is usually not an issue when creating minor updates, but can cause issues when you're intending to release a new major, since the major bump needs to either be expected by the person who released previously, or you need to first create a release branch which bumps to the next major and then create another release branch which bumps to the following minor.
-
-Imagine the following scenario:
-- Cheetah.Kafka's newest version is 1.1, main has been minor bumped to 1.2
-- We make breaking changes to Cheetah.Kafka on main
-- We create a new release branch and ask it to do a major bump
-- A new release branch is created called `release/Cheetah.Kafka-v1.2`
-
-At this point, if we create a release from the new release branch, we end up releasing breaking changes in a minor increment. Instead:
-- Delete `release/Cheetah.kafka-v1.2`
-- Create another release branch, this time selecting to only do a minor bump
-- A new release branch is created called `release/Cheetah.Kafka-v2.0`
-- Create a release from the new release branch.
-
-An alternate approach is to instead do a major bump before merging breaking changes to main. This also ensures that we do not accidentally release breaking changes in a minor by forgetting that someone has made unreleased breaking changes on main (This has happened before).
-
 ## Published Nuget packages
 
 The following packages are published as NuGet packages to both the GitHub NuGet repository and customer NuGet repositories:
