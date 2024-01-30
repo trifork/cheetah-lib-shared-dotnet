@@ -2,4 +2,4 @@
 #  temp file  #
 ###############
 *.yml
-!toc.yml
+!/toc.yml
