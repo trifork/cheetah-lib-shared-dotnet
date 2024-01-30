@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\src\Cheetah.Kafka\Cheetah.Kafka.csproj" />
+      <ProjectReference Include="..\Cheetah.Kafka\Cheetah.Kafka.csproj" />
     </ItemGroup>
 
 </Project>

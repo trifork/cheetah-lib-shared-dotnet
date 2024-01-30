@@ -4,7 +4,7 @@ using Cheetah.Kafka.Configuration;
 using Cheetah.Kafka.Serialization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using static Cheetah.Auth.Extensions.ServiceExtentionCollection;
+using static Cheetah.Auth.Extensions.ServiceCollectionExtensions;
 
 namespace Cheetah.Kafka.Extensions
 {
@@ -33,9 +33,8 @@ namespace Cheetah.Kafka.Extensions
             
             serviceCollection.AddOptionsWithValidateOnStart<OAuth2Config>()
                 .Bind(configuration.GetSection(KafkaConfig.Position).GetSection(nameof(KafkaConfig.OAuth2)));
-            
-            AddTokenService(serviceCollection,"kafka");
-            AddTokenService(serviceCollection,"schema-registry");
+
+            serviceCollection.AddKeyedTokenService(Constants.TokenServiceKey);
 
             serviceCollection.AddSingleton<ClientFactoryOptions>(options);
             serviceCollection.AddSingleton<ISerializerProvider>(options.SerializerProviderFactory);

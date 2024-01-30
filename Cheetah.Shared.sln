@@ -28,7 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{84
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheetah.OpenSearch.Extensions", "src\Cheetah.OpenSearch.Extensions\Cheetah.OpenSearch.Extensions.csproj", "{8B3576AA-1CCA-4B76-B61D-60560103C007}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheetah.SchemaRegistry", "Cheetah.SchemaRegistry\Cheetah.SchemaRegistry.csproj", "{B701DDC8-C1EF-4326-9701-0E51F6D7A98F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheetah.SchemaRegistry", "src\Cheetah.SchemaRegistry\Cheetah.SchemaRegistry.csproj", "{B701DDC8-C1EF-4326-9701-0E51F6D7A98F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

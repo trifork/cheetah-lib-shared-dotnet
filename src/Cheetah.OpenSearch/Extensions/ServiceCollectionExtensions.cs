@@ -54,7 +54,7 @@ namespace Cheetah.OpenSearch.Extensions
         
         internal static IServiceCollection AddCheetahOpenSearchOAuth2Connection(this IServiceCollection serviceCollection)
         {
-            Auth.Extensions.ServiceExtentionCollection.AddTokenService(serviceCollection, "opensearch");
+            Auth.Extensions.ServiceCollectionExtensions.AddKeyedTokenService(serviceCollection, "opensearch");
             serviceCollection.AddSingleton<IConnection, CheetahOpenSearchConnection>();
             return serviceCollection;
         }

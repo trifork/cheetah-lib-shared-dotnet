@@ -5,6 +5,7 @@ namespace Cheetah.Kafka;
 
 public class ConsumerOptions<TKey, TValue> : ClientOptions<ConsumerConfig, ConsumerBuilder<TKey, TValue>>
 {
+    // TODO: Add Key Serializer
     internal IDeserializer<TValue>? Deserializer { get; private set; }
         
     public void SetDeserializer(IDeserializer<TValue> deserializer)
@@ -12,11 +13,6 @@ public class ConsumerOptions<TKey, TValue> : ClientOptions<ConsumerConfig, Consu
         Deserializer = deserializer;
     }
     
-}
-
-internal interface IOptionsBuilder<out TOptions> where TOptions : new()
-{
-    TOptions Build(IServiceProvider serviceProvider);
 }
 
 public class ConsumerOptionsBuilder<TKey, TValue> : IOptionsBuilder<ConsumerOptions<TKey, TValue>>

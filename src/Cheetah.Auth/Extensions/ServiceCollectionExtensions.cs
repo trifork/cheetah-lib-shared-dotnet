@@ -8,17 +8,9 @@ using Microsoft.Extensions.Options;
 
 namespace Cheetah.Auth.Extensions
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public static class ServiceExtentionCollection
+    public static class ServiceCollectionExtensions
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="serviceCollection"></param>
-        /// <param name="key"></param>
-        public static void AddTokenService(IServiceCollection serviceCollection, string key)
+        public static IServiceCollection AddKeyedTokenService(this IServiceCollection serviceCollection, string key)
         {
             serviceCollection.AddHttpClient<OAuth2TokenService>();
             serviceCollection.AddMemoryCache();
@@ -29,6 +21,8 @@ namespace Cheetah.Auth.Extensions
                     sp.GetRequiredService<IMemoryCache>(),
                     sp.GetRequiredKeyedService<IOptions<OAuth2Config>>(serviceKey),
                     key));
+
+            return serviceCollection;
         }
     }
 }

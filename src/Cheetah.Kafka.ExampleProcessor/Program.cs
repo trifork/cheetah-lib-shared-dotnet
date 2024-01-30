@@ -30,17 +30,17 @@ builder.Services.AddCheetahKafka(builder.Configuration, options =>
             config.GroupId = "the-group";
         });
     })
-    .WithKeyedConsumer<string, ExampleModel>("A", cfg =>
+    .WithKeyedConsumer<string, ExampleModel>("A", options =>
     {
-        cfg.GroupId = "a-group";
+        options.ConfigureClient(cfg =>
+        {
+            cfg.GroupId = "the-big-group";
+        });
     })
     .WithKeyedConsumer<string, ExampleModel>("B")
     .WithProducer<string, ExampleModel>(options =>
     {
-        options.SetSerializer(AvroSerializer.FromServices<ExampleModel>(new AvroSerializerConfig()
-        {
-            AutoRegisterSchemas = false
-        }));
+        options.SetSerializer(AvroSerializer.FromServices<ExampleModel>());
         options.ConfigureClient(cfg =>
         {
             cfg.BatchSize = 100;

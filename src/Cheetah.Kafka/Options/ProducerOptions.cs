@@ -6,6 +6,7 @@ namespace Cheetah.Kafka;
 
 public class ProducerOptions<TKey, TValue> : ClientOptions<ProducerConfig, ProducerBuilder<TKey, TValue>>
 {
+    // TODO: Add Key Serializer
     internal ISerializer<TValue>? Serializer { get; private set; }
         
     public void SetSerializer(ISerializer<TValue> serializer)
@@ -37,6 +38,8 @@ public class ProducerOptionsBuilder<TKey, TValue> : IOptionsBuilder<ProducerOpti
         return this;
     }
     
+    // TODO: This should probably be internal, but we can't implement an interface with internal methods.
+    // TODO: Has to be replaced with abstract base + specializations if we want to do that.
     public ProducerOptions<TKey, TValue> Build(IServiceProvider serviceProvider)
     {
         if (_serializerFactory != null)

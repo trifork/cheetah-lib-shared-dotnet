@@ -37,7 +37,7 @@ namespace Cheetah.Kafka
         /// <param name="options">The options to use when creating clients</param>
         /// <param name="serializerProvider"></param>
         public KafkaClientFactory(
-            [FromKeyedServices("Kafka")] ITokenService kafkaKafkaTokenService,
+            [FromKeyedServices(Constants.TokenServiceKey)] ITokenService kafkaKafkaTokenService,
             ILoggerFactory loggerFactory,
             IOptions<KafkaConfig> config,
             ClientFactoryOptions options,
