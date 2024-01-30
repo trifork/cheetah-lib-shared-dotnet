@@ -1,5 +1,3 @@
-###############
-#  temp file  #
-###############
+.manifest
 *.yml
-**/.manifest
+!/toc.yml
