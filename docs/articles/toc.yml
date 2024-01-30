@@ -1,9 +1,5 @@
 ---
-- name: Configuration
-  href: configuration.md
-- name: CheetahOpenSearchClient
-  href: CheetahOpenSearchClient.md
-- name: CheetahComponentTest
-  href: CheetahComponentTest.md
-- name: HowTo
-  href: HowTo.md
+- name: Cheetah.Kafka
+  href: Cheetah.Kafka/toc.yml
+- name: Cheetah.OpenSearch
+  href: Cheetah.OpenSearch/toc.yml

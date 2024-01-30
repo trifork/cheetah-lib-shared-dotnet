@@ -17,7 +17,7 @@ namespace Cheetah.OpenSearch.Testing
     /// </summary>
     public static class OpenSearchTestClient
     {
-        /// <inheritdoc cref="Create(Microsoft.Extensions.Configuration.IConfiguration,Cheetah.OpenSearch.OpenSearchClientOptions?)"/>
+        /// <inheritdoc cref="Create(OpenSearchConfig,OpenSearchClientOptions?)"/>
         public static IOpenSearchClient Create(
             IConfiguration configuration,
             OpenSearchClientOptions? options = null
@@ -35,38 +35,38 @@ namespace Cheetah.OpenSearch.Testing
         /// <b>WARNING</b>: This method should <i>only</i> be used if you for some reason cannot use dependency injection and need to create a client manually.
         /// In any other circumstances, you should use the <see cref="ServiceCollectionExtensions.AddCheetahOpenSearch"/> method during service registration and inject <see cref="IOpenSearchClient"/> into your service.
         /// </remarks>
-        /// <param name="config">The <see cref="OpenSearchConfig"/> to create the client from</param>
+        /// <param name="configuration">The configuration to create the client from</param>
         /// <param name="options">The <see cref="OpenSearchClientOptions"/> used to modify client behavior</param>
         /// <returns>A pre-configured <see cref="OpenSearchClient"/></returns>
         public static IOpenSearchClient Create(
-            OpenSearchConfig config,
+            OpenSearchConfig configuration,
             OpenSearchClientOptions? options = null
         )
         {
-            config.Validate();
+            configuration.Validate();
 
             var loggerFactory = new LoggerFactory();
             options ??= new OpenSearchClientOptions();
 
             IConnection? connection = null;
-            if (config.AuthMode == OpenSearchConfig.OpenSearchAuthMode.OAuth2)
+            if (configuration.AuthMode == OpenSearchConfig.OpenSearchAuthMode.OAuth2)
             {
                 var tokenService = new OAuth2TokenService(
                     loggerFactory.CreateLogger<OAuth2TokenService>(),
                     new DefaultHttpClientFactory(),
                     new MemoryCache(new MemoryCacheOptions()),
-                    Options.Create(config.OAuth2),
+                    Options.Create(configuration.OAuth2),
                     "opensearch-access-token"
                 );
                 connection = new CheetahOpenSearchConnection(tokenService);
             }
 
             return new OpenSearchClientFactory(
-                Options.Create(config),
+                Options.Create(configuration),
                 new Logger<OpenSearchClient>(loggerFactory),
                 new Logger<OpenSearchClientFactory>(loggerFactory),
                 options,
-                ConnectionPoolHelper.GetConnectionPool(config.Url),
+                ConnectionPoolHelper.GetConnectionPool(configuration.Url),
                 connection: connection
             ).CreateOpenSearchClient();
         }

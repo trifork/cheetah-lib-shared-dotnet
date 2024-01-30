@@ -17,7 +17,7 @@ namespace Cheetah.OpenSearch
 
         /// <summary>
         /// Gets or sets a value indicating whether direct streaming of the response content should be disabled.<br/>
-        /// This should <c>false</c> in production environments to avoid buffering of the response content in memory.<br/>
+        /// This should be <c>false</c> in production environments to avoid buffering of the response content in memory.<br/>
         /// When set to <c>true</c> the response content will be available during debugging, which might not otherwise be the case.
         /// </summary>
         public bool DisableDirectStreaming { get; set; }
