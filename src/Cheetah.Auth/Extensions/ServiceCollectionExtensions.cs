@@ -12,6 +12,7 @@ namespace Cheetah.Auth.Extensions
     {
         public static IServiceCollection AddKeyedTokenService(this IServiceCollection serviceCollection, string key)
         {
+            // TODO: Make sure that http clients and their configuration are unique per token service - Unsure whether that's the case right now.
             serviceCollection.AddHttpClient<OAuth2TokenService>();
             serviceCollection.AddMemoryCache();
             serviceCollection.AddKeyedSingleton<ITokenService>(key, (sp, serviceKey) =>
