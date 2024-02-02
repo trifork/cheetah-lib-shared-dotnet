@@ -40,6 +40,11 @@ namespace Cheetah.Kafka.Configuration
         public SecurityProtocol SecurityProtocol { get; set; } = SecurityProtocol.SaslPlaintext;
 
         /// <summary>
+        /// The location of the CA certificate file used to verify the broker's certificate.
+        /// </summary>
+        public string SslCaLocation { get; set; } = "";
+
+        /// <summary>
         /// The OAuth2 configuration
         /// </summary>
         public OAuth2Config OAuth2 { get; set; } = null!;
@@ -55,6 +60,12 @@ namespace Cheetah.Kafka.Configuration
                 throw new ArgumentException($"The provided Kafka Url is invalid: {Url})");
             }
             ValidateKafkaUrlHasNoScheme();
+
+            if (SecurityProtocol == SecurityProtocol.SaslSsl && string.IsNullOrEmpty(SslCaLocation))
+            {
+                throw new ArgumentException("The SslCaLocation must be set when using SecurityProtocol.SaslSsl");
+            }
+
             OAuth2.Validate();
         }
 
@@ -78,12 +89,15 @@ namespace Cheetah.Kafka.Configuration
         /// <returns>The converted <see cref="ClientConfig"/></returns>
         public ClientConfig GetClientConfig()
         {
-            return new ClientConfig
+            var clientConfig = new ClientConfig
             {
                 BootstrapServers = Url,
                 SaslMechanism = SaslMechanism.OAuthBearer,
                 SecurityProtocol = SecurityProtocol,
+                SslCaLocation = SslCaLocation,
             };
+
+            return clientConfig;
         }
 
         /// <summary>
