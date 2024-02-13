@@ -49,7 +49,6 @@ public class DependencyInjectionTests
                 new("OPENSEARCH:URL", "http://localhost:9200"),
                 new("OPENSEARCH:OAUTH2:CLIENTID", "default-access"),
                 new("OPENSEARCH:OAUTH2:CLIENTSECRET", "default-acccess-secret"),
-                new("OPENSEARCH:OAUTH2:SCOPE", "opensearch"),
                 new("OPENSEARCH:OAUTH2:TOKENENDPOINT", "http://localhost:1852/realms/local-development/protocol/openid-connect/token")
             }
         );
