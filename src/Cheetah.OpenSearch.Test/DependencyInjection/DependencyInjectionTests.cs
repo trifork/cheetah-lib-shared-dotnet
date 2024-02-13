@@ -47,9 +47,10 @@ public class DependencyInjectionTests
             new List<KeyValuePair<string, string?>>
             {
                 new("OPENSEARCH:URL", "http://localhost:9200"),
-                new("OPENSEARCH:OAUTH2:CLIENTID", "clientId"),
-                new("OPENSEARCH:OAUTH2:CLIENTSECRET", "1234"),
-                new("OPENSEARCH:OAUTH2:TOKENENDPOINT", "http://localhost:1752/oauth2/token")
+                new("OPENSEARCH:OAUTH2:CLIENTID", "default-access"),
+                new("OPENSEARCH:OAUTH2:CLIENTSECRET", "default-acccess-secret"),
+                new("OPENSEARCH:OAUTH2:SCOPE", "opensearch"),
+                new("OPENSEARCH:OAUTH2:TOKENENDPOINT", "http://localhost:1852/realms/local-development/protocol/openid-connect/token")
             }
         );
 
