@@ -1,19 +1,19 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:8ef32188-c715-4284-ad2e-7e3f3859c71a",
+  "serialNumber": "urn:uuid:1c1d8266-c56f-40c0-ad0c-84345aaa4d71",
   "version": 1,
   "metadata": {
-    "timestamp": "2024-01-20T15:29:35.897Z",
+    "timestamp": "2024-02-13T09:02:59.580Z",
     "tools": {
       "components": [
         {
           "group": "@cyclonedx",
           "name": "cdxgen",
-          "version": "9.11.1",
-          "purl": "pkg:npm/%40cyclonedx/cdxgen@9.11.1",
+          "version": "10.0.6",
+          "purl": "pkg:npm/%40cyclonedx/cdxgen@10.0.6",
           "type": "application",
-          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@9.11.1",
+          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@10.0.6",
           "author": "OWASP Foundation",
           "publisher": "OWASP Foundation"
         }
@@ -24,13 +24,18 @@
         "name": "OWASP Foundation"
       }
     ],
+    "lifecycles": [
+      {
+        "phase": "build"
+      }
+    ],
     "component": {
       "group": "",
       "name": "src",
       "version": "latest",
       "type": "application",
-      "bom-ref": "pkg:dotnet/src@latest",
-      "purl": "pkg:dotnet/src@latest"
+      "bom-ref": "pkg:nuget/src@latest",
+      "purl": "pkg:nuget/src@latest"
     }
   },
   "components": [
@@ -179,7 +184,7 @@
       "author": "Microsoft",
       "group": "",
       "name": "Microsoft.NET.Test.Sdk",
-      "version": "17.8.0",
+      "version": "17.9.0",
       "description": "The MSbuild targets and properties for building .NET test projects.",
       "licenses": [
         {
@@ -189,11 +194,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Microsoft.NET.Test.Sdk@17.8.0",
+      "purl": "pkg:nuget/Microsoft.NET.Test.Sdk@17.9.0",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.NET.Test.Sdk/17.8.0/"
+          "url": "https://www.nuget.org/packages/Microsoft.NET.Test.Sdk/17.9.0/"
         },
         {
           "type": "vcs",
@@ -201,7 +206,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.NET.Test.Sdk@17.8.0",
+      "bom-ref": "pkg:nuget/Microsoft.NET.Test.Sdk@17.9.0",
       "evidence": {
         "identity": {
           "field": "purl",
