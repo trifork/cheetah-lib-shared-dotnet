@@ -125,10 +125,10 @@ namespace Cheetah.Auth.Authentication
             cacheEntry.AbsoluteExpiration = DateTimeOffset.UnixEpoch.Add(GetCacheEntryExpirationInEpochSeconds(tokenResponse));
 
             _logger.LogDebug(
-                "New access token retrieved for {ClientId} and saved in cache with key: {CacheKey} and expiry {expiry}, TokenType: {TokenType}",
+                "New access token retrieved for {ClientId} and saved in cache with key: {CacheKey} and expiry time {expiry}, TokenType: {TokenType}",
                 _config.ClientId,
                 _cacheKey,
-                cacheEntry.AbsoluteExpirationRelativeToNow,
+                cacheEntry.AbsoluteExpiration,
                 tokenResponse.TokenType
             );
             cacheEntry
