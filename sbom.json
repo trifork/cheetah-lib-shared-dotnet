@@ -1,10 +1,10 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:b2f3937f-00f6-4f67-bbf7-e9d7239fbef0",
+  "serialNumber": "urn:uuid:d925f02b-df54-4bfc-b774-ced68c9f5897",
   "version": 1,
   "metadata": {
-    "timestamp": "2024-02-20T09:10:34.752Z",
+    "timestamp": "2024-02-20T09:20:10.219Z",
     "tools": {
       "components": [
         {
@@ -352,7 +352,7 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit.runner.visualstudio",
-      "version": "2.5.6",
+      "version": "2.5.7",
       "description": "Visual Studio 2022+ Test Explorer runner for the xUnit.net framework. Capable of running xUnit.net v1.9.2 and v2.0+ tests. Supports .NET 4.6.2 or later, and .NET 6 or later.",
       "licenses": [
         {
@@ -362,9 +362,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.runner.visualstudio@2.5.6",
+      "purl": "pkg:nuget/xunit.runner.visualstudio@2.5.7",
       "type": "framework",
-      "bom-ref": "pkg:nuget/xunit.runner.visualstudio@2.5.6",
+      "bom-ref": "pkg:nuget/xunit.runner.visualstudio@2.5.7",
       "evidence": {
         "identity": {
           "field": "purl",
