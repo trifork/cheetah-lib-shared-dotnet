@@ -107,7 +107,7 @@ namespace Cheetah.Auth.Authentication
             }
 
             throw new OAuth2TokenException(
-                "Retrieved access token was null or of an incorrect type."
+                $"Retrieved access token was null or of an incorrect type. Type was {cachedValue?.GetType()}"
             );
         }
 
@@ -187,7 +187,10 @@ namespace Cheetah.Auth.Authentication
 
             return !tokenResponse.IsError
                 ? tokenResponse
-                : throw new OAuth2TokenException(tokenResponse.ErrorDescription);
+                : throw new OAuth2TokenException(string.IsNullOrEmpty(tokenResponse.ErrorDescription ?? tokenResponse.Error)
+                    ? "Failed to retrieve access token from IDP. Either IDP is unreachable or invalid values were provided"
+                    : tokenResponse.ErrorDescription ?? tokenResponse.Error
+                );
         }
     }
 }
