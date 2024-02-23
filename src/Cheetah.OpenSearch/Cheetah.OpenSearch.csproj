@@ -10,7 +10,7 @@
         <TargetFrameworks>netstandard2.1;net6.0;net8.0</TargetFrameworks>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <Nullable>enable</Nullable>
-        <VersionPrefix>0.3.0</VersionPrefix>
+        <VersionPrefix>0.4.0</VersionPrefix>
     </PropertyGroup>
 
     <ItemGroup>
