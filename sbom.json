@@ -1,10 +1,10 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:219034c6-9a44-4a3c-9e37-d7a5ac51eaa8",
+  "serialNumber": "urn:uuid:6387e99b-7410-4c4b-9e87-e50379692e23",
   "version": 1,
   "metadata": {
-    "timestamp": "2024-02-22T08:03:20.631Z",
+    "timestamp": "2024-02-23T13:56:22.752Z",
     "tools": {
       "components": [
         {
@@ -1117,6 +1117,53 @@
       ],
       "type": "library",
       "bom-ref": "pkg:nuget/Microsoft.Extensions.Hosting.Abstractions@8.0.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 0.7,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 0.7,
+              "value": "/app/src/Cheetah.Auth/Cheetah.Auth.csproj"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.Auth/Cheetah.Auth.csproj"
+        }
+      ]
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "System.IdentityModel.Tokens.Jwt",
+      "version": "7.3.1",
+      "description": "Includes types that provide support for creating, serializing and validating JSON Web Tokens. As of IdentityModel 7x, this is a legacy tool that should be replaced with Microsoft.IdentityModel.JsonWebTokens.",
+      "licenses": [
+        {
+          "license": {
+            "url": "https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet/blob/dev/LICENSE.txt",
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/System.IdentityModel.Tokens.Jwt@7.3.1",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/System.IdentityModel.Tokens.Jwt/7.3.1/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.IdentityModel.Tokens.Jwt@7.3.1",
       "evidence": {
         "identity": {
           "field": "purl",
