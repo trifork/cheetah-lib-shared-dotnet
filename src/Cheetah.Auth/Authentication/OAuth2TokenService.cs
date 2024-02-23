@@ -1,12 +1,15 @@
 using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Cheetah.Auth.Configuration;
+using IdentityModel;
 using IdentityModel.Client;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Cheetah.Auth.Authentication
 {
@@ -20,6 +23,7 @@ namespace Cheetah.Auth.Authentication
         private readonly OAuth2Config _config;
         private readonly IMemoryCache _cache;
         private readonly string _cacheKey;
+        private readonly JwtSecurityTokenHandler _jwtSecurityTokenHandler;
 
         /// <summary>
         /// Create a new instance of <see cref="OAuth2TokenService"/>
@@ -43,6 +47,7 @@ namespace Cheetah.Auth.Authentication
             _config = config.Value;
             _config.Validate();
             _cacheKey = cacheKey;
+            _jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
         }
 
         /// <inheritdoc cref="ITokenService.RequestAccessTokenAsync"/>
@@ -55,13 +60,15 @@ namespace Cheetah.Auth.Authentication
             if (tokenResponse == null || tokenResponse.IsError || tokenResponse.AccessToken == null)
             {
                 throw new OAuth2TokenException(
-                    $"Failed to retrieve access token for  {_config.ClientId}, Error: {tokenResponse?.Error}"
+                    $"Failed to retrieve access token for {_config.ClientId}, Error: {tokenResponse?.Error}"
                 );
             }
 
+            var absoluteExpiration = GetCacheEntryExpirationInEpochSeconds(tokenResponse);
+
             return (
                 tokenResponse.AccessToken,
-                DateTimeOffset.UtcNow.AddSeconds(tokenResponse.ExpiresIn).ToUnixTimeMilliseconds()
+                (long)absoluteExpiration.TotalMilliseconds
             );
         }
 
@@ -115,13 +122,13 @@ namespace Cheetah.Auth.Authentication
         {
             using var cacheEntry = _cache.CreateEntry(_cacheKey);
             var tokenResponse = await FetchAccessTokenAsync(cancellationToken);
-            cacheEntry.AbsoluteExpirationRelativeToNow = GetCacheEntryExpiration(tokenResponse);
+            cacheEntry.AbsoluteExpiration = DateTimeOffset.UnixEpoch.Add(GetCacheEntryExpirationInEpochSeconds(tokenResponse));
 
             _logger.LogDebug(
-                "New access token retrieved for {ClientId} and saved in cache with key: {CacheKey} and expiry {expiry}, TokenType: {TokenType}",
+                "New access token retrieved for {ClientId} and saved in cache with key: {CacheKey} and expiry time {expiry}, TokenType: {TokenType}",
                 _config.ClientId,
                 _cacheKey,
-                cacheEntry.AbsoluteExpirationRelativeToNow,
+                cacheEntry.AbsoluteExpiration,
                 tokenResponse.TokenType
             );
             cacheEntry
@@ -141,17 +148,17 @@ namespace Cheetah.Auth.Authentication
             return tokenResponse;
         }
 
-        private TimeSpan GetCacheEntryExpiration(TokenResponse tokenResponse)
+        private TimeSpan GetCacheEntryExpirationInEpochSeconds(TokenResponse tokenResponse)
         {
-            if (tokenResponse.ExpiresIn <= 0)
+            var accessToken = _jwtSecurityTokenHandler.ReadJwtToken(tokenResponse.AccessToken);
+            var exp = accessToken.Payload.Expiration;
+
+            if (exp == null)
             {
-                throw new OAuth2TokenException("Token response did not contain an expiration time");
+                throw new OAuth2TokenException("Access token did not contain an valid expiration (\"exp\") time");
             }
-            var absoluteExpirationSeconds = Math.Max(
-                10,
-                tokenResponse.ExpiresIn - _config.ClockSkewSeconds
-            );
-            return TimeSpan.FromSeconds(absoluteExpirationSeconds);
+
+            return TimeSpan.FromSeconds(exp.Value - _config.ClockSkewSeconds);
         }
 
         private async Task<TokenResponse> FetchAccessTokenAsync(CancellationToken cancellationToken)
