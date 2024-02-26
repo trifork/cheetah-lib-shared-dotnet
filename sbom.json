@@ -1,10 +1,10 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:6387e99b-7410-4c4b-9e87-e50379692e23",
+  "serialNumber": "urn:uuid:3c43a0cf-f66b-4a96-bb5e-ea8b4b2cd129",
   "version": 1,
   "metadata": {
-    "timestamp": "2024-02-23T13:56:22.752Z",
+    "timestamp": "2024-02-26T08:41:29.735Z",
     "tools": {
       "components": [
         {
@@ -389,7 +389,7 @@
       "author": "tonerdo",
       "group": "",
       "name": "coverlet.collector",
-      "version": "6.0.0",
+      "version": "6.0.1",
       "description": "Coverlet is a cross platform code coverage library for .NET, with support for line, branch and method coverage.",
       "licenses": [
         {
@@ -399,11 +399,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/coverlet.collector@6.0.0",
+      "purl": "pkg:nuget/coverlet.collector@6.0.1",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/coverlet.collector/6.0.0/"
+          "url": "https://www.nuget.org/packages/coverlet.collector/6.0.1/"
         },
         {
           "type": "vcs",
@@ -411,7 +411,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/coverlet.collector@6.0.0",
+      "bom-ref": "pkg:nuget/coverlet.collector@6.0.1",
       "evidence": {
         "identity": {
           "field": "purl",
