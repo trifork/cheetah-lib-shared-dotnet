@@ -34,29 +34,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup development infrastructure
-        uses: ./.github/actions/setup-development-infrastructure
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3.0.0
         with:
-          PAT: ${{ secrets.PAT }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.PAT }}
+  
+      - name: Checkout trifork/cheetah-development-infrastructure
+        uses: actions/checkout@v4
+        with:
+          repository: trifork/cheetah-development-infrastructure
+          token: ${{ github.token }}
+          path: integrationtests
+          #ref: v2.0.0
 
       - name: Start development infrastructure
         working-directory: integrationtests/
-        run: docker compose --profile core up -d --quiet-pull
-
-      - name: Wait for opensearch, the slowest component
-        uses: nick-fields/retry@v2.9.0
-        with:
-          timeout_minutes: 3
-          max_attempts: 25
-          retry_wait_seconds: 5
-          warning_on_retry: false
-          command: 'curl -sS -X GET -H "Content-Type: application/json" http://admin:admin@localhost:9200/_cat/indices'
+        run: docker compose --profile core up --wait
 
       - name: Dotnet Test
         run: dotnet test --logger trx
 
       - name: Display test report OpenSearch
-        uses: dorny/test-reporter@v1.7.0
+        uses: dorny/test-reporter@v1.8.0
         if: always()
         with:
           name: Tests
@@ -64,7 +65,7 @@ jobs:
           reporter: dotnet-trx
 
       - name: Display test report Kafka
-        uses: dorny/test-reporter@v1.7.0
+        uses: dorny/test-reporter@v1.8.0
         if: always()
         with:
           name: Tests

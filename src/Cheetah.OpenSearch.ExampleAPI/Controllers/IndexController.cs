@@ -8,6 +8,7 @@ namespace Cheetah.OpenSearch.ExampleAPI.Controllers;
 public class IndexController : ControllerBase
 {
     readonly IOpenSearchClient _client;
+
     public IndexController(IOpenSearchClient client)
     {
         _client = client;
@@ -27,7 +28,7 @@ public class IndexController : ControllerBase
         await _client.Indices.CreateAsync(indexName);
         return Ok();
     }
-    
+
     [HttpDelete("indices/{indexName}")]
     public async Task<IActionResult> DeleteIndex([FromRoute] string indexName)
     {

@@ -23,12 +23,12 @@ namespace Cheetah.Kafka.Configuration
         /// <value></value>
         [Required]
         public string Url { get; set; } = null!;
-        
+
         /// <summary>
         /// Optional schema registry url.
         /// </summary>
         public string? SchemaRegistryUrl { get; set; }
-        
+
         /// <summary>
         /// The principal used for authentication. Defaults to <c>unused</c> and is <i>usually</i> not required.
         /// </summary>
@@ -38,7 +38,12 @@ namespace Cheetah.Kafka.Configuration
         /// The security protocol used to communicate with brokers.
         /// </summary>
         public SecurityProtocol SecurityProtocol { get; set; } = SecurityProtocol.SaslPlaintext;
-        
+
+        /// <summary>
+        /// The location of the CA certificate file used to verify the broker's certificate.
+        /// </summary>
+        public string SslCaLocation { get; set; } = "";
+
         /// <summary>
         /// The OAuth2 configuration
         /// </summary>
@@ -50,11 +55,17 @@ namespace Cheetah.Kafka.Configuration
         /// <exception cref="ArgumentException">Thrown if the configuration is invalid</exception>
         public void Validate()
         {
-            if(!Uri.IsWellFormedUriString(Url, UriKind.Absolute))
+            if (!Uri.IsWellFormedUriString(Url, UriKind.Absolute))
             {
                 throw new ArgumentException($"The provided Kafka Url is invalid: {Url})");
             }
             ValidateKafkaUrlHasNoScheme();
+
+            if (SecurityProtocol == SecurityProtocol.SaslSsl && string.IsNullOrEmpty(SslCaLocation))
+            {
+                throw new ArgumentException("The SslCaLocation must be set when using SecurityProtocol.SaslSsl");
+            }
+
             OAuth2.Validate();
         }
 
@@ -66,7 +77,9 @@ namespace Cheetah.Kafka.Configuration
             var hasSchemePrefix = Regex.Match(Url, "(.*://).*");
             if (hasSchemePrefix.Success)
             {
-                throw new ArgumentException($"Found Kafka address: '{Url}'. The Kafka URL cannot contain a scheme prefix - Remove the '{hasSchemePrefix.Groups[1].Value}'-prefix");
+                throw new ArgumentException(
+                    $"Found Kafka address: '{Url}'. The Kafka URL cannot contain a scheme prefix - Remove the '{hasSchemePrefix.Groups[1].Value}'-prefix"
+                );
             }
         }
 
@@ -76,12 +89,15 @@ namespace Cheetah.Kafka.Configuration
         /// <returns>The converted <see cref="ClientConfig"/></returns>
         public ClientConfig GetClientConfig()
         {
-            return new ClientConfig
+            var clientConfig = new ClientConfig
             {
                 BootstrapServers = Url,
                 SaslMechanism = SaslMechanism.OAuthBearer,
                 SecurityProtocol = SecurityProtocol,
+                SslCaLocation = SslCaLocation,
             };
+
+            return clientConfig;
         }
 
         /// <summary>
@@ -94,11 +110,8 @@ namespace Cheetah.Kafka.Configuration
             {
                 throw new ArgumentException("The provided Schema Registry Url is invalid");
             }
-            
-            return new SchemaRegistryConfig
-            {
-                Url = SchemaRegistryUrl
-            };
+
+            return new SchemaRegistryConfig { Url = SchemaRegistryUrl };
         }
     }
 }

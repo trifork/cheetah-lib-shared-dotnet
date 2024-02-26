@@ -9,7 +9,7 @@
     <PackageReadmeFile>CheetahComponentTest.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</RepositoryUrl>
     <RootNamespace>Cheetah.MetricsTesting</RootNamespace>
-    <TargetFrameworks>netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1;net6.0;net8.0</TargetFrameworks>
     <VersionPrefix>1.8.0</VersionPrefix>
     <NoWarn>
       $(NoWarn);

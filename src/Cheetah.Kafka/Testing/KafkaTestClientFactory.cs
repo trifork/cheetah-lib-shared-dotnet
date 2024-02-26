@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text.RegularExpressions;
 using Cheetah.Auth.Authentication;
 using Cheetah.Auth.Util;
@@ -28,7 +28,7 @@ namespace Cheetah.Kafka.Testing
         /// provides and should <b>NOT</b> be used in production to generate actual clients. Use <see cref="ServiceCollectionExtensions.AddCheetahKafka"/> instead.
         /// </remarks>
         public KafkaClientFactory ClientFactory { get; }
-        
+
         /// <summary>
         /// Creates a <see cref="KafkaTestClientFactory"/> using the provided <see cref="IConfiguration"/> instance
         /// </summary>
@@ -61,18 +61,24 @@ namespace Cheetah.Kafka.Testing
                 loggerFactory.CreateLogger<OAuth2TokenService>(),
                 new DefaultHttpClientFactory(),
                 new MemoryCache(new MemoryCacheOptions()),
-                Options.Create(configuration.OAuth2), 
-                "kafka-test-client");           
+                Options.Create(configuration.OAuth2),
+                "kafka-test-client"
+            );
 
-            var clientFactory = new KafkaClientFactory(tokenService, loggerFactory, config, options);
+            var clientFactory = new KafkaClientFactory(
+                tokenService,
+                loggerFactory,
+                config,
+                options
+            );
             return new KafkaTestClientFactory(clientFactory);
         }
-        
+
         private KafkaTestClientFactory(KafkaClientFactory clientFactory)
         {
             ClientFactory = clientFactory;
         }
-        
+
         /// <summary>
         /// Creates an <see cref="IKafkaTestWriter{Null, T}"/> for the provided topic. This writer will not produce keys.
         /// </summary>
@@ -84,7 +90,7 @@ namespace Cheetah.Kafka.Testing
         {
             return CreateTestWriter<Null, T>(topic, _ => null!);
         }
-        
+
         /// <summary>
         /// Creates an <see cref="IKafkaTestWriter{TKey, T}"/> for the provided topic.
         /// </summary>
@@ -94,7 +100,10 @@ namespace Cheetah.Kafka.Testing
         /// <typeparam name="T">The type of messages to produce</typeparam>
         /// <returns>The created <see cref="IKafkaTestWriter{TKey,T}"/></returns>
         /// <exception cref="ArgumentException">Thrown if the provided topic is invalid</exception>
-        public IKafkaTestWriter<TKey, T> CreateTestWriter<TKey, T>(string topic, Func<T, TKey> keyFunction)
+        public IKafkaTestWriter<TKey, T> CreateTestWriter<TKey, T>(
+            string topic,
+            Func<T, TKey> keyFunction
+        )
         {
             ValidateTopic(topic);
             var producer = ClientFactory.CreateProducer<TKey, T>();
@@ -109,18 +118,21 @@ namespace Cheetah.Kafka.Testing
         {
             return CreateAvroTestWriter<Null, T>(topic, _ => null!);
         }
-        
+
         /// <inheritdoc cref="CreateTestWriter{TKey, T}"/>
         /// <summary>
         /// Creates an <see cref="IKafkaTestWriter{TKey, T}"/> for the provided topic, which serializes messages using Avro.
         /// </summary>
-        public IKafkaTestWriter<TKey, T> CreateAvroTestWriter<TKey, T>(string topic, Func<T, TKey> keyFunction)
+        public IKafkaTestWriter<TKey, T> CreateAvroTestWriter<TKey, T>(
+            string topic,
+            Func<T, TKey> keyFunction
+        )
         {
             ValidateTopic(topic);
             var producer = ClientFactory.CreateAvroProducer<TKey, T>();
             return new KafkaTestWriter<TKey, T>(producer, keyFunction, topic);
         }
-        
+
         /// <summary>
         /// Creates an <see cref="IKafkaTestReader{T}"/> for the provided topic. This reader will not read keys.
         /// </summary>
@@ -132,7 +144,7 @@ namespace Cheetah.Kafka.Testing
         {
             return CreateTestReader<Null, T>(topic, groupId);
         }
-        
+
         /// <summary>
         /// Creates an <see cref="IKafkaTestReader{T}"/> for the provided topic.
         /// </summary>
@@ -145,11 +157,13 @@ namespace Cheetah.Kafka.Testing
         {
             ValidateTopic(topic);
             groupId ??= Guid.NewGuid().ToString();
-            
-            var consumer = ClientFactory.CreateConsumer<TKey, T>(DefaultReaderConfiguration(groupId));
+
+            var consumer = ClientFactory.CreateConsumer<TKey, T>(
+                DefaultReaderConfiguration(groupId)
+            );
             return new KafkaTestReader<TKey, T>(consumer, topic);
         }
-        
+
         /// <inheritdoc cref="CreateTestReader{T}"/>
         /// <summary>
         /// Creates an <see cref="IKafkaTestReader{T}"/> for the provided topic, which deserializes messages using Avro. This reader will not read keys.
@@ -163,15 +177,20 @@ namespace Cheetah.Kafka.Testing
         /// <summary>
         /// Creates an <see cref="IKafkaTestReader{T}"/> for the provided topic, which deserializes messages using Avro.
         /// </summary>
-        public IKafkaTestReader<T> CreateAvroTestReader<TKey, T>(string topic, string? groupId = null)
+        public IKafkaTestReader<T> CreateAvroTestReader<TKey, T>(
+            string topic,
+            string? groupId = null
+        )
         {
             ValidateTopic(topic);
             groupId ??= Guid.NewGuid().ToString();
-            
-            var consumer = ClientFactory.CreateAvroConsumer<TKey, T>(DefaultReaderConfiguration(groupId));
+
+            var consumer = ClientFactory.CreateAvroConsumer<TKey, T>(
+                DefaultReaderConfiguration(groupId)
+            );
             return new KafkaTestReader<TKey, T>(consumer, topic);
         }
-        
+
         private static Action<ConsumerConfig> DefaultReaderConfiguration(string groupId)
         {
             return cfg =>
@@ -193,7 +212,9 @@ namespace Cheetah.Kafka.Testing
             var hasOnlyValidCharacters = Regex.Match(topic, "^[a-zA-Z0-9\\._\\-]+$");
             if (!hasOnlyValidCharacters.Success)
             {
-                throw new ArgumentException($"Received topic with invalid characters '{topic}'. Topic names can only contain alphanumeric characters, '.', '-' and '_'.");
+                throw new ArgumentException(
+                    $"Received topic with invalid characters '{topic}'. Topic names can only contain alphanumeric characters, '.', '-' and '_'."
+                );
             }
 
             if (topic.Length > 249)
@@ -203,4 +224,3 @@ namespace Cheetah.Kafka.Testing
         }
     }
 }
-

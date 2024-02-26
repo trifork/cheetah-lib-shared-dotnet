@@ -38,7 +38,8 @@ namespace Cheetah.OpenSearch
             ILogger<OpenSearchClientFactory> logger,
             OpenSearchClientOptions clientOptions,
             IConnectionPool connectionPool,
-            IConnection? connection = null)
+            IConnection? connection = null
+        )
         {
             clientConfig.Value.Validate();
             _clientConfig = clientConfig.Value;
@@ -55,15 +56,21 @@ namespace Cheetah.OpenSearch
         /// <returns></returns>
         public OpenSearchClient CreateOpenSearchClient()
         {
-            _logger.LogInformation("Creating OpenSearchClient. Authentication is {authMode}", GetAuthModeLogString());
+            _logger.LogInformation(
+                "Creating OpenSearchClient. Authentication is {authMode}",
+                GetAuthModeLogString()
+            );
             return new OpenSearchClient(GetConnectionSettings());
         }
 
-        string GetAuthModeLogString() => 
-            _clientConfig.AuthMode switch {
+        string GetAuthModeLogString() =>
+            _clientConfig.AuthMode switch
+            {
                 OpenSearchConfig.OpenSearchAuthMode.None => "disabled",
-                OpenSearchConfig.OpenSearchAuthMode.Basic => $"enabled using Basic Auth, username=${_clientConfig.UserName}",
-                OpenSearchConfig.OpenSearchAuthMode.OAuth2 => $"enabled using OAuth2, clientId=${_clientConfig.OAuth2.ClientId}",
+                OpenSearchConfig.OpenSearchAuthMode.Basic
+                    => $"enabled using Basic Auth, username=${_clientConfig.UserName}",
+                OpenSearchConfig.OpenSearchAuthMode.OAuth2
+                    => $"enabled using OAuth2, clientId=${_clientConfig.OAuth2.ClientId}",
                 _ => throw new ArgumentOutOfRangeException()
             };
 
@@ -73,10 +80,10 @@ namespace Cheetah.OpenSearch
             // TODO: dive down in the settings for OpenSearch and see if we need to expose any of the options as easily changeable
             // MNR-note 02-01-2024: This note was left after a larger refactoring. I'm unsure if this is still relevant. TODO: remove me if not.
             return new ConnectionSettings(
-                    _connectionPool,
-                    _connection, // If this is null, a default connection will be used.
-                    GetSourceSerializerFactory()
-                )
+                _connectionPool,
+                _connection, // If this is null, a default connection will be used.
+                GetSourceSerializerFactory()
+            )
                 .ConfigureBasicAuthIfEnabled(_clientConfig)
                 .ConfigureTlsValidation(_clientConfig)
                 .OnRequestCompleted(LogRequestBody)
@@ -84,14 +91,14 @@ namespace Cheetah.OpenSearch
                 .DisableDirectStreaming(ShouldDisableDirectStreaming());
         }
 
-
         private ConnectionSettings.SourceSerializerFactory GetSourceSerializerFactory()
         {
-            return (builtin, settings) => new JsonNetSerializer(
-                builtin,
-                settings,
-                () => _clientOptions.JsonSerializerSettings 
-            );
+            return (builtin, settings) =>
+                new JsonNetSerializer(
+                    builtin,
+                    settings,
+                    () => _clientOptions.JsonSerializerSettings
+                );
         }
 
         private bool ShouldDisableDirectStreaming()
@@ -99,7 +106,9 @@ namespace Cheetah.OpenSearch
             bool shouldDisableDirectStreaming = _clientOptions.DisableDirectStreaming; // Assume production mode if we can't determine the environment
             if (shouldDisableDirectStreaming)
             {
-                _logger.LogWarning("OpenSearch direct streaming is disabled, which allows easier debugging, but potentially impacts performance. This should only be enabled in development mode.");   
+                _logger.LogWarning(
+                    "OpenSearch direct streaming is disabled, which allows easier debugging, but potentially impacts performance. This should only be enabled in development mode."
+                );
             }
             return shouldDisableDirectStreaming;
         }
@@ -107,10 +116,15 @@ namespace Cheetah.OpenSearch
         private void LogRequestBody(IApiCallDetails apiCallDetails)
         {
             // Only call this if the relevant log level is enabled, in order to avoid unnecessary allocations and decoding
-            if (apiCallDetails.RequestBodyInBytes != null && _clientLogger.IsEnabled(LogLevel.Debug))
+            if (
+                apiCallDetails.RequestBodyInBytes != null
+                && _clientLogger.IsEnabled(LogLevel.Debug)
+            )
             {
-                _clientLogger.LogDebug("Sent raw query: {json}",
-                    Encoding.UTF8.GetString(apiCallDetails.RequestBodyInBytes));
+                _clientLogger.LogDebug(
+                    "Sent raw query: {json}",
+                    Encoding.UTF8.GetString(apiCallDetails.RequestBodyInBytes)
+                );
             }
         }
     }

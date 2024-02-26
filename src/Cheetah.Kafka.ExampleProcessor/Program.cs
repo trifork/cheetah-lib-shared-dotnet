@@ -1,4 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
+// See https://aka.ms/new-console-template for more information
 
 using Cheetah.Kafka.Avro;
 using Cheetah.Kafka.ExampleProcessor.Models;
@@ -14,8 +14,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 var builder = new HostApplicationBuilder();
-builder.Configuration
-    .AddJsonFile("appsettings.json")
+builder
+    .Configuration.AddJsonFile("appsettings.json")
     .AddJsonFile("appsettings.development.json", true)
     .AddEnvironmentVariables();
 
@@ -50,6 +50,5 @@ builder.Services.AddCheetahKafka(builder.Configuration, options =>
 builder.Services.AddHostedService<ProducerService>();
 builder.Services.AddHostedService<AConsumerService>();
 builder.Services.AddHostedService<BConsumerService>();
-
 
 await builder.Build().RunAsync();

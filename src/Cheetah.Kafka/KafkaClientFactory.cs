@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Cheetah.Auth.Authentication;
@@ -67,7 +67,7 @@ namespace Cheetah.Kafka
         /// <summary>
         /// Creates a pre-configured <see cref="ProducerBuilder{TKey,TValue}"/>/>
         /// </summary>
-        /// <inheritdoc cref="KafkaClientFactory.CreateConsumer{TKey, TValue}"/>
+        /// <inheritdoc cref="CreateConsumer{TKey, TValue}"/>
         /// <returns>A pre-configured <see cref="ProducerBuilder{TKey, TValue}"/></returns>
         public ProducerBuilder<TKey, TValue> CreateProducerBuilder<TKey, TValue>(ProducerOptions<TKey, TValue>? producerOptions = null)
         {
@@ -104,7 +104,7 @@ namespace Cheetah.Kafka
         /// <summary>
         /// Creates a pre-configured <see cref="ConsumerBuilder{TKey,TValue}"/>/>
         /// </summary>
-        /// <inheritdoc cref="KafkaClientFactory.CreateConsumer{TKey, TValue}"/>
+        /// <inheritdoc cref="CreateConsumer{TKey, TValue}"/>
         /// <returns>A pre-configured <see cref="ConsumerBuilder{TKey,TValue}"/></returns>
         public ConsumerBuilder<TKey, TValue> CreateConsumerBuilder<TKey, TValue>(ConsumerOptions<TKey, TValue>? consumerOptions = null)
         {
@@ -121,16 +121,17 @@ namespace Cheetah.Kafka
                 .AddCheetahOAuthentication(GetTokenRetrievalFunction(), _loggerFactory.CreateLogger<IConsumer<TKey, TValue>>())
                 .SetValueDeserializer(deserializer);
         }
-        
+
         /// <summary>
         /// Creates a pre-configured <see cref="IAdminClient"/>/>
         /// </summary>
+        /// <param name="configAction">Optional action to modify the used <see cref="AdminClientConfig"/></param>
         /// <returns>A pre-configured <see cref="IAdminClient"/></returns>
         public IAdminClient CreateAdminClient(AdminClientOptions? adminOptions = null)
         {
             return CreateAdminClientBuilder(adminOptions).Build();
         }
-        
+
         /// <summary>
         /// Creates a pre-configured <see cref="AdminClientBuilder"/>/>
         /// </summary>
@@ -156,8 +157,11 @@ namespace Cheetah.Kafka
         // This means that if we were to use the same configuration instance for each client, we would end up with a situation where
         // the configuration for the first client would be modified by the second client, and so on.
         private ClientConfig GetDefaultConfig() => _config.GetClientConfig();
-        
-        private Func<Task<(string AccessToken, long Expiration, string Principal)>> GetTokenRetrievalFunction() {
+
+        private Func<
+            Task<(string AccessToken, long Expiration, string Principal)>
+        > GetTokenRetrievalFunction()
+        {
             return async () =>
             {
                 var response = await _kafkaTokenService.RequestAccessTokenAsync(CancellationToken.None);

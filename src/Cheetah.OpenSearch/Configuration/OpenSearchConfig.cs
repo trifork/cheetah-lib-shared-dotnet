@@ -5,7 +5,7 @@ using Cheetah.Auth.Configuration;
 namespace Cheetah.OpenSearch.Configuration
 {
     /// <summary>
-    /// OpenSearchConfig for IOptions
+    /// OpenSearch related configuration intended to be set from appsettings.json or environment variables
     /// </summary>
     public class OpenSearchConfig
     {
@@ -45,7 +45,7 @@ namespace Cheetah.OpenSearch.Configuration
         /// Path to CA certificate used to validate OpenSearch certificate
         /// </summary>
         public string? CaCertificatePath { get; set; }
-        
+
         /// <summary>
         /// The config to use when authenticating with OAuth2
         /// </summary>
@@ -60,8 +60,12 @@ namespace Cheetah.OpenSearch.Configuration
             switch (AuthMode)
             {
                 case OpenSearchAuthMode.Basic:
-                    _ = string.IsNullOrWhiteSpace(UserName) ? throw new ArgumentNullException(nameof(UserName)) : 0;
-                    _ = string.IsNullOrWhiteSpace(Password) ? throw new ArgumentNullException(nameof(Password)) : 0;
+                    _ = string.IsNullOrWhiteSpace(UserName)
+                        ? throw new ArgumentNullException(nameof(UserName))
+                        : 0;
+                    _ = string.IsNullOrWhiteSpace(Password)
+                        ? throw new ArgumentNullException(nameof(Password))
+                        : 0;
                     break;
                 case OpenSearchAuthMode.OAuth2:
                     _ = OAuth2 ?? throw new ArgumentNullException(nameof(OAuth2));
@@ -83,10 +87,12 @@ namespace Cheetah.OpenSearch.Configuration
             /// No authentication
             /// </summary>
             None,
+
             /// <summary>
             /// Basic username/password authentication
             /// </summary>
             Basic,
+
             /// <summary>
             /// OAuth2 token authentication
             /// </summary>

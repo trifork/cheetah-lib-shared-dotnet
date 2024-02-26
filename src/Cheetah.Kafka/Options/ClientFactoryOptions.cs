@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Cheetah.Kafka.Serialization;
 using Confluent.Kafka;
 
@@ -47,6 +47,7 @@ namespace Cheetah.Kafka
             _defaultProducerConfigure = configure;
             return this;
         }
+
         /// <summary>
         /// Configures the default <see cref="ConsumerConfig"/> that will be used for all consumers created by the factory
         /// </summary>

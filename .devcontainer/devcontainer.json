@@ -23,32 +23,21 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				// Recommended extensions - GitHub
-				"cschleiden.vscode-github-actions",
 				"GitHub.vscode-pull-request-github",
-				"GitHub.vscode-github-actions",
-				// Recommended extensions - Collaboration
+				"GitHub.copilot",
 				"eamodio.gitlens",
 				"EditorConfig.EditorConfig",
 				"MS-vsliveshare.vsliveshare-pack",
 				"streetsidesoftware.code-spell-checker",
 				"redhat.vscode-yaml",
-				"k--kato.docomment",
-				// Recommended extensions - .NET
-				"Fudge.auto-using",
-				"jongrant.csharpsortusings",
-				"kreativ-software.csharpextensions",
-				// Recommended extensions - Markdown
 				"bierner.github-markdown-preview",
 				"DavidAnson.vscode-markdownlint",
 				"docsmsft.docs-linting",
 				"yzhang.markdown-all-in-one",
-				"redhat.vscode-xml",
-				// Required extensions
-				"GitHub.copilot",
-				"ms-dotnettools.csharp",
-				"VisualStudioExptTeam.vscodeintellicode"
-			]
+				"VisualStudioExptTeam.vscodeintellicode",
+				"aliasadidev.nugetpackagemanagergui",
+				"ms-dotnettools.csdevkit"
+			],
 		}
 	},
 	"features": {

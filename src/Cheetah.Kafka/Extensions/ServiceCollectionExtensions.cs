@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Cheetah.Auth.Configuration;
 using Cheetah.Kafka.Configuration;
 using Cheetah.Kafka.Serialization;
@@ -27,8 +27,10 @@ namespace Cheetah.Kafka.Extensions
         {
             var options = new ClientFactoryOptions();
             configure?.Invoke(options);
+            serviceCollection.AddSingleton(options);
 
-            serviceCollection.AddOptionsWithValidateOnStart<KafkaConfig>()
+            serviceCollection
+                .AddOptionsWithValidateOnStart<KafkaConfig>()
                 .Bind(configuration.GetSection(KafkaConfig.Position));
             
             serviceCollection.AddOptionsWithValidateOnStart<OAuth2Config>()

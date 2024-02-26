@@ -11,6 +11,7 @@ namespace Cheetah.Auth.Authentication
         /// Create a new instance of <see cref="OAuth2TokenException"/>
         /// </summary>
         /// <param name="error">An error message describing what went wrong</param>
-        public OAuth2TokenException(string? error) : base(error) { }
+        public OAuth2TokenException(string? error)
+            : base(error) { }
     }
 }

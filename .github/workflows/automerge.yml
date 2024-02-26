@@ -2,14 +2,15 @@ name: automerge
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, labeled]
-      
+
 jobs:
   automerge:
     runs-on: ubuntu-latest
     steps:
-      - id: automerge
-        name: automerge
-        uses: "pascalgn/automerge-action@v0.15.6"
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - name: automerge for pull request
+        if: ${{ github.actor == 'cheetahbot' }}
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          pull-request-number: ${{ github.event.pull_request.number }}
+          merge-method: merge
+          token: "${{ secrets.GITHUB_TOKEN }}"
