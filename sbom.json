@@ -1,10 +1,10 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:3c43a0cf-f66b-4a96-bb5e-ea8b4b2cd129",
+  "serialNumber": "urn:uuid:f48011b5-0aea-4477-834c-ab1246cd8d31",
   "version": 1,
   "metadata": {
-    "timestamp": "2024-02-26T08:41:29.735Z",
+    "timestamp": "2024-03-01T08:44:28.818Z",
     "tools": {
       "components": [
         {
@@ -1141,7 +1141,7 @@
       "author": "Microsoft",
       "group": "",
       "name": "System.IdentityModel.Tokens.Jwt",
-      "version": "7.3.1",
+      "version": "7.4.0",
       "description": "Includes types that provide support for creating, serializing and validating JSON Web Tokens. As of IdentityModel 7x, this is a legacy tool that should be replaced with Microsoft.IdentityModel.JsonWebTokens.",
       "licenses": [
         {
@@ -1151,11 +1151,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/System.IdentityModel.Tokens.Jwt@7.3.1",
+      "purl": "pkg:nuget/System.IdentityModel.Tokens.Jwt@7.4.0",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/System.IdentityModel.Tokens.Jwt/7.3.1/"
+          "url": "https://www.nuget.org/packages/System.IdentityModel.Tokens.Jwt/7.4.0/"
         },
         {
           "type": "vcs",
@@ -1163,7 +1163,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/System.IdentityModel.Tokens.Jwt@7.3.1",
+      "bom-ref": "pkg:nuget/System.IdentityModel.Tokens.Jwt@7.4.0",
       "evidence": {
         "identity": {
           "field": "purl",
