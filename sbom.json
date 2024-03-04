@@ -1,19 +1,19 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:f48011b5-0aea-4477-834c-ab1246cd8d31",
+  "serialNumber": "urn:uuid:a67e682d-3a9b-4575-90b1-865d9c273c6f",
   "version": 1,
   "metadata": {
-    "timestamp": "2024-03-01T08:44:28.818Z",
+    "timestamp": "2024-03-04T08:30:55.624Z",
     "tools": {
       "components": [
         {
           "group": "@cyclonedx",
           "name": "cdxgen",
-          "version": "10.1.3",
-          "purl": "pkg:npm/%40cyclonedx/cdxgen@10.1.3",
+          "version": "10.2.1",
+          "purl": "pkg:npm/%40cyclonedx/cdxgen@10.2.1",
           "type": "application",
-          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@10.1.3",
+          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@10.2.1",
           "author": "OWASP Foundation",
           "publisher": "OWASP Foundation"
         }
@@ -436,7 +436,7 @@
       "author": "OpenSearch and contributors",
       "group": "",
       "name": "OpenSearch.Client",
-      "version": "1.6.0",
+      "version": "1.7.0",
       "description": "Strongly typed interface to OpenSearch. Fluent and classic object initializer mappings of requests and \n      responses. Uses and exposes OpenSearch.Net.",
       "licenses": [
         {
@@ -446,11 +446,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/OpenSearch.Client@1.6.0",
+      "purl": "pkg:nuget/OpenSearch.Client@1.7.0",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/OpenSearch.Client/1.6.0/"
+          "url": "https://www.nuget.org/packages/OpenSearch.Client/1.7.0/"
         },
         {
           "type": "vcs",
@@ -458,7 +458,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/OpenSearch.Client@1.6.0",
+      "bom-ref": "pkg:nuget/OpenSearch.Client@1.7.0",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -765,7 +765,7 @@
       "author": "OpenSearch and contributors",
       "group": "",
       "name": "OpenSearch.Client.JsonNetSerializer",
-      "version": "1.6.0",
+      "version": "1.7.0",
       "description": "OpenSearch.Client uses an internal serializer. This package enables serialization for your documents using your own custom Json.NET serializer",
       "licenses": [
         {
@@ -775,11 +775,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/OpenSearch.Client.JsonNetSerializer@1.6.0",
+      "purl": "pkg:nuget/OpenSearch.Client.JsonNetSerializer@1.7.0",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/OpenSearch.Client.JsonNetSerializer/1.6.0/"
+          "url": "https://www.nuget.org/packages/OpenSearch.Client.JsonNetSerializer/1.7.0/"
         },
         {
           "type": "vcs",
@@ -787,7 +787,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/OpenSearch.Client.JsonNetSerializer@1.6.0",
+      "bom-ref": "pkg:nuget/OpenSearch.Client.JsonNetSerializer@1.7.0",
       "evidence": {
         "identity": {
           "field": "purl",
