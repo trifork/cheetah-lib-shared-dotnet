@@ -1,50 +1,55 @@
 ﻿using System;
 using Confluent.Kafka;
 
-namespace Cheetah.Kafka;
-
-public class ConsumerOptions<TKey, TValue> : ClientOptions<ConsumerConfig, ConsumerBuilder<TKey, TValue>>
+namespace Cheetah.Kafka
 {
-    // TODO: Add Key Serializer
-    internal IDeserializer<TValue>? Deserializer { get; private set; }
+    public class ConsumerOptions<TKey, TValue> : ClientOptions<ConsumerConfig, ConsumerBuilder<TKey, TValue>>
+    {
+        // TODO: Add Key Serializer
+        internal IDeserializer<TValue>? Deserializer { get; private set; }
         
-    public void SetDeserializer(IDeserializer<TValue> deserializer)
-    {
-        Deserializer = deserializer;
-    }
-    
-}
-
-public class ConsumerOptionsBuilder<TKey, TValue> : IOptionsBuilder<ConsumerOptions<TKey, TValue>>
-{
-    private readonly ConsumerOptions<TKey, TValue> _options = new();
-    private Func<IServiceProvider, IDeserializer<TValue>>? _deserializerFactory;
-
-    public ConsumerOptionsBuilder<TKey, TValue> SetDeserializer(Func<IServiceProvider, IDeserializer<TValue>> deserializerFactory)
-    {
-        _deserializerFactory = deserializerFactory;
-        return this;
-    }
-    
-    public ConsumerOptionsBuilder<TKey, TValue> ConfigureClient(Action<ConsumerConfig> configureAction)
-    {
-        _options.ConfigureClient(configureAction);
-        return this;
-    }
-    
-    public ConsumerOptionsBuilder<TKey, TValue> ConfigureBuilder(Action<ConsumerBuilder<TKey, TValue>> builderAction)
-    {
-        _options.ConfigureBuilder(builderAction);
-        return this;
-    }
-    
-    public ConsumerOptions<TKey, TValue> Build(IServiceProvider serviceProvider)
-    {
-        if (_deserializerFactory != null)
+        public void SetDeserializer(IDeserializer<TValue> deserializer)
         {
-            _options.SetDeserializer(_deserializerFactory.Invoke(serviceProvider));
+            Deserializer = deserializer;
         }
+    
+    }
+
+    public class ConsumerOptionsBuilder<TKey, TValue> : IOptionsBuilder<ConsumerOptions<TKey, TValue>>
+    {
+        private readonly ConsumerOptions<TKey, TValue> _options = new ConsumerOptions<TKey, TValue>();
+        private Func<IServiceProvider, IDeserializer<TValue>>? _deserializerFactory;
+
+        public ConsumerOptionsBuilder<TKey, TValue> SetDeserializer(Func<IServiceProvider, IDeserializer<TValue>> deserializerFactory)
+        {
+            _deserializerFactory = deserializerFactory;
+            return this;
+        }
+    
+        public ConsumerOptionsBuilder<TKey, TValue> ConfigureClient(Action<ConsumerConfig> configureAction)
+        {
+            _options.ConfigureClient(configureAction);
+            return this;
+        }
+    
+        public ConsumerOptionsBuilder<TKey, TValue> ConfigureBuilder(Action<ConsumerBuilder<TKey, TValue>> builderAction)
+        {
+            _options.ConfigureBuilder(builderAction);
+            return this;
+        }
+    
+        public ConsumerOptions<TKey, TValue> Build(IServiceProvider serviceProvider)
+        {
+            if (_deserializerFactory != null)
+            {
+                _options.SetDeserializer(_deserializerFactory.Invoke(serviceProvider));
+            }
         
-        return _options;
+            return _options;
+        }
+        public ConsumerOptions<TKey, TValue> Build()
+        {
+            return _options;
+        }
     }
 }

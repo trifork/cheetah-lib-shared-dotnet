@@ -8,10 +8,10 @@ namespace Cheetah.Kafka.ExampleProcessor.Services;
 public class ProducerService : BackgroundService
 {
     private readonly ILogger<ProducerService> _logger;
-    private readonly IProducer<string, ExampleModel> _producer;
+    private readonly IProducer<string, ExampleModelAvro> _producer;
 
     public ProducerService(
-        IProducer<string, ExampleModel> producer,
+        IProducer<string, ExampleModelAvro> producer,
         ILogger<ProducerService> logger
     )
     {
@@ -25,17 +25,17 @@ public class ProducerService : BackgroundService
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                var message = new ExampleModel(
-                    Guid.NewGuid().ToString(),
-                    new Random().Next(0, 100),
-                    DateTimeOffset.UtcNow
-                );
+                var message = new ExampleModelAvro
+                {
+                    id = Guid.NewGuid().ToString(), value = new Random().Next(0, 100), timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
+                };
+
                 _logger.LogInformation(
-                    $"Sending message: {message.Id} {message.Value} {message.Timestamp}"
+                    $"Sending message: {message.id} {message.value} {message.timestamp}"
                 );
                 _producer.Produce(
                     Constants.TopicName,
-                    new Message<string, ExampleModel> { Key = message.Id, Value = message }
+                    new Message<string, ExampleModelAvro> { Key = message.id, Value = message }
                 );
 
                 await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);

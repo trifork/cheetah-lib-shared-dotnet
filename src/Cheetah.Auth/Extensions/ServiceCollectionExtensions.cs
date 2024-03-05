@@ -17,12 +17,12 @@ namespace Cheetah.Auth.Extensions
             serviceCollection.AddMemoryCache();
             serviceCollection.AddKeyedSingleton<ITokenService>(key, (sp, serviceKey) =>
                 new OAuth2TokenService(
-                    sp.GetRequiredKeyedService<ILogger<OAuth2TokenService>>(serviceKey),
+                    sp.GetRequiredService<ILogger<OAuth2TokenService>>(),
                     sp.GetRequiredService<IHttpClientFactory>(),
                     sp.GetRequiredService<IMemoryCache>(),
-                    sp.GetRequiredKeyedService<IOptions<OAuth2Config>>(serviceKey),
+                    sp.GetRequiredService<IOptions<OAuth2Config>>(),
                     key));
-
+            
             return serviceCollection;
         }
     }

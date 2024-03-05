@@ -6,15 +6,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Cheetah.SchemaRegistry;
-
-public class CheetahSchemaRegistryClient : CachedSchemaRegistryClient
+namespace Cheetah.SchemaRegistry
 {
-    public CheetahSchemaRegistryClient(
-        [FromKeyedServices("SchemaRegistry")] ITokenService tokenService, 
-        IOptions<SchemaConfig> config) 
-        : base(config.Value.GetSchemaRegistryConfig(), new OAuthHeaderValueProvider(tokenService))
+    public class CheetahSchemaRegistryClient : CachedSchemaRegistryClient
     {
+        public CheetahSchemaRegistryClient(
+            [FromKeyedServices("SchemaRegistry")] ITokenService tokenService, 
+            IOptions<SchemaConfig> config) 
+            : base(config.Value.GetSchemaRegistryConfig(), new OAuthHeaderValueProvider(tokenService))
+        {
+            
+            
+        }
     }
 }
 

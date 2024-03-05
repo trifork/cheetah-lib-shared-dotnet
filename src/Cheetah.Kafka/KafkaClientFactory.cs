@@ -13,6 +13,7 @@ using Confluent.SchemaRegistry.Serdes;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Cheetah.Kafka
 {
@@ -55,7 +56,7 @@ namespace Cheetah.Kafka
         /// <summary>
         /// Creates a pre-configured <see cref="IProducer{TKey,TValue}"/>/>
         /// </summary>
-        /// <param name="configAction">Optional action used to modify the configuration</param>
+        /// <param name="producerOptions">Optional producer options used to modify the configuration</param>
         /// <typeparam name="TKey">The type of message key that the resulting producer will produce</typeparam>
         /// <typeparam name="TValue">The type of message value that the resulting producer will produce</typeparam>
         /// <returns>A pre-configured <see cref="IProducer{TKey,TValue}"/></returns>
@@ -86,12 +87,32 @@ namespace Cheetah.Kafka
                 .AddCheetahOAuthentication(GetTokenRetrievalFunction(), _loggerFactory.CreateLogger<IProducer<TKey, TValue>>())
                 .SetValueSerializer(serializer);
         }
+        
+        public IProducer<TKey, TValue> CreateAvroProducer<TKey, TValue>(ProducerOptions<TKey, TValue>? producerOptions = null)
+        {
+            return CreateAvroProducerBuilder<TKey, TValue>(producerOptions).Build();
+        }
 
+        public ProducerBuilder<TKey, TValue> CreateAvroProducerBuilder<TKey, TValue>(
+            ProducerOptions<TKey, TValue>? producerOptions = null)
+        {
+            producerOptions ??= new ProducerOptions<TKey, TValue>();
+            if (producerOptions.Serializer != null)
+            {
+                return CreateProducerBuilder(producerOptions);
+            }
+            
+            var authHeaderValueProvider = new OAuthHeaderValueProvider(_kafkaTokenService);
+            producerOptions.SetSerializer(
+                new AvroSerializer<TValue>(new CachedSchemaRegistryClient(_config.GetSchemaRegistryConfig(), authHeaderValueProvider)).AsSyncOverAsync());
+
+            return CreateProducerBuilder(producerOptions);
+        }
+        
         /// <summary>
         /// Creates a pre-configured <see cref="IConsumer{TKey,TValue}"/>/>
         /// </summary>
-        /// <param name="configAction">Optional action used to modify the configuration</param>
-        /// <param name="deserializer">Optional deserializer to use. If not supplied, a <see cref="Utf8Serializer{T}"/> will be used</param>
+        /// <param name="consumerOptions">Optional consumer option used to modify the configuration</param>
         /// <typeparam name="TKey">The type of message key that the resulting consumer will consume</typeparam>
         /// <typeparam name="TValue">The type of message value that the resulting consumer will consume</typeparam>
         /// <returns>A pre-configured <see cref="IConsumer{TKey,TValue}"/></returns>
@@ -99,7 +120,6 @@ namespace Cheetah.Kafka
         {
             return CreateConsumerBuilder(consumerOptions).Build();
         }
-        
 
         /// <summary>
         /// Creates a pre-configured <see cref="ConsumerBuilder{TKey,TValue}"/>/>
@@ -121,11 +141,32 @@ namespace Cheetah.Kafka
                 .AddCheetahOAuthentication(GetTokenRetrievalFunction(), _loggerFactory.CreateLogger<IConsumer<TKey, TValue>>())
                 .SetValueDeserializer(deserializer);
         }
+        
+        public IConsumer<TKey, TValue> CreateAvroConsumer<TKey, TValue>(ConsumerOptions<TKey, TValue>? consumerOptions = null)
+        {
+            return CreateAvroConsumerBuilder(consumerOptions).Build();
+        }
+        
+        public ConsumerBuilder<TKey, TValue> CreateAvroConsumerBuilder<TKey, TValue>(ConsumerOptions<TKey, TValue>? consumerOptions = null)
+        {
+            consumerOptions ??= new ConsumerOptions<TKey, TValue>();
+            
+            var authHeaderValueProvider = new OAuthHeaderValueProvider(_kafkaTokenService);
+            var schemaRegistryClient = new CachedSchemaRegistryClient(
+                _config.GetSchemaRegistryConfig(),
+                authHeaderValueProvider
+            );
+            consumerOptions.SetDeserializer(
+                new AvroDeserializer<TValue>(schemaRegistryClient).AsSyncOverAsync()
+            );
+            
+            return CreateConsumerBuilder(consumerOptions);
+        }
 
         /// <summary>
         /// Creates a pre-configured <see cref="IAdminClient"/>/>
         /// </summary>
-        /// <param name="configAction">Optional action to modify the used <see cref="AdminClientConfig"/></param>
+        /// <param name="adminOptions">Optional admin option to modify the used <see cref="AdminClientConfig"/></param>
         /// <returns>A pre-configured <see cref="IAdminClient"/></returns>
         public IAdminClient CreateAdminClient(AdminClientOptions? adminOptions = null)
         {
@@ -135,7 +176,7 @@ namespace Cheetah.Kafka
         /// <summary>
         /// Creates a pre-configured <see cref="AdminClientBuilder"/>/>
         /// </summary>
-        /// <param name="configAction">Optional action to modify the used <see cref="AdminClientConfig"/></param>
+        /// <param name="adminOptions">Optional admin option to modify the used <see cref="AdminClientConfig"/></param>
         /// <returns>A pre-configured <see cref="AdminClientBuilder"/></returns>
         public AdminClientBuilder CreateAdminClientBuilder(AdminClientOptions? adminOptions = null)
         {

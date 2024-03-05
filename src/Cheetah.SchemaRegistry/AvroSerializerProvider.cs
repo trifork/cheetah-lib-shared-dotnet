@@ -6,31 +6,32 @@ using Confluent.SchemaRegistry;
 using Confluent.SchemaRegistry.Serdes;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cheetah.Kafka.Avro;
-
-public class AvroSerializerProvider : ISerializerProvider
+namespace Cheetah.Kafka.Avro
 {
-    readonly ISchemaRegistryClient _schemaRegistryClient;
-    readonly AvroSerializerConfig? _serializerConfig;
-
-    public static Func<IServiceProvider, AvroSerializerProvider> FromServices(AvroSerializerConfig? serializerConfig = null)
+    public class AvroSerializerProvider : ISerializerProvider
     {
-        return serviceProvider => new AvroSerializerProvider(serviceProvider.GetRequiredService<ISchemaRegistryClient>(), serializerConfig);
-    }
+        readonly ISchemaRegistryClient _schemaRegistryClient;
+        readonly AvroSerializerConfig? _serializerConfig;
+
+        public static Func<IServiceProvider, AvroSerializerProvider> FromServices(AvroSerializerConfig? serializerConfig = null)
+        {
+            return serviceProvider => new AvroSerializerProvider(serviceProvider.GetRequiredService<ISchemaRegistryClient>(), serializerConfig);
+        }
     
-    public AvroSerializerProvider(ISchemaRegistryClient schemaRegistryClient, AvroSerializerConfig? serializerConfig = null)
-    {
-        _schemaRegistryClient = schemaRegistryClient;
-        _serializerConfig = serializerConfig;
-    }
+        public AvroSerializerProvider(ISchemaRegistryClient schemaRegistryClient, AvroSerializerConfig? serializerConfig = null)
+        {
+            _schemaRegistryClient = schemaRegistryClient;
+            _serializerConfig = serializerConfig;
+        }
 
-    public ISerializer<T> GetSerializer<T>(IServiceProvider serviceProvider)
-    {
-        return new AvroSerializer<T>(_schemaRegistryClient, _serializerConfig).AsSyncOverAsync();  
-    }
+        public ISerializer<T> GetSerializer<T>()
+        {
+            return new AvroSerializer<T>(_schemaRegistryClient, _serializerConfig).AsSyncOverAsync();  
+        }
 
-    public IDeserializer<T> GetDeserializer<T>(IServiceProvider serviceProvider)
-    {
-        return new AvroDeserializer<T>(_schemaRegistryClient, _serializerConfig).AsSyncOverAsync();
+        public IDeserializer<T> GetDeserializer<T>()
+        {
+            return new AvroDeserializer<T>(_schemaRegistryClient, _serializerConfig).AsSyncOverAsync();
+        }
     }
 }

@@ -16,10 +16,9 @@ namespace Cheetah.Kafka.Serialization
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="serviceProvider"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public ISerializer<T> GetSerializer<T>(IServiceProvider serviceProvider)
+        public ISerializer<T> GetSerializer<T>()
         {
             return new Utf8Serializer<T>();
         }
@@ -27,10 +26,9 @@ namespace Cheetah.Kafka.Serialization
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="_"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public IDeserializer<T> GetDeserializer<T>(IServiceProvider _)
+        public IDeserializer<T> GetDeserializer<T>()
         {
             return new Utf8Serializer<T>();
         }

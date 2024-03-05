@@ -39,14 +39,17 @@ namespace Cheetah.Kafka.Test
                 s.AddFilter("System.Net.Http.HttpClient", LogLevel.Warning);
                 s.AddConsole();
             });
-
+            
             services
                 .AddCheetahKafka(configuration)
                 .WithProducer<string, string>()
-                .WithConsumer<string, string>(cfg =>
+                .WithConsumer<string, string>(options =>
                 {
-                    cfg.GroupId = $"{nameof(KafkaIntegrationTests)}_{Guid.NewGuid()}";
-                    cfg.AutoOffsetReset = AutoOffsetReset.Earliest;
+                    options.ConfigureClient(cfg =>
+                    {
+                        cfg.GroupId = $"{nameof(KafkaIntegrationTests)}_{Guid.NewGuid()}";
+                        cfg.AutoOffsetReset = AutoOffsetReset.Earliest;
+                    });
                 })
                 .WithAdminClient();
 

@@ -20,6 +20,5 @@ namespace Cheetah.Kafka.Serialization
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         IDeserializer<T> GetDeserializer<T>();
-        
     }
 }

@@ -5,27 +5,28 @@ using Confluent.SchemaRegistry;
 using Confluent.SchemaRegistry.Serdes;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cheetah.Kafka.Avro;
-
-public static class AvroSerializer
+namespace Cheetah.Kafka.Avro
 {
-    public static Func<IServiceProvider, ISerializer<T>> FromServices<T>(AvroSerializerConfig? serializerConfig = null)
+    public static class AvroSerializer
     {
-        return serviceProvider => {
-            var client = serviceProvider.GetRequiredService<ISchemaRegistryClient>();
-            return new AvroSerializer<T>(client, serializerConfig).AsSyncOverAsync();
-        };
-    }
-}
-
-public static class AvroDeserializer
-{
-    public static Func<IServiceProvider, IDeserializer<T>> FromServices<T>(AvroSerializerConfig? serializerConfig = null)
-    {
-        return serviceProvider =>
+        public static Func<IServiceProvider, ISerializer<T>> FromServices<T>(AvroSerializerConfig? serializerConfig = null)
         {
-            var client = serviceProvider.GetRequiredService<ISchemaRegistryClient>();
-            return new AvroDeserializer<T>(client).AsSyncOverAsync();
-        };
+            return serviceProvider => {
+                var client = serviceProvider.GetRequiredService<ISchemaRegistryClient>();
+                return new AvroSerializer<T>(client, serializerConfig).AsSyncOverAsync();
+            };
+        }
+    }
+
+    public static class AvroDeserializer
+    {
+        public static Func<IServiceProvider, IDeserializer<T>> FromServices<T>(AvroSerializerConfig? serializerConfig = null)
+        {
+            return serviceProvider =>
+            {
+                var client = serviceProvider.GetRequiredService<ISchemaRegistryClient>();
+                return new AvroDeserializer<T>(client).AsSyncOverAsync();
+            };
+        }
     }
 }

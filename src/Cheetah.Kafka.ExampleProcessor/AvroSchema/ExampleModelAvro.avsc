@@ -1,0 +1,19 @@
+{
+    "type": "record",
+    "name": "ExampleModelAvro",
+    "namespace": "cheetah.kafka.ExampleProcessor.models",
+    "fields":  [
+        {
+            "name": "id",
+            "type": "string"
+        },
+        {
+            "name": "value",
+            "type": "double"
+        },
+        {
+            "name": "timestamp",
+            "type": "long"
+        }
+    ]
+}

@@ -47,7 +47,6 @@ namespace Cheetah.Kafka.Extensions
         /// Registers a pre-configured <see cref="IConsumer{TKey,TValue}"/>/>
         /// </summary>
         /// <param name="configAction">Additional configuration that this specific consumer should use</param>
-        /// <param name="serializerFactory"></param>
         /// <typeparam name="TKey">The type of key that the injected consumer will consume</typeparam>
         /// <typeparam name="TValue">The type of value that the injected consumer will consume</typeparam>
         /// <returns>This <see cref="ClientInjector"/> instance for method chaining</returns>

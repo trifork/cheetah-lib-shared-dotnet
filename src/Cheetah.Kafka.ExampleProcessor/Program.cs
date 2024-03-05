@@ -1,5 +1,8 @@
 // See https://aka.ms/new-console-template for more information
 
+using Cheetah.Auth.Authentication;
+using Cheetah.Auth.Extensions;
+using Cheetah.Kafka;
 using Cheetah.Kafka.Avro;
 using Cheetah.Kafka.ExampleProcessor.Models;
 using Cheetah.Kafka.ExampleProcessor.Services;
@@ -30,17 +33,22 @@ builder.Services.AddCheetahKafka(builder.Configuration, options =>
             config.GroupId = "the-group";
         });
     })
-    .WithKeyedConsumer<string, ExampleModel>("A", options =>
+    .WithKeyedConsumer<string, ExampleModelAvro>("A", options =>
     {
+        options.SetDeserializer(AvroDeserializer.FromServices<ExampleModelAvro>());
         options.ConfigureClient(cfg =>
         {
             cfg.GroupId = "the-big-group";
         });
     })
-    .WithKeyedConsumer<string, ExampleModel>("B")
-    .WithProducer<string, ExampleModel>(options =>
+    .WithKeyedConsumer<string, ExampleModelAvro>("B", options =>
     {
-        options.SetSerializer(AvroSerializer.FromServices<ExampleModel>());
+        options.SetDeserializer(AvroDeserializer.FromServices<ExampleModelAvro>());
+
+    })
+    .WithProducer<string, ExampleModelAvro>(options =>
+    {
+        options.SetSerializer(AvroSerializer.FromServices<ExampleModelAvro>());
         options.ConfigureClient(cfg =>
         {
             cfg.BatchSize = 100;
