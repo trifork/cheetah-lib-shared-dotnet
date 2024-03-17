@@ -1,19 +1,19 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:a67e682d-3a9b-4575-90b1-865d9c273c6f",
+  "serialNumber": "urn:uuid:8ac0f860-12ec-4eef-853d-1c4da8694fe4",
   "version": 1,
   "metadata": {
-    "timestamp": "2024-03-04T08:30:55.624Z",
+    "timestamp": "2024-03-17T03:19:38.349Z",
     "tools": {
       "components": [
         {
           "group": "@cyclonedx",
           "name": "cdxgen",
-          "version": "10.2.1",
-          "purl": "pkg:npm/%40cyclonedx/cdxgen@10.2.1",
+          "version": "10.2.3",
+          "purl": "pkg:npm/%40cyclonedx/cdxgen@10.2.3",
           "type": "application",
-          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@10.2.1",
+          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@10.2.3",
           "author": "OWASP Foundation",
           "publisher": "OWASP Foundation"
         }
@@ -389,7 +389,7 @@
       "author": "tonerdo",
       "group": "",
       "name": "coverlet.collector",
-      "version": "6.0.1",
+      "version": "6.0.2",
       "description": "Coverlet is a cross platform code coverage library for .NET, with support for line, branch and method coverage.",
       "licenses": [
         {
@@ -399,11 +399,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/coverlet.collector@6.0.1",
+      "purl": "pkg:nuget/coverlet.collector@6.0.2",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/coverlet.collector/6.0.1/"
+          "url": "https://www.nuget.org/packages/coverlet.collector/6.0.2/"
         },
         {
           "type": "vcs",
@@ -411,7 +411,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/coverlet.collector@6.0.1",
+      "bom-ref": "pkg:nuget/coverlet.collector@6.0.2",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -483,8 +483,8 @@
       "author": "Microsoft",
       "group": "",
       "name": "Microsoft.AspNetCore.OpenApi",
-      "version": "8.0.2",
-      "description": "Provides APIs for annotating route handler endpoints in ASP.NET Core with OpenAPI annotations.\n\nThis package was built from the source code at https://github.com/dotnet/aspnetcore/tree/da7e9894ce22ef8cc02e5acc56e95a6f8cf8f644",
+      "version": "8.0.3",
+      "description": "Provides APIs for annotating route handler endpoints in ASP.NET Core with OpenAPI annotations.\n\nThis package was built from the source code at https://github.com/dotnet/aspnetcore/tree/88ec3bc3f37e76fbcc932a25f9f0c1c29fe2b343",
       "licenses": [
         {
           "license": {
@@ -493,11 +493,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.2",
+      "purl": "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.3",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.AspNetCore.OpenApi/8.0.2/"
+          "url": "https://www.nuget.org/packages/Microsoft.AspNetCore.OpenApi/8.0.3/"
         },
         {
           "type": "vcs",
@@ -505,7 +505,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.2",
+      "bom-ref": "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.3",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -671,7 +671,7 @@
       "author": "Microsoft",
       "group": "",
       "name": "Microsoft.Extensions.Logging.Abstractions",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "description": "Logging abstractions for Microsoft.Extensions.Logging.\n\nCommonly Used Types:\nMicrosoft.Extensions.Logging.ILogger\nMicrosoft.Extensions.Logging.ILoggerFactory\nMicrosoft.Extensions.Logging.ILogger<TCategoryName>\nMicrosoft.Extensions.Logging.LogLevel\nMicrosoft.Extensions.Logging.Logger<T>\nMicrosoft.Extensions.Logging.LoggerMessage\nMicrosoft.Extensions.Logging.Abstractions.NullLogger",
       "licenses": [
         {
@@ -681,11 +681,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@8.0.0",
+      "purl": "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@8.0.1",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Logging.Abstractions/8.0.0/"
+          "url": "https://www.nuget.org/packages/Microsoft.Extensions.Logging.Abstractions/8.0.1/"
         },
         {
           "type": "vcs",
@@ -693,7 +693,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@8.0.0",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@8.0.1",
       "evidence": {
         "identity": {
           "field": "purl",
