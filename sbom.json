@@ -1,19 +1,19 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:8ac0f860-12ec-4eef-853d-1c4da8694fe4",
+  "serialNumber": "urn:uuid:c77fa9ca-6c20-4879-a49e-56e053d41440",
   "version": 1,
   "metadata": {
-    "timestamp": "2024-03-17T03:19:38.349Z",
+    "timestamp": "2024-03-29T20:41:13.451Z",
     "tools": {
       "components": [
         {
           "group": "@cyclonedx",
           "name": "cdxgen",
-          "version": "10.2.3",
-          "purl": "pkg:npm/%40cyclonedx/cdxgen@10.2.3",
+          "version": "10.2.6",
+          "purl": "pkg:npm/%40cyclonedx/cdxgen@10.2.6",
           "type": "application",
-          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@10.2.3",
+          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@10.2.6",
           "author": "OWASP Foundation",
           "publisher": "OWASP Foundation"
         }
@@ -1141,7 +1141,7 @@
       "author": "Microsoft",
       "group": "",
       "name": "System.IdentityModel.Tokens.Jwt",
-      "version": "7.4.0",
+      "version": "7.4.1",
       "description": "Includes types that provide support for creating, serializing and validating JSON Web Tokens. As of IdentityModel 7x, this is a legacy tool that should be replaced with Microsoft.IdentityModel.JsonWebTokens.",
       "licenses": [
         {
@@ -1151,11 +1151,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/System.IdentityModel.Tokens.Jwt@7.4.0",
+      "purl": "pkg:nuget/System.IdentityModel.Tokens.Jwt@7.4.1",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/System.IdentityModel.Tokens.Jwt/7.4.0/"
+          "url": "https://www.nuget.org/packages/System.IdentityModel.Tokens.Jwt/7.4.1/"
         },
         {
           "type": "vcs",
@@ -1163,7 +1163,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/System.IdentityModel.Tokens.Jwt@7.4.0",
+      "bom-ref": "pkg:nuget/System.IdentityModel.Tokens.Jwt@7.4.1",
       "evidence": {
         "identity": {
           "field": "purl",
