@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Cheetah.Auth.Authentication;
@@ -202,12 +202,12 @@ namespace Cheetah.Kafka
         private ClientConfig GetDefaultConfig() => _config.GetClientConfig();
 
         private Func<
-            Task<(string AccessToken, long Expiration, string Principal)>
+            (string AccessToken, long Expiration, string Principal)
         > GetTokenRetrievalFunction()
         {
-            return async () =>
+            return () =>
             {
-                var response = await _tokenService.RequestAccessTokenAsync(CancellationToken.None);
+                var response = _tokenService.RequestAccessToken();
                 return (response.AccessToken, response.Expiration, _config.Principal);
             };
         }

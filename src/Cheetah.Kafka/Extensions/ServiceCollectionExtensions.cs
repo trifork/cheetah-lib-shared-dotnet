@@ -48,14 +48,16 @@ namespace Cheetah.Kafka.Extensions
                         .GetSection(nameof(KafkaConfig.OAuth2))
                 );
 
-            serviceCollection.AddHttpClient<OAuth2TokenService>();
+            serviceCollection.AddHttpClient<OAuthTokenProvider>();
             serviceCollection.AddMemoryCache();
-            serviceCollection.AddSingleton<ITokenService>(sp => new OAuth2TokenService(
-                sp.GetRequiredService<ILogger<OAuth2TokenService>>(),
-                sp.GetRequiredService<IHttpClientFactory>(),
-                sp.GetRequiredService<IMemoryCache>(),
+            serviceCollection.AddSingleton<ICachableTokenProvider>(sp => new OAuthTokenProvider(
                 sp.GetRequiredService<IOptions<OAuth2Config>>(),
+                sp.GetRequiredService<IHttpClientFactory>(),
                 "kafka-access-token"
+            ));
+            serviceCollection.AddSingleton<ITokenService>(sp => new CachedTokenProvider(
+                sp.GetRequiredService<ICachableTokenProvider>(),
+                sp.GetRequiredService<ILogger<CachedTokenProvider>>()
             ));
             serviceCollection.AddSingleton<KafkaClientFactory>();
 

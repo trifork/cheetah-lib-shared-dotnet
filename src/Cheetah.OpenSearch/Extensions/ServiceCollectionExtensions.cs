@@ -61,14 +61,16 @@ namespace Cheetah.OpenSearch.Extensions
             this IServiceCollection serviceCollection
         )
         {
-            serviceCollection.AddHttpClient<OAuth2TokenService>();
+            serviceCollection.AddHttpClient<OAuthTokenProvider>();
             serviceCollection.AddMemoryCache();
-            serviceCollection.AddSingleton<ITokenService>(sp => new OAuth2TokenService(
-                sp.GetRequiredService<ILogger<OAuth2TokenService>>(),
-                sp.GetRequiredService<IHttpClientFactory>(),
-                sp.GetRequiredService<IMemoryCache>(),
+            serviceCollection.AddSingleton<ICachableTokenProvider>(sp => new OAuthTokenProvider(
                 sp.GetRequiredService<IOptions<OAuth2Config>>(),
+                sp.GetRequiredService<IHttpClientFactory>(),
                 "opensearch-access-token"
+            ));
+            serviceCollection.AddSingleton<ITokenService>(sp => new CachedTokenProvider(
+                sp.GetRequiredService<ICachableTokenProvider>(),
+                sp.GetRequiredService<ILogger<CachedTokenProvider>>()
             ));
             serviceCollection.AddSingleton<IConnection, CheetahOpenSearchConnection>();
             return serviceCollection;

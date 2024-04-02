@@ -1,12 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
+using Cheetah.Auth.Authentication;
+using Cheetah.Auth.Configuration;
+using Cheetah.Auth.Util;
 using Cheetah.Kafka.Extensions;
 using Cheetah.Kafka.Test.Util;
 using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Xunit;
 
 namespace Cheetah.Kafka.Test
@@ -51,6 +57,31 @@ namespace Cheetah.Kafka.Test
                 .WithAdminClient();
 
             _serviceProvider = services.BuildServiceProvider();
+        }
+
+        [Fact]
+        public async Task TestNewOAuthProcess()
+        {
+            var OAuthConfig = new OAuth2Config();
+            OAuthConfig.ClientId = "default-access";
+            OAuthConfig.ClientSecret = "default-access-secret";
+            OAuthConfig.Scope = "kafka";
+            OAuthConfig.TokenEndpoint = "http://localhost:1852/realms/local-development/protocol/openid-connect/token";
+            var OAuthOptions = new OptionsWrapper<OAuth2Config>(OAuthConfig);
+            var httpClientFactory = new DefaultHttpClientFactory();
+            var tokenProvicer = new OAuthTokenProvider(
+                OAuthOptions, httpClientFactory, "test");
+
+            var logger = new LoggerFactory().CreateLogger<CachedTokenProvider>();
+            var cachedTokenProvider = new CachedTokenProvider(tokenProvicer, logger);
+
+            var response1 = cachedTokenProvider.RequestAccessToken();
+            
+            await Task.Delay(TimeSpan.FromSeconds(30));
+            
+            var response2 = cachedTokenProvider.RequestAccessToken();
+
+            Assert.NotEqual(response1, response2);
         }
 
         [Fact]

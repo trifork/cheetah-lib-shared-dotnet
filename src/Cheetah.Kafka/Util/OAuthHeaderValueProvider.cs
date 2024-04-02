@@ -18,10 +18,7 @@ namespace Cheetah.Kafka.Util
         public AuthenticationHeaderValue GetAuthenticationHeader()
         {
             string? token = _tokenService
-                .RequestAccessTokenAsync(CancellationToken.None)
-                .ConfigureAwait(false)
-                .GetAwaiter()
-                .GetResult()
+                .RequestAccessToken()
                 .AccessToken;
             return new AuthenticationHeaderValue("Bearer", token);
         }

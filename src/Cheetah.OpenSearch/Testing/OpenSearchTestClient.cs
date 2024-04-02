@@ -51,13 +51,10 @@ namespace Cheetah.OpenSearch.Testing
             IConnection? connection = null;
             if (configuration.AuthMode == OpenSearchConfig.OpenSearchAuthMode.OAuth2)
             {
-                var tokenService = new OAuth2TokenService(
-                    loggerFactory.CreateLogger<OAuth2TokenService>(),
-                    new DefaultHttpClientFactory(),
-                    new MemoryCache(new MemoryCacheOptions()),
-                    Options.Create(configuration.OAuth2),
-                    "opensearch-access-token"
-                );
+                var tokenService = new CachedTokenProvider(
+                    new OAuthTokenProvider(Options.Create(configuration.OAuth2), new DefaultHttpClientFactory(),
+                        "opensearch-access-token"),
+                    loggerFactory.CreateLogger<CachedTokenProvider>());
                 connection = new CheetahOpenSearchConnection(tokenService);
             }
 
