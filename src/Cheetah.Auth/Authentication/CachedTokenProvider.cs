@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Cheetah.Auth.Authentication
 {
-    public class CachedTokenProvider : ITokenService, IDisposable
+    public class CachedTokenProvider : ITokenService, IAsyncDisposable
     {
         readonly ILogger<CachedTokenProvider> _logger;
         private static readonly TimeSpan DEFAULT_RETRY_INTERVAL = TimeSpan.FromSeconds(1);
@@ -17,7 +17,7 @@ namespace Cheetah.Auth.Authentication
         private readonly TimeSpan _earlyRefresh;
         private readonly TimeSpan _earlyExpiry;
         private PeriodicTimer? _timer;
-        readonly CancellationTokenSource _cts = new CancellationTokenSource();
+        readonly CancellationTokenSource _cts = new();
         private Task? _timerTask;
         private TokenResponse? _token;
 
@@ -43,25 +43,41 @@ namespace Cheetah.Auth.Authentication
             this.StartFetchToken();
         }
         
-        
         private void StartFetchToken()
         {
-            _timer = new PeriodicTimer(TimeSpan.FromSeconds(40).Subtract(_earlyRefresh));
-            _timerTask = FetchTokenAsync();
+            try
+            {
+                _token = FetchToken().Result;
+                
+                if (_token == null)
+                    throw new OAuth2TokenException("Failed to retrieve token returned null");
+                
+                if (_token.IsError)
+                    throw new OAuth2TokenException(_token.ErrorDescription);
+                
+                _timer = new PeriodicTimer(TimeSpan.FromSeconds(_token.ExpiresIn).Subtract(_earlyRefresh));
+                _timerTask = FetchTokenAsync();    
+            }
+            catch (OAuth2TokenException e)
+            {
+                throw new OAuth2TokenException(e.Message);
+            }
+            
         }
         
         private async Task FetchTokenAsync()
         {
             try
             {
-                while (_timer != null && await _timer.WaitForNextTickAsync(_cts.Token))
+                while (_timer != null && !_cts.IsCancellationRequested && await _timer.WaitForNextTickAsync(_cts.Token))
                 {
                     _token = await FetchToken();
                 }
             }
-            catch (OperationCanceledException)
+            catch (OAuth2TokenException e)
             {
-                // TODO: Make some meaningful exception
+                await DisposeAsync();
+                throw new OAuth2TokenException(e.Message);
             }
         }
 
@@ -77,11 +93,13 @@ namespace Cheetah.Auth.Authentication
                 }
         
                 TokenResponse? token = await FetchTokenOrNullAsync(_cts.Token);
-        
-                if (token != null)
-                {
-                    return token;
-                }
+                
+                if (token == null) continue;
+                
+                if (token.IsError)
+                    _logger.LogWarning("Failed to retrieve token with following error message: " + token.ErrorDescription);
+                
+                return token;
             }
         }
         private async Task<TokenResponse?> FetchTokenOrNullAsync(CancellationToken cancellationToken)
@@ -109,9 +127,11 @@ namespace Cheetah.Auth.Authentication
             }
         }
 
-        public void Dispose()
+        public async ValueTask DisposeAsync()
         {
+            _timer?.Dispose();
             _cts.Cancel();
+            if (_timerTask != null) await _timerTask;
         }
 
         public (string, long) RequestAccessToken()
