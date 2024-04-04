@@ -95,10 +95,13 @@ namespace Cheetah.Auth.Authentication
                 TokenResponse? token = await FetchTokenOrNullAsync(_cts.Token);
                 
                 if (token == null) continue;
-                
+
                 if (token.IsError)
+                {
                     _logger.LogWarning("Failed to retrieve token with following error message: " + token.ErrorDescription);
-                
+                    continue;
+                }
+                    
                 return token;
             }
         }
