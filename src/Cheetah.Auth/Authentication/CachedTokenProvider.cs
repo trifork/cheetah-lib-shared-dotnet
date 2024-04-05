@@ -51,16 +51,21 @@ namespace Cheetah.Auth.Authentication
                 
                 if (_token == null)
                     throw new OAuth2TokenException("Failed to retrieve token returned null");
-                
+
                 if (_token.IsError)
-                    throw new OAuth2TokenException(_token.ErrorDescription);
+                {
+                    _logger.LogWarning("Failed to retrieve token with following error message: " + _token.Error);
+                    throw new OAuth2TokenException(_token.Error);
+                }
                 
                 _timer = new PeriodicTimer(TimeSpan.FromSeconds(_token.ExpiresIn).Subtract(_earlyRefresh));
                 _timerTask = FetchTokenAsync();    
             }
-            catch (OAuth2TokenException e)
+            catch (OAuth2TokenException)
             {
-                throw new OAuth2TokenException(e.Message);
+                TrySleep(_retryInterval);
+                
+                this.StartFetchToken();
             }
             
         }
@@ -98,7 +103,7 @@ namespace Cheetah.Auth.Authentication
 
                 if (token.IsError)
                 {
-                    _logger.LogWarning("Failed to retrieve token with following error message: " + token.ErrorDescription);
+                    _logger.LogWarning("Failed to retrieve token with following error message: " + token.Error);
                     continue;
                 }
                     
