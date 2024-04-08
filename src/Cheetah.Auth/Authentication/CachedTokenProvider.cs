@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using IdentityModel.Client;
@@ -10,7 +10,7 @@ namespace Cheetah.Auth.Authentication
     {
         readonly ILogger<CachedTokenProvider> _logger;
         private static readonly TimeSpan DEFAULT_RETRY_INTERVAL = TimeSpan.FromSeconds(1);
-        private static readonly TimeSpan DEFAULT_EARLY_REFRESH = TimeSpan.FromSeconds(30);
+        private static readonly TimeSpan DEFAULT_EARLY_REFRESH = TimeSpan.FromSeconds(60);
         private static readonly TimeSpan DEFAULT_EARLY_EXPIRY = TimeSpan.FromSeconds(5);
         private readonly ICachableTokenProvider _tokenProvider;
         private readonly TimeSpan _retryInterval;
