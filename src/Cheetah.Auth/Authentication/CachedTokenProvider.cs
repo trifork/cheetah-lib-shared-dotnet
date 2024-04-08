@@ -159,8 +159,9 @@ namespace Cheetah.Auth.Authentication
                     {
                         throw new OAuth2TokenException($"Failed to retrieve access token Error: {_token?.Error}");
                     }
-
-                    return (_token.AccessToken, DateTimeOffset.UtcNow.AddSeconds(_token.ExpiresIn).ToUnixTimeMilliseconds());
+                    
+                    _logger.LogDebug($"Retrieving following token: {_token.AccessToken}      - It expires in {DateTimeOffset.UtcNow.AddSeconds(_token.ExpiresIn).ToUnixTimeMilliseconds()}ms");
+                    return (_token.AccessToken, DateTimeOffset.UtcNow.AddSeconds(_token.ExpiresIn).ToUnixTimeMilliseconds()); // Maybe subtract some time here
                 }
 
                 _logger.LogWarning($"No token available yet. Waiting for {_retryInterval} before checking again");
