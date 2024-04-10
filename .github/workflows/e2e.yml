@@ -57,7 +57,7 @@ jobs:
         run: dotnet test --logger trx
 
       - name: Display test report OpenSearch
-        uses: dorny/test-reporter@v1.8.0
+        uses: dorny/test-reporter@v1.9.0
         if: always()
         with:
           name: Tests
@@ -65,7 +65,7 @@ jobs:
           reporter: dotnet-trx
 
       - name: Display test report Kafka
-        uses: dorny/test-reporter@v1.8.0
+        uses: dorny/test-reporter@v1.9.0
         if: always()
         with:
           name: Tests
