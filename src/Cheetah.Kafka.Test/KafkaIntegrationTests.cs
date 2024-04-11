@@ -82,7 +82,6 @@ namespace Cheetah.Kafka.Test
             var response2 = cachedTokenProvider.RequestAccessToken();
             
             Assert.Equal(response1.Item1, response2.Item1);
-            Assert.NotEqual(response1, response2);
         }
 
         [Fact]

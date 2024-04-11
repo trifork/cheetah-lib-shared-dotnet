@@ -47,7 +47,7 @@ public class KafkaTestClientFactoryTests
             "MyJsonTopic",
             "MyConsumerGroup"
         );
-
+        
         await writer.WriteAsync("Message4");
         var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(5));
         readMessages.Should().HaveCount(1);

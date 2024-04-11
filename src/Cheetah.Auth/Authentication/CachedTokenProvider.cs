@@ -10,7 +10,7 @@ namespace Cheetah.Auth.Authentication
     {
         readonly ILogger<CachedTokenProvider> _logger;
         private static readonly TimeSpan DEFAULT_RETRY_INTERVAL = TimeSpan.FromSeconds(1);
-        private static readonly TimeSpan DEFAULT_EARLY_REFRESH = TimeSpan.FromSeconds(60);
+        private static readonly TimeSpan DEFAULT_EARLY_REFRESH = TimeSpan.FromSeconds(30);
         private static readonly TimeSpan DEFAULT_EARLY_EXPIRY = TimeSpan.FromSeconds(5);
         private readonly ICachableTokenProvider _tokenProvider;
         private readonly TimeSpan _retryInterval;
@@ -19,7 +19,7 @@ namespace Cheetah.Auth.Authentication
         private PeriodicTimer? _timer;
         readonly CancellationTokenSource _cts = new();
         private Task? _timerTask;
-        private TokenResponse? _token;
+        private TokenWithExpiry? _token;
 
         public CachedTokenProvider(ICachableTokenProvider tokenProvider, TimeSpan retryInterval, TimeSpan earlyRefresh, TimeSpan earlyExpiry, ILogger<CachedTokenProvider> logger)
         {
@@ -49,16 +49,7 @@ namespace Cheetah.Auth.Authentication
             {
                 _token = FetchToken().Result;
                 
-                if (_token == null)
-                    throw new OAuth2TokenException("Failed to retrieve token returned null");
-
-                if (_token.IsError)
-                {
-                    _logger.LogWarning("Failed to retrieve token with following error message: " + _token.Error);
-                    throw new OAuth2TokenException(_token.Error);
-                }
-                
-                _timer = new PeriodicTimer(TimeSpan.FromSeconds(_token.ExpiresIn).Subtract(_earlyRefresh));
+                _timer = new PeriodicTimer(TimeSpan.FromSeconds(GetExpiryInSeconds()).Subtract(_earlyRefresh));
                 _timerTask = FetchTokenAsync();    
             }
             catch (OAuth2TokenException)
@@ -86,9 +77,9 @@ namespace Cheetah.Auth.Authentication
             }
         }
 
-        private async Task<TokenResponse> FetchToken()
+        private async Task<TokenWithExpiry> FetchToken()
         {
-            _logger.LogDebug("Fetching new token.");
+            _logger.LogDebug($"Fetching new token. {DateTimeOffset.UtcNow}");
             for (int retries = 0;; retries++)
             {
                 if (retries > 0)
@@ -101,13 +92,10 @@ namespace Cheetah.Auth.Authentication
                 
                 if (token == null) continue;
 
-                if (token.IsError)
-                {
-                    _logger.LogWarning("Failed to retrieve token with following error message: " + token.Error);
-                    continue;
-                }
-                    
-                return token;
+                if (!token.IsError)
+                    return new TokenWithExpiry(token.AccessToken, DateTimeOffset.UtcNow.AddSeconds(token.ExpiresIn));
+                
+                _logger.LogWarning("Failed to retrieve token with following error message: " + token.Error);
             }
         }
         private async Task<TokenResponse?> FetchTokenOrNullAsync(CancellationToken cancellationToken)
@@ -153,19 +141,26 @@ namespace Cheetah.Auth.Authentication
                     continue;
                 }
 
-                if (TimeSpan.FromSeconds(_token.ExpiresIn).Subtract(_earlyExpiry) > TimeSpan.Zero)
+                if (TimeSpan.FromSeconds(GetExpiryInSeconds()).Subtract(_earlyExpiry) > TimeSpan.Zero)
                 {
-                    if (_token == null || _token.IsError || _token.AccessToken == null)
+                    if (_token?.AccessToken == null)
                     {
-                        throw new OAuth2TokenException($"Failed to retrieve access token Error: {_token?.Error}");
+                        throw new OAuth2TokenException($"Failed to retrieve access token - Access token is null");
                     }
                     
-                    _logger.LogDebug($"Retrieving following token: {_token.AccessToken}      - It expires in {DateTimeOffset.UtcNow.AddSeconds(_token.ExpiresIn).ToUnixTimeMilliseconds()}ms");
-                    return (_token.AccessToken, DateTimeOffset.UtcNow.AddSeconds(_token.ExpiresIn).ToUnixTimeMilliseconds()); // Maybe subtract some time here
+                    _logger.LogDebug($"{DateTimeOffset.UtcNow} - Retrieving following token: {_token.AccessToken}      - It expires in {DateTimeOffset.UtcNow.AddSeconds(GetExpiryInSeconds()).ToUnixTimeMilliseconds()}ms");
+                    return (_token.AccessToken, DateTimeOffset.UtcNow.AddSeconds(GetExpiryInSeconds()).ToUnixTimeMilliseconds());
                 }
 
                 _logger.LogWarning($"No token available yet. Waiting for {_retryInterval} before checking again");
             }
+        }
+
+        private double GetExpiryInSeconds()
+        {
+            if (_token != null)
+                return (_token.Expires - DateTimeOffset.UtcNow).TotalSeconds;
+            return 0;
         }
     }
 }
