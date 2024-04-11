@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using IdentityModel.Client;
+using Microsoft.Extensions.Hosting;
 
 namespace Cheetah.Auth.Authentication
 {
@@ -17,5 +18,8 @@ namespace Cheetah.Auth.Authentication
         // Developer note: It is tempting to make this return some well-named POCO instead of a tuple, but in the end we want to rely only on a standard language type
         // so that library consumers can use their own implementation without needing to reference Cheetah.Auth
         (string AccessToken, long Expiration) RequestAccessToken();
+
+        Task FetchTokenAsync();
+        ValueTask DisposeAsync();
     }
 }
