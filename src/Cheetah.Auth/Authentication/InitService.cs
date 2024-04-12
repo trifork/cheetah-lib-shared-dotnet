@@ -5,7 +5,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace Cheetah.Auth.Authentication;
 
-public class InitService : IHostedService
+public class InitService : BackgroundService
 {
     ITokenService _tokenService;
     
@@ -13,7 +13,8 @@ public class InitService : IHostedService
     {
         _tokenService = tokenService;
     }
-    public async Task StartAsync(CancellationToken cancellationToken)
+
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         await Task.Yield();
         try
@@ -24,10 +25,5 @@ public class InitService : IHostedService
         {
             await _tokenService.DisposeAsync();
         }
-    }
-
-    public async Task StopAsync(CancellationToken cancellationToken)
-    {
-        await _tokenService.DisposeAsync();
     }
 }
