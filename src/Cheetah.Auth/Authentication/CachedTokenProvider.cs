@@ -19,7 +19,7 @@ namespace Cheetah.Auth.Authentication
         private readonly TimeSpan _earlyExpiry;
         readonly CancellationTokenSource _cts = new();
         private TokenWithExpiry? _token;
-
+        
         public CachedTokenProvider(ICachableTokenProvider tokenProvider, TimeSpan retryInterval, TimeSpan earlyRefresh, TimeSpan earlyExpiry, ILogger<CachedTokenProvider> logger)
         {
             _tokenProvider = tokenProvider;
@@ -63,7 +63,7 @@ namespace Cheetah.Auth.Authentication
                 if (retries > 0)
                 {
                     _logger.LogWarning($"Unable to fetch OAuth token. Retrying in {retries}");
-                    TrySleep(_retryInterval);
+                    await Task.Delay(_retryInterval);
                 }
         
                 TokenResponse? token = await FetchTokenOrNullAsync(_cts.Token);

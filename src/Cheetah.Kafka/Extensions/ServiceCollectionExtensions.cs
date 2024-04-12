@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Net.Http;
 using Cheetah.Auth.Authentication;
 using Cheetah.Auth.Configuration;
@@ -61,6 +61,7 @@ namespace Cheetah.Kafka.Extensions
             ));
             serviceCollection.AddHostedService<InitService>();
             serviceCollection.AddSingleton<KafkaClientFactory>();
+            
 
             return new CheetahKafkaInjector(serviceCollection);
         }

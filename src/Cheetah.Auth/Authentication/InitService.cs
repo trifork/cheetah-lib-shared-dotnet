@@ -12,18 +12,17 @@ public class InitService : IHostedService
     public InitService(ITokenService tokenService)
     {
         _tokenService = tokenService;
-
     }
     public async Task StartAsync(CancellationToken cancellationToken)
     {
+        await Task.Yield();
         try
         {
             await _tokenService.FetchTokenAsync();
         }
         catch (OAuth2TokenException)
         {
-                
-            await _tokenService.FetchTokenAsync();
+            await _tokenService.DisposeAsync();
         }
     }
 
