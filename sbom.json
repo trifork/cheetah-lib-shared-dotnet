@@ -1,19 +1,19 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:60bfc6f4-62e4-4677-981f-330b13756cf2",
+  "serialNumber": "urn:uuid:82b984a7-2dcd-433c-9c1e-e7ed9ac6f27a",
   "version": 1,
   "metadata": {
-    "timestamp": "2024-04-09T01:15:19.754Z",
+    "timestamp": "2024-04-13T22:38:33.152Z",
     "tools": {
       "components": [
         {
           "group": "@cyclonedx",
           "name": "cdxgen",
-          "version": "10.3.1",
-          "purl": "pkg:npm/%40cyclonedx/cdxgen@10.3.1",
+          "version": "10.3.5",
+          "purl": "pkg:npm/%40cyclonedx/cdxgen@10.3.5",
           "type": "application",
-          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@10.3.1",
+          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@10.3.5",
           "author": "OWASP Foundation",
           "publisher": "OWASP Foundation"
         }
@@ -3985,12 +3985,12 @@
       "author": "Microsoft",
       "group": "",
       "name": "Microsoft.AspNetCore.OpenApi",
-      "version": "8.0.3",
-      "description": "Provides APIs for annotating route handler endpoints in ASP.NET Core with OpenAPI annotations.\n\nThis package was built from the source code at https://github.com/dotnet/aspnetcore/tree/88ec3bc3f37e76fbcc932a25f9f0c1c29fe2b343",
+      "version": "8.0.4",
+      "description": "Provides APIs for annotating route handler endpoints in ASP.NET Core with OpenAPI annotations.\n\nThis package was built from the source code at https://github.com/dotnet/aspnetcore/tree/8486d31e24f30e3fa1809a95699a0adc16f448d7",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "994ab450bf87ed4b40dc9b9dffbfc10bb9f95b6738cc2bd31546b6844dbefe842a0136b8a061dbf3b11338dd3d4845a471b0514f3dd6335ea44c4fb3ba85ead8"
+          "content": "4c58976cfd2da9180929ca620924a9efdaba41a885f20a9185982b538f0541a8e15648b01d2a753b56f5864602e04865e1c95b937a47c1d7f037d991b430056d"
         }
       ],
       "licenses": [
@@ -4001,11 +4001,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.3",
+      "purl": "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.4",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.AspNetCore.OpenApi/8.0.3/"
+          "url": "https://www.nuget.org/packages/Microsoft.AspNetCore.OpenApi/8.0.4/"
         },
         {
           "type": "vcs",
@@ -4013,7 +4013,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.3",
+      "bom-ref": "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.4",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -9380,12 +9380,12 @@
       "ref": "pkg:nuget/Cheetah.OpenSearch.ExampleAPI@1.0.0",
       "dependsOn": [
         "pkg:nuget/Cheetah.OpenSearch@0.4.0",
-        "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.3",
+        "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.4",
         "pkg:nuget/Swashbuckle.AspNetCore@6.5.0"
       ]
     },
     {
-      "ref": "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.3",
+      "ref": "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.4",
       "dependsOn": [
         "pkg:nuget/Microsoft.OpenApi@1.4.3"
       ]
