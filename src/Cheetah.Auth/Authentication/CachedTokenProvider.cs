@@ -119,7 +119,7 @@ namespace Cheetah.Auth.Authentication
                         throw new OAuth2TokenException($"Failed to retrieve access token - Access token is null");
                     }
                     
-                    _logger.LogInformation($"{DateTimeOffset.UtcNow} - Retrieving following token: {_token.AccessToken}      - It expires in {DateTimeOffset.UtcNow.AddSeconds(GetExpiryInSeconds()).ToUnixTimeMilliseconds()}ms");
+                    _logger.LogDebug($"{DateTimeOffset.UtcNow} - Retrieving following token: {_token.AccessToken} - Expires at {DateTimeOffset.UtcNow.AddSeconds(GetExpiryInSeconds())}");
                     return (_token.AccessToken, DateTimeOffset.UtcNow.AddSeconds(GetExpiryInSeconds()).ToUnixTimeMilliseconds());
                 }
 
