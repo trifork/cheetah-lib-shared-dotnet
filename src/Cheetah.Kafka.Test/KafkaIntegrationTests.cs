@@ -1,18 +1,15 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cheetah.Auth.Authentication;
-using Cheetah.Auth.Configuration;
-using Cheetah.Auth.Util;
 using Cheetah.Kafka.Extensions;
 using Cheetah.Kafka.Test.Util;
 using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Xunit;
 
 namespace Cheetah.Kafka.Test
@@ -57,30 +54,25 @@ namespace Cheetah.Kafka.Test
                 .WithAdminClient();
 
             _serviceProvider = services.BuildServiceProvider();
+            
+            var bgService = _serviceProvider.GetRequiredService<IHostedService>();
+            bgService.StartAsync(CancellationToken.None);
         }
 
         [Fact]
-        public async Task TestNewOAuthProcess()
+        public async Task TestOAuthProcess()
         {
-            var OAuthConfig = new OAuth2Config();
-            OAuthConfig.ClientId = "default-access";
-            OAuthConfig.ClientSecret = "default-access-secret";
-            OAuthConfig.Scope = "kafka";
-            OAuthConfig.TokenEndpoint = "http://localhost:1852/realms/local-development/protocol/openid-connect/token";
-            var OAuthOptions = new OptionsWrapper<OAuth2Config>(OAuthConfig);
-            var httpClientFactory = new DefaultHttpClientFactory();
-            var tokenProvicer = new OAuthTokenProvider(
-                OAuthOptions, httpClientFactory, "test");
-
-            var logger = new LoggerFactory().CreateLogger<CachedTokenProvider>();
-            var cachedTokenProvider = new CachedTokenProvider(tokenProvicer, logger);
-
+            // Arrange
+            var cachedTokenProvider = _serviceProvider.GetRequiredService<ITokenService>();
+            
+            // Act
             var response1 = cachedTokenProvider.RequestAccessToken();
             
             await Task.Delay(TimeSpan.FromSeconds(30));
             
             var response2 = cachedTokenProvider.RequestAccessToken();
             
+            // Assert
             Assert.Equal(response1.Item1, response2.Item1);
         }
 
@@ -97,7 +89,7 @@ namespace Cheetah.Kafka.Test
             ); // Will delete the created topic when the test concludes, regardless of outcome
             var producer = _serviceProvider.GetRequiredService<IProducer<string, string>>();
             var consumer = _serviceProvider.GetRequiredService<IConsumer<string, string>>();
-
+            
             consumer.Subscribe(topic);
 
             var message = new Message<string, string>

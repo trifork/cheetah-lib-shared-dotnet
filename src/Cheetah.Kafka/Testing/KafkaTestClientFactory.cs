@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using Cheetah.Auth.Authentication;
 using Cheetah.Auth.Util;
 using Cheetah.Kafka.Configuration;
@@ -66,6 +68,8 @@ namespace Cheetah.Kafka.Testing
                     "kafka-test-client"),
                 loggerFactory.CreateLogger<CachedTokenProvider>());
 
+            tokenService.FetchTokenAsync();
+            
             var clientFactory = new KafkaClientFactory(
                 tokenService,
                 loggerFactory,
