@@ -8,24 +8,34 @@ using Microsoft.Extensions.Options;
 
 namespace Cheetah.Auth.Authentication
 {
+    /// <summary>
+    /// OAuth2 token provider to retrieve OAuth2 tokens.
+    /// </summary>
     public class OAuthTokenProvider : ICachableTokenProvider
     {
         private readonly IHttpClientFactory _httpClientFactory;
         
-        private readonly string _cacheKey;
         private readonly OAuth2Config _config;
 
-        public OAuthTokenProvider(IOptions<OAuth2Config> config, IHttpClientFactory httpClientFactory, string cacheKey)
+        /// <summary>
+        /// Creates a new instance of <see cref="OAuthTokenProvider"/>
+        /// </summary>
+        /// <param name="config">OAuth2 configuration</param>
+        /// <param name="httpClientFactory">httpClientFactory to create a httpClient</param>
+        public OAuthTokenProvider(IOptions<OAuth2Config> config, IHttpClientFactory httpClientFactory)
         {
-            _cacheKey = cacheKey;
             _httpClientFactory = httpClientFactory;
             _config = config.Value;
         }
         
-
+        /// <summary>
+        /// Get a token response asynchronously.
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns>TokenResponse</returns>
         public async Task<TokenResponse?> GetTokenResponse(CancellationToken cancellationToken)
         {
-            using var httpClient = _httpClientFactory.CreateClient(_cacheKey);
+            using var httpClient = _httpClientFactory.CreateClient("OAuthTokenProvider");
             var tokenClient = new TokenClient(
                 httpClient,
                 new TokenClientOptions

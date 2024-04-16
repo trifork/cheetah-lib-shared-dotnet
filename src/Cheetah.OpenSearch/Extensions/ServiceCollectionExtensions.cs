@@ -65,10 +65,10 @@ namespace Cheetah.OpenSearch.Extensions
             serviceCollection.AddMemoryCache();
             serviceCollection.AddSingleton<ICachableTokenProvider>(sp => new OAuthTokenProvider(
                 sp.GetRequiredService<IOptions<OAuth2Config>>(),
-                sp.GetRequiredService<IHttpClientFactory>(),
-                "opensearch-access-token"
+                sp.GetRequiredService<IHttpClientFactory>()
             ));
             serviceCollection.AddSingleton<ITokenService>(sp => new CachedTokenProvider(
+                sp.GetRequiredService<IOptions<OAuth2Config>>(),
                 sp.GetRequiredService<ICachableTokenProvider>(),
                 sp.GetRequiredService<ILogger<CachedTokenProvider>>()
             ));

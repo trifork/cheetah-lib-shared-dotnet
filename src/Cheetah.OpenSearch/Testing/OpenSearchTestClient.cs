@@ -47,13 +47,13 @@ namespace Cheetah.OpenSearch.Testing
 
             var loggerFactory = new LoggerFactory();
             options ??= new OpenSearchClientOptions();
+            var optionsOAuth2 = Options.Create(configuration.OAuth2);
 
             IConnection? connection = null;
             if (configuration.AuthMode == OpenSearchConfig.OpenSearchAuthMode.OAuth2)
             {
-                var tokenService = new CachedTokenProvider(
-                    new OAuthTokenProvider(Options.Create(configuration.OAuth2), new DefaultHttpClientFactory(),
-                        "opensearch-access-token"),
+                var tokenService = new CachedTokenProvider(optionsOAuth2,
+                    new OAuthTokenProvider(optionsOAuth2, new DefaultHttpClientFactory()),
                     loggerFactory.CreateLogger<CachedTokenProvider>());
                 connection = new CheetahOpenSearchConnection(tokenService);
             }

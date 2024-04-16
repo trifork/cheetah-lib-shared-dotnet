@@ -52,14 +52,14 @@ namespace Cheetah.Kafka.Extensions
             serviceCollection.AddMemoryCache();
             serviceCollection.AddSingleton<ICachableTokenProvider>(sp => new OAuthTokenProvider(
                 sp.GetRequiredService<IOptions<OAuth2Config>>(),
-                sp.GetRequiredService<IHttpClientFactory>(),
-                "kafka-access-token"
+                sp.GetRequiredService<IHttpClientFactory>()
             ));
             serviceCollection.AddSingleton<ITokenService>(sp => new CachedTokenProvider(
+                sp.GetRequiredService<IOptions<OAuth2Config>>(),
                 sp.GetRequiredService<ICachableTokenProvider>(),
                 sp.GetRequiredService<ILogger<CachedTokenProvider>>()
             ));
-            serviceCollection.AddHostedService<InitService>();
+            serviceCollection.AddHostedService<StartUpTokenService>();
             serviceCollection.AddSingleton<KafkaClientFactory>();
             
 

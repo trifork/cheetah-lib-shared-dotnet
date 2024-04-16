@@ -1,18 +1,22 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cheetah.Auth.Configuration;
 using IdentityModel.Client;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Cheetah.Auth.Authentication
 {
-    public class CachedTokenProvider : ITokenService, IAsyncDisposable
+    /// <summary>
+    /// CachedTokenProvider handles the retrieval of OAuth2 tokens and caches them to avoid unnecessary token requests.
+    /// REMEMBER: Call <see cref="StartAsync"/> before calling <see cref="RequestAccessToken"/> if you are not using Dependency Injection.
+    /// </summary>
+    public class CachedTokenProvider : ITokenService, IDisposable
     {
+        readonly IOptions<OAuth2Config>? _config;
         readonly ILogger<CachedTokenProvider> _logger;
-        private static readonly TimeSpan DEFAULT_RETRY_INTERVAL = TimeSpan.FromSeconds(1);
-        private static readonly TimeSpan DEFAULT_EARLY_REFRESH = TimeSpan.FromSeconds(30);
-        private static readonly TimeSpan DEFAULT_EARLY_EXPIRY = TimeSpan.FromSeconds(5);
         private readonly ICachableTokenProvider _tokenProvider;
         private readonly TimeSpan _retryInterval;
         private readonly TimeSpan _earlyRefresh;
@@ -20,6 +24,14 @@ namespace Cheetah.Auth.Authentication
         readonly CancellationTokenSource _cts = new();
         private TokenWithExpiry? _token;
         
+        /// <summary>
+        /// Create a new instance of <see cref="CachedTokenProvider"/>.
+        /// </summary>
+        /// <param name="tokenProvider">The token provider used to fetch a new token.</param>
+        /// <param name="retryInterval">The interval between retry attempts.</param>
+        /// <param name="earlyRefresh">The time before the token's actual expiry when it should be refreshed.</param>
+        /// <param name="earlyExpiry">The time before the token's actual expiry when it should be considered expired.</param>
+        /// <param name="logger">The logger to be used for logging.</param>
         public CachedTokenProvider(ICachableTokenProvider tokenProvider, TimeSpan retryInterval, TimeSpan earlyRefresh, TimeSpan earlyExpiry, ILogger<CachedTokenProvider> logger)
         {
             _tokenProvider = tokenProvider;
@@ -29,33 +41,45 @@ namespace Cheetah.Auth.Authentication
             _logger = logger;
         }
 
-        public CachedTokenProvider(ICachableTokenProvider tokenProvider, ILogger<CachedTokenProvider> logger)
+        /// <summary>
+        /// Create a new instance of <see cref="CachedTokenProvider"/> with default values.
+        /// </summary>
+        /// <param name="config">OAuth2 configuration</param>
+        /// <param name="tokenProvider">The token provider used to fetch a new token.</param>
+        /// <param name="logger">The logger to be used for logging.</param>
+        public CachedTokenProvider(IOptions<OAuth2Config> config, ICachableTokenProvider tokenProvider, ILogger<CachedTokenProvider> logger)
         {
+            _config = config;
             _tokenProvider = tokenProvider;
-            _retryInterval = DEFAULT_RETRY_INTERVAL;
-            _earlyRefresh = DEFAULT_EARLY_REFRESH;
-            _earlyExpiry = DEFAULT_EARLY_EXPIRY;
+            _retryInterval = _config.Value.RetryInterval;
+            _earlyRefresh = _config.Value.EarlyRefresh;
+            _earlyExpiry = _config.Value.EarlyExpiry;
             _logger = logger;
         }
 
-        public async Task FetchTokenAsync()
+        /// <summary>
+        /// Retrieves the token and starts the token refresh loop.
+        /// Remember to call this function before calling <see cref="RequestAccessToken"/> if you are not using Dependency Injection.
+        /// </summary>
+        /// <exception cref="OAuth2TokenException"></exception>
+        public async Task StartAsync()
         {
             try
             {
-                while (true)
+                while (!_cts.Token.IsCancellationRequested)
                 {
-                    _token = await FetchToken();
+                    _token = await FetchTokenAsync();
                     await Task.Delay(TimeSpan.FromSeconds(GetExpiryInSeconds()).Subtract(_earlyRefresh)); 
                 }
             }
             catch (OAuth2TokenException e)
             {
-                await DisposeAsync();
+                Dispose();
                 throw new OAuth2TokenException(e.Message);
             }
         }
 
-        private async Task<TokenWithExpiry> FetchToken()
+        private async Task<TokenWithExpiry> FetchTokenAsync()
         {
             _logger.LogInformation($"Fetching new token. {DateTimeOffset.UtcNow}");
             for (int retries = 0;; retries++)
@@ -76,6 +100,7 @@ namespace Cheetah.Auth.Authentication
                 _logger.LogWarning("Failed to retrieve token with following error message: " + token.Error);
             }
         }
+        
         private async Task<TokenResponse?> FetchTokenOrNullAsync(CancellationToken cancellationToken)
         {
             try
@@ -101,6 +126,11 @@ namespace Cheetah.Auth.Authentication
             }
         }
 
+        /// <summary>
+        /// Requests the access token with expiry synchronously.
+        /// </summary>
+        /// <returns>Returns the access token and the expiry of the token</returns>
+        /// <exception cref="OAuth2TokenException"></exception>
         public (string, long) RequestAccessToken()
         {
             while (true)
@@ -108,7 +138,7 @@ namespace Cheetah.Auth.Authentication
                 if (_token == null)
                 {
                     _logger.LogWarning($"No token available yet. Waiting for {_retryInterval} before checking again");
-                    TrySleep(DEFAULT_RETRY_INTERVAL);
+                    TrySleep(_retryInterval);
                     continue;
                 }
 
@@ -134,12 +164,12 @@ namespace Cheetah.Auth.Authentication
             return 0;
         }
         
-        public async ValueTask DisposeAsync()
-        {
-            if (_cts is IAsyncDisposable ctsAsyncDisposable)
-                await ctsAsyncDisposable.DisposeAsync();
-            else
-                _cts.Dispose();
+        /// <summary>
+        /// Disposes of the token provider and cancels the token refresh loop.
+        /// </summary>
+        public void Dispose()
+        { 
+            _cts.Dispose();
         }
     }
 }
