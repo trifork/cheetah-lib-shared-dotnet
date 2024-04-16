@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Cheetah.OpenSearch.Extensions;
 using Cheetah.OpenSearch.Test.Models;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using OpenSearch.Client;
 using Xunit;
 using Xunit.Abstractions;
@@ -72,6 +74,19 @@ namespace Cheetah.OpenSearch.Test.Integration
                 .Build();
             var serviceProvider = CreateServiceProvider(configurationRoot);
             var client = serviceProvider.GetRequiredService<IOpenSearchClient>();
+            
+            
+            try
+            {
+                // Start the background service
+                var bgService = serviceProvider.GetRequiredService<IHostedService>();
+                await bgService.StartAsync(CancellationToken.None);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+            
             var indexName = Guid.NewGuid().ToString();
 
             var documents = new List<OpenSearchTestModel>

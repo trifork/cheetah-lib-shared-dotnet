@@ -73,6 +73,7 @@ namespace Cheetah.OpenSearch.Extensions
                 sp.GetRequiredService<ILogger<CachedTokenProvider>>()
             ));
             serviceCollection.AddSingleton<IConnection, CheetahOpenSearchConnection>();
+            serviceCollection.AddHostedService<StartUpTokenService>();
             return serviceCollection;
         }
 
