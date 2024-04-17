@@ -11,9 +11,9 @@ namespace Cheetah.Kafka.Test;
 public class KafkaClientFactoryConfigTest
 {
     [Theory]
-    [InlineData("KAFKA:CLIENTID")]
-    [InlineData("KAFKA:CLIENTSECRET")]
-    [InlineData("KAFKA:AUTHENDPOINT")]
+    [InlineData("KAFKA:OAUTH2:CLIENTID")]
+    [InlineData("KAFKA:OAUTH2:CLIENTSECRET")]
+    [InlineData("KAFKA:OAUTH2:TOKENENDPOINT")]
     public void Should_ThrowArgumentNullException_When_RequiredConfigurationIsMissing(string missingKey)
     {
         var configurationDictionary = new Dictionary<string, string?>
