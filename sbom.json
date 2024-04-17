@@ -1,19 +1,19 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:ad34ea53-f3c9-46c3-9377-4b3d35503166",
+  "serialNumber": "urn:uuid:91f11d3a-bb8a-4e38-84c5-c71e32a115ef",
   "version": 1,
   "metadata": {
-    "timestamp": "2024-04-15T08:26:06Z",
+    "timestamp": "2024-04-16T14:29:52Z",
     "tools": {
       "components": [
         {
           "group": "@cyclonedx",
           "name": "cdxgen",
-          "version": "10.4.0",
-          "purl": "pkg:npm/%40cyclonedx/cdxgen@10.4.0",
+          "version": "10.4.1",
+          "purl": "pkg:npm/%40cyclonedx/cdxgen@10.4.1",
           "type": "application",
-          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@10.4.0",
+          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@10.4.1",
           "author": "OWASP Foundation",
           "publisher": "OWASP Foundation"
         }
@@ -3357,12 +3357,12 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit",
-      "version": "2.7.0",
+      "version": "2.7.1",
       "description": "xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.\n\nInstalling this package installs xunit.core, xunit.assert, and xunit.analyzers.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "29c088e73c61f336d47d04de12b738a13ed8a2456254d0f6574a78bc3276543e25845f55e6a09830c0cd8b199eec5770632dd2c0f1c5fb6c42d83ab867d19294"
+          "content": "f68d39d3208bccfbc7c5bac091a1e72358fe61f3ef470fbf9dcbca6d37f32213b826f400d2b3e0a08089c571cc92c71f81798b17067cd74ede867314573136dc"
         }
       ],
       "licenses": [
@@ -3373,9 +3373,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit@2.7.0",
+      "purl": "pkg:nuget/xunit@2.7.1",
       "type": "framework",
-      "bom-ref": "pkg:nuget/xunit@2.7.0",
+      "bom-ref": "pkg:nuget/xunit@2.7.1",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -3461,12 +3461,12 @@
       "author": "jnewkirk,bradwilson,marcind",
       "group": "",
       "name": "xunit.analyzers",
-      "version": "1.11.0",
+      "version": "1.12.0",
       "description": "xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.\n\nInstalling this package provides code analyzers to help developers find and fix frequent issues when writing tests and xUnit.net extensibility code.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "482bfe221c6ff9f0aaa2d19e33cb15c0b870f27cc027668544de657282a7f50b4675b549efd26a0dcfb8bbcfc3767a76b9dc6d9affb16055a41cd95bfec934d7"
+          "content": "c36dcb1f769769d7b65972af5e2d2803fb95d797e9814323b0fab5c7dd6241c9338160298008a28cd1e67c542da8d3e6e35c1fadd6d197b9d2251774caec7f77"
         }
       ],
       "licenses": [
@@ -3477,9 +3477,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.analyzers@1.11.0",
+      "purl": "pkg:nuget/xunit.analyzers@1.12.0",
       "type": "framework",
-      "bom-ref": "pkg:nuget/xunit.analyzers@1.11.0",
+      "bom-ref": "pkg:nuget/xunit.analyzers@1.12.0",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -3508,12 +3508,12 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit.assert",
-      "version": "2.7.0",
+      "version": "2.7.1",
       "description": "Includes the assertion library from xUnit.net (xunit.assert.dll). Supports .NET Standard 1.1+ and .NET 6.0+.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "0824ecddb5219884b8b43c0ae829ff22269b1b746163375feb978890eeeef7f82b2a837d32b37bf342f35440f713cbfebf09a68fb6f94d6dff185b991cf03358"
+          "content": "26abd74b8c97f8fb499f906eaa82a461abfb2348389d773145b193a260f05508c571c39dc9f60aa6e3ce1d7fc3aab3c270bf8c207ac655d3f76ef7945e5bdd9c"
         }
       ],
       "licenses": [
@@ -3524,9 +3524,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.assert@2.7.0",
+      "purl": "pkg:nuget/xunit.assert@2.7.1",
       "type": "library",
-      "bom-ref": "pkg:nuget/xunit.assert@2.7.0",
+      "bom-ref": "pkg:nuget/xunit.assert@2.7.1",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -3555,12 +3555,12 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit.core",
-      "version": "2.7.0",
+      "version": "2.7.1",
       "description": "Includes the libraries for writing unit tests with xUnit.net.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "f7cb73a9801bb5cfe9ff605ae39e574cd6c3d76428a3c90f7a18c2e280d3e3a080b0b962e4938253d845176315dc71d6330fd8df215457655cba4a656ecea4b8"
+          "content": "85c383812f915dd8e65ead334339916c4450818f9b0061b1d5b747df7ef4b7ff024c6988114daa01cd5d4008c8469011b1a711d1c8fa2cb243505e4135034a4d"
         }
       ],
       "licenses": [
@@ -3571,9 +3571,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.core@2.7.0",
+      "purl": "pkg:nuget/xunit.core@2.7.1",
       "type": "library",
-      "bom-ref": "pkg:nuget/xunit.core@2.7.0",
+      "bom-ref": "pkg:nuget/xunit.core@2.7.1",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -3602,12 +3602,12 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit.extensibility.core",
-      "version": "2.7.0",
+      "version": "2.7.1",
       "description": "Includes xunit.core.dll for extensibility purposes. Supports .NET 4.5.2 or later, and .NET Standard 1.1.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "24b9f1e0f234be7d57af552cb7ac9dae9dadfe4b66d9dc863c05680c9579810baf04c49b7762bb586cce0dadadb62cf4df409e43c9dbb17974e7e72f7fb40dc8"
+          "content": "c8b5f85e504592f3580b37fe0c4ce5364e392ac4a5bbd5bddc8247066b543fdeaa67d5f24580c5970323e8109c3a10ca54dad9c5233c6eabb817f42e7787a1c4"
         }
       ],
       "licenses": [
@@ -3618,9 +3618,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.extensibility.core@2.7.0",
+      "purl": "pkg:nuget/xunit.extensibility.core@2.7.1",
       "type": "library",
-      "bom-ref": "pkg:nuget/xunit.extensibility.core@2.7.0",
+      "bom-ref": "pkg:nuget/xunit.extensibility.core@2.7.1",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -3649,12 +3649,12 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit.extensibility.execution",
-      "version": "2.7.0",
+      "version": "2.7.1",
       "description": "Includes xunit.execution.*.dll for extensibility purposes. Supports .NET 4.5.2 or later, and .NET Standard 1.1.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "6e363e72b4f58cecb129a8058c231d115ce87a73b6bfaeabbbcf822bfd14697bf21b853d43751389e2646d05db8bbff5c9920ad6c1a1d35979fe38760b02c9b5"
+          "content": "7a2ddd285f1a823e142a427a2a4699e7f19c89fde27fa841b32cde808409a2764348a645bdbd00c8ab723a10df82005a5d52f9897644c484dd4647e30bde7287"
         }
       ],
       "licenses": [
@@ -3665,9 +3665,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.extensibility.execution@2.7.0",
+      "purl": "pkg:nuget/xunit.extensibility.execution@2.7.1",
       "type": "library",
-      "bom-ref": "pkg:nuget/xunit.extensibility.execution@2.7.0",
+      "bom-ref": "pkg:nuget/xunit.extensibility.execution@2.7.1",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -3696,12 +3696,12 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit.runner.visualstudio",
-      "version": "2.5.7",
+      "version": "2.5.8",
       "description": "Visual Studio 2022+ Test Explorer runner for the xUnit.net framework. Capable of running xUnit.net v1.9.2 and v2.0+ tests. Supports .NET 4.6.2 or later, and .NET 6 or later.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "df5465edd049ae25f40cdc197c3a7c82a14e3ec88cd1cf64aa9707fc7bcd8bdbc3a7e2bb61d7f8d87ee6548bd84fdd7c630ce7d7298b8357380c30ba894ef9e3"
+          "content": "6494e6ef59de39f65c527a9dc98d00d1081c835d7ad83a0eabaf95a420ac39a0fdaf008ae5a95c8ce1077aed7bb047a4ceae2a36fde4c9e971ea550cb00b7f78"
         }
       ],
       "licenses": [
@@ -3712,9 +3712,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.runner.visualstudio@2.5.7",
+      "purl": "pkg:nuget/xunit.runner.visualstudio@2.5.8",
       "type": "framework",
-      "bom-ref": "pkg:nuget/xunit.runner.visualstudio@2.5.7",
+      "bom-ref": "pkg:nuget/xunit.runner.visualstudio@2.5.8",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -8599,9 +8599,9 @@
         "pkg:nuget/Microsoft.NET.Test.Sdk@17.9.0",
         "pkg:nuget/Moq@4.20.70",
         "pkg:nuget/coverlet.collector@6.0.2",
-        "pkg:nuget/xunit.extensibility.core@2.7.0",
-        "pkg:nuget/xunit.runner.visualstudio@2.5.7",
-        "pkg:nuget/xunit@2.7.0"
+        "pkg:nuget/xunit.extensibility.core@2.7.1",
+        "pkg:nuget/xunit.runner.visualstudio@2.5.8",
+        "pkg:nuget/xunit@2.7.1"
       ]
     },
     {
@@ -9051,11 +9051,11 @@
       ]
     },
     {
-      "ref": "pkg:nuget/xunit@2.7.0",
+      "ref": "pkg:nuget/xunit@2.7.1",
       "dependsOn": [
-        "pkg:nuget/xunit.analyzers@1.11.0",
-        "pkg:nuget/xunit.assert@2.7.0",
-        "pkg:nuget/xunit.core@2.7.0"
+        "pkg:nuget/xunit.analyzers@1.12.0",
+        "pkg:nuget/xunit.assert@2.7.1",
+        "pkg:nuget/xunit.core@2.7.1"
       ]
     },
     {
@@ -9063,34 +9063,34 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/xunit.analyzers@1.11.0",
+      "ref": "pkg:nuget/xunit.analyzers@1.12.0",
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/xunit.assert@2.7.0",
+      "ref": "pkg:nuget/xunit.assert@2.7.1",
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/xunit.core@2.7.0",
+      "ref": "pkg:nuget/xunit.core@2.7.1",
       "dependsOn": [
-        "pkg:nuget/xunit.extensibility.core@2.7.0",
-        "pkg:nuget/xunit.extensibility.execution@2.7.0"
+        "pkg:nuget/xunit.extensibility.core@2.7.1",
+        "pkg:nuget/xunit.extensibility.execution@2.7.1"
       ]
     },
     {
-      "ref": "pkg:nuget/xunit.extensibility.core@2.7.0",
+      "ref": "pkg:nuget/xunit.extensibility.core@2.7.1",
       "dependsOn": [
         "pkg:nuget/xunit.abstractions@2.0.3"
       ]
     },
     {
-      "ref": "pkg:nuget/xunit.extensibility.execution@2.7.0",
+      "ref": "pkg:nuget/xunit.extensibility.execution@2.7.1",
       "dependsOn": [
-        "pkg:nuget/xunit.extensibility.core@2.7.0"
+        "pkg:nuget/xunit.extensibility.core@2.7.1"
       ]
     },
     {
-      "ref": "pkg:nuget/xunit.runner.visualstudio@2.5.7",
+      "ref": "pkg:nuget/xunit.runner.visualstudio@2.5.8",
       "dependsOn": []
     },
     {
@@ -9857,9 +9857,9 @@
         "pkg:nuget/Microsoft.NET.Test.Sdk@17.9.0",
         "pkg:nuget/Serilog.Sinks.XUnit@3.0.5",
         "pkg:nuget/coverlet.collector@6.0.2",
-        "pkg:nuget/xunit.extensibility.core@2.7.0",
-        "pkg:nuget/xunit.runner.visualstudio@2.5.7",
-        "pkg:nuget/xunit@2.7.0"
+        "pkg:nuget/xunit.extensibility.core@2.7.1",
+        "pkg:nuget/xunit.runner.visualstudio@2.5.8",
+        "pkg:nuget/xunit@2.7.1"
       ]
     },
     {
@@ -9875,8 +9875,8 @@
       "dependsOn": [
         "pkg:nuget/Serilog@2.12.0",
         "pkg:nuget/xunit.abstractions@2.0.3",
-        "pkg:nuget/xunit.extensibility.core@2.7.0",
-        "pkg:nuget/xunit.extensibility.execution@2.7.0"
+        "pkg:nuget/xunit.extensibility.core@2.7.1",
+        "pkg:nuget/xunit.extensibility.execution@2.7.1"
       ]
     },
     {
