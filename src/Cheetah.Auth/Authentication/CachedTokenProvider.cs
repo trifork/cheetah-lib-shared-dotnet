@@ -10,8 +10,9 @@ using Microsoft.Extensions.Options;
 namespace Cheetah.Auth.Authentication
 {
     /// <summary>
-    /// CachedTokenProvider handles the retrieval of OAuth2 tokens and caches them to avoid unnecessary token requests.
-    /// REMEMBER: Call <see cref="StartAsync"/> before calling <see cref="RequestAccessToken"/> if you are not using Dependency Injection.
+    /// CachedTokenProvider manages the retrieval and caching of OAuth2 tokens, optimizing performance by reducing unnecessary token requests.
+    /// It includes a mechanism for refreshing tokens in a separate thread, ensuring a consistent supply of valid tokens.
+    /// IMPORTANT: Before calling RequestAccessToken(), ensure to invoke StartAsync() unless you're utilizing Dependency Injection, where this process is managed by the builder.RunAsync() method.
     /// </summary>
     public class CachedTokenProvider : ITokenService, IDisposable
     {
@@ -27,10 +28,10 @@ namespace Cheetah.Auth.Authentication
         /// <summary>
         /// Create a new instance of <see cref="CachedTokenProvider"/>.
         /// </summary>
-        /// <param name="tokenProvider">The token provider used to fetch a new token.</param>
-        /// <param name="retryInterval">The interval between retry attempts.</param>
-        /// <param name="earlyRefresh">The time before the token's actual expiry when it should be refreshed.</param>
-        /// <param name="earlyExpiry">The time before the token's actual expiry when it should be considered expired.</param>
+        /// <param name="tokenProvider">Token provider used to fetch a new token.</param>
+        /// <param name="retryInterval">Interval between retry attempts.</param>
+        /// <param name="earlyRefresh">Time before the token's actual expiry when it should be refreshed.</param>
+        /// <param name="earlyExpiry">Time before the token's actual expiry when it should be considered expired.</param>
         /// <param name="logger">The logger to be used for logging.</param>
         public CachedTokenProvider(ICachableTokenProvider tokenProvider, TimeSpan retryInterval, TimeSpan earlyRefresh, TimeSpan earlyExpiry, ILogger<CachedTokenProvider> logger)
         {
@@ -59,7 +60,7 @@ namespace Cheetah.Auth.Authentication
 
         /// <summary>
         /// Retrieves the token and starts the token refresh loop.
-        /// Remember to call this function before calling <see cref="RequestAccessToken"/> if you are not using Dependency Injection.
+        /// IMPORTANT: Before calling RequestAccessToken(), ensure to invoke StartAsync() unless you're utilizing Dependency Injection, where this process is managed by the builder.RunAsync() method.
         /// </summary>
         /// <exception cref="OAuth2TokenException"></exception>
         public async Task StartAsync()
