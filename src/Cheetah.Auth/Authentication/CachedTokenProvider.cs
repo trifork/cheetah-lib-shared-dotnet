@@ -135,7 +135,7 @@ namespace Cheetah.Auth.Authentication
         /// <exception cref="OAuth2TokenException"></exception>
         public (string, long) RequestAccessToken()
         {
-            while (true)
+            while (!_cts.Token.IsCancellationRequested)
             {
                 if (_token == null)
                 {
