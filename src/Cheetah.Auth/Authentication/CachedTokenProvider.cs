@@ -24,6 +24,7 @@ namespace Cheetah.Auth.Authentication
         private readonly TimeSpan _earlyExpiry;
         readonly CancellationTokenSource _cts = new();
         private TokenWithExpiry? _token;
+        Guid _providerName = Guid.NewGuid();
         
         /// <summary>
         /// Create a new instance of <see cref="CachedTokenProvider"/>.
@@ -83,7 +84,7 @@ namespace Cheetah.Auth.Authentication
 
         private async Task<TokenWithExpiry> FetchTokenAsync()
         {
-            _logger.LogInformation($"Fetching new token. {DateTimeOffset.UtcNow}");
+            _logger.LogInformation($"Fetching new token for service: \"{_providerName}\" - {DateTimeOffset.UtcNow}");
             for (int retries = 0;; retries++)
             {
                 if (retries > 0)
@@ -97,7 +98,10 @@ namespace Cheetah.Auth.Authentication
                 if (token == null) continue;
 
                 if (!token.IsError)
+                {
+                    _logger.LogInformation($"Successful fetching new token for service: \"{_providerName}\" - {DateTimeOffset.UtcNow}");
                     return new TokenWithExpiry(token.AccessToken, DateTimeOffset.UtcNow.AddSeconds(token.ExpiresIn));
+                }
                 
                 _logger.LogWarning("Failed to retrieve token with following error message: " + token.Error);
             }
@@ -139,7 +143,7 @@ namespace Cheetah.Auth.Authentication
             {
                 if (_token == null)
                 {
-                    _logger.LogWarning($"No token available yet. Waiting for {_retryInterval} before checking again");
+                    _logger.LogWarning($"No token available yet. Waiting for {_retryInterval} before checking again for service: \"{_providerName}\"");
                     TrySleep(_retryInterval);
                     continue;
                 }
