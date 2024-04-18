@@ -50,6 +50,7 @@ namespace Cheetah.Auth.Authentication
         /// <param name="logger">The logger to be used for logging.</param>
         public CachedTokenProvider(IOptions<OAuth2Config> config, ICachableTokenProvider tokenProvider, ILogger<CachedTokenProvider> logger)
         {
+            config.Value.Validate();
             _config = config;
             _tokenProvider = tokenProvider;
             _retryInterval = _config.Value.RetryInterval;
@@ -99,7 +100,6 @@ namespace Cheetah.Auth.Authentication
                     return new TokenWithExpiry(token.AccessToken, DateTimeOffset.UtcNow.AddSeconds(token.ExpiresIn));
                 
                 _logger.LogWarning("Failed to retrieve token with following error message: " + token.Error);
-                _logger.LogWarning("Additional error description: " + token.ErrorDescription);
             }
         }
         
