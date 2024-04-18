@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using IdentityModel.Client;
 
@@ -13,7 +14,8 @@ namespace Cheetah.Auth.Authentication
         /// Get a token response.
         /// </summary>
         /// <param name="cancellationToken"></param>
+        /// <param name="serviceName"></param>
         /// <returns>TokenResponse</returns>
-        Task<TokenResponse?> GetTokenResponse(CancellationToken cancellationToken);
+        Task<TokenResponse?> GetTokenResponse(Guid serviceName, CancellationToken cancellationToken);
     }
 }

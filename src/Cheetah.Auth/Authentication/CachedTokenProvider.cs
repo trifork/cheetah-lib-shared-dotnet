@@ -111,7 +111,7 @@ namespace Cheetah.Auth.Authentication
         {
             try
             {
-                return await _tokenProvider.GetTokenResponse(cancellationToken);
+                return await _tokenProvider.GetTokenResponse(_providerName, cancellationToken);
             }
             catch (Exception)
             {

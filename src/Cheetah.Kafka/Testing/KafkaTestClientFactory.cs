@@ -62,7 +62,7 @@ namespace Cheetah.Kafka.Testing
             loggerFactory ??= LoggerFactory.Create(builder => builder.AddConsole());
 
             tokenService ??= new CachedTokenProvider(configOAuth2,
-                new OAuthTokenProvider(configOAuth2, new DefaultHttpClientFactory()),
+                new OAuthTokenProvider(configOAuth2, new DefaultHttpClientFactory(),loggerFactory.CreateLogger<OAuthTokenProvider>()),
                 loggerFactory.CreateLogger<CachedTokenProvider>());
 
             tokenService.StartAsync();
