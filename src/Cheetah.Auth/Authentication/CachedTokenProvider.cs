@@ -154,6 +154,7 @@ namespace Cheetah.Auth.Authentication
                 }
                 _logger.LogWarning($"No token available yet. Waiting for {_retryInterval} before checking again");
             }
+            throw new OAuth2TokenException("Cancellation of Token Requested");
         }
 
         private double GetExpiryInSeconds()
