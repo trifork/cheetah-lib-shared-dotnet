@@ -49,6 +49,7 @@ namespace Cheetah.OpenSearch.Test.Integration
                 new List<KeyValuePair<string, string?>>
                 {
                     new("OPENSEARCH:AUTHMODE", "OAuth2"),
+                    new("OPENSEARCH:OAUTH2:TOKENENDPOINT", "http://localhost:1852/realms/local-development/protocol/openid-connect/token"),
                     new("OPENSEARCH:OAUTH2:CLIENTID", "default-access"),
                     new("OPENSEARCH:OAUTH2:CLIENTSECRET", "default-access-secret"),
                     new("OPENSEARCH:OAUTH2:SCOPE", "opensearch")
@@ -127,8 +128,7 @@ namespace Cheetah.OpenSearch.Test.Integration
         {
             var configurationDict = new Dictionary<string, string?>
             {
-                { "OPENSEARCH:URL", "http://localhost:9200" },
-                { "OPENSEARCH:OAUTH2:TOKENENDPOINT", "http://localhost:1852/realms/local-development/protocol/openid-connect/token " }
+                { "OPENSEARCH:URL", "http://localhost:9200" }
             };
 
             return new ConfigurationBuilder()

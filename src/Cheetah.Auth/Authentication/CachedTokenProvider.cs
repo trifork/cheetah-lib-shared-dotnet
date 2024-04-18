@@ -99,6 +99,7 @@ namespace Cheetah.Auth.Authentication
                     return new TokenWithExpiry(token.AccessToken, DateTimeOffset.UtcNow.AddSeconds(token.ExpiresIn));
                 
                 _logger.LogWarning("Failed to retrieve token with following error message: " + token.Error);
+                _logger.LogWarning("Additional error description: " + token.ErrorDescription);
             }
         }
         
