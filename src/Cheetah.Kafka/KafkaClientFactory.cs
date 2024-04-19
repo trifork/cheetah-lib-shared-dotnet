@@ -201,13 +201,11 @@ namespace Cheetah.Kafka
         // the configuration for the first client would be modified by the second client, and so on.
         private ClientConfig GetDefaultConfig() => _config.GetClientConfig();
 
-        private Func<
-            (string AccessToken, long Expiration, string Principal)
-        > GetTokenRetrievalFunction()
+        private Func<Task<(string AccessToken, long Expiration, string Principal)>> GetTokenRetrievalFunction()
         {
-            return () =>
+            return async () =>
             {
-                var response = _tokenService.RequestAccessToken();
+                var response = await _tokenService.RequestAccessTokenAsync(CancellationToken.None);
                 return (response.AccessToken, response.Expiration, _config.Principal);
             };
         }

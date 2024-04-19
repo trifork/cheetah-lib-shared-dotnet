@@ -16,7 +16,9 @@ namespace Cheetah.Auth.Authentication
         /// <returns>A tuple containing the access token and its absolute expiration in epoch millis </returns>
         // Developer note: It is tempting to make this return some well-named POCO instead of a tuple, but in the end we want to rely only on a standard language type
         // so that library consumers can use their own implementation without needing to reference Cheetah.Auth
-        (string AccessToken, long Expiration) RequestAccessToken();
+        Task<(string AccessToken, long Expiration)> RequestAccessTokenAsync(
+            CancellationToken cancellationToken
+        );
         
         /// <summary>
         /// Start the token service.

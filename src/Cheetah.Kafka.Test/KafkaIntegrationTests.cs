@@ -66,11 +66,11 @@ namespace Cheetah.Kafka.Test
             var cachedTokenProvider = _serviceProvider.GetRequiredService<ITokenService>();
             
             // Act
-            var response1 = cachedTokenProvider.RequestAccessToken();
+            var response1 = await cachedTokenProvider.RequestAccessTokenAsync(CancellationToken.None);
             
             await Task.Delay(TimeSpan.FromSeconds(30));
             
-            var response2 = cachedTokenProvider.RequestAccessToken();
+            var response2 = await cachedTokenProvider.RequestAccessTokenAsync(CancellationToken.None);
             
             // Assert
             Assert.Equal(response1.Item1, response2.Item1);

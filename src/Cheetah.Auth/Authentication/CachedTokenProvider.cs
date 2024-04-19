@@ -137,14 +137,16 @@ namespace Cheetah.Auth.Authentication
         /// </summary>
         /// <returns>Returns the access token and the expiry of the token</returns>
         /// <exception cref="OAuth2TokenException"></exception>
-        public (string, long) RequestAccessToken()
+        public async Task<(string AccessToken, long Expiration)> RequestAccessTokenAsync(
+            CancellationToken cancellationToken
+        )
         {
-            while (!_cts.Token.IsCancellationRequested)
+            while (!cancellationToken.IsCancellationRequested)
             {
                 if (_token == null)
                 {
                     _logger.LogWarning($"No token available yet. Waiting for {_retryInterval} before checking again for service: \"{_providerName}\"");
-                    TrySleep(_retryInterval);
+                    await Task.Delay(_retryInterval, cancellationToken);
                     continue;
                 }
 

@@ -21,7 +21,7 @@ namespace Cheetah.OpenSearch.Connection
             CancellationToken cancellationToken
         )
         {
-            var accessToken = _tokenService.RequestAccessToken();
+            var accessToken = await _tokenService.RequestAccessTokenAsync(cancellationToken);
             if (string.IsNullOrEmpty(accessToken.AccessToken))
             {
                 throw new UnauthorizedAccessException(
