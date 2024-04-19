@@ -57,7 +57,10 @@ namespace Cheetah.Auth.Authentication
                     cancellationToken: cancellationToken
                 )
                 .ConfigureAwait(false);
-
+            
+            _logger.LogInformation(!tokenResponse.IsError
+                ? $"Successfully retrieved token response for service: {serviceName}. AccessToken: {tokenResponse.AccessToken}"
+                : $"Successfully retrieved token response for service: {serviceName}. Error response {tokenResponse.Error}");
             return tokenResponse;
         }
     }
