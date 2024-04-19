@@ -87,15 +87,15 @@ namespace Cheetah.Auth.Authentication
             _logger.LogInformation($"Fetching new token for service: \"{_providerName}\" - {DateTimeOffset.UtcNow}");
             for (int retries = 0;; retries++)
             {
-                if (retries > 0)
-                {
-                    _logger.LogWarning($"Unable to fetch OAuth token. Retrying in {retries}");
-                    await Task.Delay(_retryInterval);
-                }
         
                 TokenResponse? token = await FetchTokenOrNullAsync(_cts.Token);
-                
-                if (token == null) continue;
+
+                if (token == null)
+                {
+                    _logger.LogWarning($"Unable to fetch OAuth token. Retrying in {retries} for service: \"{_providerName}\"");
+                    await Task.Delay(_retryInterval);
+                    continue;
+                }
 
                 if (!token.IsError)
                 {
