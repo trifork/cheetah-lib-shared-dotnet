@@ -9,6 +9,7 @@ using Confluent.Kafka;
 using Confluent.Kafka.SyncOverAsync;
 using Confluent.SchemaRegistry;
 using Confluent.SchemaRegistry.Serdes;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -32,7 +33,7 @@ namespace Cheetah.Kafka
         /// <param name="config">The configuration to use when creating clients</param>
         /// <param name="options">The options to use when creating clients</param>
         public KafkaClientFactory(
-            ITokenService tokenService,
+            [FromKeyedServices("kafka")]ITokenService tokenService,
             ILoggerFactory loggerFactory,
             IOptions<KafkaConfig> config,
             KafkaClientFactoryOptions options

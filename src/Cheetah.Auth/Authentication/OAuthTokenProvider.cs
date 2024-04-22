@@ -12,36 +12,35 @@ namespace Cheetah.Auth.Authentication
     /// <summary>
     /// OAuth2 token provider to retrieve OAuth2 tokens.
     /// </summary>
-    public class OAuthTokenProvider : ICachableTokenProvider
+    public abstract class OAuthTokenProvider : ICachableTokenProvider
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        /// <summary>
+        /// 
+        /// </summary>
+        internal readonly IHttpClientFactory _httpClientFactory;
         
         private readonly OAuth2Config _config;
-        readonly ILogger<OAuthTokenProvider> _logger;
+
 
         /// <summary>
         /// Creates a new instance of <see cref="OAuthTokenProvider"/>
         /// </summary>
         /// <param name="config">OAuth2 configuration</param>
         /// <param name="httpClientFactory">httpClientFactory to create a httpClient</param>
-        /// <param name="logger"></param>
-        public OAuthTokenProvider(IOptions<OAuth2Config> config, IHttpClientFactory httpClientFactory, ILogger<OAuthTokenProvider> logger)
+        public OAuthTokenProvider(IOptions<OAuth2Config> config, IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
             _config = config.Value;
-            _logger = logger;
         }
 
         /// <summary>
         /// Get a token response asynchronously.
         /// </summary>
         /// <param name="cancellationToken"></param>
-        /// <param name="serviceName"></param>
         /// <returns>TokenResponse</returns>
-        public async Task<TokenResponse?> GetTokenResponse(Guid serviceName, CancellationToken cancellationToken)
+        public async Task<TokenResponse?> GetTokenResponse(CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"Requesting token response for service: {serviceName}. TokenEndPoint: {_config.TokenEndpoint} - ClientId: {_config.ClientId} - ClientSecret: {_config.ClientSecret}");
-            using var httpClient = _httpClientFactory.CreateClient("OAuthTokenProvider");
+            using var httpClient = CreateHttpClient();
             var tokenClient = new TokenClient(
                 httpClient,
                 new TokenClientOptions
@@ -57,11 +56,63 @@ namespace Cheetah.Auth.Authentication
                     cancellationToken: cancellationToken
                 )
                 .ConfigureAwait(false);
-            
-            _logger.LogInformation(!tokenResponse.IsError
-                ? $"Successfully retrieved token response for service: {serviceName}. AccessToken: {tokenResponse.AccessToken}"
-                : $"Successfully retrieved token response for service: {serviceName}. Error response {tokenResponse.Error}");
+
             return tokenResponse;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public virtual HttpClient CreateHttpClient()
+        {
+            return _httpClientFactory.CreateClient("OAuthTokenProvider");
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class OAuthKafkaTokenProvider : OAuthTokenProvider
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public OAuthKafkaTokenProvider(IOptions<KafkaOAuth2Config> config, IHttpClientFactory httpClientFactory) : base(config, httpClientFactory)
+        {
+                
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override HttpClient CreateHttpClient()
+        {
+            return _httpClientFactory.CreateClient("Kafka");
+        }
+    }
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    public class OAuthOpenSearchTokenProvider : OAuthTokenProvider
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public OAuthOpenSearchTokenProvider(IOptions<OpenSearchOAuth2Config> config, IHttpClientFactory httpClientFactory) : base(config, httpClientFactory)
+        {
+                
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override HttpClient CreateHttpClient()
+        {
+            return _httpClientFactory.CreateClient("OpenSearch");
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cheetah.Auth.Configuration;
 using IdentityModel.Client;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -14,7 +15,7 @@ namespace Cheetah.Auth.Authentication
     /// It includes a mechanism for refreshing tokens in a separate thread, ensuring a consistent supply of valid tokens.
     /// IMPORTANT: Before calling RequestAccessToken(), ensure to invoke StartAsync() unless you're utilizing Dependency Injection, where this process is managed by the builder.RunAsync() method.
     /// </summary>
-    public class CachedTokenProvider : ITokenService, IDisposable
+    public abstract class CachedTokenProvider : ITokenService, IDisposable
     {
         readonly IOptions<OAuth2Config>? _config;
         readonly ILogger<CachedTokenProvider> _logger;
@@ -24,7 +25,6 @@ namespace Cheetah.Auth.Authentication
         private readonly TimeSpan _earlyExpiry;
         readonly CancellationTokenSource _cts = new();
         private TokenWithExpiry? _token;
-        Guid _providerName = Guid.NewGuid();
         
         /// <summary>
         /// Create a new instance of <see cref="CachedTokenProvider"/>.
@@ -84,22 +84,21 @@ namespace Cheetah.Auth.Authentication
 
         private async Task<TokenWithExpiry> FetchTokenAsync()
         {
-            _logger.LogInformation($"Fetching new token for service: \"{_providerName}\" - {DateTimeOffset.UtcNow}");
+            _logger.LogInformation($"Fetching new token for service: {DateTimeOffset.UtcNow}");
             for (int retries = 0;; retries++)
             {
-        
+                if (retries > 0)
+                {
+                    _logger.LogWarning($"Unable to fetch OAuth token. Retrying in {retries}.");
+                    await Task.Delay(_retryInterval);
+                }
+                
                 TokenResponse? token = await FetchTokenOrNullAsync(_cts.Token);
 
-                if (token == null)
-                {
-                    _logger.LogWarning($"Unable to fetch OAuth token. Retrying in {retries} for service: \"{_providerName}\"");
-                    await Task.Delay(_retryInterval);
-                    continue;
-                }
-
+                if (token == null) continue;
+                
                 if (!token.IsError)
                 {
-                    _logger.LogInformation($"Successful fetching new token for service: \"{_providerName}\" - {DateTimeOffset.UtcNow}");
                     return new TokenWithExpiry(token.AccessToken, DateTimeOffset.UtcNow.AddSeconds(token.ExpiresIn));
                 }
                 
@@ -111,24 +110,11 @@ namespace Cheetah.Auth.Authentication
         {
             try
             {
-                return await _tokenProvider.GetTokenResponse(_providerName, cancellationToken);
+                return await _tokenProvider.GetTokenResponse(cancellationToken);
             }
             catch (Exception)
             {
                 return null;
-            }
-        }
-        
-        private static void TrySleep(TimeSpan duration)
-        {
-            try
-            {
-                Thread.Sleep(duration);
-            }
-            catch (ThreadInterruptedException e)
-            {
-                Thread.CurrentThread.Interrupt();
-                throw new OAuth2TokenException(e.Message);
             }
         }
 
@@ -145,7 +131,7 @@ namespace Cheetah.Auth.Authentication
             {
                 if (_token == null)
                 {
-                    _logger.LogWarning($"No token available yet. Waiting for {_retryInterval} before checking again for service: \"{_providerName}\"");
+                    _logger.LogWarning($"No token available yet. Waiting for {_retryInterval} before checking again.");
                     await Task.Delay(_retryInterval, cancellationToken);
                     continue;
                 }
@@ -176,6 +162,33 @@ namespace Cheetah.Auth.Authentication
         public void Dispose()
         { 
             _cts.Dispose();
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class CachedKafkaTokenProvider : CachedTokenProvider
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public CachedKafkaTokenProvider(IOptions<KafkaOAuth2Config> config, [FromKeyedServices("kafka")]ICachableTokenProvider tokenProvider, ILogger<CachedKafkaTokenProvider> logger) : base(config, tokenProvider, logger)
+        {
+            
+        }
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    public class CachedOpenSearchTokenProvider : CachedTokenProvider
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public CachedOpenSearchTokenProvider(IOptions<OpenSearchOAuth2Config> config, [FromKeyedServices("opensearch")]ICachableTokenProvider tokenProvider, ILogger<CachedOpenSearchTokenProvider> logger) : base(config, tokenProvider, logger)
+        {
+            
         }
     }
 }

@@ -63,7 +63,7 @@ namespace Cheetah.Kafka.Test
         public async Task TestOAuthProcess()
         {
             // Arrange
-            var cachedTokenProvider = _serviceProvider.GetRequiredService<ITokenService>();
+            var cachedTokenProvider = _serviceProvider.GetRequiredKeyedService<ITokenService>("kafka");
             
             // Act
             var response1 = await cachedTokenProvider.RequestAccessTokenAsync(CancellationToken.None);

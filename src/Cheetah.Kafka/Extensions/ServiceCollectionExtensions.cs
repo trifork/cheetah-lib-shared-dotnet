@@ -41,28 +41,28 @@ namespace Cheetah.Kafka.Extensions
                 .Bind(configuration.GetSection(KafkaConfig.Position));
 
             serviceCollection
-                .AddOptionsWithValidateOnStart<OAuth2Config>()
+                .AddOptionsWithValidateOnStart<KafkaOAuth2Config>()
                 .Bind(
                     configuration
                         .GetSection(KafkaConfig.Position)
                         .GetSection(nameof(KafkaConfig.OAuth2))
                 );
 
-            serviceCollection.AddHttpClient<OAuthTokenProvider>();
+            serviceCollection.AddHttpClient<OAuthKafkaTokenProvider>();
             serviceCollection.AddMemoryCache();
-            serviceCollection.AddSingleton<ICachableTokenProvider>(sp => new OAuthTokenProvider(
-                sp.GetRequiredService<IOptions<OAuth2Config>>(),
-                sp.GetRequiredService<IHttpClientFactory>(),
-                sp.GetRequiredService<ILogger<OAuthTokenProvider>>()
+
+            serviceCollection.AddKeyedSingleton<ICachableTokenProvider>("kafka",
+                (sp, o) => new OAuthKafkaTokenProvider(sp.GetRequiredService<IOptions<KafkaOAuth2Config>>(),
+                    sp.GetRequiredService<IHttpClientFactory>()));
+
+            serviceCollection.AddKeyedSingleton<ITokenService>("kafka", (sp, o) => new CachedKafkaTokenProvider(
+                sp.GetRequiredService<IOptions<KafkaOAuth2Config>>(),
+                sp.GetRequiredKeyedService<ICachableTokenProvider>("kafka"),
+                sp.GetRequiredService<ILogger<CachedKafkaTokenProvider>>()
             ));
-            serviceCollection.AddSingleton<ITokenService>(sp => new CachedTokenProvider(
-                sp.GetRequiredService<IOptions<OAuth2Config>>(),
-                sp.GetRequiredService<ICachableTokenProvider>(),
-                sp.GetRequiredService<ILogger<CachedTokenProvider>>()
-            ));
-            serviceCollection.AddHostedService<StartUpTokenService>();
+
+            serviceCollection.AddHostedService<StartKafkaTokenService>();
             serviceCollection.AddSingleton<KafkaClientFactory>();
-            
 
             return new CheetahKafkaInjector(serviceCollection);
         }
