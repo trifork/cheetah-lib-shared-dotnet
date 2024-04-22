@@ -6,7 +6,7 @@ namespace Cheetah.Auth.Configuration
     /// <summary>
     /// Configuration for OAuth2 authentication
     /// </summary>
-    public abstract class OAuth2Config
+    public class OAuth2Config
     {
         /// <summary>
         /// The endpoint to retrieve the token from
@@ -69,20 +69,5 @@ namespace Cheetah.Auth.Configuration
                 throw new ArgumentNullException(nameof(ClientSecret));
             }
         }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public class KafkaOAuth2Config : OAuth2Config
-    {
-        
-    }    
-    /// <summary>
-    /// 
-    /// </summary>
-    public class OpenSearchOAuth2Config : OAuth2Config
-    {
-        
     }
 }

@@ -9,9 +9,9 @@ namespace Cheetah.Auth.Authentication;
 /// <summary>
 /// Background service responsible for starting the token service.
 /// </summary>
-public abstract class StartUpTokenService : BackgroundService
+public class StartUpTokenService : BackgroundService
 {
-    readonly internal ITokenService _tokenService;
+    readonly ITokenService _tokenService;
     
     /// <summary>
     /// Creates a new instance of <see cref="StartUpTokenService"/>.
@@ -38,30 +38,4 @@ public abstract class StartUpTokenService : BackgroundService
             _tokenService.Dispose();
         }
     }
-}
-
-/// <summary>
-/// 
-/// </summary>
-public class StartKafkaTokenService : StartUpTokenService
-{
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="tokenService"></param>
-    public StartKafkaTokenService([FromKeyedServices("kafka")]ITokenService tokenService) : base(tokenService)
-    { }
-}
-
-/// <summary>
-/// 
-/// </summary>
-public class StartOpenSearchTokenService : StartUpTokenService
-{
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="tokenService"></param>
-    public StartOpenSearchTokenService([FromKeyedServices("opensearch")]ITokenService tokenService) : base(tokenService)
-    { }
 }

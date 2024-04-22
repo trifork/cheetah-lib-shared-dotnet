@@ -15,9 +15,9 @@ namespace Cheetah.Auth.Authentication
     /// It includes a mechanism for refreshing tokens in a separate thread, ensuring a consistent supply of valid tokens.
     /// IMPORTANT: Before calling RequestAccessToken(), ensure to invoke StartAsync() unless you're utilizing Dependency Injection, where this process is managed by the builder.RunAsync() method.
     /// </summary>
-    public abstract class CachedTokenProvider : ITokenService, IDisposable
+    public class CachedTokenProvider : ITokenService, IDisposable
     {
-        readonly IOptions<OAuth2Config>? _config;
+        readonly OAuth2Config? _config;
         readonly ILogger<CachedTokenProvider> _logger;
         private readonly ICachableTokenProvider _tokenProvider;
         private readonly TimeSpan _retryInterval;
@@ -49,14 +49,14 @@ namespace Cheetah.Auth.Authentication
         /// <param name="config">OAuth2 configuration</param>
         /// <param name="tokenProvider">The token provider used to fetch a new token.</param>
         /// <param name="logger">The logger to be used for logging.</param>
-        public CachedTokenProvider(IOptions<OAuth2Config> config, ICachableTokenProvider tokenProvider, ILogger<CachedTokenProvider> logger)
+        public CachedTokenProvider(OAuth2Config config, ICachableTokenProvider tokenProvider, ILogger<CachedTokenProvider> logger)
         {
-            config.Value.Validate();
+            config.Validate();
             _config = config;
             _tokenProvider = tokenProvider;
-            _retryInterval = _config.Value.RetryInterval;
-            _earlyRefresh = _config.Value.EarlyRefresh;
-            _earlyExpiry = _config.Value.EarlyExpiry;
+            _retryInterval = _config.RetryInterval;
+            _earlyRefresh = _config.EarlyRefresh;
+            _earlyExpiry = _config.EarlyExpiry;
             _logger = logger;
         }
 
@@ -162,33 +162,6 @@ namespace Cheetah.Auth.Authentication
         public void Dispose()
         { 
             _cts.Dispose();
-        }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public class CachedKafkaTokenProvider : CachedTokenProvider
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        public CachedKafkaTokenProvider(IOptions<KafkaOAuth2Config> config, [FromKeyedServices("kafka")]ICachableTokenProvider tokenProvider, ILogger<CachedKafkaTokenProvider> logger) : base(config, tokenProvider, logger)
-        {
-            
-        }
-    }
-    /// <summary>
-    /// 
-    /// </summary>
-    public class CachedOpenSearchTokenProvider : CachedTokenProvider
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        public CachedOpenSearchTokenProvider(IOptions<OpenSearchOAuth2Config> config, [FromKeyedServices("opensearch")]ICachableTokenProvider tokenProvider, ILogger<CachedOpenSearchTokenProvider> logger) : base(config, tokenProvider, logger)
-        {
-            
         }
     }
 }

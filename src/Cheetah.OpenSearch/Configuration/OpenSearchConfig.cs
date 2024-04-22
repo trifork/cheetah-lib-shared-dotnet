@@ -49,7 +49,7 @@ namespace Cheetah.OpenSearch.Configuration
         /// <summary>
         /// The config to use when authenticating with OAuth2
         /// </summary>
-        public OpenSearchOAuth2Config OAuth2 { get; set; } = null!;
+        public OAuth2Config OAuth2 { get; set; } = null!;
 
         /// <summary>
         /// Validates and throws an error if values are not set for a given <see cref="AuthMode"/>.

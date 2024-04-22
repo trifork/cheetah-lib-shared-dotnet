@@ -33,7 +33,7 @@ namespace Cheetah.Kafka
         /// <param name="config">The configuration to use when creating clients</param>
         /// <param name="options">The options to use when creating clients</param>
         public KafkaClientFactory(
-            [FromKeyedServices("kafka")]ITokenService tokenService,
+            ITokenService tokenService,
             ILoggerFactory loggerFactory,
             IOptions<KafkaConfig> config,
             KafkaClientFactoryOptions options

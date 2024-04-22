@@ -47,7 +47,7 @@ namespace Cheetah.Kafka.Configuration
         /// <summary>
         /// The OAuth2 configuration
         /// </summary>
-        public KafkaOAuth2Config OAuth2 { get; set; } = new();
+        public OAuth2Config OAuth2 { get; set; } = new();
 
         /// <summary>
         /// Validates and throws an error if the configuration is invalid.

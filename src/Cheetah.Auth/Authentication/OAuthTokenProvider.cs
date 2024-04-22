@@ -12,7 +12,7 @@ namespace Cheetah.Auth.Authentication
     /// <summary>
     /// OAuth2 token provider to retrieve OAuth2 tokens.
     /// </summary>
-    public abstract class OAuthTokenProvider : ICachableTokenProvider
+    public class OAuthTokenProvider : ICachableTokenProvider
     {
         /// <summary>
         /// 
@@ -21,16 +21,15 @@ namespace Cheetah.Auth.Authentication
         
         private readonly OAuth2Config _config;
 
-
         /// <summary>
         /// Creates a new instance of <see cref="OAuthTokenProvider"/>
         /// </summary>
         /// <param name="config">OAuth2 configuration</param>
         /// <param name="httpClientFactory">httpClientFactory to create a httpClient</param>
-        public OAuthTokenProvider(IOptions<OAuth2Config> config, IHttpClientFactory httpClientFactory)
+        public OAuthTokenProvider(OAuth2Config config, IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
-            _config = config.Value;
+            _config = config;
         }
 
         /// <summary>
@@ -67,52 +66,6 @@ namespace Cheetah.Auth.Authentication
         public virtual HttpClient CreateHttpClient()
         {
             return _httpClientFactory.CreateClient("OAuthTokenProvider");
-        }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public class OAuthKafkaTokenProvider : OAuthTokenProvider
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        public OAuthKafkaTokenProvider(IOptions<KafkaOAuth2Config> config, IHttpClientFactory httpClientFactory) : base(config, httpClientFactory)
-        {
-                
-        }
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public override HttpClient CreateHttpClient()
-        {
-            return _httpClientFactory.CreateClient("Kafka");
-        }
-    }
-    
-    /// <summary>
-    /// 
-    /// </summary>
-    public class OAuthOpenSearchTokenProvider : OAuthTokenProvider
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        public OAuthOpenSearchTokenProvider(IOptions<OpenSearchOAuth2Config> config, IHttpClientFactory httpClientFactory) : base(config, httpClientFactory)
-        {
-                
-        }
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public override HttpClient CreateHttpClient()
-        {
-            return _httpClientFactory.CreateClient("OpenSearch");
         }
     }
 }
