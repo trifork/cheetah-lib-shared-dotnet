@@ -9,20 +9,20 @@ using Microsoft.Extensions.Options;
 namespace Cheetah.Auth.Extensions
 {
     /// <summary>
-    /// 
+    /// Extension method for adding Cheetah auth keyed token service to IServiceCollection
     /// </summary>
     public static class ServiceCollectionExtensions
     {
         /// <summary>
-        /// 
+        /// Registers and configures a CachedTokenProvider and a TokenService with dependency injection,
+        /// utilizing a unique key for GetRequiredKeyedService, ensuring that a distinct singleton is registered for each KeyedTokenService instance.
         /// </summary>
-        /// <param name="serviceCollection"></param>
-        /// <param name="key"></param>
-        /// <param name="oAuthConfig"></param>
-        /// <returns></returns>
+        /// <param name="serviceCollection">The <see cref="IServiceCollection"/> to add the services to.</param>
+        /// <param name="key">The key used for resolving the services.</param>
+        /// <param name="oAuthConfig">The OAuth2 configuration.</param>
+        /// <returns>The modified <see cref="IServiceCollection"/> instance.</returns>
         public static IServiceCollection AddKeyedTokenService(this IServiceCollection serviceCollection, string key, OAuth2Config oAuthConfig)
         {
-            // TODO: Make sure that http clients and their configuration are unique per token service - Unsure whether that's the case right now.
             serviceCollection.AddHttpClient<CachedTokenProvider>(key);
             
             serviceCollection.AddKeyedSingleton<ICachableTokenProvider>(key, (sp, serviceKey) => 

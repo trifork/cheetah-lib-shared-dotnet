@@ -12,7 +12,7 @@ namespace Cheetah.Auth.Authentication
 {
     /// <summary>
     /// CachedTokenProvider manages the retrieval and caching of OAuth2 tokens, optimizing performance by reducing unnecessary token requests.
-    /// It includes a mechanism for refreshing tokens in a separate thread, ensuring a consistent supply of valid tokens.
+    /// Refreshing of tokens is handled in a separate thread, ensuring a consistent supply of valid tokens.
     /// IMPORTANT: Before calling RequestAccessToken(), ensure to invoke StartAsync() unless you're utilizing Dependency Injection, where this process is managed by the builder.RunAsync() method.
     /// </summary>
     public class CachedTokenProvider : ITokenService, IDisposable
@@ -119,7 +119,7 @@ namespace Cheetah.Auth.Authentication
         }
 
         /// <summary>
-        /// Requests the access token with expiry synchronously.
+        /// Requests the access token asynchronously.
         /// </summary>
         /// <returns>Returns the access token and the expiry of the token</returns>
         /// <exception cref="OAuth2TokenException"></exception>

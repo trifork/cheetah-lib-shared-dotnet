@@ -11,7 +11,7 @@ namespace Cheetah.Auth.Authentication
     public interface ITokenService
     {
         /// <summary>
-        /// Request an access token synchronously.
+        /// Request an access token asynchronously.
         /// </summary>
         /// <returns>A tuple containing the access token and its absolute expiration in epoch millis </returns>
         // Developer note: It is tempting to make this return some well-named POCO instead of a tuple, but in the end we want to rely only on a standard language type

@@ -14,10 +14,7 @@ namespace Cheetah.Auth.Authentication
     /// </summary>
     public class OAuthTokenProvider : ICachableTokenProvider
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        internal readonly IHttpClientFactory _httpClientFactory;
+        readonly IHttpClientFactory _httpClientFactory;
         
         private readonly OAuth2Config _config;
 
@@ -39,7 +36,7 @@ namespace Cheetah.Auth.Authentication
         /// <returns>TokenResponse</returns>
         public async Task<TokenResponse?> GetTokenResponse(CancellationToken cancellationToken)
         {
-            using var httpClient = CreateHttpClient();
+            using var httpClient = _httpClientFactory.CreateClient("OAuthTokenProvider");
             var tokenClient = new TokenClient(
                 httpClient,
                 new TokenClientOptions
@@ -57,15 +54,6 @@ namespace Cheetah.Auth.Authentication
                 .ConfigureAwait(false);
 
             return tokenResponse;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public virtual HttpClient CreateHttpClient()
-        {
-            return _httpClientFactory.CreateClient("OAuthTokenProvider");
         }
     }
 }
