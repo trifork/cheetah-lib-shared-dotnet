@@ -1,5 +1,6 @@
 using System;
 using Cheetah.Auth.Configuration;
+using Cheetah.Auth.Extensions;
 using Cheetah.Kafka.Configuration;
 using Cheetah.Kafka.Serialization;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +14,10 @@ namespace Cheetah.Kafka.Extensions
     /// </summary>
     public static class ServiceCollectionExtensions
     {
+        /// <summary>
+        /// Default kafka key used to get required keyed services
+        /// </summary>
+        const string DefaultKafkaKey = "kafka";
         /// <summary>
         /// Registers and configures a KafkaClientFactory with the provided configuration for dependency injection, along with its required dependencies.
         /// </summary>
@@ -33,14 +38,17 @@ namespace Cheetah.Kafka.Extensions
                 .AddOptionsWithValidateOnStart<KafkaConfig>()
                 .Bind(configuration.GetSection(KafkaConfig.Position));
             
-            serviceCollection.AddOptionsWithValidateOnStart<OAuth2Config>()
-                .Bind(configuration.GetSection(KafkaConfig.Position).GetSection(nameof(KafkaConfig.OAuth2)));
+            var configOAuth = new OAuth2Config();
+            configuration.GetSection(KafkaConfig.Position).GetSection(nameof(KafkaConfig.OAuth2)).Bind(configOAuth);
+            configOAuth.Validate();
 
-            serviceCollection.AddKeyedTokenService(Constants.TokenServiceKey);
+            serviceCollection.AddKeyedTokenService(DefaultKafkaKey, configOAuth);
 
-            serviceCollection.AddSingleton<ClientFactoryOptions>(options);
-            serviceCollection.AddSingleton<ISerializerProvider>(options.SerializerProviderFactory);
-            serviceCollection.AddSingleton<KafkaClientFactory>();
+            serviceCollection.AddSingleton<KafkaClientFactory>(sp =>
+                new KafkaClientFactory(sp.GetRequiredKeyedService<ITokenService>(DefaultKafkaKey),
+                    sp.GetRequiredService<ILoggerFactory>(),
+                    sp.GetRequiredService<IOptions<KafkaConfig>>(),
+                    sp.GetRequiredService<KafkaClientFactoryOptions>()));
 
             return new ClientInjector(serviceCollection);
         }

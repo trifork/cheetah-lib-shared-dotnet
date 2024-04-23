@@ -2,6 +2,7 @@ using System;
 using System.Net.Http;
 using Cheetah.Auth.Authentication;
 using Cheetah.Auth.Configuration;
+using Cheetah.Auth.Extensions;
 using Cheetah.OpenSearch.Configuration;
 using Cheetah.OpenSearch.Connection;
 using Microsoft.Extensions.Caching.Memory;
@@ -19,6 +20,7 @@ namespace Cheetah.OpenSearch.Extensions
     /// </summary>
     public static class ServiceCollectionExtensions
     {
+        const string OpenSearchKey = "opensearch";
         /// <summary>
         /// Registers and configures an <see cref="IOpenSearchClient"/> for dependency injection, along with its required services.
         /// </summary>
@@ -40,7 +42,7 @@ namespace Cheetah.OpenSearch.Extensions
             // Avoid DI'ing OAuth2 specific services if we're not using OAuth2
             if (config.AuthMode == OpenSearchConfig.OpenSearchAuthMode.OAuth2)
             {
-                serviceCollection.AddCheetahOpenSearchOAuth2Connection();
+                serviceCollection.AddCheetahOpenSearchOAuth2Connection(configuration);
             }
 
             var clientOptions = new OpenSearchClientOptions();
@@ -57,11 +59,15 @@ namespace Cheetah.OpenSearch.Extensions
             return serviceCollection;
         }
 
-        internal static IServiceCollection AddCheetahOpenSearchOAuth2Connection(
-            this IServiceCollection serviceCollection
+        static IServiceCollection AddCheetahOpenSearchOAuth2Connection(
+            this IServiceCollection serviceCollection, IConfiguration configuration
         )
         {
-            Auth.Extensions.ServiceCollectionExtensions.AddKeyedTokenService(serviceCollection, "opensearch");
+            var configOAuth = new OAuth2Config();
+            configuration.GetSection(OpenSearchConfig.Position).GetSection(nameof(OpenSearchConfig.OAuth2)).Bind(configOAuth);
+            configOAuth.Validate();
+            
+            serviceCollection.AddKeyedTokenService(OpenSearchKey, configOAuth);
             serviceCollection.AddSingleton<IConnection, CheetahOpenSearchConnection>();
             return serviceCollection;
         }
@@ -74,16 +80,10 @@ namespace Cheetah.OpenSearch.Extensions
             var config = new OpenSearchConfig();
             configuration.GetSection(OpenSearchConfig.Position).Bind(config);
             config.Validate();
+
             serviceCollection
                 .AddOptionsWithValidateOnStart<OpenSearchConfig>()
                 .Bind(configuration.GetSection(OpenSearchConfig.Position));
-            serviceCollection
-                .AddOptionsWithValidateOnStart<OAuth2Config>()
-                .Bind(
-                    configuration
-                        .GetSection(OpenSearchConfig.Position)
-                        .GetSection(nameof(OpenSearchConfig.OAuth2))
-                );
 
             return config;
         }

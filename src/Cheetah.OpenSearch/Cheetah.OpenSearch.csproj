@@ -7,7 +7,7 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <RepositoryUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</RepositoryUrl>
         <RootNamespace>Cheetah.OpenSearch</RootNamespace>
-        <TargetFrameworks>netstandard2.1;net6.0;net8.0</TargetFrameworks>
+        <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <Nullable>enable</Nullable>
         <VersionPrefix>0.4.0</VersionPrefix>
@@ -18,10 +18,10 @@
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
-      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
       <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
-      <PackageReference Include="OpenSearch.Client" Version="1.6.0" />
-      <PackageReference Include="OpenSearch.Client.JsonNetSerializer" Version="1.6.0" />
+      <PackageReference Include="OpenSearch.Client" Version="1.7.1" />
+      <PackageReference Include="OpenSearch.Client.JsonNetSerializer" Version="1.7.1" />
     </ItemGroup>
 
     <ItemGroup>        

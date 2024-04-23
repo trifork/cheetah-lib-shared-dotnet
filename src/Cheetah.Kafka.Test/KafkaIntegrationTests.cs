@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
+using Cheetah.Auth.Authentication;
 using Cheetah.Kafka.Extensions;
 using Cheetah.Kafka.Test.Util;
 using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Xunit;
 
@@ -54,6 +57,26 @@ namespace Cheetah.Kafka.Test
                 .WithAdminClient();
 
             _serviceProvider = services.BuildServiceProvider();
+            
+            var bgService = _serviceProvider.GetRequiredService<IHostedService>();
+            bgService.StartAsync(CancellationToken.None);
+        }
+
+        [Fact]
+        public async Task Should_ReturnEqualAccessToken_When_TheExpiryIsNotOverdue()
+        {
+            // Arrange
+            var cachedTokenProvider = _serviceProvider.GetRequiredKeyedService<ITokenService>("kafka");
+            
+            // Act
+            var response1 = await cachedTokenProvider.RequestAccessTokenAsync(CancellationToken.None);
+            
+            await Task.Delay(TimeSpan.FromSeconds(30));
+            
+            var response2 = await cachedTokenProvider.RequestAccessTokenAsync(CancellationToken.None);
+            
+            // Assert
+            Assert.Equal(response1.Item1, response2.Item1);
         }
 
         [Fact]
@@ -69,7 +92,7 @@ namespace Cheetah.Kafka.Test
             ); // Will delete the created topic when the test concludes, regardless of outcome
             var producer = _serviceProvider.GetRequiredService<IProducer<string, string>>();
             var consumer = _serviceProvider.GetRequiredService<IConsumer<string, string>>();
-
+            
             consumer.Subscribe(topic);
 
             var message = new Message<string, string>

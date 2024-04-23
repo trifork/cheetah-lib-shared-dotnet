@@ -7,8 +7,6 @@ using Cheetah.Kafka.Extensions;
 using Cheetah.Kafka.Serialization;
 using Cheetah.Kafka.Util;
 using Confluent.Kafka;
-using Confluent.SchemaRegistry.Serdes;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -59,17 +57,16 @@ namespace Cheetah.Kafka.Testing
             ISerializerProvider? serializerProvider = null)
         {
             var config = Options.Create(configuration);
-            options ??= new ClientFactoryOptions();
-            loggerFactory ??= LoggerFactory.Create(builder => builder.AddConsole());
-            tokenService ??= new OAuth2TokenService(
-                loggerFactory.CreateLogger<OAuth2TokenService>(),
-                new DefaultHttpClientFactory(),
-                new MemoryCache(new MemoryCacheOptions()),
-                Options.Create(configuration.OAuth2),
-                "kafka-test-client"
-            );
-            serializerProvider ??= new Utf8SerializerProvider();
 
+            options ??= new KafkaClientFactoryOptions();
+            loggerFactory ??= LoggerFactory.Create(builder => builder.AddConsole());
+
+            tokenService ??= new CachedTokenProvider(configuration.OAuth2,
+                new OAuthTokenProvider(configuration.OAuth2, new DefaultHttpClientFactory()),
+                loggerFactory.CreateLogger<CachedTokenProvider>());
+
+            tokenService.StartAsync();
+            
             var clientFactory = new KafkaClientFactory(
                 tokenService,
                 loggerFactory,
