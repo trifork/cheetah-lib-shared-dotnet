@@ -60,7 +60,7 @@ namespace Cheetah.Kafka.Test
         }
 
         [Fact]
-        public async Task TestOAuthProcess()
+        public async Task Should_ReturnEqualAccessToken_When_TheExpiryIsNotOverdue()
         {
             // Arrange
             var cachedTokenProvider = _serviceProvider.GetRequiredKeyedService<ITokenService>("kafka");

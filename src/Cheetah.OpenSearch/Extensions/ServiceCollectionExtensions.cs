@@ -20,6 +20,7 @@ namespace Cheetah.OpenSearch.Extensions
     /// </summary>
     public static class ServiceCollectionExtensions
     {
+        const string OpenSearchKey = "opensearch";
         /// <summary>
         /// Registers and configures an <see cref="IOpenSearchClient"/> for dependency injection, along with its required services.
         /// </summary>
@@ -58,13 +59,15 @@ namespace Cheetah.OpenSearch.Extensions
             return serviceCollection;
         }
 
-        internal static IServiceCollection AddCheetahOpenSearchOAuth2Connection(
+        static IServiceCollection AddCheetahOpenSearchOAuth2Connection(
             this IServiceCollection serviceCollection, IConfiguration configuration
         )
         {
             var configOAuth = new OAuth2Config();
             configuration.GetSection(OpenSearchConfig.Position).GetSection(nameof(OpenSearchConfig.OAuth2)).Bind(configOAuth);
-            serviceCollection.AddKeyedTokenService("opensearch", configOAuth);
+            configOAuth.Validate();
+            
+            serviceCollection.AddKeyedTokenService(OpenSearchKey, configOAuth);
             serviceCollection.AddSingleton<IConnection, CheetahOpenSearchConnection>();
             return serviceCollection;
         }
@@ -81,14 +84,6 @@ namespace Cheetah.OpenSearch.Extensions
             serviceCollection
                 .AddOptionsWithValidateOnStart<OpenSearchConfig>()
                 .Bind(configuration.GetSection(OpenSearchConfig.Position));
-            
-            serviceCollection
-                .AddOptionsWithValidateOnStart<OAuth2Config>()
-                .Bind(
-                    configuration
-                        .GetSection(OpenSearchConfig.Position)
-                        .GetSection(nameof(OpenSearchConfig.OAuth2))
-                );
 
             return config;
         }

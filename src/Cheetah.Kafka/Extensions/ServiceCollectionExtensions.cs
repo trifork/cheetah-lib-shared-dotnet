@@ -18,6 +18,10 @@ namespace Cheetah.Kafka.Extensions
     public static class ServiceCollectionExtensions
     {
         /// <summary>
+        /// Default kafka key used to get required keyed services
+        /// </summary>
+        const string DefaultKafkaKey = "kafka";
+        /// <summary>
         /// Registers and configures a KafkaClientFactory with the provided configuration for dependency injection, along with its required dependencies.
         /// </summary>
         /// <remarks>
@@ -43,11 +47,12 @@ namespace Cheetah.Kafka.Extensions
             
             var configOAuth = new OAuth2Config();
             configuration.GetSection(KafkaConfig.Position).GetSection(nameof(KafkaConfig.OAuth2)).Bind(configOAuth);
+            configOAuth.Validate();
 
-            serviceCollection.AddKeyedTokenService("kafka", configOAuth);
+            serviceCollection.AddKeyedTokenService(DefaultKafkaKey, configOAuth);
 
             serviceCollection.AddSingleton<KafkaClientFactory>(sp =>
-                new KafkaClientFactory(sp.GetRequiredKeyedService<ITokenService>("kafka"),
+                new KafkaClientFactory(sp.GetRequiredKeyedService<ITokenService>(DefaultKafkaKey),
                     sp.GetRequiredService<ILoggerFactory>(),
                     sp.GetRequiredService<IOptions<KafkaConfig>>(),
                     sp.GetRequiredService<KafkaClientFactoryOptions>()));
