@@ -7,7 +7,6 @@ using OpenSearch.Net;
 
 namespace Cheetah.OpenSearch.Extensions
 {
-    // TODO: Should this be removed entirely or moved to Cheetah.OpenSearch?
     /// <summary>
     /// Extension methods for <see cref="IOpenSearchClient"/> to simplify common operations.
     /// </summary>
