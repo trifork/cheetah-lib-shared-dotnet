@@ -1,10 +1,10 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:91f11d3a-bb8a-4e38-84c5-c71e32a115ef",
+  "serialNumber": "urn:uuid:bb525a17-b5cd-4197-8857-42af2d0e7fb0",
   "version": 1,
   "metadata": {
-    "timestamp": "2024-04-16T14:29:52Z",
+    "timestamp": "2024-04-21T02:03:38Z",
     "tools": {
       "components": [
         {
@@ -2616,12 +2616,12 @@
       "author": "OpenSearch and contributors",
       "group": "",
       "name": "OpenSearch.Client",
-      "version": "1.7.0",
+      "version": "1.7.1",
       "description": "Strongly typed interface to OpenSearch. Fluent and classic object initializer mappings of requests and \n      responses. Uses and exposes OpenSearch.Net.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "8802cfaa13e714a8d4c46bb27c60a14dc89294918d231f78e0d75a4271c2e264ced205261b5d4b14a7aa992bc0c0708af6c24d2fb366cde3022f3ca5370bfcba"
+          "content": "f5ebabeae15cdd252e38db6479f8afa3f519e710aaf1a0040cbed4d99b7bdcd4b8531b8290fd91fa76cb38ab8434b19a1c2d9f57e9a203e684eee3d7683283e3"
         }
       ],
       "licenses": [
@@ -2632,11 +2632,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/OpenSearch.Client@1.7.0",
+      "purl": "pkg:nuget/OpenSearch.Client@1.7.1",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/OpenSearch.Client/1.7.0/"
+          "url": "https://www.nuget.org/packages/OpenSearch.Client/1.7.1/"
         },
         {
           "type": "vcs",
@@ -2644,7 +2644,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/OpenSearch.Client@1.7.0",
+      "bom-ref": "pkg:nuget/OpenSearch.Client@1.7.1",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -2673,12 +2673,12 @@
       "author": "OpenSearch and contributors",
       "group": "",
       "name": "OpenSearch.Client.JsonNetSerializer",
-      "version": "1.7.0",
+      "version": "1.7.1",
       "description": "OpenSearch.Client uses an internal serializer. This package enables serialization for your documents using your own custom Json.NET serializer",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "1ba62e96c3bf52890f6b400afcbda75bd8e4a840de3d476acaa288e480e1aef57ac344b3bc8924b223949636a82281dc2c0ab2099e838bf39ca8316467bd05df"
+          "content": "f5e399753e38ef658df70e7bf86b2e4122ebbb7142d35a30f172ac16b69c5067fbb0d52697150b3845ff5248ddef55bc10275ac2741cca42c3d38907a96c1892"
         }
       ],
       "licenses": [
@@ -2689,11 +2689,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/OpenSearch.Client.JsonNetSerializer@1.7.0",
+      "purl": "pkg:nuget/OpenSearch.Client.JsonNetSerializer@1.7.1",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/OpenSearch.Client.JsonNetSerializer/1.7.0/"
+          "url": "https://www.nuget.org/packages/OpenSearch.Client.JsonNetSerializer/1.7.1/"
         },
         {
           "type": "vcs",
@@ -2701,7 +2701,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/OpenSearch.Client.JsonNetSerializer@1.7.0",
+      "bom-ref": "pkg:nuget/OpenSearch.Client.JsonNetSerializer@1.7.1",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -2730,12 +2730,12 @@
       "author": "OpenSearch and contributors",
       "group": "",
       "name": "OpenSearch.Net",
-      "version": "1.7.0",
+      "version": "1.7.1",
       "description": "Exposes all the OpenSearch API endpoints but leaves you in control of building the request and response bodies.\n      Comes with built in cluster failover/connection pooling support.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "dcda81cc36919aef0e62b3d6e01bc909b98e4c893a822da0218d22c7ef4293d80fdaf4fdcc72cd1c6df38cd5c9171ad3c155a4dfa6f148339e1dfb2a02b1a5ba"
+          "content": "a5a2fb2bf8177c8bc71b3713da2fa535890cea4d387324900f3f1987ff9c3c6d841bbaf7c89349d2b44433f6c1225b7a81a7e8701928f93f580e50d18f78625a"
         }
       ],
       "licenses": [
@@ -2746,11 +2746,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/OpenSearch.Net@1.7.0",
+      "purl": "pkg:nuget/OpenSearch.Net@1.7.1",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/OpenSearch.Net/1.7.0/"
+          "url": "https://www.nuget.org/packages/OpenSearch.Net/1.7.1/"
         },
         {
           "type": "vcs",
@@ -2758,7 +2758,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/OpenSearch.Net@1.7.0",
+      "bom-ref": "pkg:nuget/OpenSearch.Net@1.7.1",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -8968,20 +8968,20 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/OpenSearch.Client@1.7.0",
+      "ref": "pkg:nuget/OpenSearch.Client@1.7.1",
       "dependsOn": [
-        "pkg:nuget/OpenSearch.Net@1.7.0"
+        "pkg:nuget/OpenSearch.Net@1.7.1"
       ]
     },
     {
-      "ref": "pkg:nuget/OpenSearch.Client.JsonNetSerializer@1.7.0",
+      "ref": "pkg:nuget/OpenSearch.Client.JsonNetSerializer@1.7.1",
       "dependsOn": [
         "pkg:nuget/Newtonsoft.Json@13.0.3",
-        "pkg:nuget/OpenSearch.Client@1.7.0"
+        "pkg:nuget/OpenSearch.Client@1.7.1"
       ]
     },
     {
-      "ref": "pkg:nuget/OpenSearch.Net@1.7.0",
+      "ref": "pkg:nuget/OpenSearch.Net@1.7.1",
       "dependsOn": [
         "pkg:nuget/Microsoft.CSharp@4.7.0",
         "pkg:nuget/System.Buffers@4.5.1",
@@ -9114,14 +9114,14 @@
         "pkg:nuget/Microsoft.Extensions.Hosting@8.0.0",
         "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@8.0.1",
         "pkg:nuget/Microsoft.Extensions.Options.ConfigurationExtensions@8.0.0",
-        "pkg:nuget/OpenSearch.Client.JsonNetSerializer@1.7.0",
-        "pkg:nuget/OpenSearch.Client@1.7.0"
+        "pkg:nuget/OpenSearch.Client.JsonNetSerializer@1.7.1",
+        "pkg:nuget/OpenSearch.Client@1.7.1"
       ]
     },
     {
       "ref": "pkg:nuget/Cheetah.OpenSearch.Extensions@1.0.0",
       "dependsOn": [
-        "pkg:nuget/OpenSearch.Client@1.7.0"
+        "pkg:nuget/OpenSearch.Client@1.7.1"
       ]
     },
     {
