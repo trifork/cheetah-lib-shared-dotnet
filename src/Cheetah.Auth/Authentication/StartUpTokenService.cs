@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
@@ -70,6 +70,20 @@ namespace Cheetah.Auth.Authentication
         {
         }
     }
+    /// <summary>
+    /// Background service responsible for starting the Schema-registry token service.
+    /// </summary>
+    public class StartUpSchemaRegistryTokenService : StartUpTokenService
+    {
+        /// <summary>
+        /// Creates a new instance StartUpSchemaRegistryTokenService
+        /// </summary>
+        /// <param name="tokenService"></param>
+        public StartUpSchemaRegistryTokenService(ITokenService tokenService) : base(tokenService)
+        {
+        }
+    }
 }
+
 
 

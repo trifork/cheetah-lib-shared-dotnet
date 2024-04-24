@@ -1,4 +1,5 @@
 using System;
+using Cheetah.Auth.Authentication;
 using Cheetah.Auth.Configuration;
 using Cheetah.Auth.Extensions;
 using Cheetah.Kafka.Configuration;
@@ -15,10 +16,6 @@ namespace Cheetah.Kafka.Extensions
     /// </summary>
     public static class ServiceCollectionExtensions
     {
-        /// <summary>
-        /// Default kafka key used to get required keyed services
-        /// </summary>
-        const string DefaultKafkaKey = "kafka";
         /// <summary>
         /// Registers and configures a KafkaClientFactory with the provided configuration for dependency injection, along with its required dependencies.
         /// </summary>
@@ -43,17 +40,21 @@ namespace Cheetah.Kafka.Extensions
             configuration.GetSection(KafkaConfig.Position).GetSection(nameof(KafkaConfig.OAuth2)).Bind(configOAuth);
             configOAuth.Validate();
 
-            serviceCollection.AddKeyedTokenService(DefaultKafkaKey, configOAuth);
+            serviceCollection.AddSingleton<ISerializerProvider>(options.SerializerProviderFactory);
+            
+            serviceCollection.AddKeyedTokenService(Constants.TokenServiceKey, configOAuth);
             
             serviceCollection.AddHostedService<StartUpKafkaTokenService>(
-                sp => new StartUpKafkaTokenService(sp.GetRequiredKeyedService<ITokenService>(DefaultKafkaKey))
+                sp => new StartUpKafkaTokenService(sp.GetRequiredKeyedService<ITokenService>(Constants.TokenServiceKey))
             );
 
             serviceCollection.AddSingleton<KafkaClientFactory>(sp =>
-                new KafkaClientFactory(sp.GetRequiredKeyedService<ITokenService>(DefaultKafkaKey),
+                new KafkaClientFactory(sp.GetRequiredKeyedService<ITokenService>(Constants.TokenServiceKey),
                     sp.GetRequiredService<ILoggerFactory>(),
                     sp.GetRequiredService<IOptions<KafkaConfig>>(),
-                    sp.GetRequiredService<KafkaClientFactoryOptions>()));
+                    sp.GetRequiredService<ClientFactoryOptions>(),
+                    sp.GetRequiredService<ISerializerProvider>()
+                    ));
 
             return new ClientInjector(serviceCollection);
         }

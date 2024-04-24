@@ -125,8 +125,6 @@ namespace Cheetah.Kafka.Extensions
             return optionsBuilder.Build(provider);
         }
         
-        
-
         private static KafkaClientFactory GetFactory(IServiceProvider provider) => provider.GetRequiredService<KafkaClientFactory>();
     }
 }

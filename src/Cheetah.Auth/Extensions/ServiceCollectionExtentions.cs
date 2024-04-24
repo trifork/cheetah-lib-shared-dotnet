@@ -1,4 +1,4 @@
-﻿using System.Net.Http;
+using System.Net.Http;
 using Cheetah.Auth.Authentication;
 using Cheetah.Auth.Configuration;
 using Microsoft.Extensions.Caching.Memory;

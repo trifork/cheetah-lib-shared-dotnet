@@ -32,19 +32,19 @@ namespace Cheetah.Kafka
         /// <summary>
         /// Creates a new instance of <see cref="KafkaClientFactory"/>
         /// </summary>
-        /// <param name="kafkaKafkaTokenService">The token service to use for kafka</param>
+        /// <param name="tokenService">The token service to use for kafka</param>
         /// <param name="loggerFactory">The logger factory used to create necessary loggers</param>
         /// <param name="config">The configuration to use when creating clients</param>
         /// <param name="options">The options to use when creating clients</param>
         /// <param name="serializerProvider"></param>
         public KafkaClientFactory(
-            [FromKeyedServices(Constants.TokenServiceKey)] ITokenService kafkaKafkaTokenService,
+            ITokenService tokenService,
             ILoggerFactory loggerFactory,
             IOptions<KafkaConfig> config,
             ClientFactoryOptions options,
             ISerializerProvider serializerProvider)
         {
-            _kafkaTokenService = kafkaKafkaTokenService;
+            _kafkaTokenService = tokenService;
             _loggerFactory = loggerFactory;
             _config = config.Value;
             _config.Validate();

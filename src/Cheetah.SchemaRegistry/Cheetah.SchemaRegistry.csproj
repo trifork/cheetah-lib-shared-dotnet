@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <AssemblyName>Cheetah.Kafka.Avro</AssemblyName>
@@ -16,7 +16,7 @@
 
     <ItemGroup>
       <PackageReference Include="Confluent.SchemaRegistry" Version="2.3.0" />
-      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
     </ItemGroup>
 
     <ItemGroup>

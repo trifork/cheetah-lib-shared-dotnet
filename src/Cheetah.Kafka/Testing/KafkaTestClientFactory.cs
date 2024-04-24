@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Text.RegularExpressions;
 using Cheetah.Auth.Authentication;
 using Cheetah.Auth.Util;
@@ -58,8 +58,9 @@ namespace Cheetah.Kafka.Testing
         {
             var config = Options.Create(configuration);
 
-            options ??= new KafkaClientFactoryOptions();
+            options ??= new ClientFactoryOptions();
             loggerFactory ??= LoggerFactory.Create(builder => builder.AddConsole());
+            serializerProvider ??= new Utf8SerializerProvider();
 
             tokenService ??= new CachedTokenProvider(configuration.OAuth2,
                 new OAuthTokenProvider(configuration.OAuth2, new DefaultHttpClientFactory()),
