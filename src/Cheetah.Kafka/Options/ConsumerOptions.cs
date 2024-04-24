@@ -3,11 +3,20 @@ using Confluent.Kafka;
 
 namespace Cheetah.Kafka
 {
+    /// <summary>
+    /// Represents options for configuring a Kafka consumer.
+    /// </summary>
+    /// <typeparam name="TKey">The type of the consumer key.</typeparam>
+    /// <typeparam name="TValue">The type of the consumer value.</typeparam>
     public class ConsumerOptions<TKey, TValue> : ClientOptions<ConsumerConfig, ConsumerBuilder<TKey, TValue>>
     {
         // TODO: Add Key Serializer
         internal IDeserializer<TValue>? Deserializer { get; private set; }
         
+        /// <summary>
+        /// Sets the deserializer for the consumer.
+        /// </summary>
+        /// <param name="deserializer">The deserializer to be used for the consumer.</param>
         public void SetDeserializer(IDeserializer<TValue> deserializer)
         {
             Deserializer = deserializer;
@@ -15,29 +24,54 @@ namespace Cheetah.Kafka
     
     }
 
+    /// <summary>
+    /// Builder for configuring <see cref="ConsumerOptions{TKey, TValue}"/>.
+    /// </summary>
+    /// <typeparam name="TKey">The type of the consumer key.</typeparam>
+    /// <typeparam name="TValue">The type of the consumer value.</typeparam>
     public class ConsumerOptionsBuilder<TKey, TValue> : IOptionsBuilder<ConsumerOptions<TKey, TValue>>
     {
         private readonly ConsumerOptions<TKey, TValue> _options = new ConsumerOptions<TKey, TValue>();
         private Func<IServiceProvider, IDeserializer<TValue>>? _deserializerFactory;
 
+        /// <summary>
+        /// Sets the deserializer factory method.
+        /// </summary>
+        /// <param name="deserializerFactory">The factory method for creating the deserializer.</param>
+        /// <returns>The builder instance.</returns>
         public ConsumerOptionsBuilder<TKey, TValue> SetDeserializer(Func<IServiceProvider, IDeserializer<TValue>> deserializerFactory)
         {
             _deserializerFactory = deserializerFactory;
             return this;
         }
     
+        /// <summary>
+        /// Configures the consumer with the provided action.
+        /// </summary>
+        /// <param name="configureAction">The action to configure the consumer.</param>
+        /// <returns>The builder instance.</returns>
         public ConsumerOptionsBuilder<TKey, TValue> ConfigureClient(Action<ConsumerConfig> configureAction)
         {
             _options.ConfigureClient(configureAction);
             return this;
         }
     
+        /// <summary>
+        /// Configures the consumer builder with the provided action.
+        /// </summary>
+        /// <param name="builderAction">The action to configure the consumer builder.</param>
+        /// <returns>The builder instance.</returns>
         public ConsumerOptionsBuilder<TKey, TValue> ConfigureBuilder(Action<ConsumerBuilder<TKey, TValue>> builderAction)
         {
             _options.ConfigureBuilder(builderAction);
             return this;
         }
     
+        /// <summary>
+        /// Builds the consumer options.
+        /// </summary>
+        /// <param name="serviceProvider">The service provider.</param>
+        /// <returns>The configured consumer options.</returns>
         public ConsumerOptions<TKey, TValue> Build(IServiceProvider serviceProvider)
         {
             if (_deserializerFactory != null)
@@ -47,6 +81,11 @@ namespace Cheetah.Kafka
         
             return _options;
         }
+        
+        /// <summary>
+        /// Builds the consumer options.
+        /// </summary>
+        /// <returns>The configured consumer options.</returns>
         public ConsumerOptions<TKey, TValue> Build()
         {
             return _options;

@@ -14,10 +14,7 @@ namespace Cheetah.Kafka
         private Action<AdminClientConfig> _defaultAdminClientConfigure = config => { };
 
         internal Action<ClientConfig> ClientConfigure { get; private set; } = config => { };
-
-        /// <summary>
-        /// 
-        /// </summary>
+        
         internal Func<IServiceProvider, ISerializerProvider> SerializerProviderFactory = Utf8SerializerProvider.FromServices();
         
         // This structure allows us to easily access the combined configuration for each client type
@@ -72,12 +69,22 @@ namespace Cheetah.Kafka
             return this;
         }
         
+        /// <summary>
+        /// Configures the default SerializerProviderFactory that will be used for all clients created by the factory
+        /// </summary>
+        /// <param name="serializerProviderFactory">The factory method for creating the default serializer provider.</param>
+        /// <returns>This <see cref="ClientFactoryOptions"/> instance for method chaining</returns>
         public ClientFactoryOptions ConfigureDefaultSerializerProvider(Func<IServiceProvider, ISerializerProvider> serializerProviderFactory)
         {
             SerializerProviderFactory = serializerProviderFactory;
             return this;
         }
         
+        /// <summary>
+        /// Configures the default serializerProvider that will be used for all clients created by the factory
+        /// </summary>
+        /// <param name="serializerProvider">The serializer provider to be used as default.</param>
+        /// <returns>This <see cref="ClientFactoryOptions"/> instance for method chaining</returns>
         public ClientFactoryOptions ConfigureDefaultSerializerProvider(ISerializerProvider serializerProvider)
         {
             SerializerProviderFactory = _ => serializerProvider;

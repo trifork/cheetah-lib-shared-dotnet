@@ -4,8 +4,7 @@
         <AssemblyName>Cheetah.Kafka</AssemblyName>
         <Authors>Trifork</Authors>
         <Description>Allows easy bootstrapping and connection to Kafka within the context of the Cheetah data platform</Description>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <NoWarn>1701;1702;1705;1591</NoWarn>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile> 
         <RepositoryUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</RepositoryUrl>
         <RootNamespace>Cheetah.Kafka</RootNamespace>
         <TargetFrameworks>net6.0;net8.0</TargetFrameworks>

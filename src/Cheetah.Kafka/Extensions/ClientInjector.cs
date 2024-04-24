@@ -11,6 +11,10 @@ namespace Cheetah.Kafka.Extensions
     {
         private readonly IServiceCollection _serviceCollection;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="ClientInjector"/>
+        /// </summary>
+        /// <param name="serviceCollection">The <see cref="IServiceCollection"/> to add the services to.</param>
         public ClientInjector(IServiceCollection serviceCollection)
         {
             _serviceCollection = serviceCollection;
