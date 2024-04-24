@@ -68,6 +68,9 @@ namespace Cheetah.OpenSearch.Extensions
             configOAuth.Validate();
             
             serviceCollection.AddKeyedTokenService(OpenSearchKey, configOAuth);
+            serviceCollection.AddHostedService<StartUpOpenSearchTokenService>(
+                sp => new StartUpOpenSearchTokenService(sp.GetRequiredKeyedService<ITokenService>(OpenSearchKey))
+            );
             serviceCollection.AddSingleton<IConnection, CheetahOpenSearchConnection>();
             return serviceCollection;
         }
