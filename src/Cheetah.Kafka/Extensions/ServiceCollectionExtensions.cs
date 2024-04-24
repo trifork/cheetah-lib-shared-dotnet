@@ -5,7 +5,8 @@ using Cheetah.Kafka.Configuration;
 using Cheetah.Kafka.Serialization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using static Cheetah.Auth.Extensions.ServiceCollectionExtensions;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Cheetah.Kafka.Extensions
 {
@@ -43,6 +44,10 @@ namespace Cheetah.Kafka.Extensions
             configOAuth.Validate();
 
             serviceCollection.AddKeyedTokenService(DefaultKafkaKey, configOAuth);
+            
+            serviceCollection.AddHostedService<StartUpKafkaTokenService>(
+                sp => new StartUpKafkaTokenService(sp.GetRequiredKeyedService<ITokenService>(DefaultKafkaKey))
+            );
 
             serviceCollection.AddSingleton<KafkaClientFactory>(sp =>
                 new KafkaClientFactory(sp.GetRequiredKeyedService<ITokenService>(DefaultKafkaKey),
