@@ -11,8 +11,16 @@ using Microsoft.Extensions.Options;
 
 namespace Cheetah.SchemaRegistry.Extensions
 {
+    /// <summary>
+    /// Provides extension methods for configuring Cheetah Schema Registry.
+    /// </summary>
     public static class ServiceCollectionExtensions
     {
+        /// <summary>
+        /// Adds Cheetah Schema Registry to the service collection.
+        /// </summary>
+        /// <param name="serviceCollection">The service collection to add the services to.</param>
+        /// <param name="configuration">The configuration containing Schema Registry settings.</param>
         public static void AddCheetahSchemaRegistry(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
             serviceCollection.AddOptionsWithValidateOnStart<SchemaConfig>()

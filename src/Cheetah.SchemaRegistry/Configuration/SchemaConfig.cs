@@ -6,8 +6,14 @@ using Confluent.SchemaRegistry;
 
 namespace Cheetah.SchemaRegistry.Configuration
 {
+    /// <summary>
+    /// SchemaConfig for IOptions
+    /// </summary>
     public class SchemaConfig
     {
+        /// <summary>
+        /// Prefix for options e.g. SchemaRegistry__
+        /// </summary>
         public const string Position = "SchemaRegistry";
     
         /// <summary>
