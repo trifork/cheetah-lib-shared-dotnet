@@ -1,5 +1,6 @@
 using System.Net.Http;
 using Cheetah.Auth.Authentication;
+using Microsoft.Extensions.DependencyInjection;
 using OpenSearch.Net;
 
 namespace Cheetah.OpenSearch.Connection
@@ -8,7 +9,7 @@ namespace Cheetah.OpenSearch.Connection
     {
         private readonly ITokenService _tokenService;
 
-        public CheetahOpenSearchConnection(ITokenService tokenService)
+        public CheetahOpenSearchConnection([FromKeyedServices("opensearch")]ITokenService tokenService)
         {
             this._tokenService = tokenService;
         }

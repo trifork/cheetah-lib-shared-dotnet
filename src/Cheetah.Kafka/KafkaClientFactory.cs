@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Cheetah.Auth.Authentication;
@@ -9,6 +9,7 @@ using Confluent.Kafka;
 using Confluent.Kafka.SyncOverAsync;
 using Confluent.SchemaRegistry;
 using Confluent.SchemaRegistry.Serdes;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -201,9 +202,7 @@ namespace Cheetah.Kafka
         // the configuration for the first client would be modified by the second client, and so on.
         private ClientConfig GetDefaultConfig() => _config.GetClientConfig();
 
-        private Func<
-            Task<(string AccessToken, long Expiration, string Principal)>
-        > GetTokenRetrievalFunction()
+        private Func<Task<(string AccessToken, long Expiration, string Principal)>> GetTokenRetrievalFunction()
         {
             return async () =>
             {

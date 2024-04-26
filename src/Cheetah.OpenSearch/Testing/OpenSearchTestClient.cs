@@ -1,4 +1,5 @@
-﻿using Cheetah.Auth.Authentication;
+﻿using System.Threading.Tasks;
+using Cheetah.Auth.Authentication;
 using Cheetah.Auth.Util;
 using Cheetah.OpenSearch.Configuration;
 using Cheetah.OpenSearch.Connection;
@@ -47,17 +48,16 @@ namespace Cheetah.OpenSearch.Testing
 
             var loggerFactory = new LoggerFactory();
             options ??= new OpenSearchClientOptions();
+            var optionsOAuth2 = Options.Create(configuration.OAuth2);
 
             IConnection? connection = null;
             if (configuration.AuthMode == OpenSearchConfig.OpenSearchAuthMode.OAuth2)
             {
-                var tokenService = new OAuth2TokenService(
-                    loggerFactory.CreateLogger<OAuth2TokenService>(),
-                    new DefaultHttpClientFactory(),
-                    new MemoryCache(new MemoryCacheOptions()),
-                    Options.Create(configuration.OAuth2),
-                    "opensearch-access-token"
-                );
+                var tokenService = new CachedTokenProvider(configuration.OAuth2,
+                    new OAuthTokenProvider(configuration.OAuth2, new DefaultHttpClientFactory()),
+                    loggerFactory.CreateLogger<CachedTokenProvider>());
+                Task.Run(() => tokenService.StartAsync());
+                
                 connection = new CheetahOpenSearchConnection(tokenService);
             }
 

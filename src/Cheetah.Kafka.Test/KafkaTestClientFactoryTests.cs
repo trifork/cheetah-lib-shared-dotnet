@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -47,7 +47,7 @@ public class KafkaTestClientFactoryTests
             "MyJsonTopic",
             "MyConsumerGroup"
         );
-
+        
         await writer.WriteAsync("Message4");
         var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(5));
         readMessages.Should().HaveCount(1);
@@ -206,85 +206,5 @@ public class KafkaTestClientFactoryTests
             );
     }
 
-    // TODO: Reintroduce these test on a different testing level
-    // [Theory]
-    // [InlineData("KAFKA:AUTHENDPOINT", false)]
-    // [InlineData("KAFKA:CLIENTID", false)]
-    // [InlineData("KAFKA:CLIENTSECRET", false)]
-    // [InlineData("KAFKA:URL", false)]
-    // [InlineData("KAFKA:SCHEMAREGISTRYURL", true)]
-    // public void Should_ThrowArgumentException_When_RequiredConfigurationIsMissing(string missingKey, bool isAvro)
-    // {
-    //     var configurationDictionary = new Dictionary<string, string?>
-    //     {
-    //         { "KAFKA:AUTHENDPOINT", "http://localhost:1752/oauth2/token" },
-    //         { "KAFKA:CLIENTID", "ClientId" },
-    //         { "KAFKA:CLIENTSECRET", "testsecret" },
-    //         { "KAFKA:URL", "localhost:9092" },
-    //         { "KAFKA:SCHEMAREGISTRYURL", "http://localhost:8081/apis/ccompat/v7" }
-    //     };
-    //
-    //     configurationDictionary.Remove(missingKey);
-    //
-    //     var invalidConfiguration = new ConfigurationBuilder()
-    //         .AddInMemoryCollection(configurationDictionary)
-    //         .Build();
-    //
-    //     var writerBuilder = KafkaWriterBuilder.Create<string, string>(invalidConfiguration)
-    //         .WithTopic("MyThrowingTopic")
-    //         .WithKeyFunction(message => message);
-    //
-    //     var readerBuilder = KafkaReaderBuilder.Create<string, string>(invalidConfiguration)
-    //         .WithTopic("MyThrowingTopic")
-    //         .WithConsumerGroup("MyConsumerGroup");
-    //
-    //     if (isAvro)
-    //     {
-    //         writerBuilder.UsingAvro();
-    //         readerBuilder.UsingAvro();
-    //     }
-    //
-    //     writerBuilder.Invoking(wb => wb.Build()).Should()
-    //         .Throw<ArgumentException>(
-    //             "the builder should not successfully build if required configuration is missing");
-    //     readerBuilder.Invoking(rb => rb.Build()).Should()
-    //         .Throw<ArgumentException>(
-    //             "the builder should not successfully build if required configuration is missing");
-    // }
-    //
-    // [Theory]
-    // [InlineData("https://")]
-    // [InlineData("http://")]
-    // [InlineData("ftp://")]
-    // [InlineData("ssh://")]
-    // [InlineData("://")]
-    // public void Should_ThrowArgumentException_When_KafkaUrlHasScheme(string kafkaUrlPrefix)
-    // {
-    //     var configurationDictionary = new Dictionary<string, string?>
-    //     {
-    //         { "KAFKA:AUTHENDPOINT", "http://localhost:1752/oauth2/token" },
-    //         { "KAFKA:CLIENTID", "ClientId" },
-    //         { "KAFKA:CLIENTSECRET", "testsecret" },
-    //         { "KAFKA:URL", kafkaUrlPrefix + "localhost:9092" },
-    //         { "KAFKA:SCHEMAREGISTRYURL", "http://localhost:8081/apis/ccompat/v7" }
-    //     };
-    //
-    //     var invalidConfiguration = new ConfigurationBuilder()
-    //         .AddInMemoryCollection(configurationDictionary)
-    //         .Build();
-    //     var writerBuilder = KafkaWriterBuilder.Create<string, string>(invalidConfiguration)
-    //         .WithTopic("MyThrowingTopic")
-    //         .WithKeyFunction(message => message);
-    //
-    //     var readerBuilder = KafkaReaderBuilder.Create<string, string>(invalidConfiguration)
-    //         .WithTopic("MyThrowingTopic")
-    //         .WithConsumerGroup("MyConsumerGroup");
-    //     writerBuilder.Invoking(wb => wb.Build()).Should()
-    //         .Throw<ArgumentException>(
-    //             "the builder should not successfully build if the kafka url has a scheme prefix");
-    //     readerBuilder.Invoking(rb => rb.Build()).Should()
-    //         .Throw<ArgumentException>(
-    //             "the builder should not successfully build if the kafka url has a scheme prefix");
-    // }
-    //
+    
 }

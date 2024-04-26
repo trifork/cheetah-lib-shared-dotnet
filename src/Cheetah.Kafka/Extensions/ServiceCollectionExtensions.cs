@@ -2,12 +2,14 @@
 using System.Net.Http;
 using Cheetah.Auth.Authentication;
 using Cheetah.Auth.Configuration;
+using Cheetah.Auth.Extensions;
 using Cheetah.Kafka.Configuration;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.VisualBasic;
 
 namespace Cheetah.Kafka.Extensions
 {
@@ -16,6 +18,10 @@ namespace Cheetah.Kafka.Extensions
     /// </summary>
     public static class ServiceCollectionExtensions
     {
+        /// <summary>
+        /// Default kafka key used to get required keyed services
+        /// </summary>
+        const string DefaultKafkaKey = "kafka";
         /// <summary>
         /// Registers and configures a KafkaClientFactory with the provided configuration for dependency injection, along with its required dependencies.
         /// </summary>
@@ -39,25 +45,22 @@ namespace Cheetah.Kafka.Extensions
             serviceCollection
                 .AddOptionsWithValidateOnStart<KafkaConfig>()
                 .Bind(configuration.GetSection(KafkaConfig.Position));
+            
+            var configOAuth = new OAuth2Config();
+            configuration.GetSection(KafkaConfig.Position).GetSection(nameof(KafkaConfig.OAuth2)).Bind(configOAuth);
+            configOAuth.Validate();
 
-            serviceCollection
-                .AddOptionsWithValidateOnStart<OAuth2Config>()
-                .Bind(
-                    configuration
-                        .GetSection(KafkaConfig.Position)
-                        .GetSection(nameof(KafkaConfig.OAuth2))
-                );
+            serviceCollection.AddKeyedTokenService(DefaultKafkaKey, configOAuth);
+            
+            serviceCollection.AddHostedService<StartUpKafkaTokenService>(
+                sp => new StartUpKafkaTokenService(sp.GetRequiredKeyedService<ITokenService>(DefaultKafkaKey))
+            );
 
-            serviceCollection.AddHttpClient<OAuth2TokenService>();
-            serviceCollection.AddMemoryCache();
-            serviceCollection.AddSingleton<ITokenService>(sp => new OAuth2TokenService(
-                sp.GetRequiredService<ILogger<OAuth2TokenService>>(),
-                sp.GetRequiredService<IHttpClientFactory>(),
-                sp.GetRequiredService<IMemoryCache>(),
-                sp.GetRequiredService<IOptions<OAuth2Config>>(),
-                "kafka-access-token"
-            ));
-            serviceCollection.AddSingleton<KafkaClientFactory>();
+            serviceCollection.AddSingleton<KafkaClientFactory>(sp =>
+                new KafkaClientFactory(sp.GetRequiredKeyedService<ITokenService>(DefaultKafkaKey),
+                    sp.GetRequiredService<ILoggerFactory>(),
+                    sp.GetRequiredService<IOptions<KafkaConfig>>(),
+                    sp.GetRequiredService<KafkaClientFactoryOptions>()));
 
             return new CheetahKafkaInjector(serviceCollection);
         }

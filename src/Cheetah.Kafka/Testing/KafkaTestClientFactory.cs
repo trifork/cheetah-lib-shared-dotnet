@@ -5,7 +5,6 @@ using Cheetah.Auth.Util;
 using Cheetah.Kafka.Configuration;
 using Cheetah.Kafka.Extensions;
 using Confluent.Kafka;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -58,16 +57,16 @@ namespace Cheetah.Kafka.Testing
         )
         {
             var config = Options.Create(configuration);
+
             options ??= new KafkaClientFactoryOptions();
             loggerFactory ??= LoggerFactory.Create(builder => builder.AddConsole());
-            tokenService ??= new OAuth2TokenService(
-                loggerFactory.CreateLogger<OAuth2TokenService>(),
-                new DefaultHttpClientFactory(),
-                new MemoryCache(new MemoryCacheOptions()),
-                Options.Create(configuration.OAuth2),
-                "kafka-test-client"
-            );
 
+            tokenService ??= new CachedTokenProvider(configuration.OAuth2,
+                new OAuthTokenProvider(configuration.OAuth2, new DefaultHttpClientFactory()),
+                loggerFactory.CreateLogger<CachedTokenProvider>());
+
+            tokenService.StartAsync();
+            
             var clientFactory = new KafkaClientFactory(
                 tokenService,
                 loggerFactory,

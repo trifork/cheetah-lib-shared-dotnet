@@ -32,12 +32,21 @@ namespace Cheetah.Auth.Configuration
         /// Optional scope to request when authenticating
         /// </summary>
         public string? Scope { get; set; }
-
+        
         /// <summary>
-        /// The number of seconds to allow for clock skew when validating tokens
+        /// The interval between retry attempts to get a token
         /// </summary>
-        /// <remarks>Default 300s / 5 minutes</remarks>
-        public int ClockSkewSeconds { get; set; } = 60 * 5;
+        public TimeSpan RetryInterval { get; set; } = TimeSpan.FromSeconds(1);
+        
+        /// <summary>
+        /// The time before the token's actual expiry when it should be refreshed.
+        /// </summary>
+        public TimeSpan EarlyRefresh { get; set; } = TimeSpan.FromSeconds(30);
+        
+        /// <summary>
+        /// The time before the token's actual expiry when it should be considered expired.
+        /// </summary>
+        public TimeSpan EarlyExpiry { get; set; } = TimeSpan.FromSeconds(5);
 
         /// <summary>
         /// Validates that configuration has minimum values

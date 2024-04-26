@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Cheetah.OpenSearch.Extensions;
 using Cheetah.OpenSearch.Test.Models;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using OpenSearch.Client;
 using Xunit;
 using Xunit.Abstractions;
@@ -47,6 +49,7 @@ namespace Cheetah.OpenSearch.Test.Integration
                 new List<KeyValuePair<string, string?>>
                 {
                     new("OPENSEARCH:AUTHMODE", "OAuth2"),
+                    new("OPENSEARCH:OAUTH2:TOKENENDPOINT", "http://localhost:1852/realms/local-development/protocol/openid-connect/token"),
                     new("OPENSEARCH:OAUTH2:CLIENTID", "default-access"),
                     new("OPENSEARCH:OAUTH2:CLIENTSECRET", "default-access-secret"),
                     new("OPENSEARCH:OAUTH2:SCOPE", "opensearch")
@@ -72,6 +75,19 @@ namespace Cheetah.OpenSearch.Test.Integration
                 .Build();
             var serviceProvider = CreateServiceProvider(configurationRoot);
             var client = serviceProvider.GetRequiredService<IOpenSearchClient>();
+            
+            
+            try
+            {
+                // Start the background service
+                var bgService = serviceProvider.GetRequiredService<IHostedService>();
+                await bgService.StartAsync(CancellationToken.None);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+            
             var indexName = Guid.NewGuid().ToString();
 
             var documents = new List<OpenSearchTestModel>
@@ -112,8 +128,7 @@ namespace Cheetah.OpenSearch.Test.Integration
         {
             var configurationDict = new Dictionary<string, string?>
             {
-                { "OPENSEARCH:URL", "http://localhost:9200" },
-                { "OPENSEARCH:OAUTH2:TOKENENDPOINT", "http://localhost:1852/realms/local-development/protocol/openid-connect/token " }
+                { "OPENSEARCH:URL", "http://localhost:9200" }
             };
 
             return new ConfigurationBuilder()
