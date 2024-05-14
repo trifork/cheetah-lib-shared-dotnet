@@ -1,10 +1,10 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:b7e18169-012f-4ebd-abe4-cddaf299903a",
+  "serialNumber": "urn:uuid:b332b147-d983-4e8c-8544-5e26c7555f53",
   "version": 1,
   "metadata": {
-    "timestamp": "2024-05-06T10:03:00Z",
+    "timestamp": "2024-05-14T08:17:36Z",
     "tools": {
       "components": [
         {
@@ -4335,12 +4335,12 @@
       "author": "Confluent Inc.,Andreas Heider",
       "group": "",
       "name": "Confluent.Kafka",
-      "version": "2.3.0",
+      "version": "2.4.0",
       "description": "Confluent's .NET Client for Apache Kafka",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "25205737f5fb6c1352f766e0669f36bf5a13e7c930f67769292182e558042de33f1e05d44ecb05906de010f10677770e21ae4c30948b7bafa0630cf38dd0093f"
+          "content": "df1ac4f125122cdd749259036971410225f14dcfb6c0c7dfbe3719dd1532bcea36724691259ddd63bca3b3a47b6adefeb63522baad8e9724e211a57a1bdcc51c"
         }
       ],
       "licenses": [
@@ -4351,11 +4351,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Confluent.Kafka@2.3.0",
+      "purl": "pkg:nuget/Confluent.Kafka@2.4.0",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Confluent.Kafka/2.3.0/"
+          "url": "https://www.nuget.org/packages/Confluent.Kafka/2.4.0/"
         },
         {
           "type": "vcs",
@@ -4363,7 +4363,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Confluent.Kafka@2.3.0",
+      "bom-ref": "pkg:nuget/Confluent.Kafka@2.4.0",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -4392,12 +4392,12 @@
       "author": "Confluent Inc.",
       "group": "",
       "name": "Confluent.SchemaRegistry",
-      "version": "2.3.0",
+      "version": "2.4.0",
       "description": "A .NET Client for Confluent Schema Registry",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "0e6a6e05eec49c3fb847afc5d4fb9c2f5780b90774bbc3a0fbe47666840d193f48c9149d0fab112b1cc679e348de0c11326bc20f12558d63e30c24a2ed068806"
+          "content": "34120f3af563be669275651ff89f22826b464499ac551888e42c07766bb3fb30136b02c58310cd27124f8696182c99cb939d38c2b8c0cbc2667968e41db8aa34"
         }
       ],
       "licenses": [
@@ -4408,11 +4408,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Confluent.SchemaRegistry@2.3.0",
+      "purl": "pkg:nuget/Confluent.SchemaRegistry@2.4.0",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Confluent.SchemaRegistry/2.3.0/"
+          "url": "https://www.nuget.org/packages/Confluent.SchemaRegistry/2.4.0/"
         },
         {
           "type": "vcs",
@@ -4420,7 +4420,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Confluent.SchemaRegistry@2.3.0",
+      "bom-ref": "pkg:nuget/Confluent.SchemaRegistry@2.4.0",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -4449,12 +4449,12 @@
       "author": "Confluent Inc.",
       "group": "",
       "name": "Confluent.SchemaRegistry.Serdes.Avro",
-      "version": "2.3.0",
+      "version": "2.4.0",
       "description": "Provides an Avro Serializer and Deserializer for use with Confluent.Kafka with Confluent Schema Registry integration",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "b550df92d3978dd55d7ac2f78388a620756268f2be0b1b67b8f50428a259587a3e2b43de5ea7fed2693d64c2f9727f51a3b8845cc100752551eeff40a49c9a29"
+          "content": "f3dc5b4666619b197b25d5de780224bfc03042cba7ee4a0044c1c882258830331f5609b2358a569502b8d5713267ff24215fc7510b84b5964b621db78256e974"
         }
       ],
       "licenses": [
@@ -4465,11 +4465,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.3.0",
+      "purl": "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.4.0",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Confluent.SchemaRegistry.Serdes.Avro/2.3.0/"
+          "url": "https://www.nuget.org/packages/Confluent.SchemaRegistry.Serdes.Avro/2.4.0/"
         },
         {
           "type": "vcs",
@@ -4477,7 +4477,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.3.0",
+      "bom-ref": "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.4.0",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -4506,12 +4506,12 @@
       "author": "Magnus Edenhill, edenhill",
       "group": "",
       "name": "librdkafka.redist",
-      "version": "2.3.0",
+      "version": "2.4.0",
       "description": "The Apache Kafka C/C++ client library - redistributable",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "a47e73159d12e7a5a5e947d19260c93760231e53dd571953b249dc1672f6ecb2c642eb98d9d014f18ad906476e04ec2ce2d5114b64da4e9d5a3ec637a9e2746f"
+          "content": "baa8b5b0d7b42c4579d296176779983497d9145d559ac67a9bcc1ba56ba00003cecce717f0524fe453a12cca14295162b9e9c11f6bfccd5061b7b7f5442b37ac"
         }
       ],
       "licenses": [
@@ -4522,11 +4522,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/librdkafka.redist@2.3.0",
+      "purl": "pkg:nuget/librdkafka.redist@2.4.0",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/librdkafka.redist/2.3.0/"
+          "url": "https://www.nuget.org/packages/librdkafka.redist/2.4.0/"
         },
         {
           "type": "vcs",
@@ -4534,7 +4534,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/librdkafka.redist@2.3.0",
+      "bom-ref": "pkg:nuget/librdkafka.redist@2.4.0",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -8640,7 +8640,7 @@
       "dependsOn": [
         "pkg:nuget/Cheetah.Kafka@0.3.0",
         "pkg:nuget/Cheetah.OpenSearch@0.4.0",
-        "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.3.0",
+        "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.4.0",
         "pkg:nuget/Microsoft.Extensions.Caching.Memory@8.0.0",
         "pkg:nuget/Microsoft.Extensions.Hosting@8.0.0",
         "pkg:nuget/Microsoft.Extensions.Http@8.0.0"
@@ -8658,33 +8658,33 @@
       ]
     },
     {
-      "ref": "pkg:nuget/Confluent.Kafka@2.3.0",
+      "ref": "pkg:nuget/Confluent.Kafka@2.4.0",
       "dependsOn": [
         "pkg:nuget/System.Memory@4.5.0",
-        "pkg:nuget/librdkafka.redist@2.3.0"
+        "pkg:nuget/librdkafka.redist@2.4.0"
       ]
     },
     {
-      "ref": "pkg:nuget/Confluent.SchemaRegistry@2.3.0",
+      "ref": "pkg:nuget/Confluent.SchemaRegistry@2.4.0",
       "dependsOn": [
-        "pkg:nuget/Confluent.Kafka@2.3.0",
+        "pkg:nuget/Confluent.Kafka@2.4.0",
         "pkg:nuget/Newtonsoft.Json@13.0.1",
         "pkg:nuget/Newtonsoft.Json@13.0.3",
         "pkg:nuget/System.Net.Http@4.3.4"
       ]
     },
     {
-      "ref": "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.3.0",
+      "ref": "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.4.0",
       "dependsOn": [
         "pkg:nuget/Apache.Avro@1.11.0",
-        "pkg:nuget/Confluent.Kafka@2.3.0",
-        "pkg:nuget/Confluent.SchemaRegistry@2.3.0",
+        "pkg:nuget/Confluent.Kafka@2.4.0",
+        "pkg:nuget/Confluent.SchemaRegistry@2.4.0",
         "pkg:nuget/System.Net.NameResolution@4.3.0",
         "pkg:nuget/System.Net.Sockets@4.3.0"
       ]
     },
     {
-      "ref": "pkg:nuget/librdkafka.redist@2.3.0",
+      "ref": "pkg:nuget/librdkafka.redist@2.4.0",
       "dependsOn": []
     },
     {
@@ -9248,8 +9248,8 @@
       "ref": "pkg:nuget/Cheetah.Kafka@0.3.0",
       "dependsOn": [
         "pkg:nuget/Cheetah.Auth@1.0.0",
-        "pkg:nuget/Confluent.Kafka@2.3.0",
-        "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.3.0",
+        "pkg:nuget/Confluent.Kafka@2.4.0",
+        "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.4.0",
         "pkg:nuget/Microsoft.Extensions.Caching.Memory@8.0.0",
         "pkg:nuget/Microsoft.Extensions.Configuration@8.0.0",
         "pkg:nuget/Microsoft.Extensions.DependencyInjection@8.0.0",
