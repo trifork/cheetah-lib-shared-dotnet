@@ -25,7 +25,7 @@ namespace Cheetah.Kafka.Avro
         {
             return serviceProvider => new AvroSerializerProvider(serviceProvider.GetRequiredService<ISchemaRegistryClient>(), serializerConfig);
         }
-    
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AvroSerializerProvider"/> class.
         /// </summary>
@@ -44,7 +44,7 @@ namespace Cheetah.Kafka.Avro
         /// <returns>An instance of <see cref="AvroSerializer{T}"/>.</returns>
         public ISerializer<T> GetSerializer<T>()
         {
-            return new AvroSerializer<T>(_schemaRegistryClient, _serializerConfig).AsSyncOverAsync();  
+            return new AvroSerializer<T>(_schemaRegistryClient, _serializerConfig).AsSyncOverAsync();
         }
 
         /// <summary>

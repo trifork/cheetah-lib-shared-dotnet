@@ -20,7 +20,8 @@ namespace Cheetah.Kafka.Avro
         /// <returns>A function that creates an Avro serializer instance.</returns>
         public static Func<IServiceProvider, ISerializer<T>> FromServices<T>(AvroSerializerConfig? serializerConfig = null)
         {
-            return serviceProvider => {
+            return serviceProvider =>
+            {
                 var client = serviceProvider.GetRequiredService<ISchemaRegistryClient>();
                 return new AvroSerializer<T>(client, serializerConfig).AsSyncOverAsync();
             };

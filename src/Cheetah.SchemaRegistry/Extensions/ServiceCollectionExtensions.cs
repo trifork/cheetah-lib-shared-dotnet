@@ -25,18 +25,18 @@ namespace Cheetah.SchemaRegistry.Extensions
         {
             serviceCollection.AddOptionsWithValidateOnStart<SchemaConfig>()
                 .Bind(configuration.GetSection(SchemaConfig.Position));
-        
+
             var configOAuth = new OAuth2Config();
             configuration.GetSection(SchemaConfig.Position).GetSection(nameof(SchemaConfig.OAuth2)).Bind(configOAuth);
             configOAuth.Validate();
-            
+
             serviceCollection.AddKeyedTokenService(Constants.TokenServiceKey, configOAuth);
-            
+
             serviceCollection.AddHostedService<StartUpSchemaRegistryTokenService>(
                 sp => new StartUpSchemaRegistryTokenService(sp.GetRequiredKeyedService<ITokenService>(Constants.TokenServiceKey))
             );
-            
-            serviceCollection.AddSingleton<ISchemaRegistryClient>(serviceProvider => 
+
+            serviceCollection.AddSingleton<ISchemaRegistryClient>(serviceProvider =>
             {
                 var authHeaderValueProvider = new OAuthHeaderValueProvider(serviceProvider.GetRequiredKeyedService<ITokenService>(Constants.TokenServiceKey));
                 var schemaConfig = serviceProvider.GetRequiredService<IOptions<SchemaConfig>>().Value;

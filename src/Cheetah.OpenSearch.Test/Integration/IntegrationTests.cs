@@ -33,20 +33,20 @@ namespace Cheetah.OpenSearch.Test.Integration
             List<KeyValuePair<string, string?>>
         > TestConfigurationActions()
         {
-            var testCases = new TheoryData<string, List<KeyValuePair<string, string?>>>();
-            testCases.Add(
-                "Basic Auth",
-                new List<KeyValuePair<string, string?>>
+            var testCases = new TheoryData<string, List<KeyValuePair<string, string?>>>
+            {
+                {
+                    "Basic Auth",
+                    new List<KeyValuePair<string, string?>>
                 {
                     new("OPENSEARCH:AUTHMODE", "Basic"),
                     new("OPENSEARCH:USERNAME", "admin"),
                     new("OPENSEARCH:PASSWORD", "admin")
                 }
-            );
-
-            testCases.Add(
-                "OAuth2",
-                new List<KeyValuePair<string, string?>>
+                },
+                {
+                    "OAuth2",
+                    new List<KeyValuePair<string, string?>>
                 {
                     new("OPENSEARCH:AUTHMODE", "OAuth2"),
                     new("OPENSEARCH:OAUTH2:TOKENENDPOINT", "http://localhost:1852/realms/local-development/protocol/openid-connect/token"),
@@ -54,7 +54,8 @@ namespace Cheetah.OpenSearch.Test.Integration
                     new("OPENSEARCH:OAUTH2:CLIENTSECRET", "default-access-secret"),
                     new("OPENSEARCH:OAUTH2:SCOPE", "opensearch")
                 }
-            );
+                }
+            };
 
             return testCases;
         }
@@ -75,8 +76,8 @@ namespace Cheetah.OpenSearch.Test.Integration
                 .Build();
             var serviceProvider = CreateServiceProvider(configurationRoot);
             var client = serviceProvider.GetRequiredService<IOpenSearchClient>();
-            
-            
+
+
             try
             {
                 // Start the background service
@@ -87,7 +88,7 @@ namespace Cheetah.OpenSearch.Test.Integration
             {
                 // ignored
             }
-            
+
             var indexName = Guid.NewGuid().ToString();
 
             var documents = new List<OpenSearchTestModel>

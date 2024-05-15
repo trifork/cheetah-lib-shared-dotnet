@@ -9,12 +9,14 @@ namespace Cheetah.OpenSearch.Connection
     {
         private readonly ITokenService _tokenService;
 
-        public CheetahOpenSearchConnection([FromKeyedServices("opensearch")]ITokenService tokenService)
+        public CheetahOpenSearchConnection([FromKeyedServices("opensearch")] ITokenService tokenService)
         {
-            this._tokenService = tokenService;
+            _tokenService = tokenService;
         }
 
-        protected override HttpMessageHandler CreateHttpClientHandler(RequestData requestData) =>
-            new OAuth2HttpMessageHandler(_tokenService, base.CreateHttpClientHandler(requestData));
+        protected override HttpMessageHandler CreateHttpClientHandler(RequestData requestData)
+        {
+            return new OAuth2HttpMessageHandler(_tokenService, base.CreateHttpClientHandler(requestData));
+        }
     }
 }

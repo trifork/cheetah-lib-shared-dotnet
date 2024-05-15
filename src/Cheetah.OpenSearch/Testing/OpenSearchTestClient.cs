@@ -4,7 +4,6 @@ using Cheetah.Auth.Util;
 using Cheetah.OpenSearch.Configuration;
 using Cheetah.OpenSearch.Connection;
 using Cheetah.OpenSearch.Extensions;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -56,8 +55,8 @@ namespace Cheetah.OpenSearch.Testing
                 var tokenService = new CachedTokenProvider(configuration.OAuth2,
                     new OAuthTokenProvider(configuration.OAuth2, new DefaultHttpClientFactory()),
                     loggerFactory.CreateLogger<CachedTokenProvider>());
-                Task.Run(() => tokenService.StartAsync());
-                
+                Task.Run(tokenService.StartAsync);
+
                 connection = new CheetahOpenSearchConnection(tokenService);
             }
 

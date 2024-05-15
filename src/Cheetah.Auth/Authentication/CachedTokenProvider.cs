@@ -3,10 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cheetah.Auth.Configuration;
 using IdentityModel.Client;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace Cheetah.Auth.Authentication
 {
@@ -25,7 +22,7 @@ namespace Cheetah.Auth.Authentication
         private readonly TimeSpan _earlyExpiry;
         readonly CancellationTokenSource _cts = new();
         private TokenWithExpiry? _token;
-        
+
         /// <summary>
         /// Create a new instance of <see cref="CachedTokenProvider"/>.
         /// </summary>
@@ -72,7 +69,7 @@ namespace Cheetah.Auth.Authentication
                 while (!_cts.Token.IsCancellationRequested)
                 {
                     _token = await FetchTokenAsync();
-                    await Task.Delay(TimeSpan.FromSeconds(GetExpiryInSeconds()).Subtract(_earlyRefresh)); 
+                    await Task.Delay(TimeSpan.FromSeconds(GetExpiryInSeconds()).Subtract(_earlyRefresh));
                 }
             }
             catch (OAuth2TokenException e)
@@ -85,27 +82,27 @@ namespace Cheetah.Auth.Authentication
         private async Task<TokenWithExpiry> FetchTokenAsync()
         {
             _logger.LogInformation($"Fetching new token for service: {DateTimeOffset.UtcNow}");
-            for (int retries = 0;; retries++)
+            for (int retries = 0; ; retries++)
             {
                 if (retries > 0)
                 {
                     _logger.LogWarning($"Unable to fetch OAuth token. Retrying in {retries}.");
                     await Task.Delay(_retryInterval);
                 }
-                
+
                 TokenResponse? token = await FetchTokenOrNullAsync(_cts.Token);
 
                 if (token == null) continue;
-                
+
                 if (!token.IsError)
                 {
                     return new TokenWithExpiry(token.AccessToken, DateTimeOffset.UtcNow.AddSeconds(token.ExpiresIn));
                 }
-                
+
                 _logger.LogWarning("Failed to retrieve token with following error message: " + token.Error);
             }
         }
-        
+
         private async Task<TokenResponse?> FetchTokenOrNullAsync(CancellationToken cancellationToken)
         {
             try
@@ -156,12 +153,12 @@ namespace Cheetah.Auth.Authentication
                 return (_token.Expires - DateTimeOffset.UtcNow).TotalSeconds;
             return 0;
         }
-        
+
         /// <summary>
         /// Disposes of the token provider and cancels the token refresh loop.
         /// </summary>
         public void Dispose()
-        { 
+        {
             _cts.Dispose();
         }
     }

@@ -1,15 +1,11 @@
 using System;
-using System.Net.Http;
 using Cheetah.Auth.Authentication;
 using Cheetah.Auth.Configuration;
 using Cheetah.Auth.Extensions;
 using Cheetah.OpenSearch.Configuration;
 using Cheetah.OpenSearch.Connection;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using OpenSearch.Client;
 using OpenSearch.Net;
 
@@ -66,7 +62,7 @@ namespace Cheetah.OpenSearch.Extensions
             var configOAuth = new OAuth2Config();
             configuration.GetSection(OpenSearchConfig.Position).GetSection(nameof(OpenSearchConfig.OAuth2)).Bind(configOAuth);
             configOAuth.Validate();
-            
+
             serviceCollection.AddKeyedTokenService(OpenSearchKey, configOAuth);
             serviceCollection.AddHostedService<StartUpOpenSearchTokenService>(
                 sp => new StartUpOpenSearchTokenService(sp.GetRequiredKeyedService<ITokenService>(OpenSearchKey))

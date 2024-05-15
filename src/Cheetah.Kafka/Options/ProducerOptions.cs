@@ -1,6 +1,5 @@
 ﻿using System;
 using Confluent.Kafka;
-using Microsoft.Extensions.Options;
 
 namespace Cheetah.Kafka
 {
@@ -13,7 +12,7 @@ namespace Cheetah.Kafka
     {
         // TODO: Add Key Serializer
         internal ISerializer<TValue>? Serializer { get; private set; }
-        
+
         /// <summary>
         /// Sets the serializer for the producer.
         /// </summary>
@@ -44,7 +43,7 @@ namespace Cheetah.Kafka
             _serializerFactory = serializerFactory;
             return this;
         }
-    
+
         /// <summary>
         /// Configures the producer with the provided action.
         /// </summary>
@@ -55,7 +54,7 @@ namespace Cheetah.Kafka
             _options.ConfigureClient(configureAction);
             return this;
         }
-    
+
         /// <summary>
         /// Configures the producer builder with the provided action.
         /// </summary>
@@ -66,7 +65,7 @@ namespace Cheetah.Kafka
             _options.ConfigureBuilder(builderAction);
             return this;
         }
-    
+
         // TODO: This should probably be internal, but we can't implement an interface with internal methods.
         // TODO: Has to be replaced with abstract base + specializations if we want to do that.
         /// <summary>
@@ -80,10 +79,10 @@ namespace Cheetah.Kafka
             {
                 _options.SetSerializer(_serializerFactory.Invoke(serviceProvider));
             }
-        
+
             return _options;
         }
-        
+
         /// <summary>
         /// Builds the producer options.
         /// </summary>
@@ -92,6 +91,6 @@ namespace Cheetah.Kafka
         {
             return _options;
         }
-        
+
     }
 }

@@ -12,7 +12,7 @@ namespace Cheetah.Kafka
     {
         // TODO: Add Key Serializer
         internal IDeserializer<TValue>? Deserializer { get; private set; }
-        
+
         /// <summary>
         /// Sets the deserializer for the consumer.
         /// </summary>
@@ -21,7 +21,7 @@ namespace Cheetah.Kafka
         {
             Deserializer = deserializer;
         }
-    
+
     }
 
     /// <summary>
@@ -44,7 +44,7 @@ namespace Cheetah.Kafka
             _deserializerFactory = deserializerFactory;
             return this;
         }
-    
+
         /// <summary>
         /// Configures the consumer with the provided action.
         /// </summary>
@@ -55,7 +55,7 @@ namespace Cheetah.Kafka
             _options.ConfigureClient(configureAction);
             return this;
         }
-    
+
         /// <summary>
         /// Configures the consumer builder with the provided action.
         /// </summary>
@@ -66,7 +66,7 @@ namespace Cheetah.Kafka
             _options.ConfigureBuilder(builderAction);
             return this;
         }
-    
+
         /// <summary>
         /// Builds the consumer options.
         /// </summary>
@@ -78,10 +78,10 @@ namespace Cheetah.Kafka
             {
                 _options.SetDeserializer(_deserializerFactory.Invoke(serviceProvider));
             }
-        
+
             return _options;
         }
-        
+
         /// <summary>
         /// Builds the consumer options.
         /// </summary>

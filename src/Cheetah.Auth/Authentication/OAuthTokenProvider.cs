@@ -1,11 +1,8 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Cheetah.Auth.Configuration;
 using IdentityModel.Client;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Logging;
 
 namespace Cheetah.Auth.Authentication
 {
@@ -15,7 +12,7 @@ namespace Cheetah.Auth.Authentication
     public class OAuthTokenProvider : ICachableTokenProvider
     {
         readonly IHttpClientFactory _httpClientFactory;
-        
+
         private readonly OAuth2Config _config;
 
         /// <summary>

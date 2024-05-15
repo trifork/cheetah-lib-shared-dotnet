@@ -39,19 +39,19 @@ namespace Cheetah.Kafka.Testing
         /// <returns></returns>
         public static KafkaTestClientFactory Create(IConfiguration configuration,
             ClientFactoryOptions? options = null,
-            ITokenService? tokenService = null, 
+            ITokenService? tokenService = null,
             ILoggerFactory? loggerFactory = null)
         {
             var config = new KafkaConfig();
             configuration.Bind(KafkaConfig.Position, config);
             return Create(config, options, tokenService, loggerFactory);
         }
-        
+
         /// <inheritdoc cref="Create(Microsoft.Extensions.Configuration.IConfiguration,ClientFactoryOptions?,Cheetah.Auth.Authentication.ITokenService?,Microsoft.Extensions.Logging.ILoggerFactory?)"/>
         public static KafkaTestClientFactory Create(
             KafkaConfig configuration,
             ClientFactoryOptions? options = null,
-            ITokenService? tokenService = null, 
+            ITokenService? tokenService = null,
             ILoggerFactory? loggerFactory = null,
             ISerializerProvider? serializerProvider = null)
         {
@@ -66,7 +66,7 @@ namespace Cheetah.Kafka.Testing
                 loggerFactory.CreateLogger<CachedTokenProvider>());
 
             tokenService.StartAsync();
-            
+
             var clientFactory = new KafkaClientFactory(
                 tokenService,
                 loggerFactory,
@@ -121,7 +121,7 @@ namespace Cheetah.Kafka.Testing
         {
             return CreateAvroTestWriter<Null, T>(topic, _ => null!);
         }
-        
+
         /// <inheritdoc cref="CreateTestWriter{TKey, T}"/>
         /// <summary>
         /// Creates an <see cref="IKafkaTestWriter{TKey, T}"/> for the provided topic, which serializes messages using Avro.
@@ -132,7 +132,7 @@ namespace Cheetah.Kafka.Testing
         )
         {
             ValidateTopic(topic);
-            
+
             var producer = ClientFactory.CreateAvroProducer<TKey, T>();
             return new KafkaTestWriter<TKey, T>(producer, keyFunction, topic);
         }
@@ -163,7 +163,7 @@ namespace Cheetah.Kafka.Testing
             groupId ??= Guid.NewGuid().ToString();
             var consumerOptionsBuilder = new ConsumerOptionsBuilder<TKey, T>();
             consumerOptionsBuilder.ConfigureClient(DefaultReaderConfiguration(groupId));
-            
+
             var consumer = ClientFactory.CreateConsumer<TKey, T>(
                 consumerOptionsBuilder.Build()
             );
@@ -178,7 +178,7 @@ namespace Cheetah.Kafka.Testing
         {
             return CreateAvroTestReader<Null, T>(topic, groupId);
         }
-        
+
         /// <inheritdoc cref="CreateTestReader{TKey, T}"/>
         /// <summary>
         /// Creates an <see cref="IKafkaTestReader{T}"/> for the provided topic, which deserializes messages using Avro.
@@ -190,10 +190,10 @@ namespace Cheetah.Kafka.Testing
         {
             ValidateTopic(topic);
             groupId ??= Guid.NewGuid().ToString();
-            
+
             var consumerOptionsBuilder = new ConsumerOptionsBuilder<TKey, T>();
             consumerOptionsBuilder.ConfigureClient(DefaultReaderConfiguration(groupId));
-        
+
             var consumer = ClientFactory.CreateAvroConsumer<TKey, T>(
                 consumerOptionsBuilder.Build()
             );

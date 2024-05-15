@@ -14,14 +14,14 @@ namespace Cheetah.Kafka
         private Action<AdminClientConfig> _defaultAdminClientConfigure = config => { };
 
         internal Action<ClientConfig> ClientConfigure { get; private set; } = config => { };
-        
+
         internal Func<IServiceProvider, ISerializerProvider> SerializerProviderFactory = Utf8SerializerProvider.FromServices();
-        
+
         // This structure allows us to easily access the combined configuration for each client type
         internal Action<ProducerConfig> ProducerConfigure => MergeActions(ClientConfigure, _defaultProducerConfigure);
         internal Action<ConsumerConfig> ConsumerConfigure => MergeActions(ClientConfigure, _defaultConsumerConfigure);
         internal Action<AdminClientConfig> AdminClientConfigure => MergeActions(ClientConfigure, _defaultAdminClientConfigure);
-        
+
         /// <summary>
         /// Configures the default <see cref="ClientConfig"/> that will be used for all clients created by the factory
         /// </summary>
@@ -68,7 +68,7 @@ namespace Cheetah.Kafka
             _defaultAdminClientConfigure = configure;
             return this;
         }
-        
+
         /// <summary>
         /// Configures the default SerializerProviderFactory that will be used for all clients created by the factory
         /// </summary>
@@ -79,7 +79,7 @@ namespace Cheetah.Kafka
             SerializerProviderFactory = serializerProviderFactory;
             return this;
         }
-        
+
         /// <summary>
         /// Configures the default serializerProvider that will be used for all clients created by the factory
         /// </summary>
@@ -90,7 +90,7 @@ namespace Cheetah.Kafka
             SerializerProviderFactory = _ => serializerProvider;
             return this;
         }
-        
+
         /// <summary>
         /// Merges multiple <see cref="Action{T}"/> into a single <see cref="Action{T}"/>
         /// </summary>

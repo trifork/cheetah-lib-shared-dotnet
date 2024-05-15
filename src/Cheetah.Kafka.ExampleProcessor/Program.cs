@@ -1,17 +1,10 @@
 // See https://aka.ms/new-console-template for more information
 
-using Cheetah.Auth.Authentication;
-using Cheetah.Auth.Extensions;
-using Cheetah.Kafka;
 using Cheetah.Kafka.Avro;
 using Cheetah.Kafka.ExampleProcessor.Models;
 using Cheetah.Kafka.ExampleProcessor.Services;
 using Cheetah.Kafka.Extensions;
-using Cheetah.Kafka.Serialization;
-using Cheetah.Kafka.Util;
-using Cheetah.SchemaRegistry;
 using Cheetah.SchemaRegistry.Extensions;
-using Confluent.SchemaRegistry.Serdes;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

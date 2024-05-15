@@ -8,7 +8,7 @@ namespace Cheetah.Kafka
     /// </summary>
     public class AdminClientOptions : ClientOptions<AdminClientConfig, AdminClientBuilder>
     {
-        
+
     }
 
     /// <summary>
@@ -28,7 +28,7 @@ namespace Cheetah.Kafka
             _options.ConfigureClient(configureAction);
             return this;
         }
-    
+
         /// <summary>
         /// Configures the admin client builder with the provided action.
         /// </summary>
@@ -39,7 +39,7 @@ namespace Cheetah.Kafka
             _options.ConfigureBuilder(builderAction);
             return this;
         }
-    
+
         /// <summary>
         /// Builds the admin client options.
         /// </summary>

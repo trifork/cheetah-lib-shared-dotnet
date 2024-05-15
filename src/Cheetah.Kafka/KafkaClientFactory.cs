@@ -10,10 +10,8 @@ using Confluent.Kafka;
 using Confluent.Kafka.SyncOverAsync;
 using Confluent.SchemaRegistry;
 using Confluent.SchemaRegistry.Serdes;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Cheetah.Kafka
 {
@@ -72,22 +70,22 @@ namespace Cheetah.Kafka
         /// <returns>A pre-configured <see cref="ProducerBuilder{TKey, TValue}"/></returns>
         public ProducerBuilder<TKey, TValue> CreateProducerBuilder<TKey, TValue>(ProducerOptions<TKey, TValue>? producerOptions = null)
         {
-            
+
             var configInstance = new ProducerConfig(GetDefaultConfig());
             _options.ProducerConfigure(configInstance);
-            
+
             var builder = new ProducerBuilder<TKey, TValue>(configInstance);
 
             producerOptions ??= new ProducerOptions<TKey, TValue>();
             producerOptions.ConfigureAction?.Invoke(configInstance);
             producerOptions.BuilderAction?.Invoke(builder);
             var serializer = producerOptions.Serializer ?? _serializerProvider.GetSerializer<TValue>();
-            
+
             return builder
                 .AddCheetahOAuthentication(GetTokenRetrievalFunction(), _loggerFactory.CreateLogger<IProducer<TKey, TValue>>())
                 .SetValueSerializer(serializer);
         }
-        
+
         /// <summary>
         /// Creates a pre-configured <see cref="IProducer{TKey,TValue}"/> using a AvroSerializer as default/>
         /// </summary>
@@ -115,14 +113,14 @@ namespace Cheetah.Kafka
             {
                 return CreateProducerBuilder(producerOptions);
             }
-            
+
             var authHeaderValueProvider = new OAuthHeaderValueProvider(_kafkaTokenService);
             producerOptions.SetSerializer(
                 new AvroSerializer<TValue>(new CachedSchemaRegistryClient(_config.GetSchemaRegistryConfig(), authHeaderValueProvider)).AsSyncOverAsync());
 
             return CreateProducerBuilder(producerOptions);
         }
-        
+
         /// <summary>
         /// Creates a pre-configured <see cref="IConsumer{TKey,TValue}"/>/>
         /// </summary>
@@ -144,18 +142,18 @@ namespace Cheetah.Kafka
         {
             var config = new ConsumerConfig(GetDefaultConfig());
             _options.ConsumerConfigure(config);
-            
+
             var builder = new ConsumerBuilder<TKey, TValue>(config);
             consumerOptions ??= new ConsumerOptions<TKey, TValue>();
             consumerOptions.ConfigureAction?.Invoke(config);
             consumerOptions.BuilderAction?.Invoke(builder);
             var deserializer = consumerOptions.Deserializer ?? _serializerProvider.GetDeserializer<TValue>();
-            
+
             return builder
                 .AddCheetahOAuthentication(GetTokenRetrievalFunction(), _loggerFactory.CreateLogger<IConsumer<TKey, TValue>>())
                 .SetValueDeserializer(deserializer);
         }
-        
+
         /// <summary>
         /// Creates a pre-configured <see cref="ConsumerBuilder{TKey,TValue}"/> using a AvroDeserializer as default/>
         /// </summary>
@@ -167,7 +165,7 @@ namespace Cheetah.Kafka
         {
             return CreateAvroConsumerBuilder(consumerOptions).Build();
         }
-        
+
         /// <summary>
         /// Creates a pre-configured <see cref="ConsumerBuilder{TKey,TValue}"/> using a AvroDeserializer as default/>
         /// </summary>
@@ -176,7 +174,7 @@ namespace Cheetah.Kafka
         public ConsumerBuilder<TKey, TValue> CreateAvroConsumerBuilder<TKey, TValue>(ConsumerOptions<TKey, TValue>? consumerOptions = null)
         {
             consumerOptions ??= new ConsumerOptions<TKey, TValue>();
-            
+
             var authHeaderValueProvider = new OAuthHeaderValueProvider(_kafkaTokenService);
             var schemaRegistryClient = new CachedSchemaRegistryClient(
                 _config.GetSchemaRegistryConfig(),
@@ -185,7 +183,7 @@ namespace Cheetah.Kafka
             consumerOptions.SetDeserializer(
                 new AvroDeserializer<TValue>(schemaRegistryClient).AsSyncOverAsync()
             );
-            
+
             return CreateConsumerBuilder(consumerOptions);
         }
 
@@ -208,12 +206,12 @@ namespace Cheetah.Kafka
         {
             var config = new AdminClientConfig(GetDefaultConfig());
             _options.AdminClientConfigure(config);
-            
+
             var builder = new AdminClientBuilder(config);
             adminOptions ??= new AdminClientOptions();
             adminOptions.ConfigureAction?.Invoke(config);
             adminOptions.BuilderAction?.Invoke(builder);
-            
+
             return new AdminClientBuilder(config)
                 .AddCheetahOAuthentication(GetTokenRetrievalFunction(), _loggerFactory.CreateLogger<IAdminClient>());
         }
@@ -223,14 +221,17 @@ namespace Cheetah.Kafka
         // This is important because using the copy-constructors provided by Confluent.Kafka will modify the underlying dictionary in-place.
         // This means that if we were to use the same configuration instance for each client, we would end up with a situation where
         // the configuration for the first client would be modified by the second client, and so on.
-        private ClientConfig GetDefaultConfig() => _config.GetClientConfig();
+        private ClientConfig GetDefaultConfig()
+        {
+            return _config.GetClientConfig();
+        }
 
         private Func<Task<(string AccessToken, long Expiration, string Principal)>> GetTokenRetrievalFunction()
         {
             return async () =>
             {
-                var response = await _kafkaTokenService.RequestAccessTokenAsync(CancellationToken.None);
-                return (response.AccessToken, response.Expiration, _config.Principal);
+                var (AccessToken, Expiration) = await _kafkaTokenService.RequestAccessTokenAsync(CancellationToken.None);
+                return (AccessToken, Expiration, _config.Principal);
             };
         }
     }

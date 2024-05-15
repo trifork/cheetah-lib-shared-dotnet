@@ -1,7 +1,5 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace Cheetah.Auth.Authentication
@@ -12,7 +10,7 @@ namespace Cheetah.Auth.Authentication
     public abstract class StartUpTokenService : BackgroundService
     {
         readonly ITokenService _tokenService;
-    
+
         /// <summary>
         /// Creates a new instance of <see cref="StartUpTokenService"/>.
         /// </summary>
@@ -21,7 +19,7 @@ namespace Cheetah.Auth.Authentication
         {
             _tokenService = tokenService;
         }
-    
+
         /// <summary>
         /// Starts the token service asynchronously.
         /// </summary>
@@ -39,7 +37,7 @@ namespace Cheetah.Auth.Authentication
             }
         }
     }
-    
+
     // TODO: These should be replaced with some kind of keyedhosted service (Which does not exist in dotnet).
     // TODO: Currently, registering two instances of AddHostedService<StartUpTokenService>() results in configuration overwrite.
     // TODO: Hence, StartUpKafkaTokenService and StartUpOpenSearchTokenService were introduced to mitigate this issue. 
@@ -56,7 +54,7 @@ namespace Cheetah.Auth.Authentication
         {
         }
     }
-        
+
     /// <summary>
     /// Background service responsible for starting the OpenSearch token service.
     /// </summary>

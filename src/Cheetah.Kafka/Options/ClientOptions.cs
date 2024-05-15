@@ -21,7 +21,7 @@ namespace Cheetah.Kafka
         {
             ConfigureAction = configureAction;
         }
-        
+
         /// <summary>
         /// Configures the client builder with the provided action.
         /// </summary>

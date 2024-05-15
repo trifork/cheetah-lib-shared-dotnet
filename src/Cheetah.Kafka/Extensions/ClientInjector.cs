@@ -19,7 +19,7 @@ namespace Cheetah.Kafka.Extensions
         {
             _serviceCollection = serviceCollection;
         }
-        
+
         /// <summary>
         /// Registers a pre-configured <see cref="IProducer{TKey,TValue}"/>/>
         /// </summary>
@@ -32,7 +32,7 @@ namespace Cheetah.Kafka.Extensions
             _serviceCollection.AddSingleton(provider => CreateProducer(provider, configAction));
             return this;
         }
-        
+
         /// <summary>
         /// Registers a pre-configured, keyed <see cref="IProducer{TKey,TValue}"/>/>
         /// </summary>
@@ -84,7 +84,7 @@ namespace Cheetah.Kafka.Extensions
             _serviceCollection.AddSingleton(provider => CreateAdminClient(provider, configAction));
             return this;
         }
-        
+
         /// <summary>
         /// Registers a pre-configured <see cref="IAdminClient"/>/>
         /// </summary>
@@ -96,7 +96,7 @@ namespace Cheetah.Kafka.Extensions
             _serviceCollection.AddKeyedSingleton(key, (provider, o) => CreateAdminClient(provider, configAction));
             return this;
         }
-        
+
         private static IProducer<TKey, TValue> CreateProducer<TKey, TValue>(IServiceProvider serviceProvider, Action<ProducerOptionsBuilder<TKey, TValue>>? configAction = null)
         {
             var options = BuildOptions<ProducerOptionsBuilder<TKey, TValue>, ProducerOptions<TKey, TValue>>(serviceProvider, configAction);
@@ -120,16 +120,19 @@ namespace Cheetah.Kafka.Extensions
             where TOptions : new()
         {
             var optionsBuilder = new TOptionsBuilder();
-            
-            foreach(var buildAction in configureActions)
+
+            foreach (var buildAction in configureActions)
             {
                 buildAction?.Invoke(optionsBuilder);
             }
-            
+
             return optionsBuilder.Build(provider);
         }
-        
-        private static KafkaClientFactory GetFactory(IServiceProvider provider) => provider.GetRequiredService<KafkaClientFactory>();
+
+        private static KafkaClientFactory GetFactory(IServiceProvider provider)
+        {
+            return provider.GetRequiredService<KafkaClientFactory>();
+        }
     }
 }
 

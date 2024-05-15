@@ -8,7 +8,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.VisualBasic;
 
 namespace Cheetah.Kafka.Extensions
 {
@@ -17,10 +16,6 @@ namespace Cheetah.Kafka.Extensions
     /// </summary>
     public static class ServiceCollectionExtensions
     {
-        /// <summary>
-        /// Default kafka key used to get required keyed services
-        /// </summary>
-        const string DefaultKafkaKey = "kafka";
         /// <summary>
         /// Registers and configures a KafkaClientFactory with the provided configuration for dependency injection, along with its required dependencies.
         /// </summary>
@@ -40,15 +35,15 @@ namespace Cheetah.Kafka.Extensions
             serviceCollection
                 .AddOptionsWithValidateOnStart<KafkaConfig>()
                 .Bind(configuration.GetSection(KafkaConfig.Position));
-            
+
             var configOAuth = new OAuth2Config();
             configuration.GetSection(KafkaConfig.Position).GetSection(nameof(KafkaConfig.OAuth2)).Bind(configOAuth);
             configOAuth.Validate();
 
             serviceCollection.AddSingleton<ISerializerProvider>(options.SerializerProviderFactory);
-            
+
             serviceCollection.AddKeyedTokenService(Constants.TokenServiceKey, configOAuth);
-            
+
             serviceCollection.AddHostedService<StartUpKafkaTokenService>(
                 sp => new StartUpKafkaTokenService(sp.GetRequiredKeyedService<ITokenService>(Constants.TokenServiceKey))
             );
