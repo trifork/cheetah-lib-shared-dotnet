@@ -112,8 +112,9 @@ namespace Cheetah.Auth.Authentication
             {
                 return await _tokenProvider.GetTokenResponse(cancellationToken);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
+                _logger.LogWarning("Token provider return null, with the following exception: " + exception.Message);
                 return null;
             }
         }

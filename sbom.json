@@ -1,19 +1,19 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:bb525a17-b5cd-4197-8857-42af2d0e7fb0",
+  "serialNumber": "urn:uuid:b332b147-d983-4e8c-8544-5e26c7555f53",
   "version": 1,
   "metadata": {
-    "timestamp": "2024-04-21T02:03:38Z",
+    "timestamp": "2024-05-14T08:17:36Z",
     "tools": {
       "components": [
         {
           "group": "@cyclonedx",
           "name": "cdxgen",
-          "version": "10.4.1",
-          "purl": "pkg:npm/%40cyclonedx/cdxgen@10.4.1",
+          "version": "10.5.1",
+          "purl": "pkg:npm/%40cyclonedx/cdxgen@10.5.1",
           "type": "application",
-          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@10.4.1",
+          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@10.5.1",
           "author": "OWASP Foundation",
           "publisher": "OWASP Foundation"
         }
@@ -3357,12 +3357,12 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit",
-      "version": "2.7.1",
+      "version": "2.8.0",
       "description": "xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.\n\nInstalling this package installs xunit.core, xunit.assert, and xunit.analyzers.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "f68d39d3208bccfbc7c5bac091a1e72358fe61f3ef470fbf9dcbca6d37f32213b826f400d2b3e0a08089c571cc92c71f81798b17067cd74ede867314573136dc"
+          "content": "512ddadedc09ce20227f59053c6764f5f00bc082c7c55d27d6ba17e63ebb6cdfddde8e0318d2c79d5dedaf9657fae8a756bcdf91fd1abc7df3197f093c10b4a8"
         }
       ],
       "licenses": [
@@ -3373,9 +3373,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit@2.7.1",
+      "purl": "pkg:nuget/xunit@2.8.0",
       "type": "framework",
-      "bom-ref": "pkg:nuget/xunit@2.7.1",
+      "bom-ref": "pkg:nuget/xunit@2.8.0",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -3461,12 +3461,12 @@
       "author": "jnewkirk,bradwilson,marcind",
       "group": "",
       "name": "xunit.analyzers",
-      "version": "1.12.0",
+      "version": "1.13.0",
       "description": "xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.\n\nInstalling this package provides code analyzers to help developers find and fix frequent issues when writing tests and xUnit.net extensibility code.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "c36dcb1f769769d7b65972af5e2d2803fb95d797e9814323b0fab5c7dd6241c9338160298008a28cd1e67c542da8d3e6e35c1fadd6d197b9d2251774caec7f77"
+          "content": "3da8bd6270d5ef5fcec75e2704707afdfeb68b23f22db9941bf61832203875f74566faf4808604f721b14abd22e53af720d2bbe7080bd8c0943442a97a267617"
         }
       ],
       "licenses": [
@@ -3477,9 +3477,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.analyzers@1.12.0",
+      "purl": "pkg:nuget/xunit.analyzers@1.13.0",
       "type": "framework",
-      "bom-ref": "pkg:nuget/xunit.analyzers@1.12.0",
+      "bom-ref": "pkg:nuget/xunit.analyzers@1.13.0",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -3508,12 +3508,12 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit.assert",
-      "version": "2.7.1",
+      "version": "2.8.0",
       "description": "Includes the assertion library from xUnit.net (xunit.assert.dll). Supports .NET Standard 1.1+ and .NET 6.0+.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "26abd74b8c97f8fb499f906eaa82a461abfb2348389d773145b193a260f05508c571c39dc9f60aa6e3ce1d7fc3aab3c270bf8c207ac655d3f76ef7945e5bdd9c"
+          "content": "9707fb0f2e7fe476c391a3f1d58ac65c2072cad08411c227f8a3c8ef88e1d810ff454ffb4613bc73e4b79343e1f8cafbf9c2dfdf7f1f97ea3a51c80f08b6ba3c"
         }
       ],
       "licenses": [
@@ -3524,9 +3524,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.assert@2.7.1",
+      "purl": "pkg:nuget/xunit.assert@2.8.0",
       "type": "library",
-      "bom-ref": "pkg:nuget/xunit.assert@2.7.1",
+      "bom-ref": "pkg:nuget/xunit.assert@2.8.0",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -3555,12 +3555,12 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit.core",
-      "version": "2.7.1",
+      "version": "2.8.0",
       "description": "Includes the libraries for writing unit tests with xUnit.net.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "85c383812f915dd8e65ead334339916c4450818f9b0061b1d5b747df7ef4b7ff024c6988114daa01cd5d4008c8469011b1a711d1c8fa2cb243505e4135034a4d"
+          "content": "31c4931464c44c2c4ba6624a13d4d68bd16d16d86b45ba51ae3cf657683cb0adb046dd7e247b35e6fc22f81fa77dfb45915f5a15621765fcd933de5320664d20"
         }
       ],
       "licenses": [
@@ -3571,9 +3571,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.core@2.7.1",
+      "purl": "pkg:nuget/xunit.core@2.8.0",
       "type": "library",
-      "bom-ref": "pkg:nuget/xunit.core@2.7.1",
+      "bom-ref": "pkg:nuget/xunit.core@2.8.0",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -3602,12 +3602,12 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit.extensibility.core",
-      "version": "2.7.1",
+      "version": "2.8.0",
       "description": "Includes xunit.core.dll for extensibility purposes. Supports .NET 4.5.2 or later, and .NET Standard 1.1.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "c8b5f85e504592f3580b37fe0c4ce5364e392ac4a5bbd5bddc8247066b543fdeaa67d5f24580c5970323e8109c3a10ca54dad9c5233c6eabb817f42e7787a1c4"
+          "content": "78126ff7141e634a79cfe0bf2f5b458d4158aad979a50a881180864cc97e31b47303bb0e96060ac0913ffef11e3c1a7e9a0061ecd8c3d10873d25899058336ef"
         }
       ],
       "licenses": [
@@ -3618,9 +3618,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.extensibility.core@2.7.1",
+      "purl": "pkg:nuget/xunit.extensibility.core@2.8.0",
       "type": "library",
-      "bom-ref": "pkg:nuget/xunit.extensibility.core@2.7.1",
+      "bom-ref": "pkg:nuget/xunit.extensibility.core@2.8.0",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -3649,12 +3649,12 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit.extensibility.execution",
-      "version": "2.7.1",
+      "version": "2.8.0",
       "description": "Includes xunit.execution.*.dll for extensibility purposes. Supports .NET 4.5.2 or later, and .NET Standard 1.1.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "7a2ddd285f1a823e142a427a2a4699e7f19c89fde27fa841b32cde808409a2764348a645bdbd00c8ab723a10df82005a5d52f9897644c484dd4647e30bde7287"
+          "content": "4f2cab65eb0707d38364c4bd73bdceaa2073e31d2f2fde382429123c1596e70e8f1762e551f75f5d18e33a1a083ae63a953984825d3bad2e3f268b7d982627a6"
         }
       ],
       "licenses": [
@@ -3665,9 +3665,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.extensibility.execution@2.7.1",
+      "purl": "pkg:nuget/xunit.extensibility.execution@2.8.0",
       "type": "library",
-      "bom-ref": "pkg:nuget/xunit.extensibility.execution@2.7.1",
+      "bom-ref": "pkg:nuget/xunit.extensibility.execution@2.8.0",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -3696,12 +3696,12 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit.runner.visualstudio",
-      "version": "2.5.8",
+      "version": "2.8.0",
       "description": "Visual Studio 2022+ Test Explorer runner for the xUnit.net framework. Capable of running xUnit.net v1.9.2 and v2.0+ tests. Supports .NET 4.6.2 or later, and .NET 6 or later.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "6494e6ef59de39f65c527a9dc98d00d1081c835d7ad83a0eabaf95a420ac39a0fdaf008ae5a95c8ce1077aed7bb047a4ceae2a36fde4c9e971ea550cb00b7f78"
+          "content": "9aa41b4b6cebf1d7e0496c6434e0ba513ccef09a2aa5398ce7e1459f65d1ff69d59b1d89bc463461b339a6dd85997560f5855efa32943c777a2abae8c8297aef"
         }
       ],
       "licenses": [
@@ -3712,9 +3712,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.runner.visualstudio@2.5.8",
+      "purl": "pkg:nuget/xunit.runner.visualstudio@2.8.0",
       "type": "framework",
-      "bom-ref": "pkg:nuget/xunit.runner.visualstudio@2.5.8",
+      "bom-ref": "pkg:nuget/xunit.runner.visualstudio@2.8.0",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -3856,120 +3856,6 @@
         {
           "name": "PackageFiles",
           "value": "System.Diagnostics.DiagnosticSource.dll"
-        }
-      ]
-    },
-    {
-      "author": "Microsoft",
-      "group": "",
-      "name": "System.Memory",
-      "version": "4.5.4",
-      "description": "Provides types for efficient representation and pooling of managed, stack, and native memory segments and sequences of such segments, along with primitives to parse and format UTF-8 encoded text stored in those memory segments.\n\nCommonly Used Types:\nSystem.Span\nSystem.ReadOnlySpan\nSystem.Memory\nSystem.ReadOnlyMemory\nSystem.Buffers.MemoryPool\nSystem.Buffers.ReadOnlySequence\nSystem.Buffers.Text.Utf8Parser\nSystem.Buffers.Text.Utf8Formatter\n \n7601f4f6225089ffb291dc7d58293c7bbf5c5d4f \nWhen using NuGet 3.x this package requires at least version 3.4.",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "d4c6c94c74b5959e1b4b8166b098e7b8624ebbcf19cd34f6acbbeb856ed882273ea42d0d580fb786001e9f41d176ca1cb905c29144dd167f721c9261b228c35f"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "url": "https://github.com/dotnet/corefx/blob/master/LICENSE.TXT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/System.Memory@4.5.4",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/System.Memory/4.5.4/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://dot.net/"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/System.Memory@4.5.4",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 1,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 1,
-              "value": "/app/src/Cheetah.OpenSearch.Extensions/obj/project.assets.json"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.OpenSearch.Extensions/obj/project.assets.json"
-        },
-        {
-          "name": "PackageFiles",
-          "value": "System.Memory.dll"
-        }
-      ]
-    },
-    {
-      "author": "Microsoft",
-      "group": "",
-      "name": "System.Numerics.Vectors",
-      "version": "4.4.0",
-      "description": "Provides hardware-accelerated numeric types, suitable for high-performance processing and graphics applications.\n\nCommonly Used Types:\nSystem.Numerics.Matrix3x2\nSystem.Numerics.Matrix4x4\nSystem.Numerics.Plane\nSystem.Numerics.Quaternion\nSystem.Numerics.Vector2\nSystem.Numerics.Vector3\nSystem.Numerics.Vector4\nSystem.Numerics.Vector\nSystem.Numerics.Vector<T>\n \n8321c729934c0f8be754953439b88e6e1c120c24",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "5222f32d6f8bc3a1cb79dd47720fbc8d246db6b6ee5efec300d563d0390bf60e849e7cdb2fbe4407b116b30e6e45b87177fe18746f258b95e2cc659ea661b73d"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "url": "https://github.com/dotnet/corefx/blob/master/LICENSE.TXT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/System.Numerics.Vectors@4.4.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/System.Numerics.Vectors/4.4.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://dot.net/"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/System.Numerics.Vectors@4.4.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 1,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 1,
-              "value": "/app/src/Cheetah.OpenSearch.Extensions/obj/project.assets.json"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.OpenSearch.Extensions/obj/project.assets.json"
-        },
-        {
-          "name": "PackageFiles",
-          "value": "System.Numerics.Vectors.dll"
         }
       ]
     },
@@ -4381,348 +4267,6 @@
       ]
     },
     {
-      "author": "Microsoft",
-      "group": "",
-      "name": "Microsoft.Bcl.AsyncInterfaces",
-      "version": "8.0.0",
-      "description": "Provides the IAsyncEnumerable<T> and IAsyncDisposable interfaces and helper types for .NET Standard 2.0. This package is not required starting with .NET Standard 2.1 and .NET Core 3.0.\n\nCommonly Used Types:\nSystem.IAsyncDisposable\nSystem.Collections.Generic.IAsyncEnumerable\nSystem.Collections.Generic.IAsyncEnumerator",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "dd603dabdc95a89a76db63f7c75c182060c09298c092ed1331469a415db683a2faec02342dd388ad54bb1eddaf25f2c71923d5baa37de2f22bd79aa7f871241f"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/Microsoft.Bcl.AsyncInterfaces@8.0.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.Bcl.AsyncInterfaces/8.0.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://dot.net/"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Bcl.AsyncInterfaces@8.0.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 1,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 1,
-              "value": "/app/src/Cheetah.OpenSearch/obj/project.assets.json"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.OpenSearch/obj/project.assets.json"
-        },
-        {
-          "name": "PackageFiles",
-          "value": "Microsoft.Bcl.AsyncInterfaces.dll"
-        }
-      ]
-    },
-    {
-      "author": "Microsoft",
-      "group": "",
-      "name": "System.ComponentModel.Annotations",
-      "version": "5.0.0",
-      "description": "Provides attributes that are used to define metadata for objects used as data sources.\n\nCommonly Used Types:\nSystem.ComponentModel.DataAnnotations.ValidationResult\nSystem.ComponentModel.DataAnnotations.IValidatableObject\nSystem.ComponentModel.DataAnnotations.ValidationAttribute\nSystem.ComponentModel.DataAnnotations.RequiredAttribute\nSystem.ComponentModel.DataAnnotations.StringLengthAttribute\nSystem.ComponentModel.DataAnnotations.DisplayAttribute\nSystem.ComponentModel.DataAnnotations.RegularExpressionAttribute\nSystem.ComponentModel.DataAnnotations.DataTypeAttribute\nSystem.ComponentModel.DataAnnotations.RangeAttribute\nSystem.ComponentModel.DataAnnotations.KeyAttribute\n \nWhen using NuGet 3.x this package requires at least version 3.4.",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "74c92a7f2d9e97c03cfc8efa9f61e2d6804511b1b549fc43da5e678705d5dd78e59ce9b0c499506d8a491f85b9d6876753db0044248082fed2dc2c8014c92962"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "url": "https://github.com/dotnet/runtime/blob/main/LICENSE.TXT",
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/System.ComponentModel.Annotations@5.0.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/System.ComponentModel.Annotations/5.0.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://github.com/dotnet/runtime"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/System.ComponentModel.Annotations@5.0.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 1,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 1,
-              "value": "/app/src/Cheetah.OpenSearch/obj/project.assets.json"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.OpenSearch/obj/project.assets.json"
-        },
-        {
-          "name": "PackageFiles",
-          "value": "System.ComponentModel.Annotations.dll"
-        }
-      ]
-    },
-    {
-      "author": "Microsoft",
-      "group": "",
-      "name": "System.Memory",
-      "version": "4.5.5",
-      "description": "Provides types for efficient representation and pooling of managed, stack, and native memory segments and sequences of such segments, along with primitives to parse and format UTF-8 encoded text stored in those memory segments.\n\nCommonly Used Types:\nSystem.Span\nSystem.ReadOnlySpan\nSystem.Memory\nSystem.ReadOnlyMemory\nSystem.Buffers.MemoryPool\nSystem.Buffers.ReadOnlySequence\nSystem.Buffers.Text.Utf8Parser\nSystem.Buffers.Text.Utf8Formatter\n \n32b491939fbd125f304031c35038b1e14b4e3958 \nWhen using NuGet 3.x this package requires at least version 3.4.",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "5c85a20ef28f5da4ef79a07b1d581a9c394e091a23d3797e8ebc0dbdc81efedf2f84660abea57e74cbfa1b84805f6368366374c197d53d302517065c66f54e53"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "url": "https://github.com/dotnet/corefx/blob/master/LICENSE.TXT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/System.Memory@4.5.5",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/System.Memory/4.5.5/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://dot.net/"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/System.Memory@4.5.5",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 1,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 1,
-              "value": "/app/src/Cheetah.OpenSearch/obj/project.assets.json"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.OpenSearch/obj/project.assets.json"
-        },
-        {
-          "name": "PackageFiles",
-          "value": "System.Memory.dll"
-        }
-      ]
-    },
-    {
-      "author": "Microsoft",
-      "group": "",
-      "name": "System.Security.Cryptography.Cng",
-      "version": "4.5.0",
-      "description": "Provides cryptographic algorithm implementations and key management with Windows Cryptographic Next Generation API (CNG).\n\nCommonly Used Types:\nSystem.Security.Cryptography.RSACng\nSystem.Security.Cryptography.ECDsaCng\nSystem.Security.Cryptography.CngKey\n \n30ab651fcb4354552bd4891619a0bdd81e0ebdbf \nWhen using NuGet 3.x this package requires at least version 3.4.",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "586debec4ca351ef4230f152b3a6edcb976852a4feabda5b23cd2194dce8d9290f919e154ee6641968e9a7bec907cfae68be0314f45d06c018f835f77412bdd8"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "url": "https://github.com/dotnet/corefx/blob/master/LICENSE.TXT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/System.Security.Cryptography.Cng@4.5.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/System.Security.Cryptography.Cng/4.5.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://dot.net/"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/System.Security.Cryptography.Cng@4.5.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 1,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 1,
-              "value": "/app/src/Cheetah.OpenSearch/obj/project.assets.json"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.OpenSearch/obj/project.assets.json"
-        },
-        {
-          "name": "PackageFiles",
-          "value": "System.Security.Cryptography.Cng.dll"
-        }
-      ]
-    },
-    {
-      "author": "Microsoft",
-      "group": "",
-      "name": "System.Security.Principal.Windows",
-      "version": "5.0.0",
-      "description": "Provides classes for retrieving the current Windows user and for interacting with Windows users and groups.\n\nCommonly Used Types:\nSystem.Security.Principal.WindowsIdentity\nSystem.Security.Principal.SecurityIdentifier\nSystem.Security.Principal.NTAccount\nSystem.Security.Principal.WindowsPrincipal\nSystem.Security.Principal.IdentityReference\nSystem.Security.Principal.IdentityNotMappedException\nSystem.Security.Principal.WindowsBuiltInRole\nSystem.Security.Principal.WellKnownSidType\n \nWhen using NuGet 3.x this package requires at least version 3.4.",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "b743062ee901e5601553d6cedcc1b3be51a7c893e05257307ab5e7d64cc1463c0b2a2c53f7a5d5d14cdae355b8f6055df3310c16ef6f404165bf420eaf2b4808"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "url": "https://github.com/dotnet/runtime/blob/main/LICENSE.TXT",
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/System.Security.Principal.Windows@5.0.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/System.Security.Principal.Windows/5.0.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://github.com/dotnet/runtime"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/System.Security.Principal.Windows@5.0.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 1,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 1,
-              "value": "/app/src/Cheetah.OpenSearch/obj/project.assets.json"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.OpenSearch/obj/project.assets.json"
-        },
-        {
-          "name": "PackageFiles",
-          "value": "System.Security.Principal.Windows.dll"
-        }
-      ]
-    },
-    {
-      "author": "Microsoft",
-      "group": "",
-      "name": "System.Threading.Tasks.Extensions",
-      "version": "4.5.4",
-      "description": "Provides additional types that simplify the work of writing concurrent and asynchronous code.\n\nCommonly Used Types:\nSystem.Threading.Tasks.ValueTask<TResult>\n \n7601f4f6225089ffb291dc7d58293c7bbf5c5d4f",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "ced793f86f31b86bba992fa6cc3cd85dbcd2eeb7772ba1636fd46266562524f6a6dbf854ec9081641544732c0db91fa86759dc4ef73f72ad1f691af73f4d4e56"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "url": "https://github.com/dotnet/corefx/blob/master/LICENSE.TXT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/System.Threading.Tasks.Extensions@4.5.4",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/System.Threading.Tasks.Extensions/4.5.4/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://dot.net/"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/System.Threading.Tasks.Extensions@4.5.4",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 1,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 1,
-              "value": "/app/src/Cheetah.OpenSearch/obj/project.assets.json"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.OpenSearch/obj/project.assets.json"
-        },
-        {
-          "name": "PackageFiles",
-          "value": "System.Threading.Tasks.Extensions.dll"
-        }
-      ]
-    },
-    {
       "group": "",
       "name": "Cheetah.MetricsTesting",
       "version": "1.8.0",
@@ -4791,12 +4335,12 @@
       "author": "Confluent Inc.,Andreas Heider",
       "group": "",
       "name": "Confluent.Kafka",
-      "version": "2.3.0",
+      "version": "2.4.0",
       "description": "Confluent's .NET Client for Apache Kafka",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "25205737f5fb6c1352f766e0669f36bf5a13e7c930f67769292182e558042de33f1e05d44ecb05906de010f10677770e21ae4c30948b7bafa0630cf38dd0093f"
+          "content": "df1ac4f125122cdd749259036971410225f14dcfb6c0c7dfbe3719dd1532bcea36724691259ddd63bca3b3a47b6adefeb63522baad8e9724e211a57a1bdcc51c"
         }
       ],
       "licenses": [
@@ -4807,11 +4351,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Confluent.Kafka@2.3.0",
+      "purl": "pkg:nuget/Confluent.Kafka@2.4.0",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Confluent.Kafka/2.3.0/"
+          "url": "https://www.nuget.org/packages/Confluent.Kafka/2.4.0/"
         },
         {
           "type": "vcs",
@@ -4819,7 +4363,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Confluent.Kafka@2.3.0",
+      "bom-ref": "pkg:nuget/Confluent.Kafka@2.4.0",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -4848,12 +4392,12 @@
       "author": "Confluent Inc.",
       "group": "",
       "name": "Confluent.SchemaRegistry",
-      "version": "2.3.0",
+      "version": "2.4.0",
       "description": "A .NET Client for Confluent Schema Registry",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "0e6a6e05eec49c3fb847afc5d4fb9c2f5780b90774bbc3a0fbe47666840d193f48c9149d0fab112b1cc679e348de0c11326bc20f12558d63e30c24a2ed068806"
+          "content": "34120f3af563be669275651ff89f22826b464499ac551888e42c07766bb3fb30136b02c58310cd27124f8696182c99cb939d38c2b8c0cbc2667968e41db8aa34"
         }
       ],
       "licenses": [
@@ -4864,11 +4408,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Confluent.SchemaRegistry@2.3.0",
+      "purl": "pkg:nuget/Confluent.SchemaRegistry@2.4.0",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Confluent.SchemaRegistry/2.3.0/"
+          "url": "https://www.nuget.org/packages/Confluent.SchemaRegistry/2.4.0/"
         },
         {
           "type": "vcs",
@@ -4876,7 +4420,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Confluent.SchemaRegistry@2.3.0",
+      "bom-ref": "pkg:nuget/Confluent.SchemaRegistry@2.4.0",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -4905,12 +4449,12 @@
       "author": "Confluent Inc.",
       "group": "",
       "name": "Confluent.SchemaRegistry.Serdes.Avro",
-      "version": "2.3.0",
+      "version": "2.4.0",
       "description": "Provides an Avro Serializer and Deserializer for use with Confluent.Kafka with Confluent Schema Registry integration",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "b550df92d3978dd55d7ac2f78388a620756268f2be0b1b67b8f50428a259587a3e2b43de5ea7fed2693d64c2f9727f51a3b8845cc100752551eeff40a49c9a29"
+          "content": "f3dc5b4666619b197b25d5de780224bfc03042cba7ee4a0044c1c882258830331f5609b2358a569502b8d5713267ff24215fc7510b84b5964b621db78256e974"
         }
       ],
       "licenses": [
@@ -4921,11 +4465,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.3.0",
+      "purl": "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.4.0",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Confluent.SchemaRegistry.Serdes.Avro/2.3.0/"
+          "url": "https://www.nuget.org/packages/Confluent.SchemaRegistry.Serdes.Avro/2.4.0/"
         },
         {
           "type": "vcs",
@@ -4933,7 +4477,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.3.0",
+      "bom-ref": "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.4.0",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -4962,12 +4506,12 @@
       "author": "Magnus Edenhill, edenhill",
       "group": "",
       "name": "librdkafka.redist",
-      "version": "2.3.0",
+      "version": "2.4.0",
       "description": "The Apache Kafka C/C++ client library - redistributable",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "a47e73159d12e7a5a5e947d19260c93760231e53dd571953b249dc1672f6ecb2c642eb98d9d014f18ad906476e04ec2ce2d5114b64da4e9d5a3ec637a9e2746f"
+          "content": "baa8b5b0d7b42c4579d296176779983497d9145d559ac67a9bcc1ba56ba00003cecce717f0524fe453a12cca14295162b9e9c11f6bfccd5061b7b7f5442b37ac"
         }
       ],
       "licenses": [
@@ -4978,11 +4522,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/librdkafka.redist@2.3.0",
+      "purl": "pkg:nuget/librdkafka.redist@2.4.0",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/librdkafka.redist/2.3.0/"
+          "url": "https://www.nuget.org/packages/librdkafka.redist/2.4.0/"
         },
         {
           "type": "vcs",
@@ -4990,7 +4534,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/librdkafka.redist@2.3.0",
+      "bom-ref": "pkg:nuget/librdkafka.redist@2.4.0",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -5126,6 +4670,63 @@
         {
           "name": "PackageFiles",
           "value": ""
+        }
+      ]
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "Microsoft.Win32.Primitives",
+      "version": "4.3.0",
+      "description": "Provides common types for Win32-based libraries.\n\nCommonly Used Types:\nSystem.ComponentModel.Win32Exception\n \nWhen using NuGet 3.x this package requires at least version 3.4.",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "f5940a096c47ec88e9f417da86f2f66727f5709224f1760b17a623cebdb28b46f670ebadfc7437d6a7f54e11c08027375a264c76759c7c90a037cdbfd14ba7c4"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "name": ".NET Library License",
+            "url": "http://go.microsoft.com/fwlink/?LinkId=329770"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Microsoft.Win32.Primitives@4.3.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/Microsoft.Win32.Primitives/4.3.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://dot.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Win32.Primitives@4.3.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 1,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 1,
+              "value": "/app/src/Cheetah.MetricsTesting/obj/project.assets.json"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.MetricsTesting/obj/project.assets.json"
+        },
+        {
+          "name": "PackageFiles",
+          "value": "Microsoft.Win32.Primitives.dll"
         }
       ]
     },
@@ -6671,6 +6272,63 @@
     {
       "author": "Microsoft",
       "group": "",
+      "name": "System.Memory",
+      "version": "4.5.0",
+      "description": "Provides types for efficient representation and pooling of managed, stack, and native memory segments and sequences of such segments, along with primitives to parse and format UTF-8 encoded text stored in those memory segments.\n\nCommonly Used Types:\nSystem.Span\nSystem.ReadOnlySpan\nSystem.Memory\nSystem.ReadOnlyMemory\nSystem.Buffers.MemoryPool\nSystem.Buffers.ReadOnlySequence\nSystem.Buffers.Text.Utf8Parser\nSystem.Buffers.Text.Utf8Formatter\n \n30ab651fcb4354552bd4891619a0bdd81e0ebdbf \nWhen using NuGet 3.x this package requires at least version 3.4.",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "9b4a6c092a54c5319fbf0c8ed22d376a35d586006ac979626d7cf4328d5db4a1a3687ad714b9ee43cacd05399646a6df463af8782e966a1e17e457ee143bb9a2"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://github.com/dotnet/corefx/blob/master/LICENSE.TXT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/System.Memory@4.5.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/System.Memory/4.5.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://dot.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Memory@4.5.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 1,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 1,
+              "value": "/app/src/Cheetah.MetricsTesting/obj/project.assets.json"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.MetricsTesting/obj/project.assets.json"
+        },
+        {
+          "name": "PackageFiles",
+          "value": "System.Memory.dll"
+        }
+      ]
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
       "name": "System.Net.Http",
       "version": "4.3.4",
       "description": "Provides a programming interface for modern HTTP applications, including HTTP client components that allow applications to consume web services over HTTP and HTTP components that can be used by both clients and servers for parsing HTTP headers.\n\nCommonly Used Types:\nSystem.Net.Http.HttpResponseMessage\nSystem.Net.Http.DelegatingHandler\nSystem.Net.Http.HttpRequestException\nSystem.Net.Http.HttpClient\nSystem.Net.Http.MultipartContent\nSystem.Net.Http.Headers.HttpContentHeaders\nSystem.Net.Http.HttpClientHandler\nSystem.Net.Http.StreamContent\nSystem.Net.Http.FormUrlEncodedContent\nSystem.Net.Http.HttpMessageHandler\n \nWhen using NuGet 3.x this package requires at least version 3.4.",
@@ -7469,6 +7127,63 @@
     {
       "author": "Microsoft",
       "group": "",
+      "name": "System.Security.Claims",
+      "version": "4.3.0",
+      "description": "Provides classes that implement claims-based identity in the .NET Framework, including classes that represent claims, claims-based identities, and claims-based principals.\n\nCommonly Used Types:\nSystem.Security.Principal.GenericIdentity\nSystem.Security.Claims.Claim\nSystem.Security.Claims.ClaimsIdentity\nSystem.Security.Claims.ClaimsPrincipal\nSystem.Security.Principal.GenericPrincipal\n \nWhen using NuGet 3.x this package requires at least version 3.4.",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "3fff8147fda59dce0f3431edfd33c10161d530b3111ecc9865b535369856e07216cc2820cfc9896d3410dcc2a58c513b2d2dd66a099516e060a0b705cd85e590"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "name": ".NET Library License",
+            "url": "http://go.microsoft.com/fwlink/?LinkId=329770"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/System.Security.Claims@4.3.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/System.Security.Claims/4.3.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://dot.net/"
+        }
+      ],
+      "type": "framework",
+      "bom-ref": "pkg:nuget/System.Security.Claims@4.3.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 1,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 1,
+              "value": "/app/src/Cheetah.MetricsTesting/obj/project.assets.json"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.MetricsTesting/obj/project.assets.json"
+        },
+        {
+          "name": "PackageFiles",
+          "value": "System.Security.Claims.dll"
+        }
+      ]
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
       "name": "System.Security.Cryptography.Algorithms",
       "version": "4.3.0",
       "description": "Provides base types for cryptographic algorithms, including hashing, encryption, and signing operations.\n\nCommonly Used Types:\nSystem.Security.Cryptography.Aes\nSystem.Security.Cryptography.RSA\nSystem.Security.Cryptography.RSAParameters\nSystem.Security.Cryptography.HMACSHA1\nSystem.Security.Cryptography.SHA256\nSystem.Security.Cryptography.SHA1\nSystem.Security.Cryptography.SHA512\nSystem.Security.Cryptography.SHA384\nSystem.Security.Cryptography.HMACSHA256\nSystem.Security.Cryptography.MD5\nSystem.Security.Cryptography.HMACSHA384\nSystem.Security.Cryptography.HMACSHA512\n \nWhen using NuGet 3.x this package requires at least version 3.4.",
@@ -7520,6 +7235,63 @@
         {
           "name": "PackageFiles",
           "value": "System.Security.Cryptography.Algorithms.dll"
+        }
+      ]
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "System.Security.Cryptography.Cng",
+      "version": "4.3.0",
+      "description": "Provides cryptographic algorithm implementations and key management with Windows Cryptographic Next Generation API (CNG).\n\nCommonly Used Types:\nSystem.Security.Cryptography.RSACng\nSystem.Security.Cryptography.ECDsaCng\nSystem.Security.Cryptography.CngKey\n \nWhen using NuGet 3.x this package requires at least version 3.4.",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "d3789d64ea8596c2912f85be2ee0a927a74160351645eba0ea566305adee2569e4e6c3c2517724a1c7af4da500f224ff3054ab63fd875e43adef9df143f71ff2"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "name": ".NET Library License",
+            "url": "http://go.microsoft.com/fwlink/?LinkId=329770"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/System.Security.Cryptography.Cng@4.3.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/System.Security.Cryptography.Cng/4.3.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://dot.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Security.Cryptography.Cng@4.3.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 1,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 1,
+              "value": "/app/src/Cheetah.MetricsTesting/obj/project.assets.json"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.MetricsTesting/obj/project.assets.json"
+        },
+        {
+          "name": "PackageFiles",
+          "value": "System.Security.Cryptography.Cng.dll"
         }
       ]
     },
@@ -7811,6 +7583,120 @@
     {
       "author": "Microsoft",
       "group": "",
+      "name": "System.Security.Principal",
+      "version": "4.3.0",
+      "description": "Provides the base interfaces for principal and identity objects that represents the security context under which code is running.\n\nCommonly Used Types:\nSystem.Security.Principal.IPrincipal\nSystem.Security.Principal.IIdentity\nSystem.Security.Principal.TokenImpersonationLevel\n \nWhen using NuGet 3.x this package requires at least version 3.4.",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "235b647d0940a0c336511b1c52da5c468fe15f48e29d7c7a6bf294b44428cf7a30698c25deac2c3bc71bcd85559e3c6bcf18c7a379c90beeb6ba8960786212f4"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "name": ".NET Library License",
+            "url": "http://go.microsoft.com/fwlink/?LinkId=329770"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/System.Security.Principal@4.3.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/System.Security.Principal/4.3.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://dot.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Security.Principal@4.3.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 1,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 1,
+              "value": "/app/src/Cheetah.MetricsTesting/obj/project.assets.json"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.MetricsTesting/obj/project.assets.json"
+        },
+        {
+          "name": "PackageFiles",
+          "value": "System.Security.Principal.dll"
+        }
+      ]
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
+      "name": "System.Security.Principal.Windows",
+      "version": "4.3.0",
+      "description": "Provides classes for retrieving the current Windows user and for interacting with Windows users and groups.\n\nCommonly Used Types:\nSystem.Security.Principal.WindowsIdentity\nSystem.Security.Principal.SecurityIdentifier\nSystem.Security.Principal.NTAccount\nSystem.Security.Principal.WindowsPrincipal\nSystem.Security.Principal.IdentityReference\nSystem.Security.Principal.IdentityNotMappedException\nSystem.Security.Principal.WindowsBuiltInRole\nSystem.Security.Principal.WellKnownSidType\n \nWhen using NuGet 3.x this package requires at least version 3.4.",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "1d52f5aefa98b67442c45b186a0ff695efd97ca2cae32330efdface8598a5db48234dd0978086b6319d10071685916b4744a23b0371b052a47de5db6431015cb"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "name": ".NET Library License",
+            "url": "http://go.microsoft.com/fwlink/?LinkId=329770"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/System.Security.Principal.Windows@4.3.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.nuget.org/packages/System.Security.Principal.Windows/4.3.0/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://dot.net/"
+        }
+      ],
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Security.Principal.Windows@4.3.0",
+      "evidence": {
+        "identity": {
+          "field": "purl",
+          "confidence": 1,
+          "methods": [
+            {
+              "technique": "manifest-analysis",
+              "confidence": 1,
+              "value": "/app/src/Cheetah.MetricsTesting/obj/project.assets.json"
+            }
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.MetricsTesting/obj/project.assets.json"
+        },
+        {
+          "name": "PackageFiles",
+          "value": "System.Security.Principal.Windows.dll"
+        }
+      ]
+    },
+    {
+      "author": "Microsoft",
+      "group": "",
       "name": "System.Text.Encoding",
       "version": "4.3.0",
       "description": "Provides base abstract encoding classes for converting blocks of characters to and from blocks of bytes.\n\nCommonly Used Types:\nSystem.Text.Encoding\nSystem.Text.DecoderFallbackException\nSystem.Text.Decoder\nSystem.Text.EncoderFallbackException\nSystem.Text.Encoder\nSystem.Text.EncoderFallback\nSystem.Text.EncoderFallbackBuffer\nSystem.Text.DecoderFallback\nSystem.Text.DecoderFallbackBuffer\nSystem.Text.DecoderExceptionFallback\n \nWhen using NuGet 3.x this package requires at least version 3.4.",
@@ -8001,348 +7887,6 @@
       }
     },
     {
-      "author": "Microsoft",
-      "group": "",
-      "name": "Microsoft.Win32.Primitives",
-      "version": "4.3.0",
-      "description": "Provides common types for Win32-based libraries.\n\nCommonly Used Types:\nSystem.ComponentModel.Win32Exception\n \nWhen using NuGet 3.x this package requires at least version 3.4.",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "f5940a096c47ec88e9f417da86f2f66727f5709224f1760b17a623cebdb28b46f670ebadfc7437d6a7f54e11c08027375a264c76759c7c90a037cdbfd14ba7c4"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": ".NET Library License",
-            "url": "http://go.microsoft.com/fwlink/?LinkId=329770"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/Microsoft.Win32.Primitives@4.3.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.Win32.Primitives/4.3.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://dot.net/"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.Win32.Primitives@4.3.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 1,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 1,
-              "value": "/app/src/Cheetah.MetricsTesting/obj/project.assets.json"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.MetricsTesting/obj/project.assets.json"
-        },
-        {
-          "name": "PackageFiles",
-          "value": "Microsoft.Win32.Primitives.dll"
-        }
-      ]
-    },
-    {
-      "author": "Microsoft",
-      "group": "",
-      "name": "System.Memory",
-      "version": "4.5.0",
-      "description": "Provides types for efficient representation and pooling of managed, stack, and native memory segments and sequences of such segments, along with primitives to parse and format UTF-8 encoded text stored in those memory segments.\n\nCommonly Used Types:\nSystem.Span\nSystem.ReadOnlySpan\nSystem.Memory\nSystem.ReadOnlyMemory\nSystem.Buffers.MemoryPool\nSystem.Buffers.ReadOnlySequence\nSystem.Buffers.Text.Utf8Parser\nSystem.Buffers.Text.Utf8Formatter\n \n30ab651fcb4354552bd4891619a0bdd81e0ebdbf \nWhen using NuGet 3.x this package requires at least version 3.4.",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "9b4a6c092a54c5319fbf0c8ed22d376a35d586006ac979626d7cf4328d5db4a1a3687ad714b9ee43cacd05399646a6df463af8782e966a1e17e457ee143bb9a2"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "url": "https://github.com/dotnet/corefx/blob/master/LICENSE.TXT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/System.Memory@4.5.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/System.Memory/4.5.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://dot.net/"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/System.Memory@4.5.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 1,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 1,
-              "value": "/app/src/Cheetah.MetricsTesting/obj/project.assets.json"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.MetricsTesting/obj/project.assets.json"
-        },
-        {
-          "name": "PackageFiles",
-          "value": "System.Memory.dll"
-        }
-      ]
-    },
-    {
-      "author": "Microsoft",
-      "group": "",
-      "name": "System.Security.Claims",
-      "version": "4.3.0",
-      "description": "Provides classes that implement claims-based identity in the .NET Framework, including classes that represent claims, claims-based identities, and claims-based principals.\n\nCommonly Used Types:\nSystem.Security.Principal.GenericIdentity\nSystem.Security.Claims.Claim\nSystem.Security.Claims.ClaimsIdentity\nSystem.Security.Claims.ClaimsPrincipal\nSystem.Security.Principal.GenericPrincipal\n \nWhen using NuGet 3.x this package requires at least version 3.4.",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "3fff8147fda59dce0f3431edfd33c10161d530b3111ecc9865b535369856e07216cc2820cfc9896d3410dcc2a58c513b2d2dd66a099516e060a0b705cd85e590"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": ".NET Library License",
-            "url": "http://go.microsoft.com/fwlink/?LinkId=329770"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/System.Security.Claims@4.3.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/System.Security.Claims/4.3.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://dot.net/"
-        }
-      ],
-      "type": "framework",
-      "bom-ref": "pkg:nuget/System.Security.Claims@4.3.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 1,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 1,
-              "value": "/app/src/Cheetah.MetricsTesting/obj/project.assets.json"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.MetricsTesting/obj/project.assets.json"
-        },
-        {
-          "name": "PackageFiles",
-          "value": "System.Security.Claims.dll"
-        }
-      ]
-    },
-    {
-      "author": "Microsoft",
-      "group": "",
-      "name": "System.Security.Cryptography.Cng",
-      "version": "4.3.0",
-      "description": "Provides cryptographic algorithm implementations and key management with Windows Cryptographic Next Generation API (CNG).\n\nCommonly Used Types:\nSystem.Security.Cryptography.RSACng\nSystem.Security.Cryptography.ECDsaCng\nSystem.Security.Cryptography.CngKey\n \nWhen using NuGet 3.x this package requires at least version 3.4.",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "d3789d64ea8596c2912f85be2ee0a927a74160351645eba0ea566305adee2569e4e6c3c2517724a1c7af4da500f224ff3054ab63fd875e43adef9df143f71ff2"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": ".NET Library License",
-            "url": "http://go.microsoft.com/fwlink/?LinkId=329770"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/System.Security.Cryptography.Cng@4.3.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/System.Security.Cryptography.Cng/4.3.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://dot.net/"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/System.Security.Cryptography.Cng@4.3.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 1,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 1,
-              "value": "/app/src/Cheetah.MetricsTesting/obj/project.assets.json"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.MetricsTesting/obj/project.assets.json"
-        },
-        {
-          "name": "PackageFiles",
-          "value": "System.Security.Cryptography.Cng.dll"
-        }
-      ]
-    },
-    {
-      "author": "Microsoft",
-      "group": "",
-      "name": "System.Security.Principal",
-      "version": "4.3.0",
-      "description": "Provides the base interfaces for principal and identity objects that represents the security context under which code is running.\n\nCommonly Used Types:\nSystem.Security.Principal.IPrincipal\nSystem.Security.Principal.IIdentity\nSystem.Security.Principal.TokenImpersonationLevel\n \nWhen using NuGet 3.x this package requires at least version 3.4.",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "235b647d0940a0c336511b1c52da5c468fe15f48e29d7c7a6bf294b44428cf7a30698c25deac2c3bc71bcd85559e3c6bcf18c7a379c90beeb6ba8960786212f4"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": ".NET Library License",
-            "url": "http://go.microsoft.com/fwlink/?LinkId=329770"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/System.Security.Principal@4.3.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/System.Security.Principal/4.3.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://dot.net/"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/System.Security.Principal@4.3.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 1,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 1,
-              "value": "/app/src/Cheetah.MetricsTesting/obj/project.assets.json"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.MetricsTesting/obj/project.assets.json"
-        },
-        {
-          "name": "PackageFiles",
-          "value": "System.Security.Principal.dll"
-        }
-      ]
-    },
-    {
-      "author": "Microsoft",
-      "group": "",
-      "name": "System.Security.Principal.Windows",
-      "version": "4.3.0",
-      "description": "Provides classes for retrieving the current Windows user and for interacting with Windows users and groups.\n\nCommonly Used Types:\nSystem.Security.Principal.WindowsIdentity\nSystem.Security.Principal.SecurityIdentifier\nSystem.Security.Principal.NTAccount\nSystem.Security.Principal.WindowsPrincipal\nSystem.Security.Principal.IdentityReference\nSystem.Security.Principal.IdentityNotMappedException\nSystem.Security.Principal.WindowsBuiltInRole\nSystem.Security.Principal.WellKnownSidType\n \nWhen using NuGet 3.x this package requires at least version 3.4.",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "1d52f5aefa98b67442c45b186a0ff695efd97ca2cae32330efdface8598a5db48234dd0978086b6319d10071685916b4744a23b0371b052a47de5db6431015cb"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": ".NET Library License",
-            "url": "http://go.microsoft.com/fwlink/?LinkId=329770"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/System.Security.Principal.Windows@4.3.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/System.Security.Principal.Windows/4.3.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://dot.net/"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/System.Security.Principal.Windows@4.3.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 1,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 1,
-              "value": "/app/src/Cheetah.MetricsTesting/obj/project.assets.json"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.MetricsTesting/obj/project.assets.json"
-        },
-        {
-          "name": "PackageFiles",
-          "value": "System.Security.Principal.Windows.dll"
-        }
-      ]
-    },
-    {
       "group": "",
       "name": "Cheetah.Kafka.Test",
       "version": "1.0.0",
@@ -8528,63 +8072,6 @@
       "purl": "pkg:nuget/Cheetah.Kafka.ExampleProcessor@1.0.0",
       "type": "application",
       "bom-ref": "pkg:nuget/Cheetah.Kafka.ExampleProcessor@1.0.0"
-    },
-    {
-      "author": "Microsoft",
-      "group": "",
-      "name": "Microsoft.CSharp",
-      "version": "4.5.0",
-      "description": "Provides support for compilation and code generation, including dynamic, using the C# language.\n\nCommonly Used Types:\nMicrosoft.CSharp.RuntimeBinder.Binder\nMicrosoft.CSharp.RuntimeBinder.RuntimeBinderException\nMicrosoft.CSharp.RuntimeBinder.CSharpArgumentInfo\nMicrosoft.CSharp.RuntimeBinder.CSharpArgumentInfoFlags\nMicrosoft.CSharp.RuntimeBinder.CSharpBinderFlags\n \n30ab651fcb4354552bd4891619a0bdd81e0ebdbf \nWhen using NuGet 3.x this package requires at least version 3.4.",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "91a8fa59be2aa0cb87dc7c92149871c107def11fec26c3499c036bbeff167453cca0d6ca63986d7cdb1cbfe2c70aee62a73fb8f66d9ef96417a4b5ebf5761e99"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "url": "https://github.com/dotnet/corefx/blob/master/LICENSE.TXT"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/Microsoft.CSharp@4.5.0",
-      "externalReferences": [
-        {
-          "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.CSharp/4.5.0/"
-        },
-        {
-          "type": "vcs",
-          "url": "https://dot.net/"
-        }
-      ],
-      "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.CSharp@4.5.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 1,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 1,
-              "value": "/app/src/Cheetah.Kafka/obj/project.assets.json"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.Kafka/obj/project.assets.json"
-        },
-        {
-          "name": "PackageFiles",
-          "value": "Microsoft.CSharp.dll"
-        }
-      ]
     }
   ],
   "dependencies": [
@@ -8599,9 +8086,9 @@
         "pkg:nuget/Microsoft.NET.Test.Sdk@17.9.0",
         "pkg:nuget/Moq@4.20.70",
         "pkg:nuget/coverlet.collector@6.0.2",
-        "pkg:nuget/xunit.extensibility.core@2.7.1",
-        "pkg:nuget/xunit.runner.visualstudio@2.5.8",
-        "pkg:nuget/xunit@2.7.1"
+        "pkg:nuget/xunit.extensibility.core@2.8.0",
+        "pkg:nuget/xunit.runner.visualstudio@2.8.0",
+        "pkg:nuget/xunit@2.8.0"
       ]
     },
     {
@@ -8622,9 +8109,7 @@
     },
     {
       "ref": "pkg:nuget/IdentityModel@7.0.0",
-      "dependsOn": [
-        "pkg:nuget/System.Text.Json@8.0.0"
-      ]
+      "dependsOn": []
     },
     {
       "ref": "pkg:nuget/Microsoft.CodeCoverage@17.9.0",
@@ -8735,9 +8220,7 @@
       "dependsOn": [
         "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@8.0.1",
         "pkg:nuget/Microsoft.Extensions.Options@8.0.0",
-        "pkg:nuget/System.Buffers@4.5.1",
-        "pkg:nuget/System.Diagnostics.DiagnosticSource@8.0.0",
-        "pkg:nuget/System.Memory@4.5.5"
+        "pkg:nuget/System.Diagnostics.DiagnosticSource@8.0.0"
       ]
     },
     {
@@ -8811,16 +8294,13 @@
       "dependsOn": [
         "pkg:nuget/Microsoft.Extensions.DependencyInjection@8.0.0",
         "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@8.0.1",
-        "pkg:nuget/Microsoft.Extensions.Options@8.0.0",
-        "pkg:nuget/System.Diagnostics.DiagnosticSource@8.0.0"
+        "pkg:nuget/Microsoft.Extensions.Options@8.0.0"
       ]
     },
     {
       "ref": "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@8.0.1",
       "dependsOn": [
-        "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@8.0.1",
-        "pkg:nuget/System.Buffers@4.5.1",
-        "pkg:nuget/System.Memory@4.5.5"
+        "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@8.0.1"
       ]
     },
     {
@@ -8839,13 +8319,11 @@
     {
       "ref": "pkg:nuget/Microsoft.Extensions.Logging.Console@8.0.0",
       "dependsOn": [
-        "pkg:nuget/Microsoft.Bcl.AsyncInterfaces@8.0.0",
         "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@8.0.1",
         "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@8.0.1",
         "pkg:nuget/Microsoft.Extensions.Logging.Configuration@8.0.0",
         "pkg:nuget/Microsoft.Extensions.Logging@8.0.0",
         "pkg:nuget/Microsoft.Extensions.Options@8.0.0",
-        "pkg:nuget/System.Buffers@4.5.1",
         "pkg:nuget/System.Runtime.CompilerServices.Unsafe@6.0.0",
         "pkg:nuget/System.Text.Json@8.0.0"
       ]
@@ -8871,13 +8349,11 @@
     {
       "ref": "pkg:nuget/Microsoft.Extensions.Logging.EventSource@8.0.0",
       "dependsOn": [
-        "pkg:nuget/Microsoft.Bcl.AsyncInterfaces@8.0.0",
         "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@8.0.1",
         "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@8.0.1",
         "pkg:nuget/Microsoft.Extensions.Logging@8.0.0",
         "pkg:nuget/Microsoft.Extensions.Options@8.0.0",
         "pkg:nuget/Microsoft.Extensions.Primitives@8.0.0",
-        "pkg:nuget/System.Memory@4.5.5",
         "pkg:nuget/System.Runtime.CompilerServices.Unsafe@6.0.0",
         "pkg:nuget/System.Text.Json@8.0.0"
       ]
@@ -8886,8 +8362,7 @@
       "ref": "pkg:nuget/Microsoft.Extensions.Options@8.0.0",
       "dependsOn": [
         "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@8.0.1",
-        "pkg:nuget/Microsoft.Extensions.Primitives@8.0.0",
-        "pkg:nuget/System.ComponentModel.Annotations@5.0.0"
+        "pkg:nuget/Microsoft.Extensions.Primitives@8.0.0"
       ]
     },
     {
@@ -8903,7 +8378,6 @@
     {
       "ref": "pkg:nuget/Microsoft.Extensions.Primitives@8.0.0",
       "dependsOn": [
-        "pkg:nuget/System.Memory@4.5.5",
         "pkg:nuget/System.Runtime.CompilerServices.Unsafe@6.0.0"
       ]
     },
@@ -8914,9 +8388,7 @@
     {
       "ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@7.5.1",
       "dependsOn": [
-        "pkg:nuget/Microsoft.IdentityModel.Tokens@7.5.1",
-        "pkg:nuget/System.Text.Encodings.Web@8.0.0",
-        "pkg:nuget/System.Text.Json@8.0.0"
+        "pkg:nuget/Microsoft.IdentityModel.Tokens@7.5.1"
       ]
     },
     {
@@ -8928,12 +8400,7 @@
     {
       "ref": "pkg:nuget/Microsoft.IdentityModel.Tokens@7.5.1",
       "dependsOn": [
-        "pkg:nuget/Microsoft.CSharp@4.5.0",
-        "pkg:nuget/Microsoft.CSharp@4.7.0",
-        "pkg:nuget/Microsoft.IdentityModel.Logging@7.5.1",
-        "pkg:nuget/System.Security.Cryptography.Cng@4.5.0",
-        "pkg:nuget/System.Text.Encodings.Web@8.0.0",
-        "pkg:nuget/System.Text.Json@8.0.0"
+        "pkg:nuget/Microsoft.IdentityModel.Logging@7.5.1"
       ]
     },
     {
@@ -9002,15 +8469,12 @@
     {
       "ref": "pkg:nuget/System.Diagnostics.DiagnosticSource@8.0.0",
       "dependsOn": [
-        "pkg:nuget/System.Memory@4.5.5",
         "pkg:nuget/System.Runtime.CompilerServices.Unsafe@6.0.0"
       ]
     },
     {
       "ref": "pkg:nuget/System.Diagnostics.EventLog@8.0.0",
-      "dependsOn": [
-        "pkg:nuget/System.Security.Principal.Windows@5.0.0"
-      ]
+      "dependsOn": []
     },
     {
       "ref": "pkg:nuget/System.IdentityModel.Tokens.Jwt@7.5.1",
@@ -9034,28 +8498,22 @@
     {
       "ref": "pkg:nuget/System.Text.Encodings.Web@8.0.0",
       "dependsOn": [
-        "pkg:nuget/System.Buffers@4.5.1",
-        "pkg:nuget/System.Memory@4.5.5",
         "pkg:nuget/System.Runtime.CompilerServices.Unsafe@6.0.0"
       ]
     },
     {
       "ref": "pkg:nuget/System.Text.Json@8.0.0",
       "dependsOn": [
-        "pkg:nuget/Microsoft.Bcl.AsyncInterfaces@8.0.0",
-        "pkg:nuget/System.Buffers@4.5.1",
-        "pkg:nuget/System.Memory@4.5.5",
         "pkg:nuget/System.Runtime.CompilerServices.Unsafe@6.0.0",
-        "pkg:nuget/System.Text.Encodings.Web@8.0.0",
-        "pkg:nuget/System.Threading.Tasks.Extensions@4.5.4"
+        "pkg:nuget/System.Text.Encodings.Web@8.0.0"
       ]
     },
     {
-      "ref": "pkg:nuget/xunit@2.7.1",
+      "ref": "pkg:nuget/xunit@2.8.0",
       "dependsOn": [
-        "pkg:nuget/xunit.analyzers@1.12.0",
-        "pkg:nuget/xunit.assert@2.7.1",
-        "pkg:nuget/xunit.core@2.7.1"
+        "pkg:nuget/xunit.analyzers@1.13.0",
+        "pkg:nuget/xunit.assert@2.8.0",
+        "pkg:nuget/xunit.core@2.8.0"
       ]
     },
     {
@@ -9063,34 +8521,34 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/xunit.analyzers@1.12.0",
+      "ref": "pkg:nuget/xunit.analyzers@1.13.0",
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/xunit.assert@2.7.1",
+      "ref": "pkg:nuget/xunit.assert@2.8.0",
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/xunit.core@2.7.1",
+      "ref": "pkg:nuget/xunit.core@2.8.0",
       "dependsOn": [
-        "pkg:nuget/xunit.extensibility.core@2.7.1",
-        "pkg:nuget/xunit.extensibility.execution@2.7.1"
+        "pkg:nuget/xunit.extensibility.core@2.8.0",
+        "pkg:nuget/xunit.extensibility.execution@2.8.0"
       ]
     },
     {
-      "ref": "pkg:nuget/xunit.extensibility.core@2.7.1",
+      "ref": "pkg:nuget/xunit.extensibility.core@2.8.0",
       "dependsOn": [
         "pkg:nuget/xunit.abstractions@2.0.3"
       ]
     },
     {
-      "ref": "pkg:nuget/xunit.extensibility.execution@2.7.1",
+      "ref": "pkg:nuget/xunit.extensibility.execution@2.8.0",
       "dependsOn": [
-        "pkg:nuget/xunit.extensibility.core@2.7.1"
+        "pkg:nuget/xunit.extensibility.core@2.8.0"
       ]
     },
     {
-      "ref": "pkg:nuget/xunit.runner.visualstudio@2.5.8",
+      "ref": "pkg:nuget/xunit.runner.visualstudio@2.8.0",
       "dependsOn": []
     },
     {
@@ -9127,21 +8585,8 @@
     {
       "ref": "pkg:nuget/System.Diagnostics.DiagnosticSource@6.0.1",
       "dependsOn": [
-        "pkg:nuget/System.Memory@4.5.4",
         "pkg:nuget/System.Runtime.CompilerServices.Unsafe@6.0.0"
       ]
-    },
-    {
-      "ref": "pkg:nuget/System.Memory@4.5.4",
-      "dependsOn": [
-        "pkg:nuget/System.Buffers@4.5.1",
-        "pkg:nuget/System.Numerics.Vectors@4.4.0",
-        "pkg:nuget/System.Runtime.CompilerServices.Unsafe@6.0.0"
-      ]
-    },
-    {
-      "ref": "pkg:nuget/System.Numerics.Vectors@4.4.0",
-      "dependsOn": []
     },
     {
       "ref": "pkg:nuget/Cheetah.OpenSearch.ExampleAPI@1.0.0",
@@ -9191,41 +8636,11 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/Microsoft.Bcl.AsyncInterfaces@8.0.0",
-      "dependsOn": []
-    },
-    {
-      "ref": "pkg:nuget/System.ComponentModel.Annotations@5.0.0",
-      "dependsOn": []
-    },
-    {
-      "ref": "pkg:nuget/System.Memory@4.5.5",
-      "dependsOn": [
-        "pkg:nuget/System.Buffers@4.5.1",
-        "pkg:nuget/System.Numerics.Vectors@4.4.0",
-        "pkg:nuget/System.Runtime.CompilerServices.Unsafe@6.0.0"
-      ]
-    },
-    {
-      "ref": "pkg:nuget/System.Security.Cryptography.Cng@4.5.0",
-      "dependsOn": []
-    },
-    {
-      "ref": "pkg:nuget/System.Security.Principal.Windows@5.0.0",
-      "dependsOn": []
-    },
-    {
-      "ref": "pkg:nuget/System.Threading.Tasks.Extensions@4.5.4",
-      "dependsOn": [
-        "pkg:nuget/System.Runtime.CompilerServices.Unsafe@6.0.0"
-      ]
-    },
-    {
       "ref": "pkg:nuget/Cheetah.MetricsTesting@1.8.0",
       "dependsOn": [
         "pkg:nuget/Cheetah.Kafka@0.3.0",
         "pkg:nuget/Cheetah.OpenSearch@0.4.0",
-        "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.3.0",
+        "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.4.0",
         "pkg:nuget/Microsoft.Extensions.Caching.Memory@8.0.0",
         "pkg:nuget/Microsoft.Extensions.Hosting@8.0.0",
         "pkg:nuget/Microsoft.Extensions.Http@8.0.0"
@@ -9243,34 +8658,33 @@
       ]
     },
     {
-      "ref": "pkg:nuget/Confluent.Kafka@2.3.0",
+      "ref": "pkg:nuget/Confluent.Kafka@2.4.0",
       "dependsOn": [
         "pkg:nuget/System.Memory@4.5.0",
-        "pkg:nuget/System.Memory@4.5.5",
-        "pkg:nuget/librdkafka.redist@2.3.0"
+        "pkg:nuget/librdkafka.redist@2.4.0"
       ]
     },
     {
-      "ref": "pkg:nuget/Confluent.SchemaRegistry@2.3.0",
+      "ref": "pkg:nuget/Confluent.SchemaRegistry@2.4.0",
       "dependsOn": [
-        "pkg:nuget/Confluent.Kafka@2.3.0",
+        "pkg:nuget/Confluent.Kafka@2.4.0",
         "pkg:nuget/Newtonsoft.Json@13.0.1",
         "pkg:nuget/Newtonsoft.Json@13.0.3",
         "pkg:nuget/System.Net.Http@4.3.4"
       ]
     },
     {
-      "ref": "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.3.0",
+      "ref": "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.4.0",
       "dependsOn": [
         "pkg:nuget/Apache.Avro@1.11.0",
-        "pkg:nuget/Confluent.Kafka@2.3.0",
-        "pkg:nuget/Confluent.SchemaRegistry@2.3.0",
+        "pkg:nuget/Confluent.Kafka@2.4.0",
+        "pkg:nuget/Confluent.SchemaRegistry@2.4.0",
         "pkg:nuget/System.Net.NameResolution@4.3.0",
         "pkg:nuget/System.Net.Sockets@4.3.0"
       ]
     },
     {
-      "ref": "pkg:nuget/librdkafka.redist@2.3.0",
+      "ref": "pkg:nuget/librdkafka.redist@2.4.0",
       "dependsOn": []
     },
     {
@@ -9280,6 +8694,14 @@
     {
       "ref": "pkg:nuget/Microsoft.NETCore.Targets@1.1.0",
       "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Win32.Primitives@4.3.0",
+      "dependsOn": [
+        "pkg:nuget/Microsoft.NETCore.Platforms@1.1.1",
+        "pkg:nuget/Microsoft.NETCore.Targets@1.1.0",
+        "pkg:nuget/System.Runtime@4.3.0"
+      ]
     },
     {
       "ref": "pkg:nuget/runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.2",
@@ -9471,6 +8893,10 @@
       ]
     },
     {
+      "ref": "pkg:nuget/System.Memory@4.5.0",
+      "dependsOn": []
+    },
+    {
       "ref": "pkg:nuget/System.Net.Http@4.3.4",
       "dependsOn": [
         "pkg:nuget/Microsoft.NETCore.Platforms@1.1.1",
@@ -9515,7 +8941,6 @@
         "pkg:nuget/System.Runtime.InteropServices@4.3.0",
         "pkg:nuget/System.Runtime@4.3.0",
         "pkg:nuget/System.Security.Principal.Windows@4.3.0",
-        "pkg:nuget/System.Security.Principal.Windows@5.0.0",
         "pkg:nuget/System.Threading.Tasks@4.3.0",
         "pkg:nuget/System.Threading@4.3.0",
         "pkg:nuget/runtime.native.System@4.3.0"
@@ -9630,6 +9055,18 @@
       ]
     },
     {
+      "ref": "pkg:nuget/System.Security.Claims@4.3.0",
+      "dependsOn": [
+        "pkg:nuget/System.Collections@4.3.0",
+        "pkg:nuget/System.Globalization@4.3.0",
+        "pkg:nuget/System.IO@4.3.0",
+        "pkg:nuget/System.Resources.ResourceManager@4.3.0",
+        "pkg:nuget/System.Runtime.Extensions@4.3.0",
+        "pkg:nuget/System.Runtime@4.3.0",
+        "pkg:nuget/System.Security.Principal@4.3.0"
+      ]
+    },
+    {
       "ref": "pkg:nuget/System.Security.Cryptography.Algorithms@4.3.0",
       "dependsOn": [
         "pkg:nuget/Microsoft.NETCore.Platforms@1.1.1",
@@ -9646,6 +9083,22 @@
         "pkg:nuget/System.Text.Encoding@4.3.0",
         "pkg:nuget/runtime.native.System.Security.Cryptography.Apple@4.3.0",
         "pkg:nuget/runtime.native.System.Security.Cryptography.OpenSsl@4.3.2"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/System.Security.Cryptography.Cng@4.3.0",
+      "dependsOn": [
+        "pkg:nuget/Microsoft.NETCore.Platforms@1.1.1",
+        "pkg:nuget/System.IO@4.3.0",
+        "pkg:nuget/System.Resources.ResourceManager@4.3.0",
+        "pkg:nuget/System.Runtime.Extensions@4.3.0",
+        "pkg:nuget/System.Runtime.Handles@4.3.0",
+        "pkg:nuget/System.Runtime.InteropServices@4.3.0",
+        "pkg:nuget/System.Runtime@4.3.0",
+        "pkg:nuget/System.Security.Cryptography.Algorithms@4.3.0",
+        "pkg:nuget/System.Security.Cryptography.Encoding@4.3.0",
+        "pkg:nuget/System.Security.Cryptography.Primitives@4.3.0",
+        "pkg:nuget/System.Text.Encoding@4.3.0"
       ]
     },
     {
@@ -9732,7 +9185,6 @@
         "pkg:nuget/System.Runtime@4.3.0",
         "pkg:nuget/System.Security.Cryptography.Algorithms@4.3.0",
         "pkg:nuget/System.Security.Cryptography.Cng@4.3.0",
-        "pkg:nuget/System.Security.Cryptography.Cng@4.5.0",
         "pkg:nuget/System.Security.Cryptography.Csp@4.3.0",
         "pkg:nuget/System.Security.Cryptography.Encoding@4.3.0",
         "pkg:nuget/System.Security.Cryptography.OpenSsl@4.3.0",
@@ -9742,6 +9194,31 @@
         "pkg:nuget/runtime.native.System.Net.Http@4.3.0",
         "pkg:nuget/runtime.native.System.Security.Cryptography.OpenSsl@4.3.2",
         "pkg:nuget/runtime.native.System@4.3.0"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/System.Security.Principal@4.3.0",
+      "dependsOn": [
+        "pkg:nuget/System.Runtime@4.3.0"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/System.Security.Principal.Windows@4.3.0",
+      "dependsOn": [
+        "pkg:nuget/Microsoft.NETCore.Platforms@1.1.1",
+        "pkg:nuget/Microsoft.Win32.Primitives@4.3.0",
+        "pkg:nuget/System.Collections@4.3.0",
+        "pkg:nuget/System.Diagnostics.Debug@4.3.0",
+        "pkg:nuget/System.Reflection@4.3.0",
+        "pkg:nuget/System.Resources.ResourceManager@4.3.0",
+        "pkg:nuget/System.Runtime.Extensions@4.3.0",
+        "pkg:nuget/System.Runtime.Handles@4.3.0",
+        "pkg:nuget/System.Runtime.InteropServices@4.3.0",
+        "pkg:nuget/System.Runtime@4.3.0",
+        "pkg:nuget/System.Security.Claims@4.3.0",
+        "pkg:nuget/System.Security.Principal@4.3.0",
+        "pkg:nuget/System.Text.Encoding@4.3.0",
+        "pkg:nuget/System.Threading@4.3.0"
       ]
     },
     {
@@ -9771,79 +9248,14 @@
       "ref": "pkg:nuget/Cheetah.Kafka@0.3.0",
       "dependsOn": [
         "pkg:nuget/Cheetah.Auth@1.0.0",
-        "pkg:nuget/Confluent.Kafka@2.3.0",
-        "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.3.0",
+        "pkg:nuget/Confluent.Kafka@2.4.0",
+        "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.4.0",
         "pkg:nuget/Microsoft.Extensions.Caching.Memory@8.0.0",
         "pkg:nuget/Microsoft.Extensions.Configuration@8.0.0",
         "pkg:nuget/Microsoft.Extensions.DependencyInjection@8.0.0",
         "pkg:nuget/Microsoft.Extensions.Hosting@8.0.0",
         "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@8.0.1",
         "pkg:nuget/Microsoft.Extensions.Options.ConfigurationExtensions@8.0.0"
-      ]
-    },
-    {
-      "ref": "pkg:nuget/Microsoft.Win32.Primitives@4.3.0",
-      "dependsOn": [
-        "pkg:nuget/Microsoft.NETCore.Platforms@1.1.1",
-        "pkg:nuget/Microsoft.NETCore.Targets@1.1.0",
-        "pkg:nuget/System.Runtime@4.3.0"
-      ]
-    },
-    {
-      "ref": "pkg:nuget/System.Memory@4.5.0",
-      "dependsOn": []
-    },
-    {
-      "ref": "pkg:nuget/System.Security.Claims@4.3.0",
-      "dependsOn": [
-        "pkg:nuget/System.Collections@4.3.0",
-        "pkg:nuget/System.Globalization@4.3.0",
-        "pkg:nuget/System.IO@4.3.0",
-        "pkg:nuget/System.Resources.ResourceManager@4.3.0",
-        "pkg:nuget/System.Runtime.Extensions@4.3.0",
-        "pkg:nuget/System.Runtime@4.3.0",
-        "pkg:nuget/System.Security.Principal@4.3.0"
-      ]
-    },
-    {
-      "ref": "pkg:nuget/System.Security.Cryptography.Cng@4.3.0",
-      "dependsOn": [
-        "pkg:nuget/Microsoft.NETCore.Platforms@1.1.1",
-        "pkg:nuget/System.IO@4.3.0",
-        "pkg:nuget/System.Resources.ResourceManager@4.3.0",
-        "pkg:nuget/System.Runtime.Extensions@4.3.0",
-        "pkg:nuget/System.Runtime.Handles@4.3.0",
-        "pkg:nuget/System.Runtime.InteropServices@4.3.0",
-        "pkg:nuget/System.Runtime@4.3.0",
-        "pkg:nuget/System.Security.Cryptography.Algorithms@4.3.0",
-        "pkg:nuget/System.Security.Cryptography.Encoding@4.3.0",
-        "pkg:nuget/System.Security.Cryptography.Primitives@4.3.0",
-        "pkg:nuget/System.Text.Encoding@4.3.0"
-      ]
-    },
-    {
-      "ref": "pkg:nuget/System.Security.Principal@4.3.0",
-      "dependsOn": [
-        "pkg:nuget/System.Runtime@4.3.0"
-      ]
-    },
-    {
-      "ref": "pkg:nuget/System.Security.Principal.Windows@4.3.0",
-      "dependsOn": [
-        "pkg:nuget/Microsoft.NETCore.Platforms@1.1.1",
-        "pkg:nuget/Microsoft.Win32.Primitives@4.3.0",
-        "pkg:nuget/System.Collections@4.3.0",
-        "pkg:nuget/System.Diagnostics.Debug@4.3.0",
-        "pkg:nuget/System.Reflection@4.3.0",
-        "pkg:nuget/System.Resources.ResourceManager@4.3.0",
-        "pkg:nuget/System.Runtime.Extensions@4.3.0",
-        "pkg:nuget/System.Runtime.Handles@4.3.0",
-        "pkg:nuget/System.Runtime.InteropServices@4.3.0",
-        "pkg:nuget/System.Runtime@4.3.0",
-        "pkg:nuget/System.Security.Claims@4.3.0",
-        "pkg:nuget/System.Security.Principal@4.3.0",
-        "pkg:nuget/System.Text.Encoding@4.3.0",
-        "pkg:nuget/System.Threading@4.3.0"
       ]
     },
     {
@@ -9857,9 +9269,9 @@
         "pkg:nuget/Microsoft.NET.Test.Sdk@17.9.0",
         "pkg:nuget/Serilog.Sinks.XUnit@3.0.5",
         "pkg:nuget/coverlet.collector@6.0.2",
-        "pkg:nuget/xunit.extensibility.core@2.7.1",
-        "pkg:nuget/xunit.runner.visualstudio@2.5.8",
-        "pkg:nuget/xunit@2.7.1"
+        "pkg:nuget/xunit.extensibility.core@2.8.0",
+        "pkg:nuget/xunit.runner.visualstudio@2.8.0",
+        "pkg:nuget/xunit@2.8.0"
       ]
     },
     {
@@ -9875,8 +9287,8 @@
       "dependsOn": [
         "pkg:nuget/Serilog@2.12.0",
         "pkg:nuget/xunit.abstractions@2.0.3",
-        "pkg:nuget/xunit.extensibility.core@2.7.1",
-        "pkg:nuget/xunit.extensibility.execution@2.7.1"
+        "pkg:nuget/xunit.extensibility.core@2.8.0",
+        "pkg:nuget/xunit.extensibility.execution@2.8.0"
       ]
     },
     {
@@ -9884,10 +9296,6 @@
       "dependsOn": [
         "pkg:nuget/Cheetah.Kafka@0.3.0"
       ]
-    },
-    {
-      "ref": "pkg:nuget/Microsoft.CSharp@4.5.0",
-      "dependsOn": []
     }
   ]
 }

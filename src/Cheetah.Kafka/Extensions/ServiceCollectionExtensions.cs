@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.VisualBasic;
 
 namespace Cheetah.Kafka.Extensions
 {
@@ -16,6 +17,10 @@ namespace Cheetah.Kafka.Extensions
     /// </summary>
     public static class ServiceCollectionExtensions
     {
+        /// <summary>
+        /// Default kafka key used to get required keyed services
+        /// </summary>
+        const string DefaultKafkaKey = "kafka";
         /// <summary>
         /// Registers and configures a KafkaClientFactory with the provided configuration for dependency injection, along with its required dependencies.
         /// </summary>
