@@ -5,7 +5,6 @@ using Cheetah.Auth.Util;
 using Cheetah.Kafka.Configuration;
 using Cheetah.Kafka.Extensions;
 using Cheetah.Kafka.Serialization;
-using Cheetah.Kafka.Util;
 using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
