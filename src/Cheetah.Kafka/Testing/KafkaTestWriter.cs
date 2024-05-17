@@ -10,8 +10,10 @@ namespace Cheetah.Kafka.Testing
     /// <inheritdoc cref="KafkaTestWriter{TKey, T}"/>
     public interface IKafkaTestWriter<TKey, T>
     {
-        /// <inheritdoc cref="KafkaTestWriter{TKey, T}.WriteAsync"/>
+        /// <inheritdoc cref="KafkaTestWriter{TKey, T}.WriteAsync(T[])"/>
         public Task<DeliveryResult<TKey, T>[]> WriteAsync(params T[] messages);
+        /// <inheritdoc cref="KafkaTestWriter{TKey, T}.WriteAsync(IEnumerable{Message{TKey, T}})"/>
+        public Task<DeliveryResult<TKey, T>[]> WriteAsync(IEnumerable<Message<TKey, T>> kafkaMessages);
     }
 
     /// <summary>
@@ -68,18 +70,18 @@ namespace Cheetah.Kafka.Testing
         /// <summary>
         /// Publishes multiple messages to Kafka
         /// </summary>
-        /// <param name="messages"> The collection of confluent kafka message objects to publish</param>
+        /// <param name="kafkaMessages"> The collection of confluent kafka message objects to publish</param>
         /// <exception cref="ArgumentException">Thrown if the provided collection of messages is empty</exception>
-        public Task<DeliveryResult<TKey, T>[]> WriteAsync(IEnumerable<Message<TKey, T>> messages)
+        public Task<DeliveryResult<TKey, T>[]> WriteAsync(IEnumerable<Message<TKey, T>> kafkaMessages)
         {
-            if (messages.IsNullOrEmpty())
+            if (kafkaMessages.IsNullOrEmpty())
             {
                 throw new ArgumentException(
                     "WriteAsync was invoked with an empty list of messages."
                 );
             }
 
-            var produceTasks = messages.Select(kafkaMessage =>
+            var produceTasks = kafkaMessages.Select(kafkaMessage =>
                 Producer.ProduceAsync(Topic, kafkaMessage)
             );
             return Task.WhenAll(produceTasks);
