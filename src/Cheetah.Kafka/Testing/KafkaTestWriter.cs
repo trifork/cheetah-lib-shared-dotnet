@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using Confluent.Kafka;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Cheetah.Kafka.Testing
 {
@@ -68,9 +70,9 @@ namespace Cheetah.Kafka.Testing
         /// </summary>
         /// <param name="messages"> The collection of confluent kafka message objects to publish</param>
         /// <exception cref="ArgumentException">Thrown if the provided collection of messages is empty</exception>
-        public Task<DeliveryResult<TKey, T>[]> WriteAsync(params Message<TKey, T>[] messages)
+        public Task<DeliveryResult<TKey, T>[]> WriteAsync(IEnumerable<Message<TKey, T>> messages)
         {
-            if (messages.Length == 0)
+            if (messages.IsNullOrEmpty())
             {
                 throw new ArgumentException(
                     "WriteAsync was invoked with an empty list of messages."
