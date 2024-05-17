@@ -1,10 +1,10 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:b332b147-d983-4e8c-8544-5e26c7555f53",
+  "serialNumber": "urn:uuid:39740a6a-83a6-4c5a-baa1-caedc5808fab",
   "version": 1,
   "metadata": {
-    "timestamp": "2024-05-14T08:17:36Z",
+    "timestamp": "2024-05-17T01:42:42Z",
     "tools": {
       "components": [
         {
@@ -2103,12 +2103,12 @@
       "author": "Microsoft",
       "group": "",
       "name": "Microsoft.IdentityModel.Abstractions",
-      "version": "7.5.1",
+      "version": "7.5.2",
       "description": "A package containing thin abstractions for Microsoft.IdentityModel.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "3d3d7a6456cf22232c62fd3ba32df33a3a94389ef1bad1819094ce5f4f886cdc94ebe3ba5fb688c63abd11a49244b59b7a44606a682d99f83c5e3c3a03a51af6"
+          "content": "c5714fe0f51c23f9789f7869c384d76ef38d35343d59f972331531d37a8d25749dedd56dc5b16b2fe07df887af330cef92d6634d57cc7439734284f376d3756c"
         }
       ],
       "licenses": [
@@ -2119,11 +2119,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Microsoft.IdentityModel.Abstractions@7.5.1",
+      "purl": "pkg:nuget/Microsoft.IdentityModel.Abstractions@7.5.2",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.IdentityModel.Abstractions/7.5.1/"
+          "url": "https://www.nuget.org/packages/Microsoft.IdentityModel.Abstractions/7.5.2/"
         },
         {
           "type": "vcs",
@@ -2131,7 +2131,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.IdentityModel.Abstractions@7.5.1",
+      "bom-ref": "pkg:nuget/Microsoft.IdentityModel.Abstractions@7.5.2",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -2160,12 +2160,12 @@
       "author": "Microsoft",
       "group": "",
       "name": "Microsoft.IdentityModel.JsonWebTokens",
-      "version": "7.5.1",
+      "version": "7.5.2",
       "description": "Includes types that provide support for creating, serializing and validating JSON Web Tokens. This is a newer, faster version of System.IdentityModel.Tokens.Jwt that has additional functionality.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "f7708649af113dd654f337ef0379dff4d18a52a12742b135d95cd894ca8a87bd9d761ceeb28b2a2cd114807fd88455812d114e9d8d510a01cc57ba51fac031db"
+          "content": "807ddcf3cf98753e5023a470da79f08c3531ccb80f3cf6e332f530bc9ac84f23405772f96acc2ac4a2259b24216aa96d8c6046accb026422b06a6a5610c0cddb"
         }
       ],
       "licenses": [
@@ -2176,11 +2176,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@7.5.1",
+      "purl": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@7.5.2",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.IdentityModel.JsonWebTokens/7.5.1/"
+          "url": "https://www.nuget.org/packages/Microsoft.IdentityModel.JsonWebTokens/7.5.2/"
         },
         {
           "type": "vcs",
@@ -2188,7 +2188,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@7.5.1",
+      "bom-ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@7.5.2",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -2217,12 +2217,12 @@
       "author": "Microsoft",
       "group": "",
       "name": "Microsoft.IdentityModel.Logging",
-      "version": "7.5.1",
+      "version": "7.5.2",
       "description": "Includes Event Source based logging support.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "3e7a40417db404088320f626594c904a511a583f012d7cc7a620c64c24f9ebc0acd1178e7b2ccd7b8d352f309e8afea296e83f29e7d5795d427aab421d3a3c77"
+          "content": "169309da2d5ef19fb5ac072161089ac24d0287062fe8236d0900ed333c33919b5459062692b90b5f3977aa788e4fc14541c93b6cf2a140963a9d4ecfeeda23c1"
         }
       ],
       "licenses": [
@@ -2233,11 +2233,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Microsoft.IdentityModel.Logging@7.5.1",
+      "purl": "pkg:nuget/Microsoft.IdentityModel.Logging@7.5.2",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.IdentityModel.Logging/7.5.1/"
+          "url": "https://www.nuget.org/packages/Microsoft.IdentityModel.Logging/7.5.2/"
         },
         {
           "type": "vcs",
@@ -2245,7 +2245,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.IdentityModel.Logging@7.5.1",
+      "bom-ref": "pkg:nuget/Microsoft.IdentityModel.Logging@7.5.2",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -2274,12 +2274,12 @@
       "author": "Microsoft",
       "group": "",
       "name": "Microsoft.IdentityModel.Tokens",
-      "version": "7.5.1",
+      "version": "7.5.2",
       "description": "Includes types that provide support for SecurityTokens, Cryptographic operations: Signing, Verifying Signatures, Encryption.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "4370caa7215588ff3821495314a1ffcc892cc08ae64a1d9577f7850e8e3094e1f2e03631a30799104c389031222adf55097ea8ed275d2b71cadb10d8c85a5ec4"
+          "content": "5452d2e008f2e6369d33f615f71dc5038a471f06c45938e46cdfd1b5286a547f1e23c8fa503839e76da8813c7588c2c929074bf506dfc57c78775fb0d5e08381"
         }
       ],
       "licenses": [
@@ -2290,11 +2290,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Microsoft.IdentityModel.Tokens@7.5.1",
+      "purl": "pkg:nuget/Microsoft.IdentityModel.Tokens@7.5.2",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.IdentityModel.Tokens/7.5.1/"
+          "url": "https://www.nuget.org/packages/Microsoft.IdentityModel.Tokens/7.5.2/"
         },
         {
           "type": "vcs",
@@ -2302,7 +2302,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.IdentityModel.Tokens@7.5.1",
+      "bom-ref": "pkg:nuget/Microsoft.IdentityModel.Tokens@7.5.2",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -3015,12 +3015,12 @@
       "author": "Microsoft",
       "group": "",
       "name": "System.IdentityModel.Tokens.Jwt",
-      "version": "7.5.1",
+      "version": "7.5.2",
       "description": "Includes types that provide support for creating, serializing and validating JSON Web Tokens. As of IdentityModel 7x, this is a legacy tool that should be replaced with Microsoft.IdentityModel.JsonWebTokens.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "514c3e13447bde564b95782779820943136cd647db7318d5cf0eb8250ca2c23a827781cca406e39fec51a3ce90653f38b87abcfcc92abdf1fcdad82380fce9bb"
+          "content": "b5a323b37cfdfad4d8361743e60e5753cf6031ca97ecf488ea88e2ef26572bc1384f55e3b19479c832dd22a0b53d52982f914096b35604d05a2ec86e11260797"
         }
       ],
       "licenses": [
@@ -3031,11 +3031,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/System.IdentityModel.Tokens.Jwt@7.5.1",
+      "purl": "pkg:nuget/System.IdentityModel.Tokens.Jwt@7.5.2",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/System.IdentityModel.Tokens.Jwt/7.5.1/"
+          "url": "https://www.nuget.org/packages/System.IdentityModel.Tokens.Jwt/7.5.2/"
         },
         {
           "type": "vcs",
@@ -3043,7 +3043,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/System.IdentityModel.Tokens.Jwt@7.5.1",
+      "bom-ref": "pkg:nuget/System.IdentityModel.Tokens.Jwt@7.5.2",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -8382,25 +8382,25 @@
       ]
     },
     {
-      "ref": "pkg:nuget/Microsoft.IdentityModel.Abstractions@7.5.1",
+      "ref": "pkg:nuget/Microsoft.IdentityModel.Abstractions@7.5.2",
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@7.5.1",
+      "ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@7.5.2",
       "dependsOn": [
-        "pkg:nuget/Microsoft.IdentityModel.Tokens@7.5.1"
+        "pkg:nuget/Microsoft.IdentityModel.Tokens@7.5.2"
       ]
     },
     {
-      "ref": "pkg:nuget/Microsoft.IdentityModel.Logging@7.5.1",
+      "ref": "pkg:nuget/Microsoft.IdentityModel.Logging@7.5.2",
       "dependsOn": [
-        "pkg:nuget/Microsoft.IdentityModel.Abstractions@7.5.1"
+        "pkg:nuget/Microsoft.IdentityModel.Abstractions@7.5.2"
       ]
     },
     {
-      "ref": "pkg:nuget/Microsoft.IdentityModel.Tokens@7.5.1",
+      "ref": "pkg:nuget/Microsoft.IdentityModel.Tokens@7.5.2",
       "dependsOn": [
-        "pkg:nuget/Microsoft.IdentityModel.Logging@7.5.1"
+        "pkg:nuget/Microsoft.IdentityModel.Logging@7.5.2"
       ]
     },
     {
@@ -8477,10 +8477,10 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/System.IdentityModel.Tokens.Jwt@7.5.1",
+      "ref": "pkg:nuget/System.IdentityModel.Tokens.Jwt@7.5.2",
       "dependsOn": [
-        "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@7.5.1",
-        "pkg:nuget/Microsoft.IdentityModel.Tokens@7.5.1"
+        "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@7.5.2",
+        "pkg:nuget/Microsoft.IdentityModel.Tokens@7.5.2"
       ]
     },
     {
@@ -8559,7 +8559,7 @@
         "pkg:nuget/Microsoft.Extensions.Hosting.Abstractions@8.0.0",
         "pkg:nuget/Microsoft.Extensions.Http@8.0.0",
         "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@8.0.1",
-        "pkg:nuget/System.IdentityModel.Tokens.Jwt@7.5.1"
+        "pkg:nuget/System.IdentityModel.Tokens.Jwt@7.5.2"
       ]
     },
     {
