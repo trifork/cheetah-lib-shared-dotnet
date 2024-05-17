@@ -40,7 +40,7 @@ namespace Cheetah.Kafka.Testing
         /// <summary>
         /// Publishes multiple messages to Kafka
         /// </summary>
-        /// <param name="messages">The collection of messages to publish</param>
+        /// <param name="messages">The collection of messages (values) to publish</param>
         /// <exception cref="ArgumentException">Thrown if the provided collection of messages is empty</exception>
         public Task<DeliveryResult<TKey, T>[]> WriteAsync(params T[] messages)
         {
@@ -58,6 +58,26 @@ namespace Cheetah.Kafka.Testing
             });
 
             var produceTasks = kafkaMessages.Select(kafkaMessage =>
+                Producer.ProduceAsync(Topic, kafkaMessage)
+            );
+            return Task.WhenAll(produceTasks);
+        }
+
+        /// <summary>
+        /// Publishes multiple messages to Kafka
+        /// </summary>
+        /// <param name="messages"> The collection of confluent kafka message objects to publish</param>
+        /// <exception cref="ArgumentException">Thrown if the provided collection of messages is empty</exception>
+        public Task<DeliveryResult<TKey, T>[]> WriteAsync(params Message<TKey, T>[] messages)
+        {
+            if (messages.Length == 0)
+            {
+                throw new ArgumentException(
+                    "WriteAsync was invoked with an empty list of messages."
+                );
+            }
+
+            var produceTasks = messages.Select(kafkaMessage =>
                 Producer.ProduceAsync(Topic, kafkaMessage)
             );
             return Task.WhenAll(produceTasks);
