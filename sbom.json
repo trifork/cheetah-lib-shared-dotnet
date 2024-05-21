@@ -1,10 +1,10 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:39740a6a-83a6-4c5a-baa1-caedc5808fab",
+  "serialNumber": "urn:uuid:6e5c2403-1b84-44f9-9469-be915982b6d2",
   "version": 1,
   "metadata": {
-    "timestamp": "2024-05-17T01:42:42Z",
+    "timestamp": "2024-05-21T09:34:50Z",
     "tools": {
       "components": [
         {
@@ -3871,12 +3871,12 @@
       "author": "Microsoft",
       "group": "",
       "name": "Microsoft.AspNetCore.OpenApi",
-      "version": "8.0.4",
-      "description": "Provides APIs for annotating route handler endpoints in ASP.NET Core with OpenAPI annotations.\n\nThis package was built from the source code at https://github.com/dotnet/aspnetcore/tree/8486d31e24f30e3fa1809a95699a0adc16f448d7",
+      "version": "8.0.5",
+      "description": "Provides APIs for annotating route handler endpoints in ASP.NET Core with OpenAPI annotations.\n\nThis package was built from the source code at https://github.com/dotnet/aspnetcore/tree/c9e3996173cec136bc2e9f3b4ec45f2a323b1d63",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "4c58976cfd2da9180929ca620924a9efdaba41a885f20a9185982b538f0541a8e15648b01d2a753b56f5864602e04865e1c95b937a47c1d7f037d991b430056d"
+          "content": "e432aa04e56e1a45fa110b00df8326cd5a3b517ffa1c04af78139b3def84f062839b7f753efc43be0b9f861cb09db1af125ec35d4a9fc1d36bee5d1e7f096cb1"
         }
       ],
       "licenses": [
@@ -3887,11 +3887,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.4",
+      "purl": "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.5",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.AspNetCore.OpenApi/8.0.4/"
+          "url": "https://www.nuget.org/packages/Microsoft.AspNetCore.OpenApi/8.0.5/"
         },
         {
           "type": "vcs",
@@ -3899,7 +3899,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.4",
+      "bom-ref": "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.5",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -3985,12 +3985,12 @@
       "author": "Microsoft",
       "group": "",
       "name": "Microsoft.OpenApi",
-      "version": "1.4.3",
+      "version": "1.6.14",
       "description": ".NET models with JSON and YAML writers for OpenAPI specification",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "ad447082007e41961c4956c3afb1d2761c3f1442ef325ae25b5d0e78ece33d3ee9b2d79f328ec84e186d36d0ee7716d7856fa58f435f5fbd8a6b9103b06f31eb"
+          "content": "b536814fcaa3937c4835f112c8e3c4dab21e9653ef07baa956a8968b203f940095bf3fb138689784551fa21731f3634b6e2e5abf32d6d25c7eb3aa00a908a37f"
         }
       ],
       "licenses": [
@@ -4001,11 +4001,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Microsoft.OpenApi@1.4.3",
+      "purl": "pkg:nuget/Microsoft.OpenApi@1.6.14",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Microsoft.OpenApi/1.4.3/"
+          "url": "https://www.nuget.org/packages/Microsoft.OpenApi/1.6.14/"
         },
         {
           "type": "vcs",
@@ -4013,7 +4013,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Microsoft.OpenApi@1.4.3",
+      "bom-ref": "pkg:nuget/Microsoft.OpenApi@1.6.14",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -4039,15 +4039,15 @@
       ]
     },
     {
-      "author": "Swashbuckle.AspNetCore",
+      "author": "domaindrivendev",
       "group": "",
       "name": "Swashbuckle.AspNetCore",
-      "version": "6.5.0",
+      "version": "6.6.1",
       "description": "Swagger tools for documenting APIs built on ASP.NET Core",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "14ad395e89208e0c25088eb0093f83e3f69bb5090bd57d7f07d39ab3ab88c0716662b20ef56503e5a2c2f48cccb3d1a71df5173ad5d9d92e3780dd6686ce7e68"
+          "content": "e261088fc6c43360a10a2a17e98c782a370567042e4f3598be3cb379abe4d033213fb6f3c7bf3b68309017230af4930070e9e1ae2d267ebc5122da43ea3e1d71"
         }
       ],
       "licenses": [
@@ -4058,11 +4058,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Swashbuckle.AspNetCore@6.5.0",
+      "purl": "pkg:nuget/Swashbuckle.AspNetCore@6.6.1",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Swashbuckle.AspNetCore/6.5.0/"
+          "url": "https://www.nuget.org/packages/Swashbuckle.AspNetCore/6.6.1/"
         },
         {
           "type": "vcs",
@@ -4070,7 +4070,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Swashbuckle.AspNetCore@6.5.0",
+      "bom-ref": "pkg:nuget/Swashbuckle.AspNetCore@6.6.1",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -4096,15 +4096,15 @@
       ]
     },
     {
-      "author": "Swashbuckle.AspNetCore.Swagger",
+      "author": "domaindrivendev",
       "group": "",
       "name": "Swashbuckle.AspNetCore.Swagger",
-      "version": "6.5.0",
+      "version": "6.6.1",
       "description": "Middleware to expose Swagger JSON endpoints from APIs built on ASP.NET Core",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "5d69829aac859a822d5ca16c412c106c402c8c329cc6535fd65fbf2a2e3685c6fa2e328bf26e436faf4e4efcf9bcba27312467b583b55cbab3d0e3fe9f7bca9c"
+          "content": "f7d59c19b6877cbbb6eac3df595a89bf15d399068b136a9d09f71e1b04f4dfded7da472ec83fe7b9e80dd9c2f0ea942f7ab8a35e4b392db57cbdc034c62d2c4a"
         }
       ],
       "licenses": [
@@ -4115,11 +4115,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Swashbuckle.AspNetCore.Swagger@6.5.0",
+      "purl": "pkg:nuget/Swashbuckle.AspNetCore.Swagger@6.6.1",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Swashbuckle.AspNetCore.Swagger/6.5.0/"
+          "url": "https://www.nuget.org/packages/Swashbuckle.AspNetCore.Swagger/6.6.1/"
         },
         {
           "type": "vcs",
@@ -4127,7 +4127,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Swashbuckle.AspNetCore.Swagger@6.5.0",
+      "bom-ref": "pkg:nuget/Swashbuckle.AspNetCore.Swagger@6.6.1",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -4153,15 +4153,15 @@
       ]
     },
     {
-      "author": "Swashbuckle.AspNetCore.SwaggerGen",
+      "author": "domaindrivendev",
       "group": "",
       "name": "Swashbuckle.AspNetCore.SwaggerGen",
-      "version": "6.5.0",
+      "version": "6.6.1",
       "description": "Swagger Generator for APIs built on ASP.NET Core",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "63fa96f10760f4e12ced5d35dedb7ef7839d3f16d175b85c11bc38362c06bdfe1805c7e12ffcbbaa9fcc8effdc10db10d8bdcda89d803aef78c1e072fe1e0abc"
+          "content": "070f9c020e84192b1b9d3eda575dd05e0779a5a6c3607fc62cd865cc1e03abae083c41da5f64f9d66559eb27fcfda347952eef8b7d4f1faaa559b7e1696aa2ab"
         }
       ],
       "licenses": [
@@ -4172,11 +4172,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Swashbuckle.AspNetCore.SwaggerGen@6.5.0",
+      "purl": "pkg:nuget/Swashbuckle.AspNetCore.SwaggerGen@6.6.1",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerGen/6.5.0/"
+          "url": "https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerGen/6.6.1/"
         },
         {
           "type": "vcs",
@@ -4184,7 +4184,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Swashbuckle.AspNetCore.SwaggerGen@6.5.0",
+      "bom-ref": "pkg:nuget/Swashbuckle.AspNetCore.SwaggerGen@6.6.1",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -4210,15 +4210,15 @@
       ]
     },
     {
-      "author": "Swashbuckle.AspNetCore.SwaggerUI",
+      "author": "domaindrivendev",
       "group": "",
       "name": "Swashbuckle.AspNetCore.SwaggerUI",
-      "version": "6.5.0",
+      "version": "6.6.1",
       "description": "Middleware to expose an embedded version of the swagger-ui from an ASP.NET Core application",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "3af6efc57fb02fcb24c5306db5c06c571761ef715a838c70a8453679d87824c9fb5acff12479d8fc90757bd46809be97a43c54177843f40d19d65114c78d0f7f"
+          "content": "6be9cdf3c0d2e8ebb368fab0168c7c9ef12ebecac91575b8360cde44151d1aa2db51bd724dc224bb3512de06f33d70bc1d0f8d99bc9d78c445b9d9cd5f634a6a"
         }
       ],
       "licenses": [
@@ -4229,11 +4229,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Swashbuckle.AspNetCore.SwaggerUI@6.5.0",
+      "purl": "pkg:nuget/Swashbuckle.AspNetCore.SwaggerUI@6.6.1",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerUI/6.5.0/"
+          "url": "https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerUI/6.6.1/"
         },
         {
           "type": "vcs",
@@ -4241,7 +4241,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/Swashbuckle.AspNetCore.SwaggerUI@6.5.0",
+      "bom-ref": "pkg:nuget/Swashbuckle.AspNetCore.SwaggerUI@6.6.1",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -8592,14 +8592,14 @@
       "ref": "pkg:nuget/Cheetah.OpenSearch.ExampleAPI@1.0.0",
       "dependsOn": [
         "pkg:nuget/Cheetah.OpenSearch@0.4.0",
-        "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.4",
-        "pkg:nuget/Swashbuckle.AspNetCore@6.5.0"
+        "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.5",
+        "pkg:nuget/Swashbuckle.AspNetCore@6.6.1"
       ]
     },
     {
-      "ref": "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.4",
+      "ref": "pkg:nuget/Microsoft.AspNetCore.OpenApi@8.0.5",
       "dependsOn": [
-        "pkg:nuget/Microsoft.OpenApi@1.4.3"
+        "pkg:nuget/Microsoft.OpenApi@1.6.14"
       ]
     },
     {
@@ -8607,32 +8607,32 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/Microsoft.OpenApi@1.4.3",
+      "ref": "pkg:nuget/Microsoft.OpenApi@1.6.14",
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/Swashbuckle.AspNetCore@6.5.0",
+      "ref": "pkg:nuget/Swashbuckle.AspNetCore@6.6.1",
       "dependsOn": [
         "pkg:nuget/Microsoft.Extensions.ApiDescription.Server@6.0.5",
-        "pkg:nuget/Swashbuckle.AspNetCore.Swagger@6.5.0",
-        "pkg:nuget/Swashbuckle.AspNetCore.SwaggerGen@6.5.0",
-        "pkg:nuget/Swashbuckle.AspNetCore.SwaggerUI@6.5.0"
+        "pkg:nuget/Swashbuckle.AspNetCore.Swagger@6.6.1",
+        "pkg:nuget/Swashbuckle.AspNetCore.SwaggerGen@6.6.1",
+        "pkg:nuget/Swashbuckle.AspNetCore.SwaggerUI@6.6.1"
       ]
     },
     {
-      "ref": "pkg:nuget/Swashbuckle.AspNetCore.Swagger@6.5.0",
+      "ref": "pkg:nuget/Swashbuckle.AspNetCore.Swagger@6.6.1",
       "dependsOn": [
-        "pkg:nuget/Microsoft.OpenApi@1.4.3"
+        "pkg:nuget/Microsoft.OpenApi@1.6.14"
       ]
     },
     {
-      "ref": "pkg:nuget/Swashbuckle.AspNetCore.SwaggerGen@6.5.0",
+      "ref": "pkg:nuget/Swashbuckle.AspNetCore.SwaggerGen@6.6.1",
       "dependsOn": [
-        "pkg:nuget/Swashbuckle.AspNetCore.Swagger@6.5.0"
+        "pkg:nuget/Swashbuckle.AspNetCore.Swagger@6.6.1"
       ]
     },
     {
-      "ref": "pkg:nuget/Swashbuckle.AspNetCore.SwaggerUI@6.5.0",
+      "ref": "pkg:nuget/Swashbuckle.AspNetCore.SwaggerUI@6.6.1",
       "dependsOn": []
     },
     {
