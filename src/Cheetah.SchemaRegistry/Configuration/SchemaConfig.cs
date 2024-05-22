@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Cheetah.Auth.Configuration;
-using Confluent.Kafka;
 using Confluent.SchemaRegistry;
 
 namespace Cheetah.SchemaRegistry.Configuration
@@ -24,11 +23,6 @@ namespace Cheetah.SchemaRegistry.Configuration
         public string? Url { get; set; } = null!;
 
         /// <summary>
-        /// The security protocol used to communicate with brokers.
-        /// </summary>
-        public SecurityProtocol SecurityProtocol { get; set; } = SecurityProtocol.SaslPlaintext;
-
-        /// <summary>
         /// The OAuth2 configuration
         /// </summary>
         public OAuth2Config OAuth2 { get; set; } = null!;
@@ -41,7 +35,7 @@ namespace Cheetah.SchemaRegistry.Configuration
         {
             if (!Uri.IsWellFormedUriString(Url, UriKind.Absolute))
             {
-                throw new ArgumentException($"The provided Kafka Url is invalid: {Url})");
+                throw new ArgumentException($"The providedSchema Registry Url is invalid: {Url})");
             }
             OAuth2.Validate();
         }
@@ -52,11 +46,6 @@ namespace Cheetah.SchemaRegistry.Configuration
         /// <returns>The converted <see cref="SchemaRegistryConfig"/></returns>
         public SchemaRegistryConfig GetSchemaRegistryConfig()
         {
-            if (!Uri.IsWellFormedUriString(Url, UriKind.Absolute))
-            {
-                throw new ArgumentException("The provided Schema Registry Url is invalid");
-            }
-
             return new SchemaRegistryConfig
             {
                 Url = Url

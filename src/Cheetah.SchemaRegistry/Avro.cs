@@ -37,14 +37,14 @@ namespace Cheetah.Kafka.Avro
         /// Creates an Avro deserializer from services.
         /// </summary>
         /// <typeparam name="T">The type of object to deserialize.</typeparam>
-        /// <param name="serializerConfig">Optional Avro serializer configuration.</param>
+        /// <param name="deserializerConfig">Optional Avro deserializer configuration.</param>
         /// <returns>A function that creates an Avro deserializer instance.</returns>
-        public static Func<IServiceProvider, IDeserializer<T>> FromServices<T>(AvroSerializerConfig? serializerConfig = null)
+        public static Func<IServiceProvider, IDeserializer<T>> FromServices<T>(AvroDeserializerConfig? deserializerConfig = null)
         {
             return serviceProvider =>
             {
                 var client = serviceProvider.GetRequiredService<ISchemaRegistryClient>();
-                return new AvroDeserializer<T>(client).AsSyncOverAsync();
+                return new AvroDeserializer<T>(client, deserializerConfig).AsSyncOverAsync();
             };
         }
     }

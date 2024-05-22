@@ -21,7 +21,6 @@ namespace Cheetah.Kafka.Test
                 { "KAFKA:OAUTH2:CLIENTID", "default-access" },
                 { "KAFKA:OAUTH2:CLIENTSECRET", "default-access-secret" },
                 { "KAFKA:OAUTH2:TOKENENDPOINT", "http://localhost:1852/realms/local-development/protocol/openid-connect/token " },
-                { "KAFKA:SCHEMAREGISTRYURL", "http://localhost:8081/apis/ccompat/v7" },
             };
 
             configurationDictionary.Remove(missingKey);
@@ -47,33 +46,12 @@ namespace Cheetah.Kafka.Test
                 { "KAFKA:OAUTH2:CLIENTID", "default-access" },
                 { "KAFKA:OAUTH2:CLIENTSECRET", "default-access-secret" },
                 { "KAFKA:OAUTH2:TOKENENDPOINT", "http://localhost:1852/realms/local-development/protocol/openid-connect/token " },
-                { "KAFKA:SCHEMAREGISTRYURL", "http://localhost:8081/apis/ccompat/v7" },
             };
             var invalidConfiguration = new ConfigurationBuilder()
                 .AddInMemoryCollection(configurationDictionary)
                 .Build();
 
             Assert.Throws<ArgumentException>(() => KafkaTestClientFactory.Create(invalidConfiguration));
-        }
-
-        [Fact]
-        public void Should_ThrowArgumentException_When_InvalidSchemaRegistryUrl()
-        {
-            var configurationDictionary = new Dictionary<string, string?>
-            {
-                { "KAFKA:URL", "localhost:9092" },
-                { "KAFKA:OAUTH2:CLIENTID", "default-access" },
-                { "KAFKA:OAUTH2:CLIENTSECRET", "default-access-secret" },
-                { "KAFKA:OAUTH2:TOKENENDPOINT", "http://localhost:1852/realms/local-development/protocol/openid-connect/token " }
-            };
-
-            var invalidConfiguration = new ConfigurationBuilder()
-                .AddInMemoryCollection(configurationDictionary)
-                .Build();
-
-            var kafkaTestClientFactory = KafkaTestClientFactory.Create(invalidConfiguration);
-
-            Assert.Throws<ArgumentException>(() => kafkaTestClientFactory.CreateAvroTestWriter<string>("AvroTopic"));
         }
     }
 }

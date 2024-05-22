@@ -8,6 +8,6 @@
         /// <summary>
         /// Key used to GetRequiredKeyedService for Cheetah.Kafka.Avro TokenService
         /// </summary>
-        public const string TokenServiceKey = "cheetah-schemaregistry";
+        public const string TokenServiceKey = "cheetah-schema-registry";
     }
 }

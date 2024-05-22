@@ -5,7 +5,7 @@
 //    is regenerated
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Cheetah.Kafka.Test.TestModels.Avro
+namespace Cheetah.SchemaRegistry.Test.TestModels.Avro
 {
 	using System;
 	using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace Cheetah.Kafka.Test.TestModels.Avro
 	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("avrogen", "1.11.1")]
 	public partial class SimpleAvroObject : global::Avro.Specific.ISpecificRecord
 	{
-		public static global::Avro.Schema _SCHEMA = global::Avro.Schema.Parse("{\"type\":\"record\",\"name\":\"SimpleAvroObject\",\"namespace\":\"Cheetah.Kafka.Test.TestModels.Avro\",\"fields\":[{\"name\":\"Name\",\"type\":\"string\"},{\"name\":\"Number\",\"type\"" +
+		public static global::Avro.Schema _SCHEMA = global::Avro.Schema.Parse("{\"type\":\"record\",\"name\":\"SimpleAvroObject\",\"namespace\":\"Cheetah.SchemaRegistry.Test.TestModels.Avro\",\"fields\":[{\"name\":\"Name\",\"type\":\"string\"},{\"name\":\"Number\",\"type\"" +
 				":\"int\"}]}");
 		private string _Name;
 		private int _Number;

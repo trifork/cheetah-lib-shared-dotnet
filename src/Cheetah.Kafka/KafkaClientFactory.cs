@@ -5,11 +5,7 @@ using Cheetah.Auth.Authentication;
 using Cheetah.Kafka.Configuration;
 using Cheetah.Kafka.Extensions;
 using Cheetah.Kafka.Serialization;
-using Cheetah.Kafka.Util;
 using Confluent.Kafka;
-using Confluent.Kafka.SyncOverAsync;
-using Confluent.SchemaRegistry;
-using Confluent.SchemaRegistry.Serdes;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -70,7 +66,6 @@ namespace Cheetah.Kafka
         /// <returns>A pre-configured <see cref="ProducerBuilder{TKey, TValue}"/></returns>
         public ProducerBuilder<TKey, TValue> CreateProducerBuilder<TKey, TValue>(ProducerOptions<TKey, TValue>? producerOptions = null)
         {
-
             var configInstance = new ProducerConfig(GetDefaultConfig());
             _options.ProducerConfigure(configInstance);
 
@@ -86,40 +81,7 @@ namespace Cheetah.Kafka
                 .SetValueSerializer(serializer);
         }
 
-        /// <summary>
-        /// Creates a pre-configured <see cref="IProducer{TKey,TValue}"/> using a AvroSerializer as default/>
-        /// </summary>
-        /// <param name="producerOptions">Optional producer options used to modify the configuration</param>
-        /// <typeparam name="TKey">The type of message key that the resulting producer will produce</typeparam>
-        /// <typeparam name="TValue">The type of message value that the resulting producer will produce</typeparam>
-        /// <returns>A pre-configured <see cref="IProducer{TKey,TValue}"/></returns>
-        public IProducer<TKey, TValue> CreateAvroProducer<TKey, TValue>(ProducerOptions<TKey, TValue>? producerOptions = null)
-        {
-            return CreateAvroProducerBuilder<TKey, TValue>(producerOptions).Build();
-        }
 
-        /// <summary>
-        /// Creates a pre-configured <see cref="ProducerBuilder{TKey,TValue}"/> Using AvroSerializer as default/>;
-        /// </summary>
-        /// <param name="producerOptions">Optional producer options used to modify the configuration</param>
-        /// <typeparam name="TKey">The type of message key that the resulting producer will produce</typeparam>
-        /// <typeparam name="TValue">The type of message value that the resulting producer will produce</typeparam>
-        /// <returns>A pre-configured <see cref="ProducerBuilder{TKey, TValue}"/></returns>
-        public ProducerBuilder<TKey, TValue> CreateAvroProducerBuilder<TKey, TValue>(
-            ProducerOptions<TKey, TValue>? producerOptions = null)
-        {
-            producerOptions ??= new ProducerOptions<TKey, TValue>();
-            if (producerOptions.Serializer != null)
-            {
-                return CreateProducerBuilder(producerOptions);
-            }
-
-            var authHeaderValueProvider = new OAuthHeaderValueProvider(_kafkaTokenService);
-            producerOptions.SetSerializer(
-                new AvroSerializer<TValue>(new CachedSchemaRegistryClient(_config.GetSchemaRegistryConfig(), authHeaderValueProvider)).AsSyncOverAsync());
-
-            return CreateProducerBuilder(producerOptions);
-        }
 
         /// <summary>
         /// Creates a pre-configured <see cref="IConsumer{TKey,TValue}"/>/>
@@ -152,39 +114,6 @@ namespace Cheetah.Kafka
             return builder
                 .AddCheetahOAuthentication(GetTokenRetrievalFunction(), _loggerFactory.CreateLogger<IConsumer<TKey, TValue>>())
                 .SetValueDeserializer(deserializer);
-        }
-
-        /// <summary>
-        /// Creates a pre-configured <see cref="ConsumerBuilder{TKey,TValue}"/> using a AvroDeserializer as default/>
-        /// </summary>
-        /// <param name="consumerOptions">Optional consumer option used to modify the configuration</param>
-        /// <typeparam name="TKey">The type of message key that the resulting consumer will consume</typeparam>
-        /// <typeparam name="TValue">The type of message value that the resulting consumer will consume</typeparam>
-        /// <returns>A pre-configured <see cref="IConsumer{TKey,TValue}"/></returns>
-        public IConsumer<TKey, TValue> CreateAvroConsumer<TKey, TValue>(ConsumerOptions<TKey, TValue>? consumerOptions = null)
-        {
-            return CreateAvroConsumerBuilder(consumerOptions).Build();
-        }
-
-        /// <summary>
-        /// Creates a pre-configured <see cref="ConsumerBuilder{TKey,TValue}"/> using a AvroDeserializer as default/>
-        /// </summary>
-        /// <inheritdoc cref="CreateConsumer{TKey, TValue}"/>
-        /// <returns>A pre-configured <see cref="ConsumerBuilder{TKey,TValue}"/></returns>
-        public ConsumerBuilder<TKey, TValue> CreateAvroConsumerBuilder<TKey, TValue>(ConsumerOptions<TKey, TValue>? consumerOptions = null)
-        {
-            consumerOptions ??= new ConsumerOptions<TKey, TValue>();
-
-            var authHeaderValueProvider = new OAuthHeaderValueProvider(_kafkaTokenService);
-            var schemaRegistryClient = new CachedSchemaRegistryClient(
-                _config.GetSchemaRegistryConfig(),
-                authHeaderValueProvider
-            );
-            consumerOptions.SetDeserializer(
-                new AvroDeserializer<TValue>(schemaRegistryClient).AsSyncOverAsync()
-            );
-
-            return CreateConsumerBuilder(consumerOptions);
         }
 
         /// <summary>

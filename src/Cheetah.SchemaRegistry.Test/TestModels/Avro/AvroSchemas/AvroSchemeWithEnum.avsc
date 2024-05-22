@@ -1,7 +1,7 @@
 ﻿{
     "type": "record",
     "name": "AdvancedAvroObject",
-    "namespace": "Cheetah.Kafka.Test.TestModels.Avro",
+    "namespace": "Cheetah.SchemaRegistry.Test.TestModels.Avro",
     "fields": [
         {
             "name": "Id",

@@ -47,7 +47,7 @@ namespace Cheetah.Kafka.Testing
             return Create(config, options, tokenService, loggerFactory);
         }
 
-        /// <inheritdoc cref="Create(Microsoft.Extensions.Configuration.IConfiguration,ClientFactoryOptions?,Cheetah.Auth.Authentication.ITokenService?,Microsoft.Extensions.Logging.ILoggerFactory?)"/>
+        /// <inheritdoc cref="Create(IConfiguration,ClientFactoryOptions?,Cheetah.Auth.Authentication.ITokenService?,Microsoft.Extensions.Logging.ILoggerFactory?)"/>
         public static KafkaTestClientFactory Create(
             KafkaConfig configuration,
             ClientFactoryOptions? options = null,
@@ -113,30 +113,6 @@ namespace Cheetah.Kafka.Testing
             return new KafkaTestWriter<TKey, T>(producer, keyFunction, topic);
         }
 
-        /// <inheritdoc cref="CreateTestWriter{T}"/>
-        /// <summary>
-        /// Creates an <see cref="IKafkaTestWriter{Null, T}"/> for the provided topic, which serializes messages using Avro. This writer will not produce keys.
-        /// </summary>
-        public IKafkaTestWriter<Null, T> CreateAvroTestWriter<T>(string topic)
-        {
-            return CreateAvroTestWriter<Null, T>(topic, _ => null!);
-        }
-
-        /// <inheritdoc cref="CreateTestWriter{TKey, T}"/>
-        /// <summary>
-        /// Creates an <see cref="IKafkaTestWriter{TKey, T}"/> for the provided topic, which serializes messages using Avro.
-        /// </summary>
-        public IKafkaTestWriter<TKey, T> CreateAvroTestWriter<TKey, T>(
-            string topic,
-            Func<T, TKey> keyFunction
-        )
-        {
-            ValidateTopic(topic);
-
-            var producer = ClientFactory.CreateAvroProducer<TKey, T>();
-            return new KafkaTestWriter<TKey, T>(producer, keyFunction, topic);
-        }
-
         /// <summary>
         /// Creates an <see cref="IKafkaTestReader{T}"/> for the provided topic. This reader will not read keys.
         /// </summary>
@@ -165,36 +141,6 @@ namespace Cheetah.Kafka.Testing
             consumerOptionsBuilder.ConfigureClient(DefaultReaderConfiguration(groupId));
 
             var consumer = ClientFactory.CreateConsumer<TKey, T>(
-                consumerOptionsBuilder.Build()
-            );
-            return new KafkaTestReader<TKey, T>(consumer, topic);
-        }
-
-        /// <inheritdoc cref="CreateTestReader{T}"/>
-        /// <summary>
-        /// Creates an <see cref="IKafkaTestReader{T}"/> for the provided topic, which deserializes messages using Avro. This reader will not read keys.
-        /// </summary>
-        public IKafkaTestReader<T> CreateAvroTestReader<T>(string topic, string? groupId = null)
-        {
-            return CreateAvroTestReader<Null, T>(topic, groupId);
-        }
-
-        /// <inheritdoc cref="CreateTestReader{TKey, T}"/>
-        /// <summary>
-        /// Creates an <see cref="IKafkaTestReader{T}"/> for the provided topic, which deserializes messages using Avro.
-        /// </summary>
-        public IKafkaTestReader<T> CreateAvroTestReader<TKey, T>(
-            string topic,
-            string? groupId = null
-        )
-        {
-            ValidateTopic(topic);
-            groupId ??= Guid.NewGuid().ToString();
-
-            var consumerOptionsBuilder = new ConsumerOptionsBuilder<TKey, T>();
-            consumerOptionsBuilder.ConfigureClient(DefaultReaderConfiguration(groupId));
-
-            var consumer = ClientFactory.CreateAvroConsumer<TKey, T>(
                 consumerOptionsBuilder.Build()
             );
             return new KafkaTestReader<TKey, T>(consumer, topic);

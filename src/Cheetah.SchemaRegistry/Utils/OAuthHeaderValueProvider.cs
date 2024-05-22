@@ -5,16 +5,26 @@ using Confluent.SchemaRegistry;
 
 namespace Cheetah.SchemaRegistry.Utils
 {
-    internal sealed class OAuthHeaderValueProvider : IAuthenticationHeaderValueProvider
+    /// <summary>
+    /// 
+    /// </summary>
+    public sealed class OAuthHeaderValueProvider : IAuthenticationHeaderValueProvider
     {
         readonly ITokenService _tokenService;
 
-        internal OAuthHeaderValueProvider(ITokenService tokenService)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tokenService"></param>
+        public OAuthHeaderValueProvider(ITokenService tokenService)
         {
             _tokenService = tokenService;
         }
 
-        // TODO: Move to Cheetah.Kafka
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public AuthenticationHeaderValue GetAuthenticationHeader()
         {
             string? token = _tokenService.RequestAccessTokenAsync(CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult().AccessToken;

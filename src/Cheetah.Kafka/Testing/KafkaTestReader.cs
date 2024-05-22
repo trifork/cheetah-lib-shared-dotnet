@@ -87,7 +87,7 @@ namespace Cheetah.Kafka.Testing
             {
                 try
                 {
-                    var consumeResult = Consumer!.Consume(cancellationToken);
+                    var consumeResult = Consumer.Consume(cancellationToken);
                     if (consumeResult.IsPartitionEOF)
                     {
                         continue;
