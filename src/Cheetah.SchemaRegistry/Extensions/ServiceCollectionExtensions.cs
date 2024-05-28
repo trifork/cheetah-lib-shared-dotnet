@@ -1,12 +1,13 @@
 ﻿using Cheetah.Auth.Authentication;
 using Cheetah.Auth.Configuration;
 using Cheetah.Auth.Extensions;
-using Cheetah.Kafka.Avro;
+using Cheetah.SchemaRegistry.Avro;
 using Cheetah.SchemaRegistry.Configuration;
 using Cheetah.SchemaRegistry.Utils;
 using Confluent.SchemaRegistry;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
 namespace Cheetah.SchemaRegistry.Extensions
@@ -31,10 +32,6 @@ namespace Cheetah.SchemaRegistry.Extensions
             configOAuth.Validate();
 
             serviceCollection.AddKeyedTokenService(Constants.TokenServiceKey, configOAuth);
-
-            serviceCollection.AddHostedService<StartUpSchemaRegistryTokenService>(
-                sp => new StartUpSchemaRegistryTokenService(sp.GetRequiredKeyedService<ITokenService>(Constants.TokenServiceKey))
-            );
 
             serviceCollection.AddSingleton<ISchemaRegistryClient>(serviceProvider =>
             {

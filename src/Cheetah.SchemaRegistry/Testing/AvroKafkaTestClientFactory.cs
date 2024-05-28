@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Cheetah.Auth.Authentication;
 using Cheetah.Auth.Util;
 using Cheetah.Kafka;
-using Cheetah.Kafka.Avro;
+using Cheetah.SchemaRegistry.Avro;
 using Cheetah.Kafka.Configuration;
 using Cheetah.Kafka.Testing;
 using Cheetah.SchemaRegistry.Configuration;

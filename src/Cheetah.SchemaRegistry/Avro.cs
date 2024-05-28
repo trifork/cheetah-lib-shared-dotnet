@@ -5,7 +5,7 @@ using Confluent.SchemaRegistry;
 using Confluent.SchemaRegistry.Serdes;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cheetah.Kafka.Avro
+namespace Cheetah.SchemaRegistry.Avro
 {
     /// <summary>
     /// Provides methods for creating Avro serializers.

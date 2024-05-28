@@ -9,7 +9,7 @@ namespace Cheetah.OpenSearch.Connection
     {
         private readonly ITokenService _tokenService;
 
-        public CheetahOpenSearchConnection([FromKeyedServices("opensearch")] ITokenService tokenService)
+        public CheetahOpenSearchConnection([FromKeyedServices(Constants.TokenServiceKey)] ITokenService tokenService)
         {
             _tokenService = tokenService;
         }

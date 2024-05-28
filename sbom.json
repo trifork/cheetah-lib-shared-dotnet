@@ -7089,11 +7089,11 @@
     },
     {
       "group": "",
-      "name": "Cheetah.Kafka.Avro",
+      "name": "Cheetah.SchemaRegistry.Avro",
       "version": "0.1.0",
-      "purl": "pkg:nuget/Cheetah.Kafka.Avro@0.1.0",
+      "purl": "pkg:nuget/Cheetah.SchemaRegistry.Avro@0.1.0",
       "type": "library",
-      "bom-ref": "pkg:nuget/Cheetah.Kafka.Avro@0.1.0",
+      "bom-ref": "pkg:nuget/Cheetah.SchemaRegistry.Avro@0.1.0",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -11136,7 +11136,7 @@
     {
       "ref": "pkg:nuget/Cheetah.SchemaRegistry.Test@1.0.0",
       "dependsOn": [
-        "pkg:nuget/Cheetah.Kafka.Avro@0.1.0",
+        "pkg:nuget/Cheetah.SchemaRegistry.Avro@0.1.0",
         "pkg:nuget/FluentAssertions@6.12.0",
         "pkg:nuget/Microsoft.Extensions.Caching.Abstractions@8.0.0",
         "pkg:nuget/Microsoft.Extensions.Caching.Memory@8.0.0",
@@ -12475,7 +12475,7 @@
       ]
     },
     {
-      "ref": "pkg:nuget/Cheetah.Kafka.Avro@0.1.0",
+      "ref": "pkg:nuget/Cheetah.SchemaRegistry.Avro@0.1.0",
       "dependsOn": [
         "pkg:nuget/Cheetah.Kafka@0.3.0",
         "pkg:nuget/Confluent.SchemaRegistry.Serdes.Avro@2.4.0",
@@ -12648,7 +12648,7 @@
     {
       "ref": "pkg:nuget/Cheetah.Kafka.ExampleProcessor@1.0.0",
       "dependsOn": [
-        "pkg:nuget/Cheetah.Kafka.Avro@0.1.0",
+        "pkg:nuget/Cheetah.SchemaRegistry.Avro@0.1.0",
         "pkg:nuget/Cheetah.Kafka@0.3.0"
       ]
     }

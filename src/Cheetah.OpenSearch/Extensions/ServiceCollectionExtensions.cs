@@ -1,5 +1,4 @@
 using System;
-using Cheetah.Auth.Authentication;
 using Cheetah.Auth.Configuration;
 using Cheetah.Auth.Extensions;
 using Cheetah.OpenSearch.Configuration;
@@ -16,7 +15,6 @@ namespace Cheetah.OpenSearch.Extensions
     /// </summary>
     public static class ServiceCollectionExtensions
     {
-        const string OpenSearchKey = "opensearch";
         /// <summary>
         /// Registers and configures an <see cref="IOpenSearchClient"/> for dependency injection, along with its required services.
         /// </summary>
@@ -45,8 +43,8 @@ namespace Cheetah.OpenSearch.Extensions
             configureClientOptions?.Invoke(clientOptions);
 
             serviceCollection
-                .AddSingleton<IConnectionPool>(ConnectionPoolHelper.GetConnectionPool(config.Url))
-                .AddSingleton<OpenSearchClientOptions>(clientOptions)
+                .AddSingleton(ConnectionPoolHelper.GetConnectionPool(config.Url))
+                .AddSingleton(clientOptions)
                 .AddSingleton<OpenSearchClientFactory>()
                 .AddSingleton<IOpenSearchClient>(sp =>
                     sp.GetRequiredService<OpenSearchClientFactory>().CreateOpenSearchClient()
@@ -63,10 +61,7 @@ namespace Cheetah.OpenSearch.Extensions
             configuration.GetSection(OpenSearchConfig.Position).GetSection(nameof(OpenSearchConfig.OAuth2)).Bind(configOAuth);
             configOAuth.Validate();
 
-            serviceCollection.AddKeyedTokenService(OpenSearchKey, configOAuth);
-            serviceCollection.AddHostedService<StartUpOpenSearchTokenService>(
-                sp => new StartUpOpenSearchTokenService(sp.GetRequiredKeyedService<ITokenService>(OpenSearchKey))
-            );
+            serviceCollection.AddKeyedTokenService(Constants.TokenServiceKey, configOAuth);
             serviceCollection.AddSingleton<IConnection, CheetahOpenSearchConnection>();
             return serviceCollection;
         }

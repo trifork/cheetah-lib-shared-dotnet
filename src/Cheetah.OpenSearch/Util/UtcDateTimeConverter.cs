@@ -25,14 +25,14 @@ namespace Cheetah.OpenSearch.Util
             {
                 if (objectType == typeof(DateTime))
                 {
-                    return ReadDateTime(reader, objectType, existingValue, serializer);
+                    return ReadDateTime(reader);
                 }
 
                 if (objectType == typeof(DateTimeOffset))
                 {
-                    var dateTime = ReadDateTime(reader, objectType, existingValue, serializer);
+                    var dateTime = ReadDateTime(reader);
                     return dateTime.HasValue
-                        ? new DateTimeOffset(dateTime.Value) as object // This cast seems unnecessary, but is required before C# 9
+                        ? new DateTimeOffset(dateTime.Value)
                         : null;
                 }
 
@@ -51,10 +51,7 @@ namespace Cheetah.OpenSearch.Util
         }
 
         private static DateTime? ReadDateTime(
-            JsonReader reader,
-            Type objectType,
-            object? existingValue,
-            JsonSerializer serializer
+            JsonReader reader
         )
         {
             return reader.Value switch

@@ -81,8 +81,11 @@ namespace Cheetah.OpenSearch.Test.Integration
             try
             {
                 // Start the background service
-                var bgService = serviceProvider.GetRequiredService<IHostedService>();
-                await bgService.StartAsync(CancellationToken.None);
+                var bgServices = serviceProvider.GetServices<IHostedService>();
+                foreach (var bgService in bgServices)
+                {
+                    await bgService.StartAsync(CancellationToken.None);
+                }
             }
             catch (Exception)
             {

@@ -63,8 +63,9 @@ namespace Cheetah.OpenSearch
             return new OpenSearchClient(GetConnectionSettings());
         }
 
-        string GetAuthModeLogString() =>
-            _clientConfig.AuthMode switch
+        string GetAuthModeLogString()
+        {
+            return _clientConfig.AuthMode switch
             {
                 OpenSearchConfig.OpenSearchAuthMode.None => "disabled",
                 OpenSearchConfig.OpenSearchAuthMode.Basic
@@ -73,6 +74,7 @@ namespace Cheetah.OpenSearch
                     => $"enabled using OAuth2, clientId=${_clientConfig.OAuth2.ClientId}",
                 _ => throw new ArgumentOutOfRangeException()
             };
+        }
 
         private ConnectionSettings GetConnectionSettings()
         {

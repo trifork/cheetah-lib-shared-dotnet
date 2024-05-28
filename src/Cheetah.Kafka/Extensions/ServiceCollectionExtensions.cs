@@ -40,15 +40,11 @@ namespace Cheetah.Kafka.Extensions
             configuration.GetSection(KafkaConfig.Position).GetSection(nameof(KafkaConfig.OAuth2)).Bind(configOAuth);
             configOAuth.Validate();
 
-            serviceCollection.AddSingleton<ISerializerProvider>(options.SerializerProviderFactory);
+            serviceCollection.AddSingleton(options.SerializerProviderFactory);
 
             serviceCollection.AddKeyedTokenService(Constants.TokenServiceKey, configOAuth);
 
-            serviceCollection.AddHostedService<StartUpKafkaTokenService>(
-                sp => new StartUpKafkaTokenService(sp.GetRequiredKeyedService<ITokenService>(Constants.TokenServiceKey))
-            );
-
-            serviceCollection.AddSingleton<KafkaClientFactory>(sp =>
+            serviceCollection.AddSingleton(sp =>
                 new KafkaClientFactory(sp.GetRequiredKeyedService<ITokenService>(Constants.TokenServiceKey),
                     sp.GetRequiredService<ILoggerFactory>(),
                     sp.GetRequiredService<IOptions<KafkaConfig>>(),

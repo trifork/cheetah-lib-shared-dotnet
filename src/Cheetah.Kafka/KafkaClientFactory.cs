@@ -56,7 +56,7 @@ namespace Cheetah.Kafka
         /// <returns>A pre-configured <see cref="IProducer{TKey,TValue}"/></returns>
         public IProducer<TKey, TValue> CreateProducer<TKey, TValue>(ProducerOptions<TKey, TValue>? producerOptions = null)
         {
-            return CreateProducerBuilder<TKey, TValue>(producerOptions).Build();
+            return CreateProducerBuilder(producerOptions).Build();
         }
 
         /// <summary>

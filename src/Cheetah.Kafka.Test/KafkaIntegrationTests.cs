@@ -58,8 +58,11 @@ namespace Cheetah.Kafka.Test
 
             _serviceProvider = services.BuildServiceProvider();
 
-            var bgService = _serviceProvider.GetRequiredService<IHostedService>();
-            bgService.StartAsync(CancellationToken.None);
+            var bgServices = _serviceProvider.GetServices<IHostedService>();
+            foreach (var bgService in bgServices)
+            {
+                bgService.StartAsync(CancellationToken.None);
+            }
         }
 
         [Fact]

@@ -2,6 +2,7 @@ using System.Net.Http;
 using Cheetah.Auth.Authentication;
 using Cheetah.Auth.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace Cheetah.Auth.Extensions
@@ -33,6 +34,8 @@ namespace Cheetah.Auth.Extensions
                     oAuthConfig,
                     sp.GetRequiredKeyedService<ICachableTokenProvider>(key),
                     sp.GetRequiredService<ILogger<CachedTokenProvider>>()));
+
+            serviceCollection.AddSingleton<IHostedService, StartUpTokenService>(sp => new StartUpTokenService(sp.GetRequiredKeyedService<ITokenService>(key)));
 
             return serviceCollection;
         }
