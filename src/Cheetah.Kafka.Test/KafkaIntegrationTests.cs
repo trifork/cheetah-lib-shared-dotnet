@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cheetah.Auth.Authentication;
+using Cheetah.Auth.Configuration;
+using Cheetah.Auth.Extensions;
+using Cheetah.Kafka.Configuration;
 using Cheetah.Kafka.Extensions;
 using Cheetah.Kafka.Test.Util;
 using Confluent.Kafka;
@@ -24,10 +28,12 @@ namespace Cheetah.Kafka.Test
             var localConfig = new Dictionary<string, string?>
             {
                 { "KAFKA:URL", "localhost:9092" },
-                { "KAFKA:OAUTH2:CLIENTID", "default-access" },
+                { "KAFKA:OAUTH2:CLIENTID", "bad" },
                 { "KAFKA:OAUTH2:CLIENTSECRET", "default-access-secret" },
                 { "KAFKA:OAUTH2:TOKENENDPOINT", "http://localhost:1852/realms/local-development/protocol/openid-connect/token " },
                 { "KAFKA:OAUTH2:SCOPE", "kafka schema-registry" },
+                { "KAFKA:SECURITYPROTOCOL", "SaslPlaintext" },
+                { "KAFKA:SASLMECHANISM", "OAuthBearer" },
             };
 
             var configuration = new ConfigurationBuilder()
@@ -42,6 +48,13 @@ namespace Cheetah.Kafka.Test
                 s.AddFilter("System.Net.Http.HttpClient", LogLevel.Warning);
                 s.AddConsole();
             });
+
+            var configOAuth = new OAuth2Config();
+            configuration.GetSection(KafkaConfig.Position).GetSection(nameof(KafkaConfig.OAuth2)).Bind(configOAuth);
+            configOAuth.ClientId = "default-access";
+            configOAuth.Validate();
+
+            services.TryAddCheetahKeyedTokenService(Constants.TokenServiceKey, configOAuth);
 
             services
                 .AddCheetahKafka(configuration)
