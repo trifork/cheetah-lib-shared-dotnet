@@ -33,7 +33,7 @@ namespace Cheetah.Auth.Authentication
         /// <returns>TokenResponse</returns>
         public async Task<TokenResponse?> GetTokenResponse(CancellationToken cancellationToken)
         {
-            using var httpClient = _httpClientFactory.CreateClient("OAuthTokenProvider");
+            using var httpClient = _httpClientFactory.CreateClient("CheetahOAuthTokenProvider");
             var tokenClient = new TokenClient(
                 httpClient,
                 new TokenClientOptions
