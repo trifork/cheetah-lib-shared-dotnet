@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Net.Http;
 using Cheetah.Auth.Authentication;
 using Cheetah.Auth.Configuration;
@@ -20,8 +21,13 @@ namespace Cheetah.Auth.Extensions
         /// <param name="key">The key used for resolving the services.</param>
         /// <param name="oAuthConfig">The OAuth2 configuration.</param>
         /// <returns>The modified <see cref="IServiceCollection"/> instance.</returns>
-        public static IServiceCollection AddKeyedTokenService(this IServiceCollection serviceCollection, string key, OAuth2Config oAuthConfig)
+        public static IServiceCollection TryAddCheetahKeyedTokenService(this IServiceCollection serviceCollection, string key, OAuth2Config oAuthConfig)
         {
+            if (serviceCollection.Any(s => s.IsKeyedService && s.ServiceKey != null && s.ServiceKey.GetType().Equals(typeof(string)) && (string)s.ServiceKey == key && typeof(ITokenService).IsAssignableTo(s.ServiceType)))
+            {
+                return serviceCollection;
+            }
+
             serviceCollection.AddHttpClient<CachedTokenProvider>(key);
 
             serviceCollection.AddKeyedSingleton<ICachableTokenProvider>(key, (sp, serviceKey) =>

@@ -31,12 +31,17 @@ namespace Cheetah.Kafka.Configuration
         /// <summary>
         /// The security protocol used to communicate with brokers.
         /// </summary>
-        public SecurityProtocol SecurityProtocol { get; set; } = SecurityProtocol.SaslPlaintext;
+        public SecurityProtocol SecurityProtocol { get; set; } = SecurityProtocol.Plaintext;
 
         /// <summary>
         /// The location of the CA certificate file used to verify the broker's certificate.
         /// </summary>
         public string SslCaLocation { get; set; } = "";
+
+        /// <summary>
+        /// The Sasl Mechanism used to communicate with brokers.
+        /// </summary>
+        public SaslMechanism SaslMechanism { get; set; } = SaslMechanism.Plain;
 
         /// <summary>
         /// The OAuth2 configuration
@@ -86,7 +91,7 @@ namespace Cheetah.Kafka.Configuration
             var clientConfig = new ClientConfig
             {
                 BootstrapServers = Url,
-                SaslMechanism = SaslMechanism.OAuthBearer,
+                SaslMechanism = SaslMechanism,
                 SecurityProtocol = SecurityProtocol,
                 SslCaLocation = SslCaLocation,
             };

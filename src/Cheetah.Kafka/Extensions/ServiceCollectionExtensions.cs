@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Cheetah.Auth.Authentication;
 using Cheetah.Auth.Configuration;
 using Cheetah.Auth.Extensions;
@@ -42,7 +43,7 @@ namespace Cheetah.Kafka.Extensions
 
             serviceCollection.AddSingleton(options.SerializerProviderFactory);
 
-            serviceCollection.AddKeyedTokenService(Constants.TokenServiceKey, configOAuth);
+            serviceCollection.TryAddCheetahKeyedTokenService(Constants.TokenServiceKey, configOAuth);
 
             serviceCollection.AddSingleton(sp =>
                 new KafkaClientFactory(sp.GetRequiredKeyedService<ITokenService>(Constants.TokenServiceKey),
