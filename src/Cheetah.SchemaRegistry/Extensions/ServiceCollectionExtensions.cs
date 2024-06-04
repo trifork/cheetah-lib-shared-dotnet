@@ -31,7 +31,7 @@ namespace Cheetah.SchemaRegistry.Extensions
             configuration.GetSection(SchemaConfig.Position).GetSection(nameof(SchemaConfig.OAuth2)).Bind(configOAuth);
             configOAuth.Validate();
 
-            serviceCollection.TryAddCheetahKeyedTokenService(Constants.TokenServiceKey, configOAuth);
+            serviceCollection.AddKeyedTokenService(Constants.TokenServiceKey, configOAuth);
 
             serviceCollection.AddSingleton<ISchemaRegistryClient>(serviceProvider =>
             {

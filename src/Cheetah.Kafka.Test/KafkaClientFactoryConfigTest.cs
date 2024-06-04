@@ -21,8 +21,6 @@ namespace Cheetah.Kafka.Test
                 { "KAFKA:OAUTH2:CLIENTID", "default-access" },
                 { "KAFKA:OAUTH2:CLIENTSECRET", "default-access-secret" },
                 { "KAFKA:OAUTH2:TOKENENDPOINT", "http://localhost:1852/realms/local-development/protocol/openid-connect/token " },
-                { "KAFKA:SECURITYPROTOCOL", "SaslPlaintext" },
-                { "KAFKA:SASLMECHANISM", "OAuthBearer" },
             };
 
             configurationDictionary.Remove(missingKey);

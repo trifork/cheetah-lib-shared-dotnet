@@ -61,7 +61,7 @@ namespace Cheetah.OpenSearch.Extensions
             configuration.GetSection(OpenSearchConfig.Position).GetSection(nameof(OpenSearchConfig.OAuth2)).Bind(configOAuth);
             configOAuth.Validate();
 
-            serviceCollection.TryAddCheetahKeyedTokenService(Constants.TokenServiceKey, configOAuth);
+            serviceCollection.AddKeyedTokenService(Constants.TokenServiceKey, configOAuth);
             serviceCollection.AddSingleton<IConnection, CheetahOpenSearchConnection>();
             return serviceCollection;
         }

@@ -12,6 +12,7 @@ namespace Cheetah.Kafka
         private Action<ProducerConfig> _defaultProducerConfigure = config => { };
         private Action<ConsumerConfig> _defaultConsumerConfigure = config => { };
         private Action<AdminClientConfig> _defaultAdminClientConfigure = config => { };
+
         internal Action<ClientConfig> ClientConfigure { get; private set; } = config => { };
 
         internal Func<IServiceProvider, ISerializerProvider> SerializerProviderFactory = Utf8SerializerProvider.FromServices();

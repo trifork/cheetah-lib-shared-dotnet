@@ -13,7 +13,7 @@ namespace Cheetah.OpenSearch.Connection
         public OAuth2HttpMessageHandler(ITokenService tokenService, HttpMessageHandler innerHandler)
             : base(innerHandler)
         {
-            _tokenService = tokenService;
+            this._tokenService = tokenService;
         }
 
         protected override async Task<HttpResponseMessage> SendAsync(
@@ -21,14 +21,14 @@ namespace Cheetah.OpenSearch.Connection
             CancellationToken cancellationToken
         )
         {
-            var (AccessToken, _) = await _tokenService.RequestAccessTokenAsync(cancellationToken);
-            if (string.IsNullOrEmpty(AccessToken))
+            var accessToken = await _tokenService.RequestAccessTokenAsync(cancellationToken);
+            if (string.IsNullOrEmpty(accessToken.AccessToken))
             {
                 throw new UnauthorizedAccessException(
                     "Could not retrieve access token from IDP. Look at environment values to ensure they are correct"
                 );
             }
-            request.Headers.Add("Authorization", $"bearer {AccessToken}");
+            request.Headers.Add("Authorization", $"bearer {accessToken.AccessToken}");
             return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
         }
     }
