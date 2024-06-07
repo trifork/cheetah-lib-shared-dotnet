@@ -1,5 +1,5 @@
 using System;
-using Cheetah.Kafka.Serialization;
+using Cheetah.Kafka.Serdes;
 using Confluent.Kafka;
 
 namespace Cheetah.Kafka
@@ -15,6 +15,7 @@ namespace Cheetah.Kafka
         internal Action<ClientConfig> ClientConfigure { get; private set; } = config => { };
 
         internal Func<IServiceProvider, ISerializerProvider> SerializerProviderFactory = Utf8SerializerProvider.FromServices();
+        internal Func<IServiceProvider, IDeserializerProvider> DeserializerProviderFactory = Utf8DeserializerProvider.FromServices();
 
         // This structure allows us to easily access the combined configuration for each client type
         internal Action<ProducerConfig> ProducerConfigure => MergeActions(ClientConfigure, _defaultProducerConfigure);
@@ -80,13 +81,34 @@ namespace Cheetah.Kafka
         }
 
         /// <summary>
-        /// Configures the default serializerProvider that will be used for all clients created by the factory
+        /// Configures the default SerializerProvider that will be used for all clients created by the factory
         /// </summary>
         /// <param name="serializerProvider">The serializer provider to be used as default.</param>
         /// <returns>This <see cref="ClientFactoryOptions"/> instance for method chaining</returns>
         public ClientFactoryOptions ConfigureDefaultSerializerProvider(ISerializerProvider serializerProvider)
         {
             SerializerProviderFactory = _ => serializerProvider;
+            return this;
+        }
+        /// <summary>
+        /// Configures the default DeserializerProviderFactory that will be used for all clients created by the factory
+        /// </summary>
+        /// <param name="deserializerProviderFactory">The factory method for creating the default deserializer provider.</param>
+        /// <returns>This <see cref="ClientFactoryOptions"/> instance for method chaining</returns>
+        public ClientFactoryOptions ConfigureDefaultDeserializerProvider(Func<IServiceProvider, IDeserializerProvider> deserializerProviderFactory)
+        {
+            DeserializerProviderFactory = deserializerProviderFactory;
+            return this;
+        }
+
+        /// <summary>
+        /// Configures the default DeserializerProvider that will be used for all clients created by the factory
+        /// </summary>
+        /// <param name="deserializerProvider">The deserializer provider to be used as default.</param>
+        /// <returns>This <see cref="ClientFactoryOptions"/> instance for method chaining</returns>
+        public ClientFactoryOptions ConfigureDefaultDeserializerProvider(IDeserializerProvider deserializerProvider)
+        {
+            DeserializerProviderFactory = _ => deserializerProvider;
             return this;
         }
 

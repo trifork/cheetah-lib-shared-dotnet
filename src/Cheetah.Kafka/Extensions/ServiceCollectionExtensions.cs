@@ -1,10 +1,9 @@
 using System;
-using System.Linq;
 using Cheetah.Auth.Authentication;
 using Cheetah.Auth.Configuration;
 using Cheetah.Auth.Extensions;
 using Cheetah.Kafka.Configuration;
-using Cheetah.Kafka.Serialization;
+using Cheetah.Kafka.Serdes;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -42,6 +41,7 @@ namespace Cheetah.Kafka.Extensions
             configOAuth.Validate();
 
             serviceCollection.AddSingleton(options.SerializerProviderFactory);
+            serviceCollection.AddSingleton(options.DeserializerProviderFactory);
 
             serviceCollection.TryAddCheetahKeyedTokenService(Constants.TokenServiceKey, configOAuth);
 
@@ -50,7 +50,8 @@ namespace Cheetah.Kafka.Extensions
                     sp.GetRequiredService<ILoggerFactory>(),
                     sp.GetRequiredService<IOptions<KafkaConfig>>(),
                     sp.GetRequiredService<ClientFactoryOptions>(),
-                    sp.GetRequiredService<ISerializerProvider>()
+                    sp.GetRequiredService<ISerializerProvider>(),
+                    sp.GetRequiredService<IDeserializerProvider>()
                     ));
 
             return new ClientInjector(serviceCollection);

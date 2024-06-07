@@ -33,7 +33,7 @@ public class MyService {
 
 The injected consumer is pre-configured to:
 * Authenticate towards Kafka using OAuth2
-* Deserialize message values from json with UTF8-encoding.
+* Deserialize message values and keys from json with UTF8-encoding.
 
 The same concept applies for producers and admin clients. The following example shows a producer and admin client being registered and injected:
 

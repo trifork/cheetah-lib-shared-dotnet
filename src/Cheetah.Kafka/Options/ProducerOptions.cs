@@ -10,16 +10,25 @@ namespace Cheetah.Kafka
     /// <typeparam name="TValue">The type of the producer value.</typeparam>
     public class ProducerOptions<TKey, TValue> : ClientOptions<ProducerConfig, ProducerBuilder<TKey, TValue>>
     {
-        // TODO: Add Key Serializer
-        internal ISerializer<TValue>? Serializer { get; private set; }
+        internal ISerializer<TKey>? KeySerializer { get; private set; }
+        internal ISerializer<TValue>? ValueSerializer { get; private set; }
 
         /// <summary>
-        /// Sets the serializer for the producer.
+        /// Sets the value serializer for the producer.
         /// </summary>
-        /// <param name="serializer">The serializer to be used for the producer.</param>
-        public void SetSerializer(ISerializer<TValue> serializer)
+        /// <param name="valueSerializer">The serializer to be used for the producer.</param>
+        public void SetValueSerializer(ISerializer<TValue> valueSerializer)
         {
-            Serializer = serializer;
+            ValueSerializer = valueSerializer;
+        }
+
+        /// <summary>
+        /// Sets the key serializer for the producer.
+        /// </summary>
+        /// <param name="keySerializer">The serializer to be used for the producer.</param>
+        public void SetKeySerializer(ISerializer<TKey> keySerializer)
+        {
+            KeySerializer = keySerializer;
         }
     }
 
@@ -31,16 +40,28 @@ namespace Cheetah.Kafka
     public class ProducerOptionsBuilder<TKey, TValue> : IOptionsBuilder<ProducerOptions<TKey, TValue>>
     {
         private readonly ProducerOptions<TKey, TValue> _options = new ProducerOptions<TKey, TValue>();
-        private Func<IServiceProvider, ISerializer<TValue>>? _serializerFactory;
+        private Func<IServiceProvider, ISerializer<TValue>>? _valueSerializerFactory;
+        private Func<IServiceProvider, ISerializer<TKey>>? _keySerializerFactory;
 
         /// <summary>
-        /// Sets the serializer factory method.
+        /// Sets the value serializer factory method.
         /// </summary>
-        /// <param name="serializerFactory">The factory method for creating the serializer.</param>
+        /// <param name="valueSerializerFactory">The factory method for creating the value serializer.</param>
         /// <returns>The builder instance.</returns>
-        public ProducerOptionsBuilder<TKey, TValue> SetSerializer(Func<IServiceProvider, ISerializer<TValue>> serializerFactory)
+        public ProducerOptionsBuilder<TKey, TValue> SetValueSerializer(Func<IServiceProvider, ISerializer<TValue>> valueSerializerFactory)
         {
-            _serializerFactory = serializerFactory;
+            _valueSerializerFactory = valueSerializerFactory;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the key serializer factory method.
+        /// </summary>
+        /// <param name="keySerializerFactory">The factory method for creating the key serializer.</param>
+        /// <returns>The builder instance.</returns>
+        public ProducerOptionsBuilder<TKey, TValue> SetKeySerializer(Func<IServiceProvider, ISerializer<TKey>> keySerializerFactory)
+        {
+            _keySerializerFactory = keySerializerFactory;
             return this;
         }
 
@@ -75,9 +96,13 @@ namespace Cheetah.Kafka
         /// <returns>The configured producer options.</returns>
         public ProducerOptions<TKey, TValue> Build(IServiceProvider serviceProvider)
         {
-            if (_serializerFactory != null)
+            if (_valueSerializerFactory != null)
             {
-                _options.SetSerializer(_serializerFactory.Invoke(serviceProvider));
+                _options.SetValueSerializer(_valueSerializerFactory.Invoke(serviceProvider));
+            }
+            if (_keySerializerFactory != null)
+            {
+                _options.SetKeySerializer(_keySerializerFactory.Invoke(serviceProvider));
             }
 
             return _options;

@@ -1,5 +1,5 @@
 ﻿using System;
-using Cheetah.Kafka.Serialization;
+using Cheetah.Kafka.Serdes;
 using Confluent.Kafka;
 using Confluent.Kafka.SyncOverAsync;
 using Confluent.SchemaRegistry;
@@ -42,7 +42,17 @@ namespace Cheetah.SchemaRegistry.Avro
         /// </summary>
         /// <typeparam name="T">The type of object to serialize.</typeparam>
         /// <returns>An instance of <see cref="AvroSerializer{T}"/>.</returns>
-        public ISerializer<T> GetSerializer<T>()
+        public ISerializer<T> GetValueSerializer<T>()
+        {
+            return new AvroSerializer<T>(_schemaRegistryClient, _serializerConfig).AsSyncOverAsync();
+        }
+
+        /// <summary>
+        /// Gets a serializer for the specified type using Avro serialization.
+        /// </summary>
+        /// <typeparam name="T">The type of object to serialize.</typeparam>
+        /// <returns>An instance of <see cref="AvroSerializer{T}"/>.</returns>
+        public ISerializer<T> GetKeySerializer<T>()
         {
             return new AvroSerializer<T>(_schemaRegistryClient, _serializerConfig).AsSyncOverAsync();
         }
@@ -52,7 +62,17 @@ namespace Cheetah.SchemaRegistry.Avro
         /// </summary>
         /// <typeparam name="T">The type of object to deserialize.</typeparam>
         /// <returns>An instance of <see cref="AvroDeserializer{T}"/>.</returns>
-        public IDeserializer<T> GetDeserializer<T>()
+        public IDeserializer<T> GetValueDeserializer<T>()
+        {
+            return new AvroDeserializer<T>(_schemaRegistryClient, _serializerConfig).AsSyncOverAsync();
+        }
+
+        /// <summary>
+        /// Gets a deserializer for the specified type using Avro serialization.
+        /// </summary>
+        /// <typeparam name="T">The type of object to deserialize.</typeparam>
+        /// <returns>An instance of <see cref="AvroDeserializer{T}"/>.</returns>
+        public IDeserializer<T> GetKeyDeserializer<T>()
         {
             return new AvroDeserializer<T>(_schemaRegistryClient, _serializerConfig).AsSyncOverAsync();
         }

@@ -4,7 +4,7 @@ using Cheetah.Auth.Authentication;
 using Cheetah.Auth.Util;
 using Cheetah.Kafka.Configuration;
 using Cheetah.Kafka.Extensions;
-using Cheetah.Kafka.Serialization;
+using Cheetah.Kafka.Serdes;
 using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -53,13 +53,15 @@ namespace Cheetah.Kafka.Testing
             ClientFactoryOptions? options = null,
             ITokenService? tokenService = null,
             ILoggerFactory? loggerFactory = null,
-            ISerializerProvider? serializerProvider = null)
+            ISerializerProvider? serializerProvider = null,
+            IDeserializerProvider? deserializerProvider = null)
         {
             var config = Options.Create(configuration);
 
             options ??= new ClientFactoryOptions();
             loggerFactory ??= LoggerFactory.Create(builder => builder.AddConsole());
             serializerProvider ??= new Utf8SerializerProvider();
+            deserializerProvider ??= new Utf8DeserializerProvider();
 
             tokenService ??= new CachedTokenProvider(configuration.OAuth2,
                 new OAuthTokenProvider(configuration.OAuth2, new DefaultHttpClientFactory()),
@@ -72,7 +74,8 @@ namespace Cheetah.Kafka.Testing
                 loggerFactory,
                 config,
                 options,
-                serializerProvider
+                serializerProvider,
+                deserializerProvider
             );
             return new KafkaTestClientFactory(clientFactory);
         }

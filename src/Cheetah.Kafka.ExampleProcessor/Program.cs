@@ -20,6 +20,7 @@ builder.Services.AddCheetahSchemaRegistry(builder.Configuration);
 builder.Services.AddCheetahKafka(builder.Configuration, options =>
     {
         options.ConfigureDefaultSerializerProvider(AvroSerializerProvider.FromServices());
+        options.ConfigureDefaultDeserializerProvider(AvroDeserializerProvider.FromServices());
         options.ConfigureDefaultConsumer(config =>
         {
             config.AllowAutoCreateTopics = true;
@@ -28,7 +29,7 @@ builder.Services.AddCheetahKafka(builder.Configuration, options =>
     })
     .WithKeyedConsumer<string, ExampleModelAvro>("A", options =>
     {
-        options.SetDeserializer(AvroDeserializer.FromServices<ExampleModelAvro>());
+        options.SetValueDeserializer(AvroDeserializer.FromServices<ExampleModelAvro>());
         options.ConfigureClient(cfg =>
         {
             cfg.GroupId = "the-big-group";
@@ -36,12 +37,12 @@ builder.Services.AddCheetahKafka(builder.Configuration, options =>
     })
     .WithKeyedConsumer<string, ExampleModelAvro>("B", options =>
     {
-        options.SetDeserializer(AvroDeserializer.FromServices<ExampleModelAvro>());
+        options.SetValueDeserializer(AvroDeserializer.FromServices<ExampleModelAvro>());
 
     })
     .WithProducer<string, ExampleModelAvro>(options =>
     {
-        options.SetSerializer(AvroSerializer.FromServices<ExampleModelAvro>());
+        options.SetValueSerializer(AvroSerializer.FromServices<ExampleModelAvro>());
         options.ConfigureClient(cfg =>
         {
             cfg.BatchSize = 100;

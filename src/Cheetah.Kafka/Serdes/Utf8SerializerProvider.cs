@@ -2,7 +2,7 @@
 using Cheetah.Kafka.Util;
 using Confluent.Kafka;
 
-namespace Cheetah.Kafka.Serialization
+namespace Cheetah.Kafka.Serdes
 {
     /// <summary>
     /// Provides UTF-8 serialization for Kafka messages.
@@ -23,17 +23,17 @@ namespace Cheetah.Kafka.Serialization
         /// </summary>
         /// <typeparam name="T">The type of object to serialize.</typeparam>
         /// <returns>An instance of <see cref="Utf8Serializer{T}"/>.</returns>
-        public ISerializer<T> GetSerializer<T>()
+        public ISerializer<T> GetValueSerializer<T>()
         {
             return new Utf8Serializer<T>();
         }
 
         /// <summary>
-        /// Gets a deserializer for the specified type using UTF-8 encoding.
+        /// Gets a serializer for the specified type using UTF-8 encoding.
         /// </summary>
-        /// <typeparam name="T">The type of object to deserialize.</typeparam>
+        /// <typeparam name="T">The type of object to serialize.</typeparam>
         /// <returns>An instance of <see cref="Utf8Serializer{T}"/>.</returns>
-        public IDeserializer<T> GetDeserializer<T>()
+        public ISerializer<T> GetKeySerializer<T>()
         {
             return new Utf8Serializer<T>();
         }

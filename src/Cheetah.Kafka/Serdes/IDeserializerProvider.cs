@@ -1,23 +1,24 @@
-﻿using Confluent.Kafka;
+using Confluent.Kafka;
 
-namespace Cheetah.Kafka.Serialization
+namespace Cheetah.Kafka.Serdes
 {
     /// <summary>
     /// 
     /// </summary>
-    public interface ISerializerProvider
+    public interface IDeserializerProvider
     {
         /// <summary>
         /// 
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        ISerializer<T> GetSerializer<T>();
+        IDeserializer<T> GetValueDeserializer<T>();
+
         /// <summary>
         /// 
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        IDeserializer<T> GetDeserializer<T>();
+        IDeserializer<T>? GetKeyDeserializer<T>();
     }
 }

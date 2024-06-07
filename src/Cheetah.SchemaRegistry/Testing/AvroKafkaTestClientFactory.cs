@@ -47,10 +47,11 @@ namespace Cheetah.SchemaRegistry.Testing
             Task.Run(schemaTokenService.StartAsync);
 
             var authHeaderValueProvider = new OAuthHeaderValueProvider(schemaTokenService);
-            var serializerProvider = new AvroSerializerProvider(new CachedSchemaRegistryClient(schemaConfig.GetSchemaRegistryConfig(), authHeaderValueProvider));
+            var schemaRegistryClient = new CachedSchemaRegistryClient(schemaConfig.GetSchemaRegistryConfig(), authHeaderValueProvider);
+            var serializerProvider = new AvroSerializerProvider(schemaRegistryClient);
+            var deserializerProvider = new AvroDeserializerProvider(schemaRegistryClient);
 
-
-            return KafkaTestClientFactory.Create(kafkaConfig, options, tokenService, loggerFactory, serializerProvider);
+            return KafkaTestClientFactory.Create(kafkaConfig, options, tokenService, loggerFactory, serializerProvider, deserializerProvider);
         }
     }
 }

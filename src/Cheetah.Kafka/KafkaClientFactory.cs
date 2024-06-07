@@ -1,10 +1,11 @@
 using System;
+using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
 using Cheetah.Auth.Authentication;
 using Cheetah.Kafka.Configuration;
 using Cheetah.Kafka.Extensions;
-using Cheetah.Kafka.Serialization;
+using Cheetah.Kafka.Serdes;
 using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -21,7 +22,8 @@ namespace Cheetah.Kafka
         private readonly ILoggerFactory _loggerFactory;
         private readonly KafkaConfig _config;
         private readonly ClientFactoryOptions _options;
-        private readonly ISerializerProvider _serializerProvider;
+        private readonly ISerializerProvider? _serializerProvider;
+        private readonly IDeserializerProvider? _deserializerProvider;
 
         /// <summary>
         /// Creates a new instance of <see cref="KafkaClientFactory"/>
@@ -31,12 +33,14 @@ namespace Cheetah.Kafka
         /// <param name="config">The configuration to use when creating clients</param>
         /// <param name="options">The options to use when creating clients</param>
         /// <param name="serializerProvider"></param>
+        /// <param name="deserializerProvider"></param>
         public KafkaClientFactory(
             ITokenService tokenService,
             ILoggerFactory loggerFactory,
             IOptions<KafkaConfig> config,
             ClientFactoryOptions options,
-            ISerializerProvider serializerProvider)
+            ISerializerProvider? serializerProvider,
+            IDeserializerProvider? deserializerProvider)
         {
             _kafkaTokenService = tokenService;
             _loggerFactory = loggerFactory;
@@ -44,6 +48,7 @@ namespace Cheetah.Kafka
             _config.Validate();
             _options = options;
             _serializerProvider = serializerProvider;
+            _deserializerProvider = deserializerProvider;
             _logger = _loggerFactory.CreateLogger<KafkaClientFactory>();
         }
 
@@ -74,11 +79,13 @@ namespace Cheetah.Kafka
             producerOptions ??= new ProducerOptions<TKey, TValue>();
             producerOptions.ConfigureAction?.Invoke(configInstance);
             producerOptions.BuilderAction?.Invoke(builder);
-            var serializer = producerOptions.Serializer ?? _serializerProvider.GetSerializer<TValue>();
+            var valueSerializer = producerOptions.ValueSerializer ?? _serializerProvider?.GetValueSerializer<TValue>();
+            var keySerializer = producerOptions.KeySerializer ?? _serializerProvider?.GetValueSerializer<TKey>();
 
             return builder
                 .AddCheetahOAuthentication(GetTokenRetrievalFunction(), _loggerFactory.CreateLogger<IProducer<TKey, TValue>>())
-                .SetValueSerializer(serializer);
+                .SetKeySerializer(keySerializer)
+                .SetValueSerializer(valueSerializer);
         }
 
 
@@ -109,11 +116,13 @@ namespace Cheetah.Kafka
             consumerOptions ??= new ConsumerOptions<TKey, TValue>();
             consumerOptions.ConfigureAction?.Invoke(config);
             consumerOptions.BuilderAction?.Invoke(builder);
-            var deserializer = consumerOptions.Deserializer ?? _serializerProvider.GetDeserializer<TValue>();
+            var keyDeserializer = consumerOptions.KeyDeserializer ?? _deserializerProvider?.GetKeyDeserializer<TKey>();
+            var valueDeserializer = consumerOptions.ValueDeserializer ?? _deserializerProvider?.GetValueDeserializer<TValue>();
 
             return builder
                 .AddCheetahOAuthentication(GetTokenRetrievalFunction(), _loggerFactory.CreateLogger<IConsumer<TKey, TValue>>())
-                .SetValueDeserializer(deserializer);
+                .SetValueDeserializer(valueDeserializer)
+                .SetKeyDeserializer(keyDeserializer);
         }
 
         /// <summary>

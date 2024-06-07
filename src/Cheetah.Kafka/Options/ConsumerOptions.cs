@@ -10,16 +10,25 @@ namespace Cheetah.Kafka
     /// <typeparam name="TValue">The type of the consumer value.</typeparam>
     public class ConsumerOptions<TKey, TValue> : ClientOptions<ConsumerConfig, ConsumerBuilder<TKey, TValue>>
     {
-        // TODO: Add Key Serializer
-        internal IDeserializer<TValue>? Deserializer { get; private set; }
+        internal IDeserializer<TValue>? ValueDeserializer { get; private set; }
+        internal IDeserializer<TKey>? KeyDeserializer { get; private set; }
 
         /// <summary>
-        /// Sets the deserializer for the consumer.
+        /// Sets the value deserializer for the consumer.
         /// </summary>
-        /// <param name="deserializer">The deserializer to be used for the consumer.</param>
-        public void SetDeserializer(IDeserializer<TValue> deserializer)
+        /// <param name="valueDeserializer">The value deserializer to be used for the consumer.</param>
+        public void SetValueDeserializer(IDeserializer<TValue> valueDeserializer)
         {
-            Deserializer = deserializer;
+            ValueDeserializer = valueDeserializer;
+        }
+
+        /// <summary>
+        /// Sets the key deserializer for the consumer.
+        /// </summary>
+        /// <param name="keyDeserializer">The key deserializer to be used for the consumer.</param>
+        public void SetKeyDeserializer(IDeserializer<TKey> keyDeserializer)
+        {
+            KeyDeserializer = keyDeserializer;
         }
 
     }
@@ -32,16 +41,28 @@ namespace Cheetah.Kafka
     public class ConsumerOptionsBuilder<TKey, TValue> : IOptionsBuilder<ConsumerOptions<TKey, TValue>>
     {
         private readonly ConsumerOptions<TKey, TValue> _options = new ConsumerOptions<TKey, TValue>();
-        private Func<IServiceProvider, IDeserializer<TValue>>? _deserializerFactory;
+        private Func<IServiceProvider, IDeserializer<TValue>>? _valueDeserializerFactory;
+        private Func<IServiceProvider, IDeserializer<TKey>>? _keyDeserializerFactory;
 
         /// <summary>
-        /// Sets the deserializer factory method.
+        /// Sets the value deserializer factory method.
         /// </summary>
-        /// <param name="deserializerFactory">The factory method for creating the deserializer.</param>
+        /// <param name="valueDeserializerFactory">The factory method for creating the value deserializer.</param>
         /// <returns>The builder instance.</returns>
-        public ConsumerOptionsBuilder<TKey, TValue> SetDeserializer(Func<IServiceProvider, IDeserializer<TValue>> deserializerFactory)
+        public ConsumerOptionsBuilder<TKey, TValue> SetValueDeserializer(Func<IServiceProvider, IDeserializer<TValue>> valueDeserializerFactory)
         {
-            _deserializerFactory = deserializerFactory;
+            _valueDeserializerFactory = valueDeserializerFactory;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the key deserializer factory method.
+        /// </summary>
+        /// <param name="keyDeserializerFactory">The factory method for creating the key deserializer.</param>
+        /// <returns>The builder instance.</returns>
+        public ConsumerOptionsBuilder<TKey, TValue> SetKeyDeserializer(Func<IServiceProvider, IDeserializer<TKey>> keyDeserializerFactory)
+        {
+            _keyDeserializerFactory = keyDeserializerFactory;
             return this;
         }
 
@@ -74,9 +95,13 @@ namespace Cheetah.Kafka
         /// <returns>The configured consumer options.</returns>
         public ConsumerOptions<TKey, TValue> Build(IServiceProvider serviceProvider)
         {
-            if (_deserializerFactory != null)
+            if (_valueDeserializerFactory != null)
             {
-                _options.SetDeserializer(_deserializerFactory.Invoke(serviceProvider));
+                _options.SetValueDeserializer(_valueDeserializerFactory.Invoke(serviceProvider));
+            }
+            if (_keyDeserializerFactory != null)
+            {
+                _options.SetKeyDeserializer(_keyDeserializerFactory.Invoke(serviceProvider));
             }
 
             return _options;
