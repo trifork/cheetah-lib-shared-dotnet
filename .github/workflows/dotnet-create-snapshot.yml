@@ -35,4 +35,4 @@ jobs:
       fat-pack: true
       csproj-filepath: ${{ needs.get-csproj-filepath.outputs.csproj-filepath }}
     secrets:
-      PAT: ${{ secrets.PAT }}
+      PAT: ${{ secrets.WRITE_PACKAGE_PAT }}
