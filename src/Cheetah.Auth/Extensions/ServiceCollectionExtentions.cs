@@ -23,7 +23,7 @@ namespace Cheetah.Auth.Extensions
         /// <returns>The modified <see cref="IServiceCollection"/> instance.</returns>
         public static IServiceCollection TryAddCheetahKeyedTokenService(this IServiceCollection serviceCollection, string key, OAuth2Config oAuthConfig)
         {
-            if (serviceCollection.Any(s => s.IsKeyedService && s.ServiceKey != null && s.ServiceKey.GetType().Equals(typeof(string)) && (string)s.ServiceKey == key && typeof(ITokenService).IsAssignableTo(s.ServiceType)))
+            if (serviceCollection.Any(s => s.IsKeyedService && s.ServiceKey is string serviceKey && serviceKey == key && typeof(ITokenService).IsAssignableTo(s.ServiceType)))
             {
                 return serviceCollection;
             }
