@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cheetah.Kafka.Configuration;
+using Cheetah.Kafka.Serdes;
 using Cheetah.Kafka.Testing;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
@@ -10,11 +12,11 @@ namespace Cheetah.Kafka.Test
 {
     [Trait("TestType", "IntegrationTests")]
     [Collection("IntegrationTests")]
-    public class KafkaTestClientFactoryTests
+    public class PlaintextKafkaTestClientFactoryTests
     {
         readonly KafkaTestClientFactory _testClientFactory;
 
-        public KafkaTestClientFactoryTests()
+        public PlaintextKafkaTestClientFactoryTests()
         {
             var localConfig = new Dictionary<string, string?>
             {
@@ -31,8 +33,10 @@ namespace Cheetah.Kafka.Test
                 .AddInMemoryCollection(localConfig)
                 .AddEnvironmentVariables()
                 .Build();
+            var config = new KafkaConfig();
+            configuration.Bind(KafkaConfig.Position, config);
 
-            _testClientFactory = KafkaTestClientFactory.Create(configuration);
+            _testClientFactory = KafkaTestClientFactory.Create(config, serializerProvider: new Utf8SerializerProvider(), deserializerProvider: new Utf8DeserializerProvider());
         }
 
         [Fact]

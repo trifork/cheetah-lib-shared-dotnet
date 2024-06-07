@@ -62,6 +62,8 @@ You'll need to provide the following configuration to use `Cheetah.Kafka`:
 | Key                            | Description                                                  | Example                                                                       | Required |
 |--------------------------------|--------------------------------------------------------------|-------------------------------------------------------------------------------|----------|
 | `Kafka__Url`                   | The url to kafka. Must *not* include a scheme prefix.        | `kafka:19092`                                                                 | ✓        |
+| `Kafka__SecurityProtocol`      | Security protocol used to connect to Kafka.                  | `SaslPlaintext`                                                               | ✓        |
+| `Kafka__SaslMechanism`         | Sasl mechanism used to authenticate towards Kafka.           | `OAuthBearer`                                                                 | ✓        |
 | `Kafka__OAuth2__ClientId`      | The Client Id to use when retrieving tokens using OAuth2     | `default-access`                                                              | ✓        |
 | `Kafka__OAuth2__ClientSecret`  | The Client Secret to use when retrieving tokens using OAuth2 | `default-access-secret`                                                       | ✓        |
 | `Kafka__OAuth2__TokenEndpoint` | The endpoint where tokens should be retrieved from           | `http://keycloak:1852/realms/local-development/protocol/openid-connect/token` | ✓        |
@@ -72,6 +74,8 @@ The below example configuration can be placed in an `appsettings.json` to supply
 ```json
 "Kafka": {
     "Url": "kafka:19092",
+    "SecurityProtocol": "SaslPlaintext",
+    "SaslMechanism": "OAuthBearer",
     "OAuth2":{
         "ClientId": "default-access",
         "ClientSecret": "default-access-secret",

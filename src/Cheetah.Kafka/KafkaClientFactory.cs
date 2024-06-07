@@ -16,7 +16,7 @@ namespace Cheetah.Kafka
     /// </summary>
     public class KafkaClientFactory
     {
-        private readonly ITokenService _kafkaTokenService;
+        private readonly ITokenService? _kafkaTokenService;
         private readonly ILogger<KafkaClientFactory> _logger;
         private readonly ILoggerFactory _loggerFactory;
         private readonly KafkaConfig _config;
@@ -34,7 +34,7 @@ namespace Cheetah.Kafka
         /// <param name="serializerProvider"></param>
         /// <param name="deserializerProvider"></param>
         public KafkaClientFactory(
-            ITokenService tokenService,
+            ITokenService? tokenService,
             ILoggerFactory loggerFactory,
             IOptions<KafkaConfig> config,
             ClientFactoryOptions options,
@@ -81,8 +81,12 @@ namespace Cheetah.Kafka
             var valueSerializer = producerOptions.ValueSerializer ?? _serializerProvider?.GetValueSerializer<TValue>();
             var keySerializer = producerOptions.KeySerializer ?? _serializerProvider?.GetValueSerializer<TKey>();
 
+            if (configInstance.SaslMechanism == SaslMechanism.OAuthBearer)
+            {
+                builder = builder.AddCheetahOAuthentication(GetTokenRetrievalFunction(), _loggerFactory.CreateLogger<IProducer<TKey, TValue>>());
+            }
+
             return builder
-                .AddCheetahOAuthentication(GetTokenRetrievalFunction(), _loggerFactory.CreateLogger<IProducer<TKey, TValue>>())
                 .SetKeySerializer(keySerializer)
                 .SetValueSerializer(valueSerializer);
         }
@@ -118,8 +122,12 @@ namespace Cheetah.Kafka
             var keyDeserializer = consumerOptions.KeyDeserializer ?? _deserializerProvider?.GetKeyDeserializer<TKey>();
             var valueDeserializer = consumerOptions.ValueDeserializer ?? _deserializerProvider?.GetValueDeserializer<TValue>();
 
+            if (_config.SaslMechanism == SaslMechanism.OAuthBearer)
+            {
+                builder = builder.AddCheetahOAuthentication(GetTokenRetrievalFunction(), _loggerFactory.CreateLogger<IConsumer<TKey, TValue>>());
+            }
+
             return builder
-                .AddCheetahOAuthentication(GetTokenRetrievalFunction(), _loggerFactory.CreateLogger<IConsumer<TKey, TValue>>())
                 .SetValueDeserializer(valueDeserializer)
                 .SetKeyDeserializer(keyDeserializer);
         }
@@ -149,8 +157,12 @@ namespace Cheetah.Kafka
             adminOptions.ConfigureAction?.Invoke(config);
             adminOptions.BuilderAction?.Invoke(builder);
 
-            return new AdminClientBuilder(config)
-                .AddCheetahOAuthentication(GetTokenRetrievalFunction(), _loggerFactory.CreateLogger<IAdminClient>());
+            if (_config.SaslMechanism == SaslMechanism.OAuthBearer)
+            {
+                builder = builder.AddCheetahOAuthentication(GetTokenRetrievalFunction(), _loggerFactory.CreateLogger<IAdminClient>());
+            }
+
+            return builder;
         }
 
         // Developer note:
@@ -165,6 +177,10 @@ namespace Cheetah.Kafka
 
         private Func<Task<(string AccessToken, long Expiration, string Principal)>> GetTokenRetrievalFunction()
         {
+            if (_kafkaTokenService == null)
+            {
+                throw new ArgumentException("TokenService must not be null when SaslMechanism is OAuthBearer");
+            }
             return async () =>
             {
                 var (AccessToken, Expiration) = await _kafkaTokenService.RequestAccessTokenAsync(CancellationToken.None);

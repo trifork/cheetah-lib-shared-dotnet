@@ -13,7 +13,7 @@ using Microsoft.Extensions.Options;
 namespace Cheetah.Kafka.Testing
 {
     /// <summary>
-    /// A factory for creating <see cref="IKafkaTestReader{T}"/> and <see cref="IKafkaTestWriter{TKey,T}"/> instances.
+    /// A factory for creating <see cref="IKafkaTestReader{TKey, TValue}"/> and <see cref="IKafkaTestWriter{TKey,TValue}"/> instances.
     /// </summary>
     /// <remarks>
     /// This should only be used for testing purposes.
@@ -63,11 +63,14 @@ namespace Cheetah.Kafka.Testing
             serializerProvider ??= new Utf8SerializerProvider();
             deserializerProvider ??= new Utf8DeserializerProvider();
 
-            tokenService ??= new CachedTokenProvider(configuration.OAuth2,
-                new OAuthTokenProvider(configuration.OAuth2, new DefaultHttpClientFactory()),
-                loggerFactory.CreateLogger<CachedTokenProvider>());
+            if (configuration.SaslMechanism == SaslMechanism.OAuthBearer)
+            {
+                tokenService ??= new CachedTokenProvider(configuration.OAuth2,
+                    new OAuthTokenProvider(configuration.OAuth2, new DefaultHttpClientFactory()),
+                    loggerFactory.CreateLogger<CachedTokenProvider>());
 
-            tokenService.StartAsync();
+                tokenService.StartAsync();
+            }
 
             var clientFactory = new KafkaClientFactory(
                 tokenService,
@@ -117,36 +120,36 @@ namespace Cheetah.Kafka.Testing
         }
 
         /// <summary>
-        /// Creates an <see cref="IKafkaTestReader{T}"/> for the provided topic. This reader will not read keys.
+        /// Creates an <see cref="IKafkaTestReader{Null, T}"/> for the provided topic. This reader will not read keys.
         /// </summary>
         /// <param name="topic">The topic to read messages from. </param>
         /// <param name="groupId">Optional group id to use. Defaults to a random Guid.</param>
         /// <typeparam name="T">The type of message to read</typeparam>
-        /// <returns>The created <see cref="IKafkaTestReader{T}"/></returns>
-        public IKafkaTestReader<T> CreateTestReader<T>(string topic, string? groupId = null)
+        /// <returns>The created <see cref="IKafkaTestReader{Null, T}"/></returns>
+        public IKafkaTestReader<Null, T> CreateTestReader<T>(string topic, string? groupId = null)
         {
             return CreateTestReader<Null, T>(topic, groupId);
         }
 
         /// <summary>
-        /// Creates an <see cref="IKafkaTestReader{T}"/> for the provided topic.
+        /// Creates an <see cref="IKafkaTestReader{TKey, TValue}"/> for the provided topic.
         /// </summary>
         /// <param name="topic">The topic to read messages from</param>
         /// <param name="groupId">Optional group id to use. Defaults to a random Guid.</param>
         /// <typeparam name="TKey">The type of key to read</typeparam>
-        /// <typeparam name="T">The type of message to read</typeparam>
-        /// <returns>The created <see cref="IKafkaTestReader{T}"/></returns>
-        public IKafkaTestReader<T> CreateTestReader<TKey, T>(string topic, string? groupId = null)
+        /// <typeparam name="TValue">The type of message to read</typeparam>
+        /// <returns>The created <see cref="IKafkaTestReader{TKey, TValue}"/></returns>
+        public IKafkaTestReader<TKey, TValue> CreateTestReader<TKey, TValue>(string topic, string? groupId = null)
         {
             ValidateTopic(topic);
             groupId ??= Guid.NewGuid().ToString();
-            var consumerOptionsBuilder = new ConsumerOptionsBuilder<TKey, T>();
+            var consumerOptionsBuilder = new ConsumerOptionsBuilder<TKey, TValue>();
             consumerOptionsBuilder.ConfigureClient(DefaultReaderConfiguration(groupId));
 
-            var consumer = ClientFactory.CreateConsumer<TKey, T>(
+            var consumer = ClientFactory.CreateConsumer(
                 consumerOptionsBuilder.Build()
             );
-            return new KafkaTestReader<TKey, T>(consumer, topic);
+            return new KafkaTestReader<TKey, TValue>(consumer, topic);
         }
 
         private static Action<ConsumerConfig> DefaultReaderConfiguration(string groupId)

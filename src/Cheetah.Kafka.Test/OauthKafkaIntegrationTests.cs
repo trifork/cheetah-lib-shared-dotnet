@@ -15,11 +15,11 @@ using Xunit;
 namespace Cheetah.Kafka.Test
 {
     [Trait("Category", "Kafka"), Trait("TestType", "IntegrationTests")]
-    public class KafkaIntegrationTests
+    public class OauthKafkaIntegrationTests
     {
         readonly IServiceProvider _serviceProvider;
 
-        public KafkaIntegrationTests()
+        public OauthKafkaIntegrationTests()
         {
             var localConfig = new Dictionary<string, string?>
             {
@@ -34,7 +34,6 @@ namespace Cheetah.Kafka.Test
 
             var configuration = new ConfigurationBuilder()
                 .AddInMemoryCollection(localConfig)
-                .AddEnvironmentVariables() // Allow override of config through environment variables if running in docker.
                 .Build();
 
             var services = new ServiceCollection();
@@ -52,7 +51,7 @@ namespace Cheetah.Kafka.Test
                 {
                     options.ConfigureClient(cfg =>
                     {
-                        cfg.GroupId = $"{nameof(KafkaIntegrationTests)}_{Guid.NewGuid()}";
+                        cfg.GroupId = $"{nameof(OauthKafkaIntegrationTests)}_{Guid.NewGuid()}";
                         cfg.AutoOffsetReset = AutoOffsetReset.Earliest;
                     });
                 })
@@ -98,8 +97,6 @@ namespace Cheetah.Kafka.Test
             var producer = _serviceProvider.GetRequiredService<IProducer<string, string>>();
             var consumer = _serviceProvider.GetRequiredService<IConsumer<string, string>>();
 
-            consumer.Subscribe(topic);
-
             var message = new Message<string, string>
             {
                 Key = $"{Guid.NewGuid()}",
@@ -108,6 +105,8 @@ namespace Cheetah.Kafka.Test
 
             // Act
             await producer.ProduceAsync(topic, message);
+
+            consumer.Subscribe(topic);
             var received = consumer.Consume(TimeSpan.FromSeconds(5));
 
             // Assert

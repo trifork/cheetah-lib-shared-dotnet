@@ -65,7 +65,10 @@ namespace Cheetah.Kafka.Configuration
                 throw new ArgumentException("The SslCaLocation must be set when using SecurityProtocol.SaslSsl");
             }
 
-            OAuth2.Validate();
+            if (SaslMechanism == SaslMechanism.OAuthBearer)
+            {
+                OAuth2.Validate();
+            }
         }
 
         private void ValidateKafkaUrlHasNoScheme()

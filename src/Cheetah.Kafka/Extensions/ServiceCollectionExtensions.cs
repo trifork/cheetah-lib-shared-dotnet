@@ -32,21 +32,22 @@ namespace Cheetah.Kafka.Extensions
             configure?.Invoke(options);
             serviceCollection.AddSingleton(options);
 
-            serviceCollection
-                .AddOptionsWithValidateOnStart<KafkaConfig>()
-                .Bind(configuration.GetSection(KafkaConfig.Position));
+            var kafkaConfig = ConfigureAndGetKafkaConfig(serviceCollection, configuration);
 
-            var configOAuth = new OAuth2Config();
-            configuration.GetSection(KafkaConfig.Position).GetSection(nameof(KafkaConfig.OAuth2)).Bind(configOAuth);
-            configOAuth.Validate();
+            if (kafkaConfig.SaslMechanism == Confluent.Kafka.SaslMechanism.OAuthBearer)
+            {
+                var configOAuth = new OAuth2Config();
+                configuration.GetSection(KafkaConfig.Position).GetSection(nameof(KafkaConfig.OAuth2)).Bind(configOAuth);
+                configOAuth.Validate();
+                serviceCollection.TryAddCheetahKeyedTokenService(Constants.TokenServiceKey, configOAuth);
+            }
 
             serviceCollection.AddSingleton(options.SerializerProviderFactory);
             serviceCollection.AddSingleton(options.DeserializerProviderFactory);
 
-            serviceCollection.TryAddCheetahKeyedTokenService(Constants.TokenServiceKey, configOAuth);
 
             serviceCollection.AddSingleton(sp =>
-                new KafkaClientFactory(sp.GetRequiredKeyedService<ITokenService>(Constants.TokenServiceKey),
+                new KafkaClientFactory(sp.GetKeyedService<ITokenService>(Constants.TokenServiceKey),
                     sp.GetRequiredService<ILoggerFactory>(),
                     sp.GetRequiredService<IOptions<KafkaConfig>>(),
                     sp.GetRequiredService<ClientFactoryOptions>(),
@@ -55,6 +56,22 @@ namespace Cheetah.Kafka.Extensions
                     ));
 
             return new ClientInjector(serviceCollection);
+        }
+
+        private static KafkaConfig ConfigureAndGetKafkaConfig(
+            this IServiceCollection serviceCollection,
+            IConfiguration configuration
+        )
+        {
+            var config = new KafkaConfig();
+            configuration.GetSection(KafkaConfig.Position).Bind(config);
+            config.Validate();
+
+            serviceCollection
+                .AddOptionsWithValidateOnStart<KafkaConfig>()
+                .Bind(configuration.GetSection(KafkaConfig.Position));
+
+            return config;
         }
     }
 }
