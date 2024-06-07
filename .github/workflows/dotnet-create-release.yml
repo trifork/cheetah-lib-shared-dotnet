@@ -7,7 +7,7 @@ jobs:
   run-tests:
     uses: ./.github/workflows/e2e.yml
     secrets:
-      PAT: ${{ secrets.PAT }}
+      PAT: ${{ secrets.READ_PACKAGE_PAT }}
 
   get-csproj-filepath:
     runs-on: ubuntu-latest
@@ -42,5 +42,5 @@ jobs:
       fat-pack: true
       csproj-filepath: ${{ needs.get-csproj-filepath.outputs.csproj-filepath }}
     secrets:
-      PAT: ${{ secrets.PAT }}
+      PAT: ${{ secrets.WRITE_PACKAGE_PAT }}
       KAMSTRUP_GITLAB_PAT: ${{ secrets.KAMSTRUP_GITLAB_PAT }}
