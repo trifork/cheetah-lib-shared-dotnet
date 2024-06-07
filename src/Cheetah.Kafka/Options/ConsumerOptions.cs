@@ -41,8 +41,8 @@ namespace Cheetah.Kafka
     public class ConsumerOptionsBuilder<TKey, TValue> : IOptionsBuilder<ConsumerOptions<TKey, TValue>>
     {
         private readonly ConsumerOptions<TKey, TValue> _options = new ConsumerOptions<TKey, TValue>();
-        private Func<IServiceProvider, IDeserializer<TValue>>? _valueDeserializerFactory;
-        private Func<IServiceProvider, IDeserializer<TKey>>? _keyDeserializerFactory;
+        private Func<IServiceProvider, IDeserializer<TValue>>? _valueDeserializerProvider;
+        private Func<IServiceProvider, IDeserializer<TKey>>? _keyDeserializerProvider;
 
         /// <summary>
         /// Sets the value deserializer factory method.
@@ -51,7 +51,7 @@ namespace Cheetah.Kafka
         /// <returns>The builder instance.</returns>
         public ConsumerOptionsBuilder<TKey, TValue> SetValueDeserializer(Func<IServiceProvider, IDeserializer<TValue>> valueDeserializerFactory)
         {
-            _valueDeserializerFactory = valueDeserializerFactory;
+            _valueDeserializerProvider = valueDeserializerFactory;
             return this;
         }
 
@@ -62,7 +62,7 @@ namespace Cheetah.Kafka
         /// <returns>The builder instance.</returns>
         public ConsumerOptionsBuilder<TKey, TValue> SetKeyDeserializer(Func<IServiceProvider, IDeserializer<TKey>> keyDeserializerFactory)
         {
-            _keyDeserializerFactory = keyDeserializerFactory;
+            _keyDeserializerProvider = keyDeserializerFactory;
             return this;
         }
 
@@ -95,13 +95,13 @@ namespace Cheetah.Kafka
         /// <returns>The configured consumer options.</returns>
         public ConsumerOptions<TKey, TValue> Build(IServiceProvider serviceProvider)
         {
-            if (_valueDeserializerFactory != null)
+            if (_valueDeserializerProvider != null)
             {
-                _options.SetValueDeserializer(_valueDeserializerFactory.Invoke(serviceProvider));
+                _options.SetValueDeserializer(_valueDeserializerProvider.Invoke(serviceProvider));
             }
-            if (_keyDeserializerFactory != null)
+            if (_keyDeserializerProvider != null)
             {
-                _options.SetKeyDeserializer(_keyDeserializerFactory.Invoke(serviceProvider));
+                _options.SetKeyDeserializer(_keyDeserializerProvider.Invoke(serviceProvider));
             }
 
             return _options;
