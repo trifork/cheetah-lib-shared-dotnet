@@ -104,10 +104,11 @@ namespace Cheetah.SchemaRegistry.Test
         public async Task Should_WriteAndReadAdvancedObjects_When_UsingAvro()
         {
             // Arrange
-            var writerAvro = _testClientFactory.CreateTestWriter<AdvancedAvroObject>(
-                "AvroAdvancedTopic"
+            var writerAvro = _testClientFactory.CreateTestWriter<string, AdvancedAvroObject>(
+                "AvroAdvancedTopic",
+                o => o.Id
             );
-            var readerAvro = _testClientFactory.CreateTestReader<AdvancedAvroObject>(
+            var readerAvro = _testClientFactory.CreateTestReader<string, AdvancedAvroObject>(
                 "AvroAdvancedTopic",
                 "AvroAdvancedGroup"
             );
