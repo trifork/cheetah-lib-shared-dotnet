@@ -119,6 +119,8 @@ namespace Cheetah.SchemaRegistry.Test
 
             // Assert
             readMessages.Should().HaveCount(1);
+            Assert.Equal(AdvancedAvroObject1.Id, readMessages.First().Key);
+            Assert.Equal(AdvancedAvroObject1.Name, readMessages.First().Value.Name);
             readerAvro.VerifyNoMoreMessages(TimeSpan.FromSeconds(1)).Should().BeTrue();
         }
 
