@@ -60,7 +60,7 @@ namespace Cheetah.OpenSearch
                 "Creating OpenSearchClient. Authentication is {authMode}",
                 GetAuthModeLogString()
             );
-            var connectionSettings = GetConnectionSettings();
+            var connectionSettings = GetDefaultConnectionSettings();
             _clientOptions.ConnectionSettings?.Invoke(connectionSettings);
             return new OpenSearchClient(connectionSettings);
         }
@@ -78,7 +78,7 @@ namespace Cheetah.OpenSearch
             };
         }
 
-        private ConnectionSettings GetConnectionSettings()
+        private ConnectionSettings GetDefaultConnectionSettings()
         {
             return new ConnectionSettings(
                 _connectionPool,
