@@ -46,14 +46,15 @@ namespace Cheetah.Kafka.Test
 
             services
                 .AddCheetahKafka(configuration)
-                .WithProducer<string, string>()
-                .WithConsumer<string, string>(options =>
+                .WithProducer<Ignore, string>()
+                .WithConsumer<Ignore, string>(options =>
                 {
                     options.ConfigureClient(cfg =>
                     {
                         cfg.GroupId = $"{nameof(OauthKafkaIntegrationTests)}_{Guid.NewGuid()}";
                         cfg.AutoOffsetReset = AutoOffsetReset.Earliest;
                     });
+                    options.SetKeyDeserializer(sp => Deserializers.Ignore);
                 })
                 .WithAdminClient();
 
@@ -94,12 +95,11 @@ namespace Cheetah.Kafka.Test
                 _serviceProvider.GetRequiredService<IAdminClient>(),
                 topic
             ); // Will delete the created topic when the test concludes, regardless of outcome
-            var producer = _serviceProvider.GetRequiredService<IProducer<string, string>>();
-            var consumer = _serviceProvider.GetRequiredService<IConsumer<string, string>>();
+            var producer = _serviceProvider.GetRequiredService<IProducer<Ignore, string>>();
+            var consumer = _serviceProvider.GetRequiredService<IConsumer<Ignore, string>>();
 
-            var message = new Message<string, string>
+            var message = new Message<Ignore, string>
             {
-                Key = $"{Guid.NewGuid()}",
                 Value = $"{DateTimeOffset.UtcNow:T}"
             };
 
