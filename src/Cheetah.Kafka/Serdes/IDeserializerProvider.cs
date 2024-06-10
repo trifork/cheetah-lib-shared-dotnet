@@ -3,7 +3,7 @@ using Confluent.Kafka;
 namespace Cheetah.Kafka.Serdes
 {
     /// <summary>
-    /// Interface for deserializer provider to be used to deserialize Kafka Messages
+    /// Interface for the deserializer provider to be used to deserialize Kafka Messages
     /// </summary>
     public interface IDeserializerProvider
     {
