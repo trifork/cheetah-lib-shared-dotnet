@@ -89,7 +89,7 @@ The below example configuration can be placed in an `appsettings.json` to supply
 
 It is possible to configure client behavior both generally for all clients, for specific types of clients and for individual clients.
 
-The default configuration used by generated clients can be modified when calling `AddCheetahKafka`, while the configuration for individual clients are modified when they are registered.
+The default configuration used by generated clients can be modified when calling `AddCheetahKafka`, while the configuration for individual clients can be modified when the client is registered.
 
 The below snippet shows configuration of all clients to allow auto-creation of topics, specifies that all created consumer should be in the `my-group` consumer group, then registers two consumers, one of which is explicitly told to use the `the-group` consumer group, and to serialize the key into a string type using the Confluent Kafka Utf8 Deserializer instead of the default json deserializer.
 
