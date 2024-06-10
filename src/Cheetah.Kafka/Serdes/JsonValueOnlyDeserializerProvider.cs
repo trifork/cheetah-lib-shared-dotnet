@@ -22,20 +22,20 @@ namespace Cheetah.Kafka.Serdes
         /// Gets a deserializer for the specified type using UTF-8 encoding.
         /// </summary>
         /// <typeparam name="T">The type of object to deserialize.</typeparam>
-        /// <returns>An instance of <see cref="Utf8Deserializer{T}"/>.</returns>
+        /// <returns>An instance of <see cref="Utf8JsonDeserializer{T}"/>.</returns>
         public IDeserializer<T> GetValueDeserializer<T>()
         {
-            return new Utf8Deserializer<T>();
+            return new Utf8JsonDeserializer<T>();
         }
 
         /// <summary>
         /// Gets a deserializer for the specified type using UTF-8 encoding.
         /// </summary>
         /// <typeparam name="T">The type of object to deserialize.</typeparam>
-        /// <returns>An instance of <see cref="Utf8Deserializer{T}"/>.</returns>
+        /// <returns>An instance of <see cref="Utf8JsonDeserializer{T}"/>.</returns>
         public IDeserializer<T> GetKeyDeserializer<T>()
         {
-            return new Utf8Deserializer<T>();
+            return new Utf8JsonDeserializer<T>();
         }
     }
 }

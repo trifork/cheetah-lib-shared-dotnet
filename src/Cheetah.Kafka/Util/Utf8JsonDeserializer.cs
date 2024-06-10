@@ -8,7 +8,7 @@ namespace Cheetah.Kafka.Util
     /// Serializer which serializes data with UTF8-encoding
     /// </summary>
     /// <typeparam name="T">The type to (de)serialize</typeparam>
-    public class Utf8Deserializer<T> : IDeserializer<T>
+    public class Utf8JsonDeserializer<T> : IDeserializer<T>
     {
         /// <summary>
         /// Deserializes the input data
@@ -20,14 +20,9 @@ namespace Cheetah.Kafka.Util
         /// <exception cref="ArgumentException"></exception>
         public T Deserialize(ReadOnlySpan<byte> data, bool isNull, SerializationContext context)
         {
-            var value = JsonSerializer.Deserialize<T>(data);
-            if (value is null)
-            {
-                throw new JsonException(
+            return JsonSerializer.Deserialize<T>(data) ?? throw new JsonException(
                     $"Deserialization to type '{typeof(T).Name}' returned a null response"
                 );
-            }
-            return value;
         }
     }
 }
