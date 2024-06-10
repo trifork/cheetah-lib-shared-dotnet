@@ -8,23 +8,23 @@
 ## Getting started
 
 In an .NET application with some sort of `HostBuilder` startup, all you need to get started is the following lines in your `Program.cs`:
-The snippet below will add Kafka's required dependencies and then register a pre-configured `IConsumer<string, ExampleModel>` for dependency injection:
+The snippet below will add Kafka's required dependencies and then register a pre-configured `IConsumer<ExampleKeyModel, ExampleValueModel>` for dependency injection:
 
 ```csharp
 builder.Services
     .AddCheetahKafka(builder.Configuration)
-    .WithConsumer<string, ExampleModel>();
+    .WithConsumer<ExampleKeyModel, ExampleValueModel>();
 ```
 
-This will add necessary dependencies and register an `IConsumer<string, ExampleModel>`, where `string` and `ExampleModeL` are the key and value type of consumed messages.
+This will add necessary dependencies and register an `IConsumer<ExampleKeyModel, ExampleValueModel>`, where `ExampleKeyModel` and `ExampleValueModel` are the key and value type of consumed messages.
 
 This consumer can then be injected into other services like so:
 
 ```csharp
 public class MyService {
-    private readonly IConsumer<string, ExampleModel> _consumer;
+    private readonly IConsumer<ExampleKeyModel, ExampleValueModel> _consumer;
 
-    public MyService(IConsumer<string, ExampleModel> consumer)
+    public MyService(IConsumer<ExampleKeyModel, ExampleValueModel> consumer)
     {
         _consumer = consumer;
     }
@@ -91,9 +91,14 @@ It is possible to configure client behavior both generally for all clients, for 
 
 The default configuration used by generated clients can be modified when calling `AddCheetahKafka`, while the configuration for individual clients are modified when they are registered.
 
-The below snippet shows configuration of all clients to allow auto-creation of topics, specifies that all created consumer should be in the `my-group` consumer group, then registers two consumers, one of which is explicitly told to use the `the-group` consumer group.
+The below snippet shows configuration of all clients to allow auto-creation of topics, specifies that all created consumer should be in the `my-group` consumer group, then registers two consumers, one of which is explicitly told to use the `the-group` consumer group, and to serialize the key into a string type using the Confluent Kafka Utf8 Deserializer instead of the default json deserializer.
 
 ```csharp
+[...]
+using Confluent.Kafka;
+
+[...]
+
 builder.Services.AddCheetahKafka(builder.Configuration, options => 
     {
         options.ConfigureDefaultClient(config => {
@@ -103,13 +108,17 @@ builder.Services.AddCheetahKafka(builder.Configuration, options =>
             config.GroupId = "my-group";
         });
     })
-    .WithConsumer<string, ExampleModel>(config => {
-        config.GroupId = "the-group";
+    .WithConsumer<string, ExampleModel>(options => {
+        options.SetKeyDeserializer(sp => Deserializers.Utf8);
+        options.ConfigureClient(cfg =>
+        {
+            cfg.GroupId = "the-group";
+        });
     })
-    .WithConsumer<string, OtherModel>();
+    .WithConsumer<KeyModel, OtherModel>();
 ```
 
-From here, one would be able to inject `IConsumer<string, ExampleModel>` and `IConsumer<string, OtherModel>` in other services. The same configuration is possible for producers and admin clients.
+From here, one would be able to inject `IConsumer<string, ExampleModel>` and `IConsumer<KeyModel, OtherModel>` in other services. The same configuration is possible for producers and admin clients.
 
 ## Multiple clients with the same signature
 
