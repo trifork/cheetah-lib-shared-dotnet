@@ -34,5 +34,5 @@ jobs:
       fat-pack: true
       csproj-filepath: ${{ needs.get-csproj-filepath.outputs.csproj-filepath }}
     secrets:
-      TRIFORK_GITHUB_PAT: ${{ secrets.PACKAGE_PAT }}
+      TRIFORK_GITHUB_PAT: ${{ secrets.WRITE_PACKAGE_PAT }}
       KAMSTRUP_GITLAB_PAT: ${{ secrets.KAMSTRUP_GITLAB_PAT }}
