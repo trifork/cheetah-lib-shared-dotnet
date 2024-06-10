@@ -13,7 +13,13 @@ builder.Services.AddCheetahOpenSearch(
     builder.Configuration,
     cfg =>
     {
-        cfg.DisableDirectStreaming = builder.Environment.IsDevelopment();
+        cfg.WithConnectionSettings(settings =>
+        {
+            if (builder.Environment.IsDevelopment())
+            {
+                settings.DisableDirectStreaming();
+            }
+        });
         cfg.WithJsonSerializerSettings(settings =>
         {
             settings.MissingMemberHandling = MissingMemberHandling.Error;

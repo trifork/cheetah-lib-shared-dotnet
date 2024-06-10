@@ -60,10 +60,12 @@ namespace Cheetah.OpenSearch
                 "Creating OpenSearchClient. Authentication is {authMode}",
                 GetAuthModeLogString()
             );
-            return new OpenSearchClient(GetConnectionSettings());
+            var connectionSettings = GetConnectionSettings();
+            _clientOptions.ConnectionSettings?.Invoke(connectionSettings);
+            return new OpenSearchClient(connectionSettings);
         }
 
-        string GetAuthModeLogString()
+        private string GetAuthModeLogString()
         {
             return _clientConfig.AuthMode switch
             {
@@ -78,9 +80,6 @@ namespace Cheetah.OpenSearch
 
         private ConnectionSettings GetConnectionSettings()
         {
-            // TODO: We should need to have some defaults when initializing the client
-            // TODO: dive down in the settings for OpenSearch and see if we need to expose any of the options as easily changeable
-            // MNR-note 02-01-2024: This note was left after a larger refactoring. I'm unsure if this is still relevant. TODO: remove me if not.
             return new ConnectionSettings(
                 _connectionPool,
                 _connection, // If this is null, a default connection will be used.
@@ -89,8 +88,7 @@ namespace Cheetah.OpenSearch
                 .ConfigureBasicAuthIfEnabled(_clientConfig)
                 .ConfigureTlsValidation(_clientConfig)
                 .OnRequestCompleted(LogRequestBody)
-                .ThrowExceptions()
-                .DisableDirectStreaming(ShouldDisableDirectStreaming());
+                .ThrowExceptions();
         }
 
         private ConnectionSettings.SourceSerializerFactory GetSourceSerializerFactory()
@@ -101,18 +99,6 @@ namespace Cheetah.OpenSearch
                     settings,
                     () => _clientOptions.JsonSerializerSettings
                 );
-        }
-
-        private bool ShouldDisableDirectStreaming()
-        {
-            bool shouldDisableDirectStreaming = _clientOptions.DisableDirectStreaming; // Assume production mode if we can't determine the environment
-            if (shouldDisableDirectStreaming)
-            {
-                _logger.LogWarning(
-                    "OpenSearch direct streaming is disabled, which allows easier debugging, but potentially impacts performance. This should only be enabled in development mode."
-                );
-            }
-            return shouldDisableDirectStreaming;
         }
 
         private void LogRequestBody(IApiCallDetails apiCallDetails)

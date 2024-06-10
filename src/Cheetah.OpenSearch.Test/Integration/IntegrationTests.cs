@@ -144,7 +144,13 @@ namespace Cheetah.OpenSearch.Test.Integration
         {
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddLogging();
-            serviceCollection.AddCheetahOpenSearch(config);
+            serviceCollection.AddCheetahOpenSearch(config, settings =>
+            {
+                settings.WithConnectionSettings(s =>
+                {
+                    s.DisableDirectStreaming();
+                });
+            });
             return serviceCollection.BuildServiceProvider();
         }
     }
