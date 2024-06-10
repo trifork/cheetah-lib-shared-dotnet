@@ -1,4 +1,4 @@
-name: .NET Create Release Candidate
+name: Create Release Candidate
 
 on:
   workflow_dispatch:
@@ -34,4 +34,5 @@ jobs:
       fat-pack: true
       csproj-filepath: ${{ needs.get-csproj-filepath.outputs.csproj-filepath }}
     secrets:
-      PAT: ${{ secrets.PACKAGE_PAT }}
+      TRIFORK_GITHUB_PAT: ${{ secrets.PACKAGE_PAT }}
+      KAMSTRUP_GITLAB_PAT: ${{ secrets.KAMSTRUP_GITLAB_PAT }}
