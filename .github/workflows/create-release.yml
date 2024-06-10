@@ -1,4 +1,4 @@
-name: .NET Create Release
+name: Create Release
 
 on:
   workflow_dispatch:
@@ -42,5 +42,5 @@ jobs:
       fat-pack: true
       csproj-filepath: ${{ needs.get-csproj-filepath.outputs.csproj-filepath }}
     secrets:
-      PAT: ${{ secrets.WRITE_PACKAGE_PAT }}
+      TRIFORK_GITHUB_PAT: ${{ secrets.WRITE_PACKAGE_PAT }}
       KAMSTRUP_GITLAB_PAT: ${{ secrets.KAMSTRUP_GITLAB_PAT }}

@@ -1,23 +1,16 @@
-name: .NET Create Release Branch
+name: Create Snapshot
 
 on:
   workflow_dispatch:
     inputs:
       project:
-        description: Which project to create a release branch for
+        description: Which project to create a snapshot of
         required: true
         type: choice
         options:
-          - Cheetah.Kafka
           - Cheetah.OpenSearch
-      bump-type:
-        description: Increment major or minor semantic version on main branch after release branch has been created
-        required: true
-        type: choice
-        options:
-          - major
-          - minor
-        default: minor
+          - Cheetah.Kafka
+        default: Cheetah.OpenSearch
 
 jobs:
   get-csproj-filepath:
@@ -27,7 +20,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
+
       - name: Get csproj filepath
         id: get-csproj-filepath
         uses: trifork/cheetah-infrastructure-utils/.github/actions/get-from-map@main
@@ -35,12 +28,11 @@ jobs:
           file-path: ./.github/csproj-filepaths.yaml
           key: ${{ inputs.project }}
 
-  create-release-branch:
+  create-snapshot:
     needs: get-csproj-filepath
-    uses: trifork/cheetah-infrastructure-utils/.github/workflows/dotnet-create-release-branch.yml@main
+    uses: trifork/cheetah-infrastructure-utils/.github/workflows/dotnet-create-snapshot.yml@main
     with:
-      project-name: ${{ inputs.project }}
-      bump-type: ${{ inputs.bump-type }}
+      fat-pack: true
       csproj-filepath: ${{ needs.get-csproj-filepath.outputs.csproj-filepath }}
     secrets:
-      PAT: ${{ secrets.READ_PACKAGE_PAT }}
+      TRIFORK_GITHUB_PAT: ${{ secrets.WRITE_PACKAGE_PAT }}
