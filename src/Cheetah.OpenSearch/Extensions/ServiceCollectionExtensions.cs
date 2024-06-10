@@ -1,15 +1,10 @@
-﻿using System;
-using System.Net.Http;
-using Cheetah.Auth.Authentication;
+using System;
 using Cheetah.Auth.Configuration;
 using Cheetah.Auth.Extensions;
 using Cheetah.OpenSearch.Configuration;
 using Cheetah.OpenSearch.Connection;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using OpenSearch.Client;
 using OpenSearch.Net;
 
@@ -20,7 +15,6 @@ namespace Cheetah.OpenSearch.Extensions
     /// </summary>
     public static class ServiceCollectionExtensions
     {
-        const string OpenSearchKey = "opensearch";
         /// <summary>
         /// Registers and configures an <see cref="IOpenSearchClient"/> for dependency injection, along with its required services.
         /// </summary>
@@ -49,8 +43,8 @@ namespace Cheetah.OpenSearch.Extensions
             configureClientOptions?.Invoke(clientOptions);
 
             serviceCollection
-                .AddSingleton<IConnectionPool>(ConnectionPoolHelper.GetConnectionPool(config.Url))
-                .AddSingleton<OpenSearchClientOptions>(clientOptions)
+                .AddSingleton(ConnectionPoolHelper.GetConnectionPool(config.Url))
+                .AddSingleton(clientOptions)
                 .AddSingleton<OpenSearchClientFactory>()
                 .AddSingleton<IOpenSearchClient>(sp =>
                     sp.GetRequiredService<OpenSearchClientFactory>().CreateOpenSearchClient()
@@ -66,11 +60,8 @@ namespace Cheetah.OpenSearch.Extensions
             var configOAuth = new OAuth2Config();
             configuration.GetSection(OpenSearchConfig.Position).GetSection(nameof(OpenSearchConfig.OAuth2)).Bind(configOAuth);
             configOAuth.Validate();
-            
-            serviceCollection.AddKeyedTokenService(OpenSearchKey, configOAuth);
-            serviceCollection.AddHostedService<StartUpOpenSearchTokenService>(
-                sp => new StartUpOpenSearchTokenService(sp.GetRequiredKeyedService<ITokenService>(OpenSearchKey))
-            );
+
+            serviceCollection.TryAddCheetahKeyedTokenService(Constants.TokenServiceKey, configOAuth);
             serviceCollection.AddSingleton<IConnection, CheetahOpenSearchConnection>();
             return serviceCollection;
         }

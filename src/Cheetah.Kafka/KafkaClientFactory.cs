@@ -4,12 +4,8 @@ using System.Threading.Tasks;
 using Cheetah.Auth.Authentication;
 using Cheetah.Kafka.Configuration;
 using Cheetah.Kafka.Extensions;
-using Cheetah.Kafka.Util;
+using Cheetah.Kafka.Serdes;
 using Confluent.Kafka;
-using Confluent.Kafka.SyncOverAsync;
-using Confluent.SchemaRegistry;
-using Confluent.SchemaRegistry.Serdes;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -20,57 +16,51 @@ namespace Cheetah.Kafka
     /// </summary>
     public class KafkaClientFactory
     {
-        private readonly ITokenService _tokenService;
+        private readonly ITokenService? _kafkaTokenService;
+        private readonly ILogger<KafkaClientFactory> _logger;
         private readonly ILoggerFactory _loggerFactory;
         private readonly KafkaConfig _config;
-        private readonly KafkaClientFactoryOptions _options;
+        private readonly ClientFactoryOptions _options;
+        private readonly ISerializerProvider? _serializerProvider;
+        private readonly IDeserializerProvider? _deserializerProvider;
 
         /// <summary>
         /// Creates a new instance of <see cref="KafkaClientFactory"/>
         /// </summary>
-        /// <param name="tokenService">The token service to use</param>
+        /// <param name="tokenService">The token service to use for kafka</param>
         /// <param name="loggerFactory">The logger factory used to create necessary loggers</param>
         /// <param name="config">The configuration to use when creating clients</param>
         /// <param name="options">The options to use when creating clients</param>
+        /// <param name="serializerProvider"></param>
+        /// <param name="deserializerProvider"></param>
         public KafkaClientFactory(
-            ITokenService tokenService,
+            ITokenService? tokenService,
             ILoggerFactory loggerFactory,
             IOptions<KafkaConfig> config,
-            KafkaClientFactoryOptions options
-        )
+            ClientFactoryOptions options,
+            ISerializerProvider? serializerProvider,
+            IDeserializerProvider? deserializerProvider)
         {
-            _tokenService = tokenService;
+            _kafkaTokenService = tokenService;
             _loggerFactory = loggerFactory;
             _config = config.Value;
             _config.Validate();
             _options = options;
-        }
-
-        /// <summary>
-        /// Creates a pre-configured <see cref="IProducer{TKey,TValue}"/> which serializes values using Avro/>
-        /// </summary>
-        /// <inheritdoc cref="CreateProducer{TKey,TValue}"/>
-        public IProducer<TKey, TValue> CreateAvroProducer<TKey, TValue>(
-            Action<ProducerConfig>? configAction = null
-        )
-        {
-            return CreateAvroProducerBuilder<TKey, TValue>(configAction).Build();
+            _serializerProvider = serializerProvider;
+            _deserializerProvider = deserializerProvider;
+            _logger = _loggerFactory.CreateLogger<KafkaClientFactory>();
         }
 
         /// <summary>
         /// Creates a pre-configured <see cref="IProducer{TKey,TValue}"/>/>
         /// </summary>
-        /// <param name="configAction">Optional action used to modify the configuration</param>
-        /// <param name="serializer">Optional serializer to use. If not supplied, a <see cref="Utf8Serializer{T}"/> will be used</param>
+        /// <param name="producerOptions">Optional producer options used to modify the configuration</param>
         /// <typeparam name="TKey">The type of message key that the resulting producer will produce</typeparam>
         /// <typeparam name="TValue">The type of message value that the resulting producer will produce</typeparam>
         /// <returns>A pre-configured <see cref="IProducer{TKey,TValue}"/></returns>
-        public IProducer<TKey, TValue> CreateProducer<TKey, TValue>(
-            Action<ProducerConfig>? configAction = null,
-            ISerializer<TValue>? serializer = null
-        )
+        public IProducer<TKey, TValue> CreateProducer<TKey, TValue>(ProducerOptions<TKey, TValue>? producerOptions = null)
         {
-            return CreateProducerBuilder<TKey, TValue>(configAction, serializer).Build();
+            return CreateProducerBuilder(producerOptions).Build();
         }
 
         /// <summary>
@@ -78,70 +68,41 @@ namespace Cheetah.Kafka
         /// </summary>
         /// <inheritdoc cref="CreateConsumer{TKey, TValue}"/>
         /// <returns>A pre-configured <see cref="ProducerBuilder{TKey, TValue}"/></returns>
-        public ProducerBuilder<TKey, TValue> CreateProducerBuilder<TKey, TValue>(
-            Action<ProducerConfig>? configAction = null,
-            ISerializer<TValue>? serializer = null
-        )
+        public ProducerBuilder<TKey, TValue> CreateProducerBuilder<TKey, TValue>(ProducerOptions<TKey, TValue>? producerOptions = null)
         {
             var configInstance = new ProducerConfig(GetDefaultConfig());
-            _options.DefaultProducerConfigure(configInstance);
-            configAction?.Invoke(configInstance);
+            _options.ProducerConfigure(configInstance);
 
-            return new ProducerBuilder<TKey, TValue>(configInstance)
-                .AddCheetahOAuthentication(
-                    GetTokenRetrievalFunction(),
-                    _loggerFactory.CreateLogger<IProducer<TKey, TValue>>()
-                )
-                .SetValueSerializer(serializer ?? new Utf8Serializer<TValue>());
+            var builder = new ProducerBuilder<TKey, TValue>(configInstance);
+
+            producerOptions ??= new ProducerOptions<TKey, TValue>();
+            producerOptions.ConfigureAction?.Invoke(configInstance);
+            producerOptions.BuilderAction?.Invoke(builder);
+            var valueSerializer = producerOptions.ValueSerializer ?? _serializerProvider?.GetValueSerializer<TValue>();
+            var keySerializer = producerOptions.KeySerializer ?? _serializerProvider?.GetValueSerializer<TKey>();
+
+            if (configInstance.SaslMechanism == SaslMechanism.OAuthBearer)
+            {
+                builder = builder.AddCheetahOAuthentication(GetTokenRetrievalFunction(), _loggerFactory.CreateLogger<IProducer<TKey, TValue>>());
+            }
+
+            return builder
+                .SetKeySerializer(keySerializer)
+                .SetValueSerializer(valueSerializer);
         }
 
-        /// <summary>
-        /// Creates a pre-configured <see cref="IProducer{TKey,TValue}"/> which serializes values using Avro
-        /// </summary>
-        /// <inheritdoc cref="CreateProducerBuilder{TKey,TValue}"/>
-        public ProducerBuilder<TKey, TValue> CreateAvroProducerBuilder<TKey, TValue>(
-            Action<ProducerConfig>? configAction = null
-        )
-        {
-            return CreateProducerBuilder<TKey, TValue>(configAction, GetAvroSerializer<TValue>());
-        }
 
-        /// <summary>
-        /// Creates a pre-configured <see cref="IProducer{TKey,TValue}"/> which serializes values using Avro
-        /// </summary>
-        /// <inheritdoc cref="CreateConsumer{TKey,TValue}"/>
-        public IConsumer<TKey, TValue> CreateAvroConsumer<TKey, TValue>(
-            Action<ConsumerConfig>? configAction = null
-        )
-        {
-            return CreateAvroConsumerBuilder<TKey, TValue>(configAction).Build();
-        }
 
         /// <summary>
         /// Creates a pre-configured <see cref="IConsumer{TKey,TValue}"/>/>
         /// </summary>
-        /// <param name="configAction">Optional action used to modify the configuration</param>
-        /// <param name="deserializer">Optional deserializer to use. If not supplied, a <see cref="Utf8Serializer{T}"/> will be used</param>
+        /// <param name="consumerOptions">Optional consumer option used to modify the configuration</param>
         /// <typeparam name="TKey">The type of message key that the resulting consumer will consume</typeparam>
         /// <typeparam name="TValue">The type of message value that the resulting consumer will consume</typeparam>
         /// <returns>A pre-configured <see cref="IConsumer{TKey,TValue}"/></returns>
-        public IConsumer<TKey, TValue> CreateConsumer<TKey, TValue>(
-            Action<ConsumerConfig>? configAction = null,
-            IDeserializer<TValue>? deserializer = null
-        )
+        public IConsumer<TKey, TValue> CreateConsumer<TKey, TValue>(ConsumerOptions<TKey, TValue>? consumerOptions = null)
         {
-            return CreateConsumerBuilder<TKey, TValue>(configAction, deserializer).Build();
-        }
-
-        /// <summary>
-        /// Creates a pre-configured <see cref="IProducer{TKey,TValue}"/> which serializes values using Avro
-        /// </summary>
-        /// <inheritdoc cref="CreateProducerBuilder{TKey,TValue}"/>
-        public ConsumerBuilder<TKey, TValue> CreateAvroConsumerBuilder<TKey, TValue>(
-            Action<ConsumerConfig>? configAction = null
-        )
-        {
-            return CreateConsumerBuilder<TKey, TValue>(configAction, GetAvroDeserializer<TValue>());
+            return CreateConsumerBuilder(consumerOptions).Build();
         }
 
         /// <summary>
@@ -149,50 +110,59 @@ namespace Cheetah.Kafka
         /// </summary>
         /// <inheritdoc cref="CreateConsumer{TKey, TValue}"/>
         /// <returns>A pre-configured <see cref="ConsumerBuilder{TKey,TValue}"/></returns>
-        public ConsumerBuilder<TKey, TValue> CreateConsumerBuilder<TKey, TValue>(
-            Action<ConsumerConfig>? configAction = null,
-            IDeserializer<TValue>? deserializer = null
-        )
+        public ConsumerBuilder<TKey, TValue> CreateConsumerBuilder<TKey, TValue>(ConsumerOptions<TKey, TValue>? consumerOptions = null)
         {
             var config = new ConsumerConfig(GetDefaultConfig());
-            _options.DefaultConsumerConfigure(config);
-            configAction?.Invoke(config);
+            _options.ConsumerConfigure(config);
 
-            return new ConsumerBuilder<TKey, TValue>(config)
-                .AddCheetahOAuthentication(
-                    GetTokenRetrievalFunction(),
-                    _loggerFactory.CreateLogger<IConsumer<TKey, TValue>>()
-                )
-                .SetValueDeserializer(deserializer ?? new Utf8Serializer<TValue>());
+            var builder = new ConsumerBuilder<TKey, TValue>(config);
+            consumerOptions ??= new ConsumerOptions<TKey, TValue>();
+            consumerOptions.ConfigureAction?.Invoke(config);
+            consumerOptions.BuilderAction?.Invoke(builder);
+            var keyDeserializer = consumerOptions.KeyDeserializer ?? _deserializerProvider?.GetKeyDeserializer<TKey>();
+            var valueDeserializer = consumerOptions.ValueDeserializer ?? _deserializerProvider?.GetValueDeserializer<TValue>();
+
+            if (_config.SaslMechanism == SaslMechanism.OAuthBearer)
+            {
+                builder = builder.AddCheetahOAuthentication(GetTokenRetrievalFunction(), _loggerFactory.CreateLogger<IConsumer<TKey, TValue>>());
+            }
+
+            return builder
+                .SetValueDeserializer(valueDeserializer)
+                .SetKeyDeserializer(keyDeserializer);
         }
 
         /// <summary>
         /// Creates a pre-configured <see cref="IAdminClient"/>/>
         /// </summary>
-        /// <param name="configAction">Optional action to modify the used <see cref="AdminClientConfig"/></param>
+        /// <param name="adminOptions">Optional admin option to modify the used <see cref="AdminClientConfig"/></param>
         /// <returns>A pre-configured <see cref="IAdminClient"/></returns>
-        public IAdminClient CreateAdminClient(Action<AdminClientConfig>? configAction = null)
+        public IAdminClient CreateAdminClient(AdminClientOptions? adminOptions = null)
         {
-            return CreateAdminClientBuilder(configAction).Build();
+            return CreateAdminClientBuilder(adminOptions).Build();
         }
 
         /// <summary>
         /// Creates a pre-configured <see cref="AdminClientBuilder"/>/>
         /// </summary>
-        /// <param name="configAction">Optional action to modify the used <see cref="AdminClientConfig"/></param>
+        /// <param name="adminOptions">Optional admin option to modify the used <see cref="AdminClientConfig"/></param>
         /// <returns>A pre-configured <see cref="AdminClientBuilder"/></returns>
-        public AdminClientBuilder CreateAdminClientBuilder(
-            Action<AdminClientConfig>? configAction = null
-        )
+        public AdminClientBuilder CreateAdminClientBuilder(AdminClientOptions? adminOptions = null)
         {
             var config = new AdminClientConfig(GetDefaultConfig());
-            _options.DefaultAdminClientConfigure(config);
-            configAction?.Invoke(config);
+            _options.AdminClientConfigure(config);
 
-            return new AdminClientBuilder(config).AddCheetahOAuthentication(
-                GetTokenRetrievalFunction(),
-                _loggerFactory.CreateLogger<IAdminClient>()
-            );
+            var builder = new AdminClientBuilder(config);
+            adminOptions ??= new AdminClientOptions();
+            adminOptions.ConfigureAction?.Invoke(config);
+            adminOptions.BuilderAction?.Invoke(builder);
+
+            if (_config.SaslMechanism == SaslMechanism.OAuthBearer)
+            {
+                builder = builder.AddCheetahOAuthentication(GetTokenRetrievalFunction(), _loggerFactory.CreateLogger<IAdminClient>());
+            }
+
+            return builder;
         }
 
         // Developer note:
@@ -200,35 +170,22 @@ namespace Cheetah.Kafka
         // This is important because using the copy-constructors provided by Confluent.Kafka will modify the underlying dictionary in-place.
         // This means that if we were to use the same configuration instance for each client, we would end up with a situation where
         // the configuration for the first client would be modified by the second client, and so on.
-        private ClientConfig GetDefaultConfig() => _config.GetClientConfig();
+        private ClientConfig GetDefaultConfig()
+        {
+            return _config.GetClientConfig();
+        }
 
         private Func<Task<(string AccessToken, long Expiration, string Principal)>> GetTokenRetrievalFunction()
         {
+            if (_kafkaTokenService == null)
+            {
+                throw new ArgumentException("TokenService must not be null when SaslMechanism is OAuthBearer");
+            }
             return async () =>
             {
-                var response = await _tokenService.RequestAccessTokenAsync(CancellationToken.None);
-                return (response.AccessToken, response.Expiration, _config.Principal);
+                var (AccessToken, Expiration) = await _kafkaTokenService.RequestAccessTokenAsync(CancellationToken.None);
+                return (AccessToken, Expiration, _config.Principal);
             };
-        }
-
-        private IDeserializer<T> GetAvroDeserializer<T>()
-        {
-            var authHeaderValueProvider = new OAuthHeaderValueProvider(_tokenService);
-            var schemaRegistryClient = new CachedSchemaRegistryClient(
-                _config.GetSchemaRegistryConfig(),
-                authHeaderValueProvider
-            );
-            return new AvroDeserializer<T>(schemaRegistryClient).AsSyncOverAsync();
-        }
-
-        private ISerializer<T> GetAvroSerializer<T>()
-        {
-            var authHeaderValueProvider = new OAuthHeaderValueProvider(_tokenService);
-            var schemaRegistryClient = new CachedSchemaRegistryClient(
-                _config.GetSchemaRegistryConfig(),
-                authHeaderValueProvider
-            );
-            return new AvroSerializer<T>(schemaRegistryClient).AsSyncOverAsync();
         }
     }
 }

@@ -16,11 +16,9 @@ namespace Cheetah.OpenSearch
             new JsonSerializerSettings() { MissingMemberHandling = MissingMemberHandling.Ignore };
 
         /// <summary>
-        /// Gets or sets a value indicating whether direct streaming of the response content should be disabled.<br/>
-        /// This should be <c>false</c> in production environments to avoid buffering of the response content in memory.<br/>
-        /// When set to <c>true</c> the response content will be available during debugging, which might not otherwise be the case.
+        /// Retrieves the current <see cref="ConnectionSettings"/> used by the <see cref="OpenSearchClient"/>
         /// </summary>
-        public bool DisableDirectStreaming { get; set; }
+        internal Action<ConnectionSettings>? ConnectionSettings { get; set; }
 
         /// <summary>
         /// Configures the <see cref="JsonSerializerSettings"/> used by the <see cref="OpenSearchClient"/>
@@ -32,6 +30,19 @@ namespace Cheetah.OpenSearch
         )
         {
             configure(JsonSerializerSettings);
+            return this;
+        }
+
+        /// <summary>
+        /// Configures the <see cref="ConnectionSettings"/> used by the <see cref="OpenSearchClient"/>
+        /// </summary>
+        /// <param name="configure">Action which configures used <see cref="ConnectionSettings"/></param>
+        /// <returns>This <see cref="OpenSearchClientOptions"/> instance for method chaining.</returns>
+        public OpenSearchClientOptions WithConnectionSettings(
+            Action<ConnectionSettings> configure
+        )
+        {
+            ConnectionSettings = configure;
             return this;
         }
     }

@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using Cheetah.Auth.Configuration;
 using Confluent.Kafka;
-using Confluent.SchemaRegistry;
 
 namespace Cheetah.Kafka.Configuration
 {
@@ -25,11 +24,6 @@ namespace Cheetah.Kafka.Configuration
         public string Url { get; set; } = null!;
 
         /// <summary>
-        /// Optional schema registry url.
-        /// </summary>
-        public string? SchemaRegistryUrl { get; set; }
-
-        /// <summary>
         /// The principal used for authentication. Defaults to <c>unused</c> and is <i>usually</i> not required.
         /// </summary>
         public string Principal { get; set; } = "unused";
@@ -37,12 +31,17 @@ namespace Cheetah.Kafka.Configuration
         /// <summary>
         /// The security protocol used to communicate with brokers.
         /// </summary>
-        public SecurityProtocol SecurityProtocol { get; set; } = SecurityProtocol.SaslPlaintext;
+        public SecurityProtocol SecurityProtocol { get; set; } = SecurityProtocol.Plaintext;
 
         /// <summary>
         /// The location of the CA certificate file used to verify the broker's certificate.
         /// </summary>
         public string SslCaLocation { get; set; } = "";
+
+        /// <summary>
+        /// The Sasl Mechanism used to communicate with brokers.
+        /// </summary>
+        public SaslMechanism SaslMechanism { get; set; } = SaslMechanism.Plain;
 
         /// <summary>
         /// The OAuth2 configuration
@@ -66,7 +65,10 @@ namespace Cheetah.Kafka.Configuration
                 throw new ArgumentException("The SslCaLocation must be set when using SecurityProtocol.SaslSsl");
             }
 
-            OAuth2.Validate();
+            if (SaslMechanism == SaslMechanism.OAuthBearer)
+            {
+                OAuth2.Validate();
+            }
         }
 
         private void ValidateKafkaUrlHasNoScheme()
@@ -92,26 +94,12 @@ namespace Cheetah.Kafka.Configuration
             var clientConfig = new ClientConfig
             {
                 BootstrapServers = Url,
-                SaslMechanism = SaslMechanism.OAuthBearer,
+                SaslMechanism = SaslMechanism,
                 SecurityProtocol = SecurityProtocol,
                 SslCaLocation = SslCaLocation,
             };
 
             return clientConfig;
-        }
-
-        /// <summary>
-        /// Converts the configuration to a <see cref="SchemaRegistryConfig"/>
-        /// </summary>
-        /// <returns>The converted <see cref="SchemaRegistryConfig"/></returns>
-        public SchemaRegistryConfig GetSchemaRegistryConfig()
-        {
-            if (!Uri.IsWellFormedUriString(SchemaRegistryUrl, UriKind.Absolute))
-            {
-                throw new ArgumentException("The provided Schema Registry Url is invalid");
-            }
-
-            return new SchemaRegistryConfig { Url = SchemaRegistryUrl };
         }
     }
 }

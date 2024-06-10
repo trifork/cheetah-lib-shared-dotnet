@@ -4,7 +4,7 @@
         <AssemblyName>Cheetah.Kafka</AssemblyName>
         <Authors>Trifork</Authors>
         <Description>Allows easy bootstrapping and connection to Kafka within the context of the Cheetah data platform</Description>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile> 
         <RepositoryUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</RepositoryUrl>
         <RootNamespace>Cheetah.Kafka</RootNamespace>
         <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
@@ -19,7 +19,6 @@
 
     <ItemGroup>
         <PackageReference Include="Confluent.Kafka" Version="2.4.0" />
-        <PackageReference Include="Confluent.SchemaRegistry.Serdes.Avro" Version="2.4.0" />
         <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />

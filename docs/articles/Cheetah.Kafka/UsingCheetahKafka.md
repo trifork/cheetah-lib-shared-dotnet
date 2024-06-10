@@ -33,7 +33,7 @@ public class MyService {
 
 The injected consumer is pre-configured to:
 * Authenticate towards Kafka using OAuth2
-* Deserialize message values from json with UTF8-encoding.
+* Deserialize message values and keys from json with UTF8-encoding.
 
 The same concept applies for producers and admin clients. The following example shows a producer and admin client being registered and injected:
 
@@ -62,16 +62,20 @@ You'll need to provide the following configuration to use `Cheetah.Kafka`:
 | Key                            | Description                                                  | Example                                                                       | Required |
 |--------------------------------|--------------------------------------------------------------|-------------------------------------------------------------------------------|----------|
 | `Kafka__Url`                   | The url to kafka. Must *not* include a scheme prefix.        | `kafka:19092`                                                                 | ✓        |
-| `Kafka__OAuth2__ClientId`      | The Client Id to use when retrieving tokens using OAuth2     | `default-access`                                                              | ✓        |
-| `Kafka__OAuth2__ClientSecret`  | The Client Secret to use when retrieving tokens using OAuth2 | `default-access-secret`                                                       | ✓        |
-| `Kafka__OAuth2__TokenEndpoint` | The endpoint where tokens should be retrieved from           | `http://keycloak:1852/realms/local-development/protocol/openid-connect/token` | ✓        |
-| `Kafka__OAuth2__Scope`         | The scope that the requested token should have               | `kafka`                                                                       |          |
+| `Kafka__SecurityProtocol`      | Security protocol used to connect to Kafka.                  | `SaslPlaintext`                                                               |          |
+| `Kafka__SaslMechanism`         | Sasl mechanism used to authenticate towards Kafka.           | `OAuthBearer`                                                                 |          |
+| `Kafka__OAuth2__ClientId`      | The Client Id to use when retrieving tokens using OAuth2     | `default-access`                                                              | When `SaslMechanism=OAuthBearer`         |
+| `Kafka__OAuth2__ClientSecret`  | The Client Secret to use when retrieving tokens using OAuth2 | `default-access-secret`                                                       | When `SaslMechanism=OAuthBearer`         |
+| `Kafka__OAuth2__TokenEndpoint` | The endpoint where tokens should be retrieved from           | `http://keycloak:1852/realms/local-development/protocol/openid-connect/token` | When `SaslMechanism=OAuthBearer`         |
+| `Kafka__OAuth2__Scope`         | The scope that the requested token should have               | `kafka`                                                                       | When `SaslMechanism=OAuthBearer`         |
 
 The below example configuration can be placed in an `appsettings.json` to supply the necessary keys in development. These should be supplied through environment variables when running through docker-compose or in cluster.
 
 ```json
 "Kafka": {
     "Url": "kafka:19092",
+    "SecurityProtocol": "SaslPlaintext",
+    "SaslMechanism": "OAuthBearer",
     "OAuth2":{
         "ClientId": "default-access",
         "ClientSecret": "default-access-secret",

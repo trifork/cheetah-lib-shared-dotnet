@@ -5,7 +5,7 @@
 //    is regenerated
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Cheetah.Kafka.Test.TestModels.Avro
+namespace Cheetah.SchemaRegistry.Test.TestModels.Avro
 {
 	using System;
 	using System.Collections.Generic;

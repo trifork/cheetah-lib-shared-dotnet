@@ -1,39 +1,53 @@
-﻿// See https://aka.ms/new-console-template for more information
+// See https://aka.ms/new-console-template for more information
 
-using Cheetah.Kafka.ExampleProcessor.Models;
+using Cheetah.SchemaRegistry.Avro;
 using Cheetah.Kafka.ExampleProcessor.Services;
 using Cheetah.Kafka.Extensions;
+using Cheetah.SchemaRegistry.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Cheetah.Kafka.ExampleProcessor.Models;
 
 var builder = new HostApplicationBuilder();
 builder
     .Configuration.AddJsonFile("appsettings.json")
-    .AddJsonFile("appsettings.development.json", true)
+    .AddJsonFile("appsettings.Development.json", true)
     .AddEnvironmentVariables();
 
-builder
-    .Services.AddCheetahKafka(
-        builder.Configuration,
-        options =>
+builder.Services.AddCheetahSchemaRegistry(builder.Configuration);
+
+builder.Services.AddCheetahKafka(builder.Configuration, options =>
+    {
+        options.ConfigureDefaultSerializerProvider(AvroSerializerProvider.FromServices());
+        options.ConfigureDefaultDeserializerProvider(AvroDeserializerProvider.FromServices());
+        options.ConfigureDefaultConsumer(config =>
         {
-            options.ConfigureDefaultConsumer(config =>
-            {
-                config.AllowAutoCreateTopics = true;
-                config.GroupId = "the-group";
-            });
-        }
-    )
-    .WithKeyedConsumer<string, ExampleModel>(
-        "A",
-        cfg =>
+            config.AllowAutoCreateTopics = true;
+            config.GroupId = "the-group";
+        });
+    })
+    .WithKeyedConsumer<string, ExampleModelAvro>("A", options =>
+    {
+        options.SetValueDeserializer(AvroDeserializer.FromServices<ExampleModelAvro>());
+        options.ConfigureClient(cfg =>
         {
-            cfg.GroupId = "a-group";
-        }
-    )
-    .WithKeyedConsumer<string, ExampleModel>("B")
-    .WithProducer<string, ExampleModel>();
+            cfg.GroupId = "the-big-group";
+        });
+    })
+    .WithKeyedConsumer<string, ExampleModelAvro>("B", options =>
+    {
+        options.SetValueDeserializer(AvroDeserializer.FromServices<ExampleModelAvro>());
+
+    })
+    .WithProducer<string, ExampleModelAvro>(options =>
+    {
+        options.SetValueSerializer(AvroSerializer.FromServices<ExampleModelAvro>());
+        options.ConfigureClient(cfg =>
+        {
+            cfg.BatchSize = 100;
+        });
+    });
 
 builder.Services.AddHostedService<ProducerService>();
 builder.Services.AddHostedService<AConsumerService>();

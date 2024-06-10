@@ -8,10 +8,10 @@ using ILogger = Microsoft.Extensions.Logging.ILogger;
 namespace Cheetah.Kafka.Testing
 {
     /// <inheritdoc cref="KafkaTestReader{TKey,T}"/>
-    public interface IKafkaTestReader<T>
+    public interface IKafkaTestReader<TKey, T>
     {
         /// <inheritdoc cref="KafkaTestReader{TKey,T}.ReadMessages"/>
-        public IEnumerable<T> ReadMessages(int count, TimeSpan timeout);
+        public IEnumerable<Message<TKey, T>> ReadMessages(int count, TimeSpan timeout);
 
         /// <inheritdoc cref="KafkaTestReader{TKey,T}.VerifyNoMoreMessages"/>
         public bool VerifyNoMoreMessages(TimeSpan timeout);
@@ -25,7 +25,7 @@ namespace Cheetah.Kafka.Testing
     /// </remarks>
     /// <typeparam name="TKey">The type of key that read messages have</typeparam>
     /// <typeparam name="T">The type of message to read</typeparam>
-    public class KafkaTestReader<TKey, T> : IKafkaTestReader<T>
+    public class KafkaTestReader<TKey, T> : IKafkaTestReader<TKey, T>
     {
         private static readonly ILogger Logger = new LoggerFactory().CreateLogger<
             KafkaTestReader<TKey, T>
@@ -71,9 +71,9 @@ namespace Cheetah.Kafka.Testing
         /// <param name="timeout">The maximum time to wait for the required number of messages to be available</param>
         /// <returns>The read messages</returns>
         /// <exception cref="InvalidOperationException">Thrown when the reader could not read enough messages within the allotted time</exception>
-        public IEnumerable<T> ReadMessages(int count, TimeSpan timeout)
+        public IEnumerable<Message<TKey, T>> ReadMessages(int count, TimeSpan timeout)
         {
-            var messages = new List<T>();
+            var messages = new List<Message<TKey, T>>();
 
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
             cancellationTokenSource.CancelAfter(timeout);
@@ -87,13 +87,13 @@ namespace Cheetah.Kafka.Testing
             {
                 try
                 {
-                    var consumeResult = Consumer!.Consume(cancellationToken);
+                    var consumeResult = Consumer.Consume(cancellationToken);
                     if (consumeResult.IsPartitionEOF)
                     {
                         continue;
                     }
 
-                    messages.Add(consumeResult.Message.Value);
+                    messages.Add(consumeResult.Message);
                 }
                 catch (OperationCanceledException)
                 {

@@ -1,7 +1,5 @@
 using System.Threading;
 using System.Threading.Tasks;
-using IdentityModel.Client;
-using Microsoft.Extensions.Hosting;
 
 namespace Cheetah.Auth.Authentication
 {
@@ -19,7 +17,7 @@ namespace Cheetah.Auth.Authentication
         Task<(string AccessToken, long Expiration)> RequestAccessTokenAsync(
             CancellationToken cancellationToken
         );
-        
+
         /// <summary>
         /// Start the token service.
         /// IMPORTANT: Before calling RequestAccessToken(), ensure to invoke StartAsync() unless you're utilizing Dependency Injection, where this process is managed by the builder.RunAsync() method.
