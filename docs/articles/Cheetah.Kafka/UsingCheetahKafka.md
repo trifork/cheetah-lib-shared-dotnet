@@ -16,7 +16,7 @@ builder.Services
     .WithConsumer<ExampleKeyModel, ExampleValueModel>();
 ```
 
-This will add necessary dependencies and register an `IConsumer<ExampleKeyModel, ExampleValueModel>`, where `ExampleKeyModel` and `ExampleValueModel` are the key and value type of consumed messages.
+This will add necessary dependencies and register an `IConsumer<ExampleKeyModel, ExampleValueModel>`, where `ExampleKeyModel` and `ExampleValueModel` are the key and value types of consumed messages.
 
 This consumer can then be injected into other services like so:
 
