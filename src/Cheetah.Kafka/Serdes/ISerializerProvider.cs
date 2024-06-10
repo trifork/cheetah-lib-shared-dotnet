@@ -3,7 +3,7 @@
 namespace Cheetah.Kafka.Serdes
 {
     /// <summary>
-    /// Interface for serializer provider to be used to serialize Kafka Messages
+    /// Interface for the serializer provider to be used to serialize Kafka Messages
     /// </summary>
     public interface ISerializerProvider
     {
