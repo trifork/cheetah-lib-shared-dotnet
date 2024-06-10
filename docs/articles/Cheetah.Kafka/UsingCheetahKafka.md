@@ -91,7 +91,7 @@ It is possible to configure client behavior both generally for all clients, for 
 
 The default configuration used by generated clients can be modified when calling `AddCheetahKafka`, while the configuration for individual clients can be modified when the client is registered.
 
-The below snippet shows configuration of all clients to allow auto-creation of topics, specifies that all created consumer should be in the `my-group` consumer group, then registers two consumers, one of which is explicitly told to use the `the-group` consumer group, and to serialize the key into a string type using the Confluent Kafka Utf8 Deserializer instead of the default json deserializer.
+The snippet below shows configuration of all clients to allow auto-creation of topics, specifies that all created consumers should be in the `my-group` consumer group, and then registers two consumers, one of which is explicitly told to use the `the-group` consumer group and to serialize the key into a string type using the Confluent Kafka Utf8 Deserializer instead of the default json deserializer.
 
 ```csharp
 [...]
