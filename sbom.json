@@ -1,10 +1,10 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:0ad344f7-19c7-4c56-ba2b-459122517b81",
+  "serialNumber": "urn:uuid:d84d2899-e9ac-4caf-a273-241f9895cd59",
   "version": 1,
   "metadata": {
-    "timestamp": "2024-06-10T11:24:39Z",
+    "timestamp": "2024-06-11T00:52:26Z",
     "tools": {
       "components": [
         {
@@ -9143,12 +9143,12 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit",
-      "version": "2.8.0",
+      "version": "2.8.1",
       "description": "xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.\n\nInstalling this package installs xunit.core, xunit.assert, and xunit.analyzers.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "512ddadedc09ce20227f59053c6764f5f00bc082c7c55d27d6ba17e63ebb6cdfddde8e0318d2c79d5dedaf9657fae8a756bcdf91fd1abc7df3197f093c10b4a8"
+          "content": "30b073d8d429debb5222825d8e3dc3044aff11e385950605de80829636addc363d190ef2626b63200bfc6727e6e4173062ca39b23bc87b9b1cb876893d508621"
         }
       ],
       "licenses": [
@@ -9159,9 +9159,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit@2.8.0",
+      "purl": "pkg:nuget/xunit@2.8.1",
       "type": "framework",
-      "bom-ref": "pkg:nuget/xunit@2.8.0",
+      "bom-ref": "pkg:nuget/xunit@2.8.1",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -9179,6 +9179,30 @@
         {
           "name": "SrcFile",
           "value": "/app/src/Cheetah.SchemaRegistry.Test/obj/project.assets.json"
+        },
+        {
+          "name": "PackageFiles",
+          "value": ""
+        },
+        {
+          "name": "PackageFiles",
+          "value": ""
+        },
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.OpenSearch.Test/obj/project.assets.json"
+        },
+        {
+          "name": "PackageFiles",
+          "value": ""
+        },
+        {
+          "name": "PackageFiles",
+          "value": ""
+        },
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.Kafka.Test/obj/project.assets.json"
         },
         {
           "name": "PackageFiles",
@@ -9259,12 +9283,12 @@
       "author": "jnewkirk,bradwilson,marcind",
       "group": "",
       "name": "xunit.analyzers",
-      "version": "1.13.0",
+      "version": "1.14.0",
       "description": "xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.\n\nInstalling this package provides code analyzers to help developers find and fix frequent issues when writing tests and xUnit.net extensibility code.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "3da8bd6270d5ef5fcec75e2704707afdfeb68b23f22db9941bf61832203875f74566faf4808604f721b14abd22e53af720d2bbe7080bd8c0943442a97a267617"
+          "content": "29c141995db5e74c591cf51e6d5dd82d1e601a5f11e302ee3cea31322c027f52f86cbf25b3475cc2d185cebe8dbd046083a756812a9b139d88e92632781d159d"
         }
       ],
       "licenses": [
@@ -9275,9 +9299,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.analyzers@1.13.0",
+      "purl": "pkg:nuget/xunit.analyzers@1.14.0",
       "type": "framework",
-      "bom-ref": "pkg:nuget/xunit.analyzers@1.13.0",
+      "bom-ref": "pkg:nuget/xunit.analyzers@1.14.0",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -9299,6 +9323,14 @@
         {
           "name": "PackageFiles",
           "value": "xunit.analyzers.dll, xunit.analyzers.fixes.dll"
+        },
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.OpenSearch.Test/obj/project.assets.json"
+        },
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.Kafka.Test/obj/project.assets.json"
         }
       ]
     },
@@ -9306,12 +9338,12 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit.assert",
-      "version": "2.8.0",
+      "version": "2.8.1",
       "description": "Includes the assertion library from xUnit.net (xunit.assert.dll). Supports .NET Standard 1.1+ and .NET 6.0+.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "9707fb0f2e7fe476c391a3f1d58ac65c2072cad08411c227f8a3c8ef88e1d810ff454ffb4613bc73e4b79343e1f8cafbf9c2dfdf7f1f97ea3a51c80f08b6ba3c"
+          "content": "0c3335f2eafe3de345850e30fef3bebaf094cbc840dce4b9f8031ffc2168bfd59ca3b2dee3dcf38f4868bd15b06bc7ffdef6947e32f9afe2243efa841eed8822"
         }
       ],
       "licenses": [
@@ -9322,9 +9354,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.assert@2.8.0",
+      "purl": "pkg:nuget/xunit.assert@2.8.1",
       "type": "library",
-      "bom-ref": "pkg:nuget/xunit.assert@2.8.0",
+      "bom-ref": "pkg:nuget/xunit.assert@2.8.1",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -9346,6 +9378,14 @@
         {
           "name": "PackageFiles",
           "value": "xunit.assert.dll"
+        },
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.OpenSearch.Test/obj/project.assets.json"
+        },
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.Kafka.Test/obj/project.assets.json"
         }
       ]
     },
@@ -9353,12 +9393,12 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit.core",
-      "version": "2.8.0",
+      "version": "2.8.1",
       "description": "Includes the libraries for writing unit tests with xUnit.net.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "31c4931464c44c2c4ba6624a13d4d68bd16d16d86b45ba51ae3cf657683cb0adb046dd7e247b35e6fc22f81fa77dfb45915f5a15621765fcd933de5320664d20"
+          "content": "360e10fc33b0a2d1123e5e42b9f71daa03fa3b6283a5d11c22f35f037ba9cdf0a206b923e56b262e17ff5d4b02568973bc703b6f5594972793a3b8f5ba51b881"
         }
       ],
       "licenses": [
@@ -9369,9 +9409,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.core@2.8.0",
+      "purl": "pkg:nuget/xunit.core@2.8.1",
       "type": "library",
-      "bom-ref": "pkg:nuget/xunit.core@2.8.0",
+      "bom-ref": "pkg:nuget/xunit.core@2.8.1",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -9397,6 +9437,30 @@
         {
           "name": "PackageFiles",
           "value": ""
+        },
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.OpenSearch.Test/obj/project.assets.json"
+        },
+        {
+          "name": "PackageFiles",
+          "value": ""
+        },
+        {
+          "name": "PackageFiles",
+          "value": ""
+        },
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.Kafka.Test/obj/project.assets.json"
+        },
+        {
+          "name": "PackageFiles",
+          "value": ""
+        },
+        {
+          "name": "PackageFiles",
+          "value": ""
         }
       ]
     },
@@ -9404,12 +9468,12 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit.extensibility.core",
-      "version": "2.8.0",
+      "version": "2.8.1",
       "description": "Includes xunit.core.dll for extensibility purposes. Supports .NET 4.5.2 or later, and .NET Standard 1.1.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "78126ff7141e634a79cfe0bf2f5b458d4158aad979a50a881180864cc97e31b47303bb0e96060ac0913ffef11e3c1a7e9a0061ecd8c3d10873d25899058336ef"
+          "content": "8a57c0b31121a677bd0175dfdd6f8eeb9991806ba6f789b6c47626d72789d66ede88834ce8e3b0a5a1e1a0d0bf296110daefd617afd7884b3e4344ceabb86218"
         }
       ],
       "licenses": [
@@ -9420,9 +9484,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.extensibility.core@2.8.0",
+      "purl": "pkg:nuget/xunit.extensibility.core@2.8.1",
       "type": "library",
-      "bom-ref": "pkg:nuget/xunit.extensibility.core@2.8.0",
+      "bom-ref": "pkg:nuget/xunit.extensibility.core@2.8.1",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -9444,6 +9508,14 @@
         {
           "name": "PackageFiles",
           "value": "xunit.core.dll, xunit.runner.tdnet.dll, xunit.runner.utility.net452.dll"
+        },
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.OpenSearch.Test/obj/project.assets.json"
+        },
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.Kafka.Test/obj/project.assets.json"
         }
       ]
     },
@@ -9451,12 +9523,12 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit.extensibility.execution",
-      "version": "2.8.0",
+      "version": "2.8.1",
       "description": "Includes xunit.execution.*.dll for extensibility purposes. Supports .NET 4.5.2 or later, and .NET Standard 1.1.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "4f2cab65eb0707d38364c4bd73bdceaa2073e31d2f2fde382429123c1596e70e8f1762e551f75f5d18e33a1a083ae63a953984825d3bad2e3f268b7d982627a6"
+          "content": "dfc527256fbae169fc40869bba370d130d072af5b0d809580a053c18dc02083ab2ad2b9161bef3c1eb67ed21e81df6cbf5ef4502f12200c5e6736c12518f2c55"
         }
       ],
       "licenses": [
@@ -9467,9 +9539,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.extensibility.execution@2.8.0",
+      "purl": "pkg:nuget/xunit.extensibility.execution@2.8.1",
       "type": "library",
-      "bom-ref": "pkg:nuget/xunit.extensibility.execution@2.8.0",
+      "bom-ref": "pkg:nuget/xunit.extensibility.execution@2.8.1",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -9491,6 +9563,14 @@
         {
           "name": "PackageFiles",
           "value": "xunit.execution.desktop.dll, xunit.execution.dotnet.dll"
+        },
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.OpenSearch.Test/obj/project.assets.json"
+        },
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.Kafka.Test/obj/project.assets.json"
         }
       ]
     },
@@ -9498,12 +9578,12 @@
       "author": "jnewkirk,bradwilson",
       "group": "",
       "name": "xunit.runner.visualstudio",
-      "version": "2.8.0",
+      "version": "2.8.1",
       "description": "Visual Studio 2022+ Test Explorer runner for the xUnit.net framework. Capable of running xUnit.net v1.9.2 and v2.0+ tests. Supports .NET 4.6.2 or later, and .NET 6 or later.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "9aa41b4b6cebf1d7e0496c6434e0ba513ccef09a2aa5398ce7e1459f65d1ff69d59b1d89bc463461b339a6dd85997560f5855efa32943c777a2abae8c8297aef"
+          "content": "a814cad1601c9f0eb99b29888d50ea5944ddaa3332ce3c2ef5ef52174a0661f6042e06dcb5e0d9e1f40b25a5f0f26ce4be9003ed87687b105b83c55840591658"
         }
       ],
       "licenses": [
@@ -9514,9 +9594,9 @@
           }
         }
       ],
-      "purl": "pkg:nuget/xunit.runner.visualstudio@2.8.0",
+      "purl": "pkg:nuget/xunit.runner.visualstudio@2.8.1",
       "type": "framework",
-      "bom-ref": "pkg:nuget/xunit.runner.visualstudio@2.8.0",
+      "bom-ref": "pkg:nuget/xunit.runner.visualstudio@2.8.1",
       "evidence": {
         "identity": {
           "field": "purl",
@@ -9538,6 +9618,14 @@
         {
           "name": "PackageFiles",
           "value": "xunit.abstractions.dll, xunit.runner.reporters.net452.dll, xunit.runner.utility.net452.dll, xunit.runner.visualstudio.testadapter.dll, xunit.runner.reporters.netcoreapp10.dll, xunit.runner.utility.netcoreapp10.dll"
+        },
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.OpenSearch.Test/obj/project.assets.json"
+        },
+        {
+          "name": "SrcFile",
+          "value": "/app/src/Cheetah.Kafka.Test/obj/project.assets.json"
         }
       ]
     },
@@ -10413,387 +10501,6 @@
       ]
     },
     {
-      "author": "jnewkirk,bradwilson",
-      "group": "",
-      "name": "xunit",
-      "version": "2.8.1",
-      "description": "xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.\n\nInstalling this package installs xunit.core, xunit.assert, and xunit.analyzers.",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "30b073d8d429debb5222825d8e3dc3044aff11e385950605de80829636addc363d190ef2626b63200bfc6727e6e4173062ca39b23bc87b9b1cb876893d508621"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "id": "Apache-2.0",
-            "url": "https://opensource.org/licenses/Apache-2.0"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/xunit@2.8.1",
-      "type": "framework",
-      "bom-ref": "pkg:nuget/xunit@2.8.1",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 1,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 1,
-              "value": "/app/src/Cheetah.OpenSearch.Test/obj/project.assets.json"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.OpenSearch.Test/obj/project.assets.json"
-        },
-        {
-          "name": "PackageFiles",
-          "value": ""
-        },
-        {
-          "name": "PackageFiles",
-          "value": ""
-        },
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.Kafka.Test/obj/project.assets.json"
-        },
-        {
-          "name": "PackageFiles",
-          "value": ""
-        },
-        {
-          "name": "PackageFiles",
-          "value": ""
-        }
-      ]
-    },
-    {
-      "author": "jnewkirk,bradwilson,marcind",
-      "group": "",
-      "name": "xunit.analyzers",
-      "version": "1.14.0",
-      "description": "xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.\n\nInstalling this package provides code analyzers to help developers find and fix frequent issues when writing tests and xUnit.net extensibility code.",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "29c141995db5e74c591cf51e6d5dd82d1e601a5f11e302ee3cea31322c027f52f86cbf25b3475cc2d185cebe8dbd046083a756812a9b139d88e92632781d159d"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "id": "Apache-2.0",
-            "url": "https://opensource.org/licenses/Apache-2.0"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/xunit.analyzers@1.14.0",
-      "type": "framework",
-      "bom-ref": "pkg:nuget/xunit.analyzers@1.14.0",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 1,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 1,
-              "value": "/app/src/Cheetah.OpenSearch.Test/obj/project.assets.json"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.OpenSearch.Test/obj/project.assets.json"
-        },
-        {
-          "name": "PackageFiles",
-          "value": "xunit.analyzers.dll, xunit.analyzers.fixes.dll"
-        },
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.Kafka.Test/obj/project.assets.json"
-        }
-      ]
-    },
-    {
-      "author": "jnewkirk,bradwilson",
-      "group": "",
-      "name": "xunit.assert",
-      "version": "2.8.1",
-      "description": "Includes the assertion library from xUnit.net (xunit.assert.dll). Supports .NET Standard 1.1+ and .NET 6.0+.",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "0c3335f2eafe3de345850e30fef3bebaf094cbc840dce4b9f8031ffc2168bfd59ca3b2dee3dcf38f4868bd15b06bc7ffdef6947e32f9afe2243efa841eed8822"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "id": "Apache-2.0",
-            "url": "https://opensource.org/licenses/Apache-2.0"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/xunit.assert@2.8.1",
-      "type": "library",
-      "bom-ref": "pkg:nuget/xunit.assert@2.8.1",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 1,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 1,
-              "value": "/app/src/Cheetah.OpenSearch.Test/obj/project.assets.json"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.OpenSearch.Test/obj/project.assets.json"
-        },
-        {
-          "name": "PackageFiles",
-          "value": "xunit.assert.dll"
-        },
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.Kafka.Test/obj/project.assets.json"
-        }
-      ]
-    },
-    {
-      "author": "jnewkirk,bradwilson",
-      "group": "",
-      "name": "xunit.core",
-      "version": "2.8.1",
-      "description": "Includes the libraries for writing unit tests with xUnit.net.",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "360e10fc33b0a2d1123e5e42b9f71daa03fa3b6283a5d11c22f35f037ba9cdf0a206b923e56b262e17ff5d4b02568973bc703b6f5594972793a3b8f5ba51b881"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "id": "Apache-2.0",
-            "url": "https://opensource.org/licenses/Apache-2.0"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/xunit.core@2.8.1",
-      "type": "library",
-      "bom-ref": "pkg:nuget/xunit.core@2.8.1",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 1,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 1,
-              "value": "/app/src/Cheetah.OpenSearch.Test/obj/project.assets.json"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.OpenSearch.Test/obj/project.assets.json"
-        },
-        {
-          "name": "PackageFiles",
-          "value": ""
-        },
-        {
-          "name": "PackageFiles",
-          "value": ""
-        },
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.Kafka.Test/obj/project.assets.json"
-        },
-        {
-          "name": "PackageFiles",
-          "value": ""
-        },
-        {
-          "name": "PackageFiles",
-          "value": ""
-        }
-      ]
-    },
-    {
-      "author": "jnewkirk,bradwilson",
-      "group": "",
-      "name": "xunit.extensibility.core",
-      "version": "2.8.1",
-      "description": "Includes xunit.core.dll for extensibility purposes. Supports .NET 4.5.2 or later, and .NET Standard 1.1.",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "8a57c0b31121a677bd0175dfdd6f8eeb9991806ba6f789b6c47626d72789d66ede88834ce8e3b0a5a1e1a0d0bf296110daefd617afd7884b3e4344ceabb86218"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "id": "Apache-2.0",
-            "url": "https://opensource.org/licenses/Apache-2.0"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/xunit.extensibility.core@2.8.1",
-      "type": "library",
-      "bom-ref": "pkg:nuget/xunit.extensibility.core@2.8.1",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 1,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 1,
-              "value": "/app/src/Cheetah.OpenSearch.Test/obj/project.assets.json"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.OpenSearch.Test/obj/project.assets.json"
-        },
-        {
-          "name": "PackageFiles",
-          "value": "xunit.core.dll, xunit.runner.tdnet.dll, xunit.runner.utility.net452.dll"
-        },
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.Kafka.Test/obj/project.assets.json"
-        }
-      ]
-    },
-    {
-      "author": "jnewkirk,bradwilson",
-      "group": "",
-      "name": "xunit.extensibility.execution",
-      "version": "2.8.1",
-      "description": "Includes xunit.execution.*.dll for extensibility purposes. Supports .NET 4.5.2 or later, and .NET Standard 1.1.",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "dfc527256fbae169fc40869bba370d130d072af5b0d809580a053c18dc02083ab2ad2b9161bef3c1eb67ed21e81df6cbf5ef4502f12200c5e6736c12518f2c55"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "id": "Apache-2.0",
-            "url": "https://opensource.org/licenses/Apache-2.0"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/xunit.extensibility.execution@2.8.1",
-      "type": "library",
-      "bom-ref": "pkg:nuget/xunit.extensibility.execution@2.8.1",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 1,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 1,
-              "value": "/app/src/Cheetah.OpenSearch.Test/obj/project.assets.json"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.OpenSearch.Test/obj/project.assets.json"
-        },
-        {
-          "name": "PackageFiles",
-          "value": "xunit.execution.desktop.dll, xunit.execution.dotnet.dll"
-        },
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.Kafka.Test/obj/project.assets.json"
-        }
-      ]
-    },
-    {
-      "author": "jnewkirk,bradwilson",
-      "group": "",
-      "name": "xunit.runner.visualstudio",
-      "version": "2.8.1",
-      "description": "Visual Studio 2022+ Test Explorer runner for the xUnit.net framework. Capable of running xUnit.net v1.9.2 and v2.0+ tests. Supports .NET 4.6.2 or later, and .NET 6 or later.",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "a814cad1601c9f0eb99b29888d50ea5944ddaa3332ce3c2ef5ef52174a0661f6042e06dcb5e0d9e1f40b25a5f0f26ce4be9003ed87687b105b83c55840591658"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "id": "Apache-2.0",
-            "url": "https://opensource.org/licenses/Apache-2.0"
-          }
-        }
-      ],
-      "purl": "pkg:nuget/xunit.runner.visualstudio@2.8.1",
-      "type": "framework",
-      "bom-ref": "pkg:nuget/xunit.runner.visualstudio@2.8.1",
-      "evidence": {
-        "identity": {
-          "field": "purl",
-          "confidence": 1,
-          "methods": [
-            {
-              "technique": "manifest-analysis",
-              "confidence": 1,
-              "value": "/app/src/Cheetah.OpenSearch.Test/obj/project.assets.json"
-            }
-          ]
-        }
-      },
-      "properties": [
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.OpenSearch.Test/obj/project.assets.json"
-        },
-        {
-          "name": "PackageFiles",
-          "value": "xunit.abstractions.dll, xunit.runner.reporters.net452.dll, xunit.runner.utility.net452.dll, xunit.runner.visualstudio.testadapter.dll, xunit.runner.reporters.netcoreapp10.dll, xunit.runner.utility.netcoreapp10.dll"
-        },
-        {
-          "name": "SrcFile",
-          "value": "/app/src/Cheetah.Kafka.Test/obj/project.assets.json"
-        }
-      ]
-    },
-    {
       "group": "",
       "name": "Cheetah.OpenSearch",
       "version": "1.1.0",
@@ -11336,9 +11043,9 @@
         "pkg:nuget/Microsoft.NET.Test.Sdk@17.9.0",
         "pkg:nuget/Serilog.Sinks.XUnit@3.0.5",
         "pkg:nuget/coverlet.collector@6.0.2",
-        "pkg:nuget/xunit.extensibility.core@2.8.0",
-        "pkg:nuget/xunit.runner.visualstudio@2.8.0",
-        "pkg:nuget/xunit@2.8.0"
+        "pkg:nuget/xunit.extensibility.core@2.8.1",
+        "pkg:nuget/xunit.runner.visualstudio@2.8.1",
+        "pkg:nuget/xunit@2.8.1"
       ]
     },
     {
@@ -11812,9 +11519,7 @@
       "dependsOn": [
         "pkg:nuget/Serilog@2.12.0",
         "pkg:nuget/xunit.abstractions@2.0.3",
-        "pkg:nuget/xunit.extensibility.core@2.8.0",
         "pkg:nuget/xunit.extensibility.core@2.8.1",
-        "pkg:nuget/xunit.extensibility.execution@2.8.0",
         "pkg:nuget/xunit.extensibility.execution@2.8.1"
       ]
     },
@@ -12329,11 +12034,11 @@
       ]
     },
     {
-      "ref": "pkg:nuget/xunit@2.8.0",
+      "ref": "pkg:nuget/xunit@2.8.1",
       "dependsOn": [
-        "pkg:nuget/xunit.analyzers@1.13.0",
-        "pkg:nuget/xunit.assert@2.8.0",
-        "pkg:nuget/xunit.core@2.8.0"
+        "pkg:nuget/xunit.analyzers@1.14.0",
+        "pkg:nuget/xunit.assert@2.8.1",
+        "pkg:nuget/xunit.core@2.8.1"
       ]
     },
     {
@@ -12341,34 +12046,34 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/xunit.analyzers@1.13.0",
+      "ref": "pkg:nuget/xunit.analyzers@1.14.0",
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/xunit.assert@2.8.0",
+      "ref": "pkg:nuget/xunit.assert@2.8.1",
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/xunit.core@2.8.0",
+      "ref": "pkg:nuget/xunit.core@2.8.1",
       "dependsOn": [
-        "pkg:nuget/xunit.extensibility.core@2.8.0",
-        "pkg:nuget/xunit.extensibility.execution@2.8.0"
+        "pkg:nuget/xunit.extensibility.core@2.8.1",
+        "pkg:nuget/xunit.extensibility.execution@2.8.1"
       ]
     },
     {
-      "ref": "pkg:nuget/xunit.extensibility.core@2.8.0",
+      "ref": "pkg:nuget/xunit.extensibility.core@2.8.1",
       "dependsOn": [
         "pkg:nuget/xunit.abstractions@2.0.3"
       ]
     },
     {
-      "ref": "pkg:nuget/xunit.extensibility.execution@2.8.0",
+      "ref": "pkg:nuget/xunit.extensibility.execution@2.8.1",
       "dependsOn": [
-        "pkg:nuget/xunit.extensibility.core@2.8.0"
+        "pkg:nuget/xunit.extensibility.core@2.8.1"
       ]
     },
     {
-      "ref": "pkg:nuget/xunit.runner.visualstudio@2.8.0",
+      "ref": "pkg:nuget/xunit.runner.visualstudio@2.8.1",
       "dependsOn": []
     },
     {
@@ -12490,45 +12195,6 @@
     },
     {
       "ref": "pkg:nuget/System.Buffers@4.5.1",
-      "dependsOn": []
-    },
-    {
-      "ref": "pkg:nuget/xunit@2.8.1",
-      "dependsOn": [
-        "pkg:nuget/xunit.analyzers@1.14.0",
-        "pkg:nuget/xunit.assert@2.8.1",
-        "pkg:nuget/xunit.core@2.8.1"
-      ]
-    },
-    {
-      "ref": "pkg:nuget/xunit.analyzers@1.14.0",
-      "dependsOn": []
-    },
-    {
-      "ref": "pkg:nuget/xunit.assert@2.8.1",
-      "dependsOn": []
-    },
-    {
-      "ref": "pkg:nuget/xunit.core@2.8.1",
-      "dependsOn": [
-        "pkg:nuget/xunit.extensibility.core@2.8.1",
-        "pkg:nuget/xunit.extensibility.execution@2.8.1"
-      ]
-    },
-    {
-      "ref": "pkg:nuget/xunit.extensibility.core@2.8.1",
-      "dependsOn": [
-        "pkg:nuget/xunit.abstractions@2.0.3"
-      ]
-    },
-    {
-      "ref": "pkg:nuget/xunit.extensibility.execution@2.8.1",
-      "dependsOn": [
-        "pkg:nuget/xunit.extensibility.core@2.8.1"
-      ]
-    },
-    {
-      "ref": "pkg:nuget/xunit.runner.visualstudio@2.8.1",
       "dependsOn": []
     },
     {
