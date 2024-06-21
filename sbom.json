@@ -1,19 +1,19 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:12826c6b-8bba-4e08-a453-ca9a7a86b294",
+  "serialNumber": "urn:uuid:82ce253d-b40d-4426-bc3f-dab655d972f7",
   "version": 1,
   "metadata": {
-    "timestamp": "2024-06-14T13:28:15Z",
+    "timestamp": "2024-06-21T02:16:21Z",
     "tools": {
       "components": [
         {
           "group": "@cyclonedx",
           "name": "cdxgen",
-          "version": "10.6.2",
-          "purl": "pkg:npm/%40cyclonedx/cdxgen@10.6.2",
+          "version": "10.7.0",
+          "purl": "pkg:npm/%40cyclonedx/cdxgen@10.7.0",
           "type": "application",
-          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@10.6.2",
+          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@10.7.0",
           "author": "OWASP Foundation",
           "publisher": "OWASP Foundation"
         }
@@ -1329,7 +1329,7 @@
       "author": "Microsoft",
       "group": "",
       "name": "System.IdentityModel.Tokens.Jwt",
-      "version": "7.6.0",
+      "version": "7.6.1",
       "description": "Includes types that provide support for creating, serializing and validating JSON Web Tokens. As of IdentityModel 7x, this is a legacy tool that should be replaced with Microsoft.IdentityModel.JsonWebTokens.",
       "licenses": [
         {
@@ -1339,11 +1339,11 @@
           }
         }
       ],
-      "purl": "pkg:nuget/System.IdentityModel.Tokens.Jwt@7.6.0",
+      "purl": "pkg:nuget/System.IdentityModel.Tokens.Jwt@7.6.1",
       "externalReferences": [
         {
           "type": "website",
-          "url": "https://www.nuget.org/packages/System.IdentityModel.Tokens.Jwt/7.6.0/"
+          "url": "https://www.nuget.org/packages/System.IdentityModel.Tokens.Jwt/7.6.1/"
         },
         {
           "type": "vcs",
@@ -1351,7 +1351,7 @@
         }
       ],
       "type": "library",
-      "bom-ref": "pkg:nuget/System.IdentityModel.Tokens.Jwt@7.6.0",
+      "bom-ref": "pkg:nuget/System.IdentityModel.Tokens.Jwt@7.6.1",
       "evidence": {
         "identity": {
           "field": "purl",
