@@ -86,7 +86,7 @@ namespace Cheetah.Auth.Authentication
             {
                 if (retries > 0)
                 {
-                    _logger.LogWarning($"Unable to fetch OAuth token. Retrying in {retries}.");
+                    _logger.LogWarning($"Unable to fetch OAuth token. Retrying in {_retryInterval}.");
                     await Task.Delay(_retryInterval);
                 }
 
