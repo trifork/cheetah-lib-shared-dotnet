@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Cheetah.Kafka.ExampleProcessor.Models;
+using Confluent.Kafka;
 
 var builder = new HostApplicationBuilder();
 builder
@@ -37,11 +38,13 @@ builder.Services.AddCheetahKafka(builder.Configuration, options =>
     })
     .WithKeyedConsumer<string, ExampleModelAvro>("B", options =>
     {
+        options.SetKeyDeserializer(_ => Deserializers.Utf8);
         options.SetValueDeserializer(AvroDeserializer.FromServices<ExampleModelAvro>());
 
     })
     .WithProducer<string, ExampleModelAvro>(options =>
     {
+        options.SetKeySerializer(_ => Serializers.Utf8);
         options.SetValueSerializer(AvroSerializer.FromServices<ExampleModelAvro>());
         options.ConfigureClient(cfg =>
         {
