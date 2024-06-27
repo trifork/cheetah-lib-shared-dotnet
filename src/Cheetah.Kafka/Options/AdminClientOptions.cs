@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Confluent.Kafka;
 
 namespace Cheetah.Kafka

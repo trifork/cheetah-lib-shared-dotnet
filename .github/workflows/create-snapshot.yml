@@ -10,6 +10,7 @@ on:
         options:
           - Cheetah.OpenSearch
           - Cheetah.Kafka
+          - Cheetah.SchemaRegistry
         default: Cheetah.OpenSearch
 
 jobs:

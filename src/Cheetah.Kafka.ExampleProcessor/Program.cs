@@ -1,13 +1,14 @@
 // See https://aka.ms/new-console-template for more information
 
-using Cheetah.SchemaRegistry.Avro;
+using Cheetah.Kafka.ExampleProcessor.Models;
 using Cheetah.Kafka.ExampleProcessor.Services;
 using Cheetah.Kafka.Extensions;
+using Cheetah.SchemaRegistry.Avro;
 using Cheetah.SchemaRegistry.Extensions;
+using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Cheetah.Kafka.ExampleProcessor.Models;
 
 var builder = new HostApplicationBuilder();
 builder
@@ -37,11 +38,13 @@ builder.Services.AddCheetahKafka(builder.Configuration, options =>
     })
     .WithKeyedConsumer<string, ExampleModelAvro>("B", options =>
     {
+        options.SetKeyDeserializer(_ => Deserializers.Utf8);
         options.SetValueDeserializer(AvroDeserializer.FromServices<ExampleModelAvro>());
 
     })
     .WithProducer<string, ExampleModelAvro>(options =>
     {
+        options.SetKeySerializer(_ => Serializers.Utf8);
         options.SetValueSerializer(AvroSerializer.FromServices<ExampleModelAvro>());
         options.ConfigureClient(cfg =>
         {

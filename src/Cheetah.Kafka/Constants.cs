@@ -1,4 +1,4 @@
-﻿namespace Cheetah.Kafka
+namespace Cheetah.Kafka
 {
     /// <summary>
     /// Static class contains constant values used within the Cheetah.Kafka namespace

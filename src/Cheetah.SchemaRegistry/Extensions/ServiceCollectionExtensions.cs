@@ -7,7 +7,6 @@ using Cheetah.SchemaRegistry.Utils;
 using Confluent.SchemaRegistry;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
 namespace Cheetah.SchemaRegistry.Extensions

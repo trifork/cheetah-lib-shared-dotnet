@@ -3,3 +3,5 @@
   href: Cheetah.Kafka/toc.yml
 - name: Cheetah.OpenSearch
   href: Cheetah.OpenSearch/toc.yml
+- name: Cheetah.SchemaRegistry
+  href: Cheetah.SchemaRegistry/toc.yml
