@@ -258,3 +258,9 @@ dotnet_diagnostic.CA1848.severity = none
 
 # CA2254: Template should be a static expression
 dotnet_diagnostic.CA2254.severity = none
+
+# IDE0290: Use primary constructor
+dotnet_diagnostic.IDE0290.severity = none
+
+# IDE0028: Use collection initializers or expressions
+dotnet_diagnostic.IDE0028.severity = none

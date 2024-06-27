@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 using Cheetah.OpenSearch.Configuration;
 using Cheetah.OpenSearch.Extensions;

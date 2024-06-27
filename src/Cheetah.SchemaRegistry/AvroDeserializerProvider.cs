@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Cheetah.Kafka.Serdes;
 using Confluent.Kafka;
 using Confluent.Kafka.SyncOverAsync;

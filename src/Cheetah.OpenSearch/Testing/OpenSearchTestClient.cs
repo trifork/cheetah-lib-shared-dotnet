@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using Cheetah.Auth.Authentication;
 using Cheetah.Auth.Util;
 using Cheetah.OpenSearch.Configuration;

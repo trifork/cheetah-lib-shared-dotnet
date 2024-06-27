@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Cheetah.Kafka.Util;
 using Confluent.Kafka;
 

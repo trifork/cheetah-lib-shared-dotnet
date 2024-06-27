@@ -1,4 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography.X509Certificates;
 using Cheetah.OpenSearch.Configuration;
 using OpenSearch.Client;
 using OpenSearch.Net;

@@ -1,4 +1,4 @@
-﻿namespace Cheetah.OpenSearch
+namespace Cheetah.OpenSearch
 {
     /// <summary>
     /// Static class contains constant values used within the Cheetah.OpenSearch namespace
