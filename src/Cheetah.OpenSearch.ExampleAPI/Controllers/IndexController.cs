@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using OpenSearch.Client;
 
 namespace Cheetah.OpenSearch.ExampleAPI.Controllers

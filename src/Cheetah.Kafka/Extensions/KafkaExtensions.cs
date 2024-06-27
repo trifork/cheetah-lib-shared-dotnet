@@ -133,14 +133,19 @@ namespace Cheetah.Kafka.Extensions
         }
 
         // Convenience to avoid spreading "GetAwaiter().GetResult()"
-        private static Func<T> Synchronize<T>(Func<Task<T>> asyncTokenRequestFunc) =>
-            () => asyncTokenRequestFunc().GetAwaiter().GetResult();
+        private static Func<T> Synchronize<T>(Func<Task<T>> asyncTokenRequestFunc)
+        {
+            return () => asyncTokenRequestFunc().GetAwaiter().GetResult();
+        }
 
         // Convenience to avoid spreading lambdas
         private static Action<IClient, string> GetTokenRefreshHandler(
             Func<(string AccessToken, long Expiration, string Principal)> func,
             ILogger logger
-        ) => (client, _) => TokenRefreshHandler(client, func, logger);
+        )
+        {
+            return (client, _) => TokenRefreshHandler(client, func, logger);
+        }
 
         private static void TokenRefreshHandler(
             IClient client,
@@ -150,9 +155,9 @@ namespace Cheetah.Kafka.Extensions
         {
             try
             {
-                var token = tokenRequestFunc();
+                var (AccessToken, Expiration, Principal) = tokenRequestFunc();
 
-                if (string.IsNullOrWhiteSpace(token.AccessToken))
+                if (string.IsNullOrWhiteSpace(AccessToken))
                 {
                     SetFailure(
                         client,
@@ -162,7 +167,7 @@ namespace Cheetah.Kafka.Extensions
                     return;
                 }
 
-                client.OAuthBearerSetToken(token.AccessToken, token.Expiration, token.Principal);
+                client.OAuthBearerSetToken(AccessToken, Expiration, Principal);
             }
             catch (Exception ex)
             {

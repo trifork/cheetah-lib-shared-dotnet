@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text.RegularExpressions;
 using Cheetah.Auth.Authentication;
 using Cheetah.Auth.Util;

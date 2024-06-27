@@ -1,4 +1,4 @@
-﻿using Cheetah.Kafka.ExampleProcessor.Models;
+using Cheetah.Kafka.ExampleProcessor.Models;
 using Confluent.Kafka;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

@@ -1,4 +1,4 @@
-﻿namespace Cheetah.Kafka.ExampleProcessor
+namespace Cheetah.Kafka.ExampleProcessor
 {
     public class Constants
     {

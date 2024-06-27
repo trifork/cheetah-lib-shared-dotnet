@@ -1,14 +1,14 @@
 // See https://aka.ms/new-console-template for more information
 
-using Cheetah.SchemaRegistry.Avro;
+using Cheetah.Kafka.ExampleProcessor.Models;
 using Cheetah.Kafka.ExampleProcessor.Services;
 using Cheetah.Kafka.Extensions;
+using Cheetah.SchemaRegistry.Avro;
 using Cheetah.SchemaRegistry.Extensions;
+using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Cheetah.Kafka.ExampleProcessor.Models;
-using Confluent.Kafka;
 
 var builder = new HostApplicationBuilder();
 builder
