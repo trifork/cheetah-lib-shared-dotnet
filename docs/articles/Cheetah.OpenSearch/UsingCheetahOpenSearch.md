@@ -72,11 +72,16 @@ The below example configuration can be placed in an `appsettings.json` to supply
 
 ## Modifying client behavior
 
-It is possible to modify the registered client's behavior through its options, which in the snippet below is used to modify the serialization behavior of the client:
+It is possible to modify the registered client's behavior through its options, which in the snippet below is used to modify the serialization behavior of the client, and disabling direct streming, when in a development environment:
 
 ```csharp
 builder.Services.AddCheetahOpenSearch(builder.Configuration, cfg =>
 {
+    if (hostEnvironment.IsDevelopment()) {
+        cfg.WithConnectionSettings(settings => {
+            settings.DisableDirectStreaming();
+        });
+    }
     cfg.WithJsonSerializerSettings(settings => {
         settings.MissingMemberHandling = MissingMemberHandling.Error;
         settings.Converters.Add(new UtcDateTimeConverter());
