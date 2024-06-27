@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <AssemblyName>Cheetah.SchemaRegistry.Avro</AssemblyName>
+        <AssemblyName>Cheetah.SchemaRegistry</AssemblyName>
         <Authors>Trifork</Authors>
         <Description>Adds Avro serialization for use with Cheetah.Kafka</Description>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <RepositoryUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</RepositoryUrl>
-        <RootNamespace>Cheetah.SchemaRegistry.Avro</RootNamespace>
+        <RootNamespace>Cheetah.SchemaRegistry</RootNamespace>
         <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <Nullable>enable</Nullable>
