@@ -1,4 +1,4 @@
-﻿namespace Cheetah.SchemaRegistry.Avro
+namespace Cheetah.SchemaRegistry.Avro
 {
     /// <summary>
     /// Static class contains constant values used within the Cheetah.SchemaRegistry.Avro namespace

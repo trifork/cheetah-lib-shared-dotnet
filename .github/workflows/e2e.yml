@@ -70,4 +70,12 @@ jobs:
         with:
           name: Tests
           path: src/Cheetah.Kafka.Test/TestResults/*.trx
+          reporter: dotnet-trx      
+      
+      - name: Display test report SchemaRegistry
+        uses: dorny/test-reporter@v1.9.1
+        if: always()
+        with:
+          name: Tests
+          path: src/Cheetah.SchemaRegistry.Test/TestResults/*.trx
           reporter: dotnet-trx
