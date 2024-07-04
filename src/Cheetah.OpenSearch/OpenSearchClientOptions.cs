@@ -34,9 +34,9 @@ namespace Cheetah.OpenSearch
         }
 
         /// <summary>
-        /// Configures the <see cref="ConnectionSettings"/> used by the <see cref="OpenSearchClient"/>
+        /// Configures an internal <see cref="OpenSearch.Client.ConnectionSettings"/> used by the <see cref="OpenSearchClient"/>
         /// </summary>
-        /// <param name="configure">Action which configures used <see cref="ConnectionSettings"/></param>
+        /// <param name="configure">Action which configures used <see cref="OpenSearch.Client.ConnectionSettings"/></param>
         /// <returns>This <see cref="OpenSearchClientOptions"/> instance for method chaining.</returns>
         public OpenSearchClientOptions WithConnectionSettings(
             Action<ConnectionSettings> configure
