@@ -57,6 +57,6 @@ jobs:
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v3
         with:
-          token: ${{ secrets.PACKAGE_PAT }}
+          token: ${{ secrets.READ_PACKAGE_PAT }}
           repository: trifork/cheetah-artifact-documentation
           event-type: docs-update
