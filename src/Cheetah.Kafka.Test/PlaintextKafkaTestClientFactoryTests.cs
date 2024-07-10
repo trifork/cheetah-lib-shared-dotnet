@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Cheetah.Kafka.Configuration;
 using Cheetah.Kafka.Serdes;
 using Cheetah.Kafka.Testing;
+using Confluent.Kafka;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Xunit;
@@ -51,9 +54,12 @@ namespace Cheetah.Kafka.Test
                 "MyConsumerGroup"
             );
 
-            await writer.WriteAsync("Message4");
+            var messageValue = "Message4";
+
+            await writer.WriteAsync(messageValue);
             var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(5));
             readMessages.Should().HaveCount(1);
+            Assert.Equal(messageValue, readMessages.First().Key);
             reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(1)).Should().BeTrue();
         }
 
@@ -70,6 +76,27 @@ namespace Cheetah.Kafka.Test
             await writer.WriteAsync("Message4");
             var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(5));
             readMessages.Should().HaveCount(1);
+            reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(1)).Should().BeTrue();
+        }
+        [Fact]
+        public async Task Should_WriteAndRead_When_UsingDifferentDeserializer()
+        {
+            var writer = _testClientFactory.CreateTestWriter<string, string>(
+                "MyNullKeyJsonTopic",
+                m => m
+            );
+            var reader = _testClientFactory.CreateTestReader<string, string>(
+                "MyNullKeyJsonTopic",
+                keyDeserializer: Deserializers.Utf8
+            );
+
+            var messageValue = "Message5";
+            var jsonMessageValue = JsonSerializer.Serialize(messageValue);
+
+            await writer.WriteAsync(messageValue);
+            var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(5));
+            readMessages.Should().HaveCount(1);
+            Assert.Equal(jsonMessageValue, readMessages.First().Key);
             reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(1)).Should().BeTrue();
         }
 
