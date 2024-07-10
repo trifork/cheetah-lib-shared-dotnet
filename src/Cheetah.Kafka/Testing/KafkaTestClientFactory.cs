@@ -98,7 +98,7 @@ namespace Cheetah.Kafka.Testing
         /// <exception cref="ArgumentException">Thrown if the provided topic is invalid</exception>
         public IKafkaTestWriter<Null, T> CreateTestWriter<T>(string topic, ISerializer<T>? valueSerializer = null)
         {
-            return CreateTestWriter(topic, _ => null!, Serializers.Null, valueSerializer);
+            return CreateTestWriter(topic, _ => null, Serializers.Null, valueSerializer);
         }
 
         /// <summary>
@@ -125,11 +125,11 @@ namespace Cheetah.Kafka.Testing
 
             if (keySerializer != null)
             {
-                producerOptionsBuilder.SetKeySerializer(_ => keySerializer);
+                producerOptionsBuilder.SetKeySerializer(keySerializer);
             }
             if (valueSerializer != null)
             {
-                producerOptionsBuilder.SetValueSerializer(_ => valueSerializer);
+                producerOptionsBuilder.SetValueSerializer(valueSerializer);
             }
 
             return new KafkaTestWriter<TKey, T>(producer, keyFunction, topic);
@@ -167,11 +167,11 @@ namespace Cheetah.Kafka.Testing
 
             if (keyDeserializer != null)
             {
-                consumerOptionsBuilder.SetKeyDeserializer(_ => keyDeserializer);
+                consumerOptionsBuilder.SetKeyDeserializer(keyDeserializer);
             }
             if (valueDeserializer != null)
             {
-                consumerOptionsBuilder.SetValueDeserializer(_ => valueDeserializer);
+                consumerOptionsBuilder.SetValueDeserializer(valueDeserializer);
             }
 
             var consumer = ClientFactory.CreateConsumer(

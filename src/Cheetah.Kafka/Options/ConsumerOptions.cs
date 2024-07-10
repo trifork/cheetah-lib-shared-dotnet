@@ -56,6 +56,17 @@ namespace Cheetah.Kafka
         }
 
         /// <summary>
+        /// Sets the value deserializer.
+        /// </summary>
+        /// <param name="valueDeserializer">The value deserializer.</param>
+        /// <returns>The builder instance.</returns>
+        public ConsumerOptionsBuilder<TKey, TValue> SetValueDeserializer(IDeserializer<TValue> valueDeserializer)
+        {
+            _options.SetValueDeserializer(valueDeserializer);
+            return this;
+        }
+
+        /// <summary>
         /// Sets the key deserializer factory method.
         /// </summary>
         /// <param name="keyDeserializerFactory">The factory method for creating the key deserializer.</param>
@@ -63,6 +74,17 @@ namespace Cheetah.Kafka
         public ConsumerOptionsBuilder<TKey, TValue> SetKeyDeserializer(Func<IServiceProvider, IDeserializer<TKey>> keyDeserializerFactory)
         {
             _keyDeserializerProvider = keyDeserializerFactory;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the key deserializer.
+        /// </summary>
+        /// <param name="keyDeserializer">The key deserializer.</param>
+        /// <returns>The builder instance.</returns>
+        public ConsumerOptionsBuilder<TKey, TValue> SetKeyDeserializer(IDeserializer<TKey> keyDeserializer)
+        {
+            _options.SetKeyDeserializer(keyDeserializer);
             return this;
         }
 
