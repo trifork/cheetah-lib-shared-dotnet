@@ -56,6 +56,21 @@ namespace Cheetah.Kafka.Test
             readMessages.Should().HaveCount(1);
             reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(1)).Should().BeTrue();
         }
+        [Fact]
+        public async Task Should_WriteAndRead_When_UsingNullKey()
+        {
+            var writer = _testClientFactory.CreateTestWriter<string>(
+                "MyJsonTopic"
+            );
+            var reader = _testClientFactory.CreateTestReader<string>(
+                "MyJsonTopic"
+            );
+
+            await writer.WriteAsync("Message4");
+            var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(5));
+            readMessages.Should().HaveCount(1);
+            reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(1)).Should().BeTrue();
+        }
 
         [Fact]
         public async Task Should_ThrowArgumentException_When_AttemptingToWrite0Messages()
