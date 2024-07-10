@@ -61,10 +61,10 @@ namespace Cheetah.Kafka.Test
         public async Task Should_WriteAndRead_When_UsingNullKey()
         {
             var writer = _testClientFactory.CreateTestWriter<string>(
-                "MyJsonTopic"
+                "MyNullKeyJsonTopic"
             );
             var reader = _testClientFactory.CreateTestReader<string>(
-                "MyJsonTopic"
+                "MyNullKeyJsonTopic"
             );
 
             await writer.WriteAsync("Message4");
