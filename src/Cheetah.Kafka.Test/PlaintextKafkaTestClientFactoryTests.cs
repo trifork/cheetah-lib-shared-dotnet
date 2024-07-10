@@ -87,7 +87,7 @@ namespace Cheetah.Kafka.Test
             );
             var reader = _testClientFactory.CreateTestReader<string, string>(
                 "MyNullKeyJsonTopic",
-                keyDeserializer: Deserializers.Utf8
+                keyDeserializer: Deserializers.Utf8 // gitleaks:allow
             );
 
             var messageValue = "Message5";
