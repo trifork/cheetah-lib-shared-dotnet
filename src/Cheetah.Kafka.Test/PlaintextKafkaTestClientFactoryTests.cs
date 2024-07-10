@@ -66,7 +66,7 @@ namespace Cheetah.Kafka.Test
             );
 
             await writer
-                .Invoking(w => w.WriteAsync())
+                .Invoking(w => w.WriteAsync(Array.Empty<string>()))
                 .Should()
                 .ThrowAsync<ArgumentException>("it should not be possible to write 0 messages");
         }
