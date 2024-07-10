@@ -79,7 +79,7 @@ namespace Cheetah.Kafka.Testing
 
             var produceTasks = messages.Select(kafkaMessage =>
                 Producer.ProduceAsync(Topic, kafkaMessage)
-            );æ
+            );
             return Task.WhenAll(produceTasks);
         }
     }
