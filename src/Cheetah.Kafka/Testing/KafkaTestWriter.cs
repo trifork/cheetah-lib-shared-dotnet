@@ -8,8 +8,11 @@ namespace Cheetah.Kafka.Testing
     /// <inheritdoc cref="KafkaTestWriter{TKey, T}"/>
     public interface IKafkaTestWriter<TKey, T>
     {
-        /// <inheritdoc cref="KafkaTestWriter{TKey, T}.WriteAsync"/>
+        /// <inheritdoc cref="KafkaTestWriter{TKey, T}.WriteAsync(T[])"/>
         public Task<DeliveryResult<TKey, T>[]> WriteAsync(params T[] messages);
+
+        /// <inheritdoc cref="KafkaTestWriter{TKey, T}.WriteAsync(Message{TKey,T}[])"/>
+        public Task<DeliveryResult<TKey, T>[]> WriteAsync(params Message<TKey, T>[] messages);
     }
 
     /// <summary>
