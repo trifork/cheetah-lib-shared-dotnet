@@ -120,9 +120,7 @@ namespace Cheetah.Kafka.Testing
         )
         {
             ValidateTopic(topic);
-            var producer = ClientFactory.CreateProducer<TKey, T>();
             ProducerOptionsBuilder<TKey, T> producerOptionsBuilder = new();
-
             if (keySerializer != null)
             {
                 producerOptionsBuilder.SetKeySerializer(keySerializer);
@@ -131,6 +129,7 @@ namespace Cheetah.Kafka.Testing
             {
                 producerOptionsBuilder.SetValueSerializer(valueSerializer);
             }
+            var producer = ClientFactory.CreateProducer(producerOptionsBuilder.Build());
 
             return new KafkaTestWriter<TKey, T>(producer, keyFunction, topic);
         }
