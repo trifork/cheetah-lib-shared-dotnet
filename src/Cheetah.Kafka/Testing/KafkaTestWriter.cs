@@ -62,5 +62,25 @@ namespace Cheetah.Kafka.Testing
             );
             return Task.WhenAll(produceTasks);
         }
+
+        /// <summary>
+        /// Publishes multiple messages to Kafka
+        /// </summary>
+        /// <param name="messages">The collection of messages to publish</param>
+        /// <exception cref="ArgumentException">Thrown if the provided collection of messages is empty</exception>
+        public Task<DeliveryResult<TKey, T>[]> WriteAsync(params Message<TKey, T>[] messages)
+        {
+            if (messages.Length == 0)
+            {
+                throw new ArgumentException(
+                    "WriteAsync was invoked with an empty list of messages."
+                );
+            }
+
+            var produceTasks = messages.Select(kafkaMessage =>
+                Producer.ProduceAsync(Topic, kafkaMessage)
+            );æ
+            return Task.WhenAll(produceTasks);
+        }
     }
 }
