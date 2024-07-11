@@ -98,7 +98,7 @@ namespace Cheetah.Kafka.Testing
         /// <exception cref="ArgumentException">Thrown if the provided topic is invalid</exception>
         public IKafkaTestWriter<Null, T> CreateTestWriter<T>(string topic, ISerializer<T>? valueSerializer = null)
         {
-            return CreateTestWriter(topic, _ => null, Serializers.Null, valueSerializer);
+            return CreateTestWriter(topic, Serializers.Null, valueSerializer);
         }
 
         /// <summary>
@@ -112,6 +112,7 @@ namespace Cheetah.Kafka.Testing
         /// <typeparam name="T">The type of messages to produce</typeparam>
         /// <returns>The created <see cref="IKafkaTestWriter{TKey,T}"/></returns>
         /// <exception cref="ArgumentException">Thrown if the provided topic is invalid</exception>
+        [Obsolete("Using a keyFunction is deprecated, please use this method without keyFunction parameter.")]
         public IKafkaTestWriter<TKey, T> CreateTestWriter<TKey, T>(
             string topic,
             Func<T, TKey> keyFunction,
@@ -132,6 +133,38 @@ namespace Cheetah.Kafka.Testing
             var producer = ClientFactory.CreateProducer(producerOptionsBuilder.Build());
 
             return new KafkaTestWriter<TKey, T>(producer, keyFunction, topic);
+        }
+
+
+        /// <summary>
+        /// Creates an <see cref="IKafkaTestWriter{TKey, T}"/> for the provided topic.
+        /// </summary>
+        /// <param name="topic">The topic to produce messages to</param>
+        /// <param name="keySerializer">Optional keySerializer. Defaults to keySerializer from ISerializerProvider provided in the constructor</param>
+        /// <param name="valueSerializer">Optional valueSerializer. Defaults to valueSerializer from ISerializerProvider provided in the constructor</param>
+        /// <typeparam name="TKey">The type of key to produce</typeparam>
+        /// <typeparam name="T">The type of messages to produce</typeparam>
+        /// <returns>The created <see cref="IKafkaTestWriter{TKey,T}"/></returns>
+        /// <exception cref="ArgumentException">Thrown if the provided topic is invalid</exception>
+        public IKafkaTestWriter<TKey, T> CreateTestWriter<TKey, T>(
+            string topic,
+            ISerializer<TKey>? keySerializer = null,
+            ISerializer<T>? valueSerializer = null
+        )
+        {
+            ValidateTopic(topic);
+            ProducerOptionsBuilder<TKey, T> producerOptionsBuilder = new();
+            if (keySerializer != null)
+            {
+                producerOptionsBuilder.SetKeySerializer(keySerializer);
+            }
+            if (valueSerializer != null)
+            {
+                producerOptionsBuilder.SetValueSerializer(valueSerializer);
+            }
+            var producer = ClientFactory.CreateProducer(producerOptionsBuilder.Build());
+
+            return new KafkaTestWriter<TKey, T>(producer, _ => default!, topic);
         }
 
         /// <summary>

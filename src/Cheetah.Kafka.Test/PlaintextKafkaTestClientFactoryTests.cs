@@ -46,8 +46,7 @@ namespace Cheetah.Kafka.Test
         public async Task Should_WriteAndRead_When_UsingJson()
         {
             var writer = _testClientFactory.CreateTestWriter<string, string>(
-                "MyJsonTopic",
-                message => message
+                "MyJsonTopic"
             );
             var reader = _testClientFactory.CreateTestReader<string, string>(
                 "MyJsonTopic",
@@ -55,8 +54,13 @@ namespace Cheetah.Kafka.Test
             );
 
             var messageValue = "Message4";
+            var message = new Message<string, string>()
+            {
+                Key = messageValue,
+                Value = messageValue
+            };
 
-            await writer.WriteAsync(messageValue);
+            await writer.WriteAsync(message);
             var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(5));
             readMessages.Should().HaveCount(1);
             Assert.Equal(messageValue, readMessages.First().Key);
@@ -73,7 +77,13 @@ namespace Cheetah.Kafka.Test
                 "MyNullKeyJsonTopic"
             );
 
-            await writer.WriteAsync("Message4");
+            var messageValue = "Message4";
+            var message = new Message<Null, string>()
+            {
+                Value = messageValue
+            };
+
+            await writer.WriteAsync(message);
             var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(5));
             readMessages.Should().HaveCount(1);
             reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(1)).Should().BeTrue();
@@ -82,8 +92,7 @@ namespace Cheetah.Kafka.Test
         public async Task Should_WriteAndRead_When_UsingDifferentDeserializer()
         {
             var writer = _testClientFactory.CreateTestWriter<string, string>(
-                "MyNullKeyJsonTopic",
-                m => m
+                "MyNullKeyJsonTopic"
             );
             var reader = _testClientFactory.CreateTestReader<string, string>(
                 "MyNullKeyJsonTopic",
@@ -91,11 +100,16 @@ namespace Cheetah.Kafka.Test
             );
 
             var messageValue = "Message5";
-            var jsonMessageValue = JsonSerializer.Serialize(messageValue);
+            var message = new Message<string, string>()
+            {
+                Key = messageValue,
+                Value = messageValue
+            };
 
-            await writer.WriteAsync(messageValue);
+            await writer.WriteAsync(message);
             var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(5));
             readMessages.Should().HaveCount(1);
+            var jsonMessageValue = JsonSerializer.Serialize(messageValue);
             Assert.Equal(jsonMessageValue, readMessages.First().Key);
             reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(1)).Should().BeTrue();
         }
@@ -104,12 +118,11 @@ namespace Cheetah.Kafka.Test
         public async Task Should_ThrowArgumentException_When_AttemptingToWrite0Messages()
         {
             var writer = _testClientFactory.CreateTestWriter<string, string>(
-                "MyThrowinTopic",
-                message => message
+                "MyThrowinTopic"
             );
 
             await writer
-                .Invoking(w => w.WriteAsync(Array.Empty<string>()))
+                .Invoking(w => w.WriteAsync(Array.Empty<Message<string, string>>()))
                 .Should()
                 .ThrowAsync<ArgumentException>("it should not be possible to write 0 messages");
         }
