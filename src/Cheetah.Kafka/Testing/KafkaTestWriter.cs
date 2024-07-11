@@ -45,7 +45,7 @@ namespace Cheetah.Kafka.Testing
         /// </summary>
         /// <param name="messages">The collection of messages to publish</param>
         /// <exception cref="ArgumentException">Thrown if the provided collection of messages is empty</exception>
-        [Obsolete("Using a keyFunction is deprecated, please use method taking 'param Message<TKey, T>' as argument instead.")]
+        [Obsolete("Using a keyFunction is deprecated, please use the method taking 'param Message<TKey, T>' as argument instead.")]
         public Task<DeliveryResult<TKey, T>[]> WriteAsync(params T[] messages)
         {
             if (messages.Length == 0)
