@@ -112,7 +112,7 @@ namespace Cheetah.Kafka.Testing
         /// <typeparam name="T">The type of messages to produce</typeparam>
         /// <returns>The created <see cref="IKafkaTestWriter{TKey,T}"/></returns>
         /// <exception cref="ArgumentException">Thrown if the provided topic is invalid</exception>
-        [Obsolete("Using a keyFunction is deprecated, please use the method CreateTestWriter without keyFunction parameter, and the WriteAsync(params Message<TKey, T>[] messages)")]
+        [Obsolete("Using a keyFunction is deprecated, please use the method CreateTestWriter without keyFunction parameter, and the function WriteAsync(params Message<TKey, T>[] messages)")]
         public IKafkaTestWriter<TKey, T> CreateTestWriter<TKey, T>(
             string topic,
             Func<T, TKey> keyFunction,
