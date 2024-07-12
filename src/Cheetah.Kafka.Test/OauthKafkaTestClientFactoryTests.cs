@@ -36,15 +36,21 @@ namespace Cheetah.Kafka.Test
         public async Task Should_WriteAndRead_When_UsingJson()
         {
             var writer = _testClientFactory.CreateTestWriter<string, string>(
-                "MyJsonTopic",
-                message => message
+                "MyJsonTopic"
             );
             var reader = _testClientFactory.CreateTestReader<string, string>(
                 "MyJsonTopic",
                 "MyConsumerGroup"
             );
 
-            await writer.WriteAsync("Message4");
+            var messageValue = "Message4";
+            var message = new Message<string, string>()
+            {
+                Key = messageValue,
+                Value = messageValue
+            };
+
+            await writer.WriteAsync(message);
             IEnumerable<Message<string, string>> readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(5));
             readMessages.Should().HaveCount(1);
             Assert.Equal("Message4", readMessages.First().Value);

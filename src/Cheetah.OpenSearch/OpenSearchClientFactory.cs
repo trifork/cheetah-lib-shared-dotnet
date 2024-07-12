@@ -61,7 +61,7 @@ namespace Cheetah.OpenSearch
                 GetAuthModeLogString()
             );
             var connectionSettings = GetDefaultConnectionSettings();
-            _clientOptions.ConnectionSettings?.Invoke(connectionSettings);
+            _clientOptions.InternalConnectionSettings?.Invoke(connectionSettings);
             return new OpenSearchClient(connectionSettings);
         }
 

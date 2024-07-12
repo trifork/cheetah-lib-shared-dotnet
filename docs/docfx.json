@@ -14,6 +14,20 @@
       },
       "disableGitFeatures": false,
       "disableDefaultFilter": false
+    },    {
+      "filter": "filterConfig.yml",
+      "src": [
+        {
+          "files": ["**/Cheetah.SchemaRegistry.csproj"],
+          "src": "../"
+        }
+      ],
+      "dest": "api/Cheetah.SchemaRegistry",
+      "properties": {
+        "TargetFramework": "net8.0"
+      },
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false
     },
     {
       "filter": "filterConfig.yml",

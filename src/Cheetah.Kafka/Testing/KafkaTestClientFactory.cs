@@ -92,12 +92,13 @@ namespace Cheetah.Kafka.Testing
         /// Creates an <see cref="IKafkaTestWriter{Null, T}"/> for the provided topic. This writer will not produce keys.
         /// </summary>
         /// <param name="topic">The topic to produce messages to</param>
+        /// <param name="valueSerializer">Optional valueSerializer. Defaults to valueSerializer from ISerializerProvider provided in the constructor</param>
         /// <typeparam name="T">The type of messages to produce</typeparam>
         /// <returns>The created <see cref="IKafkaTestWriter{Null,T}"/></returns>
         /// <exception cref="ArgumentException">Thrown if the provided topic is invalid</exception>
-        public IKafkaTestWriter<Null, T> CreateTestWriter<T>(string topic)
+        public IKafkaTestWriter<Null, T> CreateTestWriter<T>(string topic, ISerializer<T>? valueSerializer = null)
         {
-            return CreateTestWriter<Null, T>(topic, _ => null!);
+            return CreateTestWriter(topic, Serializers.Null, valueSerializer);
         }
 
         /// <summary>
@@ -105,18 +106,65 @@ namespace Cheetah.Kafka.Testing
         /// </summary>
         /// <param name="topic">The topic to produce messages to</param>
         /// <param name="keyFunction">A function which produces a key for the provided message</param>
+        /// <param name="keySerializer">Optional keySerializer. Defaults to keySerializer from ISerializerProvider provided in the constructor</param>
+        /// <param name="valueSerializer">Optional valueSerializer. Defaults to valueSerializer from ISerializerProvider provided in the constructor</param>
+        /// <typeparam name="TKey">The type of key to produce</typeparam>
+        /// <typeparam name="T">The type of messages to produce</typeparam>
+        /// <returns>The created <see cref="IKafkaTestWriter{TKey,T}"/></returns>
+        /// <exception cref="ArgumentException">Thrown if the provided topic is invalid</exception>
+        [Obsolete("Using a keyFunction is deprecated, please use the method CreateTestWriter without keyFunction parameter, and the function WriteAsync(params Message<TKey, T>[] messages)")]
+        public IKafkaTestWriter<TKey, T> CreateTestWriter<TKey, T>(
+            string topic,
+            Func<T, TKey> keyFunction,
+            ISerializer<TKey>? keySerializer = null,
+            ISerializer<T>? valueSerializer = null
+        )
+        {
+            ValidateTopic(topic);
+            ProducerOptionsBuilder<TKey, T> producerOptionsBuilder = new();
+            if (keySerializer != null)
+            {
+                producerOptionsBuilder.SetKeySerializer(keySerializer);
+            }
+            if (valueSerializer != null)
+            {
+                producerOptionsBuilder.SetValueSerializer(valueSerializer);
+            }
+            var producer = ClientFactory.CreateProducer(producerOptionsBuilder.Build());
+
+            return new KafkaTestWriter<TKey, T>(producer, keyFunction, topic);
+        }
+
+
+        /// <summary>
+        /// Creates an <see cref="IKafkaTestWriter{TKey, T}"/> for the provided topic.
+        /// </summary>
+        /// <param name="topic">The topic to produce messages to</param>
+        /// <param name="keySerializer">Optional keySerializer. Defaults to keySerializer from ISerializerProvider provided in the constructor</param>
+        /// <param name="valueSerializer">Optional valueSerializer. Defaults to valueSerializer from ISerializerProvider provided in the constructor</param>
         /// <typeparam name="TKey">The type of key to produce</typeparam>
         /// <typeparam name="T">The type of messages to produce</typeparam>
         /// <returns>The created <see cref="IKafkaTestWriter{TKey,T}"/></returns>
         /// <exception cref="ArgumentException">Thrown if the provided topic is invalid</exception>
         public IKafkaTestWriter<TKey, T> CreateTestWriter<TKey, T>(
             string topic,
-            Func<T, TKey> keyFunction
+            ISerializer<TKey>? keySerializer = null,
+            ISerializer<T>? valueSerializer = null
         )
         {
             ValidateTopic(topic);
-            var producer = ClientFactory.CreateProducer<TKey, T>();
-            return new KafkaTestWriter<TKey, T>(producer, keyFunction, topic);
+            ProducerOptionsBuilder<TKey, T> producerOptionsBuilder = new();
+            if (keySerializer != null)
+            {
+                producerOptionsBuilder.SetKeySerializer(keySerializer);
+            }
+            if (valueSerializer != null)
+            {
+                producerOptionsBuilder.SetValueSerializer(valueSerializer);
+            }
+            var producer = ClientFactory.CreateProducer(producerOptionsBuilder.Build());
+
+            return new KafkaTestWriter<TKey, T>(producer, _ => default!, topic);
         }
 
         /// <summary>
@@ -124,11 +172,12 @@ namespace Cheetah.Kafka.Testing
         /// </summary>
         /// <param name="topic">The topic to read messages from. </param>
         /// <param name="groupId">Optional group id to use. Defaults to a random Guid.</param>
+        /// <param name="valueDeserializer">Optional valueDeserializer. Defaults to valueDeserializer from IDeserializerProvider provided in the constructor</param>
         /// <typeparam name="T">The type of message to read</typeparam>
         /// <returns>The created <see cref="IKafkaTestReader{Null, T}"/></returns>
-        public IKafkaTestReader<Null, T> CreateTestReader<T>(string topic, string? groupId = null)
+        public IKafkaTestReader<Null, T> CreateTestReader<T>(string topic, string? groupId = null, IDeserializer<T>? valueDeserializer = null)
         {
-            return CreateTestReader<Null, T>(topic, groupId);
+            return CreateTestReader(topic, groupId, Deserializers.Null, valueDeserializer);
         }
 
         /// <summary>
@@ -136,15 +185,26 @@ namespace Cheetah.Kafka.Testing
         /// </summary>
         /// <param name="topic">The topic to read messages from</param>
         /// <param name="groupId">Optional group id to use. Defaults to a random Guid.</param>
+        /// <param name="keyDeserializer">Optional keyDeserializer. Defaults to keyDeserializer from IDeserializerProvider provided in the constructor</param>
+        /// <param name="valueDeserializer">Optional valueDeserializer. Defaults to valueDeserializer from IDeserializerProvider provided in the constructor</param>
         /// <typeparam name="TKey">The type of key to read</typeparam>
         /// <typeparam name="TValue">The type of message to read</typeparam>
         /// <returns>The created <see cref="IKafkaTestReader{TKey, TValue}"/></returns>
-        public IKafkaTestReader<TKey, TValue> CreateTestReader<TKey, TValue>(string topic, string? groupId = null)
+        public IKafkaTestReader<TKey, TValue> CreateTestReader<TKey, TValue>(string topic, string? groupId = null, IDeserializer<TKey>? keyDeserializer = null, IDeserializer<TValue>? valueDeserializer = null)
         {
             ValidateTopic(topic);
             groupId ??= Guid.NewGuid().ToString();
             var consumerOptionsBuilder = new ConsumerOptionsBuilder<TKey, TValue>();
             consumerOptionsBuilder.ConfigureClient(DefaultReaderConfiguration(groupId));
+
+            if (keyDeserializer != null)
+            {
+                consumerOptionsBuilder.SetKeyDeserializer(keyDeserializer);
+            }
+            if (valueDeserializer != null)
+            {
+                consumerOptionsBuilder.SetValueDeserializer(valueDeserializer);
+            }
 
             var consumer = ClientFactory.CreateConsumer(
                 consumerOptionsBuilder.Build()
