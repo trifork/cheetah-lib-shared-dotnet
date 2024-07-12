@@ -9,6 +9,7 @@ namespace Cheetah.Kafka.Testing
     public interface IKafkaTestWriter<TKey, T>
     {
         /// <inheritdoc cref="KafkaTestWriter{TKey, T}.WriteAsync(T[])"/>
+        [Obsolete("Using a keyFunction is deprecated, please use the method taking 'param Message<TKey, T>' as argument instead.")]
         public Task<DeliveryResult<TKey, T>[]> WriteAsync(params T[] messages);
 
         /// <inheritdoc cref="KafkaTestWriter{TKey, T}.WriteAsync(Message{TKey,T}[])"/>
