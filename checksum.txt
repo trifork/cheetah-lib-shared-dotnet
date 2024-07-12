@@ -1,1 +1,1 @@
-7591aab60ea5a72050f7674c4ed3d794430f84fdb84b0a837964e1d3301a48cb output/Cheetah.Kafka.1.0.1.nupkg
+d8e2ad5282f1cb12afb46d7f04f17803fe3c6107f06d822550f89d512e3ba41e output/Cheetah.Kafka.1.0.0.nupkg
