@@ -16,7 +16,7 @@ builder.Services.AddCheetahSchemaRegistry(builder.Configuration);
 builder.Services.AddCheetahKafka(builder.Configuration, options => 
     .WithProducer<string, ExampleModelAvro>(options =>
     {
-        options.SetKeySerializer(_ => Serializers.Utf8);
+        options.SetKeySerializer(Serializers.Utf8);
         options.SetValueSerializer(AvroSerializer.FromServices<ExampleModelAvro>());
     });
 ```

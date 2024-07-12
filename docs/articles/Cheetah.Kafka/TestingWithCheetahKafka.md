@@ -27,15 +27,21 @@ It then writes a message to the topic using the writer and retrieves the message
 var writer = testClientFactory.CreateTestWriter<ExampleModel>("MyTopic");
 var reader = testClientFactory.CreateTestReader<ExampleModel>("MyTopic", "MyConsumerGroup")
 
-await Writer.WriteAsync(new ExampleModel());
+var message = new Message<Null, ExampleModel>()
+{
+    Value = new ExampleModel()
+};
+
+await Writer.WriteAsync(message);
 
 var messages = reader.ReadMessages(1, TimeSpan.FromSeconds(5));
 ```
 
-The above example uses `null` keys for the messages that are sent. In order to write and read messages with keys, supply a second type parameter to the `CreateTestWriter` and `CreateTestReader` methods. When creating producers, you will also need to supply a key function specifying how to obtain the key for a given message:
+The above example uses `null` keys for the messages that are sent. In order to write and read messages with keys, supply a second type parameter to the `CreateTestWriter` and `CreateTestReader` methods. When working with non Json (de)serialization, you will also need to supply key and/or value (de)serlializers:
 
+Example of using a string as key, and value as integer.
 ```csharp
-var keyedWriter = testClientFactory.CreateTestWriter<string, ExampleModel>("MyTopic", model => model.Id);
+var keyedWriter = testClientFactory.CreateTestWriter<string, int>("MyTopic", keySerializer: Serializers.Utf8, valueSerializer: Serializers.Int32);
 ```
 
 ## Creating low-level clients

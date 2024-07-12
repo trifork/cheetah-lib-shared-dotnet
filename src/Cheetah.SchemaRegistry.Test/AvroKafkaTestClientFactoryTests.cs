@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Cheetah.Kafka.Testing;
 using Cheetah.SchemaRegistry.Test.TestModels.Avro;
 using Cheetah.SchemaRegistry.Testing;
+using Confluent.Kafka;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Xunit;
@@ -91,8 +92,13 @@ namespace Cheetah.SchemaRegistry.Test
                 "MyAvroGroup"
             );
 
+            var message = new Message<Null, SimpleAvroObject>()
+            {
+                Value = avroModel
+            };
+
             // Act
-            await writerAvro.WriteAsync(avroModel);
+            await writerAvro.WriteAsync(message);
             var readMessages = readerAvro.ReadMessages(1, TimeSpan.FromSeconds(5));
 
             // Assert
@@ -105,16 +111,21 @@ namespace Cheetah.SchemaRegistry.Test
         {
             // Arrange
             var writerAvro = _testClientFactory.CreateTestWriter<string, AdvancedAvroObject>(
-                "AvroAdvancedTopic",
-                o => o.Id
+                "AvroAdvancedTopic"
             );
             var readerAvro = _testClientFactory.CreateTestReader<string, AdvancedAvroObject>(
                 "AvroAdvancedTopic",
                 "AvroAdvancedGroup"
             );
 
+            var message = new Message<string, AdvancedAvroObject>()
+            {
+                Key = AdvancedAvroObject1.Id,
+                Value = AdvancedAvroObject1
+            };
+
             // Act
-            await writerAvro.WriteAsync(AdvancedAvroObject1);
+            await writerAvro.WriteAsync(message);
             var readMessages = readerAvro.ReadMessages(1, TimeSpan.FromSeconds(5));
 
             // Assert
@@ -135,10 +146,19 @@ namespace Cheetah.SchemaRegistry.Test
                 "AvroTopicAsync_2"
             );
 
+            var message1 = new Message<Null, AdvancedAvroObject>()
+            {
+                Value = AdvancedAvroObject1
+            };
+            var message2 = new Message<Null, AdvancedAvroObject>()
+            {
+                Value = AdvancedAvroObject2
+            };
+
             // Act
-            await writerAvro.WriteAsync(AdvancedAvroObject1);
-            await writerAvro.WriteAsync(AdvancedAvroObject2);
-            await writerAvro.WriteAsync(AdvancedAvroObject1);
+            await writerAvro.WriteAsync(message1);
+            await writerAvro.WriteAsync(message2);
+            await writerAvro.WriteAsync(message1);
             var readMessages = readerAvro.ReadMessages(3, TimeSpan.FromSeconds(5));
 
             // Assert

@@ -55,6 +55,17 @@ namespace Cheetah.Kafka
         }
 
         /// <summary>
+        /// Sets the value serializer.
+        /// </summary>
+        /// <param name="valueSerializer">The value serializer.</param>
+        /// <returns>The builder instance.</returns>
+        public ProducerOptionsBuilder<TKey, TValue> SetValueSerializer(ISerializer<TValue> valueSerializer)
+        {
+            _options.SetValueSerializer(valueSerializer);
+            return this;
+        }
+
+        /// <summary>
         /// Sets the key serializer factory method.
         /// </summary>
         /// <param name="keySerializerFactory">The factory method for creating the key serializer.</param>
@@ -62,6 +73,17 @@ namespace Cheetah.Kafka
         public ProducerOptionsBuilder<TKey, TValue> SetKeySerializer(Func<IServiceProvider, ISerializer<TKey>> keySerializerFactory)
         {
             _keySerializerFactory = keySerializerFactory;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the key serializer.
+        /// </summary>
+        /// <param name="keySerializer">The key serializer.</param>
+        /// <returns>The builder instance.</returns>
+        public ProducerOptionsBuilder<TKey, TValue> SetKeySerializer(ISerializer<TKey> keySerializer)
+        {
+            _options.SetKeySerializer(keySerializer);
             return this;
         }
 

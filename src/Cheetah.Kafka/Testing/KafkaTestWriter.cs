@@ -8,8 +8,11 @@ namespace Cheetah.Kafka.Testing
     /// <inheritdoc cref="KafkaTestWriter{TKey, T}"/>
     public interface IKafkaTestWriter<TKey, T>
     {
-        /// <inheritdoc cref="KafkaTestWriter{TKey, T}.WriteAsync"/>
+        /// <inheritdoc cref="KafkaTestWriter{TKey, T}.WriteAsync(T[])"/>
         public Task<DeliveryResult<TKey, T>[]> WriteAsync(params T[] messages);
+
+        /// <inheritdoc cref="KafkaTestWriter{TKey, T}.WriteAsync(Message{TKey,T}[])"/>
+        public Task<DeliveryResult<TKey, T>[]> WriteAsync(params Message<TKey, T>[] messages);
     }
 
     /// <summary>
@@ -42,6 +45,7 @@ namespace Cheetah.Kafka.Testing
         /// </summary>
         /// <param name="messages">The collection of messages to publish</param>
         /// <exception cref="ArgumentException">Thrown if the provided collection of messages is empty</exception>
+        [Obsolete("Using a keyFunction is deprecated, please use the method taking 'param Message<TKey, T>' as argument instead.")]
         public Task<DeliveryResult<TKey, T>[]> WriteAsync(params T[] messages)
         {
             if (messages.Length == 0)
@@ -58,6 +62,26 @@ namespace Cheetah.Kafka.Testing
             });
 
             var produceTasks = kafkaMessages.Select(kafkaMessage =>
+                Producer.ProduceAsync(Topic, kafkaMessage)
+            );
+            return Task.WhenAll(produceTasks);
+        }
+
+        /// <summary>
+        /// Publishes multiple messages to Kafka
+        /// </summary>
+        /// <param name="messages">The collection of messages to publish</param>
+        /// <exception cref="ArgumentException">Thrown if the provided collection of messages is empty</exception>
+        public Task<DeliveryResult<TKey, T>[]> WriteAsync(params Message<TKey, T>[] messages)
+        {
+            if (messages.Length == 0)
+            {
+                throw new ArgumentException(
+                    "WriteAsync was invoked with an empty list of messages."
+                );
+            }
+
+            var produceTasks = messages.Select(kafkaMessage =>
                 Producer.ProduceAsync(Topic, kafkaMessage)
             );
             return Task.WhenAll(produceTasks);
