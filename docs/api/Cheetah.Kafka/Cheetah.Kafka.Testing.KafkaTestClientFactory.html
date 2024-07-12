@@ -1,0 +1,575 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class KafkaTestClientFactory | Cheetah Nuget Packages </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class KafkaTestClientFactory | Cheetah Nuget Packages ">
+      
+      <meta name="description" content="A factory for creating  and  instances.">
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/trifork/cheetah-lib-shared-dotnet/new/main/apiSpec/new?filename=Cheetah_Kafka_Testing_KafkaTestClientFactory.md&amp;value=---%0Auid%3A%20Cheetah.Kafka.Testing.KafkaTestClientFactory%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Cheetah.Kafka.Testing.KafkaTestClientFactory">
+
+
+
+  <h1 id="Cheetah_Kafka_Testing_KafkaTestClientFactory" data-uid="Cheetah.Kafka.Testing.KafkaTestClientFactory" class="text-break">
+Class KafkaTestClientFactory  <a class="header-action link-secondary" title="View source" href="https://github.com/trifork/cheetah-lib-shared-dotnet/blob/main/src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Cheetah.html">Cheetah</a>.<a class="xref" href="Cheetah.Kafka.html">Kafka</a>.<a class="xref" href="Cheetah.Kafka.Testing.html">Testing</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Cheetah.Kafka.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>A factory for creating <a class="xref" href="Cheetah.Kafka.Testing.IKafkaTestReader-2.html">IKafkaTestReader&lt;TKey, T&gt;</a> and <a class="xref" href="Cheetah.Kafka.Testing.IKafkaTestWriter-2.html">IKafkaTestWriter&lt;TKey, T&gt;</a> instances.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class KafkaTestClientFactory</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">KafkaTestClientFactory</span></div>
+    </dd>
+  </dl>
+
+
+
+
+
+
+
+  <h2 id="Cheetah_Kafka_Testing_KafkaTestClientFactory_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>This should only be used for testing purposes.</p>
+</div>
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Cheetah_Kafka_Testing_KafkaTestClientFactory_ClientFactory_" data-uid="Cheetah.Kafka.Testing.KafkaTestClientFactory.ClientFactory*"></a>
+
+  <h3 id="Cheetah_Kafka_Testing_KafkaTestClientFactory_ClientFactory" data-uid="Cheetah.Kafka.Testing.KafkaTestClientFactory.ClientFactory">
+  ClientFactory
+  <a class="header-action link-secondary" title="View source" href="https://github.com/trifork/cheetah-lib-shared-dotnet/blob/main/src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The internal <a class="xref" href="Cheetah.Kafka.KafkaClientFactory.html">KafkaClientFactory</a> used to create Writers and Readers.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public KafkaClientFactory ClientFactory { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Cheetah.Kafka.KafkaClientFactory.html">KafkaClientFactory</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+  <h4 class="section" id="Cheetah_Kafka_Testing_KafkaTestClientFactory_ClientFactory_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>This property is exposed to allow more advanced functionality than <a class="xref" href="Cheetah.Kafka.Testing.KafkaTestClientFactory.html">KafkaTestClientFactory</a> and the clients it creates
+provides and should <b>NOT</b> be used in production to generate actual clients. Use <a class="xref" href="Cheetah.Kafka.Extensions.ServiceCollectionExtensions.html#Cheetah_Kafka_Extensions_ServiceCollectionExtensions_AddCheetahKafka_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfiguration_System_Action_Cheetah_Kafka_ClientFactoryOptions__">AddCheetahKafka(IServiceCollection, IConfiguration, Action&lt;ClientFactoryOptions&gt;?)</a> instead.</p>
+</div>
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Cheetah_Kafka_Testing_KafkaTestClientFactory_Create_" data-uid="Cheetah.Kafka.Testing.KafkaTestClientFactory.Create*"></a>
+
+  <h3 id="Cheetah_Kafka_Testing_KafkaTestClientFactory_Create_Cheetah_Kafka_Configuration_KafkaConfig_Cheetah_Kafka_ClientFactoryOptions_Cheetah_Auth_Authentication_ITokenService_Microsoft_Extensions_Logging_ILoggerFactory_Cheetah_Kafka_Serdes_ISerializerProvider_Cheetah_Kafka_Serdes_IDeserializerProvider_" data-uid="Cheetah.Kafka.Testing.KafkaTestClientFactory.Create(Cheetah.Kafka.Configuration.KafkaConfig,Cheetah.Kafka.ClientFactoryOptions,Cheetah.Auth.Authentication.ITokenService,Microsoft.Extensions.Logging.ILoggerFactory,Cheetah.Kafka.Serdes.ISerializerProvider,Cheetah.Kafka.Serdes.IDeserializerProvider)">
+  Create(KafkaConfig, ClientFactoryOptions?, ITokenService?, ILoggerFactory?, ISerializerProvider?, IDeserializerProvider?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/trifork/cheetah-lib-shared-dotnet/blob/main/src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs/#L51"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a <a class="xref" href="Cheetah.Kafka.Testing.KafkaTestClientFactory.html">KafkaTestClientFactory</a> using the provided <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration">IConfiguration</a> instance</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static KafkaTestClientFactory Create(KafkaConfig configuration, ClientFactoryOptions? options = null, ITokenService? tokenService = null, ILoggerFactory? loggerFactory = null, ISerializerProvider? serializerProvider = null, IDeserializerProvider? deserializerProvider = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>configuration</code> <a class="xref" href="Cheetah.Kafka.Configuration.KafkaConfig.html">KafkaConfig</a></dt>
+    <dd><p>The configuration to use</p>
+</dd>
+    <dt><code>options</code> <a class="xref" href="Cheetah.Kafka.ClientFactoryOptions.html">ClientFactoryOptions</a></dt>
+    <dd><p>An optional</p>
+</dd>
+    <dt><code>tokenService</code> <a class="xref" href="../Cheetah.Auth/Cheetah.Auth.Authentication.ITokenService.html">ITokenService</a></dt>
+    <dd><p>An optional token service, used to retrieve access tokens</p>
+</dd>
+    <dt><code>loggerFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</a></dt>
+    <dd><p>An optional logger factory</p>
+</dd>
+    <dt><code>serializerProvider</code> <a class="xref" href="Cheetah.Kafka.Serdes.ISerializerProvider.html">ISerializerProvider</a></dt>
+    <dd></dd>
+    <dt><code>deserializerProvider</code> <a class="xref" href="Cheetah.Kafka.Serdes.IDeserializerProvider.html">IDeserializerProvider</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Cheetah.Kafka.Testing.KafkaTestClientFactory.html">KafkaTestClientFactory</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Cheetah_Kafka_Testing_KafkaTestClientFactory_Create_" data-uid="Cheetah.Kafka.Testing.KafkaTestClientFactory.Create*"></a>
+
+  <h3 id="Cheetah_Kafka_Testing_KafkaTestClientFactory_Create_Microsoft_Extensions_Configuration_IConfiguration_Cheetah_Kafka_ClientFactoryOptions_Cheetah_Auth_Authentication_ITokenService_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="Cheetah.Kafka.Testing.KafkaTestClientFactory.Create(Microsoft.Extensions.Configuration.IConfiguration,Cheetah.Kafka.ClientFactoryOptions,Cheetah.Auth.Authentication.ITokenService,Microsoft.Extensions.Logging.ILoggerFactory)">
+  Create(IConfiguration, ClientFactoryOptions?, ITokenService?, ILoggerFactory?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/trifork/cheetah-lib-shared-dotnet/blob/main/src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a <a class="xref" href="Cheetah.Kafka.Testing.KafkaTestClientFactory.html">KafkaTestClientFactory</a> using the provided <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration">IConfiguration</a> instance</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static KafkaTestClientFactory Create(IConfiguration configuration, ClientFactoryOptions? options = null, ITokenService? tokenService = null, ILoggerFactory? loggerFactory = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>configuration</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration">IConfiguration</a></dt>
+    <dd><p>The configuration to use</p>
+</dd>
+    <dt><code>options</code> <a class="xref" href="Cheetah.Kafka.ClientFactoryOptions.html">ClientFactoryOptions</a></dt>
+    <dd><p>An optional</p>
+</dd>
+    <dt><code>tokenService</code> <a class="xref" href="../Cheetah.Auth/Cheetah.Auth.Authentication.ITokenService.html">ITokenService</a></dt>
+    <dd><p>An optional token service, used to retrieve access tokens</p>
+</dd>
+    <dt><code>loggerFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</a></dt>
+    <dd><p>An optional logger factory</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Cheetah.Kafka.Testing.KafkaTestClientFactory.html">KafkaTestClientFactory</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Cheetah_Kafka_Testing_KafkaTestClientFactory_CreateTestReader_" data-uid="Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestReader*"></a>
+
+  <h3 id="Cheetah_Kafka_Testing_KafkaTestClientFactory_CreateTestReader__1_System_String_System_String_Confluent_Kafka_IDeserializer___0__" data-uid="Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestReader``1(System.String,System.String,Confluent.Kafka.IDeserializer{``0})">
+  CreateTestReader&lt;T&gt;(string, string?, IDeserializer&lt;T&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/trifork/cheetah-lib-shared-dotnet/blob/main/src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs/#L178"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates an <a class="xref" href="Cheetah.Kafka.Testing.IKafkaTestReader-2.html">IKafkaTestReader&lt;TKey, T&gt;</a> for the provided topic. This reader will not read keys.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IKafkaTestReader&lt;Null, T&gt; CreateTestReader&lt;T&gt;(string topic, string? groupId = null, IDeserializer&lt;T&gt;? valueDeserializer = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>topic</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The topic to read messages from.</p>
+</dd>
+    <dt><code>groupId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Optional group id to use. Defaults to a random Guid.</p>
+</dd>
+    <dt><code>valueDeserializer</code> <span class="xref">IDeserializer</span>&lt;T&gt;</dt>
+    <dd><p>Optional valueDeserializer. Defaults to valueDeserializer from IDeserializerProvider provided in the constructor</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Cheetah.Kafka.Testing.IKafkaTestReader-2.html">IKafkaTestReader</a>&lt;<span class="xref">Null</span>, T&gt;</dt>
+    <dd><p>The created <a class="xref" href="Cheetah.Kafka.Testing.IKafkaTestReader-2.html">IKafkaTestReader&lt;TKey, T&gt;</a></p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>The type of message to read</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Cheetah_Kafka_Testing_KafkaTestClientFactory_CreateTestReader_" data-uid="Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestReader*"></a>
+
+  <h3 id="Cheetah_Kafka_Testing_KafkaTestClientFactory_CreateTestReader__2_System_String_System_String_Confluent_Kafka_IDeserializer___0__Confluent_Kafka_IDeserializer___1__" data-uid="Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestReader``2(System.String,System.String,Confluent.Kafka.IDeserializer{``0},Confluent.Kafka.IDeserializer{``1})">
+  CreateTestReader&lt;TKey, TValue&gt;(string, string?, IDeserializer&lt;TKey&gt;?, IDeserializer&lt;TValue&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/trifork/cheetah-lib-shared-dotnet/blob/main/src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs/#L193"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates an <a class="xref" href="Cheetah.Kafka.Testing.IKafkaTestReader-2.html">IKafkaTestReader&lt;TKey, T&gt;</a> for the provided topic.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IKafkaTestReader&lt;TKey, TValue&gt; CreateTestReader&lt;TKey, TValue&gt;(string topic, string? groupId = null, IDeserializer&lt;TKey&gt;? keyDeserializer = null, IDeserializer&lt;TValue&gt;? valueDeserializer = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>topic</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The topic to read messages from</p>
+</dd>
+    <dt><code>groupId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Optional group id to use. Defaults to a random Guid.</p>
+</dd>
+    <dt><code>keyDeserializer</code> <span class="xref">IDeserializer</span>&lt;TKey&gt;</dt>
+    <dd><p>Optional keyDeserializer. Defaults to keyDeserializer from IDeserializerProvider provided in the constructor</p>
+</dd>
+    <dt><code>valueDeserializer</code> <span class="xref">IDeserializer</span>&lt;TValue&gt;</dt>
+    <dd><p>Optional valueDeserializer. Defaults to valueDeserializer from IDeserializerProvider provided in the constructor</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Cheetah.Kafka.Testing.IKafkaTestReader-2.html">IKafkaTestReader</a>&lt;TKey, TValue&gt;</dt>
+    <dd><p>The created <a class="xref" href="Cheetah.Kafka.Testing.IKafkaTestReader-2.html">IKafkaTestReader&lt;TKey, T&gt;</a></p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TKey</code></dt>
+    <dd><p>The type of key to read</p>
+</dd>
+    <dt><code>TValue</code></dt>
+    <dd><p>The type of message to read</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Cheetah_Kafka_Testing_KafkaTestClientFactory_CreateTestWriter_" data-uid="Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter*"></a>
+
+  <h3 id="Cheetah_Kafka_Testing_KafkaTestClientFactory_CreateTestWriter__1_System_String_Confluent_Kafka_ISerializer___0__" data-uid="Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter``1(System.String,Confluent.Kafka.ISerializer{``0})">
+  CreateTestWriter&lt;T&gt;(string, ISerializer&lt;T&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/trifork/cheetah-lib-shared-dotnet/blob/main/src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs/#L99"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates an <a class="xref" href="Cheetah.Kafka.Testing.IKafkaTestWriter-2.html">IKafkaTestWriter&lt;TKey, T&gt;</a> for the provided topic. This writer will not produce keys.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IKafkaTestWriter&lt;Null, T&gt; CreateTestWriter&lt;T&gt;(string topic, ISerializer&lt;T&gt;? valueSerializer = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>topic</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The topic to produce messages to</p>
+</dd>
+    <dt><code>valueSerializer</code> <span class="xref">ISerializer</span>&lt;T&gt;</dt>
+    <dd><p>Optional valueSerializer. Defaults to valueSerializer from ISerializerProvider provided in the constructor</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Cheetah.Kafka.Testing.IKafkaTestWriter-2.html">IKafkaTestWriter</a>&lt;<span class="xref">Null</span>, T&gt;</dt>
+    <dd><p>The created <a class="xref" href="Cheetah.Kafka.Testing.IKafkaTestWriter-2.html">IKafkaTestWriter&lt;TKey, T&gt;</a></p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>The type of messages to produce</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></dt>
+    <dd><p>Thrown if the provided topic is invalid</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Cheetah_Kafka_Testing_KafkaTestClientFactory_CreateTestWriter_" data-uid="Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter*"></a>
+
+  <h3 id="Cheetah_Kafka_Testing_KafkaTestClientFactory_CreateTestWriter__2_System_String_Confluent_Kafka_ISerializer___0__Confluent_Kafka_ISerializer___1__" data-uid="Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter``2(System.String,Confluent.Kafka.ISerializer{``0},Confluent.Kafka.ISerializer{``1})">
+  CreateTestWriter&lt;TKey, T&gt;(string, ISerializer&lt;TKey&gt;?, ISerializer&lt;T&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/trifork/cheetah-lib-shared-dotnet/blob/main/src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs/#L149"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates an <a class="xref" href="Cheetah.Kafka.Testing.IKafkaTestWriter-2.html">IKafkaTestWriter&lt;TKey, T&gt;</a> for the provided topic.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IKafkaTestWriter&lt;TKey, T&gt; CreateTestWriter&lt;TKey, T&gt;(string topic, ISerializer&lt;TKey&gt;? keySerializer = null, ISerializer&lt;T&gt;? valueSerializer = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>topic</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The topic to produce messages to</p>
+</dd>
+    <dt><code>keySerializer</code> <span class="xref">ISerializer</span>&lt;TKey&gt;</dt>
+    <dd><p>Optional keySerializer. Defaults to keySerializer from ISerializerProvider provided in the constructor</p>
+</dd>
+    <dt><code>valueSerializer</code> <span class="xref">ISerializer</span>&lt;T&gt;</dt>
+    <dd><p>Optional valueSerializer. Defaults to valueSerializer from ISerializerProvider provided in the constructor</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Cheetah.Kafka.Testing.IKafkaTestWriter-2.html">IKafkaTestWriter</a>&lt;TKey, T&gt;</dt>
+    <dd><p>The created <a class="xref" href="Cheetah.Kafka.Testing.IKafkaTestWriter-2.html">IKafkaTestWriter&lt;TKey, T&gt;</a></p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TKey</code></dt>
+    <dd><p>The type of key to produce</p>
+</dd>
+    <dt><code>T</code></dt>
+    <dd><p>The type of messages to produce</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></dt>
+    <dd><p>Thrown if the provided topic is invalid</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Cheetah_Kafka_Testing_KafkaTestClientFactory_CreateTestWriter_" data-uid="Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter*"></a>
+
+  <h3 id="Cheetah_Kafka_Testing_KafkaTestClientFactory_CreateTestWriter__2_System_String_System_Func___1___0__Confluent_Kafka_ISerializer___0__Confluent_Kafka_ISerializer___1__" data-uid="Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter``2(System.String,System.Func{``1,``0},Confluent.Kafka.ISerializer{``0},Confluent.Kafka.ISerializer{``1})">
+  CreateTestWriter&lt;TKey, T&gt;(string, Func&lt;T, TKey&gt;, ISerializer&lt;TKey&gt;?, ISerializer&lt;T&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/trifork/cheetah-lib-shared-dotnet/blob/main/src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs/#L115"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates an <a class="xref" href="Cheetah.Kafka.Testing.IKafkaTestWriter-2.html">IKafkaTestWriter&lt;TKey, T&gt;</a> for the provided topic.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Using a keyFunction is deprecated, please use the method CreateTestWriter without keyFunction parameter, and the function WriteAsync(params Message&lt;TKey, T&gt;[] messages)&quot;)]
+public IKafkaTestWriter&lt;TKey, T&gt; CreateTestWriter&lt;TKey, T&gt;(string topic, Func&lt;T, TKey&gt; keyFunction, ISerializer&lt;TKey&gt;? keySerializer = null, ISerializer&lt;T&gt;? valueSerializer = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>topic</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The topic to produce messages to</p>
+</dd>
+    <dt><code>keyFunction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, TKey&gt;</dt>
+    <dd><p>A function which produces a key for the provided message</p>
+</dd>
+    <dt><code>keySerializer</code> <span class="xref">ISerializer</span>&lt;TKey&gt;</dt>
+    <dd><p>Optional keySerializer. Defaults to keySerializer from ISerializerProvider provided in the constructor</p>
+</dd>
+    <dt><code>valueSerializer</code> <span class="xref">ISerializer</span>&lt;T&gt;</dt>
+    <dd><p>Optional valueSerializer. Defaults to valueSerializer from ISerializerProvider provided in the constructor</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Cheetah.Kafka.Testing.IKafkaTestWriter-2.html">IKafkaTestWriter</a>&lt;TKey, T&gt;</dt>
+    <dd><p>The created <a class="xref" href="Cheetah.Kafka.Testing.IKafkaTestWriter-2.html">IKafkaTestWriter&lt;TKey, T&gt;</a></p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TKey</code></dt>
+    <dd><p>The type of key to produce</p>
+</dd>
+    <dt><code>T</code></dt>
+    <dd><p>The type of messages to produce</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></dt>
+    <dd><p>Thrown if the provided topic is invalid</p>
+</dd>
+  </dl>
+
+
+
+
+</article>
+
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

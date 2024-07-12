@@ -1,0 +1,36 @@
+### YamlMime:TableOfContent
+items:
+- uid: Cheetah.SchemaRegistry.Avro
+  name: Cheetah.SchemaRegistry.Avro
+  items:
+  - uid: Cheetah.SchemaRegistry.Avro.AvroDeserializer
+    name: AvroDeserializer
+  - uid: Cheetah.SchemaRegistry.Avro.AvroDeserializerProvider
+    name: AvroDeserializerProvider
+  - uid: Cheetah.SchemaRegistry.Avro.AvroSerializer
+    name: AvroSerializer
+  - uid: Cheetah.SchemaRegistry.Avro.AvroSerializerProvider
+    name: AvroSerializerProvider
+  - uid: Cheetah.SchemaRegistry.Avro.Constants
+    name: Constants
+- uid: Cheetah.SchemaRegistry.Configuration
+  name: Cheetah.SchemaRegistry.Configuration
+  items:
+  - uid: Cheetah.SchemaRegistry.Configuration.SchemaConfig
+    name: SchemaConfig
+- uid: Cheetah.SchemaRegistry.Extensions
+  name: Cheetah.SchemaRegistry.Extensions
+  items:
+  - uid: Cheetah.SchemaRegistry.Extensions.ServiceCollectionExtensions
+    name: ServiceCollectionExtensions
+- uid: Cheetah.SchemaRegistry.Testing
+  name: Cheetah.SchemaRegistry.Testing
+  items:
+  - uid: Cheetah.SchemaRegistry.Testing.AvroKafkaTestClientFactory
+    name: AvroKafkaTestClientFactory
+- uid: Cheetah.SchemaRegistry.Utils
+  name: Cheetah.SchemaRegistry.Utils
+  items:
+  - uid: Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider
+    name: OAuthHeaderValueProvider
+memberLayout: SamePage

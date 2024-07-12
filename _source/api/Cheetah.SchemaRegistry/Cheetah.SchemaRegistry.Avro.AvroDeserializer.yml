@@ -1,0 +1,253 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.SchemaRegistry.Avro.AvroDeserializer
+  commentId: T:Cheetah.SchemaRegistry.Avro.AvroDeserializer
+  id: AvroDeserializer
+  parent: Cheetah.SchemaRegistry.Avro
+  children:
+  - Cheetah.SchemaRegistry.Avro.AvroDeserializer.FromServices``1(Confluent.SchemaRegistry.Serdes.AvroDeserializerConfig)
+  langs:
+  - csharp
+  - vb
+  name: AvroDeserializer
+  nameWithType: AvroDeserializer
+  fullName: Cheetah.SchemaRegistry.Avro.AvroDeserializer
+  type: Class
+  source:
+    remote:
+      path: src/Cheetah.SchemaRegistry/Avro.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: AvroDeserializer
+    path: ../src/Cheetah.SchemaRegistry/Avro.cs
+    startLine: 33
+  assemblies:
+  - Cheetah.SchemaRegistry
+  namespace: Cheetah.SchemaRegistry.Avro
+  summary: Provides methods for creating Avro deserializers.
+  example: []
+  syntax:
+    content: public static class AvroDeserializer
+    content.vb: Public Module AvroDeserializer
+  inheritance:
+  - System.Object
+- uid: Cheetah.SchemaRegistry.Avro.AvroDeserializer.FromServices``1(Confluent.SchemaRegistry.Serdes.AvroDeserializerConfig)
+  commentId: M:Cheetah.SchemaRegistry.Avro.AvroDeserializer.FromServices``1(Confluent.SchemaRegistry.Serdes.AvroDeserializerConfig)
+  id: FromServices``1(Confluent.SchemaRegistry.Serdes.AvroDeserializerConfig)
+  parent: Cheetah.SchemaRegistry.Avro.AvroDeserializer
+  langs:
+  - csharp
+  - vb
+  name: FromServices<T>(AvroDeserializerConfig?)
+  nameWithType: AvroDeserializer.FromServices<T>(AvroDeserializerConfig?)
+  fullName: Cheetah.SchemaRegistry.Avro.AvroDeserializer.FromServices<T>(Confluent.SchemaRegistry.Serdes.AvroDeserializerConfig?)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.SchemaRegistry/Avro.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: FromServices
+    path: ../src/Cheetah.SchemaRegistry/Avro.cs
+    startLine: 41
+  assemblies:
+  - Cheetah.SchemaRegistry
+  namespace: Cheetah.SchemaRegistry.Avro
+  summary: Creates an Avro deserializer from services.
+  example: []
+  syntax:
+    content: public static Func<IServiceProvider, IDeserializer<T>> FromServices<T>(AvroDeserializerConfig? deserializerConfig = null)
+    parameters:
+    - id: deserializerConfig
+      type: Confluent.SchemaRegistry.Serdes.AvroDeserializerConfig
+      description: Optional Avro deserializer configuration.
+    typeParameters:
+    - id: T
+      description: The type of object to deserialize.
+    return:
+      type: System.Func{System.IServiceProvider,Confluent.Kafka.IDeserializer{{T}}}
+      description: A function that creates an Avro deserializer instance.
+    content.vb: Public Shared Function FromServices(Of T)(deserializerConfig As AvroDeserializerConfig = Nothing) As Func(Of IServiceProvider, IDeserializer(Of T))
+  overload: Cheetah.SchemaRegistry.Avro.AvroDeserializer.FromServices*
+  nameWithType.vb: AvroDeserializer.FromServices(Of T)(AvroDeserializerConfig)
+  fullName.vb: Cheetah.SchemaRegistry.Avro.AvroDeserializer.FromServices(Of T)(Confluent.SchemaRegistry.Serdes.AvroDeserializerConfig)
+  name.vb: FromServices(Of T)(AvroDeserializerConfig)
+references:
+- uid: Cheetah.SchemaRegistry.Avro
+  commentId: N:Cheetah.SchemaRegistry.Avro
+  href: Cheetah.html
+  name: Cheetah.SchemaRegistry.Avro
+  nameWithType: Cheetah.SchemaRegistry.Avro
+  fullName: Cheetah.SchemaRegistry.Avro
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.SchemaRegistry
+    name: SchemaRegistry
+    href: Cheetah.SchemaRegistry.html
+  - name: .
+  - uid: Cheetah.SchemaRegistry.Avro
+    name: Avro
+    href: Cheetah.SchemaRegistry.Avro.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.SchemaRegistry
+    name: SchemaRegistry
+    href: Cheetah.SchemaRegistry.html
+  - name: .
+  - uid: Cheetah.SchemaRegistry.Avro
+    name: Avro
+    href: Cheetah.SchemaRegistry.Avro.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Cheetah.SchemaRegistry.Avro.AvroDeserializer.FromServices*
+  commentId: Overload:Cheetah.SchemaRegistry.Avro.AvroDeserializer.FromServices
+  href: Cheetah.SchemaRegistry.Avro.AvroDeserializer.html#Cheetah_SchemaRegistry_Avro_AvroDeserializer_FromServices__1_Confluent_SchemaRegistry_Serdes_AvroDeserializerConfig_
+  name: FromServices
+  nameWithType: AvroDeserializer.FromServices
+  fullName: Cheetah.SchemaRegistry.Avro.AvroDeserializer.FromServices
+- uid: Confluent.SchemaRegistry.Serdes.AvroDeserializerConfig
+  commentId: T:Confluent.SchemaRegistry.Serdes.AvroDeserializerConfig
+  parent: Confluent.SchemaRegistry.Serdes
+  isExternal: true
+  name: AvroDeserializerConfig
+  nameWithType: AvroDeserializerConfig
+  fullName: Confluent.SchemaRegistry.Serdes.AvroDeserializerConfig
+- uid: System.Func{System.IServiceProvider,Confluent.Kafka.IDeserializer{{T}}}
+  commentId: T:System.Func{System.IServiceProvider,Confluent.Kafka.IDeserializer{``0}}
+  parent: System
+  definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<IServiceProvider, IDeserializer<T>>
+  nameWithType: Func<IServiceProvider, IDeserializer<T>>
+  fullName: System.Func<System.IServiceProvider, Confluent.Kafka.IDeserializer<T>>
+  nameWithType.vb: Func(Of IServiceProvider, IDeserializer(Of T))
+  fullName.vb: System.Func(Of System.IServiceProvider, Confluent.Kafka.IDeserializer(Of T))
+  name.vb: Func(Of IServiceProvider, IDeserializer(Of T))
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: System.IServiceProvider
+    name: IServiceProvider
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iserviceprovider
+  - name: ','
+  - name: " "
+  - uid: Confluent.Kafka.IDeserializer`1
+    name: IDeserializer
+    isExternal: true
+  - name: <
+  - name: T
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.IServiceProvider
+    name: IServiceProvider
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iserviceprovider
+  - name: ','
+  - name: " "
+  - uid: Confluent.Kafka.IDeserializer`1
+    name: IDeserializer
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: Confluent.SchemaRegistry.Serdes
+  commentId: N:Confluent.SchemaRegistry.Serdes
+  isExternal: true
+  name: Confluent.SchemaRegistry.Serdes
+  nameWithType: Confluent.SchemaRegistry.Serdes
+  fullName: Confluent.SchemaRegistry.Serdes
+  spec.csharp:
+  - uid: Confluent
+    name: Confluent
+    isExternal: true
+  - name: .
+  - uid: Confluent.SchemaRegistry
+    name: SchemaRegistry
+    isExternal: true
+  - name: .
+  - uid: Confluent.SchemaRegistry.Serdes
+    name: Serdes
+    isExternal: true
+  spec.vb:
+  - uid: Confluent
+    name: Confluent
+    isExternal: true
+  - name: .
+  - uid: Confluent.SchemaRegistry
+    name: SchemaRegistry
+    isExternal: true
+  - name: .
+  - uid: Confluent.SchemaRegistry.Serdes
+    name: Serdes
+    isExternal: true
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )

@@ -1,0 +1,358 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.Kafka.Extensions.ServiceCollectionExtensions
+  commentId: T:Cheetah.Kafka.Extensions.ServiceCollectionExtensions
+  id: ServiceCollectionExtensions
+  parent: Cheetah.Kafka.Extensions
+  children:
+  - Cheetah.Kafka.Extensions.ServiceCollectionExtensions.AddCheetahKafka(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action{Cheetah.Kafka.ClientFactoryOptions})
+  langs:
+  - csharp
+  - vb
+  name: ServiceCollectionExtensions
+  nameWithType: ServiceCollectionExtensions
+  fullName: Cheetah.Kafka.Extensions.ServiceCollectionExtensions
+  type: Class
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Extensions/ServiceCollectionExtensions.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: ServiceCollectionExtensions
+    path: ../src/Cheetah.Kafka/Extensions/ServiceCollectionExtensions.cs
+    startLine: 16
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka.Extensions
+  summary: Extension method for adding Cheetah Kafka client factory to IServiceCollection
+  example: []
+  syntax:
+    content: public static class ServiceCollectionExtensions
+    content.vb: Public Module ServiceCollectionExtensions
+  inheritance:
+  - System.Object
+- uid: Cheetah.Kafka.Extensions.ServiceCollectionExtensions.AddCheetahKafka(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action{Cheetah.Kafka.ClientFactoryOptions})
+  commentId: M:Cheetah.Kafka.Extensions.ServiceCollectionExtensions.AddCheetahKafka(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action{Cheetah.Kafka.ClientFactoryOptions})
+  id: AddCheetahKafka(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action{Cheetah.Kafka.ClientFactoryOptions})
+  isExtensionMethod: true
+  parent: Cheetah.Kafka.Extensions.ServiceCollectionExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddCheetahKafka(IServiceCollection, IConfiguration, Action<ClientFactoryOptions>?)
+  nameWithType: ServiceCollectionExtensions.AddCheetahKafka(IServiceCollection, IConfiguration, Action<ClientFactoryOptions>?)
+  fullName: Cheetah.Kafka.Extensions.ServiceCollectionExtensions.AddCheetahKafka(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfiguration, System.Action<Cheetah.Kafka.ClientFactoryOptions>?)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Extensions/ServiceCollectionExtensions.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: AddCheetahKafka
+    path: ../src/Cheetah.Kafka/Extensions/ServiceCollectionExtensions.cs
+    startLine: 28
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka.Extensions
+  summary: Registers and configures a KafkaClientFactory with the provided configuration for dependency injection, along with its required dependencies.
+  remarks: This method requires that the <xref href="Cheetah.Kafka.Configuration.KafkaConfig" data-throw-if-not-resolved="false"></xref> section is configured in the supplied <xref href="Microsoft.Extensions.Configuration.IConfiguration" data-throw-if-not-resolved="false"></xref> instance.
+  example: []
+  syntax:
+    content: public static ClientInjector AddCheetahKafka(this IServiceCollection serviceCollection, IConfiguration configuration, Action<ClientFactoryOptions>? configure = null)
+    parameters:
+    - id: serviceCollection
+      type: Microsoft.Extensions.DependencyInjection.IServiceCollection
+      description: The <xref href="Microsoft.Extensions.DependencyInjection.IServiceCollection" data-throw-if-not-resolved="false"></xref> to register the <xref href="Cheetah.Kafka.KafkaClientFactory" data-throw-if-not-resolved="false"></xref> and its required services with.
+    - id: configuration
+      type: Microsoft.Extensions.Configuration.IConfiguration
+      description: The <xref href="Microsoft.Extensions.Configuration.IConfiguration" data-throw-if-not-resolved="false"></xref> instance to use for configuration.
+    - id: configure
+      type: System.Action{Cheetah.Kafka.ClientFactoryOptions}
+      description: Optional action to configure Kafka behavior
+    return:
+      type: Cheetah.Kafka.Extensions.ClientInjector
+      description: The supplied <xref href="Microsoft.Extensions.DependencyInjection.IServiceCollection" data-throw-if-not-resolved="false"></xref> instance for method chaining.
+    content.vb: Public Shared Function AddCheetahKafka(serviceCollection As IServiceCollection, configuration As IConfiguration, configure As Action(Of ClientFactoryOptions) = Nothing) As ClientInjector
+  overload: Cheetah.Kafka.Extensions.ServiceCollectionExtensions.AddCheetahKafka*
+  nameWithType.vb: ServiceCollectionExtensions.AddCheetahKafka(IServiceCollection, IConfiguration, Action(Of ClientFactoryOptions))
+  fullName.vb: Cheetah.Kafka.Extensions.ServiceCollectionExtensions.AddCheetahKafka(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfiguration, System.Action(Of Cheetah.Kafka.ClientFactoryOptions))
+  name.vb: AddCheetahKafka(IServiceCollection, IConfiguration, Action(Of ClientFactoryOptions))
+references:
+- uid: Cheetah.Kafka.Extensions
+  commentId: N:Cheetah.Kafka.Extensions
+  href: Cheetah.html
+  name: Cheetah.Kafka.Extensions
+  nameWithType: Cheetah.Kafka.Extensions
+  fullName: Cheetah.Kafka.Extensions
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  - name: .
+  - uid: Cheetah.Kafka.Extensions
+    name: Extensions
+    href: Cheetah.Kafka.Extensions.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  - name: .
+  - uid: Cheetah.Kafka.Extensions
+    name: Extensions
+    href: Cheetah.Kafka.Extensions.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Cheetah.Kafka.Configuration.KafkaConfig
+  commentId: T:Cheetah.Kafka.Configuration.KafkaConfig
+  parent: Cheetah.Kafka.Configuration
+  href: Cheetah.Kafka.Configuration.KafkaConfig.html
+  name: KafkaConfig
+  nameWithType: KafkaConfig
+  fullName: Cheetah.Kafka.Configuration.KafkaConfig
+- uid: Microsoft.Extensions.Configuration.IConfiguration
+  commentId: T:Microsoft.Extensions.Configuration.IConfiguration
+  parent: Microsoft.Extensions.Configuration
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration
+  name: IConfiguration
+  nameWithType: IConfiguration
+  fullName: Microsoft.Extensions.Configuration.IConfiguration
+- uid: Microsoft.Extensions.DependencyInjection.IServiceCollection
+  commentId: T:Microsoft.Extensions.DependencyInjection.IServiceCollection
+  parent: Microsoft.Extensions.DependencyInjection
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection
+  name: IServiceCollection
+  nameWithType: IServiceCollection
+  fullName: Microsoft.Extensions.DependencyInjection.IServiceCollection
+- uid: Cheetah.Kafka.KafkaClientFactory
+  commentId: T:Cheetah.Kafka.KafkaClientFactory
+  parent: Cheetah.Kafka
+  href: Cheetah.Kafka.KafkaClientFactory.html
+  name: KafkaClientFactory
+  nameWithType: KafkaClientFactory
+  fullName: Cheetah.Kafka.KafkaClientFactory
+- uid: Cheetah.Kafka.Extensions.ServiceCollectionExtensions.AddCheetahKafka*
+  commentId: Overload:Cheetah.Kafka.Extensions.ServiceCollectionExtensions.AddCheetahKafka
+  href: Cheetah.Kafka.Extensions.ServiceCollectionExtensions.html#Cheetah_Kafka_Extensions_ServiceCollectionExtensions_AddCheetahKafka_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfiguration_System_Action_Cheetah_Kafka_ClientFactoryOptions__
+  name: AddCheetahKafka
+  nameWithType: ServiceCollectionExtensions.AddCheetahKafka
+  fullName: Cheetah.Kafka.Extensions.ServiceCollectionExtensions.AddCheetahKafka
+- uid: System.Action{Cheetah.Kafka.ClientFactoryOptions}
+  commentId: T:System.Action{Cheetah.Kafka.ClientFactoryOptions}
+  parent: System
+  definition: System.Action`1
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<ClientFactoryOptions>
+  nameWithType: Action<ClientFactoryOptions>
+  fullName: System.Action<Cheetah.Kafka.ClientFactoryOptions>
+  nameWithType.vb: Action(Of ClientFactoryOptions)
+  fullName.vb: System.Action(Of Cheetah.Kafka.ClientFactoryOptions)
+  name.vb: Action(Of ClientFactoryOptions)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - uid: Cheetah.Kafka.ClientFactoryOptions
+    name: ClientFactoryOptions
+    href: Cheetah.Kafka.ClientFactoryOptions.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Cheetah.Kafka.ClientFactoryOptions
+    name: ClientFactoryOptions
+    href: Cheetah.Kafka.ClientFactoryOptions.html
+  - name: )
+- uid: Cheetah.Kafka.Extensions.ClientInjector
+  commentId: T:Cheetah.Kafka.Extensions.ClientInjector
+  parent: Cheetah.Kafka.Extensions
+  href: Cheetah.Kafka.Extensions.ClientInjector.html
+  name: ClientInjector
+  nameWithType: ClientInjector
+  fullName: Cheetah.Kafka.Extensions.ClientInjector
+- uid: Cheetah.Kafka.Configuration
+  commentId: N:Cheetah.Kafka.Configuration
+  href: Cheetah.html
+  name: Cheetah.Kafka.Configuration
+  nameWithType: Cheetah.Kafka.Configuration
+  fullName: Cheetah.Kafka.Configuration
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  - name: .
+  - uid: Cheetah.Kafka.Configuration
+    name: Configuration
+    href: Cheetah.Kafka.Configuration.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  - name: .
+  - uid: Cheetah.Kafka.Configuration
+    name: Configuration
+    href: Cheetah.Kafka.Configuration.html
+- uid: Microsoft.Extensions.Configuration
+  commentId: N:Microsoft.Extensions.Configuration
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft
+  name: Microsoft.Extensions.Configuration
+  nameWithType: Microsoft.Extensions.Configuration
+  fullName: Microsoft.Extensions.Configuration
+  spec.csharp:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions
+  - name: .
+  - uid: Microsoft.Extensions.Configuration
+    name: Configuration
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration
+  spec.vb:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions
+  - name: .
+  - uid: Microsoft.Extensions.Configuration
+    name: Configuration
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration
+- uid: Microsoft.Extensions.DependencyInjection
+  commentId: N:Microsoft.Extensions.DependencyInjection
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft
+  name: Microsoft.Extensions.DependencyInjection
+  nameWithType: Microsoft.Extensions.DependencyInjection
+  fullName: Microsoft.Extensions.DependencyInjection
+  spec.csharp:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions
+  - name: .
+  - uid: Microsoft.Extensions.DependencyInjection
+    name: DependencyInjection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection
+  spec.vb:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions
+  - name: .
+  - uid: Microsoft.Extensions.DependencyInjection
+    name: DependencyInjection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection
+- uid: Cheetah.Kafka
+  commentId: N:Cheetah.Kafka
+  href: Cheetah.html
+  name: Cheetah.Kafka
+  nameWithType: Cheetah.Kafka
+  fullName: Cheetah.Kafka
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+- uid: System.Action`1
+  commentId: T:System.Action`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )

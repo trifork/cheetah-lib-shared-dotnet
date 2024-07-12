@@ -1,0 +1,114 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.OpenSearch.Constants
+  commentId: T:Cheetah.OpenSearch.Constants
+  id: Constants
+  parent: Cheetah.OpenSearch
+  children:
+  - Cheetah.OpenSearch.Constants.TokenServiceKey
+  langs:
+  - csharp
+  - vb
+  name: Constants
+  nameWithType: Constants
+  fullName: Cheetah.OpenSearch.Constants
+  type: Class
+  source:
+    remote:
+      path: src/Cheetah.OpenSearch/Constants.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: Constants
+    path: ../src/Cheetah.OpenSearch/Constants.cs
+    startLine: 5
+  assemblies:
+  - Cheetah.OpenSearch
+  namespace: Cheetah.OpenSearch
+  summary: Static class contains constant values used within the Cheetah.OpenSearch namespace
+  example: []
+  syntax:
+    content: public static class Constants
+    content.vb: Public Module Constants
+  inheritance:
+  - System.Object
+- uid: Cheetah.OpenSearch.Constants.TokenServiceKey
+  commentId: F:Cheetah.OpenSearch.Constants.TokenServiceKey
+  id: TokenServiceKey
+  parent: Cheetah.OpenSearch.Constants
+  langs:
+  - csharp
+  - vb
+  name: TokenServiceKey
+  nameWithType: Constants.TokenServiceKey
+  fullName: Cheetah.OpenSearch.Constants.TokenServiceKey
+  type: Field
+  source:
+    remote:
+      path: src/Cheetah.OpenSearch/Constants.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: TokenServiceKey
+    path: ../src/Cheetah.OpenSearch/Constants.cs
+    startLine: 10
+  assemblies:
+  - Cheetah.OpenSearch
+  namespace: Cheetah.OpenSearch
+  summary: Key used to GetRequiredKeyedService for Cheetah.OpenSearch TokenService
+  example: []
+  syntax:
+    content: public const string TokenServiceKey = "cheetah-opensearch"
+    return:
+      type: System.String
+    content.vb: Public Const TokenServiceKey As String = "cheetah-opensearch"
+references:
+- uid: Cheetah.OpenSearch
+  commentId: N:Cheetah.OpenSearch
+  href: Cheetah.html
+  name: Cheetah.OpenSearch
+  nameWithType: Cheetah.OpenSearch
+  fullName: Cheetah.OpenSearch
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.OpenSearch
+    name: OpenSearch
+    href: Cheetah.OpenSearch.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.OpenSearch
+    name: OpenSearch
+    href: Cheetah.OpenSearch.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String

@@ -1,0 +1,51 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.SchemaRegistry.Avro
+  commentId: N:Cheetah.SchemaRegistry.Avro
+  id: Cheetah.SchemaRegistry.Avro
+  children:
+  - Cheetah.SchemaRegistry.Avro.AvroDeserializer
+  - Cheetah.SchemaRegistry.Avro.AvroDeserializerProvider
+  - Cheetah.SchemaRegistry.Avro.AvroSerializer
+  - Cheetah.SchemaRegistry.Avro.AvroSerializerProvider
+  - Cheetah.SchemaRegistry.Avro.Constants
+  langs:
+  - csharp
+  - vb
+  name: Cheetah.SchemaRegistry.Avro
+  nameWithType: Cheetah.SchemaRegistry.Avro
+  fullName: Cheetah.SchemaRegistry.Avro
+  type: Namespace
+  assemblies:
+  - Cheetah.SchemaRegistry
+references:
+- uid: Cheetah.SchemaRegistry.Avro.AvroSerializer
+  commentId: T:Cheetah.SchemaRegistry.Avro.AvroSerializer
+  href: Cheetah.SchemaRegistry.Avro.AvroSerializer.html
+  name: AvroSerializer
+  nameWithType: AvroSerializer
+  fullName: Cheetah.SchemaRegistry.Avro.AvroSerializer
+- uid: Cheetah.SchemaRegistry.Avro.AvroDeserializer
+  commentId: T:Cheetah.SchemaRegistry.Avro.AvroDeserializer
+  href: Cheetah.SchemaRegistry.Avro.AvroDeserializer.html
+  name: AvroDeserializer
+  nameWithType: AvroDeserializer
+  fullName: Cheetah.SchemaRegistry.Avro.AvroDeserializer
+- uid: Cheetah.SchemaRegistry.Avro.AvroDeserializerProvider
+  commentId: T:Cheetah.SchemaRegistry.Avro.AvroDeserializerProvider
+  href: Cheetah.SchemaRegistry.Avro.AvroDeserializerProvider.html
+  name: AvroDeserializerProvider
+  nameWithType: AvroDeserializerProvider
+  fullName: Cheetah.SchemaRegistry.Avro.AvroDeserializerProvider
+- uid: Cheetah.SchemaRegistry.Avro.AvroSerializerProvider
+  commentId: T:Cheetah.SchemaRegistry.Avro.AvroSerializerProvider
+  href: Cheetah.SchemaRegistry.Avro.AvroSerializerProvider.html
+  name: AvroSerializerProvider
+  nameWithType: AvroSerializerProvider
+  fullName: Cheetah.SchemaRegistry.Avro.AvroSerializerProvider
+- uid: Cheetah.SchemaRegistry.Avro.Constants
+  commentId: T:Cheetah.SchemaRegistry.Avro.Constants
+  href: Cheetah.SchemaRegistry.Avro.Constants.html
+  name: Constants
+  nameWithType: Constants
+  fullName: Cheetah.SchemaRegistry.Avro.Constants

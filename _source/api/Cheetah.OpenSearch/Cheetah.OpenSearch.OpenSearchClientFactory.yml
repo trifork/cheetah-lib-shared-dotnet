@@ -1,0 +1,520 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.OpenSearch.OpenSearchClientFactory
+  commentId: T:Cheetah.OpenSearch.OpenSearchClientFactory
+  id: OpenSearchClientFactory
+  parent: Cheetah.OpenSearch
+  children:
+  - Cheetah.OpenSearch.OpenSearchClientFactory.#ctor(Microsoft.Extensions.Options.IOptions{Cheetah.OpenSearch.Configuration.OpenSearchConfig},Microsoft.Extensions.Logging.ILogger{OpenSearch.Client.OpenSearchClient},Microsoft.Extensions.Logging.ILogger{Cheetah.OpenSearch.OpenSearchClientFactory},Cheetah.OpenSearch.OpenSearchClientOptions,OpenSearch.Net.IConnectionPool,OpenSearch.Net.IConnection)
+  - Cheetah.OpenSearch.OpenSearchClientFactory.CreateOpenSearchClient
+  langs:
+  - csharp
+  - vb
+  name: OpenSearchClientFactory
+  nameWithType: OpenSearchClientFactory
+  fullName: Cheetah.OpenSearch.OpenSearchClientFactory
+  type: Class
+  source:
+    remote:
+      path: src/Cheetah.OpenSearch/OpenSearchClientFactory.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: OpenSearchClientFactory
+    path: ../src/Cheetah.OpenSearch/OpenSearchClientFactory.cs
+    startLine: 16
+  assemblies:
+  - Cheetah.OpenSearch
+  namespace: Cheetah.OpenSearch
+  summary: Factory for creating <xref href="OpenSearch.Client.OpenSearchClient" data-throw-if-not-resolved="false"></xref> instances
+  example: []
+  syntax:
+    content: public class OpenSearchClientFactory
+    content.vb: Public Class OpenSearchClientFactory
+  inheritance:
+  - System.Object
+- uid: Cheetah.OpenSearch.OpenSearchClientFactory.#ctor(Microsoft.Extensions.Options.IOptions{Cheetah.OpenSearch.Configuration.OpenSearchConfig},Microsoft.Extensions.Logging.ILogger{OpenSearch.Client.OpenSearchClient},Microsoft.Extensions.Logging.ILogger{Cheetah.OpenSearch.OpenSearchClientFactory},Cheetah.OpenSearch.OpenSearchClientOptions,OpenSearch.Net.IConnectionPool,OpenSearch.Net.IConnection)
+  commentId: M:Cheetah.OpenSearch.OpenSearchClientFactory.#ctor(Microsoft.Extensions.Options.IOptions{Cheetah.OpenSearch.Configuration.OpenSearchConfig},Microsoft.Extensions.Logging.ILogger{OpenSearch.Client.OpenSearchClient},Microsoft.Extensions.Logging.ILogger{Cheetah.OpenSearch.OpenSearchClientFactory},Cheetah.OpenSearch.OpenSearchClientOptions,OpenSearch.Net.IConnectionPool,OpenSearch.Net.IConnection)
+  id: '#ctor(Microsoft.Extensions.Options.IOptions{Cheetah.OpenSearch.Configuration.OpenSearchConfig},Microsoft.Extensions.Logging.ILogger{OpenSearch.Client.OpenSearchClient},Microsoft.Extensions.Logging.ILogger{Cheetah.OpenSearch.OpenSearchClientFactory},Cheetah.OpenSearch.OpenSearchClientOptions,OpenSearch.Net.IConnectionPool,OpenSearch.Net.IConnection)'
+  parent: Cheetah.OpenSearch.OpenSearchClientFactory
+  langs:
+  - csharp
+  - vb
+  name: OpenSearchClientFactory(IOptions<OpenSearchConfig>, ILogger<OpenSearchClient>, ILogger<OpenSearchClientFactory>, OpenSearchClientOptions, IConnectionPool, IConnection?)
+  nameWithType: OpenSearchClientFactory.OpenSearchClientFactory(IOptions<OpenSearchConfig>, ILogger<OpenSearchClient>, ILogger<OpenSearchClientFactory>, OpenSearchClientOptions, IConnectionPool, IConnection?)
+  fullName: Cheetah.OpenSearch.OpenSearchClientFactory.OpenSearchClientFactory(Microsoft.Extensions.Options.IOptions<Cheetah.OpenSearch.Configuration.OpenSearchConfig>, Microsoft.Extensions.Logging.ILogger<OpenSearch.Client.OpenSearchClient>, Microsoft.Extensions.Logging.ILogger<Cheetah.OpenSearch.OpenSearchClientFactory>, Cheetah.OpenSearch.OpenSearchClientOptions, OpenSearch.Net.IConnectionPool, OpenSearch.Net.IConnection?)
+  type: Constructor
+  source:
+    remote:
+      path: src/Cheetah.OpenSearch/OpenSearchClientFactory.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: .ctor
+    path: ../src/Cheetah.OpenSearch/OpenSearchClientFactory.cs
+    startLine: 34
+  assemblies:
+  - Cheetah.OpenSearch
+  namespace: Cheetah.OpenSearch
+  summary: Create a new instance of <xref href="Cheetah.OpenSearch.OpenSearchClientFactory" data-throw-if-not-resolved="false"></xref>
+  example: []
+  syntax:
+    content: public OpenSearchClientFactory(IOptions<OpenSearchConfig> clientConfig, ILogger<OpenSearchClient> clientLogger, ILogger<OpenSearchClientFactory> logger, OpenSearchClientOptions clientOptions, IConnectionPool connectionPool, IConnection? connection = null)
+    parameters:
+    - id: clientConfig
+      type: Microsoft.Extensions.Options.IOptions{Cheetah.OpenSearch.Configuration.OpenSearchConfig}
+      description: The <xref href="Cheetah.OpenSearch.Configuration.OpenSearchConfig" data-throw-if-not-resolved="false"></xref> to use for configuring the client.
+    - id: clientLogger
+      type: Microsoft.Extensions.Logging.ILogger{OpenSearch.Client.OpenSearchClient}
+      description: The <xref href="Microsoft.Extensions.Logging.ILogger%601" data-throw-if-not-resolved="false"></xref> to use for logging in the client.
+    - id: logger
+      type: Microsoft.Extensions.Logging.ILogger{Cheetah.OpenSearch.OpenSearchClientFactory}
+      description: The <xref href="Microsoft.Extensions.Logging.ILogger%601" data-throw-if-not-resolved="false"></xref> to use for logging in the factory.
+    - id: clientOptions
+      type: Cheetah.OpenSearch.OpenSearchClientOptions
+      description: The <xref href="Cheetah.OpenSearch.OpenSearchClientOptions" data-throw-if-not-resolved="false"></xref> used to modify client behavior
+    - id: connectionPool
+      type: OpenSearch.Net.IConnectionPool
+      description: The <xref href="OpenSearch.Net.IConnectionPool" data-throw-if-not-resolved="false"></xref> to use for generated clients.
+    - id: connection
+      type: OpenSearch.Net.IConnection
+      description: The <xref href="OpenSearch.Net.IConnection" data-throw-if-not-resolved="false"></xref> to use for generated clients.
+    content.vb: Public Sub New(clientConfig As IOptions(Of OpenSearchConfig), clientLogger As ILogger(Of OpenSearchClient), logger As ILogger(Of OpenSearchClientFactory), clientOptions As OpenSearchClientOptions, connectionPool As IConnectionPool, connection As IConnection = Nothing)
+  overload: Cheetah.OpenSearch.OpenSearchClientFactory.#ctor*
+  nameWithType.vb: OpenSearchClientFactory.New(IOptions(Of OpenSearchConfig), ILogger(Of OpenSearchClient), ILogger(Of OpenSearchClientFactory), OpenSearchClientOptions, IConnectionPool, IConnection)
+  fullName.vb: Cheetah.OpenSearch.OpenSearchClientFactory.New(Microsoft.Extensions.Options.IOptions(Of Cheetah.OpenSearch.Configuration.OpenSearchConfig), Microsoft.Extensions.Logging.ILogger(Of OpenSearch.Client.OpenSearchClient), Microsoft.Extensions.Logging.ILogger(Of Cheetah.OpenSearch.OpenSearchClientFactory), Cheetah.OpenSearch.OpenSearchClientOptions, OpenSearch.Net.IConnectionPool, OpenSearch.Net.IConnection)
+  name.vb: New(IOptions(Of OpenSearchConfig), ILogger(Of OpenSearchClient), ILogger(Of OpenSearchClientFactory), OpenSearchClientOptions, IConnectionPool, IConnection)
+- uid: Cheetah.OpenSearch.OpenSearchClientFactory.CreateOpenSearchClient
+  commentId: M:Cheetah.OpenSearch.OpenSearchClientFactory.CreateOpenSearchClient
+  id: CreateOpenSearchClient
+  parent: Cheetah.OpenSearch.OpenSearchClientFactory
+  langs:
+  - csharp
+  - vb
+  name: CreateOpenSearchClient()
+  nameWithType: OpenSearchClientFactory.CreateOpenSearchClient()
+  fullName: Cheetah.OpenSearch.OpenSearchClientFactory.CreateOpenSearchClient()
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.OpenSearch/OpenSearchClientFactory.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: CreateOpenSearchClient
+    path: ../src/Cheetah.OpenSearch/OpenSearchClientFactory.cs
+    startLine: 56
+  assemblies:
+  - Cheetah.OpenSearch
+  namespace: Cheetah.OpenSearch
+  summary: Create a new, pre-configured <xref href="OpenSearch.Client.OpenSearchClient" data-throw-if-not-resolved="false"></xref> instance
+  example: []
+  syntax:
+    content: public OpenSearchClient CreateOpenSearchClient()
+    return:
+      type: OpenSearch.Client.OpenSearchClient
+      description: ''
+    content.vb: Public Function CreateOpenSearchClient() As OpenSearchClient
+  overload: Cheetah.OpenSearch.OpenSearchClientFactory.CreateOpenSearchClient*
+references:
+- uid: OpenSearch.Client.OpenSearchClient
+  commentId: T:OpenSearch.Client.OpenSearchClient
+  parent: OpenSearch.Client
+  isExternal: true
+  href: https://github.com/opensearch-project/opensearch-net/blob/main/src/OpenSearch.Client/Document/Multiple/BulkAll/OpenSearchClient-BulkAll.cs
+  name: OpenSearchClient
+  nameWithType: OpenSearchClient
+  fullName: OpenSearch.Client.OpenSearchClient
+- uid: Cheetah.OpenSearch
+  commentId: N:Cheetah.OpenSearch
+  href: Cheetah.html
+  name: Cheetah.OpenSearch
+  nameWithType: Cheetah.OpenSearch
+  fullName: Cheetah.OpenSearch
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.OpenSearch
+    name: OpenSearch
+    href: Cheetah.OpenSearch.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.OpenSearch
+    name: OpenSearch
+    href: Cheetah.OpenSearch.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: OpenSearch.Client
+  commentId: N:OpenSearch.Client
+  isExternal: true
+  name: OpenSearch.Client
+  nameWithType: OpenSearch.Client
+  fullName: OpenSearch.Client
+  spec.csharp:
+  - uid: OpenSearch
+    name: OpenSearch
+    isExternal: true
+  - name: .
+  - uid: OpenSearch.Client
+    name: Client
+    isExternal: true
+  spec.vb:
+  - uid: OpenSearch
+    name: OpenSearch
+    isExternal: true
+  - name: .
+  - uid: OpenSearch.Client
+    name: Client
+    isExternal: true
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Cheetah.OpenSearch.OpenSearchClientFactory
+  commentId: T:Cheetah.OpenSearch.OpenSearchClientFactory
+  href: Cheetah.OpenSearch.OpenSearchClientFactory.html
+  name: OpenSearchClientFactory
+  nameWithType: OpenSearchClientFactory
+  fullName: Cheetah.OpenSearch.OpenSearchClientFactory
+- uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig
+  commentId: T:Cheetah.OpenSearch.Configuration.OpenSearchConfig
+  parent: Cheetah.OpenSearch.Configuration
+  href: Cheetah.OpenSearch.Configuration.OpenSearchConfig.html
+  name: OpenSearchConfig
+  nameWithType: OpenSearchConfig
+  fullName: Cheetah.OpenSearch.Configuration.OpenSearchConfig
+- uid: Microsoft.Extensions.Logging.ILogger`1
+  commentId: T:Microsoft.Extensions.Logging.ILogger`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1
+  name: ILogger<TCategoryName>
+  nameWithType: ILogger<TCategoryName>
+  fullName: Microsoft.Extensions.Logging.ILogger<TCategoryName>
+  nameWithType.vb: ILogger(Of TCategoryName)
+  fullName.vb: Microsoft.Extensions.Logging.ILogger(Of TCategoryName)
+  name.vb: ILogger(Of TCategoryName)
+  spec.csharp:
+  - uid: Microsoft.Extensions.Logging.ILogger`1
+    name: ILogger
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1
+  - name: <
+  - name: TCategoryName
+  - name: '>'
+  spec.vb:
+  - uid: Microsoft.Extensions.Logging.ILogger`1
+    name: ILogger
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TCategoryName
+  - name: )
+- uid: Cheetah.OpenSearch.OpenSearchClientOptions
+  commentId: T:Cheetah.OpenSearch.OpenSearchClientOptions
+  parent: Cheetah.OpenSearch
+  href: Cheetah.OpenSearch.OpenSearchClientOptions.html
+  name: OpenSearchClientOptions
+  nameWithType: OpenSearchClientOptions
+  fullName: Cheetah.OpenSearch.OpenSearchClientOptions
+- uid: OpenSearch.Net.IConnectionPool
+  commentId: T:OpenSearch.Net.IConnectionPool
+  parent: OpenSearch.Net
+  isExternal: true
+  href: https://github.com/opensearch-project/opensearch-net/blob/main/src/OpenSearch.Net/ConnectionPool/IConnectionPool.cs
+  name: IConnectionPool
+  nameWithType: IConnectionPool
+  fullName: OpenSearch.Net.IConnectionPool
+- uid: OpenSearch.Net.IConnection
+  commentId: T:OpenSearch.Net.IConnection
+  parent: OpenSearch.Net
+  isExternal: true
+  href: https://github.com/opensearch-project/opensearch-net/blob/main/src/OpenSearch.Net/Connection/IConnection.cs
+  name: IConnection
+  nameWithType: IConnection
+  fullName: OpenSearch.Net.IConnection
+- uid: Cheetah.OpenSearch.OpenSearchClientFactory.#ctor*
+  commentId: Overload:Cheetah.OpenSearch.OpenSearchClientFactory.#ctor
+  href: Cheetah.OpenSearch.OpenSearchClientFactory.html#Cheetah_OpenSearch_OpenSearchClientFactory__ctor_Microsoft_Extensions_Options_IOptions_Cheetah_OpenSearch_Configuration_OpenSearchConfig__Microsoft_Extensions_Logging_ILogger_OpenSearch_Client_OpenSearchClient__Microsoft_Extensions_Logging_ILogger_Cheetah_OpenSearch_OpenSearchClientFactory__Cheetah_OpenSearch_OpenSearchClientOptions_OpenSearch_Net_IConnectionPool_OpenSearch_Net_IConnection_
+  name: OpenSearchClientFactory
+  nameWithType: OpenSearchClientFactory.OpenSearchClientFactory
+  fullName: Cheetah.OpenSearch.OpenSearchClientFactory.OpenSearchClientFactory
+  nameWithType.vb: OpenSearchClientFactory.New
+  fullName.vb: Cheetah.OpenSearch.OpenSearchClientFactory.New
+  name.vb: New
+- uid: Microsoft.Extensions.Options.IOptions{Cheetah.OpenSearch.Configuration.OpenSearchConfig}
+  commentId: T:Microsoft.Extensions.Options.IOptions{Cheetah.OpenSearch.Configuration.OpenSearchConfig}
+  parent: Microsoft.Extensions.Options
+  definition: Microsoft.Extensions.Options.IOptions`1
+  href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1
+  name: IOptions<OpenSearchConfig>
+  nameWithType: IOptions<OpenSearchConfig>
+  fullName: Microsoft.Extensions.Options.IOptions<Cheetah.OpenSearch.Configuration.OpenSearchConfig>
+  nameWithType.vb: IOptions(Of OpenSearchConfig)
+  fullName.vb: Microsoft.Extensions.Options.IOptions(Of Cheetah.OpenSearch.Configuration.OpenSearchConfig)
+  name.vb: IOptions(Of OpenSearchConfig)
+  spec.csharp:
+  - uid: Microsoft.Extensions.Options.IOptions`1
+    name: IOptions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1
+  - name: <
+  - uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig
+    name: OpenSearchConfig
+    href: Cheetah.OpenSearch.Configuration.OpenSearchConfig.html
+  - name: '>'
+  spec.vb:
+  - uid: Microsoft.Extensions.Options.IOptions`1
+    name: IOptions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig
+    name: OpenSearchConfig
+    href: Cheetah.OpenSearch.Configuration.OpenSearchConfig.html
+  - name: )
+- uid: Microsoft.Extensions.Logging.ILogger{OpenSearch.Client.OpenSearchClient}
+  commentId: T:Microsoft.Extensions.Logging.ILogger{OpenSearch.Client.OpenSearchClient}
+  parent: Microsoft.Extensions.Logging
+  definition: Microsoft.Extensions.Logging.ILogger`1
+  href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1
+  name: ILogger<OpenSearchClient>
+  nameWithType: ILogger<OpenSearchClient>
+  fullName: Microsoft.Extensions.Logging.ILogger<OpenSearch.Client.OpenSearchClient>
+  nameWithType.vb: ILogger(Of OpenSearchClient)
+  fullName.vb: Microsoft.Extensions.Logging.ILogger(Of OpenSearch.Client.OpenSearchClient)
+  name.vb: ILogger(Of OpenSearchClient)
+  spec.csharp:
+  - uid: Microsoft.Extensions.Logging.ILogger`1
+    name: ILogger
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1
+  - name: <
+  - uid: OpenSearch.Client.OpenSearchClient
+    name: OpenSearchClient
+    isExternal: true
+    href: https://github.com/opensearch-project/opensearch-net/blob/main/src/OpenSearch.Client/Document/Multiple/BulkAll/OpenSearchClient-BulkAll.cs
+  - name: '>'
+  spec.vb:
+  - uid: Microsoft.Extensions.Logging.ILogger`1
+    name: ILogger
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: OpenSearch.Client.OpenSearchClient
+    name: OpenSearchClient
+    isExternal: true
+    href: https://github.com/opensearch-project/opensearch-net/blob/main/src/OpenSearch.Client/Document/Multiple/BulkAll/OpenSearchClient-BulkAll.cs
+  - name: )
+- uid: Microsoft.Extensions.Logging.ILogger{Cheetah.OpenSearch.OpenSearchClientFactory}
+  commentId: T:Microsoft.Extensions.Logging.ILogger{Cheetah.OpenSearch.OpenSearchClientFactory}
+  parent: Microsoft.Extensions.Logging
+  definition: Microsoft.Extensions.Logging.ILogger`1
+  href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1
+  name: ILogger<OpenSearchClientFactory>
+  nameWithType: ILogger<OpenSearchClientFactory>
+  fullName: Microsoft.Extensions.Logging.ILogger<Cheetah.OpenSearch.OpenSearchClientFactory>
+  nameWithType.vb: ILogger(Of OpenSearchClientFactory)
+  fullName.vb: Microsoft.Extensions.Logging.ILogger(Of Cheetah.OpenSearch.OpenSearchClientFactory)
+  name.vb: ILogger(Of OpenSearchClientFactory)
+  spec.csharp:
+  - uid: Microsoft.Extensions.Logging.ILogger`1
+    name: ILogger
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1
+  - name: <
+  - uid: Cheetah.OpenSearch.OpenSearchClientFactory
+    name: OpenSearchClientFactory
+    href: Cheetah.OpenSearch.OpenSearchClientFactory.html
+  - name: '>'
+  spec.vb:
+  - uid: Microsoft.Extensions.Logging.ILogger`1
+    name: ILogger
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Cheetah.OpenSearch.OpenSearchClientFactory
+    name: OpenSearchClientFactory
+    href: Cheetah.OpenSearch.OpenSearchClientFactory.html
+  - name: )
+- uid: Cheetah.OpenSearch.Configuration
+  commentId: N:Cheetah.OpenSearch.Configuration
+  href: Cheetah.html
+  name: Cheetah.OpenSearch.Configuration
+  nameWithType: Cheetah.OpenSearch.Configuration
+  fullName: Cheetah.OpenSearch.Configuration
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.OpenSearch
+    name: OpenSearch
+    href: Cheetah.OpenSearch.html
+  - name: .
+  - uid: Cheetah.OpenSearch.Configuration
+    name: Configuration
+    href: Cheetah.OpenSearch.Configuration.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.OpenSearch
+    name: OpenSearch
+    href: Cheetah.OpenSearch.html
+  - name: .
+  - uid: Cheetah.OpenSearch.Configuration
+    name: Configuration
+    href: Cheetah.OpenSearch.Configuration.html
+- uid: OpenSearch.Net
+  commentId: N:OpenSearch.Net
+  isExternal: true
+  name: OpenSearch.Net
+  nameWithType: OpenSearch.Net
+  fullName: OpenSearch.Net
+  spec.csharp:
+  - uid: OpenSearch
+    name: OpenSearch
+    isExternal: true
+  - name: .
+  - uid: OpenSearch.Net
+    name: Net
+    isExternal: true
+  spec.vb:
+  - uid: OpenSearch
+    name: OpenSearch
+    isExternal: true
+  - name: .
+  - uid: OpenSearch.Net
+    name: Net
+    isExternal: true
+- uid: Microsoft.Extensions.Options.IOptions`1
+  commentId: T:Microsoft.Extensions.Options.IOptions`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1
+  name: IOptions<TOptions>
+  nameWithType: IOptions<TOptions>
+  fullName: Microsoft.Extensions.Options.IOptions<TOptions>
+  nameWithType.vb: IOptions(Of TOptions)
+  fullName.vb: Microsoft.Extensions.Options.IOptions(Of TOptions)
+  name.vb: IOptions(Of TOptions)
+  spec.csharp:
+  - uid: Microsoft.Extensions.Options.IOptions`1
+    name: IOptions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1
+  - name: <
+  - name: TOptions
+  - name: '>'
+  spec.vb:
+  - uid: Microsoft.Extensions.Options.IOptions`1
+    name: IOptions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TOptions
+  - name: )
+- uid: Microsoft.Extensions.Options
+  commentId: N:Microsoft.Extensions.Options
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft
+  name: Microsoft.Extensions.Options
+  nameWithType: Microsoft.Extensions.Options
+  fullName: Microsoft.Extensions.Options
+  spec.csharp:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions
+  - name: .
+  - uid: Microsoft.Extensions.Options
+    name: Options
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.options
+  spec.vb:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions
+  - name: .
+  - uid: Microsoft.Extensions.Options
+    name: Options
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.options
+- uid: Microsoft.Extensions.Logging
+  commentId: N:Microsoft.Extensions.Logging
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft
+  name: Microsoft.Extensions.Logging
+  nameWithType: Microsoft.Extensions.Logging
+  fullName: Microsoft.Extensions.Logging
+  spec.csharp:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions
+  - name: .
+  - uid: Microsoft.Extensions.Logging
+    name: Logging
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging
+  spec.vb:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions
+  - name: .
+  - uid: Microsoft.Extensions.Logging
+    name: Logging
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging
+- uid: Cheetah.OpenSearch.OpenSearchClientFactory.CreateOpenSearchClient*
+  commentId: Overload:Cheetah.OpenSearch.OpenSearchClientFactory.CreateOpenSearchClient
+  href: Cheetah.OpenSearch.OpenSearchClientFactory.html#Cheetah_OpenSearch_OpenSearchClientFactory_CreateOpenSearchClient
+  name: CreateOpenSearchClient
+  nameWithType: OpenSearchClientFactory.CreateOpenSearchClient
+  fullName: Cheetah.OpenSearch.OpenSearchClientFactory.CreateOpenSearchClient

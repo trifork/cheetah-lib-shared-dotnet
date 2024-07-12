@@ -1,0 +1,222 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.Kafka.Serdes.IDeserializerProvider
+  commentId: T:Cheetah.Kafka.Serdes.IDeserializerProvider
+  id: IDeserializerProvider
+  parent: Cheetah.Kafka.Serdes
+  children:
+  - Cheetah.Kafka.Serdes.IDeserializerProvider.GetKeyDeserializer``1
+  - Cheetah.Kafka.Serdes.IDeserializerProvider.GetValueDeserializer``1
+  langs:
+  - csharp
+  - vb
+  name: IDeserializerProvider
+  nameWithType: IDeserializerProvider
+  fullName: Cheetah.Kafka.Serdes.IDeserializerProvider
+  type: Interface
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Serdes/IDeserializerProvider.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: IDeserializerProvider
+    path: ../src/Cheetah.Kafka/Serdes/IDeserializerProvider.cs
+    startLine: 7
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka.Serdes
+  summary: Interface for the deserializer provider to be used to deserialize Kafka Messages
+  example: []
+  syntax:
+    content: public interface IDeserializerProvider
+    content.vb: Public Interface IDeserializerProvider
+- uid: Cheetah.Kafka.Serdes.IDeserializerProvider.GetValueDeserializer``1
+  commentId: M:Cheetah.Kafka.Serdes.IDeserializerProvider.GetValueDeserializer``1
+  id: GetValueDeserializer``1
+  parent: Cheetah.Kafka.Serdes.IDeserializerProvider
+  langs:
+  - csharp
+  - vb
+  name: GetValueDeserializer<T>()
+  nameWithType: IDeserializerProvider.GetValueDeserializer<T>()
+  fullName: Cheetah.Kafka.Serdes.IDeserializerProvider.GetValueDeserializer<T>()
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Serdes/IDeserializerProvider.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: GetValueDeserializer
+    path: ../src/Cheetah.Kafka/Serdes/IDeserializerProvider.cs
+    startLine: 14
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka.Serdes
+  summary: Get a value deserializer
+  example: []
+  syntax:
+    content: IDeserializer<T> GetValueDeserializer<T>()
+    typeParameters:
+    - id: T
+      description: ''
+    return:
+      type: Confluent.Kafka.IDeserializer{{T}}
+      description: <xref href="Confluent.Kafka.IDeserializer%601" data-throw-if-not-resolved="false"></xref>
+    content.vb: Function GetValueDeserializer(Of T)() As IDeserializer(Of T)
+  overload: Cheetah.Kafka.Serdes.IDeserializerProvider.GetValueDeserializer*
+  nameWithType.vb: IDeserializerProvider.GetValueDeserializer(Of T)()
+  fullName.vb: Cheetah.Kafka.Serdes.IDeserializerProvider.GetValueDeserializer(Of T)()
+  name.vb: GetValueDeserializer(Of T)()
+- uid: Cheetah.Kafka.Serdes.IDeserializerProvider.GetKeyDeserializer``1
+  commentId: M:Cheetah.Kafka.Serdes.IDeserializerProvider.GetKeyDeserializer``1
+  id: GetKeyDeserializer``1
+  parent: Cheetah.Kafka.Serdes.IDeserializerProvider
+  langs:
+  - csharp
+  - vb
+  name: GetKeyDeserializer<T>()
+  nameWithType: IDeserializerProvider.GetKeyDeserializer<T>()
+  fullName: Cheetah.Kafka.Serdes.IDeserializerProvider.GetKeyDeserializer<T>()
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Serdes/IDeserializerProvider.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: GetKeyDeserializer
+    path: ../src/Cheetah.Kafka/Serdes/IDeserializerProvider.cs
+    startLine: 21
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka.Serdes
+  summary: Get a key deserializer
+  example: []
+  syntax:
+    content: IDeserializer<T>? GetKeyDeserializer<T>()
+    typeParameters:
+    - id: T
+      description: ''
+    return:
+      type: Confluent.Kafka.IDeserializer{{T}}
+      description: <xref href="Confluent.Kafka.IDeserializer%601" data-throw-if-not-resolved="false"></xref>
+    content.vb: Function GetKeyDeserializer(Of T)() As IDeserializer(Of T)
+  overload: Cheetah.Kafka.Serdes.IDeserializerProvider.GetKeyDeserializer*
+  nameWithType.vb: IDeserializerProvider.GetKeyDeserializer(Of T)()
+  fullName.vb: Cheetah.Kafka.Serdes.IDeserializerProvider.GetKeyDeserializer(Of T)()
+  name.vb: GetKeyDeserializer(Of T)()
+references:
+- uid: Cheetah.Kafka.Serdes
+  commentId: N:Cheetah.Kafka.Serdes
+  href: Cheetah.html
+  name: Cheetah.Kafka.Serdes
+  nameWithType: Cheetah.Kafka.Serdes
+  fullName: Cheetah.Kafka.Serdes
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  - name: .
+  - uid: Cheetah.Kafka.Serdes
+    name: Serdes
+    href: Cheetah.Kafka.Serdes.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  - name: .
+  - uid: Cheetah.Kafka.Serdes
+    name: Serdes
+    href: Cheetah.Kafka.Serdes.html
+- uid: Confluent.Kafka.IDeserializer`1
+  commentId: T:Confluent.Kafka.IDeserializer`1
+  isExternal: true
+  name: IDeserializer<T>
+  nameWithType: IDeserializer<T>
+  fullName: Confluent.Kafka.IDeserializer<T>
+  nameWithType.vb: IDeserializer(Of T)
+  fullName.vb: Confluent.Kafka.IDeserializer(Of T)
+  name.vb: IDeserializer(Of T)
+  spec.csharp:
+  - uid: Confluent.Kafka.IDeserializer`1
+    name: IDeserializer
+    isExternal: true
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Confluent.Kafka.IDeserializer`1
+    name: IDeserializer
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Cheetah.Kafka.Serdes.IDeserializerProvider.GetValueDeserializer*
+  commentId: Overload:Cheetah.Kafka.Serdes.IDeserializerProvider.GetValueDeserializer
+  href: Cheetah.Kafka.Serdes.IDeserializerProvider.html#Cheetah_Kafka_Serdes_IDeserializerProvider_GetValueDeserializer__1
+  name: GetValueDeserializer
+  nameWithType: IDeserializerProvider.GetValueDeserializer
+  fullName: Cheetah.Kafka.Serdes.IDeserializerProvider.GetValueDeserializer
+- uid: Confluent.Kafka.IDeserializer{{T}}
+  commentId: T:Confluent.Kafka.IDeserializer{``0}
+  parent: Confluent.Kafka
+  definition: Confluent.Kafka.IDeserializer`1
+  name: IDeserializer<T>
+  nameWithType: IDeserializer<T>
+  fullName: Confluent.Kafka.IDeserializer<T>
+  nameWithType.vb: IDeserializer(Of T)
+  fullName.vb: Confluent.Kafka.IDeserializer(Of T)
+  name.vb: IDeserializer(Of T)
+  spec.csharp:
+  - uid: Confluent.Kafka.IDeserializer`1
+    name: IDeserializer
+    isExternal: true
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Confluent.Kafka.IDeserializer`1
+    name: IDeserializer
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Confluent.Kafka
+  commentId: N:Confluent.Kafka
+  isExternal: true
+  name: Confluent.Kafka
+  nameWithType: Confluent.Kafka
+  fullName: Confluent.Kafka
+  spec.csharp:
+  - uid: Confluent
+    name: Confluent
+    isExternal: true
+  - name: .
+  - uid: Confluent.Kafka
+    name: Kafka
+    isExternal: true
+  spec.vb:
+  - uid: Confluent
+    name: Confluent
+    isExternal: true
+  - name: .
+  - uid: Confluent.Kafka
+    name: Kafka
+    isExternal: true
+- uid: Cheetah.Kafka.Serdes.IDeserializerProvider.GetKeyDeserializer*
+  commentId: Overload:Cheetah.Kafka.Serdes.IDeserializerProvider.GetKeyDeserializer
+  href: Cheetah.Kafka.Serdes.IDeserializerProvider.html#Cheetah_Kafka_Serdes_IDeserializerProvider_GetKeyDeserializer__1
+  name: GetKeyDeserializer
+  nameWithType: IDeserializerProvider.GetKeyDeserializer
+  fullName: Cheetah.Kafka.Serdes.IDeserializerProvider.GetKeyDeserializer

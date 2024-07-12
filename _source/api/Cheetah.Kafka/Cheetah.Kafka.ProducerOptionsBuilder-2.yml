@@ -1,0 +1,878 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.Kafka.ProducerOptionsBuilder`2
+  commentId: T:Cheetah.Kafka.ProducerOptionsBuilder`2
+  id: ProducerOptionsBuilder`2
+  parent: Cheetah.Kafka
+  children:
+  - Cheetah.Kafka.ProducerOptionsBuilder`2.Build
+  - Cheetah.Kafka.ProducerOptionsBuilder`2.Build(System.IServiceProvider)
+  - Cheetah.Kafka.ProducerOptionsBuilder`2.ConfigureBuilder(System.Action{Confluent.Kafka.ProducerBuilder{`0,`1}})
+  - Cheetah.Kafka.ProducerOptionsBuilder`2.ConfigureClient(System.Action{Confluent.Kafka.ProducerConfig})
+  - Cheetah.Kafka.ProducerOptionsBuilder`2.SetKeySerializer(Confluent.Kafka.ISerializer{`0})
+  - Cheetah.Kafka.ProducerOptionsBuilder`2.SetKeySerializer(System.Func{System.IServiceProvider,Confluent.Kafka.ISerializer{`0}})
+  - Cheetah.Kafka.ProducerOptionsBuilder`2.SetValueSerializer(Confluent.Kafka.ISerializer{`1})
+  - Cheetah.Kafka.ProducerOptionsBuilder`2.SetValueSerializer(System.Func{System.IServiceProvider,Confluent.Kafka.ISerializer{`1}})
+  langs:
+  - csharp
+  - vb
+  name: ProducerOptionsBuilder<TKey, TValue>
+  nameWithType: ProducerOptionsBuilder<TKey, TValue>
+  fullName: Cheetah.Kafka.ProducerOptionsBuilder<TKey, TValue>
+  type: Class
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Options/ProducerOptions.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: ProducerOptionsBuilder
+    path: ../src/Cheetah.Kafka/Options/ProducerOptions.cs
+    startLine: 39
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka
+  summary: Builder for configuring <xref href="Cheetah.Kafka.ProducerOptions%602" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public class ProducerOptionsBuilder<TKey, TValue>
+    typeParameters:
+    - id: TKey
+      description: The type of the producer key.
+    - id: TValue
+      description: The type of the producer value.
+    content.vb: Public Class ProducerOptionsBuilder(Of TKey, TValue)
+  inheritance:
+  - System.Object
+  nameWithType.vb: ProducerOptionsBuilder(Of TKey, TValue)
+  fullName.vb: Cheetah.Kafka.ProducerOptionsBuilder(Of TKey, TValue)
+  name.vb: ProducerOptionsBuilder(Of TKey, TValue)
+- uid: Cheetah.Kafka.ProducerOptionsBuilder`2.SetValueSerializer(System.Func{System.IServiceProvider,Confluent.Kafka.ISerializer{`1}})
+  commentId: M:Cheetah.Kafka.ProducerOptionsBuilder`2.SetValueSerializer(System.Func{System.IServiceProvider,Confluent.Kafka.ISerializer{`1}})
+  id: SetValueSerializer(System.Func{System.IServiceProvider,Confluent.Kafka.ISerializer{`1}})
+  parent: Cheetah.Kafka.ProducerOptionsBuilder`2
+  langs:
+  - csharp
+  - vb
+  name: SetValueSerializer(Func<IServiceProvider, ISerializer<TValue>>)
+  nameWithType: ProducerOptionsBuilder<TKey, TValue>.SetValueSerializer(Func<IServiceProvider, ISerializer<TValue>>)
+  fullName: Cheetah.Kafka.ProducerOptionsBuilder<TKey, TValue>.SetValueSerializer(System.Func<System.IServiceProvider, Confluent.Kafka.ISerializer<TValue>>)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Options/ProducerOptions.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: SetValueSerializer
+    path: ../src/Cheetah.Kafka/Options/ProducerOptions.cs
+    startLine: 50
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka
+  summary: Sets the value serializer factory method.
+  example: []
+  syntax:
+    content: public ProducerOptionsBuilder<TKey, TValue> SetValueSerializer(Func<IServiceProvider, ISerializer<TValue>> valueSerializerFactory)
+    parameters:
+    - id: valueSerializerFactory
+      type: System.Func{System.IServiceProvider,Confluent.Kafka.ISerializer{{TValue}}}
+      description: The factory method for creating the value serializer.
+    return:
+      type: Cheetah.Kafka.ProducerOptionsBuilder`2
+      description: The builder instance.
+    content.vb: Public Function SetValueSerializer(valueSerializerFactory As Func(Of IServiceProvider, ISerializer(Of TValue))) As ProducerOptionsBuilder(Of TKey, TValue)
+  overload: Cheetah.Kafka.ProducerOptionsBuilder`2.SetValueSerializer*
+  nameWithType.vb: ProducerOptionsBuilder(Of TKey, TValue).SetValueSerializer(Func(Of IServiceProvider, ISerializer(Of TValue)))
+  fullName.vb: Cheetah.Kafka.ProducerOptionsBuilder(Of TKey, TValue).SetValueSerializer(System.Func(Of System.IServiceProvider, Confluent.Kafka.ISerializer(Of TValue)))
+  name.vb: SetValueSerializer(Func(Of IServiceProvider, ISerializer(Of TValue)))
+- uid: Cheetah.Kafka.ProducerOptionsBuilder`2.SetValueSerializer(Confluent.Kafka.ISerializer{`1})
+  commentId: M:Cheetah.Kafka.ProducerOptionsBuilder`2.SetValueSerializer(Confluent.Kafka.ISerializer{`1})
+  id: SetValueSerializer(Confluent.Kafka.ISerializer{`1})
+  parent: Cheetah.Kafka.ProducerOptionsBuilder`2
+  langs:
+  - csharp
+  - vb
+  name: SetValueSerializer(ISerializer<TValue>)
+  nameWithType: ProducerOptionsBuilder<TKey, TValue>.SetValueSerializer(ISerializer<TValue>)
+  fullName: Cheetah.Kafka.ProducerOptionsBuilder<TKey, TValue>.SetValueSerializer(Confluent.Kafka.ISerializer<TValue>)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Options/ProducerOptions.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: SetValueSerializer
+    path: ../src/Cheetah.Kafka/Options/ProducerOptions.cs
+    startLine: 61
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka
+  summary: Sets the value serializer.
+  example: []
+  syntax:
+    content: public ProducerOptionsBuilder<TKey, TValue> SetValueSerializer(ISerializer<TValue> valueSerializer)
+    parameters:
+    - id: valueSerializer
+      type: Confluent.Kafka.ISerializer{{TValue}}
+      description: The value serializer.
+    return:
+      type: Cheetah.Kafka.ProducerOptionsBuilder`2
+      description: The builder instance.
+    content.vb: Public Function SetValueSerializer(valueSerializer As ISerializer(Of TValue)) As ProducerOptionsBuilder(Of TKey, TValue)
+  overload: Cheetah.Kafka.ProducerOptionsBuilder`2.SetValueSerializer*
+  nameWithType.vb: ProducerOptionsBuilder(Of TKey, TValue).SetValueSerializer(ISerializer(Of TValue))
+  fullName.vb: Cheetah.Kafka.ProducerOptionsBuilder(Of TKey, TValue).SetValueSerializer(Confluent.Kafka.ISerializer(Of TValue))
+  name.vb: SetValueSerializer(ISerializer(Of TValue))
+- uid: Cheetah.Kafka.ProducerOptionsBuilder`2.SetKeySerializer(System.Func{System.IServiceProvider,Confluent.Kafka.ISerializer{`0}})
+  commentId: M:Cheetah.Kafka.ProducerOptionsBuilder`2.SetKeySerializer(System.Func{System.IServiceProvider,Confluent.Kafka.ISerializer{`0}})
+  id: SetKeySerializer(System.Func{System.IServiceProvider,Confluent.Kafka.ISerializer{`0}})
+  parent: Cheetah.Kafka.ProducerOptionsBuilder`2
+  langs:
+  - csharp
+  - vb
+  name: SetKeySerializer(Func<IServiceProvider, ISerializer<TKey>>)
+  nameWithType: ProducerOptionsBuilder<TKey, TValue>.SetKeySerializer(Func<IServiceProvider, ISerializer<TKey>>)
+  fullName: Cheetah.Kafka.ProducerOptionsBuilder<TKey, TValue>.SetKeySerializer(System.Func<System.IServiceProvider, Confluent.Kafka.ISerializer<TKey>>)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Options/ProducerOptions.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: SetKeySerializer
+    path: ../src/Cheetah.Kafka/Options/ProducerOptions.cs
+    startLine: 72
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka
+  summary: Sets the key serializer factory method.
+  example: []
+  syntax:
+    content: public ProducerOptionsBuilder<TKey, TValue> SetKeySerializer(Func<IServiceProvider, ISerializer<TKey>> keySerializerFactory)
+    parameters:
+    - id: keySerializerFactory
+      type: System.Func{System.IServiceProvider,Confluent.Kafka.ISerializer{{TKey}}}
+      description: The factory method for creating the key serializer.
+    return:
+      type: Cheetah.Kafka.ProducerOptionsBuilder`2
+      description: The builder instance.
+    content.vb: Public Function SetKeySerializer(keySerializerFactory As Func(Of IServiceProvider, ISerializer(Of TKey))) As ProducerOptionsBuilder(Of TKey, TValue)
+  overload: Cheetah.Kafka.ProducerOptionsBuilder`2.SetKeySerializer*
+  nameWithType.vb: ProducerOptionsBuilder(Of TKey, TValue).SetKeySerializer(Func(Of IServiceProvider, ISerializer(Of TKey)))
+  fullName.vb: Cheetah.Kafka.ProducerOptionsBuilder(Of TKey, TValue).SetKeySerializer(System.Func(Of System.IServiceProvider, Confluent.Kafka.ISerializer(Of TKey)))
+  name.vb: SetKeySerializer(Func(Of IServiceProvider, ISerializer(Of TKey)))
+- uid: Cheetah.Kafka.ProducerOptionsBuilder`2.SetKeySerializer(Confluent.Kafka.ISerializer{`0})
+  commentId: M:Cheetah.Kafka.ProducerOptionsBuilder`2.SetKeySerializer(Confluent.Kafka.ISerializer{`0})
+  id: SetKeySerializer(Confluent.Kafka.ISerializer{`0})
+  parent: Cheetah.Kafka.ProducerOptionsBuilder`2
+  langs:
+  - csharp
+  - vb
+  name: SetKeySerializer(ISerializer<TKey>)
+  nameWithType: ProducerOptionsBuilder<TKey, TValue>.SetKeySerializer(ISerializer<TKey>)
+  fullName: Cheetah.Kafka.ProducerOptionsBuilder<TKey, TValue>.SetKeySerializer(Confluent.Kafka.ISerializer<TKey>)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Options/ProducerOptions.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: SetKeySerializer
+    path: ../src/Cheetah.Kafka/Options/ProducerOptions.cs
+    startLine: 83
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka
+  summary: Sets the key serializer.
+  example: []
+  syntax:
+    content: public ProducerOptionsBuilder<TKey, TValue> SetKeySerializer(ISerializer<TKey> keySerializer)
+    parameters:
+    - id: keySerializer
+      type: Confluent.Kafka.ISerializer{{TKey}}
+      description: The key serializer.
+    return:
+      type: Cheetah.Kafka.ProducerOptionsBuilder`2
+      description: The builder instance.
+    content.vb: Public Function SetKeySerializer(keySerializer As ISerializer(Of TKey)) As ProducerOptionsBuilder(Of TKey, TValue)
+  overload: Cheetah.Kafka.ProducerOptionsBuilder`2.SetKeySerializer*
+  nameWithType.vb: ProducerOptionsBuilder(Of TKey, TValue).SetKeySerializer(ISerializer(Of TKey))
+  fullName.vb: Cheetah.Kafka.ProducerOptionsBuilder(Of TKey, TValue).SetKeySerializer(Confluent.Kafka.ISerializer(Of TKey))
+  name.vb: SetKeySerializer(ISerializer(Of TKey))
+- uid: Cheetah.Kafka.ProducerOptionsBuilder`2.ConfigureClient(System.Action{Confluent.Kafka.ProducerConfig})
+  commentId: M:Cheetah.Kafka.ProducerOptionsBuilder`2.ConfigureClient(System.Action{Confluent.Kafka.ProducerConfig})
+  id: ConfigureClient(System.Action{Confluent.Kafka.ProducerConfig})
+  parent: Cheetah.Kafka.ProducerOptionsBuilder`2
+  langs:
+  - csharp
+  - vb
+  name: ConfigureClient(Action<ProducerConfig>)
+  nameWithType: ProducerOptionsBuilder<TKey, TValue>.ConfigureClient(Action<ProducerConfig>)
+  fullName: Cheetah.Kafka.ProducerOptionsBuilder<TKey, TValue>.ConfigureClient(System.Action<Confluent.Kafka.ProducerConfig>)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Options/ProducerOptions.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: ConfigureClient
+    path: ../src/Cheetah.Kafka/Options/ProducerOptions.cs
+    startLine: 94
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka
+  summary: Configures the producer with the provided action.
+  example: []
+  syntax:
+    content: public ProducerOptionsBuilder<TKey, TValue> ConfigureClient(Action<ProducerConfig> configureAction)
+    parameters:
+    - id: configureAction
+      type: System.Action{Confluent.Kafka.ProducerConfig}
+      description: The action to configure the producer.
+    return:
+      type: Cheetah.Kafka.ProducerOptionsBuilder`2
+      description: The builder instance.
+    content.vb: Public Function ConfigureClient(configureAction As Action(Of ProducerConfig)) As ProducerOptionsBuilder(Of TKey, TValue)
+  overload: Cheetah.Kafka.ProducerOptionsBuilder`2.ConfigureClient*
+  nameWithType.vb: ProducerOptionsBuilder(Of TKey, TValue).ConfigureClient(Action(Of ProducerConfig))
+  fullName.vb: Cheetah.Kafka.ProducerOptionsBuilder(Of TKey, TValue).ConfigureClient(System.Action(Of Confluent.Kafka.ProducerConfig))
+  name.vb: ConfigureClient(Action(Of ProducerConfig))
+- uid: Cheetah.Kafka.ProducerOptionsBuilder`2.ConfigureBuilder(System.Action{Confluent.Kafka.ProducerBuilder{`0,`1}})
+  commentId: M:Cheetah.Kafka.ProducerOptionsBuilder`2.ConfigureBuilder(System.Action{Confluent.Kafka.ProducerBuilder{`0,`1}})
+  id: ConfigureBuilder(System.Action{Confluent.Kafka.ProducerBuilder{`0,`1}})
+  parent: Cheetah.Kafka.ProducerOptionsBuilder`2
+  langs:
+  - csharp
+  - vb
+  name: ConfigureBuilder(Action<ProducerBuilder<TKey, TValue>>)
+  nameWithType: ProducerOptionsBuilder<TKey, TValue>.ConfigureBuilder(Action<ProducerBuilder<TKey, TValue>>)
+  fullName: Cheetah.Kafka.ProducerOptionsBuilder<TKey, TValue>.ConfigureBuilder(System.Action<Confluent.Kafka.ProducerBuilder<TKey, TValue>>)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Options/ProducerOptions.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: ConfigureBuilder
+    path: ../src/Cheetah.Kafka/Options/ProducerOptions.cs
+    startLine: 105
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka
+  summary: Configures the producer builder with the provided action.
+  example: []
+  syntax:
+    content: public ProducerOptionsBuilder<TKey, TValue> ConfigureBuilder(Action<ProducerBuilder<TKey, TValue>> builderAction)
+    parameters:
+    - id: builderAction
+      type: System.Action{Confluent.Kafka.ProducerBuilder{{TKey},{TValue}}}
+      description: The action to configure the producer builder.
+    return:
+      type: Cheetah.Kafka.ProducerOptionsBuilder`2
+      description: The builder instance.
+    content.vb: Public Function ConfigureBuilder(builderAction As Action(Of ProducerBuilder(Of TKey, TValue))) As ProducerOptionsBuilder(Of TKey, TValue)
+  overload: Cheetah.Kafka.ProducerOptionsBuilder`2.ConfigureBuilder*
+  nameWithType.vb: ProducerOptionsBuilder(Of TKey, TValue).ConfigureBuilder(Action(Of ProducerBuilder(Of TKey, TValue)))
+  fullName.vb: Cheetah.Kafka.ProducerOptionsBuilder(Of TKey, TValue).ConfigureBuilder(System.Action(Of Confluent.Kafka.ProducerBuilder(Of TKey, TValue)))
+  name.vb: ConfigureBuilder(Action(Of ProducerBuilder(Of TKey, TValue)))
+- uid: Cheetah.Kafka.ProducerOptionsBuilder`2.Build(System.IServiceProvider)
+  commentId: M:Cheetah.Kafka.ProducerOptionsBuilder`2.Build(System.IServiceProvider)
+  id: Build(System.IServiceProvider)
+  parent: Cheetah.Kafka.ProducerOptionsBuilder`2
+  langs:
+  - csharp
+  - vb
+  name: Build(IServiceProvider)
+  nameWithType: ProducerOptionsBuilder<TKey, TValue>.Build(IServiceProvider)
+  fullName: Cheetah.Kafka.ProducerOptionsBuilder<TKey, TValue>.Build(System.IServiceProvider)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Options/ProducerOptions.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: Build
+    path: ../src/Cheetah.Kafka/Options/ProducerOptions.cs
+    startLine: 118
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka
+  summary: Builds the producer options.
+  example: []
+  syntax:
+    content: public ProducerOptions<TKey, TValue> Build(IServiceProvider serviceProvider)
+    parameters:
+    - id: serviceProvider
+      type: System.IServiceProvider
+      description: The service provider.
+    return:
+      type: Cheetah.Kafka.ProducerOptions{{TKey},{TValue}}
+      description: The configured producer options.
+    content.vb: Public Function Build(serviceProvider As IServiceProvider) As ProducerOptions(Of TKey, TValue)
+  overload: Cheetah.Kafka.ProducerOptionsBuilder`2.Build*
+  nameWithType.vb: ProducerOptionsBuilder(Of TKey, TValue).Build(IServiceProvider)
+  fullName.vb: Cheetah.Kafka.ProducerOptionsBuilder(Of TKey, TValue).Build(System.IServiceProvider)
+- uid: Cheetah.Kafka.ProducerOptionsBuilder`2.Build
+  commentId: M:Cheetah.Kafka.ProducerOptionsBuilder`2.Build
+  id: Build
+  parent: Cheetah.Kafka.ProducerOptionsBuilder`2
+  langs:
+  - csharp
+  - vb
+  name: Build()
+  nameWithType: ProducerOptionsBuilder<TKey, TValue>.Build()
+  fullName: Cheetah.Kafka.ProducerOptionsBuilder<TKey, TValue>.Build()
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Options/ProducerOptions.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: Build
+    path: ../src/Cheetah.Kafka/Options/ProducerOptions.cs
+    startLine: 136
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka
+  summary: Builds the producer options.
+  example: []
+  syntax:
+    content: public ProducerOptions<TKey, TValue> Build()
+    return:
+      type: Cheetah.Kafka.ProducerOptions{{TKey},{TValue}}
+      description: The configured producer options.
+    content.vb: Public Function Build() As ProducerOptions(Of TKey, TValue)
+  overload: Cheetah.Kafka.ProducerOptionsBuilder`2.Build*
+  nameWithType.vb: ProducerOptionsBuilder(Of TKey, TValue).Build()
+  fullName.vb: Cheetah.Kafka.ProducerOptionsBuilder(Of TKey, TValue).Build()
+references:
+- uid: Cheetah.Kafka.ProducerOptions`2
+  commentId: T:Cheetah.Kafka.ProducerOptions`2
+  href: Cheetah.Kafka.ProducerOptions-2.html
+  name: ProducerOptions<TKey, TValue>
+  nameWithType: ProducerOptions<TKey, TValue>
+  fullName: Cheetah.Kafka.ProducerOptions<TKey, TValue>
+  nameWithType.vb: ProducerOptions(Of TKey, TValue)
+  fullName.vb: Cheetah.Kafka.ProducerOptions(Of TKey, TValue)
+  name.vb: ProducerOptions(Of TKey, TValue)
+  spec.csharp:
+  - uid: Cheetah.Kafka.ProducerOptions`2
+    name: ProducerOptions
+    href: Cheetah.Kafka.ProducerOptions-2.html
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: Cheetah.Kafka.ProducerOptions`2
+    name: ProducerOptions
+    href: Cheetah.Kafka.ProducerOptions-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: Cheetah.Kafka
+  commentId: N:Cheetah.Kafka
+  href: Cheetah.html
+  name: Cheetah.Kafka
+  nameWithType: Cheetah.Kafka
+  fullName: Cheetah.Kafka
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Cheetah.Kafka.ProducerOptionsBuilder`2.SetValueSerializer*
+  commentId: Overload:Cheetah.Kafka.ProducerOptionsBuilder`2.SetValueSerializer
+  href: Cheetah.Kafka.ProducerOptionsBuilder-2.html#Cheetah_Kafka_ProducerOptionsBuilder_2_SetValueSerializer_System_Func_System_IServiceProvider_Confluent_Kafka_ISerializer__1___
+  name: SetValueSerializer
+  nameWithType: ProducerOptionsBuilder<TKey, TValue>.SetValueSerializer
+  fullName: Cheetah.Kafka.ProducerOptionsBuilder<TKey, TValue>.SetValueSerializer
+  nameWithType.vb: ProducerOptionsBuilder(Of TKey, TValue).SetValueSerializer
+  fullName.vb: Cheetah.Kafka.ProducerOptionsBuilder(Of TKey, TValue).SetValueSerializer
+- uid: System.Func{System.IServiceProvider,Confluent.Kafka.ISerializer{{TValue}}}
+  commentId: T:System.Func{System.IServiceProvider,Confluent.Kafka.ISerializer{`1}}
+  parent: System
+  definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<IServiceProvider, ISerializer<TValue>>
+  nameWithType: Func<IServiceProvider, ISerializer<TValue>>
+  fullName: System.Func<System.IServiceProvider, Confluent.Kafka.ISerializer<TValue>>
+  nameWithType.vb: Func(Of IServiceProvider, ISerializer(Of TValue))
+  fullName.vb: System.Func(Of System.IServiceProvider, Confluent.Kafka.ISerializer(Of TValue))
+  name.vb: Func(Of IServiceProvider, ISerializer(Of TValue))
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: System.IServiceProvider
+    name: IServiceProvider
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iserviceprovider
+  - name: ','
+  - name: " "
+  - uid: Confluent.Kafka.ISerializer`1
+    name: ISerializer
+    isExternal: true
+  - name: <
+  - name: TValue
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.IServiceProvider
+    name: IServiceProvider
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iserviceprovider
+  - name: ','
+  - name: " "
+  - uid: Confluent.Kafka.ISerializer`1
+    name: ISerializer
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TValue
+  - name: )
+  - name: )
+- uid: Cheetah.Kafka.ProducerOptionsBuilder`2
+  commentId: T:Cheetah.Kafka.ProducerOptionsBuilder`2
+  parent: Cheetah.Kafka
+  href: Cheetah.Kafka.ProducerOptionsBuilder-2.html
+  name: ProducerOptionsBuilder<TKey, TValue>
+  nameWithType: ProducerOptionsBuilder<TKey, TValue>
+  fullName: Cheetah.Kafka.ProducerOptionsBuilder<TKey, TValue>
+  nameWithType.vb: ProducerOptionsBuilder(Of TKey, TValue)
+  fullName.vb: Cheetah.Kafka.ProducerOptionsBuilder(Of TKey, TValue)
+  name.vb: ProducerOptionsBuilder(Of TKey, TValue)
+  spec.csharp:
+  - uid: Cheetah.Kafka.ProducerOptionsBuilder`2
+    name: ProducerOptionsBuilder
+    href: Cheetah.Kafka.ProducerOptionsBuilder-2.html
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: Cheetah.Kafka.ProducerOptionsBuilder`2
+    name: ProducerOptionsBuilder
+    href: Cheetah.Kafka.ProducerOptionsBuilder-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: Confluent.Kafka.ISerializer{{TValue}}
+  commentId: T:Confluent.Kafka.ISerializer{`1}
+  parent: Confluent.Kafka
+  definition: Confluent.Kafka.ISerializer`1
+  name: ISerializer<TValue>
+  nameWithType: ISerializer<TValue>
+  fullName: Confluent.Kafka.ISerializer<TValue>
+  nameWithType.vb: ISerializer(Of TValue)
+  fullName.vb: Confluent.Kafka.ISerializer(Of TValue)
+  name.vb: ISerializer(Of TValue)
+  spec.csharp:
+  - uid: Confluent.Kafka.ISerializer`1
+    name: ISerializer
+    isExternal: true
+  - name: <
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: Confluent.Kafka.ISerializer`1
+    name: ISerializer
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: Confluent.Kafka.ISerializer`1
+  commentId: T:Confluent.Kafka.ISerializer`1
+  isExternal: true
+  name: ISerializer<T>
+  nameWithType: ISerializer<T>
+  fullName: Confluent.Kafka.ISerializer<T>
+  nameWithType.vb: ISerializer(Of T)
+  fullName.vb: Confluent.Kafka.ISerializer(Of T)
+  name.vb: ISerializer(Of T)
+  spec.csharp:
+  - uid: Confluent.Kafka.ISerializer`1
+    name: ISerializer
+    isExternal: true
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Confluent.Kafka.ISerializer`1
+    name: ISerializer
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Confluent.Kafka
+  commentId: N:Confluent.Kafka
+  isExternal: true
+  name: Confluent.Kafka
+  nameWithType: Confluent.Kafka
+  fullName: Confluent.Kafka
+  spec.csharp:
+  - uid: Confluent
+    name: Confluent
+    isExternal: true
+  - name: .
+  - uid: Confluent.Kafka
+    name: Kafka
+    isExternal: true
+  spec.vb:
+  - uid: Confluent
+    name: Confluent
+    isExternal: true
+  - name: .
+  - uid: Confluent.Kafka
+    name: Kafka
+    isExternal: true
+- uid: Cheetah.Kafka.ProducerOptionsBuilder`2.SetKeySerializer*
+  commentId: Overload:Cheetah.Kafka.ProducerOptionsBuilder`2.SetKeySerializer
+  href: Cheetah.Kafka.ProducerOptionsBuilder-2.html#Cheetah_Kafka_ProducerOptionsBuilder_2_SetKeySerializer_System_Func_System_IServiceProvider_Confluent_Kafka_ISerializer__0___
+  name: SetKeySerializer
+  nameWithType: ProducerOptionsBuilder<TKey, TValue>.SetKeySerializer
+  fullName: Cheetah.Kafka.ProducerOptionsBuilder<TKey, TValue>.SetKeySerializer
+  nameWithType.vb: ProducerOptionsBuilder(Of TKey, TValue).SetKeySerializer
+  fullName.vb: Cheetah.Kafka.ProducerOptionsBuilder(Of TKey, TValue).SetKeySerializer
+- uid: System.Func{System.IServiceProvider,Confluent.Kafka.ISerializer{{TKey}}}
+  commentId: T:System.Func{System.IServiceProvider,Confluent.Kafka.ISerializer{`0}}
+  parent: System
+  definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<IServiceProvider, ISerializer<TKey>>
+  nameWithType: Func<IServiceProvider, ISerializer<TKey>>
+  fullName: System.Func<System.IServiceProvider, Confluent.Kafka.ISerializer<TKey>>
+  nameWithType.vb: Func(Of IServiceProvider, ISerializer(Of TKey))
+  fullName.vb: System.Func(Of System.IServiceProvider, Confluent.Kafka.ISerializer(Of TKey))
+  name.vb: Func(Of IServiceProvider, ISerializer(Of TKey))
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: System.IServiceProvider
+    name: IServiceProvider
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iserviceprovider
+  - name: ','
+  - name: " "
+  - uid: Confluent.Kafka.ISerializer`1
+    name: ISerializer
+    isExternal: true
+  - name: <
+  - name: TKey
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.IServiceProvider
+    name: IServiceProvider
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iserviceprovider
+  - name: ','
+  - name: " "
+  - uid: Confluent.Kafka.ISerializer`1
+    name: ISerializer
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: )
+  - name: )
+- uid: Confluent.Kafka.ISerializer{{TKey}}
+  commentId: T:Confluent.Kafka.ISerializer{`0}
+  parent: Confluent.Kafka
+  definition: Confluent.Kafka.ISerializer`1
+  name: ISerializer<TKey>
+  nameWithType: ISerializer<TKey>
+  fullName: Confluent.Kafka.ISerializer<TKey>
+  nameWithType.vb: ISerializer(Of TKey)
+  fullName.vb: Confluent.Kafka.ISerializer(Of TKey)
+  name.vb: ISerializer(Of TKey)
+  spec.csharp:
+  - uid: Confluent.Kafka.ISerializer`1
+    name: ISerializer
+    isExternal: true
+  - name: <
+  - name: TKey
+  - name: '>'
+  spec.vb:
+  - uid: Confluent.Kafka.ISerializer`1
+    name: ISerializer
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: )
+- uid: Cheetah.Kafka.ProducerOptionsBuilder`2.ConfigureClient*
+  commentId: Overload:Cheetah.Kafka.ProducerOptionsBuilder`2.ConfigureClient
+  href: Cheetah.Kafka.ProducerOptionsBuilder-2.html#Cheetah_Kafka_ProducerOptionsBuilder_2_ConfigureClient_System_Action_Confluent_Kafka_ProducerConfig__
+  name: ConfigureClient
+  nameWithType: ProducerOptionsBuilder<TKey, TValue>.ConfigureClient
+  fullName: Cheetah.Kafka.ProducerOptionsBuilder<TKey, TValue>.ConfigureClient
+  nameWithType.vb: ProducerOptionsBuilder(Of TKey, TValue).ConfigureClient
+  fullName.vb: Cheetah.Kafka.ProducerOptionsBuilder(Of TKey, TValue).ConfigureClient
+- uid: System.Action{Confluent.Kafka.ProducerConfig}
+  commentId: T:System.Action{Confluent.Kafka.ProducerConfig}
+  parent: System
+  definition: System.Action`1
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<ProducerConfig>
+  nameWithType: Action<ProducerConfig>
+  fullName: System.Action<Confluent.Kafka.ProducerConfig>
+  nameWithType.vb: Action(Of ProducerConfig)
+  fullName.vb: System.Action(Of Confluent.Kafka.ProducerConfig)
+  name.vb: Action(Of ProducerConfig)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - uid: Confluent.Kafka.ProducerConfig
+    name: ProducerConfig
+    isExternal: true
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Confluent.Kafka.ProducerConfig
+    name: ProducerConfig
+    isExternal: true
+  - name: )
+- uid: System.Action`1
+  commentId: T:System.Action`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Cheetah.Kafka.ProducerOptionsBuilder`2.ConfigureBuilder*
+  commentId: Overload:Cheetah.Kafka.ProducerOptionsBuilder`2.ConfigureBuilder
+  href: Cheetah.Kafka.ProducerOptionsBuilder-2.html#Cheetah_Kafka_ProducerOptionsBuilder_2_ConfigureBuilder_System_Action_Confluent_Kafka_ProducerBuilder__0__1___
+  name: ConfigureBuilder
+  nameWithType: ProducerOptionsBuilder<TKey, TValue>.ConfigureBuilder
+  fullName: Cheetah.Kafka.ProducerOptionsBuilder<TKey, TValue>.ConfigureBuilder
+  nameWithType.vb: ProducerOptionsBuilder(Of TKey, TValue).ConfigureBuilder
+  fullName.vb: Cheetah.Kafka.ProducerOptionsBuilder(Of TKey, TValue).ConfigureBuilder
+- uid: System.Action{Confluent.Kafka.ProducerBuilder{{TKey},{TValue}}}
+  commentId: T:System.Action{Confluent.Kafka.ProducerBuilder{`0,`1}}
+  parent: System
+  definition: System.Action`1
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<ProducerBuilder<TKey, TValue>>
+  nameWithType: Action<ProducerBuilder<TKey, TValue>>
+  fullName: System.Action<Confluent.Kafka.ProducerBuilder<TKey, TValue>>
+  nameWithType.vb: Action(Of ProducerBuilder(Of TKey, TValue))
+  fullName.vb: System.Action(Of Confluent.Kafka.ProducerBuilder(Of TKey, TValue))
+  name.vb: Action(Of ProducerBuilder(Of TKey, TValue))
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - uid: Confluent.Kafka.ProducerBuilder`2
+    name: ProducerBuilder
+    isExternal: true
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Confluent.Kafka.ProducerBuilder`2
+    name: ProducerBuilder
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+  - name: )
+- uid: Cheetah.Kafka.ProducerOptionsBuilder`2.Build*
+  commentId: Overload:Cheetah.Kafka.ProducerOptionsBuilder`2.Build
+  href: Cheetah.Kafka.ProducerOptionsBuilder-2.html#Cheetah_Kafka_ProducerOptionsBuilder_2_Build_System_IServiceProvider_
+  name: Build
+  nameWithType: ProducerOptionsBuilder<TKey, TValue>.Build
+  fullName: Cheetah.Kafka.ProducerOptionsBuilder<TKey, TValue>.Build
+  nameWithType.vb: ProducerOptionsBuilder(Of TKey, TValue).Build
+  fullName.vb: Cheetah.Kafka.ProducerOptionsBuilder(Of TKey, TValue).Build
+- uid: System.IServiceProvider
+  commentId: T:System.IServiceProvider
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iserviceprovider
+  name: IServiceProvider
+  nameWithType: IServiceProvider
+  fullName: System.IServiceProvider
+- uid: Cheetah.Kafka.ProducerOptions{{TKey},{TValue}}
+  commentId: T:Cheetah.Kafka.ProducerOptions{``0,``1}
+  parent: Cheetah.Kafka
+  definition: Cheetah.Kafka.ProducerOptions`2
+  href: Cheetah.Kafka.ProducerOptions-2.html
+  name: ProducerOptions<TKey, TValue>
+  nameWithType: ProducerOptions<TKey, TValue>
+  fullName: Cheetah.Kafka.ProducerOptions<TKey, TValue>
+  nameWithType.vb: ProducerOptions(Of TKey, TValue)
+  fullName.vb: Cheetah.Kafka.ProducerOptions(Of TKey, TValue)
+  name.vb: ProducerOptions(Of TKey, TValue)
+  spec.csharp:
+  - uid: Cheetah.Kafka.ProducerOptions`2
+    name: ProducerOptions
+    href: Cheetah.Kafka.ProducerOptions-2.html
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: Cheetah.Kafka.ProducerOptions`2
+    name: ProducerOptions
+    href: Cheetah.Kafka.ProducerOptions-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )

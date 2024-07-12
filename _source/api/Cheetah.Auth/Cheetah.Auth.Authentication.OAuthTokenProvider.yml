@@ -1,0 +1,433 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.Auth.Authentication.OAuthTokenProvider
+  commentId: T:Cheetah.Auth.Authentication.OAuthTokenProvider
+  id: OAuthTokenProvider
+  parent: Cheetah.Auth.Authentication
+  children:
+  - Cheetah.Auth.Authentication.OAuthTokenProvider.#ctor(Cheetah.Auth.Configuration.OAuth2Config,System.Net.Http.IHttpClientFactory)
+  - Cheetah.Auth.Authentication.OAuthTokenProvider.GetTokenResponse(System.Threading.CancellationToken)
+  langs:
+  - csharp
+  - vb
+  name: OAuthTokenProvider
+  nameWithType: OAuthTokenProvider
+  fullName: Cheetah.Auth.Authentication.OAuthTokenProvider
+  type: Class
+  source:
+    remote:
+      path: src/Cheetah.Auth/Authentication/OAuthTokenProvider.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: OAuthTokenProvider
+    path: ../src/Cheetah.Auth/Authentication/OAuthTokenProvider.cs
+    startLine: 11
+  assemblies:
+  - Cheetah.Auth
+  namespace: Cheetah.Auth.Authentication
+  summary: OAuth2 token provider to retrieve OAuth2 tokens.
+  example: []
+  syntax:
+    content: 'public class OAuthTokenProvider : ICachableTokenProvider'
+    content.vb: Public Class OAuthTokenProvider Implements ICachableTokenProvider
+  inheritance:
+  - System.Object
+  implements:
+  - Cheetah.Auth.Authentication.ICachableTokenProvider
+- uid: Cheetah.Auth.Authentication.OAuthTokenProvider.#ctor(Cheetah.Auth.Configuration.OAuth2Config,System.Net.Http.IHttpClientFactory)
+  commentId: M:Cheetah.Auth.Authentication.OAuthTokenProvider.#ctor(Cheetah.Auth.Configuration.OAuth2Config,System.Net.Http.IHttpClientFactory)
+  id: '#ctor(Cheetah.Auth.Configuration.OAuth2Config,System.Net.Http.IHttpClientFactory)'
+  parent: Cheetah.Auth.Authentication.OAuthTokenProvider
+  langs:
+  - csharp
+  - vb
+  name: OAuthTokenProvider(OAuth2Config, IHttpClientFactory)
+  nameWithType: OAuthTokenProvider.OAuthTokenProvider(OAuth2Config, IHttpClientFactory)
+  fullName: Cheetah.Auth.Authentication.OAuthTokenProvider.OAuthTokenProvider(Cheetah.Auth.Configuration.OAuth2Config, System.Net.Http.IHttpClientFactory)
+  type: Constructor
+  source:
+    remote:
+      path: src/Cheetah.Auth/Authentication/OAuthTokenProvider.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: .ctor
+    path: ../src/Cheetah.Auth/Authentication/OAuthTokenProvider.cs
+    startLine: 22
+  assemblies:
+  - Cheetah.Auth
+  namespace: Cheetah.Auth.Authentication
+  summary: Creates a new instance of <xref href="Cheetah.Auth.Authentication.OAuthTokenProvider" data-throw-if-not-resolved="false"></xref>
+  example: []
+  syntax:
+    content: public OAuthTokenProvider(OAuth2Config config, IHttpClientFactory httpClientFactory)
+    parameters:
+    - id: config
+      type: Cheetah.Auth.Configuration.OAuth2Config
+      description: OAuth2 configuration
+    - id: httpClientFactory
+      type: System.Net.Http.IHttpClientFactory
+      description: httpClientFactory to create a httpClient
+    content.vb: Public Sub New(config As OAuth2Config, httpClientFactory As IHttpClientFactory)
+  overload: Cheetah.Auth.Authentication.OAuthTokenProvider.#ctor*
+  nameWithType.vb: OAuthTokenProvider.New(OAuth2Config, IHttpClientFactory)
+  fullName.vb: Cheetah.Auth.Authentication.OAuthTokenProvider.New(Cheetah.Auth.Configuration.OAuth2Config, System.Net.Http.IHttpClientFactory)
+  name.vb: New(OAuth2Config, IHttpClientFactory)
+- uid: Cheetah.Auth.Authentication.OAuthTokenProvider.GetTokenResponse(System.Threading.CancellationToken)
+  commentId: M:Cheetah.Auth.Authentication.OAuthTokenProvider.GetTokenResponse(System.Threading.CancellationToken)
+  id: GetTokenResponse(System.Threading.CancellationToken)
+  parent: Cheetah.Auth.Authentication.OAuthTokenProvider
+  langs:
+  - csharp
+  - vb
+  name: GetTokenResponse(CancellationToken)
+  nameWithType: OAuthTokenProvider.GetTokenResponse(CancellationToken)
+  fullName: Cheetah.Auth.Authentication.OAuthTokenProvider.GetTokenResponse(System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Auth/Authentication/OAuthTokenProvider.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: GetTokenResponse
+    path: ../src/Cheetah.Auth/Authentication/OAuthTokenProvider.cs
+    startLine: 33
+  assemblies:
+  - Cheetah.Auth
+  namespace: Cheetah.Auth.Authentication
+  summary: Get a token response asynchronously.
+  example: []
+  syntax:
+    content: public Task<TokenResponse?> GetTokenResponse(CancellationToken cancellationToken)
+    parameters:
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: ''
+    return:
+      type: System.Threading.Tasks.Task{IdentityModel.Client.TokenResponse}
+      description: TokenResponse
+    content.vb: Public Function GetTokenResponse(cancellationToken As CancellationToken) As Task(Of TokenResponse)
+  overload: Cheetah.Auth.Authentication.OAuthTokenProvider.GetTokenResponse*
+  implements:
+  - Cheetah.Auth.Authentication.ICachableTokenProvider.GetTokenResponse(System.Threading.CancellationToken)
+references:
+- uid: Cheetah.Auth.Authentication
+  commentId: N:Cheetah.Auth.Authentication
+  href: Cheetah.html
+  name: Cheetah.Auth.Authentication
+  nameWithType: Cheetah.Auth.Authentication
+  fullName: Cheetah.Auth.Authentication
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+    href: Cheetah.Auth.html
+  - name: .
+  - uid: Cheetah.Auth.Authentication
+    name: Authentication
+    href: Cheetah.Auth.Authentication.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+    href: Cheetah.Auth.html
+  - name: .
+  - uid: Cheetah.Auth.Authentication
+    name: Authentication
+    href: Cheetah.Auth.Authentication.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Cheetah.Auth.Authentication.ICachableTokenProvider
+  commentId: T:Cheetah.Auth.Authentication.ICachableTokenProvider
+  parent: Cheetah.Auth.Authentication
+  href: Cheetah.Auth.Authentication.ICachableTokenProvider.html
+  name: ICachableTokenProvider
+  nameWithType: ICachableTokenProvider
+  fullName: Cheetah.Auth.Authentication.ICachableTokenProvider
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Cheetah.Auth.Authentication.OAuthTokenProvider
+  commentId: T:Cheetah.Auth.Authentication.OAuthTokenProvider
+  href: Cheetah.Auth.Authentication.OAuthTokenProvider.html
+  name: OAuthTokenProvider
+  nameWithType: OAuthTokenProvider
+  fullName: Cheetah.Auth.Authentication.OAuthTokenProvider
+- uid: Cheetah.Auth.Authentication.OAuthTokenProvider.#ctor*
+  commentId: Overload:Cheetah.Auth.Authentication.OAuthTokenProvider.#ctor
+  href: Cheetah.Auth.Authentication.OAuthTokenProvider.html#Cheetah_Auth_Authentication_OAuthTokenProvider__ctor_Cheetah_Auth_Configuration_OAuth2Config_System_Net_Http_IHttpClientFactory_
+  name: OAuthTokenProvider
+  nameWithType: OAuthTokenProvider.OAuthTokenProvider
+  fullName: Cheetah.Auth.Authentication.OAuthTokenProvider.OAuthTokenProvider
+  nameWithType.vb: OAuthTokenProvider.New
+  fullName.vb: Cheetah.Auth.Authentication.OAuthTokenProvider.New
+  name.vb: New
+- uid: Cheetah.Auth.Configuration.OAuth2Config
+  commentId: T:Cheetah.Auth.Configuration.OAuth2Config
+  parent: Cheetah.Auth.Configuration
+  href: Cheetah.Auth.Configuration.OAuth2Config.html
+  name: OAuth2Config
+  nameWithType: OAuth2Config
+  fullName: Cheetah.Auth.Configuration.OAuth2Config
+- uid: System.Net.Http.IHttpClientFactory
+  commentId: T:System.Net.Http.IHttpClientFactory
+  parent: System.Net.Http
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.net.http.ihttpclientfactory
+  name: IHttpClientFactory
+  nameWithType: IHttpClientFactory
+  fullName: System.Net.Http.IHttpClientFactory
+- uid: Cheetah.Auth.Configuration
+  commentId: N:Cheetah.Auth.Configuration
+  href: Cheetah.html
+  name: Cheetah.Auth.Configuration
+  nameWithType: Cheetah.Auth.Configuration
+  fullName: Cheetah.Auth.Configuration
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+    href: Cheetah.Auth.html
+  - name: .
+  - uid: Cheetah.Auth.Configuration
+    name: Configuration
+    href: Cheetah.Auth.Configuration.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+    href: Cheetah.Auth.html
+  - name: .
+  - uid: Cheetah.Auth.Configuration
+    name: Configuration
+    href: Cheetah.Auth.Configuration.html
+- uid: System.Net.Http
+  commentId: N:System.Net.Http
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Net.Http
+  nameWithType: System.Net.Http
+  fullName: System.Net.Http
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Net
+    name: Net
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net
+  - name: .
+  - uid: System.Net.Http
+    name: Http
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net.http
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Net
+    name: Net
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net
+  - name: .
+  - uid: System.Net.Http
+    name: Http
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net.http
+- uid: Cheetah.Auth.Authentication.OAuthTokenProvider.GetTokenResponse*
+  commentId: Overload:Cheetah.Auth.Authentication.OAuthTokenProvider.GetTokenResponse
+  href: Cheetah.Auth.Authentication.OAuthTokenProvider.html#Cheetah_Auth_Authentication_OAuthTokenProvider_GetTokenResponse_System_Threading_CancellationToken_
+  name: GetTokenResponse
+  nameWithType: OAuthTokenProvider.GetTokenResponse
+  fullName: Cheetah.Auth.Authentication.OAuthTokenProvider.GetTokenResponse
+- uid: Cheetah.Auth.Authentication.ICachableTokenProvider.GetTokenResponse(System.Threading.CancellationToken)
+  commentId: M:Cheetah.Auth.Authentication.ICachableTokenProvider.GetTokenResponse(System.Threading.CancellationToken)
+  parent: Cheetah.Auth.Authentication.ICachableTokenProvider
+  isExternal: true
+  href: Cheetah.Auth.Authentication.ICachableTokenProvider.html#Cheetah_Auth_Authentication_ICachableTokenProvider_GetTokenResponse_System_Threading_CancellationToken_
+  name: GetTokenResponse(CancellationToken)
+  nameWithType: ICachableTokenProvider.GetTokenResponse(CancellationToken)
+  fullName: Cheetah.Auth.Authentication.ICachableTokenProvider.GetTokenResponse(System.Threading.CancellationToken)
+  spec.csharp:
+  - uid: Cheetah.Auth.Authentication.ICachableTokenProvider.GetTokenResponse(System.Threading.CancellationToken)
+    name: GetTokenResponse
+    href: Cheetah.Auth.Authentication.ICachableTokenProvider.html#Cheetah_Auth_Authentication_ICachableTokenProvider_GetTokenResponse_System_Threading_CancellationToken_
+  - name: (
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+  spec.vb:
+  - uid: Cheetah.Auth.Authentication.ICachableTokenProvider.GetTokenResponse(System.Threading.CancellationToken)
+    name: GetTokenResponse
+    href: Cheetah.Auth.Authentication.ICachableTokenProvider.html#Cheetah_Auth_Authentication_ICachableTokenProvider_GetTokenResponse_System_Threading_CancellationToken_
+  - name: (
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+- uid: System.Threading.CancellationToken
+  commentId: T:System.Threading.CancellationToken
+  parent: System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  name: CancellationToken
+  nameWithType: CancellationToken
+  fullName: System.Threading.CancellationToken
+- uid: System.Threading.Tasks.Task{IdentityModel.Client.TokenResponse}
+  commentId: T:System.Threading.Tasks.Task{IdentityModel.Client.TokenResponse}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TokenResponse>
+  nameWithType: Task<TokenResponse>
+  fullName: System.Threading.Tasks.Task<IdentityModel.Client.TokenResponse>
+  nameWithType.vb: Task(Of TokenResponse)
+  fullName.vb: System.Threading.Tasks.Task(Of IdentityModel.Client.TokenResponse)
+  name.vb: Task(Of TokenResponse)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: IdentityModel.Client.TokenResponse
+    name: TokenResponse
+    isExternal: true
+    href: https://github.com/IdentityModel/IdentityModel/blob/main/src/Client/Messages/TokenResponse.cs
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdentityModel.Client.TokenResponse
+    name: TokenResponse
+    isExternal: true
+    href: https://github.com/IdentityModel/IdentityModel/blob/main/src/Client/Messages/TokenResponse.cs
+  - name: )
+- uid: System.Threading
+  commentId: N:System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading
+  nameWithType: System.Threading
+  fullName: System.Threading
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks

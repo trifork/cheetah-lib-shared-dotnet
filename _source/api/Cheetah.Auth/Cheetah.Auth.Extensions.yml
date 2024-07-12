@@ -1,0 +1,23 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.Auth.Extensions
+  commentId: N:Cheetah.Auth.Extensions
+  id: Cheetah.Auth.Extensions
+  children:
+  - Cheetah.Auth.Extensions.ServiceCollectionExtensions
+  langs:
+  - csharp
+  - vb
+  name: Cheetah.Auth.Extensions
+  nameWithType: Cheetah.Auth.Extensions
+  fullName: Cheetah.Auth.Extensions
+  type: Namespace
+  assemblies:
+  - Cheetah.Auth
+references:
+- uid: Cheetah.Auth.Extensions.ServiceCollectionExtensions
+  commentId: T:Cheetah.Auth.Extensions.ServiceCollectionExtensions
+  href: Cheetah.Auth.Extensions.ServiceCollectionExtensions.html
+  name: ServiceCollectionExtensions
+  nameWithType: ServiceCollectionExtensions
+  fullName: Cheetah.Auth.Extensions.ServiceCollectionExtensions
