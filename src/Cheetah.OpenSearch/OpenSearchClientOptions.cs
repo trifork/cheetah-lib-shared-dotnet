@@ -18,7 +18,7 @@ namespace Cheetah.OpenSearch
         /// <summary>
         /// Retrieves the current <see cref="ConnectionSettings"/> used by the <see cref="OpenSearchClient"/>
         /// </summary>
-        internal Action<ConnectionSettings>? ConnectionSettings { get; set; }
+        internal Action<ConnectionSettings>? InternalConnectionSettings { get; set; }
 
         /// <summary>
         /// Configures the <see cref="JsonSerializerSettings"/> used by the <see cref="OpenSearchClient"/>
@@ -34,7 +34,7 @@ namespace Cheetah.OpenSearch
         }
 
         /// <summary>
-        /// Configures the <see cref="ConnectionSettings"/> used by the <see cref="OpenSearchClient"/>
+        /// Configures an internal <see cref="ConnectionSettings"/> used by the <see cref="OpenSearchClient"/>
         /// </summary>
         /// <param name="configure">Action which configures used <see cref="ConnectionSettings"/></param>
         /// <returns>This <see cref="OpenSearchClientOptions"/> instance for method chaining.</returns>
@@ -42,7 +42,7 @@ namespace Cheetah.OpenSearch
             Action<ConnectionSettings> configure
         )
         {
-            ConnectionSettings = configure;
+            InternalConnectionSettings = configure;
             return this;
         }
     }

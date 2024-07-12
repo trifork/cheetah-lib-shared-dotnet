@@ -38,13 +38,13 @@ builder.Services.AddCheetahKafka(builder.Configuration, options =>
     })
     .WithKeyedConsumer<string, ExampleModelAvro>("B", options =>
     {
-        options.SetKeyDeserializer(_ => Deserializers.Utf8);
+        options.SetKeyDeserializer(Deserializers.Utf8);
         options.SetValueDeserializer(AvroDeserializer.FromServices<ExampleModelAvro>());
 
     })
     .WithProducer<string, ExampleModelAvro>(options =>
     {
-        options.SetKeySerializer(_ => Serializers.Utf8);
+        options.SetKeySerializer(Serializers.Utf8);
         options.SetValueSerializer(AvroSerializer.FromServices<ExampleModelAvro>());
         options.ConfigureClient(cfg =>
         {
