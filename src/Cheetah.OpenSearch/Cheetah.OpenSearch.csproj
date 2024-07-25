@@ -22,6 +22,7 @@
       <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
       <PackageReference Include="OpenSearch.Client" Version="1.7.1" />
       <PackageReference Include="OpenSearch.Client.JsonNetSerializer" Version="1.7.1" />
+      <PackageReference Include="System.Text.Json" Version="8.0.4"/>
     </ItemGroup>
 
     <ItemGroup>        
