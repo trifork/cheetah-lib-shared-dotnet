@@ -1,4 +1,7 @@
 ﻿FROM mcr.microsoft.com/dotnet/runtime:8.0 AS base
+
+LABEL version="1.0.0"
+
 WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
