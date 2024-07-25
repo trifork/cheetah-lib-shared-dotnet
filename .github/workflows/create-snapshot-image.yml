@@ -1,0 +1,13 @@
+name: Create Snapshot
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create-snapshot:
+    uses: trifork/cheetah-infrastructure-utils/.github/workflows/docker-create-snapshot.yml@main
+    with:
+      image-name: cheetah-example-alertservice
+      dockerfile-path: src/Cheetah.Kafka.ExampleProcessor/Dockerfile
+    secrets:
+      TRIFORK_GITHUB_PAT: ${{ secrets.WRITE_PACKAGE_PAT }}
