@@ -1,7 +1,7 @@
 name: Create Snapshot
 
 on:
-  workflow_dispatch:
+  push:
 
 jobs:
   create-snapshot:
