@@ -3,12 +3,14 @@
 using Cheetah.Kafka.ExampleProcessor.Models;
 using Cheetah.Kafka.ExampleProcessor.Services;
 using Cheetah.Kafka.Extensions;
+using Cheetah.OpenSearch.Extensions;
+using Cheetah.OpenSearch.Util;
 using Cheetah.SchemaRegistry.Avro;
 using Cheetah.SchemaRegistry.Extensions;
-using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 
 var builder = new HostApplicationBuilder();
 builder
@@ -20,40 +22,39 @@ builder.Services.AddCheetahSchemaRegistry(builder.Configuration);
 
 builder.Services.AddCheetahKafka(builder.Configuration, options =>
     {
-        options.ConfigureDefaultSerializerProvider(AvroSerializerProvider.FromServices());
         options.ConfigureDefaultDeserializerProvider(AvroDeserializerProvider.FromServices());
         options.ConfigureDefaultConsumer(config =>
         {
             config.AllowAutoCreateTopics = true;
-            config.GroupId = "the-group";
         });
     })
-    .WithKeyedConsumer<string, ExampleModelAvro>("A", options =>
+    .WithConsumer<string, ExampleModelAvro>(options =>
     {
         options.SetValueDeserializer(AvroDeserializer.FromServices<ExampleModelAvro>());
         options.ConfigureClient(cfg =>
         {
             cfg.GroupId = "the-big-group";
         });
-    })
-    .WithKeyedConsumer<string, ExampleModelAvro>("B", options =>
-    {
-        options.SetKeyDeserializer(Deserializers.Utf8);
-        options.SetValueDeserializer(AvroDeserializer.FromServices<ExampleModelAvro>());
-
-    })
-    .WithProducer<string, ExampleModelAvro>(options =>
-    {
-        options.SetKeySerializer(Serializers.Utf8);
-        options.SetValueSerializer(AvroSerializer.FromServices<ExampleModelAvro>());
-        options.ConfigureClient(cfg =>
-        {
-            cfg.BatchSize = 100;
-        });
     });
+builder.Services.AddCheetahOpenSearch(
+    builder.Configuration,
+    cfg =>
+    {
+        cfg.WithConnectionSettings(settings =>
+        {
+            if (builder.Environment.IsDevelopment())
+            {
+                settings.DisableDirectStreaming();
+            }
+        });
+        cfg.WithJsonSerializerSettings(settings =>
+        {
+            settings.MissingMemberHandling = MissingMemberHandling.Error;
+            settings.Converters.Add(new UtcDateTimeConverter());
+        });
+    }
+);
 
-builder.Services.AddHostedService<ProducerService>();
-builder.Services.AddHostedService<AConsumerService>();
-builder.Services.AddHostedService<BConsumerService>();
+builder.Services.AddHostedService<ConsumerService>();
 
 await builder.Build().RunAsync();
