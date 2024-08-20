@@ -11,6 +11,7 @@ jobs:
 
   get-csproj-filepath:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     needs: run-tests
     outputs:
       project-name: ${{ steps.get-project-name.outputs.project-name }}

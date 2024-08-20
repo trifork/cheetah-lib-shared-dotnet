@@ -6,6 +6,7 @@ on:
 jobs:
   automerge:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: automerge for pull request
         if: ${{ github.actor == 'cheetahbot' }}

@@ -1,4 +1,4 @@
-name: Pusblish docfx
+name: Publish docfx
 
 on:
   workflow_dispatch:
@@ -23,6 +23,7 @@ concurrency:
 jobs:
   publish-docs:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

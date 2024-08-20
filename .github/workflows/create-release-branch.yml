@@ -23,6 +23,7 @@ on:
 jobs:
   get-csproj-filepath:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     outputs:
       csproj-filepath: ${{ steps.get-csproj-filepath.outputs.value }}
     steps:
