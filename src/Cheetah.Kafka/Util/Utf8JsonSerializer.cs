@@ -1,5 +1,5 @@
 using System.Text;
-using System.Text.Json;
+using Newtonsoft.Json;
 using Confluent.Kafka;
 
 namespace Cheetah.Kafka.Util
@@ -18,7 +18,7 @@ namespace Cheetah.Kafka.Util
         /// <returns>The serialized data as a byte-array</returns>
         public byte[] Serialize(T data, SerializationContext context)
         {
-            return Encoding.UTF8.GetBytes(JsonSerializer.Serialize(data));
+            return Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(data));
         }
     }
 }
