@@ -61,19 +61,11 @@ jobs:
           rm public/_source/api/.gitignore
           mv _site/ public/docs
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-          exclude_assets: ""
-          destination_dir: v${{ steps.get-version.outputs.version }}
+      - name: echo variables for gh pages
+        run: |
+          echo "version: ${{ steps.get-version.outputs.version }}"
+          echo "repo: ${{ github.repository }}"
+          echo "destination: v${{ steps.get-version.outputs.version }}"
 
-      - name: Repository Dispatch
-        uses: peter-evans/repository-dispatch@v3
-        with:
-          token: ${{ secrets.READ_PACKAGE_PAT }}
-          repository: trifork/cheetah-artifact-documentation
-          event-type: docs-update
-          client-payload: '{"version": "${{ steps.get-version.outputs.version }}, repoName": "${{ github.repository }}"}'
+    
+
