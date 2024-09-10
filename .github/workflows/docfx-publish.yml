@@ -40,18 +40,48 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: "dotnet build"
-        uses: trifork/cheetah-infrastructure-utils/.github/actions/dotnet/dotnet-build@main
-
-      - name: Build docfx
-        uses: trifork/cheetah-infrastructure-utils/.github/actions/docfx/docfx-build@main
-
-      - name: Get csproj filepath
-        id: get-csproj-filepath
-        uses: trifork/cheetah-infrastructure-utils/.github/actions/get-from-map@main
+      #- name: "dotnet build"
+      #  uses: trifork/cheetah-infrastructure-utils/.github/actions/dotnet/dotnet-build@main
+        # dotnet-build
+      - name: "Setup .Net Core SDK"
+        uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3 # v4
         with:
-          file-path: ./.github/csproj-filepaths.yaml
-          key: ${{github.repository}}
+          dotnet-version: 7
+
+        # dotnet-build
+      - uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+            ${{ runner.os }}-nuget-
+
+        # dotnet-build
+      - name: "dotnet build"
+        shell: bash
+        run: |
+          dotnet build --verbosity minimal --configuration Release /nowarn:cs1591
+
+
+      #- name: Build docfx
+      #  uses: trifork/cheetah-infrastructure-utils/.github/actions/docfx/docfx-build@main
+      - name: Build docfx
+        shell: bash
+        run: |
+          dotnet tool update -g docfx 
+          docfx --warningsAsErrors docs/docfx.json
+
+     # - name: Get csproj filepath
+     #   id: get-csproj-filepath
+     #   uses: trifork/cheetah-infrastructure-utils/.github/actions/get-from-map@main
+     #   with:
+     #     file-path: ./.github/csproj-filepaths.yaml
+     #     key: ${{github.repository}}
+      - name: Get value
+        id: get-value
+        shell: bash
+        run: echo "value=$(grep -Po '(?<=${{github.repository}}:).*' ./.github/csproj-filepaths.yaml | awk '{$1=$1};1')" >> $GITHUB_OUTPUT
 
       - name: Get project version
         id: get-version
