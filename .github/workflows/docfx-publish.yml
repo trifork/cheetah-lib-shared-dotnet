@@ -33,9 +33,24 @@ jobs:
 
       - name: "dotnet build"
         uses: trifork/cheetah-infrastructure-utils/.github/actions/dotnet/dotnet-build@main
-      
+
       - name: Build docfx
         uses: trifork/cheetah-infrastructure-utils/.github/actions/docfx/docfx-build@main
+
+      - name: Get csproj filepath
+        id: get-csproj-filepath
+        uses: trifork/cheetah-infrastructure-utils/.github/actions/get-from-map@main
+        with:
+          file-path: ./.github/csproj-filepaths.yaml
+          key: ${{github.repository}}
+
+      - name: Get project version
+        id: get-version
+        uses: trifork/cheetah-infrastructure-utils-workflows/.github/actions/versioning/get-version@main
+        with:
+          file-path: ${{ steps.get-csproj-filepath.outputs.value }}
+          prefix: "<VersionPrefix>"
+          suffix: "</VersionPrefix>"
 
       - name: create public/
         run: |
@@ -53,11 +68,12 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           exclude_assets: ""
-          force_orphan: true
-      
+          destination_dir: v${{ steps.get-version.outputs.version }}
+
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.READ_PACKAGE_PAT }}
           repository: trifork/cheetah-artifact-documentation
           event-type: docs-update
+          client-payload: '{"version": "${{ steps.get-version.outputs.version }}, repoName": "${{ github.repository }}"}'
