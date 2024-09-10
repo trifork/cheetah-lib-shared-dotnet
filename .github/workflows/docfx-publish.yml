@@ -2,6 +2,15 @@ name: Publish docfx
 
 on:
   workflow_dispatch:
+    inputs:
+      project:
+        description: Which project to create a release branch for
+        required: true
+        type: choice
+        options:
+          - Cheetah.Kafka
+          - Cheetah.OpenSearch
+          - Cheetah.SchemaRegistry
   workflow_run:
     workflows:
       - .NET Create Release
@@ -14,13 +23,19 @@ permissions:
   pages: write
   id-token: write
 
-
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   publish-docs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
-
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -45,6 +60,10 @@ jobs:
           file-path: ${{ steps.get-csproj-filepath.outputs.value }}
           prefix: "<VersionPrefix>"
           suffix: "</VersionPrefix>"
+      
+      - name: echo tree path docs
+        run: |
+          tree docs/
 
       - name: create public/
         run: |
@@ -61,4 +80,27 @@ jobs:
           echo "repo: ${{ github.repository }}"
           echo "destination: v${{ steps.get-version.outputs.version }}"
 
+      - name: Deploy to GitHub Pages for project ${{ inputs.project }}
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public/_source/articles/${{ inputs.project }}/
+          exclude_assets: ""
+          destination_dir: docs/libraries/cheetah-lib-shared-dotnet/_source/articles/${{inputs.project}}/v${{ steps.get-version.outputs.version }}
 
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          exclude_assets: './public/_source/articles/${{ inputs.project }}/'
+
+
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.READ_PACKAGE_PAT }}
+          repository: trifork/cheetah-artifact-documentation
+          event-type: docs-update
+          client-payload: '{"version": "${{ steps.get-version.outputs.version }}, repoName": "${{ github.repository }}"}'
