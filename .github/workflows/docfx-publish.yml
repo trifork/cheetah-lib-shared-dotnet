@@ -82,8 +82,12 @@ jobs:
         id: get-value
         shell: bash
         run: echo "value=$(grep -Po '(?<=${{github.repository}}:).*' ./.github/csproj-filepaths.yaml | awk '{$1=$1};1')" >> $GITHUB_OUTPUT
-
-
+      
+      - name: echo tree path docs
+        run: |
+          echo $value
+          echo ${{ steps.get-value.outputs.value }}
+    
       - name: Get project version
         id: get-version
         uses: trifork/cheetah-infrastructure-utils-workflows/.github/actions/versioning/get-version@main
