@@ -93,7 +93,7 @@ jobs:
         uses: trifork/cheetah-infrastructure-utils-workflows/.github/actions/versioning/get-version@main
         with:
           # Change file path to steps.get-csproj-filepath.outputs.value 
-          file-path: ${{ steps.get-value.outputs }}
+          file-path: ${{ steps.get-value.outputs.value }}
           prefix: "<VersionPrefix>"
           suffix: "</VersionPrefix>"
       
