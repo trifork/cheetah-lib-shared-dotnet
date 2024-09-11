@@ -124,6 +124,14 @@ jobs:
           exclude_assets: ""
           destination_dir: _source/articles/${{inputs.project}}/v${{ steps.get-version.outputs.version }}
 
+      - name: Deploy to GitHub Pages for project ${{ inputs.project }} latest folder
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public/_source/articles/${{ inputs.project }}/
+          exclude_assets: ""
+          destination_dir: _source/articles/${{inputs.project}}/latest/
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: peaceiris/actions-gh-pages@v4
@@ -132,7 +140,6 @@ jobs:
           publish_dir: ./public
           exclude_assets: './public/_source/articles/'
           keep_files: true
-
 
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v3
