@@ -124,6 +124,14 @@ jobs:
           exclude_assets: ""
           destination_dir: _source/articles/${{inputs.project}}/v${{ steps.get-version.outputs.version }}
 
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          exclude_assets: './public/_source/articles/${{ inputs.project }}/'
+
 
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v3
