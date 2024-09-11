@@ -131,6 +131,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           exclude_assets: './public/_source/articles/${{ inputs.project }}/'
+          keep_files: true
 
 
       - name: Repository Dispatch
