@@ -77,7 +77,7 @@ jobs:
      #   uses: trifork/cheetah-infrastructure-utils/.github/actions/get-from-map@main
      #   with:
      #     file-path: ./.github/csproj-filepaths.yaml
-     #     key: ${{github.repository}}
+     #     key: ${{inputs.project}}
       - name: Get value
         id: get-value
         shell: bash
@@ -123,14 +123,6 @@ jobs:
           publish_dir: ./public/_source/articles/${{ inputs.project }}/
           exclude_assets: ""
           destination_dir: docs/libraries/cheetah-lib-shared-dotnet/_source/articles/${{inputs.project}}/v${{ steps.get-version.outputs.version }}
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-          exclude_assets: './public/_source/articles/${{ inputs.project }}/'
 
 
       - name: Repository Dispatch
