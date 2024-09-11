@@ -122,7 +122,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public/_source/articles/${{ inputs.project }}/
           exclude_assets: ""
-          destination_dir: docs/libraries/cheetah-lib-shared-dotnet/_source/articles/${{inputs.project}}/v${{ steps.get-version.outputs.version }}
+          destination_dir: _source/articles/${{inputs.project}}/v${{ steps.get-version.outputs.version }}
 
 
       - name: Repository Dispatch
