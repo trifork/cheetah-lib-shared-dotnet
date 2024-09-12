@@ -40,66 +40,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      #- name: "dotnet build"
-      #  uses: trifork/cheetah-infrastructure-utils/.github/actions/dotnet/dotnet-build@main
-        # dotnet-build
-      - name: "Setup .Net Core SDK"
-        uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3 # v4
-        with:
-          dotnet-version: 7
-
-        # dotnet-build
-      - uses: actions/cache@v4
-        with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
-            ${{ runner.os }}-nuget-
-
-        # dotnet-build
       - name: "dotnet build"
-        shell: bash
-        run: |
-          dotnet build --verbosity minimal --configuration Release /nowarn:cs1591
+        uses: kasttrifork/cheetah-infrastructure-utils/.github/actions/dotnet/dotnet-build@main
 
-
-      #- name: Build docfx
-      #  uses: trifork/cheetah-infrastructure-utils/.github/actions/docfx/docfx-build@main
       - name: Build docfx
-        shell: bash
-        run: |
-          dotnet tool update -g docfx 
-          docfx --warningsAsErrors docs/docfx.json
+        uses: kasttrifork/cheetah-infrastructure-utils/.github/actions/docfx/docfx-build@main
 
-     # - name: Get csproj filepath
-     #   id: get-csproj-filepath
-     #   uses: trifork/cheetah-infrastructure-utils/.github/actions/get-from-map@main
-     #   with:
-     #     file-path: ./.github/csproj-filepaths.yaml
-     #     key: ${{inputs.project}}
-      - name: Get value
-        id: get-value
-        shell: bash
-        run: echo "value=$(grep -Po '(?<=${{inputs.project}}:).*' ./.github/csproj-filepaths.yaml | awk '{$1=$1};1')" >> $GITHUB_OUTPUT
-      
-      - name: echo tree path docs
-        run: |
-          echo $value
-          echo ${{ steps.get-value.outputs.value }}
-    
+      - name: Get csproj filepath
+        id: get-csproj-filepath
+        uses: kasttrifork/cheetah-infrastructure-utils/.github/actions/get-from-map@main
+        with:
+          file-path: ./.github/csproj-filepaths.yaml
+          key: ${{inputs.project}}
+
       - name: Get project version
         id: get-version
         uses: trifork/cheetah-infrastructure-utils-workflows/.github/actions/versioning/get-version@main
         with:
-          # Change file path to steps.get-csproj-filepath.outputs.value 
-          file-path: ${{ steps.get-value.outputs.value }}
+          file-path: ${{ steps.get-csproj-filepath.outputs.value }}
           prefix: "<VersionPrefix>"
           suffix: "</VersionPrefix>"
-      
-      - name: echo tree path docs
-        run: |
-          tree docs/
 
       - name: create public/
         run: |
@@ -110,12 +70,6 @@ jobs:
           rm public/_source/api/.gitignore
           mv _site/ public/docs
 
-      - name: echo variables for gh pages
-        run: |
-          echo "version: ${{ steps.get-version.outputs.version }}"
-          echo "repo: ${{ github.repository }}"
-          echo "destination: v${{ steps.get-version.outputs.version }}"
-
       - name: Deploy to GitHub Pages for project ${{ inputs.project }}
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -124,7 +78,7 @@ jobs:
           exclude_assets: ""
           destination_dir: _source/articles/${{inputs.project}}/v${{ steps.get-version.outputs.version }}
 
-      - name: Deploy to GitHub Pages for project ${{ inputs.project }} latest folder
+      - name: Deploy to GitHub Pages for project ${{ inputs.project }} to latest folder
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -141,10 +95,37 @@ jobs:
           exclude_assets: './public/_source/articles/'
           keep_files: true
 
-      - name: Repository Dispatch
-        uses: peter-evans/repository-dispatch@v3
+      - name: Update toc file with new version v${{ steps.get-version.outputs.version }}
+        id: update-toc
+        uses: kasttrifork/cheetah-infrastructure-utils/.github/actions/update-toc@main
         with:
-          token: ${{ secrets.READ_PACKAGE_PAT }}
-          repository: trifork/cheetah-artifact-documentation
-          event-type: docs-update
-          client-payload: '{"version": "${{ steps.get-version.outputs.version }}, repoName": "${{ github.repository }}"}'
+          toc-file: docs/articles/Cheetah.Kafka/toc.yml
+          version: ${{ steps.get-version.outputs.version }}
+          repo-name: ${{ github.repository }}
+
+      - name: Commit changes to toc.yml
+        uses: EndBug/add-and-commit@v9
+        with:
+          commit: -a
+          message:  "Update toc file with new version v${{ steps.get-version.outputs.version }}"
+
+      - name: create toc-folder/
+        run: |
+          mkdir -p toc-folder/
+          mv docs/articles/Cheetah.Kafka/toc.yml toc-folder/
+
+      - name: Deploy toc.yml to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./toc-folder/
+          commit_message: "Update toc file with new version v${{ steps.get-version.outputs.version }}"
+          keep_files: true
+
+     # - name: Repository Dispatch
+     #   uses: peter-evans/repository-dispatch@v3
+      #  with:
+       #   token: ${{ secrets.READ_PACKAGE_PAT }}
+        #  repository: trifork/cheetah-artifact-documentation
+         # event-type: docs-update
+          #client-payload: '{"version": "${{ steps.get-version.outputs.version }}, repoName": "${{ github.repository }}"}'
