@@ -33,20 +33,22 @@ jobs:
   publish-docs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
-
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: "dotnet build"
-        uses: trifork/cheetah-infrastructure-utils/.github/actions/dotnet/dotnet-build@main
+        uses: kasttrifork/cheetah-infrastructure-utils/.github/actions/dotnet/dotnet-build@main
 
       - name: Build docfx
-        uses: trifork/cheetah-infrastructure-utils/.github/actions/docfx/docfx-build@main
+        uses: kasttrifork/cheetah-infrastructure-utils/.github/actions/docfx/docfx-build@main
 
       - name: Get csproj filepath
         id: get-csproj-filepath
-        uses: trifork/cheetah-infrastructure-utils/.github/actions/get-from-map@main
+        uses: kasttrifork/cheetah-infrastructure-utils/.github/actions/get-from-map@main
         with:
           file-path: ./.github/csproj-filepaths.yaml
           key: ${{inputs.project}}
@@ -95,7 +97,7 @@ jobs:
 
       - name: Update toc file with new version v${{ steps.get-version.outputs.version }}
         id: update-toc
-        uses: trifork/cheetah-infrastructure-utils/.github/actions/update-toc@main
+        uses: kasttrifork/cheetah-infrastructure-utils/.github/actions/update-toc@main
         with:
           toc-file: docs/articles/Cheetah.Kafka/toc.yml
           version: ${{ steps.get-version.outputs.version }}
