@@ -1,6 +1,6 @@
 # Using Cheetah.SchemaRegistry
 
-`Cheetah.SchemaRegistry` primary purpose is to bootstrap and configure Schema Registry clients, and (De)serializers and make them available for dependency injection. `Cheetah.SchemaRegistry` depends on `Cheetah.Kafka`, and should be used in combination with clients injected by [Cheetah.Kafka](../Cheetah.Kafka/UsingCheetahKafka.md).
+`Cheetah.SchemaRegistry` primary purpose is to bootstrap and configure Schema Registry clients, and (De)serializers and make them available for dependency injection. `Cheetah.SchemaRegistry` depends on `Cheetah.Kafka`, and should be used in combination with clients injected by [Cheetah.Kafka](../../Cheetah.Kafka/latest/UsingCheetahKafka.md).
 
 ## Prerequisites
 - Basic understanding of Schema Registry and [the Apache Kafka .NET Client](https://docs.confluent.io/kafka-clients/dotnet/current/overview.html)
@@ -23,7 +23,7 @@ builder.Services.AddCheetahKafka(builder.Configuration, options =>
 
 This will add necessary dependencies and register an `IProducer<string, ExampleModelAvro>`, where `string` and `ExampleModelAvro` are the key and value types of produced messages.
 
-For futher information an usage see [Using Cheetah.Kafka](../Cheetah.Kafka/UsingCheetahKafka.md) and [Testing with Cheetah.Kafka](../Cheetah.Kafka/TestingWithCheetahKafka.md).
+For futher information an usage see [Using Cheetah.Kafka](../../Cheetah.Kafka/latest/UsingCheetahKafka.md) and [Testing with Cheetah.Kafka](../../Cheetah.Kafka/latest/TestingWithCheetahKafka.md).
 
 ## Configuration
 
