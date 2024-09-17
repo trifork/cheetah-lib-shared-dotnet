@@ -1,0 +1,4 @@
+- name: latest
+  href: latest/toc.yml
+- name: v1.2.0
+  href: v1.2.0/toc.yml
