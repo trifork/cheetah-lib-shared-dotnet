@@ -97,11 +97,11 @@ jobs:
 
       - name: Update toc file with new version v${{ steps.get-version.outputs.version }}
         id: update-toc
-        uses: kasttrifork/cheetah-infrastructure-utils/.github/actions/update-toc@main
+        uses: kasttrifork/cheetah-lib-shared-dotnet/.github/actions/update-toc@main
         with:
-          toc-file: docs/articles/Cheetah.Kafka/toc.yml
+          toc-file: docs/articles/${{inputs.project}}/toc.yml
           version: ${{ steps.get-version.outputs.version }}
-          repo-name: ${{ github.repository }}
+          repo-name: ${{ inputs.project }}
 
       - name: Commit changes to toc.yml
         uses: EndBug/add-and-commit@v9

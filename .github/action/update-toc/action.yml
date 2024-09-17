@@ -1,0 +1,92 @@
+name: update-toc
+description: Update toc.yml with new repo entry
+
+
+inputs:
+  version:
+    description: 'The version of the library'
+    required: true
+  repo-name:
+    description: 'The name of the repository'
+    required: true
+  toc-file:
+    description: 'The path to the toc.yml file'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install yq
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install jq
+
+    - name: Update YAML file for cheetah-lib-processing
+      if: ${{ github.repository == 'cheetah-lib-processing' }}
+      shell: bash
+      run: |
+          YAML_PATH="${{ inputs.toc-file }}"
+          cat $YAML_PATH
+
+          # Ensure yq is installed
+          if ! command -v yq &> /dev/null; then
+            echo "yq could not be found. Please install yq to use this script."
+            exit 1
+          fi
+
+          # Ensure the YAML file exists
+          if [ ! -f "$YAML_PATH" ]; then
+            echo "YAML file not found: $YAML_PATH"
+            exit 1
+          fi
+
+          # Check if the entry already exists
+          result=$(yq '.[] | select(.name == "'v${{ inputs.version }}'") | .name' "$YAML_PATH")
+
+          if [ -z "$result" ]; then
+            echo "Not found, adding new version to toc.yml"
+            yq '. |= . + [{"name": "v${{ inputs.version }}", "items": [{"name": "Overview", "href": "v${{ inputs.version }}/_source/README.md"},{"name": "Articles", "href": "v${{ inputs.version }}/_source/articles/toc.yml"},{"name": "Apis", "href": "v${{ inputs.version }}/_source/api/toc.yml"}]}]' -i $YAML_PATH
+          else
+            echo "Found version in toc.yml, skipping"
+          fi
+
+          echo "Updated"
+          cat $YAML_PATH
+
+    - name: Update YAML file for cheetah-lib-processing
+      #if: ${{ github.repository == 'cheetah-lib-shared-dotnet' }}
+      shell: bash
+      run: |
+          YAML_PATH="${{ inputs.toc-file }}"
+          cat $YAML_PATH
+
+          # Ensure yq is installed
+          if ! command -v yq &> /dev/null; then
+            echo "yq could not be found. Please install yq to use this script."
+            exit 1
+          fi
+
+          # Ensure the YAML file exists
+          if [ ! -f "$YAML_PATH" ]; then
+            echo "YAML file not found: $YAML_PATH"
+            exit 1
+          fi
+
+          # Check if the entry already exists
+          result=$(yq '.[] | select(.name == "'v${{ inputs.version }}'") | .name' "$YAML_PATH")
+
+          if [ -z "$result" ]; then
+            echo "Not found, adding new version to toc.yml"
+            yq '. |= . + [{"name": "v${{ inputs.version }}", "href": "{{ inputs.version}}/toc.yml"}]' -i $YAML_PATH
+          else
+            echo "Found version in toc.yml, skipping"
+          fi
+
+          echo "Updated"
+          cat $YAML_PATH
+
+
