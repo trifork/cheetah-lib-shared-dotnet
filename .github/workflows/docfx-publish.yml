@@ -108,6 +108,7 @@ jobs:
       - name: echo updated
         run: |
           echo "updated: ${{ steps.update-toc.outputs.updated }}"
+          echo "version: ${{ env.updated }}"
       
       - name: Commit changes to toc.yml
         if: steps.update-toc.outputs.updated == true
