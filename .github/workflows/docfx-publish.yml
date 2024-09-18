@@ -103,6 +103,7 @@ jobs:
           toc-file: toc.yml
           version: ${{ steps.get-version.outputs.version }}
           repo-name: ${{ inputs.project }}
+        continue-on-error: true
       
       - name: Commit changes to toc.yml
         if: steps.update-toc.outputs.updated == 1
