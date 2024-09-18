@@ -1,28 +1,29 @@
 {
   "format": 1,
   "restore": {
-    "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka.Test/Cheetah.Kafka.Test.csproj": {}
+    "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka.Test/Cheetah.Kafka.Test.csproj": {}
   },
   "projects": {
-    "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Auth/Cheetah.Auth.csproj": {
+    "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Auth/Cheetah.Auth.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Auth/Cheetah.Auth.csproj",
+        "projectUniqueName": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Auth/Cheetah.Auth.csproj",
         "projectName": "Cheetah.Auth",
-        "projectPath": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Auth/Cheetah.Auth.csproj",
-        "packagesPath": "/home/runner/.nuget/packages/",
-        "outputPath": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Auth/obj/",
+        "projectPath": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Auth/Cheetah.Auth.csproj",
+        "packagesPath": "/home/vscode/.nuget/packages/",
+        "outputPath": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Auth/obj/",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "configFilePaths": [
-          "/home/runner/.nuget/NuGet/NuGet.Config"
+          "/home/vscode/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0",
           "net8.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.pkg.github.com/trifork/index.json": {}
         },
         "frameworks": {
           "net6.0": {
@@ -94,6 +95,16 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.33, 6.0.33]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.33, 6.0.33]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -157,40 +168,41 @@
         }
       }
     },
-    "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka.Test/Cheetah.Kafka.Test.csproj": {
+    "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka.Test/Cheetah.Kafka.Test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka.Test/Cheetah.Kafka.Test.csproj",
+        "projectUniqueName": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka.Test/Cheetah.Kafka.Test.csproj",
         "projectName": "Cheetah.Kafka.Test",
-        "projectPath": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka.Test/Cheetah.Kafka.Test.csproj",
-        "packagesPath": "/home/runner/.nuget/packages/",
-        "outputPath": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka.Test/obj/",
+        "projectPath": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka.Test/Cheetah.Kafka.Test.csproj",
+        "packagesPath": "/home/vscode/.nuget/packages/",
+        "outputPath": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka.Test/obj/",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "configFilePaths": [
-          "/home/runner/.nuget/NuGet/NuGet.Config"
+          "/home/vscode/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0",
           "net8.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.pkg.github.com/trifork/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka/Cheetah.Kafka.csproj": {
-                "projectPath": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka/Cheetah.Kafka.csproj"
+              "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka/Cheetah.Kafka.csproj": {
+                "projectPath": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka/Cheetah.Kafka.csproj"
               }
             }
           },
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka/Cheetah.Kafka.csproj": {
-                "projectPath": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka/Cheetah.Kafka.csproj"
+              "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka/Cheetah.Kafka.csproj": {
+                "projectPath": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka/Cheetah.Kafka.csproj"
               }
             }
           }
@@ -213,7 +225,7 @@
           "dependencies": {
             "FluentAssertions": {
               "target": "Package",
-              "version": "[6.12.0, )"
+              "version": "[6.12.1, )"
             },
             "Microsoft.Extensions.Caching.Abstractions": {
               "target": "Package",
@@ -267,6 +279,16 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.33, 6.0.33]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.33, 6.0.33]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -279,7 +301,7 @@
           "dependencies": {
             "FluentAssertions": {
               "target": "Package",
-              "version": "[6.12.0, )"
+              "version": "[6.12.1, )"
             },
             "Microsoft.Extensions.Caching.Abstractions": {
               "target": "Package",
@@ -342,40 +364,41 @@
         }
       }
     },
-    "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka/Cheetah.Kafka.csproj": {
+    "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka/Cheetah.Kafka.csproj": {
       "version": "2.1.0",
       "restore": {
-        "projectUniqueName": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka/Cheetah.Kafka.csproj",
+        "projectUniqueName": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka/Cheetah.Kafka.csproj",
         "projectName": "Cheetah.Kafka",
-        "projectPath": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka/Cheetah.Kafka.csproj",
-        "packagesPath": "/home/runner/.nuget/packages/",
-        "outputPath": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka/obj/",
+        "projectPath": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka/Cheetah.Kafka.csproj",
+        "packagesPath": "/home/vscode/.nuget/packages/",
+        "outputPath": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka/obj/",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "configFilePaths": [
-          "/home/runner/.nuget/NuGet/NuGet.Config"
+          "/home/vscode/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0",
           "net8.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.pkg.github.com/trifork/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Auth/Cheetah.Auth.csproj": {
-                "projectPath": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Auth/Cheetah.Auth.csproj"
+              "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Auth/Cheetah.Auth.csproj": {
+                "projectPath": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Auth/Cheetah.Auth.csproj"
               }
             }
           },
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Auth/Cheetah.Auth.csproj": {
-                "projectPath": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Auth/Cheetah.Auth.csproj"
+              "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Auth/Cheetah.Auth.csproj": {
+                "projectPath": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Auth/Cheetah.Auth.csproj"
               }
             }
           }
@@ -440,6 +463,16 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.33, 6.0.33]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.33, 6.0.33]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"

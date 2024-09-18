@@ -24,7 +24,7 @@
           "build/netstandard2.0/coverlet.collector.targets": {}
         }
       },
-      "FluentAssertions/6.12.0": {
+      "FluentAssertions/6.12.1": {
         "type": "package",
         "dependencies": {
           "System.Configuration.ConfigurationManager": "4.4.0"
@@ -1523,7 +1523,7 @@
           "build/netstandard2.0/coverlet.collector.targets": {}
         }
       },
-      "FluentAssertions/6.12.0": {
+      "FluentAssertions/6.12.1": {
         "type": "package",
         "dependencies": {
           "System.Configuration.ConfigurationManager": "4.4.0"
@@ -3065,15 +3065,15 @@
         "coverlet.collector.nuspec"
       ]
     },
-    "FluentAssertions/6.12.0": {
-      "sha512": "ZXhHT2YwP9lajrwSKbLlFqsmCCvFJMoRSK9t7sImfnCyd0OB3MhgxdoMcVqxbq1iyxD6mD2fiackWmBb7ayiXQ==",
+    "FluentAssertions/6.12.1": {
+      "sha512": "hciWwryyLw3eonfqhFpOMTXyM1/auJChYslEBA+iGJyuBs5O3t/kA8YaeH4iRo/2Fe3ElSYL86C0miivtZ0f3g==",
       "type": "package",
-      "path": "fluentassertions/6.12.0",
+      "path": "fluentassertions/6.12.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "FluentAssertions.png",
-        "fluentassertions.6.12.0.nupkg.sha512",
+        "fluentassertions.6.12.1.nupkg.sha512",
         "fluentassertions.nuspec",
         "lib/net47/FluentAssertions.dll",
         "lib/net47/FluentAssertions.pdb",
@@ -5030,7 +5030,7 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "Cheetah.Kafka >= 2.1.0",
-      "FluentAssertions >= 6.12.0",
+      "FluentAssertions >= 6.12.1",
       "Microsoft.Extensions.Caching.Abstractions >= 8.0.0",
       "Microsoft.Extensions.Caching.Memory >= 8.0.0",
       "Microsoft.Extensions.Hosting >= 8.0.0",
@@ -5043,7 +5043,7 @@
     ],
     "net8.0": [
       "Cheetah.Kafka >= 2.1.0",
-      "FluentAssertions >= 6.12.0",
+      "FluentAssertions >= 6.12.1",
       "Microsoft.Extensions.Caching.Abstractions >= 8.0.0",
       "Microsoft.Extensions.Caching.Memory >= 8.0.0",
       "Microsoft.Extensions.Hosting >= 8.0.0",
@@ -5056,42 +5056,43 @@
     ]
   },
   "packageFolders": {
-    "/home/runner/.nuget/packages/": {}
+    "/home/vscode/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka.Test/Cheetah.Kafka.Test.csproj",
+      "projectUniqueName": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka.Test/Cheetah.Kafka.Test.csproj",
       "projectName": "Cheetah.Kafka.Test",
-      "projectPath": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka.Test/Cheetah.Kafka.Test.csproj",
-      "packagesPath": "/home/runner/.nuget/packages/",
-      "outputPath": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka.Test/obj/",
+      "projectPath": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka.Test/Cheetah.Kafka.Test.csproj",
+      "packagesPath": "/home/vscode/.nuget/packages/",
+      "outputPath": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka.Test/obj/",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
       "configFilePaths": [
-        "/home/runner/.nuget/NuGet/NuGet.Config"
+        "/home/vscode/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0",
         "net8.0"
       ],
       "sources": {
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://nuget.pkg.github.com/trifork/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka/Cheetah.Kafka.csproj": {
-              "projectPath": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka/Cheetah.Kafka.csproj"
+            "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka/Cheetah.Kafka.csproj": {
+              "projectPath": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka/Cheetah.Kafka.csproj"
             }
           }
         },
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka/Cheetah.Kafka.csproj": {
-              "projectPath": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka/Cheetah.Kafka.csproj"
+            "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka/Cheetah.Kafka.csproj": {
+              "projectPath": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka/Cheetah.Kafka.csproj"
             }
           }
         }
@@ -5114,7 +5115,7 @@
         "dependencies": {
           "FluentAssertions": {
             "target": "Package",
-            "version": "[6.12.0, )"
+            "version": "[6.12.1, )"
           },
           "Microsoft.Extensions.Caching.Abstractions": {
             "target": "Package",
@@ -5168,6 +5169,16 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[6.0.33, 6.0.33]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[6.0.33, 6.0.33]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
@@ -5180,7 +5191,7 @@
         "dependencies": {
           "FluentAssertions": {
             "target": "Package",
-            "version": "[6.12.0, )"
+            "version": "[6.12.1, )"
           },
           "Microsoft.Extensions.Caching.Abstractions": {
             "target": "Package",

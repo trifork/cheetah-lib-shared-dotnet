@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Cheetah.Kafka.ExampleProcessor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e3dba53533fa1b57c2b128cf4f4e122ea2c96d9b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+652448ff7d103d8e5c9058c1556c77e775a80c69")]
 [assembly: System.Reflection.AssemblyProductAttribute("Cheetah.Kafka.ExampleProcessor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Cheetah.Kafka.ExampleProcessor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

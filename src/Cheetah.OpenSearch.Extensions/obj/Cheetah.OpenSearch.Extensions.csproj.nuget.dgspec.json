@@ -1,28 +1,29 @@
 {
   "format": 1,
   "restore": {
-    "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.OpenSearch.Extensions/Cheetah.OpenSearch.Extensions.csproj": {}
+    "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.OpenSearch.Extensions/Cheetah.OpenSearch.Extensions.csproj": {}
   },
   "projects": {
-    "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.OpenSearch.Extensions/Cheetah.OpenSearch.Extensions.csproj": {
+    "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.OpenSearch.Extensions/Cheetah.OpenSearch.Extensions.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.OpenSearch.Extensions/Cheetah.OpenSearch.Extensions.csproj",
+        "projectUniqueName": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.OpenSearch.Extensions/Cheetah.OpenSearch.Extensions.csproj",
         "projectName": "Cheetah.OpenSearch.Extensions",
-        "projectPath": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.OpenSearch.Extensions/Cheetah.OpenSearch.Extensions.csproj",
-        "packagesPath": "/home/runner/.nuget/packages/",
-        "outputPath": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.OpenSearch.Extensions/obj/",
+        "projectPath": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.OpenSearch.Extensions/Cheetah.OpenSearch.Extensions.csproj",
+        "packagesPath": "/home/vscode/.nuget/packages/",
+        "outputPath": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.OpenSearch.Extensions/obj/",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "configFilePaths": [
-          "/home/runner/.nuget/NuGet/NuGet.Config"
+          "/home/vscode/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0",
           "net8.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.pkg.github.com/trifork/index.json": {}
         },
         "frameworks": {
           "net6.0": {
@@ -65,6 +66,16 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.33, 6.0.33]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.33, 6.0.33]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"

@@ -10,7 +10,7 @@
         "dependencies": {
           "Cheetah.OpenSearch": "1.1.0",
           "Cheetah.OpenSearch.Extensions": "1.0.0",
-          "FluentAssertions": "6.12.0",
+          "FluentAssertions": "6.12.1",
           "Microsoft.Extensions.Caching.Memory": "8.0.0",
           "Microsoft.Extensions.Hosting": "8.0.0",
           "Microsoft.NET.Test.Sdk": "17.11.1",
@@ -36,14 +36,14 @@
         }
       },
       "coverlet.collector/6.0.2": {},
-      "FluentAssertions/6.12.0": {
+      "FluentAssertions/6.12.1": {
         "dependencies": {
           "System.Configuration.ConfigurationManager": "4.4.0"
         },
         "runtime": {
           "lib/net6.0/FluentAssertions.dll": {
-            "assemblyVersion": "6.12.0.0",
-            "fileVersion": "6.12.0.0"
+            "assemblyVersion": "6.12.1.0",
+            "fileVersion": "6.12.1.0"
           }
         }
       },
@@ -1051,12 +1051,12 @@
       "path": "coverlet.collector/6.0.2",
       "hashPath": "coverlet.collector.6.0.2.nupkg.sha512"
     },
-    "FluentAssertions/6.12.0": {
+    "FluentAssertions/6.12.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ZXhHT2YwP9lajrwSKbLlFqsmCCvFJMoRSK9t7sImfnCyd0OB3MhgxdoMcVqxbq1iyxD6mD2fiackWmBb7ayiXQ==",
-      "path": "fluentassertions/6.12.0",
-      "hashPath": "fluentassertions.6.12.0.nupkg.sha512"
+      "sha512": "sha512-hciWwryyLw3eonfqhFpOMTXyM1/auJChYslEBA+iGJyuBs5O3t/kA8YaeH4iRo/2Fe3ElSYL86C0miivtZ0f3g==",
+      "path": "fluentassertions/6.12.1",
+      "hashPath": "fluentassertions.6.12.1.nupkg.sha512"
     },
     "IdentityModel/7.0.0": {
       "type": "package",
