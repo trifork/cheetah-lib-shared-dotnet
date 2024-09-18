@@ -62,11 +62,11 @@ jobs:
 
       #- name: Build docfx
       #  uses: trifork/cheetah-infrastructure-utils/.github/actions/docfx/docfx-build@main
-      - name: Build docfx
-        shell: bash
-        run: |
-          dotnet tool update -g docfx 
-          docfx --warningsAsErrors docs/docfx.json
+      #- name: Build docfx
+      #  shell: bash
+      #  run: |
+      #    dotnet tool update -g docfx 
+      #    docfx --warningsAsErrors docs/docfx.json
 
       #- name: Get csproj filepath
       #  id: get-csproj-filepath
