@@ -118,7 +118,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
-          exclude_assets: './public/_source/articles/'
+          exclude_assets: "./public/_source/articles/"
           keep_files: true
 
       - name: Update toc file with new version v${{ steps.get-version.outputs.version }}
