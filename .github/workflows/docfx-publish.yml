@@ -142,6 +142,14 @@ jobs:
           exclude_assets: "./public/_source/articles/"
           keep_files: true
 
+        # Fourth deployment to latest folder - refactor to only deploy once
+      - name: Deploy to GitHub Pages for project $
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public/_source/articles/toc.yml
+          destination_dir: _source/articles/
+
      # - name: Repository Dispatch
      #   uses: peter-evans/repository-dispatch@v3
       #  with:
