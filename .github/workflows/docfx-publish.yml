@@ -101,7 +101,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public/_source/articles/${{ inputs.project }}/
-          exclude_assets: ""
+          exclude_assets: "./public/_source/articles/${{inputs.project}}/toc.yml"
           destination_dir: _source/articles/${{inputs.project}}/v${{ steps.get-version.outputs.version }}
 
       - name: Deploy to GitHub Pages for project ${{ inputs.project }} to latest folder
