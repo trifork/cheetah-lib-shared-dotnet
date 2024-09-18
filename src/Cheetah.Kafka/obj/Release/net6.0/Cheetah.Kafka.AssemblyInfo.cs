@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyDescriptionAttribute("Allows easy bootstrapping and connection to Kafka within the context of the Cheet" +
     "ah data platform")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("2.1.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.1.0+971afb72a4e3db9400e566454d01a93db733dae4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.1.0+e3dba53533fa1b57c2b128cf4f4e122ea2c96d9b")]
 [assembly: System.Reflection.AssemblyProductAttribute("Cheetah.Kafka")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Cheetah.Kafka")]
 [assembly: System.Reflection.AssemblyVersionAttribute("2.1.0.0")]

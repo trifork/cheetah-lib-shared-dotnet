@@ -1,5 +1,5 @@
 {
-  "source_base_path": "/workspaces/cheetah-lib-shared-dotnet-1/docs",
+  "source_base_path": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/docs",
   "xrefmap": "xrefmap.yml",
   "files": [
     {
@@ -156,11 +156,11 @@
       "type": "Toc",
       "source_relative_path": "api/Cheetah.Auth/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "api/Cheetah.Auth/toc.html"
-        },
         ".json": {
           "relative_path": "api/Cheetah.Auth/toc.json"
+        },
+        ".html": {
+          "relative_path": "api/Cheetah.Auth/toc.html"
         }
       },
       "version": ""
@@ -489,11 +489,11 @@
       "type": "Toc",
       "source_relative_path": "api/Cheetah.Kafka/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "api/Cheetah.Kafka/toc.html"
-        },
         ".json": {
           "relative_path": "api/Cheetah.Kafka/toc.json"
+        },
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/toc.html"
         }
       },
       "version": ""
@@ -662,11 +662,11 @@
       "type": "Toc",
       "source_relative_path": "api/Cheetah.OpenSearch/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "api/Cheetah.OpenSearch/toc.html"
-        },
         ".json": {
           "relative_path": "api/Cheetah.OpenSearch/toc.json"
+        },
+        ".html": {
+          "relative_path": "api/Cheetah.OpenSearch/toc.html"
         }
       },
       "version": ""
@@ -815,11 +815,11 @@
       "type": "Toc",
       "source_relative_path": "api/Cheetah.SchemaRegistry/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "api/Cheetah.SchemaRegistry/toc.html"
-        },
         ".json": {
           "relative_path": "api/Cheetah.SchemaRegistry/toc.json"
+        },
+        ".html": {
+          "relative_path": "api/Cheetah.SchemaRegistry/toc.html"
         }
       },
       "version": ""
@@ -828,11 +828,11 @@
       "type": "Toc",
       "source_relative_path": "api/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "api/toc.html"
-        },
         ".json": {
           "relative_path": "api/toc.json"
+        },
+        ".html": {
+          "relative_path": "api/toc.html"
         }
       },
       "version": ""
@@ -861,11 +861,11 @@
       "type": "Toc",
       "source_relative_path": "articles/Cheetah.Kafka/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "articles/Cheetah.Kafka/toc.html"
-        },
         ".json": {
           "relative_path": "articles/Cheetah.Kafka/toc.json"
+        },
+        ".html": {
+          "relative_path": "articles/Cheetah.Kafka/toc.html"
         }
       },
       "version": ""
@@ -894,11 +894,11 @@
       "type": "Toc",
       "source_relative_path": "articles/Cheetah.OpenSearch/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "articles/Cheetah.OpenSearch/toc.html"
-        },
         ".json": {
           "relative_path": "articles/Cheetah.OpenSearch/toc.json"
+        },
+        ".html": {
+          "relative_path": "articles/Cheetah.OpenSearch/toc.html"
         }
       },
       "version": ""
@@ -927,11 +927,11 @@
       "type": "Toc",
       "source_relative_path": "articles/Cheetah.SchemaRegistry/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "articles/Cheetah.SchemaRegistry/toc.html"
-        },
         ".json": {
           "relative_path": "articles/Cheetah.SchemaRegistry/toc.json"
+        },
+        ".html": {
+          "relative_path": "articles/Cheetah.SchemaRegistry/toc.html"
         }
       },
       "version": ""
@@ -940,11 +940,11 @@
       "type": "Toc",
       "source_relative_path": "articles/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "articles/toc.html"
-        },
         ".json": {
           "relative_path": "articles/toc.json"
+        },
+        ".html": {
+          "relative_path": "articles/toc.html"
         }
       },
       "version": ""
@@ -963,11 +963,11 @@
       "type": "Toc",
       "source_relative_path": "toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "toc.html"
-        },
         ".json": {
           "relative_path": "toc.json"
+        },
+        ".html": {
+          "relative_path": "toc.html"
         }
       },
       "version": ""
