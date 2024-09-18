@@ -111,14 +111,14 @@ jobs:
           echo "updated: ${{ steps.update-toc.outputs.updated }}"
       
       - name: Commit changes to toc.yml
-        if: steps.update-toc.outputs.updated == 1
+        if: steps.update-toc.outputs.updated == true
         uses: EndBug/add-and-commit@v9
         with:
           commit: -a
           message:  "Update toc file with new version v${{ steps.get-version.outputs.version }}"
 
       - name: move new toc.yml to public/_source/articles/
-        if: steps.update-toc.outputs.updated == 1
+        if: steps.update-toc.outputs.updated == true
         run: |
           rm -rf public/_source/articles/toc.yml
           mv toc.yml public/_source/articles/

@@ -107,10 +107,12 @@ runs:
         git diff --exit-code $YAML_PATH
         if [ $? -eq 0 ]; then
           echo "No changes were made to $YAML_PATH"
-          exit 0
+          #Set output updated to false
+          echo "::set-output name=updated::false"
         else
           echo "Changes were made to $YAML_PATH"
-          exit 1
+          #Set output updated to true
+          echo "::set-output name=updated::true"
         fi
 
 
