@@ -1,6 +1,6 @@
 - name: latest
   items:
   - name: Using Cheetah.Kafka
-    href: latest/UsingCheetahKafka.md
+    href: UsingCheetahKafka.md
   - name: Testing with Cheetah.Kafka
-    href: latest/TestingWithCheetahKafka.md
+    href: TestingWithCheetahKafka.md
