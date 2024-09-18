@@ -105,14 +105,14 @@ jobs:
           repo-name: ${{ inputs.project }}
       
       - name: Commit changes to toc.yml
-        if: steps.update-toc.outputs.updated == exit-code 1
+        if: steps.update-toc.outputs.updated == 1
         uses: EndBug/add-and-commit@v9
         with:
           commit: -a
           message:  "Update toc file with new version v${{ steps.get-version.outputs.version }}"
 
       - name: move new toc.yml to public/_source/articles/
-        if: steps.update-toc.outputs.updated == exit-code 1
+        if: steps.update-toc.outputs.updated == 1
         run: |
           rm -rf public/_source/articles/toc.yml
           mv toc.yml public/_source/articles/
