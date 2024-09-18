@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/Cheetah.OpenSearch.ExampleAPI.props" />
+</Project>

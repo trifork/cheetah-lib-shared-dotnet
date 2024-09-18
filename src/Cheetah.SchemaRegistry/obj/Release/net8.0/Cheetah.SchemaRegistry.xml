@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cheetah.SchemaRegistry</name>
+    </assembly>
+    <members>
+        <member name="T:Cheetah.SchemaRegistry.Avro.AvroSerializer">
+            <summary>
+            Provides methods for creating Avro serializers.
+            </summary>
+        </member>
+        <member name="M:Cheetah.SchemaRegistry.Avro.AvroSerializer.FromServices``1(Confluent.SchemaRegistry.Serdes.AvroSerializerConfig)">
+            <summary>
+            Creates an Avro serializer from services.
+            </summary>
+            <typeparam name="T">The type of object to serialize.</typeparam>
+            <param name="serializerConfig">Optional Avro serializer configuration.</param>
+            <returns>A function that creates an Avro serializer instance.</returns>
+        </member>
+        <member name="T:Cheetah.SchemaRegistry.Avro.AvroDeserializer">
+            <summary>
+            Provides methods for creating Avro deserializers.
+            </summary>
+        </member>
+        <member name="M:Cheetah.SchemaRegistry.Avro.AvroDeserializer.FromServices``1(Confluent.SchemaRegistry.Serdes.AvroDeserializerConfig)">
+            <summary>
+            Creates an Avro deserializer from services.
+            </summary>
+            <typeparam name="T">The type of object to deserialize.</typeparam>
+            <param name="deserializerConfig">Optional Avro deserializer configuration.</param>
+            <returns>A function that creates an Avro deserializer instance.</returns>
+        </member>
+        <member name="T:Cheetah.SchemaRegistry.Avro.AvroDeserializerProvider">
+            <summary>
+            Provides an implementation of <see cref="T:Cheetah.Kafka.Serdes.IDeserializerProvider"/> for Avro deserialization.
+            </summary>
+        </member>
+        <member name="M:Cheetah.SchemaRegistry.Avro.AvroDeserializerProvider.FromServices(Confluent.SchemaRegistry.Serdes.AvroDeserializerConfig)">
+            <summary>
+            Creates an instance of <see cref="T:Cheetah.SchemaRegistry.Avro.AvroSerializerProvider"/> from services.
+            </summary>
+            <param name="deserializerConfig">Optional Avro deserializer configuration.</param>
+            <returns>A function that creates an <see cref="T:Cheetah.SchemaRegistry.Avro.AvroDeserializerProvider"/> instance.</returns>
+        </member>
+        <member name="M:Cheetah.SchemaRegistry.Avro.AvroDeserializerProvider.#ctor(Confluent.SchemaRegistry.ISchemaRegistryClient,Confluent.SchemaRegistry.Serdes.AvroDeserializerConfig)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cheetah.SchemaRegistry.Avro.AvroDeserializerProvider"/> class.
+            </summary>
+            <param name="schemaRegistryClient">The Schema Registry client.</param>
+            <param name="deserializerConfig">Optional Avro deserializer configuration.</param>
+        </member>
+        <member name="M:Cheetah.SchemaRegistry.Avro.AvroDeserializerProvider.GetValueDeserializer``1">
+            <summary>
+            Gets a deserializer for the specified type using Avro deserialization.
+            </summary>
+            <typeparam name="T">The type of object to deserialize.</typeparam>
+            <returns>An instance of <see cref="T:Confluent.SchemaRegistry.Serdes.AvroDeserializer`1"/>.</returns>
+        </member>
+        <member name="M:Cheetah.SchemaRegistry.Avro.AvroDeserializerProvider.GetKeyDeserializer``1">
+            <summary>
+            Gets a deserializer for the specified type using Avro deserialization.
+            </summary>
+            <typeparam name="T">The type of object to deserialize.</typeparam>
+            <returns>An instance of <see cref="T:Confluent.SchemaRegistry.Serdes.AvroDeserializer`1"/>.</returns>
+        </member>
+        <member name="T:Cheetah.SchemaRegistry.Avro.AvroSerializerProvider">
+            <summary>
+            Provides an implementation of <see cref="T:Cheetah.Kafka.Serdes.ISerializerProvider"/> for Avro serialization.
+            </summary>
+        </member>
+        <member name="M:Cheetah.SchemaRegistry.Avro.AvroSerializerProvider.FromServices(Confluent.SchemaRegistry.Serdes.AvroSerializerConfig)">
+            <summary>
+            Creates an instance of <see cref="T:Cheetah.SchemaRegistry.Avro.AvroSerializerProvider"/> from services.
+            </summary>
+            <param name="serializerConfig">Optional Avro serializer configuration.</param>
+            <returns>A function that creates an <see cref="T:Cheetah.SchemaRegistry.Avro.AvroSerializerProvider"/> instance.</returns>
+        </member>
+        <member name="M:Cheetah.SchemaRegistry.Avro.AvroSerializerProvider.#ctor(Confluent.SchemaRegistry.ISchemaRegistryClient,Confluent.SchemaRegistry.Serdes.AvroSerializerConfig)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cheetah.SchemaRegistry.Avro.AvroSerializerProvider"/> class.
+            </summary>
+            <param name="schemaRegistryClient">The Schema Registry client.</param>
+            <param name="serializerConfig">Optional Avro serializer configuration.</param>
+        </member>
+        <member name="M:Cheetah.SchemaRegistry.Avro.AvroSerializerProvider.GetValueSerializer``1">
+            <summary>
+            Gets a serializer for the specified type using Avro serialization.
+            </summary>
+            <typeparam name="T">The type of object to serialize.</typeparam>
+            <returns>An instance of <see cref="T:Confluent.SchemaRegistry.Serdes.AvroSerializer`1"/>.</returns>
+        </member>
+        <member name="M:Cheetah.SchemaRegistry.Avro.AvroSerializerProvider.GetKeySerializer``1">
+            <summary>
+            Gets a serializer for the specified type using Avro serialization.
+            </summary>
+            <typeparam name="T">The type of object to serialize.</typeparam>
+            <returns>An instance of <see cref="T:Confluent.SchemaRegistry.Serdes.AvroSerializer`1"/>.</returns>
+        </member>
+        <member name="M:Cheetah.SchemaRegistry.Avro.AvroSerializerProvider.GetValueDeserializer``1">
+            <summary>
+            Gets a deserializer for the specified type using Avro serialization.
+            </summary>
+            <typeparam name="T">The type of object to deserialize.</typeparam>
+            <returns>An instance of <see cref="T:Confluent.SchemaRegistry.Serdes.AvroDeserializer`1"/>.</returns>
+        </member>
+        <member name="M:Cheetah.SchemaRegistry.Avro.AvroSerializerProvider.GetKeyDeserializer``1">
+            <summary>
+            Gets a deserializer for the specified type using Avro serialization.
+            </summary>
+            <typeparam name="T">The type of object to deserialize.</typeparam>
+            <returns>An instance of <see cref="T:Confluent.SchemaRegistry.Serdes.AvroDeserializer`1"/>.</returns>
+        </member>
+        <member name="T:Cheetah.SchemaRegistry.Avro.Constants">
+            <summary>
+            Static class contains constant values used within the Cheetah.SchemaRegistry.Avro namespace
+            </summary>
+        </member>
+        <member name="F:Cheetah.SchemaRegistry.Avro.Constants.TokenServiceKey">
+            <summary>
+            Key used to GetRequiredKeyedService for Cheetah.SchemaRegistry.Avro TokenService
+            </summary>
+        </member>
+        <member name="T:Cheetah.SchemaRegistry.Configuration.SchemaConfig">
+            <summary>
+            SchemaConfig for IOptions
+            </summary>
+        </member>
+        <member name="F:Cheetah.SchemaRegistry.Configuration.SchemaConfig.Position">
+            <summary>
+            Prefix for options e.g. SchemaRegistry__
+            </summary>
+        </member>
+        <member name="P:Cheetah.SchemaRegistry.Configuration.SchemaConfig.Url">
+            <summary>
+            Bootstrap Url.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Cheetah.SchemaRegistry.Configuration.SchemaConfig.OAuth2">
+            <summary>
+            The OAuth2 configuration
+            </summary>
+        </member>
+        <member name="M:Cheetah.SchemaRegistry.Configuration.SchemaConfig.Validate">
+            <summary>
+            Validates and throws an error if the configuration is invalid.
+            </summary>
+            <exception cref="T:System.ArgumentException">Thrown if the configuration is invalid</exception>
+        </member>
+        <member name="M:Cheetah.SchemaRegistry.Configuration.SchemaConfig.GetSchemaRegistryConfig">
+            <summary>
+            Converts the configuration to a <see cref="T:Confluent.SchemaRegistry.SchemaRegistryConfig"/>
+            </summary>
+            <returns>The converted <see cref="T:Confluent.SchemaRegistry.SchemaRegistryConfig"/></returns>
+        </member>
+        <member name="T:Cheetah.SchemaRegistry.Extensions.ServiceCollectionExtensions">
+            <summary>
+            Provides extension methods for configuring Cheetah Schema Registry.
+            </summary>
+        </member>
+        <member name="M:Cheetah.SchemaRegistry.Extensions.ServiceCollectionExtensions.AddCheetahSchemaRegistry(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Adds Cheetah Schema Registry to the service collection.
+            </summary>
+            <param name="serviceCollection">The service collection to add the services to.</param>
+            <param name="configuration">The configuration containing Schema Registry settings.</param>
+        </member>
+        <member name="T:Cheetah.SchemaRegistry.Testing.AvroKafkaTestClientFactory">
+            <summary>
+            Factory for creating Kafka clients for reading and writing Avro messages
+            </summary>
+        </member>
+        <member name="M:Cheetah.SchemaRegistry.Testing.AvroKafkaTestClientFactory.Create(Microsoft.Extensions.Configuration.IConfiguration,Cheetah.Kafka.ClientFactoryOptions,Cheetah.Auth.Authentication.ITokenService,Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            Creates a <see cref="T:Cheetah.SchemaRegistry.Testing.AvroKafkaTestClientFactory"/> using the provided <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/> instance
+            </summary>
+            <param name="configuration">The configuration to use</param>
+            <param name="tokenService">An optional token service, used to retrieve access tokens</param>
+            <param name="loggerFactory">An optional logger factory</param>
+            <param name="options">An optional </param>
+            <returns></returns>
+        </member>
+        <member name="T:Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider">
+            <summary>
+            IAuthenticationHeaderValueProvider to inject a bearer token from an <see cref="T:Cheetah.Auth.Authentication.ITokenService"/>
+            </summary>
+        </member>
+        <member name="M:Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.#ctor(Cheetah.Auth.Authentication.ITokenService)">
+            <summary>
+            Creates an instance of <see cref="T:Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider"/> from an <see cref="T:Cheetah.Auth.Authentication.ITokenService"/> .
+            </summary>
+            <param name="tokenService"></param>
+        </member>
+        <member name="M:Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.GetAuthenticationHeader">
+            <summary>
+            Get AuthenticationHeader with a bearer token
+            </summary>
+            <returns>An instance of <see cref="T:System.Net.Http.Headers.AuthenticationHeaderValue"/> with a bearer token</returns>
+        </member>
+    </members>
+</doc>

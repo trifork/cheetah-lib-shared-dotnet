@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "jZtIo7QUQT0=",
+  "success": true,
+  "projectFilePath": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.OpenSearch.Extensions/Cheetah.OpenSearch.Extensions.csproj",
+  "expectedPackageFiles": [
+    "/home/vscode/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
+    "/home/vscode/.nuget/packages/opensearch.client/1.8.0/opensearch.client.1.8.0.nupkg.sha512",
+    "/home/vscode/.nuget/packages/opensearch.net/1.8.0/opensearch.net.1.8.0.nupkg.sha512",
+    "/home/vscode/.nuget/packages/system.buffers/4.5.1/system.buffers.4.5.1.nupkg.sha512",
+    "/home/vscode/.nuget/packages/system.diagnostics.diagnosticsource/6.0.1/system.diagnostics.diagnosticsource.6.0.1.nupkg.sha512",
+    "/home/vscode/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "/home/vscode/.nuget/packages/microsoft.netcore.app.ref/6.0.33/microsoft.netcore.app.ref.6.0.33.nupkg.sha512",
+    "/home/vscode/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.33/microsoft.aspnetcore.app.ref.6.0.33.nupkg.sha512"
+  ],
+  "logs": []
+}

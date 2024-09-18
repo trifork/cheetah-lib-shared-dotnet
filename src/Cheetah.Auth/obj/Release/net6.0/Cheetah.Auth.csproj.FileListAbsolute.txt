@@ -1,0 +1,15 @@
+/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Auth/bin/Release/net6.0/Cheetah.Auth.deps.json
+/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Auth/bin/Release/net6.0/Cheetah.Auth.dll
+/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Auth/bin/Release/net6.0/Cheetah.Auth.pdb
+/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Auth/bin/Release/net6.0/Cheetah.Auth.xml
+/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Auth/obj/Release/net6.0/Cheetah.Auth.csproj.AssemblyReference.cache
+/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Auth/obj/Release/net6.0/Cheetah.Auth.GeneratedMSBuildEditorConfig.editorconfig
+/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Auth/obj/Release/net6.0/Cheetah.Auth.AssemblyInfoInputs.cache
+/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Auth/obj/Release/net6.0/Cheetah.Auth.AssemblyInfo.cs
+/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Auth/obj/Release/net6.0/Cheetah.Auth.csproj.CoreCompileInputs.cache
+/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Auth/obj/Release/net6.0/Cheetah.Auth.sourcelink.json
+/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Auth/obj/Release/net6.0/Cheetah.Auth.dll
+/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Auth/obj/Release/net6.0/refint/Cheetah.Auth.dll
+/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Auth/obj/Release/net6.0/Cheetah.Auth.xml
+/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Auth/obj/Release/net6.0/Cheetah.Auth.pdb
+/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Auth/obj/Release/net6.0/ref/Cheetah.Auth.dll

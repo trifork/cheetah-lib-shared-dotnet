@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "JWC06EvM7fOVteU2dDhDU68NnD5iPaQhuSnW3ia7NFc=",
+  "Source": "Cheetah.OpenSearch.ExampleAPI",
+  "BasePath": "_content/Cheetah.OpenSearch.ExampleAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cheetah.MetricsTesting</name>
+    </assembly>
+    <members>
+        <member name="T:Cheetah.MetricsTesting.PrometheusMetrics.PrometheusHistogram">
+            <summary>
+            Represents a prometheus histogram
+            </summary>
+        </member>
+        <member name="P:Cheetah.MetricsTesting.PrometheusMetrics.PrometheusHistogram.Count">
+            <summary>
+            The count of observations for the histogram
+            </summary>
+        </member>
+        <member name="P:Cheetah.MetricsTesting.PrometheusMetrics.PrometheusHistogram.Quantiles">
+            <summary>
+            The quantiles for the histogram
+            </summary>
+        </member>
+        <member name="M:Cheetah.MetricsTesting.PrometheusMetrics.PrometheusHistogram.#ctor(System.Double)">
+            <summary>
+            Creates a new instance of <see cref="T:Cheetah.MetricsTesting.PrometheusMetrics.PrometheusHistogram"/>
+            </summary>
+            <param name="count">The observed count of the histogram</param>
+        </member>
+        <member name="M:Cheetah.MetricsTesting.PrometheusMetrics.PrometheusHistogram.AddQuantile(System.String,System.Double)">
+            <summary>
+            Adds a quantile to the histogram
+            </summary>
+            <param name="quantile">The quantile to add</param>
+            <param name="value">The value of the quantile</param>
+        </member>
+        <member name="T:Cheetah.MetricsTesting.PrometheusMetrics.PrometheusMetricsReader">
+            <summary>
+            Utility class used to read metrics from a prometheus endpoint
+            </summary>
+        </member>
+        <member name="M:Cheetah.MetricsTesting.PrometheusMetrics.PrometheusMetricsReader.#ctor(System.String,System.Int32)">
+            <summary>
+            Creates a reader allowing to read from a prometheus endpoint
+            </summary>
+            <param name="host">The host to connect to</param>
+            <param name="port">The port to connect to, defaults to 9249</param>
+        </member>
+        <member name="M:Cheetah.MetricsTesting.PrometheusMetrics.PrometheusMetricsReader.GetMetricsAsync(System.String,System.Boolean)">
+            <summary>
+            Returns all metrics containing the input string, returned by the metrics endpoint.
+            Multiple metrics with the same name, can happen if running multiple taskmanagers or setting taskmanager.numberOfTaskSlots higher than 1
+            </summary>
+            <param name="contains">The string which metrics should contain, if empty returns all metrics</param>
+            <param name="logMetricsLines">Íf set to true, all lines not starting with #, containing the input string are logged to Console</param>
+            <returns>All metrics returned by the metrics endpoint</returns>
+        </member>
+        <member name="M:Cheetah.MetricsTesting.PrometheusMetrics.PrometheusMetricsReader.GetCounterValueAsync(System.String,System.Boolean)">
+            <summary>
+            Get the sum of metrics, for metrics with the given name
+            Multiple metrics with the same name, can happen if running multiple taskmanagers or setting taskmanager.numberOfTaskSlots higher than 1
+            </summary>
+            <param name="name">The name of the metric</param>
+            <param name="logMetricsLines">Íf set to true, all lines not starting with #, containing the input string are logged to Console</param>
+            <returns>The sum of the filtered metrics</returns>
+        </member>
+        <member name="M:Cheetah.MetricsTesting.PrometheusMetrics.PrometheusMetricsReader.GetHistogramValueAsync(System.String,System.Boolean)">
+            <summary>
+            Returns a list of histograms, each containing their list of quantiles
+            Multiple metrics with the same name, can happen if running multiple taskmanagers or setting taskmanager.numberOfTaskSlots higher than 1
+            </summary>
+            <param name="name">The name of the histogram</param>
+            <param name="logMetricsLines">Íf set to true, all lines not starting with #, containing the input string are logged to Console</param>
+            <returns>A list of histograms, each containing their list of quantiles</returns>
+        </member>
+        <member name="M:Cheetah.MetricsTesting.PrometheusMetrics.PrometheusMetricsReader.Dispose">
+            <summary>
+            Disposes the <see cref="T:System.Net.Http.HttpClient"/> used by this reader
+            </summary>
+        </member>
+    </members>
+</doc>

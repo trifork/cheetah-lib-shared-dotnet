@@ -1,0 +1,203 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cheetah.OpenSearch</name>
+    </assembly>
+    <members>
+        <member name="T:Cheetah.OpenSearch.Configuration.OpenSearchConfig">
+            <summary>
+            OpenSearch related configuration intended to be set from appsettings.json or environment variables
+            </summary>
+        </member>
+        <member name="F:Cheetah.OpenSearch.Configuration.OpenSearchConfig.Position">
+            <summary>
+            Prefix for options e.g. OpenSearch__
+            </summary>
+        </member>
+        <member name="P:Cheetah.OpenSearch.Configuration.OpenSearchConfig.Url">
+            <summary>
+            Url for OpenSearch
+            </summary>
+        </member>
+        <member name="P:Cheetah.OpenSearch.Configuration.OpenSearchConfig.UserName">
+            <summary>
+            UserName for Basic Auth
+            </summary>
+        </member>
+        <member name="P:Cheetah.OpenSearch.Configuration.OpenSearchConfig.Password">
+            <summary>
+            Password for Basic Auth
+            </summary>
+        </member>
+        <member name="P:Cheetah.OpenSearch.Configuration.OpenSearchConfig.AuthMode">
+            <summary>
+            Authentication mode used by the OpenSearchClient
+            </summary>
+        </member>
+        <member name="P:Cheetah.OpenSearch.Configuration.OpenSearchConfig.DisableTlsValidation">
+            <summary>
+            Disables TLS validation for OpenSearch
+            </summary>
+        </member>
+        <member name="P:Cheetah.OpenSearch.Configuration.OpenSearchConfig.CaCertificatePath">
+            <summary>
+            Path to CA certificate used to validate OpenSearch certificate
+            </summary>
+        </member>
+        <member name="P:Cheetah.OpenSearch.Configuration.OpenSearchConfig.OAuth2">
+            <summary>
+            The config to use when authenticating with OAuth2
+            </summary>
+        </member>
+        <member name="M:Cheetah.OpenSearch.Configuration.OpenSearchConfig.Validate">
+            <summary>
+            Validates and throws an error if values are not set for a given <see cref="P:Cheetah.OpenSearch.Configuration.OpenSearchConfig.AuthMode"/>.
+            </summary>
+        </member>
+        <member name="T:Cheetah.OpenSearch.Configuration.OpenSearchConfig.OpenSearchAuthMode">
+            <summary>
+            Authentication method to use when connecting to OpenSearch
+            </summary>
+        </member>
+        <member name="F:Cheetah.OpenSearch.Configuration.OpenSearchConfig.OpenSearchAuthMode.None">
+            <summary>
+            No authentication
+            </summary>
+        </member>
+        <member name="F:Cheetah.OpenSearch.Configuration.OpenSearchConfig.OpenSearchAuthMode.Basic">
+            <summary>
+            Basic username/password authentication
+            </summary>
+        </member>
+        <member name="F:Cheetah.OpenSearch.Configuration.OpenSearchConfig.OpenSearchAuthMode.OAuth2">
+            <summary>
+            OAuth2 token authentication
+            </summary>
+        </member>
+        <member name="T:Cheetah.OpenSearch.Connection.ConnectionPoolHelper">
+            <summary>
+            Helper class for creating <see cref="T:OpenSearch.Net.IConnectionPool"/> instances
+            </summary>
+        </member>
+        <member name="M:Cheetah.OpenSearch.Connection.ConnectionPoolHelper.GetConnectionPool(System.String)">
+            <summary>
+            Create a <see cref="T:OpenSearch.Net.IConnectionPool"/> from a url
+            </summary>
+            <param name="url">The url for OpenSearch, if using multiple OpenSearch instances, supply a comma-separated list of URLs</param>
+            <returns></returns>
+        </member>
+        <member name="T:Cheetah.OpenSearch.Constants">
+            <summary>
+            Static class contains constant values used within the Cheetah.OpenSearch namespace
+            </summary>
+        </member>
+        <member name="F:Cheetah.OpenSearch.Constants.TokenServiceKey">
+            <summary>
+            Key used to GetRequiredKeyedService for Cheetah.OpenSearch TokenService
+            </summary>
+        </member>
+        <member name="T:Cheetah.OpenSearch.Extensions.ServiceCollectionExtensions">
+            <summary>
+            OpenSearch extension methods for <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>
+            </summary>
+        </member>
+        <member name="M:Cheetah.OpenSearch.Extensions.ServiceCollectionExtensions.AddCheetahOpenSearch(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action{Cheetah.OpenSearch.OpenSearchClientOptions})">
+            <summary>
+            Registers and configures an <see cref="T:OpenSearch.Client.IOpenSearchClient"/> for dependency injection, along with its required services.
+            </summary>
+            <remarks>
+            This method requires that the <see cref="T:Cheetah.OpenSearch.Configuration.OpenSearchConfig"/> section is configured in the supplied <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/> instance.
+            </remarks>
+            <param name="serviceCollection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to register the <see cref="T:OpenSearch.Client.IOpenSearchClient"/> and its required services with.</param>
+            <param name="configuration">The <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/> instance to use for configuration.</param>
+            <param name="configureClientOptions">Optional action used to configure the generated OpenSearchClients</param>
+            <returns>The supplied <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance for method chaining.</returns>
+        </member>
+        <member name="T:Cheetah.OpenSearch.OpenSearchClientFactory">
+            <summary>
+            Factory for creating <see cref="T:OpenSearch.Client.OpenSearchClient"/> instances
+            </summary>
+        </member>
+        <member name="M:Cheetah.OpenSearch.OpenSearchClientFactory.#ctor(Microsoft.Extensions.Options.IOptions{Cheetah.OpenSearch.Configuration.OpenSearchConfig},Microsoft.Extensions.Logging.ILogger{OpenSearch.Client.OpenSearchClient},Microsoft.Extensions.Logging.ILogger{Cheetah.OpenSearch.OpenSearchClientFactory},Cheetah.OpenSearch.OpenSearchClientOptions,OpenSearch.Net.IConnectionPool,OpenSearch.Net.IConnection)">
+            <summary>
+            Create a new instance of <see cref="T:Cheetah.OpenSearch.OpenSearchClientFactory"/>
+            </summary>
+            <param name="clientConfig">The <see cref="T:Cheetah.OpenSearch.Configuration.OpenSearchConfig"/> to use for configuring the client.</param>
+            <param name="clientLogger">The <see cref="T:Microsoft.Extensions.Logging.ILogger`1"/> to use for logging in the client.</param>
+            <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger`1"/> to use for logging in the factory.</param>
+            <param name="clientOptions">The <see cref="T:Cheetah.OpenSearch.OpenSearchClientOptions"/> used to modify client behavior</param>
+            <param name="connectionPool">The <see cref="T:OpenSearch.Net.IConnectionPool"/> to use for generated clients.</param>
+            <param name="connection">The <see cref="T:OpenSearch.Net.IConnection"/> to use for generated clients.</param>
+        </member>
+        <member name="M:Cheetah.OpenSearch.OpenSearchClientFactory.CreateOpenSearchClient">
+            <summary>
+            Create a new, pre-configured <see cref="T:OpenSearch.Client.OpenSearchClient"/> instance
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Cheetah.OpenSearch.OpenSearchClientOptions">
+            <summary>
+            Options for configuring the <see cref="T:OpenSearch.Client.OpenSearchClient"/>
+            </summary>
+        </member>
+        <member name="P:Cheetah.OpenSearch.OpenSearchClientOptions.JsonSerializerSettings">
+            <summary>
+            Retrieves the current <see cref="P:Cheetah.OpenSearch.OpenSearchClientOptions.JsonSerializerSettings"/> used by the <see cref="T:OpenSearch.Client.OpenSearchClient"/>
+            </summary>
+        </member>
+        <member name="P:Cheetah.OpenSearch.OpenSearchClientOptions.InternalConnectionSettings">
+            <summary>
+            Retrieves the current <see cref="T:OpenSearch.Client.ConnectionSettings"/> used by the <see cref="T:OpenSearch.Client.OpenSearchClient"/>
+            </summary>
+        </member>
+        <member name="M:Cheetah.OpenSearch.OpenSearchClientOptions.WithJsonSerializerSettings(System.Action{Newtonsoft.Json.JsonSerializerSettings})">
+            <summary>
+            Configures the <see cref="P:Cheetah.OpenSearch.OpenSearchClientOptions.JsonSerializerSettings"/> used by the <see cref="T:OpenSearch.Client.OpenSearchClient"/>
+            </summary>
+            <param name="configure">Action which configures used <see cref="P:Cheetah.OpenSearch.OpenSearchClientOptions.JsonSerializerSettings"/></param>
+            <returns>This <see cref="T:Cheetah.OpenSearch.OpenSearchClientOptions"/> instance for method chaining.</returns>
+        </member>
+        <member name="M:Cheetah.OpenSearch.OpenSearchClientOptions.WithConnectionSettings(System.Action{OpenSearch.Client.ConnectionSettings})">
+            <summary>
+            Configures an internal <see cref="T:OpenSearch.Client.ConnectionSettings"/> used by the <see cref="T:OpenSearch.Client.OpenSearchClient"/>
+            </summary>
+            <param name="configure">Action which configures used <see cref="T:OpenSearch.Client.ConnectionSettings"/></param>
+            <returns>This <see cref="T:Cheetah.OpenSearch.OpenSearchClientOptions"/> instance for method chaining.</returns>
+        </member>
+        <member name="T:Cheetah.OpenSearch.Testing.OpenSearchTestClient">
+            <summary>
+            Utility class for creating OpenSearch test clients
+            </summary>
+        </member>
+        <member name="M:Cheetah.OpenSearch.Testing.OpenSearchTestClient.Create(Microsoft.Extensions.Configuration.IConfiguration,Cheetah.OpenSearch.OpenSearchClientOptions)">
+            <inheritdoc cref="M:Cheetah.OpenSearch.Testing.OpenSearchTestClient.Create(Cheetah.OpenSearch.Configuration.OpenSearchConfig,Cheetah.OpenSearch.OpenSearchClientOptions)"/>
+        </member>
+        <member name="M:Cheetah.OpenSearch.Testing.OpenSearchTestClient.Create(Cheetah.OpenSearch.Configuration.OpenSearchConfig,Cheetah.OpenSearch.OpenSearchClientOptions)">
+            <summary>
+            Creates an IOpenSearchClient from the provided configuration.
+            </summary>
+            <remarks>
+            <b>WARNING</b>: This method should <i>only</i> be used if you for some reason cannot use dependency injection and need to create a client manually.
+            In any other circumstances, you should use the <see cref="M:Cheetah.OpenSearch.Extensions.ServiceCollectionExtensions.AddCheetahOpenSearch(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action{Cheetah.OpenSearch.OpenSearchClientOptions})"/> method during service registration and inject <see cref="T:OpenSearch.Client.IOpenSearchClient"/> into your service.
+            </remarks>
+            <param name="configuration">The configuration to create the client from</param>
+            <param name="options">The <see cref="T:Cheetah.OpenSearch.OpenSearchClientOptions"/> used to modify client behavior</param>
+            <returns>A pre-configured <see cref="T:OpenSearch.Client.OpenSearchClient"/></returns>
+        </member>
+        <member name="T:Cheetah.OpenSearch.Util.UtcDateTimeConverter">
+            <summary>
+            Converts <see cref="T:System.DateTime"/>s and <see cref="T:System.DateTimeOffset"/> to and from Unix epoch time (milliseconds)
+            </summary>
+            <remarks>
+            This converter is used to ensure that all <see cref="T:System.DateTime"/>s are serialized to Unix epoch time (milliseconds).<br/>
+            <c>null</c> values are (de)serialized as <c>null</c>.
+            </remarks>
+        </member>
+        <member name="M:Cheetah.OpenSearch.Util.UtcDateTimeConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Cheetah.OpenSearch.Util.UtcDateTimeConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>
