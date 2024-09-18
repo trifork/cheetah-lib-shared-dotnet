@@ -96,8 +96,6 @@ jobs:
           version: ${{ steps.get-version.outputs.version }}
           repo-name: ${{ inputs.project }}
 
-
-
       - name: Commit changes to toc.yml
         if: ${{ env.updated }} == true
         uses: EndBug/add-and-commit@v9
@@ -113,8 +111,6 @@ jobs:
           mv .gitignore public/.gitignore
           rm public/_source/api/.gitignore
           mv _site/ public/docs
-          rm public/_source/articles/toc.yml
-          mv ./toc.yml public/_source/articles/
 
         #TODO Refactor to only deploy once and only if that project has been updated
       - name: Deploy to GitHub Pages for project ${{ inputs.project }}
