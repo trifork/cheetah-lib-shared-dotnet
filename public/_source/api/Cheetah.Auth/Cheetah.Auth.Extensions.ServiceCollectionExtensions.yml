@@ -1,0 +1,229 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.Auth.Extensions.ServiceCollectionExtensions
+  commentId: T:Cheetah.Auth.Extensions.ServiceCollectionExtensions
+  id: ServiceCollectionExtensions
+  parent: Cheetah.Auth.Extensions
+  children:
+  - Cheetah.Auth.Extensions.ServiceCollectionExtensions.TryAddCheetahKeyedTokenService(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,Cheetah.Auth.Configuration.OAuth2Config)
+  langs:
+  - csharp
+  - vb
+  name: ServiceCollectionExtensions
+  nameWithType: ServiceCollectionExtensions
+  fullName: Cheetah.Auth.Extensions.ServiceCollectionExtensions
+  type: Class
+  source:
+    remote:
+      path: src/Cheetah.Auth/Extensions/ServiceCollectionExtentions.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: ServiceCollectionExtensions
+    path: ../src/Cheetah.Auth/Extensions/ServiceCollectionExtentions.cs
+    startLine: 13
+  assemblies:
+  - Cheetah.Auth
+  namespace: Cheetah.Auth.Extensions
+  summary: Extension method for adding Cheetah auth keyed token service to IServiceCollection
+  example: []
+  syntax:
+    content: public static class ServiceCollectionExtensions
+    content.vb: Public Module ServiceCollectionExtensions
+  inheritance:
+  - System.Object
+- uid: Cheetah.Auth.Extensions.ServiceCollectionExtensions.TryAddCheetahKeyedTokenService(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,Cheetah.Auth.Configuration.OAuth2Config)
+  commentId: M:Cheetah.Auth.Extensions.ServiceCollectionExtensions.TryAddCheetahKeyedTokenService(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,Cheetah.Auth.Configuration.OAuth2Config)
+  id: TryAddCheetahKeyedTokenService(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,Cheetah.Auth.Configuration.OAuth2Config)
+  isExtensionMethod: true
+  parent: Cheetah.Auth.Extensions.ServiceCollectionExtensions
+  langs:
+  - csharp
+  - vb
+  name: TryAddCheetahKeyedTokenService(IServiceCollection, string, OAuth2Config)
+  nameWithType: ServiceCollectionExtensions.TryAddCheetahKeyedTokenService(IServiceCollection, string, OAuth2Config)
+  fullName: Cheetah.Auth.Extensions.ServiceCollectionExtensions.TryAddCheetahKeyedTokenService(Microsoft.Extensions.DependencyInjection.IServiceCollection, string, Cheetah.Auth.Configuration.OAuth2Config)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Auth/Extensions/ServiceCollectionExtentions.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: TryAddCheetahKeyedTokenService
+    path: ../src/Cheetah.Auth/Extensions/ServiceCollectionExtentions.cs
+    startLine: 23
+  assemblies:
+  - Cheetah.Auth
+  namespace: Cheetah.Auth.Extensions
+  summary: >-
+    Registers and configures a CachedTokenProvider and a TokenService with dependency injection,
+
+    utilizing a unique key for GetRequiredKeyedService, ensuring that a distinct singleton is registered for each KeyedTokenService instance.
+  example: []
+  syntax:
+    content: public static IServiceCollection TryAddCheetahKeyedTokenService(this IServiceCollection serviceCollection, string key, OAuth2Config oAuthConfig)
+    parameters:
+    - id: serviceCollection
+      type: Microsoft.Extensions.DependencyInjection.IServiceCollection
+      description: The <xref href="Microsoft.Extensions.DependencyInjection.IServiceCollection" data-throw-if-not-resolved="false"></xref> to add the services to.
+    - id: key
+      type: System.String
+      description: The key used for resolving the services.
+    - id: oAuthConfig
+      type: Cheetah.Auth.Configuration.OAuth2Config
+      description: The OAuth2 configuration.
+    return:
+      type: Microsoft.Extensions.DependencyInjection.IServiceCollection
+      description: The modified <xref href="Microsoft.Extensions.DependencyInjection.IServiceCollection" data-throw-if-not-resolved="false"></xref> instance.
+    content.vb: Public Shared Function TryAddCheetahKeyedTokenService(serviceCollection As IServiceCollection, key As String, oAuthConfig As OAuth2Config) As IServiceCollection
+  overload: Cheetah.Auth.Extensions.ServiceCollectionExtensions.TryAddCheetahKeyedTokenService*
+  nameWithType.vb: ServiceCollectionExtensions.TryAddCheetahKeyedTokenService(IServiceCollection, String, OAuth2Config)
+  fullName.vb: Cheetah.Auth.Extensions.ServiceCollectionExtensions.TryAddCheetahKeyedTokenService(Microsoft.Extensions.DependencyInjection.IServiceCollection, String, Cheetah.Auth.Configuration.OAuth2Config)
+  name.vb: TryAddCheetahKeyedTokenService(IServiceCollection, String, OAuth2Config)
+references:
+- uid: Cheetah.Auth.Extensions
+  commentId: N:Cheetah.Auth.Extensions
+  href: Cheetah.html
+  name: Cheetah.Auth.Extensions
+  nameWithType: Cheetah.Auth.Extensions
+  fullName: Cheetah.Auth.Extensions
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+    href: Cheetah.Auth.html
+  - name: .
+  - uid: Cheetah.Auth.Extensions
+    name: Extensions
+    href: Cheetah.Auth.Extensions.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+    href: Cheetah.Auth.html
+  - name: .
+  - uid: Cheetah.Auth.Extensions
+    name: Extensions
+    href: Cheetah.Auth.Extensions.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Microsoft.Extensions.DependencyInjection.IServiceCollection
+  commentId: T:Microsoft.Extensions.DependencyInjection.IServiceCollection
+  parent: Microsoft.Extensions.DependencyInjection
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection
+  name: IServiceCollection
+  nameWithType: IServiceCollection
+  fullName: Microsoft.Extensions.DependencyInjection.IServiceCollection
+- uid: Cheetah.Auth.Extensions.ServiceCollectionExtensions.TryAddCheetahKeyedTokenService*
+  commentId: Overload:Cheetah.Auth.Extensions.ServiceCollectionExtensions.TryAddCheetahKeyedTokenService
+  href: Cheetah.Auth.Extensions.ServiceCollectionExtensions.html#Cheetah_Auth_Extensions_ServiceCollectionExtensions_TryAddCheetahKeyedTokenService_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_String_Cheetah_Auth_Configuration_OAuth2Config_
+  name: TryAddCheetahKeyedTokenService
+  nameWithType: ServiceCollectionExtensions.TryAddCheetahKeyedTokenService
+  fullName: Cheetah.Auth.Extensions.ServiceCollectionExtensions.TryAddCheetahKeyedTokenService
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Cheetah.Auth.Configuration.OAuth2Config
+  commentId: T:Cheetah.Auth.Configuration.OAuth2Config
+  parent: Cheetah.Auth.Configuration
+  href: Cheetah.Auth.Configuration.OAuth2Config.html
+  name: OAuth2Config
+  nameWithType: OAuth2Config
+  fullName: Cheetah.Auth.Configuration.OAuth2Config
+- uid: Microsoft.Extensions.DependencyInjection
+  commentId: N:Microsoft.Extensions.DependencyInjection
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft
+  name: Microsoft.Extensions.DependencyInjection
+  nameWithType: Microsoft.Extensions.DependencyInjection
+  fullName: Microsoft.Extensions.DependencyInjection
+  spec.csharp:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions
+  - name: .
+  - uid: Microsoft.Extensions.DependencyInjection
+    name: DependencyInjection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection
+  spec.vb:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions
+  - name: .
+  - uid: Microsoft.Extensions.DependencyInjection
+    name: DependencyInjection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection
+- uid: Cheetah.Auth.Configuration
+  commentId: N:Cheetah.Auth.Configuration
+  href: Cheetah.html
+  name: Cheetah.Auth.Configuration
+  nameWithType: Cheetah.Auth.Configuration
+  fullName: Cheetah.Auth.Configuration
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+    href: Cheetah.Auth.html
+  - name: .
+  - uid: Cheetah.Auth.Configuration
+    name: Configuration
+    href: Cheetah.Auth.Configuration.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+    href: Cheetah.Auth.html
+  - name: .
+  - uid: Cheetah.Auth.Configuration
+    name: Configuration
+    href: Cheetah.Auth.Configuration.html

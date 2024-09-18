@@ -1,0 +1,452 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.Kafka.Util.Utf8JsonDeserializer`1
+  commentId: T:Cheetah.Kafka.Util.Utf8JsonDeserializer`1
+  id: Utf8JsonDeserializer`1
+  parent: Cheetah.Kafka.Util
+  children:
+  - Cheetah.Kafka.Util.Utf8JsonDeserializer`1.Deserialize(System.ReadOnlySpan{System.Byte},System.Boolean,Confluent.Kafka.SerializationContext)
+  langs:
+  - csharp
+  - vb
+  name: Utf8JsonDeserializer<T>
+  nameWithType: Utf8JsonDeserializer<T>
+  fullName: Cheetah.Kafka.Util.Utf8JsonDeserializer<T>
+  type: Class
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Util/Utf8JsonDeserializer.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: Utf8JsonDeserializer
+    path: ../src/Cheetah.Kafka/Util/Utf8JsonDeserializer.cs
+    startLine: 10
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka.Util
+  summary: Serializer which serializes data with UTF8-encoding
+  example: []
+  syntax:
+    content: 'public class Utf8JsonDeserializer<T> : IDeserializer<T>'
+    typeParameters:
+    - id: T
+      description: The type to (de)serialize
+    content.vb: Public Class Utf8JsonDeserializer(Of T) Implements IDeserializer(Of T)
+  inheritance:
+  - System.Object
+  implements:
+  - Confluent.Kafka.IDeserializer{{T}}
+  nameWithType.vb: Utf8JsonDeserializer(Of T)
+  fullName.vb: Cheetah.Kafka.Util.Utf8JsonDeserializer(Of T)
+  name.vb: Utf8JsonDeserializer(Of T)
+- uid: Cheetah.Kafka.Util.Utf8JsonDeserializer`1.Deserialize(System.ReadOnlySpan{System.Byte},System.Boolean,Confluent.Kafka.SerializationContext)
+  commentId: M:Cheetah.Kafka.Util.Utf8JsonDeserializer`1.Deserialize(System.ReadOnlySpan{System.Byte},System.Boolean,Confluent.Kafka.SerializationContext)
+  id: Deserialize(System.ReadOnlySpan{System.Byte},System.Boolean,Confluent.Kafka.SerializationContext)
+  parent: Cheetah.Kafka.Util.Utf8JsonDeserializer`1
+  langs:
+  - csharp
+  - vb
+  name: Deserialize(ReadOnlySpan<byte>, bool, SerializationContext)
+  nameWithType: Utf8JsonDeserializer<T>.Deserialize(ReadOnlySpan<byte>, bool, SerializationContext)
+  fullName: Cheetah.Kafka.Util.Utf8JsonDeserializer<T>.Deserialize(System.ReadOnlySpan<byte>, bool, Confluent.Kafka.SerializationContext)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Util/Utf8JsonDeserializer.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: Deserialize
+    path: ../src/Cheetah.Kafka/Util/Utf8JsonDeserializer.cs
+    startLine: 20
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka.Util
+  summary: Deserializes the input data
+  example: []
+  syntax:
+    content: public T Deserialize(ReadOnlySpan<byte> data, bool isNull, SerializationContext context)
+    parameters:
+    - id: data
+      type: System.ReadOnlySpan{System.Byte}
+      description: The data to deserialize
+    - id: isNull
+      type: System.Boolean
+      description: Whether the data is null
+    - id: context
+      type: Confluent.Kafka.SerializationContext
+      description: The current serialization context
+    return:
+      type: '{T}'
+      description: A <code class="typeparamref">T</code> instance obtained from deserializing the input <code class="paramref">data</code>.
+    content.vb: Public Function Deserialize(data As ReadOnlySpan(Of Byte), isNull As Boolean, context As SerializationContext) As T
+  overload: Cheetah.Kafka.Util.Utf8JsonDeserializer`1.Deserialize*
+  exceptions:
+  - type: System.ArgumentException
+    commentId: T:System.ArgumentException
+    description: ''
+  implements:
+  - Confluent.Kafka.IDeserializer{{T}}.Deserialize(System.ReadOnlySpan{System.Byte},System.Boolean,Confluent.Kafka.SerializationContext)
+  nameWithType.vb: Utf8JsonDeserializer(Of T).Deserialize(ReadOnlySpan(Of Byte), Boolean, SerializationContext)
+  fullName.vb: Cheetah.Kafka.Util.Utf8JsonDeserializer(Of T).Deserialize(System.ReadOnlySpan(Of Byte), Boolean, Confluent.Kafka.SerializationContext)
+  name.vb: Deserialize(ReadOnlySpan(Of Byte), Boolean, SerializationContext)
+references:
+- uid: Cheetah.Kafka.Util
+  commentId: N:Cheetah.Kafka.Util
+  href: Cheetah.html
+  name: Cheetah.Kafka.Util
+  nameWithType: Cheetah.Kafka.Util
+  fullName: Cheetah.Kafka.Util
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  - name: .
+  - uid: Cheetah.Kafka.Util
+    name: Util
+    href: Cheetah.Kafka.Util.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  - name: .
+  - uid: Cheetah.Kafka.Util
+    name: Util
+    href: Cheetah.Kafka.Util.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Confluent.Kafka.IDeserializer{{T}}
+  commentId: T:Confluent.Kafka.IDeserializer{``0}
+  parent: Confluent.Kafka
+  definition: Confluent.Kafka.IDeserializer`1
+  name: IDeserializer<T>
+  nameWithType: IDeserializer<T>
+  fullName: Confluent.Kafka.IDeserializer<T>
+  nameWithType.vb: IDeserializer(Of T)
+  fullName.vb: Confluent.Kafka.IDeserializer(Of T)
+  name.vb: IDeserializer(Of T)
+  spec.csharp:
+  - uid: Confluent.Kafka.IDeserializer`1
+    name: IDeserializer
+    isExternal: true
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Confluent.Kafka.IDeserializer`1
+    name: IDeserializer
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Confluent.Kafka.IDeserializer`1
+  commentId: T:Confluent.Kafka.IDeserializer`1
+  isExternal: true
+  name: IDeserializer<T>
+  nameWithType: IDeserializer<T>
+  fullName: Confluent.Kafka.IDeserializer<T>
+  nameWithType.vb: IDeserializer(Of T)
+  fullName.vb: Confluent.Kafka.IDeserializer(Of T)
+  name.vb: IDeserializer(Of T)
+  spec.csharp:
+  - uid: Confluent.Kafka.IDeserializer`1
+    name: IDeserializer
+    isExternal: true
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Confluent.Kafka.IDeserializer`1
+    name: IDeserializer
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Confluent.Kafka
+  commentId: N:Confluent.Kafka
+  isExternal: true
+  name: Confluent.Kafka
+  nameWithType: Confluent.Kafka
+  fullName: Confluent.Kafka
+  spec.csharp:
+  - uid: Confluent
+    name: Confluent
+    isExternal: true
+  - name: .
+  - uid: Confluent.Kafka
+    name: Kafka
+    isExternal: true
+  spec.vb:
+  - uid: Confluent
+    name: Confluent
+    isExternal: true
+  - name: .
+  - uid: Confluent.Kafka
+    name: Kafka
+    isExternal: true
+- uid: System.ArgumentException
+  commentId: T:System.ArgumentException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentexception
+  name: ArgumentException
+  nameWithType: ArgumentException
+  fullName: System.ArgumentException
+- uid: Cheetah.Kafka.Util.Utf8JsonDeserializer`1.Deserialize*
+  commentId: Overload:Cheetah.Kafka.Util.Utf8JsonDeserializer`1.Deserialize
+  href: Cheetah.Kafka.Util.Utf8JsonDeserializer-1.html#Cheetah_Kafka_Util_Utf8JsonDeserializer_1_Deserialize_System_ReadOnlySpan_System_Byte__System_Boolean_Confluent_Kafka_SerializationContext_
+  name: Deserialize
+  nameWithType: Utf8JsonDeserializer<T>.Deserialize
+  fullName: Cheetah.Kafka.Util.Utf8JsonDeserializer<T>.Deserialize
+  nameWithType.vb: Utf8JsonDeserializer(Of T).Deserialize
+  fullName.vb: Cheetah.Kafka.Util.Utf8JsonDeserializer(Of T).Deserialize
+- uid: Confluent.Kafka.IDeserializer{{T}}.Deserialize(System.ReadOnlySpan{System.Byte},System.Boolean,Confluent.Kafka.SerializationContext)
+  commentId: M:Confluent.Kafka.IDeserializer{`0}.Deserialize(System.ReadOnlySpan{System.Byte},System.Boolean,Confluent.Kafka.SerializationContext)
+  parent: Confluent.Kafka.IDeserializer{{T}}
+  definition: Confluent.Kafka.IDeserializer`1.Deserialize(System.ReadOnlySpan{System.Byte},System.Boolean,Confluent.Kafka.SerializationContext)
+  href: https://learn.microsoft.com/dotnet/api/system.readonlyspan-1
+  name: Deserialize(ReadOnlySpan<byte>, bool, SerializationContext)
+  nameWithType: IDeserializer<T>.Deserialize(ReadOnlySpan<byte>, bool, SerializationContext)
+  fullName: Confluent.Kafka.IDeserializer<T>.Deserialize(System.ReadOnlySpan<byte>, bool, Confluent.Kafka.SerializationContext)
+  nameWithType.vb: IDeserializer(Of T).Deserialize(ReadOnlySpan(Of Byte), Boolean, SerializationContext)
+  fullName.vb: Confluent.Kafka.IDeserializer(Of T).Deserialize(System.ReadOnlySpan(Of Byte), Boolean, Confluent.Kafka.SerializationContext)
+  name.vb: Deserialize(ReadOnlySpan(Of Byte), Boolean, SerializationContext)
+  spec.csharp:
+  - uid: Confluent.Kafka.IDeserializer{`0}.Deserialize(System.ReadOnlySpan{System.Byte},System.Boolean,Confluent.Kafka.SerializationContext)
+    name: Deserialize
+    isExternal: true
+  - name: (
+  - uid: System.ReadOnlySpan`1
+    name: ReadOnlySpan
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.readonlyspan-1
+  - name: <
+  - uid: System.Byte
+    name: byte
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.byte
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: Confluent.Kafka.SerializationContext
+    name: SerializationContext
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Confluent.Kafka.IDeserializer{`0}.Deserialize(System.ReadOnlySpan{System.Byte},System.Boolean,Confluent.Kafka.SerializationContext)
+    name: Deserialize
+    isExternal: true
+  - name: (
+  - uid: System.ReadOnlySpan`1
+    name: ReadOnlySpan
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.readonlyspan-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Byte
+    name: Byte
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.byte
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: Confluent.Kafka.SerializationContext
+    name: SerializationContext
+    isExternal: true
+  - name: )
+- uid: System.ReadOnlySpan{System.Byte}
+  commentId: T:System.ReadOnlySpan{System.Byte}
+  parent: System
+  definition: System.ReadOnlySpan`1
+  href: https://learn.microsoft.com/dotnet/api/system.readonlyspan-1
+  name: ReadOnlySpan<byte>
+  nameWithType: ReadOnlySpan<byte>
+  fullName: System.ReadOnlySpan<byte>
+  nameWithType.vb: ReadOnlySpan(Of Byte)
+  fullName.vb: System.ReadOnlySpan(Of Byte)
+  name.vb: ReadOnlySpan(Of Byte)
+  spec.csharp:
+  - uid: System.ReadOnlySpan`1
+    name: ReadOnlySpan
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.readonlyspan-1
+  - name: <
+  - uid: System.Byte
+    name: byte
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.byte
+  - name: '>'
+  spec.vb:
+  - uid: System.ReadOnlySpan`1
+    name: ReadOnlySpan
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.readonlyspan-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Byte
+    name: Byte
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.byte
+  - name: )
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Confluent.Kafka.SerializationContext
+  commentId: T:Confluent.Kafka.SerializationContext
+  parent: Confluent.Kafka
+  isExternal: true
+  name: SerializationContext
+  nameWithType: SerializationContext
+  fullName: Confluent.Kafka.SerializationContext
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: Confluent.Kafka.IDeserializer`1.Deserialize(System.ReadOnlySpan{System.Byte},System.Boolean,Confluent.Kafka.SerializationContext)
+  commentId: M:Confluent.Kafka.IDeserializer`1.Deserialize(System.ReadOnlySpan{System.Byte},System.Boolean,Confluent.Kafka.SerializationContext)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.readonlyspan-1
+  name: Deserialize(ReadOnlySpan<byte>, bool, SerializationContext)
+  nameWithType: IDeserializer<T>.Deserialize(ReadOnlySpan<byte>, bool, SerializationContext)
+  fullName: Confluent.Kafka.IDeserializer<T>.Deserialize(System.ReadOnlySpan<byte>, bool, Confluent.Kafka.SerializationContext)
+  nameWithType.vb: IDeserializer(Of T).Deserialize(ReadOnlySpan(Of Byte), Boolean, SerializationContext)
+  fullName.vb: Confluent.Kafka.IDeserializer(Of T).Deserialize(System.ReadOnlySpan(Of Byte), Boolean, Confluent.Kafka.SerializationContext)
+  name.vb: Deserialize(ReadOnlySpan(Of Byte), Boolean, SerializationContext)
+  spec.csharp:
+  - uid: Confluent.Kafka.IDeserializer`1.Deserialize(System.ReadOnlySpan{System.Byte},System.Boolean,Confluent.Kafka.SerializationContext)
+    name: Deserialize
+    isExternal: true
+  - name: (
+  - uid: System.ReadOnlySpan`1
+    name: ReadOnlySpan
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.readonlyspan-1
+  - name: <
+  - uid: System.Byte
+    name: byte
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.byte
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: Confluent.Kafka.SerializationContext
+    name: SerializationContext
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Confluent.Kafka.IDeserializer`1.Deserialize(System.ReadOnlySpan{System.Byte},System.Boolean,Confluent.Kafka.SerializationContext)
+    name: Deserialize
+    isExternal: true
+  - name: (
+  - uid: System.ReadOnlySpan`1
+    name: ReadOnlySpan
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.readonlyspan-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Byte
+    name: Byte
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.byte
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: Confluent.Kafka.SerializationContext
+    name: SerializationContext
+    isExternal: true
+  - name: )
+- uid: System.ReadOnlySpan`1
+  commentId: T:System.ReadOnlySpan`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.readonlyspan-1
+  name: ReadOnlySpan<T>
+  nameWithType: ReadOnlySpan<T>
+  fullName: System.ReadOnlySpan<T>
+  nameWithType.vb: ReadOnlySpan(Of T)
+  fullName.vb: System.ReadOnlySpan(Of T)
+  name.vb: ReadOnlySpan(Of T)
+  spec.csharp:
+  - uid: System.ReadOnlySpan`1
+    name: ReadOnlySpan
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.readonlyspan-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.ReadOnlySpan`1
+    name: ReadOnlySpan
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.readonlyspan-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T

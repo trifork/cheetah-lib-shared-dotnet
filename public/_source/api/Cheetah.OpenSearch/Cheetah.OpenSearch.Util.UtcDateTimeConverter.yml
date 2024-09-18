@@ -1,0 +1,460 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.OpenSearch.Util.UtcDateTimeConverter
+  commentId: T:Cheetah.OpenSearch.Util.UtcDateTimeConverter
+  id: UtcDateTimeConverter
+  parent: Cheetah.OpenSearch.Util
+  children:
+  - Cheetah.OpenSearch.Util.UtcDateTimeConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)
+  - Cheetah.OpenSearch.Util.UtcDateTimeConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)
+  langs:
+  - csharp
+  - vb
+  name: UtcDateTimeConverter
+  nameWithType: UtcDateTimeConverter
+  fullName: Cheetah.OpenSearch.Util.UtcDateTimeConverter
+  type: Class
+  source:
+    remote:
+      path: src/Cheetah.OpenSearch/Util/UtcDateTimeConverter.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: UtcDateTimeConverter
+    path: ../src/Cheetah.OpenSearch/Util/UtcDateTimeConverter.cs
+    startLine: 13
+  assemblies:
+  - Cheetah.OpenSearch
+  namespace: Cheetah.OpenSearch.Util
+  summary: Converts <xref href="System.DateTime" data-throw-if-not-resolved="false"></xref>s and <xref href="System.DateTimeOffset" data-throw-if-not-resolved="false"></xref> to and from Unix epoch time (milliseconds)
+  remarks: This converter is used to ensure that all <xref href="System.DateTime" data-throw-if-not-resolved="false"></xref>s are serialized to Unix epoch time (milliseconds).<br /><code>null</code> values are (de)serialized as <code>null</code>.
+  example: []
+  syntax:
+    content: 'public class UtcDateTimeConverter : DateTimeConverterBase'
+    content.vb: Public Class UtcDateTimeConverter Inherits DateTimeConverterBase
+  inheritance:
+  - System.Object
+  - Newtonsoft.Json.JsonConverter
+  - Newtonsoft.Json.Converters.DateTimeConverterBase
+  inheritedMembers:
+  - Newtonsoft.Json.Converters.DateTimeConverterBase.CanConvert(System.Type)
+  - Newtonsoft.Json.JsonConverter.CanRead
+  - Newtonsoft.Json.JsonConverter.CanWrite
+- uid: Cheetah.OpenSearch.Util.UtcDateTimeConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)
+  commentId: M:Cheetah.OpenSearch.Util.UtcDateTimeConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)
+  id: ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)
+  parent: Cheetah.OpenSearch.Util.UtcDateTimeConverter
+  langs:
+  - csharp
+  - vb
+  name: ReadJson(JsonReader, Type, object?, JsonSerializer)
+  nameWithType: UtcDateTimeConverter.ReadJson(JsonReader, Type, object?, JsonSerializer)
+  fullName: Cheetah.OpenSearch.Util.UtcDateTimeConverter.ReadJson(Newtonsoft.Json.JsonReader, System.Type, object?, Newtonsoft.Json.JsonSerializer)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.OpenSearch/Util/UtcDateTimeConverter.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: ReadJson
+    path: ../src/Cheetah.OpenSearch/Util/UtcDateTimeConverter.cs
+    startLine: 16
+  assemblies:
+  - Cheetah.OpenSearch
+  namespace: Cheetah.OpenSearch.Util
+  summary: Reads the JSON representation of the object.
+  example: []
+  syntax:
+    content: public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
+    parameters:
+    - id: reader
+      type: Newtonsoft.Json.JsonReader
+      description: The <xref href="Newtonsoft.Json.JsonReader" data-throw-if-not-resolved="false"></xref> to read from.
+    - id: objectType
+      type: System.Type
+      description: Type of the object.
+    - id: existingValue
+      type: System.Object
+      description: The existing value of object being read.
+    - id: serializer
+      type: Newtonsoft.Json.JsonSerializer
+      description: The calling serializer.
+    return:
+      type: System.Object
+      description: The object value.
+    content.vb: Public Overrides Function ReadJson(reader As JsonReader, objectType As Type, existingValue As Object, serializer As JsonSerializer) As Object
+  overridden: Newtonsoft.Json.JsonConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)
+  overload: Cheetah.OpenSearch.Util.UtcDateTimeConverter.ReadJson*
+  nameWithType.vb: UtcDateTimeConverter.ReadJson(JsonReader, Type, Object, JsonSerializer)
+  fullName.vb: Cheetah.OpenSearch.Util.UtcDateTimeConverter.ReadJson(Newtonsoft.Json.JsonReader, System.Type, Object, Newtonsoft.Json.JsonSerializer)
+  name.vb: ReadJson(JsonReader, Type, Object, JsonSerializer)
+- uid: Cheetah.OpenSearch.Util.UtcDateTimeConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)
+  commentId: M:Cheetah.OpenSearch.Util.UtcDateTimeConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)
+  id: WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)
+  parent: Cheetah.OpenSearch.Util.UtcDateTimeConverter
+  langs:
+  - csharp
+  - vb
+  name: WriteJson(JsonWriter, object?, JsonSerializer)
+  nameWithType: UtcDateTimeConverter.WriteJson(JsonWriter, object?, JsonSerializer)
+  fullName: Cheetah.OpenSearch.Util.UtcDateTimeConverter.WriteJson(Newtonsoft.Json.JsonWriter, object?, Newtonsoft.Json.JsonSerializer)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.OpenSearch/Util/UtcDateTimeConverter.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: WriteJson
+    path: ../src/Cheetah.OpenSearch/Util/UtcDateTimeConverter.cs
+    startLine: 76
+  assemblies:
+  - Cheetah.OpenSearch
+  namespace: Cheetah.OpenSearch.Util
+  summary: Writes the JSON representation of the object.
+  example: []
+  syntax:
+    content: public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
+    parameters:
+    - id: writer
+      type: Newtonsoft.Json.JsonWriter
+      description: The <xref href="Newtonsoft.Json.JsonWriter" data-throw-if-not-resolved="false"></xref> to write to.
+    - id: value
+      type: System.Object
+      description: The value.
+    - id: serializer
+      type: Newtonsoft.Json.JsonSerializer
+      description: The calling serializer.
+    content.vb: Public Overrides Sub WriteJson(writer As JsonWriter, value As Object, serializer As JsonSerializer)
+  overridden: Newtonsoft.Json.JsonConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)
+  overload: Cheetah.OpenSearch.Util.UtcDateTimeConverter.WriteJson*
+  nameWithType.vb: UtcDateTimeConverter.WriteJson(JsonWriter, Object, JsonSerializer)
+  fullName.vb: Cheetah.OpenSearch.Util.UtcDateTimeConverter.WriteJson(Newtonsoft.Json.JsonWriter, Object, Newtonsoft.Json.JsonSerializer)
+  name.vb: WriteJson(JsonWriter, Object, JsonSerializer)
+references:
+- uid: System.DateTime
+  commentId: T:System.DateTime
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.datetime
+  name: DateTime
+  nameWithType: DateTime
+  fullName: System.DateTime
+  nameWithType.vb: Date
+  fullName.vb: Date
+  name.vb: Date
+- uid: System.DateTimeOffset
+  commentId: T:System.DateTimeOffset
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.datetimeoffset
+  name: DateTimeOffset
+  nameWithType: DateTimeOffset
+  fullName: System.DateTimeOffset
+- uid: Cheetah.OpenSearch.Util
+  commentId: N:Cheetah.OpenSearch.Util
+  href: Cheetah.html
+  name: Cheetah.OpenSearch.Util
+  nameWithType: Cheetah.OpenSearch.Util
+  fullName: Cheetah.OpenSearch.Util
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.OpenSearch
+    name: OpenSearch
+    href: Cheetah.OpenSearch.html
+  - name: .
+  - uid: Cheetah.OpenSearch.Util
+    name: Util
+    href: Cheetah.OpenSearch.Util.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.OpenSearch
+    name: OpenSearch
+    href: Cheetah.OpenSearch.html
+  - name: .
+  - uid: Cheetah.OpenSearch.Util
+    name: Util
+    href: Cheetah.OpenSearch.Util.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Newtonsoft.Json.JsonConverter
+  commentId: T:Newtonsoft.Json.JsonConverter
+  parent: Newtonsoft.Json
+  isExternal: true
+  name: JsonConverter
+  nameWithType: JsonConverter
+  fullName: Newtonsoft.Json.JsonConverter
+- uid: Newtonsoft.Json.Converters.DateTimeConverterBase
+  commentId: T:Newtonsoft.Json.Converters.DateTimeConverterBase
+  parent: Newtonsoft.Json.Converters
+  isExternal: true
+  name: DateTimeConverterBase
+  nameWithType: DateTimeConverterBase
+  fullName: Newtonsoft.Json.Converters.DateTimeConverterBase
+- uid: Newtonsoft.Json.Converters.DateTimeConverterBase.CanConvert(System.Type)
+  commentId: M:Newtonsoft.Json.Converters.DateTimeConverterBase.CanConvert(System.Type)
+  parent: Newtonsoft.Json.Converters.DateTimeConverterBase
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: CanConvert(Type)
+  nameWithType: DateTimeConverterBase.CanConvert(Type)
+  fullName: Newtonsoft.Json.Converters.DateTimeConverterBase.CanConvert(System.Type)
+  spec.csharp:
+  - uid: Newtonsoft.Json.Converters.DateTimeConverterBase.CanConvert(System.Type)
+    name: CanConvert
+    isExternal: true
+  - name: (
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Newtonsoft.Json.Converters.DateTimeConverterBase.CanConvert(System.Type)
+    name: CanConvert
+    isExternal: true
+  - name: (
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Newtonsoft.Json.JsonConverter.CanRead
+  commentId: P:Newtonsoft.Json.JsonConverter.CanRead
+  parent: Newtonsoft.Json.JsonConverter
+  isExternal: true
+  name: CanRead
+  nameWithType: JsonConverter.CanRead
+  fullName: Newtonsoft.Json.JsonConverter.CanRead
+- uid: Newtonsoft.Json.JsonConverter.CanWrite
+  commentId: P:Newtonsoft.Json.JsonConverter.CanWrite
+  parent: Newtonsoft.Json.JsonConverter
+  isExternal: true
+  name: CanWrite
+  nameWithType: JsonConverter.CanWrite
+  fullName: Newtonsoft.Json.JsonConverter.CanWrite
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Newtonsoft.Json
+  commentId: N:Newtonsoft.Json
+  isExternal: true
+  name: Newtonsoft.Json
+  nameWithType: Newtonsoft.Json
+  fullName: Newtonsoft.Json
+  spec.csharp:
+  - uid: Newtonsoft
+    name: Newtonsoft
+    isExternal: true
+  - name: .
+  - uid: Newtonsoft.Json
+    name: Json
+    isExternal: true
+  spec.vb:
+  - uid: Newtonsoft
+    name: Newtonsoft
+    isExternal: true
+  - name: .
+  - uid: Newtonsoft.Json
+    name: Json
+    isExternal: true
+- uid: Newtonsoft.Json.Converters
+  commentId: N:Newtonsoft.Json.Converters
+  isExternal: true
+  name: Newtonsoft.Json.Converters
+  nameWithType: Newtonsoft.Json.Converters
+  fullName: Newtonsoft.Json.Converters
+  spec.csharp:
+  - uid: Newtonsoft
+    name: Newtonsoft
+    isExternal: true
+  - name: .
+  - uid: Newtonsoft.Json
+    name: Json
+    isExternal: true
+  - name: .
+  - uid: Newtonsoft.Json.Converters
+    name: Converters
+    isExternal: true
+  spec.vb:
+  - uid: Newtonsoft
+    name: Newtonsoft
+    isExternal: true
+  - name: .
+  - uid: Newtonsoft.Json
+    name: Json
+    isExternal: true
+  - name: .
+  - uid: Newtonsoft.Json.Converters
+    name: Converters
+    isExternal: true
+- uid: Newtonsoft.Json.JsonReader
+  commentId: T:Newtonsoft.Json.JsonReader
+  parent: Newtonsoft.Json
+  isExternal: true
+  name: JsonReader
+  nameWithType: JsonReader
+  fullName: Newtonsoft.Json.JsonReader
+- uid: Newtonsoft.Json.JsonConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)
+  commentId: M:Newtonsoft.Json.JsonConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)
+  parent: Newtonsoft.Json.JsonConverter
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: ReadJson(JsonReader, Type, object, JsonSerializer)
+  nameWithType: JsonConverter.ReadJson(JsonReader, Type, object, JsonSerializer)
+  fullName: Newtonsoft.Json.JsonConverter.ReadJson(Newtonsoft.Json.JsonReader, System.Type, object, Newtonsoft.Json.JsonSerializer)
+  nameWithType.vb: JsonConverter.ReadJson(JsonReader, Type, Object, JsonSerializer)
+  fullName.vb: Newtonsoft.Json.JsonConverter.ReadJson(Newtonsoft.Json.JsonReader, System.Type, Object, Newtonsoft.Json.JsonSerializer)
+  name.vb: ReadJson(JsonReader, Type, Object, JsonSerializer)
+  spec.csharp:
+  - uid: Newtonsoft.Json.JsonConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)
+    name: ReadJson
+    isExternal: true
+  - name: (
+  - uid: Newtonsoft.Json.JsonReader
+    name: JsonReader
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: Newtonsoft.Json.JsonSerializer
+    name: JsonSerializer
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Newtonsoft.Json.JsonConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)
+    name: ReadJson
+    isExternal: true
+  - name: (
+  - uid: Newtonsoft.Json.JsonReader
+    name: JsonReader
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: Newtonsoft.Json.JsonSerializer
+    name: JsonSerializer
+    isExternal: true
+  - name: )
+- uid: Cheetah.OpenSearch.Util.UtcDateTimeConverter.ReadJson*
+  commentId: Overload:Cheetah.OpenSearch.Util.UtcDateTimeConverter.ReadJson
+  href: Cheetah.OpenSearch.Util.UtcDateTimeConverter.html#Cheetah_OpenSearch_Util_UtcDateTimeConverter_ReadJson_Newtonsoft_Json_JsonReader_System_Type_System_Object_Newtonsoft_Json_JsonSerializer_
+  name: ReadJson
+  nameWithType: UtcDateTimeConverter.ReadJson
+  fullName: Cheetah.OpenSearch.Util.UtcDateTimeConverter.ReadJson
+- uid: System.Type
+  commentId: T:System.Type
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: Type
+  nameWithType: Type
+  fullName: System.Type
+- uid: Newtonsoft.Json.JsonSerializer
+  commentId: T:Newtonsoft.Json.JsonSerializer
+  parent: Newtonsoft.Json
+  isExternal: true
+  name: JsonSerializer
+  nameWithType: JsonSerializer
+  fullName: Newtonsoft.Json.JsonSerializer
+- uid: Newtonsoft.Json.JsonWriter
+  commentId: T:Newtonsoft.Json.JsonWriter
+  parent: Newtonsoft.Json
+  isExternal: true
+  name: JsonWriter
+  nameWithType: JsonWriter
+  fullName: Newtonsoft.Json.JsonWriter
+- uid: Newtonsoft.Json.JsonConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)
+  commentId: M:Newtonsoft.Json.JsonConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)
+  parent: Newtonsoft.Json.JsonConverter
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: WriteJson(JsonWriter, object, JsonSerializer)
+  nameWithType: JsonConverter.WriteJson(JsonWriter, object, JsonSerializer)
+  fullName: Newtonsoft.Json.JsonConverter.WriteJson(Newtonsoft.Json.JsonWriter, object, Newtonsoft.Json.JsonSerializer)
+  nameWithType.vb: JsonConverter.WriteJson(JsonWriter, Object, JsonSerializer)
+  fullName.vb: Newtonsoft.Json.JsonConverter.WriteJson(Newtonsoft.Json.JsonWriter, Object, Newtonsoft.Json.JsonSerializer)
+  name.vb: WriteJson(JsonWriter, Object, JsonSerializer)
+  spec.csharp:
+  - uid: Newtonsoft.Json.JsonConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)
+    name: WriteJson
+    isExternal: true
+  - name: (
+  - uid: Newtonsoft.Json.JsonWriter
+    name: JsonWriter
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: Newtonsoft.Json.JsonSerializer
+    name: JsonSerializer
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Newtonsoft.Json.JsonConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)
+    name: WriteJson
+    isExternal: true
+  - name: (
+  - uid: Newtonsoft.Json.JsonWriter
+    name: JsonWriter
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: Newtonsoft.Json.JsonSerializer
+    name: JsonSerializer
+    isExternal: true
+  - name: )
+- uid: Cheetah.OpenSearch.Util.UtcDateTimeConverter.WriteJson*
+  commentId: Overload:Cheetah.OpenSearch.Util.UtcDateTimeConverter.WriteJson
+  href: Cheetah.OpenSearch.Util.UtcDateTimeConverter.html#Cheetah_OpenSearch_Util_UtcDateTimeConverter_WriteJson_Newtonsoft_Json_JsonWriter_System_Object_Newtonsoft_Json_JsonSerializer_
+  name: WriteJson
+  nameWithType: UtcDateTimeConverter.WriteJson
+  fullName: Cheetah.OpenSearch.Util.UtcDateTimeConverter.WriteJson

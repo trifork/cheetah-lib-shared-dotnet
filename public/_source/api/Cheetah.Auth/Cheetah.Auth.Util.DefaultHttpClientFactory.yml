@@ -1,0 +1,295 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.Auth.Util.DefaultHttpClientFactory
+  commentId: T:Cheetah.Auth.Util.DefaultHttpClientFactory
+  id: DefaultHttpClientFactory
+  parent: Cheetah.Auth.Util
+  children:
+  - Cheetah.Auth.Util.DefaultHttpClientFactory.CreateClient(System.String)
+  - Cheetah.Auth.Util.DefaultHttpClientFactory.Dispose
+  langs:
+  - csharp
+  - vb
+  name: DefaultHttpClientFactory
+  nameWithType: DefaultHttpClientFactory
+  fullName: Cheetah.Auth.Util.DefaultHttpClientFactory
+  type: Class
+  source:
+    remote:
+      path: src/Cheetah.Auth/Util/DefaultHttpClientFactory.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: DefaultHttpClientFactory
+    path: ../src/Cheetah.Auth/Util/DefaultHttpClientFactory.cs
+    startLine: 8
+  assemblies:
+  - Cheetah.Auth
+  namespace: Cheetah.Auth.Util
+  summary: Default implementation of <xref href="System.Net.Http.IHttpClientFactory" data-throw-if-not-resolved="false"></xref>
+  example: []
+  syntax:
+    content: 'public sealed class DefaultHttpClientFactory : IHttpClientFactory, IDisposable'
+    content.vb: Public NotInheritable Class DefaultHttpClientFactory Implements IHttpClientFactory, IDisposable
+  inheritance:
+  - System.Object
+  implements:
+  - System.Net.Http.IHttpClientFactory
+  - System.IDisposable
+- uid: Cheetah.Auth.Util.DefaultHttpClientFactory.CreateClient(System.String)
+  commentId: M:Cheetah.Auth.Util.DefaultHttpClientFactory.CreateClient(System.String)
+  id: CreateClient(System.String)
+  parent: Cheetah.Auth.Util.DefaultHttpClientFactory
+  langs:
+  - csharp
+  - vb
+  name: CreateClient(string)
+  nameWithType: DefaultHttpClientFactory.CreateClient(string)
+  fullName: Cheetah.Auth.Util.DefaultHttpClientFactory.CreateClient(string)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Auth/Util/DefaultHttpClientFactory.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: CreateClient
+    path: ../src/Cheetah.Auth/Util/DefaultHttpClientFactory.cs
+    startLine: 19
+  assemblies:
+  - Cheetah.Auth
+  namespace: Cheetah.Auth.Util
+  summary: Create a <xref href="System.Net.Http.HttpClient" data-throw-if-not-resolved="false"></xref> with the supplied name/&gt;
+  example: []
+  syntax:
+    content: public HttpClient CreateClient(string name)
+    parameters:
+    - id: name
+      type: System.String
+      description: The name to use for the <xref href="System.Net.Http.HttpClient" data-throw-if-not-resolved="false"></xref>
+    return:
+      type: System.Net.Http.HttpClient
+      description: The created <xref href="System.Net.Http.HttpClient" data-throw-if-not-resolved="false"></xref>
+    content.vb: Public Function CreateClient(name As String) As HttpClient
+  overload: Cheetah.Auth.Util.DefaultHttpClientFactory.CreateClient*
+  implements:
+  - System.Net.Http.IHttpClientFactory.CreateClient(System.String)
+  nameWithType.vb: DefaultHttpClientFactory.CreateClient(String)
+  fullName.vb: Cheetah.Auth.Util.DefaultHttpClientFactory.CreateClient(String)
+  name.vb: CreateClient(String)
+- uid: Cheetah.Auth.Util.DefaultHttpClientFactory.Dispose
+  commentId: M:Cheetah.Auth.Util.DefaultHttpClientFactory.Dispose
+  id: Dispose
+  parent: Cheetah.Auth.Util.DefaultHttpClientFactory
+  langs:
+  - csharp
+  - vb
+  name: Dispose()
+  nameWithType: DefaultHttpClientFactory.Dispose()
+  fullName: Cheetah.Auth.Util.DefaultHttpClientFactory.Dispose()
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Auth/Util/DefaultHttpClientFactory.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: Dispose
+    path: ../src/Cheetah.Auth/Util/DefaultHttpClientFactory.cs
+    startLine: 27
+  assemblies:
+  - Cheetah.Auth
+  namespace: Cheetah.Auth.Util
+  summary: Dispose of the factory and any resources it holds
+  example: []
+  syntax:
+    content: public void Dispose()
+    content.vb: Public Sub Dispose()
+  overload: Cheetah.Auth.Util.DefaultHttpClientFactory.Dispose*
+  implements:
+  - System.IDisposable.Dispose
+references:
+- uid: System.Net.Http.IHttpClientFactory
+  commentId: T:System.Net.Http.IHttpClientFactory
+  parent: System.Net.Http
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.net.http.ihttpclientfactory
+  name: IHttpClientFactory
+  nameWithType: IHttpClientFactory
+  fullName: System.Net.Http.IHttpClientFactory
+- uid: Cheetah.Auth.Util
+  commentId: N:Cheetah.Auth.Util
+  href: Cheetah.html
+  name: Cheetah.Auth.Util
+  nameWithType: Cheetah.Auth.Util
+  fullName: Cheetah.Auth.Util
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+    href: Cheetah.Auth.html
+  - name: .
+  - uid: Cheetah.Auth.Util
+    name: Util
+    href: Cheetah.Auth.Util.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+    href: Cheetah.Auth.html
+  - name: .
+  - uid: Cheetah.Auth.Util
+    name: Util
+    href: Cheetah.Auth.Util.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
+- uid: System.Net.Http
+  commentId: N:System.Net.Http
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Net.Http
+  nameWithType: System.Net.Http
+  fullName: System.Net.Http
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Net
+    name: Net
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net
+  - name: .
+  - uid: System.Net.Http
+    name: Http
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net.http
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Net
+    name: Net
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net
+  - name: .
+  - uid: System.Net.Http
+    name: Http
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net.http
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Net.Http.HttpClient
+  commentId: T:System.Net.Http.HttpClient
+  parent: System.Net.Http
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.net.http.httpclient
+  name: HttpClient
+  nameWithType: HttpClient
+  fullName: System.Net.Http.HttpClient
+- uid: Cheetah.Auth.Util.DefaultHttpClientFactory.CreateClient*
+  commentId: Overload:Cheetah.Auth.Util.DefaultHttpClientFactory.CreateClient
+  href: Cheetah.Auth.Util.DefaultHttpClientFactory.html#Cheetah_Auth_Util_DefaultHttpClientFactory_CreateClient_System_String_
+  name: CreateClient
+  nameWithType: DefaultHttpClientFactory.CreateClient
+  fullName: Cheetah.Auth.Util.DefaultHttpClientFactory.CreateClient
+- uid: System.Net.Http.IHttpClientFactory.CreateClient(System.String)
+  commentId: M:System.Net.Http.IHttpClientFactory.CreateClient(System.String)
+  parent: System.Net.Http.IHttpClientFactory
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.net.http.ihttpclientfactory.createclient
+  name: CreateClient(string)
+  nameWithType: IHttpClientFactory.CreateClient(string)
+  fullName: System.Net.Http.IHttpClientFactory.CreateClient(string)
+  nameWithType.vb: IHttpClientFactory.CreateClient(String)
+  fullName.vb: System.Net.Http.IHttpClientFactory.CreateClient(String)
+  name.vb: CreateClient(String)
+  spec.csharp:
+  - uid: System.Net.Http.IHttpClientFactory.CreateClient(System.String)
+    name: CreateClient
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net.http.ihttpclientfactory.createclient
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: System.Net.Http.IHttpClientFactory.CreateClient(System.String)
+    name: CreateClient
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net.http.ihttpclientfactory.createclient
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Cheetah.Auth.Util.DefaultHttpClientFactory.Dispose*
+  commentId: Overload:Cheetah.Auth.Util.DefaultHttpClientFactory.Dispose
+  href: Cheetah.Auth.Util.DefaultHttpClientFactory.html#Cheetah_Auth_Util_DefaultHttpClientFactory_Dispose
+  name: Dispose
+  nameWithType: DefaultHttpClientFactory.Dispose
+  fullName: Cheetah.Auth.Util.DefaultHttpClientFactory.Dispose
+- uid: System.IDisposable.Dispose
+  commentId: M:System.IDisposable.Dispose
+  parent: System.IDisposable
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  name: Dispose()
+  nameWithType: IDisposable.Dispose()
+  fullName: System.IDisposable.Dispose()
+  spec.csharp:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )

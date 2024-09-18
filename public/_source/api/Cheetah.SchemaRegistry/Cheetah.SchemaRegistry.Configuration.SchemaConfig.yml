@@ -1,0 +1,351 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.SchemaRegistry.Configuration.SchemaConfig
+  commentId: T:Cheetah.SchemaRegistry.Configuration.SchemaConfig
+  id: SchemaConfig
+  parent: Cheetah.SchemaRegistry.Configuration
+  children:
+  - Cheetah.SchemaRegistry.Configuration.SchemaConfig.GetSchemaRegistryConfig
+  - Cheetah.SchemaRegistry.Configuration.SchemaConfig.OAuth2
+  - Cheetah.SchemaRegistry.Configuration.SchemaConfig.Position
+  - Cheetah.SchemaRegistry.Configuration.SchemaConfig.Url
+  - Cheetah.SchemaRegistry.Configuration.SchemaConfig.Validate
+  langs:
+  - csharp
+  - vb
+  name: SchemaConfig
+  nameWithType: SchemaConfig
+  fullName: Cheetah.SchemaRegistry.Configuration.SchemaConfig
+  type: Class
+  source:
+    remote:
+      path: src/Cheetah.SchemaRegistry/Configuration/SchemaConfig.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: SchemaConfig
+    path: ../src/Cheetah.SchemaRegistry/Configuration/SchemaConfig.cs
+    startLine: 10
+  assemblies:
+  - Cheetah.SchemaRegistry
+  namespace: Cheetah.SchemaRegistry.Configuration
+  summary: SchemaConfig for IOptions
+  example: []
+  syntax:
+    content: public class SchemaConfig
+    content.vb: Public Class SchemaConfig
+  inheritance:
+  - System.Object
+- uid: Cheetah.SchemaRegistry.Configuration.SchemaConfig.Position
+  commentId: F:Cheetah.SchemaRegistry.Configuration.SchemaConfig.Position
+  id: Position
+  parent: Cheetah.SchemaRegistry.Configuration.SchemaConfig
+  langs:
+  - csharp
+  - vb
+  name: Position
+  nameWithType: SchemaConfig.Position
+  fullName: Cheetah.SchemaRegistry.Configuration.SchemaConfig.Position
+  type: Field
+  source:
+    remote:
+      path: src/Cheetah.SchemaRegistry/Configuration/SchemaConfig.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: Position
+    path: ../src/Cheetah.SchemaRegistry/Configuration/SchemaConfig.cs
+    startLine: 15
+  assemblies:
+  - Cheetah.SchemaRegistry
+  namespace: Cheetah.SchemaRegistry.Configuration
+  summary: Prefix for options e.g. SchemaRegistry__
+  example: []
+  syntax:
+    content: public const string Position = "SchemaRegistry"
+    return:
+      type: System.String
+    content.vb: Public Const Position As String = "SchemaRegistry"
+- uid: Cheetah.SchemaRegistry.Configuration.SchemaConfig.Url
+  commentId: P:Cheetah.SchemaRegistry.Configuration.SchemaConfig.Url
+  id: Url
+  parent: Cheetah.SchemaRegistry.Configuration.SchemaConfig
+  langs:
+  - csharp
+  - vb
+  name: Url
+  nameWithType: SchemaConfig.Url
+  fullName: Cheetah.SchemaRegistry.Configuration.SchemaConfig.Url
+  type: Property
+  source:
+    remote:
+      path: src/Cheetah.SchemaRegistry/Configuration/SchemaConfig.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: Url
+    path: ../src/Cheetah.SchemaRegistry/Configuration/SchemaConfig.cs
+    startLine: 21
+  assemblies:
+  - Cheetah.SchemaRegistry
+  namespace: Cheetah.SchemaRegistry.Configuration
+  summary: Bootstrap Url.
+  example: []
+  syntax:
+    content: >-
+      [Required]
+
+      public string? Url { get; set; }
+    parameters: []
+    return:
+      type: System.String
+      description: ''
+    content.vb: >-
+      <Required>
+
+      Public Property Url As String
+  overload: Cheetah.SchemaRegistry.Configuration.SchemaConfig.Url*
+  attributes:
+  - type: System.ComponentModel.DataAnnotations.RequiredAttribute
+    ctor: System.ComponentModel.DataAnnotations.RequiredAttribute.#ctor
+    arguments: []
+- uid: Cheetah.SchemaRegistry.Configuration.SchemaConfig.OAuth2
+  commentId: P:Cheetah.SchemaRegistry.Configuration.SchemaConfig.OAuth2
+  id: OAuth2
+  parent: Cheetah.SchemaRegistry.Configuration.SchemaConfig
+  langs:
+  - csharp
+  - vb
+  name: OAuth2
+  nameWithType: SchemaConfig.OAuth2
+  fullName: Cheetah.SchemaRegistry.Configuration.SchemaConfig.OAuth2
+  type: Property
+  source:
+    remote:
+      path: src/Cheetah.SchemaRegistry/Configuration/SchemaConfig.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: OAuth2
+    path: ../src/Cheetah.SchemaRegistry/Configuration/SchemaConfig.cs
+    startLine: 27
+  assemblies:
+  - Cheetah.SchemaRegistry
+  namespace: Cheetah.SchemaRegistry.Configuration
+  summary: The OAuth2 configuration
+  example: []
+  syntax:
+    content: public OAuth2Config OAuth2 { get; set; }
+    parameters: []
+    return:
+      type: Cheetah.Auth.Configuration.OAuth2Config
+    content.vb: Public Property OAuth2 As OAuth2Config
+  overload: Cheetah.SchemaRegistry.Configuration.SchemaConfig.OAuth2*
+- uid: Cheetah.SchemaRegistry.Configuration.SchemaConfig.Validate
+  commentId: M:Cheetah.SchemaRegistry.Configuration.SchemaConfig.Validate
+  id: Validate
+  parent: Cheetah.SchemaRegistry.Configuration.SchemaConfig
+  langs:
+  - csharp
+  - vb
+  name: Validate()
+  nameWithType: SchemaConfig.Validate()
+  fullName: Cheetah.SchemaRegistry.Configuration.SchemaConfig.Validate()
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.SchemaRegistry/Configuration/SchemaConfig.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: Validate
+    path: ../src/Cheetah.SchemaRegistry/Configuration/SchemaConfig.cs
+    startLine: 33
+  assemblies:
+  - Cheetah.SchemaRegistry
+  namespace: Cheetah.SchemaRegistry.Configuration
+  summary: Validates and throws an error if the configuration is invalid.
+  example: []
+  syntax:
+    content: public void Validate()
+    content.vb: Public Sub Validate()
+  overload: Cheetah.SchemaRegistry.Configuration.SchemaConfig.Validate*
+  exceptions:
+  - type: System.ArgumentException
+    commentId: T:System.ArgumentException
+    description: Thrown if the configuration is invalid
+- uid: Cheetah.SchemaRegistry.Configuration.SchemaConfig.GetSchemaRegistryConfig
+  commentId: M:Cheetah.SchemaRegistry.Configuration.SchemaConfig.GetSchemaRegistryConfig
+  id: GetSchemaRegistryConfig
+  parent: Cheetah.SchemaRegistry.Configuration.SchemaConfig
+  langs:
+  - csharp
+  - vb
+  name: GetSchemaRegistryConfig()
+  nameWithType: SchemaConfig.GetSchemaRegistryConfig()
+  fullName: Cheetah.SchemaRegistry.Configuration.SchemaConfig.GetSchemaRegistryConfig()
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.SchemaRegistry/Configuration/SchemaConfig.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: GetSchemaRegistryConfig
+    path: ../src/Cheetah.SchemaRegistry/Configuration/SchemaConfig.cs
+    startLine: 46
+  assemblies:
+  - Cheetah.SchemaRegistry
+  namespace: Cheetah.SchemaRegistry.Configuration
+  summary: Converts the configuration to a <xref href="Confluent.SchemaRegistry.SchemaRegistryConfig" data-throw-if-not-resolved="false"></xref>
+  example: []
+  syntax:
+    content: public SchemaRegistryConfig GetSchemaRegistryConfig()
+    return:
+      type: Confluent.SchemaRegistry.SchemaRegistryConfig
+      description: The converted <xref href="Confluent.SchemaRegistry.SchemaRegistryConfig" data-throw-if-not-resolved="false"></xref>
+    content.vb: Public Function GetSchemaRegistryConfig() As SchemaRegistryConfig
+  overload: Cheetah.SchemaRegistry.Configuration.SchemaConfig.GetSchemaRegistryConfig*
+references:
+- uid: Cheetah.SchemaRegistry.Configuration
+  commentId: N:Cheetah.SchemaRegistry.Configuration
+  href: Cheetah.html
+  name: Cheetah.SchemaRegistry.Configuration
+  nameWithType: Cheetah.SchemaRegistry.Configuration
+  fullName: Cheetah.SchemaRegistry.Configuration
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.SchemaRegistry
+    name: SchemaRegistry
+    href: Cheetah.SchemaRegistry.html
+  - name: .
+  - uid: Cheetah.SchemaRegistry.Configuration
+    name: Configuration
+    href: Cheetah.SchemaRegistry.Configuration.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.SchemaRegistry
+    name: SchemaRegistry
+    href: Cheetah.SchemaRegistry.html
+  - name: .
+  - uid: Cheetah.SchemaRegistry.Configuration
+    name: Configuration
+    href: Cheetah.SchemaRegistry.Configuration.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Cheetah.SchemaRegistry.Configuration.SchemaConfig.Url*
+  commentId: Overload:Cheetah.SchemaRegistry.Configuration.SchemaConfig.Url
+  href: Cheetah.SchemaRegistry.Configuration.SchemaConfig.html#Cheetah_SchemaRegistry_Configuration_SchemaConfig_Url
+  name: Url
+  nameWithType: SchemaConfig.Url
+  fullName: Cheetah.SchemaRegistry.Configuration.SchemaConfig.Url
+- uid: Cheetah.SchemaRegistry.Configuration.SchemaConfig.OAuth2*
+  commentId: Overload:Cheetah.SchemaRegistry.Configuration.SchemaConfig.OAuth2
+  href: Cheetah.SchemaRegistry.Configuration.SchemaConfig.html#Cheetah_SchemaRegistry_Configuration_SchemaConfig_OAuth2
+  name: OAuth2
+  nameWithType: SchemaConfig.OAuth2
+  fullName: Cheetah.SchemaRegistry.Configuration.SchemaConfig.OAuth2
+- uid: Cheetah.Auth.Configuration.OAuth2Config
+  commentId: T:Cheetah.Auth.Configuration.OAuth2Config
+  parent: Cheetah.Auth.Configuration
+  name: OAuth2Config
+  nameWithType: OAuth2Config
+  fullName: Cheetah.Auth.Configuration.OAuth2Config
+- uid: Cheetah.Auth.Configuration
+  commentId: N:Cheetah.Auth.Configuration
+  name: Cheetah.Auth.Configuration
+  nameWithType: Cheetah.Auth.Configuration
+  fullName: Cheetah.Auth.Configuration
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+  - name: .
+  - uid: Cheetah.Auth.Configuration
+    name: Configuration
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+  - name: .
+  - uid: Cheetah.Auth.Configuration
+    name: Configuration
+- uid: System.ArgumentException
+  commentId: T:System.ArgumentException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentexception
+  name: ArgumentException
+  nameWithType: ArgumentException
+  fullName: System.ArgumentException
+- uid: Cheetah.SchemaRegistry.Configuration.SchemaConfig.Validate*
+  commentId: Overload:Cheetah.SchemaRegistry.Configuration.SchemaConfig.Validate
+  href: Cheetah.SchemaRegistry.Configuration.SchemaConfig.html#Cheetah_SchemaRegistry_Configuration_SchemaConfig_Validate
+  name: Validate
+  nameWithType: SchemaConfig.Validate
+  fullName: Cheetah.SchemaRegistry.Configuration.SchemaConfig.Validate
+- uid: Confluent.SchemaRegistry.SchemaRegistryConfig
+  commentId: T:Confluent.SchemaRegistry.SchemaRegistryConfig
+  parent: Confluent.SchemaRegistry
+  isExternal: true
+  name: SchemaRegistryConfig
+  nameWithType: SchemaRegistryConfig
+  fullName: Confluent.SchemaRegistry.SchemaRegistryConfig
+- uid: Cheetah.SchemaRegistry.Configuration.SchemaConfig.GetSchemaRegistryConfig*
+  commentId: Overload:Cheetah.SchemaRegistry.Configuration.SchemaConfig.GetSchemaRegistryConfig
+  href: Cheetah.SchemaRegistry.Configuration.SchemaConfig.html#Cheetah_SchemaRegistry_Configuration_SchemaConfig_GetSchemaRegistryConfig
+  name: GetSchemaRegistryConfig
+  nameWithType: SchemaConfig.GetSchemaRegistryConfig
+  fullName: Cheetah.SchemaRegistry.Configuration.SchemaConfig.GetSchemaRegistryConfig
+- uid: Confluent.SchemaRegistry
+  commentId: N:Confluent.SchemaRegistry
+  isExternal: true
+  name: Confluent.SchemaRegistry
+  nameWithType: Confluent.SchemaRegistry
+  fullName: Confluent.SchemaRegistry
+  spec.csharp:
+  - uid: Confluent
+    name: Confluent
+    isExternal: true
+  - name: .
+  - uid: Confluent.SchemaRegistry
+    name: SchemaRegistry
+    isExternal: true
+  spec.vb:
+  - uid: Confluent
+    name: Confluent
+    isExternal: true
+  - name: .
+  - uid: Confluent.SchemaRegistry
+    name: SchemaRegistry
+    isExternal: true

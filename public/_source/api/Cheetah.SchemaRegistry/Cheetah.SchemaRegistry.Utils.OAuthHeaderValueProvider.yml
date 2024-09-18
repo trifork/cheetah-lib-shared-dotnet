@@ -1,0 +1,306 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider
+  commentId: T:Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider
+  id: OAuthHeaderValueProvider
+  parent: Cheetah.SchemaRegistry.Utils
+  children:
+  - Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.#ctor(Cheetah.Auth.Authentication.ITokenService)
+  - Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.GetAuthenticationHeader
+  langs:
+  - csharp
+  - vb
+  name: OAuthHeaderValueProvider
+  nameWithType: OAuthHeaderValueProvider
+  fullName: Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider
+  type: Class
+  source:
+    remote:
+      path: src/Cheetah.SchemaRegistry/Utils/OAuthHeaderValueProvider.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: OAuthHeaderValueProvider
+    path: ../src/Cheetah.SchemaRegistry/Utils/OAuthHeaderValueProvider.cs
+    startLine: 10
+  assemblies:
+  - Cheetah.SchemaRegistry
+  namespace: Cheetah.SchemaRegistry.Utils
+  summary: IAuthenticationHeaderValueProvider to inject a bearer token from an <xref href="Cheetah.Auth.Authentication.ITokenService" data-throw-if-not-resolved="false"></xref>
+  example: []
+  syntax:
+    content: 'public sealed class OAuthHeaderValueProvider : IAuthenticationHeaderValueProvider'
+    content.vb: Public NotInheritable Class OAuthHeaderValueProvider Implements IAuthenticationHeaderValueProvider
+  inheritance:
+  - System.Object
+  implements:
+  - Confluent.SchemaRegistry.IAuthenticationHeaderValueProvider
+- uid: Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.#ctor(Cheetah.Auth.Authentication.ITokenService)
+  commentId: M:Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.#ctor(Cheetah.Auth.Authentication.ITokenService)
+  id: '#ctor(Cheetah.Auth.Authentication.ITokenService)'
+  parent: Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider
+  langs:
+  - csharp
+  - vb
+  name: OAuthHeaderValueProvider(ITokenService)
+  nameWithType: OAuthHeaderValueProvider.OAuthHeaderValueProvider(ITokenService)
+  fullName: Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.OAuthHeaderValueProvider(Cheetah.Auth.Authentication.ITokenService)
+  type: Constructor
+  source:
+    remote:
+      path: src/Cheetah.SchemaRegistry/Utils/OAuthHeaderValueProvider.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: .ctor
+    path: ../src/Cheetah.SchemaRegistry/Utils/OAuthHeaderValueProvider.cs
+    startLine: 18
+  assemblies:
+  - Cheetah.SchemaRegistry
+  namespace: Cheetah.SchemaRegistry.Utils
+  summary: Creates an instance of <xref href="Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider" data-throw-if-not-resolved="false"></xref> from an <xref href="Cheetah.Auth.Authentication.ITokenService" data-throw-if-not-resolved="false"></xref> .
+  example: []
+  syntax:
+    content: public OAuthHeaderValueProvider(ITokenService tokenService)
+    parameters:
+    - id: tokenService
+      type: Cheetah.Auth.Authentication.ITokenService
+      description: ''
+    content.vb: Public Sub New(tokenService As ITokenService)
+  overload: Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.#ctor*
+  nameWithType.vb: OAuthHeaderValueProvider.New(ITokenService)
+  fullName.vb: Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.New(Cheetah.Auth.Authentication.ITokenService)
+  name.vb: New(ITokenService)
+- uid: Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.GetAuthenticationHeader
+  commentId: M:Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.GetAuthenticationHeader
+  id: GetAuthenticationHeader
+  parent: Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider
+  langs:
+  - csharp
+  - vb
+  name: GetAuthenticationHeader()
+  nameWithType: OAuthHeaderValueProvider.GetAuthenticationHeader()
+  fullName: Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.GetAuthenticationHeader()
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.SchemaRegistry/Utils/OAuthHeaderValueProvider.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: GetAuthenticationHeader
+    path: ../src/Cheetah.SchemaRegistry/Utils/OAuthHeaderValueProvider.cs
+    startLine: 27
+  assemblies:
+  - Cheetah.SchemaRegistry
+  namespace: Cheetah.SchemaRegistry.Utils
+  summary: Get AuthenticationHeader with a bearer token
+  example: []
+  syntax:
+    content: public AuthenticationHeaderValue GetAuthenticationHeader()
+    return:
+      type: System.Net.Http.Headers.AuthenticationHeaderValue
+      description: An instance of <xref href="System.Net.Http.Headers.AuthenticationHeaderValue" data-throw-if-not-resolved="false"></xref> with a bearer token
+    content.vb: Public Function GetAuthenticationHeader() As AuthenticationHeaderValue
+  overload: Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.GetAuthenticationHeader*
+  implements:
+  - Confluent.SchemaRegistry.IAuthenticationHeaderValueProvider.GetAuthenticationHeader
+references:
+- uid: Cheetah.Auth.Authentication.ITokenService
+  commentId: T:Cheetah.Auth.Authentication.ITokenService
+  parent: Cheetah.Auth.Authentication
+  name: ITokenService
+  nameWithType: ITokenService
+  fullName: Cheetah.Auth.Authentication.ITokenService
+- uid: Cheetah.SchemaRegistry.Utils
+  commentId: N:Cheetah.SchemaRegistry.Utils
+  href: Cheetah.html
+  name: Cheetah.SchemaRegistry.Utils
+  nameWithType: Cheetah.SchemaRegistry.Utils
+  fullName: Cheetah.SchemaRegistry.Utils
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.SchemaRegistry
+    name: SchemaRegistry
+    href: Cheetah.SchemaRegistry.html
+  - name: .
+  - uid: Cheetah.SchemaRegistry.Utils
+    name: Utils
+    href: Cheetah.SchemaRegistry.Utils.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.SchemaRegistry
+    name: SchemaRegistry
+    href: Cheetah.SchemaRegistry.html
+  - name: .
+  - uid: Cheetah.SchemaRegistry.Utils
+    name: Utils
+    href: Cheetah.SchemaRegistry.Utils.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Confluent.SchemaRegistry.IAuthenticationHeaderValueProvider
+  commentId: T:Confluent.SchemaRegistry.IAuthenticationHeaderValueProvider
+  parent: Confluent.SchemaRegistry
+  isExternal: true
+  name: IAuthenticationHeaderValueProvider
+  nameWithType: IAuthenticationHeaderValueProvider
+  fullName: Confluent.SchemaRegistry.IAuthenticationHeaderValueProvider
+- uid: Cheetah.Auth.Authentication
+  commentId: N:Cheetah.Auth.Authentication
+  name: Cheetah.Auth.Authentication
+  nameWithType: Cheetah.Auth.Authentication
+  fullName: Cheetah.Auth.Authentication
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+  - name: .
+  - uid: Cheetah.Auth.Authentication
+    name: Authentication
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+  - name: .
+  - uid: Cheetah.Auth.Authentication
+    name: Authentication
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Confluent.SchemaRegistry
+  commentId: N:Confluent.SchemaRegistry
+  isExternal: true
+  name: Confluent.SchemaRegistry
+  nameWithType: Confluent.SchemaRegistry
+  fullName: Confluent.SchemaRegistry
+  spec.csharp:
+  - uid: Confluent
+    name: Confluent
+    isExternal: true
+  - name: .
+  - uid: Confluent.SchemaRegistry
+    name: SchemaRegistry
+    isExternal: true
+  spec.vb:
+  - uid: Confluent
+    name: Confluent
+    isExternal: true
+  - name: .
+  - uid: Confluent.SchemaRegistry
+    name: SchemaRegistry
+    isExternal: true
+- uid: Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider
+  commentId: T:Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider
+  href: Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.html
+  name: OAuthHeaderValueProvider
+  nameWithType: OAuthHeaderValueProvider
+  fullName: Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider
+- uid: Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.#ctor*
+  commentId: Overload:Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.#ctor
+  href: Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.html#Cheetah_SchemaRegistry_Utils_OAuthHeaderValueProvider__ctor_Cheetah_Auth_Authentication_ITokenService_
+  name: OAuthHeaderValueProvider
+  nameWithType: OAuthHeaderValueProvider.OAuthHeaderValueProvider
+  fullName: Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.OAuthHeaderValueProvider
+  nameWithType.vb: OAuthHeaderValueProvider.New
+  fullName.vb: Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.New
+  name.vb: New
+- uid: System.Net.Http.Headers.AuthenticationHeaderValue
+  commentId: T:System.Net.Http.Headers.AuthenticationHeaderValue
+  parent: System.Net.Http.Headers
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.net.http.headers.authenticationheadervalue
+  name: AuthenticationHeaderValue
+  nameWithType: AuthenticationHeaderValue
+  fullName: System.Net.Http.Headers.AuthenticationHeaderValue
+- uid: Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.GetAuthenticationHeader*
+  commentId: Overload:Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.GetAuthenticationHeader
+  href: Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.html#Cheetah_SchemaRegistry_Utils_OAuthHeaderValueProvider_GetAuthenticationHeader
+  name: GetAuthenticationHeader
+  nameWithType: OAuthHeaderValueProvider.GetAuthenticationHeader
+  fullName: Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.GetAuthenticationHeader
+- uid: Confluent.SchemaRegistry.IAuthenticationHeaderValueProvider.GetAuthenticationHeader
+  commentId: M:Confluent.SchemaRegistry.IAuthenticationHeaderValueProvider.GetAuthenticationHeader
+  parent: Confluent.SchemaRegistry.IAuthenticationHeaderValueProvider
+  isExternal: true
+  name: GetAuthenticationHeader()
+  nameWithType: IAuthenticationHeaderValueProvider.GetAuthenticationHeader()
+  fullName: Confluent.SchemaRegistry.IAuthenticationHeaderValueProvider.GetAuthenticationHeader()
+  spec.csharp:
+  - uid: Confluent.SchemaRegistry.IAuthenticationHeaderValueProvider.GetAuthenticationHeader
+    name: GetAuthenticationHeader
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Confluent.SchemaRegistry.IAuthenticationHeaderValueProvider.GetAuthenticationHeader
+    name: GetAuthenticationHeader
+    isExternal: true
+  - name: (
+  - name: )
+- uid: System.Net.Http.Headers
+  commentId: N:System.Net.Http.Headers
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Net.Http.Headers
+  nameWithType: System.Net.Http.Headers
+  fullName: System.Net.Http.Headers
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Net
+    name: Net
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net
+  - name: .
+  - uid: System.Net.Http
+    name: Http
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net.http
+  - name: .
+  - uid: System.Net.Http.Headers
+    name: Headers
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net.http.headers
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Net
+    name: Net
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net
+  - name: .
+  - uid: System.Net.Http
+    name: Http
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net.http
+  - name: .
+  - uid: System.Net.Http.Headers
+    name: Headers
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net.http.headers

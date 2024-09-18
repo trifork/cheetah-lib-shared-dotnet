@@ -1,0 +1,23 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.SchemaRegistry.Testing
+  commentId: N:Cheetah.SchemaRegistry.Testing
+  id: Cheetah.SchemaRegistry.Testing
+  children:
+  - Cheetah.SchemaRegistry.Testing.AvroKafkaTestClientFactory
+  langs:
+  - csharp
+  - vb
+  name: Cheetah.SchemaRegistry.Testing
+  nameWithType: Cheetah.SchemaRegistry.Testing
+  fullName: Cheetah.SchemaRegistry.Testing
+  type: Namespace
+  assemblies:
+  - Cheetah.SchemaRegistry
+references:
+- uid: Cheetah.SchemaRegistry.Testing.AvroKafkaTestClientFactory
+  commentId: T:Cheetah.SchemaRegistry.Testing.AvroKafkaTestClientFactory
+  href: Cheetah.SchemaRegistry.Testing.AvroKafkaTestClientFactory.html
+  name: AvroKafkaTestClientFactory
+  nameWithType: AvroKafkaTestClientFactory
+  fullName: Cheetah.SchemaRegistry.Testing.AvroKafkaTestClientFactory

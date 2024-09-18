@@ -1,0 +1,321 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.Kafka.AdminClientOptionsBuilder
+  commentId: T:Cheetah.Kafka.AdminClientOptionsBuilder
+  id: AdminClientOptionsBuilder
+  parent: Cheetah.Kafka
+  children:
+  - Cheetah.Kafka.AdminClientOptionsBuilder.Build(System.IServiceProvider)
+  - Cheetah.Kafka.AdminClientOptionsBuilder.ConfigureBuilder(System.Action{Confluent.Kafka.AdminClientBuilder})
+  - Cheetah.Kafka.AdminClientOptionsBuilder.ConfigureClient(System.Action{Confluent.Kafka.AdminClientConfig})
+  langs:
+  - csharp
+  - vb
+  name: AdminClientOptionsBuilder
+  nameWithType: AdminClientOptionsBuilder
+  fullName: Cheetah.Kafka.AdminClientOptionsBuilder
+  type: Class
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Options/AdminClientOptions.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: AdminClientOptionsBuilder
+    path: ../src/Cheetah.Kafka/Options/AdminClientOptions.cs
+    startLine: 16
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka
+  summary: Builder for configuring <xref href="Cheetah.Kafka.AdminClientOptions" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public class AdminClientOptionsBuilder
+    content.vb: Public Class AdminClientOptionsBuilder
+  inheritance:
+  - System.Object
+- uid: Cheetah.Kafka.AdminClientOptionsBuilder.ConfigureClient(System.Action{Confluent.Kafka.AdminClientConfig})
+  commentId: M:Cheetah.Kafka.AdminClientOptionsBuilder.ConfigureClient(System.Action{Confluent.Kafka.AdminClientConfig})
+  id: ConfigureClient(System.Action{Confluent.Kafka.AdminClientConfig})
+  parent: Cheetah.Kafka.AdminClientOptionsBuilder
+  langs:
+  - csharp
+  - vb
+  name: ConfigureClient(Action<AdminClientConfig>)
+  nameWithType: AdminClientOptionsBuilder.ConfigureClient(Action<AdminClientConfig>)
+  fullName: Cheetah.Kafka.AdminClientOptionsBuilder.ConfigureClient(System.Action<Confluent.Kafka.AdminClientConfig>)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Options/AdminClientOptions.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: ConfigureClient
+    path: ../src/Cheetah.Kafka/Options/AdminClientOptions.cs
+    startLine: 25
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka
+  summary: Configures the admin client with the provided action.
+  example: []
+  syntax:
+    content: public AdminClientOptionsBuilder ConfigureClient(Action<AdminClientConfig> configureAction)
+    parameters:
+    - id: configureAction
+      type: System.Action{Confluent.Kafka.AdminClientConfig}
+      description: The action to configure the admin client.
+    return:
+      type: Cheetah.Kafka.AdminClientOptionsBuilder
+      description: The builder instance.
+    content.vb: Public Function ConfigureClient(configureAction As Action(Of AdminClientConfig)) As AdminClientOptionsBuilder
+  overload: Cheetah.Kafka.AdminClientOptionsBuilder.ConfigureClient*
+  nameWithType.vb: AdminClientOptionsBuilder.ConfigureClient(Action(Of AdminClientConfig))
+  fullName.vb: Cheetah.Kafka.AdminClientOptionsBuilder.ConfigureClient(System.Action(Of Confluent.Kafka.AdminClientConfig))
+  name.vb: ConfigureClient(Action(Of AdminClientConfig))
+- uid: Cheetah.Kafka.AdminClientOptionsBuilder.ConfigureBuilder(System.Action{Confluent.Kafka.AdminClientBuilder})
+  commentId: M:Cheetah.Kafka.AdminClientOptionsBuilder.ConfigureBuilder(System.Action{Confluent.Kafka.AdminClientBuilder})
+  id: ConfigureBuilder(System.Action{Confluent.Kafka.AdminClientBuilder})
+  parent: Cheetah.Kafka.AdminClientOptionsBuilder
+  langs:
+  - csharp
+  - vb
+  name: ConfigureBuilder(Action<AdminClientBuilder>)
+  nameWithType: AdminClientOptionsBuilder.ConfigureBuilder(Action<AdminClientBuilder>)
+  fullName: Cheetah.Kafka.AdminClientOptionsBuilder.ConfigureBuilder(System.Action<Confluent.Kafka.AdminClientBuilder>)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Options/AdminClientOptions.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: ConfigureBuilder
+    path: ../src/Cheetah.Kafka/Options/AdminClientOptions.cs
+    startLine: 36
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka
+  summary: Configures the admin client builder with the provided action.
+  example: []
+  syntax:
+    content: public AdminClientOptionsBuilder ConfigureBuilder(Action<AdminClientBuilder> builderAction)
+    parameters:
+    - id: builderAction
+      type: System.Action{Confluent.Kafka.AdminClientBuilder}
+      description: The action to configure the admin client builder.
+    return:
+      type: Cheetah.Kafka.AdminClientOptionsBuilder
+      description: The builder instance.
+    content.vb: Public Function ConfigureBuilder(builderAction As Action(Of AdminClientBuilder)) As AdminClientOptionsBuilder
+  overload: Cheetah.Kafka.AdminClientOptionsBuilder.ConfigureBuilder*
+  nameWithType.vb: AdminClientOptionsBuilder.ConfigureBuilder(Action(Of AdminClientBuilder))
+  fullName.vb: Cheetah.Kafka.AdminClientOptionsBuilder.ConfigureBuilder(System.Action(Of Confluent.Kafka.AdminClientBuilder))
+  name.vb: ConfigureBuilder(Action(Of AdminClientBuilder))
+- uid: Cheetah.Kafka.AdminClientOptionsBuilder.Build(System.IServiceProvider)
+  commentId: M:Cheetah.Kafka.AdminClientOptionsBuilder.Build(System.IServiceProvider)
+  id: Build(System.IServiceProvider)
+  parent: Cheetah.Kafka.AdminClientOptionsBuilder
+  langs:
+  - csharp
+  - vb
+  name: Build(IServiceProvider)
+  nameWithType: AdminClientOptionsBuilder.Build(IServiceProvider)
+  fullName: Cheetah.Kafka.AdminClientOptionsBuilder.Build(System.IServiceProvider)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Options/AdminClientOptions.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: Build
+    path: ../src/Cheetah.Kafka/Options/AdminClientOptions.cs
+    startLine: 47
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka
+  summary: Builds the admin client options.
+  example: []
+  syntax:
+    content: public AdminClientOptions Build(IServiceProvider serviceProvider)
+    parameters:
+    - id: serviceProvider
+      type: System.IServiceProvider
+      description: The service provider.
+    return:
+      type: Cheetah.Kafka.AdminClientOptions
+      description: The configured admin client options.
+    content.vb: Public Function Build(serviceProvider As IServiceProvider) As AdminClientOptions
+  overload: Cheetah.Kafka.AdminClientOptionsBuilder.Build*
+references:
+- uid: Cheetah.Kafka.AdminClientOptions
+  commentId: T:Cheetah.Kafka.AdminClientOptions
+  parent: Cheetah.Kafka
+  href: Cheetah.Kafka.AdminClientOptions.html
+  name: AdminClientOptions
+  nameWithType: AdminClientOptions
+  fullName: Cheetah.Kafka.AdminClientOptions
+- uid: Cheetah.Kafka
+  commentId: N:Cheetah.Kafka
+  href: Cheetah.html
+  name: Cheetah.Kafka
+  nameWithType: Cheetah.Kafka
+  fullName: Cheetah.Kafka
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Cheetah.Kafka.AdminClientOptionsBuilder.ConfigureClient*
+  commentId: Overload:Cheetah.Kafka.AdminClientOptionsBuilder.ConfigureClient
+  href: Cheetah.Kafka.AdminClientOptionsBuilder.html#Cheetah_Kafka_AdminClientOptionsBuilder_ConfigureClient_System_Action_Confluent_Kafka_AdminClientConfig__
+  name: ConfigureClient
+  nameWithType: AdminClientOptionsBuilder.ConfigureClient
+  fullName: Cheetah.Kafka.AdminClientOptionsBuilder.ConfigureClient
+- uid: System.Action{Confluent.Kafka.AdminClientConfig}
+  commentId: T:System.Action{Confluent.Kafka.AdminClientConfig}
+  parent: System
+  definition: System.Action`1
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<AdminClientConfig>
+  nameWithType: Action<AdminClientConfig>
+  fullName: System.Action<Confluent.Kafka.AdminClientConfig>
+  nameWithType.vb: Action(Of AdminClientConfig)
+  fullName.vb: System.Action(Of Confluent.Kafka.AdminClientConfig)
+  name.vb: Action(Of AdminClientConfig)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - uid: Confluent.Kafka.AdminClientConfig
+    name: AdminClientConfig
+    isExternal: true
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Confluent.Kafka.AdminClientConfig
+    name: AdminClientConfig
+    isExternal: true
+  - name: )
+- uid: Cheetah.Kafka.AdminClientOptionsBuilder
+  commentId: T:Cheetah.Kafka.AdminClientOptionsBuilder
+  parent: Cheetah.Kafka
+  href: Cheetah.Kafka.AdminClientOptionsBuilder.html
+  name: AdminClientOptionsBuilder
+  nameWithType: AdminClientOptionsBuilder
+  fullName: Cheetah.Kafka.AdminClientOptionsBuilder
+- uid: System.Action`1
+  commentId: T:System.Action`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Cheetah.Kafka.AdminClientOptionsBuilder.ConfigureBuilder*
+  commentId: Overload:Cheetah.Kafka.AdminClientOptionsBuilder.ConfigureBuilder
+  href: Cheetah.Kafka.AdminClientOptionsBuilder.html#Cheetah_Kafka_AdminClientOptionsBuilder_ConfigureBuilder_System_Action_Confluent_Kafka_AdminClientBuilder__
+  name: ConfigureBuilder
+  nameWithType: AdminClientOptionsBuilder.ConfigureBuilder
+  fullName: Cheetah.Kafka.AdminClientOptionsBuilder.ConfigureBuilder
+- uid: System.Action{Confluent.Kafka.AdminClientBuilder}
+  commentId: T:System.Action{Confluent.Kafka.AdminClientBuilder}
+  parent: System
+  definition: System.Action`1
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<AdminClientBuilder>
+  nameWithType: Action<AdminClientBuilder>
+  fullName: System.Action<Confluent.Kafka.AdminClientBuilder>
+  nameWithType.vb: Action(Of AdminClientBuilder)
+  fullName.vb: System.Action(Of Confluent.Kafka.AdminClientBuilder)
+  name.vb: Action(Of AdminClientBuilder)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - uid: Confluent.Kafka.AdminClientBuilder
+    name: AdminClientBuilder
+    isExternal: true
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Confluent.Kafka.AdminClientBuilder
+    name: AdminClientBuilder
+    isExternal: true
+  - name: )
+- uid: Cheetah.Kafka.AdminClientOptionsBuilder.Build*
+  commentId: Overload:Cheetah.Kafka.AdminClientOptionsBuilder.Build
+  href: Cheetah.Kafka.AdminClientOptionsBuilder.html#Cheetah_Kafka_AdminClientOptionsBuilder_Build_System_IServiceProvider_
+  name: Build
+  nameWithType: AdminClientOptionsBuilder.Build
+  fullName: Cheetah.Kafka.AdminClientOptionsBuilder.Build
+- uid: System.IServiceProvider
+  commentId: T:System.IServiceProvider
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iserviceprovider
+  name: IServiceProvider
+  nameWithType: IServiceProvider
+  fullName: System.IServiceProvider

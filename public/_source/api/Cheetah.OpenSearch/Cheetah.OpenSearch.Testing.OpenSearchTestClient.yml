@@ -1,0 +1,394 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.OpenSearch.Testing.OpenSearchTestClient
+  commentId: T:Cheetah.OpenSearch.Testing.OpenSearchTestClient
+  id: OpenSearchTestClient
+  parent: Cheetah.OpenSearch.Testing
+  children:
+  - Cheetah.OpenSearch.Testing.OpenSearchTestClient.Create(Cheetah.OpenSearch.Configuration.OpenSearchConfig,Cheetah.OpenSearch.OpenSearchClientOptions)
+  - Cheetah.OpenSearch.Testing.OpenSearchTestClient.Create(Microsoft.Extensions.Configuration.IConfiguration,Cheetah.OpenSearch.OpenSearchClientOptions)
+  langs:
+  - csharp
+  - vb
+  name: OpenSearchTestClient
+  nameWithType: OpenSearchTestClient
+  fullName: Cheetah.OpenSearch.Testing.OpenSearchTestClient
+  type: Class
+  source:
+    remote:
+      path: src/Cheetah.OpenSearch/Testing/OpenSearchTestClient.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: OpenSearchTestClient
+    path: ../src/Cheetah.OpenSearch/Testing/OpenSearchTestClient.cs
+    startLine: 17
+  assemblies:
+  - Cheetah.OpenSearch
+  namespace: Cheetah.OpenSearch.Testing
+  summary: Utility class for creating OpenSearch test clients
+  example: []
+  syntax:
+    content: public static class OpenSearchTestClient
+    content.vb: Public Module OpenSearchTestClient
+  inheritance:
+  - System.Object
+- uid: Cheetah.OpenSearch.Testing.OpenSearchTestClient.Create(Microsoft.Extensions.Configuration.IConfiguration,Cheetah.OpenSearch.OpenSearchClientOptions)
+  commentId: M:Cheetah.OpenSearch.Testing.OpenSearchTestClient.Create(Microsoft.Extensions.Configuration.IConfiguration,Cheetah.OpenSearch.OpenSearchClientOptions)
+  id: Create(Microsoft.Extensions.Configuration.IConfiguration,Cheetah.OpenSearch.OpenSearchClientOptions)
+  parent: Cheetah.OpenSearch.Testing.OpenSearchTestClient
+  langs:
+  - csharp
+  - vb
+  name: Create(IConfiguration, OpenSearchClientOptions?)
+  nameWithType: OpenSearchTestClient.Create(IConfiguration, OpenSearchClientOptions?)
+  fullName: Cheetah.OpenSearch.Testing.OpenSearchTestClient.Create(Microsoft.Extensions.Configuration.IConfiguration, Cheetah.OpenSearch.OpenSearchClientOptions?)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.OpenSearch/Testing/OpenSearchTestClient.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: Create
+    path: ../src/Cheetah.OpenSearch/Testing/OpenSearchTestClient.cs
+    startLine: 20
+  assemblies:
+  - Cheetah.OpenSearch
+  namespace: Cheetah.OpenSearch.Testing
+  summary: Creates an IOpenSearchClient from the provided configuration.
+  remarks: >-
+    <b>WARNING</b>: This method should <i>only</i> be used if you for some reason cannot use dependency injection and need to create a client manually.
+
+    In any other circumstances, you should use the <xref href="Cheetah.OpenSearch.Extensions.ServiceCollectionExtensions.AddCheetahOpenSearch(Microsoft.Extensions.DependencyInjection.IServiceCollection%2cMicrosoft.Extensions.Configuration.IConfiguration%2cSystem.Action%7bCheetah.OpenSearch.OpenSearchClientOptions%7d)" data-throw-if-not-resolved="false"></xref> method during service registration and inject <xref href="OpenSearch.Client.IOpenSearchClient" data-throw-if-not-resolved="false"></xref> into your service.
+  example: []
+  syntax:
+    content: public static IOpenSearchClient Create(IConfiguration configuration, OpenSearchClientOptions? options = null)
+    parameters:
+    - id: configuration
+      type: Microsoft.Extensions.Configuration.IConfiguration
+      description: The configuration to create the client from
+    - id: options
+      type: Cheetah.OpenSearch.OpenSearchClientOptions
+      description: The <xref href="Cheetah.OpenSearch.OpenSearchClientOptions" data-throw-if-not-resolved="false"></xref> used to modify client behavior
+    return:
+      type: OpenSearch.Client.IOpenSearchClient
+      description: A pre-configured <xref href="OpenSearch.Client.OpenSearchClient" data-throw-if-not-resolved="false"></xref>
+    content.vb: Public Shared Function Create(configuration As IConfiguration, options As OpenSearchClientOptions = Nothing) As IOpenSearchClient
+  overload: Cheetah.OpenSearch.Testing.OpenSearchTestClient.Create*
+  nameWithType.vb: OpenSearchTestClient.Create(IConfiguration, OpenSearchClientOptions)
+  fullName.vb: Cheetah.OpenSearch.Testing.OpenSearchTestClient.Create(Microsoft.Extensions.Configuration.IConfiguration, Cheetah.OpenSearch.OpenSearchClientOptions)
+  name.vb: Create(IConfiguration, OpenSearchClientOptions)
+- uid: Cheetah.OpenSearch.Testing.OpenSearchTestClient.Create(Cheetah.OpenSearch.Configuration.OpenSearchConfig,Cheetah.OpenSearch.OpenSearchClientOptions)
+  commentId: M:Cheetah.OpenSearch.Testing.OpenSearchTestClient.Create(Cheetah.OpenSearch.Configuration.OpenSearchConfig,Cheetah.OpenSearch.OpenSearchClientOptions)
+  id: Create(Cheetah.OpenSearch.Configuration.OpenSearchConfig,Cheetah.OpenSearch.OpenSearchClientOptions)
+  parent: Cheetah.OpenSearch.Testing.OpenSearchTestClient
+  langs:
+  - csharp
+  - vb
+  name: Create(OpenSearchConfig, OpenSearchClientOptions?)
+  nameWithType: OpenSearchTestClient.Create(OpenSearchConfig, OpenSearchClientOptions?)
+  fullName: Cheetah.OpenSearch.Testing.OpenSearchTestClient.Create(Cheetah.OpenSearch.Configuration.OpenSearchConfig, Cheetah.OpenSearch.OpenSearchClientOptions?)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.OpenSearch/Testing/OpenSearchTestClient.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: Create
+    path: ../src/Cheetah.OpenSearch/Testing/OpenSearchTestClient.cs
+    startLine: 40
+  assemblies:
+  - Cheetah.OpenSearch
+  namespace: Cheetah.OpenSearch.Testing
+  summary: Creates an IOpenSearchClient from the provided configuration.
+  remarks: >-
+    <b>WARNING</b>: This method should <i>only</i> be used if you for some reason cannot use dependency injection and need to create a client manually.
+
+    In any other circumstances, you should use the <xref href="Cheetah.OpenSearch.Extensions.ServiceCollectionExtensions.AddCheetahOpenSearch(Microsoft.Extensions.DependencyInjection.IServiceCollection%2cMicrosoft.Extensions.Configuration.IConfiguration%2cSystem.Action%7bCheetah.OpenSearch.OpenSearchClientOptions%7d)" data-throw-if-not-resolved="false"></xref> method during service registration and inject <xref href="OpenSearch.Client.IOpenSearchClient" data-throw-if-not-resolved="false"></xref> into your service.
+  example: []
+  syntax:
+    content: public static IOpenSearchClient Create(OpenSearchConfig configuration, OpenSearchClientOptions? options = null)
+    parameters:
+    - id: configuration
+      type: Cheetah.OpenSearch.Configuration.OpenSearchConfig
+      description: The configuration to create the client from
+    - id: options
+      type: Cheetah.OpenSearch.OpenSearchClientOptions
+      description: The <xref href="Cheetah.OpenSearch.OpenSearchClientOptions" data-throw-if-not-resolved="false"></xref> used to modify client behavior
+    return:
+      type: OpenSearch.Client.IOpenSearchClient
+      description: A pre-configured <xref href="OpenSearch.Client.OpenSearchClient" data-throw-if-not-resolved="false"></xref>
+    content.vb: Public Shared Function Create(configuration As OpenSearchConfig, options As OpenSearchClientOptions = Nothing) As IOpenSearchClient
+  overload: Cheetah.OpenSearch.Testing.OpenSearchTestClient.Create*
+  nameWithType.vb: OpenSearchTestClient.Create(OpenSearchConfig, OpenSearchClientOptions)
+  fullName.vb: Cheetah.OpenSearch.Testing.OpenSearchTestClient.Create(Cheetah.OpenSearch.Configuration.OpenSearchConfig, Cheetah.OpenSearch.OpenSearchClientOptions)
+  name.vb: Create(OpenSearchConfig, OpenSearchClientOptions)
+references:
+- uid: Cheetah.OpenSearch.Testing
+  commentId: N:Cheetah.OpenSearch.Testing
+  href: Cheetah.html
+  name: Cheetah.OpenSearch.Testing
+  nameWithType: Cheetah.OpenSearch.Testing
+  fullName: Cheetah.OpenSearch.Testing
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.OpenSearch
+    name: OpenSearch
+    href: Cheetah.OpenSearch.html
+  - name: .
+  - uid: Cheetah.OpenSearch.Testing
+    name: Testing
+    href: Cheetah.OpenSearch.Testing.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.OpenSearch
+    name: OpenSearch
+    href: Cheetah.OpenSearch.html
+  - name: .
+  - uid: Cheetah.OpenSearch.Testing
+    name: Testing
+    href: Cheetah.OpenSearch.Testing.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Cheetah.OpenSearch.Extensions.ServiceCollectionExtensions.AddCheetahOpenSearch(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action{Cheetah.OpenSearch.OpenSearchClientOptions})
+  commentId: M:Cheetah.OpenSearch.Extensions.ServiceCollectionExtensions.AddCheetahOpenSearch(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action{Cheetah.OpenSearch.OpenSearchClientOptions})
+  isExternal: true
+  href: Cheetah.OpenSearch.Extensions.ServiceCollectionExtensions.html#Cheetah_OpenSearch_Extensions_ServiceCollectionExtensions_AddCheetahOpenSearch_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfiguration_System_Action_Cheetah_OpenSearch_OpenSearchClientOptions__
+  name: AddCheetahOpenSearch(IServiceCollection, IConfiguration, Action<OpenSearchClientOptions>)
+  nameWithType: ServiceCollectionExtensions.AddCheetahOpenSearch(IServiceCollection, IConfiguration, Action<OpenSearchClientOptions>)
+  fullName: Cheetah.OpenSearch.Extensions.ServiceCollectionExtensions.AddCheetahOpenSearch(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfiguration, System.Action<Cheetah.OpenSearch.OpenSearchClientOptions>)
+  nameWithType.vb: ServiceCollectionExtensions.AddCheetahOpenSearch(IServiceCollection, IConfiguration, Action(Of OpenSearchClientOptions))
+  fullName.vb: Cheetah.OpenSearch.Extensions.ServiceCollectionExtensions.AddCheetahOpenSearch(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfiguration, System.Action(Of Cheetah.OpenSearch.OpenSearchClientOptions))
+  name.vb: AddCheetahOpenSearch(IServiceCollection, IConfiguration, Action(Of OpenSearchClientOptions))
+  spec.csharp:
+  - uid: Cheetah.OpenSearch.Extensions.ServiceCollectionExtensions.AddCheetahOpenSearch(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action{Cheetah.OpenSearch.OpenSearchClientOptions})
+    name: AddCheetahOpenSearch
+    href: Cheetah.OpenSearch.Extensions.ServiceCollectionExtensions.html#Cheetah_OpenSearch_Extensions_ServiceCollectionExtensions_AddCheetahOpenSearch_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfiguration_System_Action_Cheetah_OpenSearch_OpenSearchClientOptions__
+  - name: (
+  - uid: Microsoft.Extensions.DependencyInjection.IServiceCollection
+    name: IServiceCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection
+  - name: ','
+  - name: " "
+  - uid: Microsoft.Extensions.Configuration.IConfiguration
+    name: IConfiguration
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration
+  - name: ','
+  - name: " "
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - uid: Cheetah.OpenSearch.OpenSearchClientOptions
+    name: OpenSearchClientOptions
+    href: Cheetah.OpenSearch.OpenSearchClientOptions.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Cheetah.OpenSearch.Extensions.ServiceCollectionExtensions.AddCheetahOpenSearch(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action{Cheetah.OpenSearch.OpenSearchClientOptions})
+    name: AddCheetahOpenSearch
+    href: Cheetah.OpenSearch.Extensions.ServiceCollectionExtensions.html#Cheetah_OpenSearch_Extensions_ServiceCollectionExtensions_AddCheetahOpenSearch_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfiguration_System_Action_Cheetah_OpenSearch_OpenSearchClientOptions__
+  - name: (
+  - uid: Microsoft.Extensions.DependencyInjection.IServiceCollection
+    name: IServiceCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection
+  - name: ','
+  - name: " "
+  - uid: Microsoft.Extensions.Configuration.IConfiguration
+    name: IConfiguration
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration
+  - name: ','
+  - name: " "
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Cheetah.OpenSearch.OpenSearchClientOptions
+    name: OpenSearchClientOptions
+    href: Cheetah.OpenSearch.OpenSearchClientOptions.html
+  - name: )
+  - name: )
+- uid: OpenSearch.Client.IOpenSearchClient
+  commentId: T:OpenSearch.Client.IOpenSearchClient
+  parent: OpenSearch.Client
+  isExternal: true
+  href: https://github.com/opensearch-project/opensearch-net/blob/main/src/OpenSearch.Client/Document/Multiple/BulkAll/OpenSearchClient-BulkAll.cs
+  name: IOpenSearchClient
+  nameWithType: IOpenSearchClient
+  fullName: OpenSearch.Client.IOpenSearchClient
+- uid: Cheetah.OpenSearch.OpenSearchClientOptions
+  commentId: T:Cheetah.OpenSearch.OpenSearchClientOptions
+  parent: Cheetah.OpenSearch
+  href: Cheetah.OpenSearch.OpenSearchClientOptions.html
+  name: OpenSearchClientOptions
+  nameWithType: OpenSearchClientOptions
+  fullName: Cheetah.OpenSearch.OpenSearchClientOptions
+- uid: OpenSearch.Client.OpenSearchClient
+  commentId: T:OpenSearch.Client.OpenSearchClient
+  parent: OpenSearch.Client
+  isExternal: true
+  href: https://github.com/opensearch-project/opensearch-net/blob/main/src/OpenSearch.Client/Document/Multiple/BulkAll/OpenSearchClient-BulkAll.cs
+  name: OpenSearchClient
+  nameWithType: OpenSearchClient
+  fullName: OpenSearch.Client.OpenSearchClient
+- uid: Cheetah.OpenSearch.Testing.OpenSearchTestClient.Create*
+  commentId: Overload:Cheetah.OpenSearch.Testing.OpenSearchTestClient.Create
+  href: Cheetah.OpenSearch.Testing.OpenSearchTestClient.html#Cheetah_OpenSearch_Testing_OpenSearchTestClient_Create_Microsoft_Extensions_Configuration_IConfiguration_Cheetah_OpenSearch_OpenSearchClientOptions_
+  name: Create
+  nameWithType: OpenSearchTestClient.Create
+  fullName: Cheetah.OpenSearch.Testing.OpenSearchTestClient.Create
+- uid: Microsoft.Extensions.Configuration.IConfiguration
+  commentId: T:Microsoft.Extensions.Configuration.IConfiguration
+  parent: Microsoft.Extensions.Configuration
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration
+  name: IConfiguration
+  nameWithType: IConfiguration
+  fullName: Microsoft.Extensions.Configuration.IConfiguration
+- uid: OpenSearch.Client
+  commentId: N:OpenSearch.Client
+  isExternal: true
+  name: OpenSearch.Client
+  nameWithType: OpenSearch.Client
+  fullName: OpenSearch.Client
+  spec.csharp:
+  - uid: OpenSearch
+    name: OpenSearch
+    isExternal: true
+  - name: .
+  - uid: OpenSearch.Client
+    name: Client
+    isExternal: true
+  spec.vb:
+  - uid: OpenSearch
+    name: OpenSearch
+    isExternal: true
+  - name: .
+  - uid: OpenSearch.Client
+    name: Client
+    isExternal: true
+- uid: Cheetah.OpenSearch
+  commentId: N:Cheetah.OpenSearch
+  href: Cheetah.html
+  name: Cheetah.OpenSearch
+  nameWithType: Cheetah.OpenSearch
+  fullName: Cheetah.OpenSearch
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.OpenSearch
+    name: OpenSearch
+    href: Cheetah.OpenSearch.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.OpenSearch
+    name: OpenSearch
+    href: Cheetah.OpenSearch.html
+- uid: Microsoft.Extensions.Configuration
+  commentId: N:Microsoft.Extensions.Configuration
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft
+  name: Microsoft.Extensions.Configuration
+  nameWithType: Microsoft.Extensions.Configuration
+  fullName: Microsoft.Extensions.Configuration
+  spec.csharp:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions
+  - name: .
+  - uid: Microsoft.Extensions.Configuration
+    name: Configuration
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration
+  spec.vb:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions
+  - name: .
+  - uid: Microsoft.Extensions.Configuration
+    name: Configuration
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration
+- uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig
+  commentId: T:Cheetah.OpenSearch.Configuration.OpenSearchConfig
+  parent: Cheetah.OpenSearch.Configuration
+  href: Cheetah.OpenSearch.Configuration.OpenSearchConfig.html
+  name: OpenSearchConfig
+  nameWithType: OpenSearchConfig
+  fullName: Cheetah.OpenSearch.Configuration.OpenSearchConfig
+- uid: Cheetah.OpenSearch.Configuration
+  commentId: N:Cheetah.OpenSearch.Configuration
+  href: Cheetah.html
+  name: Cheetah.OpenSearch.Configuration
+  nameWithType: Cheetah.OpenSearch.Configuration
+  fullName: Cheetah.OpenSearch.Configuration
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.OpenSearch
+    name: OpenSearch
+    href: Cheetah.OpenSearch.html
+  - name: .
+  - uid: Cheetah.OpenSearch.Configuration
+    name: Configuration
+    href: Cheetah.OpenSearch.Configuration.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.OpenSearch
+    name: OpenSearch
+    href: Cheetah.OpenSearch.html
+  - name: .
+  - uid: Cheetah.OpenSearch.Configuration
+    name: Configuration
+    href: Cheetah.OpenSearch.Configuration.html

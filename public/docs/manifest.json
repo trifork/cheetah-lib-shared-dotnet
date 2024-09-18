@@ -1,0 +1,981 @@
+{
+  "source_base_path": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/docs",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Auth/Cheetah.Auth.Authentication.CachedTokenProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Auth/Cheetah.Auth.Authentication.CachedTokenProvider.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Auth/Cheetah.Auth.Authentication.ICachableTokenProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Auth/Cheetah.Auth.Authentication.ICachableTokenProvider.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Auth/Cheetah.Auth.Authentication.ITokenService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Auth/Cheetah.Auth.Authentication.ITokenService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Auth/Cheetah.Auth.Authentication.OAuth2TokenException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Auth/Cheetah.Auth.Authentication.OAuth2TokenException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Auth/Cheetah.Auth.Authentication.OAuthTokenProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Auth/Cheetah.Auth.Authentication.OAuthTokenProvider.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Auth/Cheetah.Auth.Authentication.StartUpTokenService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Auth/Cheetah.Auth.Authentication.StartUpTokenService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Auth/Cheetah.Auth.Authentication.TokenWithExpiry.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Auth/Cheetah.Auth.Authentication.TokenWithExpiry.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Auth/Cheetah.Auth.Authentication.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Auth/Cheetah.Auth.Authentication.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Auth/Cheetah.Auth.Configuration.OAuth2Config.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Auth/Cheetah.Auth.Configuration.OAuth2Config.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Auth/Cheetah.Auth.Configuration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Auth/Cheetah.Auth.Configuration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Auth/Cheetah.Auth.Extensions.ServiceCollectionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Auth/Cheetah.Auth.Extensions.ServiceCollectionExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Auth/Cheetah.Auth.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Auth/Cheetah.Auth.Extensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Auth/Cheetah.Auth.Util.DefaultHttpClientFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Auth/Cheetah.Auth.Util.DefaultHttpClientFactory.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Auth/Cheetah.Auth.Util.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Auth/Cheetah.Auth.Util.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/Cheetah.Auth/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Auth/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/Cheetah.Auth/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Auth/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/Cheetah.Auth/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.AdminClientOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.AdminClientOptions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.AdminClientOptionsBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.AdminClientOptionsBuilder.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.ClientFactoryOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.ClientFactoryOptions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.ClientOptions-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.ClientOptions-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Configuration.KafkaConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Configuration.KafkaConfig.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Configuration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Configuration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Constants.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Constants.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.ConsumerOptions-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.ConsumerOptions-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.ConsumerOptionsBuilder-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.ConsumerOptionsBuilder-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Extensions.ClientInjector.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Extensions.ClientInjector.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Extensions.KafkaExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Extensions.KafkaExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Extensions.ServiceCollectionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Extensions.ServiceCollectionExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Extensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.KafkaClientFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.KafkaClientFactory.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.ProducerOptions-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.ProducerOptions-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.ProducerOptionsBuilder-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.ProducerOptionsBuilder-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Serdes.IDeserializerProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Serdes.IDeserializerProvider.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Serdes.ISerializerProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Serdes.ISerializerProvider.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Serdes.Utf8DeserializerProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Serdes.Utf8DeserializerProvider.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Serdes.Utf8SerializerProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Serdes.Utf8SerializerProvider.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Serdes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Serdes.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Testing.IKafkaTestReader-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Testing.IKafkaTestReader-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Testing.IKafkaTestWriter-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Testing.IKafkaTestWriter-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Testing.KafkaTestClientFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Testing.KafkaTestClientFactory.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Testing.KafkaTestReader-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Testing.KafkaTestReader-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Testing.KafkaTestWriter-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Testing.KafkaTestWriter-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Testing.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Testing.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Util.Utf8JsonDeserializer-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Util.Utf8JsonDeserializer-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Util.Utf8JsonSerializer-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Util.Utf8JsonSerializer-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Util.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.Util.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/Cheetah.Kafka.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/Cheetah.Kafka/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/Cheetah.Kafka/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.Kafka/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/Cheetah.Kafka/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.Configuration.OpenSearchConfig.OpenSearchAuthMode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.Configuration.OpenSearchConfig.OpenSearchAuthMode.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.Configuration.OpenSearchConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.Configuration.OpenSearchConfig.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.Configuration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.Configuration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.Connection.ConnectionPoolHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.Connection.ConnectionPoolHelper.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.Connection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.Connection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.Constants.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.Constants.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.Extensions.ServiceCollectionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.Extensions.ServiceCollectionExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.Extensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.OpenSearchClientFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.OpenSearchClientFactory.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.OpenSearchClientOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.OpenSearchClientOptions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.Testing.OpenSearchTestClient.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.Testing.OpenSearchTestClient.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.Testing.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.Testing.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.Util.UtcDateTimeConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.Util.UtcDateTimeConverter.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.Util.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.Util.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.OpenSearch/Cheetah.OpenSearch.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/Cheetah.OpenSearch/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.OpenSearch/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/Cheetah.OpenSearch/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.OpenSearch/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/Cheetah.OpenSearch/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Avro.AvroDeserializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Avro.AvroDeserializer.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Avro.AvroDeserializerProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Avro.AvroDeserializerProvider.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Avro.AvroSerializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Avro.AvroSerializer.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Avro.AvroSerializerProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Avro.AvroSerializerProvider.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Avro.Constants.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Avro.Constants.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Avro.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Avro.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Configuration.SchemaConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Configuration.SchemaConfig.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Configuration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Configuration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Extensions.ServiceCollectionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Extensions.ServiceCollectionExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Extensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Testing.AvroKafkaTestClientFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Testing.AvroKafkaTestClientFactory.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Testing.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Testing.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Utils.OAuthHeaderValueProvider.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Utils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.Utils.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/Cheetah.SchemaRegistry/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Cheetah.SchemaRegistry/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/Cheetah.SchemaRegistry/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/Cheetah.Kafka/TestingWithCheetahKafka.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Cheetah.Kafka/TestingWithCheetahKafka.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/Cheetah.Kafka/UsingCheetahKafka.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Cheetah.Kafka/UsingCheetahKafka.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/Cheetah.Kafka/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Cheetah.Kafka/toc.html"
+        },
+        ".json": {
+          "relative_path": "articles/Cheetah.Kafka/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/Cheetah.OpenSearch/TestingWithCheetahOpenSearch.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Cheetah.OpenSearch/TestingWithCheetahOpenSearch.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/Cheetah.OpenSearch/UsingCheetahOpenSearch.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Cheetah.OpenSearch/UsingCheetahOpenSearch.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/Cheetah.OpenSearch/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Cheetah.OpenSearch/toc.html"
+        },
+        ".json": {
+          "relative_path": "articles/Cheetah.OpenSearch/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/Cheetah.SchemaRegistry/TestingWithCheetahSchemaRegistry.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Cheetah.SchemaRegistry/TestingWithCheetahSchemaRegistry.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/Cheetah.SchemaRegistry/UsingCheetahSchemaRegistry.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Cheetah.SchemaRegistry/UsingCheetahSchemaRegistry.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/Cheetah.SchemaRegistry/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Cheetah.SchemaRegistry/toc.html"
+        },
+        ".json": {
+          "relative_path": "articles/Cheetah.SchemaRegistry/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html"
+        },
+        ".json": {
+          "relative_path": "articles/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

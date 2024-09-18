@@ -1,0 +1,463 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.Kafka.Serdes.Utf8SerializerProvider
+  commentId: T:Cheetah.Kafka.Serdes.Utf8SerializerProvider
+  id: Utf8SerializerProvider
+  parent: Cheetah.Kafka.Serdes
+  children:
+  - Cheetah.Kafka.Serdes.Utf8SerializerProvider.FromServices
+  - Cheetah.Kafka.Serdes.Utf8SerializerProvider.GetKeySerializer``1
+  - Cheetah.Kafka.Serdes.Utf8SerializerProvider.GetValueSerializer``1
+  langs:
+  - csharp
+  - vb
+  name: Utf8SerializerProvider
+  nameWithType: Utf8SerializerProvider
+  fullName: Cheetah.Kafka.Serdes.Utf8SerializerProvider
+  type: Class
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Serdes/Utf8SerializerProvider.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: Utf8SerializerProvider
+    path: ../src/Cheetah.Kafka/Serdes/Utf8SerializerProvider.cs
+    startLine: 9
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka.Serdes
+  summary: Provides UTF-8 serialization for Kafka messages.
+  example: []
+  syntax:
+    content: 'public class Utf8SerializerProvider : ISerializerProvider'
+    content.vb: Public Class Utf8SerializerProvider Implements ISerializerProvider
+  inheritance:
+  - System.Object
+  implements:
+  - Cheetah.Kafka.Serdes.ISerializerProvider
+- uid: Cheetah.Kafka.Serdes.Utf8SerializerProvider.FromServices
+  commentId: M:Cheetah.Kafka.Serdes.Utf8SerializerProvider.FromServices
+  id: FromServices
+  parent: Cheetah.Kafka.Serdes.Utf8SerializerProvider
+  langs:
+  - csharp
+  - vb
+  name: FromServices()
+  nameWithType: Utf8SerializerProvider.FromServices()
+  fullName: Cheetah.Kafka.Serdes.Utf8SerializerProvider.FromServices()
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Serdes/Utf8SerializerProvider.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: FromServices
+    path: ../src/Cheetah.Kafka/Serdes/Utf8SerializerProvider.cs
+    startLine: 15
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka.Serdes
+  summary: Creates an instance of <xref href="Cheetah.Kafka.Serdes.Utf8SerializerProvider" data-throw-if-not-resolved="false"></xref> from services.
+  example: []
+  syntax:
+    content: public static Func<IServiceProvider, ISerializerProvider> FromServices()
+    return:
+      type: System.Func{System.IServiceProvider,Cheetah.Kafka.Serdes.ISerializerProvider}
+      description: A function that creates an <xref href="Cheetah.Kafka.Serdes.Utf8SerializerProvider" data-throw-if-not-resolved="false"></xref> instance.
+    content.vb: Public Shared Function FromServices() As Func(Of IServiceProvider, ISerializerProvider)
+  overload: Cheetah.Kafka.Serdes.Utf8SerializerProvider.FromServices*
+- uid: Cheetah.Kafka.Serdes.Utf8SerializerProvider.GetValueSerializer``1
+  commentId: M:Cheetah.Kafka.Serdes.Utf8SerializerProvider.GetValueSerializer``1
+  id: GetValueSerializer``1
+  parent: Cheetah.Kafka.Serdes.Utf8SerializerProvider
+  langs:
+  - csharp
+  - vb
+  name: GetValueSerializer<T>()
+  nameWithType: Utf8SerializerProvider.GetValueSerializer<T>()
+  fullName: Cheetah.Kafka.Serdes.Utf8SerializerProvider.GetValueSerializer<T>()
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Serdes/Utf8SerializerProvider.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: GetValueSerializer
+    path: ../src/Cheetah.Kafka/Serdes/Utf8SerializerProvider.cs
+    startLine: 25
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka.Serdes
+  summary: Gets a serializer for the specified type using UTF-8 encoding.
+  example: []
+  syntax:
+    content: public ISerializer<T> GetValueSerializer<T>()
+    typeParameters:
+    - id: T
+      description: The type of object to serialize.
+    return:
+      type: Confluent.Kafka.ISerializer{{T}}
+      description: An instance of <xref href="Cheetah.Kafka.Util.Utf8JsonSerializer%601" data-throw-if-not-resolved="false"></xref>.
+    content.vb: Public Function GetValueSerializer(Of T)() As ISerializer(Of T)
+  overload: Cheetah.Kafka.Serdes.Utf8SerializerProvider.GetValueSerializer*
+  implements:
+  - Cheetah.Kafka.Serdes.ISerializerProvider.GetValueSerializer``1
+  nameWithType.vb: Utf8SerializerProvider.GetValueSerializer(Of T)()
+  fullName.vb: Cheetah.Kafka.Serdes.Utf8SerializerProvider.GetValueSerializer(Of T)()
+  name.vb: GetValueSerializer(Of T)()
+- uid: Cheetah.Kafka.Serdes.Utf8SerializerProvider.GetKeySerializer``1
+  commentId: M:Cheetah.Kafka.Serdes.Utf8SerializerProvider.GetKeySerializer``1
+  id: GetKeySerializer``1
+  parent: Cheetah.Kafka.Serdes.Utf8SerializerProvider
+  langs:
+  - csharp
+  - vb
+  name: GetKeySerializer<T>()
+  nameWithType: Utf8SerializerProvider.GetKeySerializer<T>()
+  fullName: Cheetah.Kafka.Serdes.Utf8SerializerProvider.GetKeySerializer<T>()
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Serdes/Utf8SerializerProvider.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: GetKeySerializer
+    path: ../src/Cheetah.Kafka/Serdes/Utf8SerializerProvider.cs
+    startLine: 35
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka.Serdes
+  summary: Gets a serializer for the specified type using UTF-8 encoding.
+  example: []
+  syntax:
+    content: public ISerializer<T> GetKeySerializer<T>()
+    typeParameters:
+    - id: T
+      description: The type of object to serialize.
+    return:
+      type: Confluent.Kafka.ISerializer{{T}}
+      description: An instance of <xref href="Cheetah.Kafka.Util.Utf8JsonSerializer%601" data-throw-if-not-resolved="false"></xref>.
+    content.vb: Public Function GetKeySerializer(Of T)() As ISerializer(Of T)
+  overload: Cheetah.Kafka.Serdes.Utf8SerializerProvider.GetKeySerializer*
+  implements:
+  - Cheetah.Kafka.Serdes.ISerializerProvider.GetKeySerializer``1
+  nameWithType.vb: Utf8SerializerProvider.GetKeySerializer(Of T)()
+  fullName.vb: Cheetah.Kafka.Serdes.Utf8SerializerProvider.GetKeySerializer(Of T)()
+  name.vb: GetKeySerializer(Of T)()
+references:
+- uid: Cheetah.Kafka.Serdes
+  commentId: N:Cheetah.Kafka.Serdes
+  href: Cheetah.html
+  name: Cheetah.Kafka.Serdes
+  nameWithType: Cheetah.Kafka.Serdes
+  fullName: Cheetah.Kafka.Serdes
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  - name: .
+  - uid: Cheetah.Kafka.Serdes
+    name: Serdes
+    href: Cheetah.Kafka.Serdes.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  - name: .
+  - uid: Cheetah.Kafka.Serdes
+    name: Serdes
+    href: Cheetah.Kafka.Serdes.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Cheetah.Kafka.Serdes.ISerializerProvider
+  commentId: T:Cheetah.Kafka.Serdes.ISerializerProvider
+  parent: Cheetah.Kafka.Serdes
+  href: Cheetah.Kafka.Serdes.ISerializerProvider.html
+  name: ISerializerProvider
+  nameWithType: ISerializerProvider
+  fullName: Cheetah.Kafka.Serdes.ISerializerProvider
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Cheetah.Kafka.Serdes.Utf8SerializerProvider
+  commentId: T:Cheetah.Kafka.Serdes.Utf8SerializerProvider
+  href: Cheetah.Kafka.Serdes.Utf8SerializerProvider.html
+  name: Utf8SerializerProvider
+  nameWithType: Utf8SerializerProvider
+  fullName: Cheetah.Kafka.Serdes.Utf8SerializerProvider
+- uid: Cheetah.Kafka.Serdes.Utf8SerializerProvider.FromServices*
+  commentId: Overload:Cheetah.Kafka.Serdes.Utf8SerializerProvider.FromServices
+  href: Cheetah.Kafka.Serdes.Utf8SerializerProvider.html#Cheetah_Kafka_Serdes_Utf8SerializerProvider_FromServices
+  name: FromServices
+  nameWithType: Utf8SerializerProvider.FromServices
+  fullName: Cheetah.Kafka.Serdes.Utf8SerializerProvider.FromServices
+- uid: System.Func{System.IServiceProvider,Cheetah.Kafka.Serdes.ISerializerProvider}
+  commentId: T:System.Func{System.IServiceProvider,Cheetah.Kafka.Serdes.ISerializerProvider}
+  parent: System
+  definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<IServiceProvider, ISerializerProvider>
+  nameWithType: Func<IServiceProvider, ISerializerProvider>
+  fullName: System.Func<System.IServiceProvider, Cheetah.Kafka.Serdes.ISerializerProvider>
+  nameWithType.vb: Func(Of IServiceProvider, ISerializerProvider)
+  fullName.vb: System.Func(Of System.IServiceProvider, Cheetah.Kafka.Serdes.ISerializerProvider)
+  name.vb: Func(Of IServiceProvider, ISerializerProvider)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: System.IServiceProvider
+    name: IServiceProvider
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iserviceprovider
+  - name: ','
+  - name: " "
+  - uid: Cheetah.Kafka.Serdes.ISerializerProvider
+    name: ISerializerProvider
+    href: Cheetah.Kafka.Serdes.ISerializerProvider.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.IServiceProvider
+    name: IServiceProvider
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iserviceprovider
+  - name: ','
+  - name: " "
+  - uid: Cheetah.Kafka.Serdes.ISerializerProvider
+    name: ISerializerProvider
+    href: Cheetah.Kafka.Serdes.ISerializerProvider.html
+  - name: )
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: Cheetah.Kafka.Util.Utf8JsonSerializer`1
+  commentId: T:Cheetah.Kafka.Util.Utf8JsonSerializer`1
+  href: Cheetah.Kafka.Util.Utf8JsonSerializer-1.html
+  name: Utf8JsonSerializer<T>
+  nameWithType: Utf8JsonSerializer<T>
+  fullName: Cheetah.Kafka.Util.Utf8JsonSerializer<T>
+  nameWithType.vb: Utf8JsonSerializer(Of T)
+  fullName.vb: Cheetah.Kafka.Util.Utf8JsonSerializer(Of T)
+  name.vb: Utf8JsonSerializer(Of T)
+  spec.csharp:
+  - uid: Cheetah.Kafka.Util.Utf8JsonSerializer`1
+    name: Utf8JsonSerializer
+    href: Cheetah.Kafka.Util.Utf8JsonSerializer-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Cheetah.Kafka.Util.Utf8JsonSerializer`1
+    name: Utf8JsonSerializer
+    href: Cheetah.Kafka.Util.Utf8JsonSerializer-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Cheetah.Kafka.Serdes.Utf8SerializerProvider.GetValueSerializer*
+  commentId: Overload:Cheetah.Kafka.Serdes.Utf8SerializerProvider.GetValueSerializer
+  href: Cheetah.Kafka.Serdes.Utf8SerializerProvider.html#Cheetah_Kafka_Serdes_Utf8SerializerProvider_GetValueSerializer__1
+  name: GetValueSerializer
+  nameWithType: Utf8SerializerProvider.GetValueSerializer
+  fullName: Cheetah.Kafka.Serdes.Utf8SerializerProvider.GetValueSerializer
+- uid: Cheetah.Kafka.Serdes.ISerializerProvider.GetValueSerializer``1
+  commentId: M:Cheetah.Kafka.Serdes.ISerializerProvider.GetValueSerializer``1
+  parent: Cheetah.Kafka.Serdes.ISerializerProvider
+  href: Cheetah.Kafka.Serdes.ISerializerProvider.html#Cheetah_Kafka_Serdes_ISerializerProvider_GetValueSerializer__1
+  name: GetValueSerializer<T>()
+  nameWithType: ISerializerProvider.GetValueSerializer<T>()
+  fullName: Cheetah.Kafka.Serdes.ISerializerProvider.GetValueSerializer<T>()
+  nameWithType.vb: ISerializerProvider.GetValueSerializer(Of T)()
+  fullName.vb: Cheetah.Kafka.Serdes.ISerializerProvider.GetValueSerializer(Of T)()
+  name.vb: GetValueSerializer(Of T)()
+  spec.csharp:
+  - uid: Cheetah.Kafka.Serdes.ISerializerProvider.GetValueSerializer``1
+    name: GetValueSerializer
+    href: Cheetah.Kafka.Serdes.ISerializerProvider.html#Cheetah_Kafka_Serdes_ISerializerProvider_GetValueSerializer__1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Cheetah.Kafka.Serdes.ISerializerProvider.GetValueSerializer``1
+    name: GetValueSerializer
+    href: Cheetah.Kafka.Serdes.ISerializerProvider.html#Cheetah_Kafka_Serdes_ISerializerProvider_GetValueSerializer__1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: )
+- uid: Confluent.Kafka.ISerializer{{T}}
+  commentId: T:Confluent.Kafka.ISerializer{``0}
+  parent: Confluent.Kafka
+  definition: Confluent.Kafka.ISerializer`1
+  name: ISerializer<T>
+  nameWithType: ISerializer<T>
+  fullName: Confluent.Kafka.ISerializer<T>
+  nameWithType.vb: ISerializer(Of T)
+  fullName.vb: Confluent.Kafka.ISerializer(Of T)
+  name.vb: ISerializer(Of T)
+  spec.csharp:
+  - uid: Confluent.Kafka.ISerializer`1
+    name: ISerializer
+    isExternal: true
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Confluent.Kafka.ISerializer`1
+    name: ISerializer
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Confluent.Kafka.ISerializer`1
+  commentId: T:Confluent.Kafka.ISerializer`1
+  isExternal: true
+  name: ISerializer<T>
+  nameWithType: ISerializer<T>
+  fullName: Confluent.Kafka.ISerializer<T>
+  nameWithType.vb: ISerializer(Of T)
+  fullName.vb: Confluent.Kafka.ISerializer(Of T)
+  name.vb: ISerializer(Of T)
+  spec.csharp:
+  - uid: Confluent.Kafka.ISerializer`1
+    name: ISerializer
+    isExternal: true
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Confluent.Kafka.ISerializer`1
+    name: ISerializer
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Confluent.Kafka
+  commentId: N:Confluent.Kafka
+  isExternal: true
+  name: Confluent.Kafka
+  nameWithType: Confluent.Kafka
+  fullName: Confluent.Kafka
+  spec.csharp:
+  - uid: Confluent
+    name: Confluent
+    isExternal: true
+  - name: .
+  - uid: Confluent.Kafka
+    name: Kafka
+    isExternal: true
+  spec.vb:
+  - uid: Confluent
+    name: Confluent
+    isExternal: true
+  - name: .
+  - uid: Confluent.Kafka
+    name: Kafka
+    isExternal: true
+- uid: Cheetah.Kafka.Serdes.Utf8SerializerProvider.GetKeySerializer*
+  commentId: Overload:Cheetah.Kafka.Serdes.Utf8SerializerProvider.GetKeySerializer
+  href: Cheetah.Kafka.Serdes.Utf8SerializerProvider.html#Cheetah_Kafka_Serdes_Utf8SerializerProvider_GetKeySerializer__1
+  name: GetKeySerializer
+  nameWithType: Utf8SerializerProvider.GetKeySerializer
+  fullName: Cheetah.Kafka.Serdes.Utf8SerializerProvider.GetKeySerializer
+- uid: Cheetah.Kafka.Serdes.ISerializerProvider.GetKeySerializer``1
+  commentId: M:Cheetah.Kafka.Serdes.ISerializerProvider.GetKeySerializer``1
+  parent: Cheetah.Kafka.Serdes.ISerializerProvider
+  href: Cheetah.Kafka.Serdes.ISerializerProvider.html#Cheetah_Kafka_Serdes_ISerializerProvider_GetKeySerializer__1
+  name: GetKeySerializer<T>()
+  nameWithType: ISerializerProvider.GetKeySerializer<T>()
+  fullName: Cheetah.Kafka.Serdes.ISerializerProvider.GetKeySerializer<T>()
+  nameWithType.vb: ISerializerProvider.GetKeySerializer(Of T)()
+  fullName.vb: Cheetah.Kafka.Serdes.ISerializerProvider.GetKeySerializer(Of T)()
+  name.vb: GetKeySerializer(Of T)()
+  spec.csharp:
+  - uid: Cheetah.Kafka.Serdes.ISerializerProvider.GetKeySerializer``1
+    name: GetKeySerializer
+    href: Cheetah.Kafka.Serdes.ISerializerProvider.html#Cheetah_Kafka_Serdes_ISerializerProvider_GetKeySerializer__1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Cheetah.Kafka.Serdes.ISerializerProvider.GetKeySerializer``1
+    name: GetKeySerializer
+    href: Cheetah.Kafka.Serdes.ISerializerProvider.html#Cheetah_Kafka_Serdes_ISerializerProvider_GetKeySerializer__1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: )

@@ -1,0 +1,502 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig
+  commentId: T:Cheetah.OpenSearch.Configuration.OpenSearchConfig
+  id: OpenSearchConfig
+  parent: Cheetah.OpenSearch.Configuration
+  children:
+  - Cheetah.OpenSearch.Configuration.OpenSearchConfig.AuthMode
+  - Cheetah.OpenSearch.Configuration.OpenSearchConfig.CaCertificatePath
+  - Cheetah.OpenSearch.Configuration.OpenSearchConfig.DisableTlsValidation
+  - Cheetah.OpenSearch.Configuration.OpenSearchConfig.OAuth2
+  - Cheetah.OpenSearch.Configuration.OpenSearchConfig.Password
+  - Cheetah.OpenSearch.Configuration.OpenSearchConfig.Position
+  - Cheetah.OpenSearch.Configuration.OpenSearchConfig.Url
+  - Cheetah.OpenSearch.Configuration.OpenSearchConfig.UserName
+  - Cheetah.OpenSearch.Configuration.OpenSearchConfig.Validate
+  langs:
+  - csharp
+  - vb
+  name: OpenSearchConfig
+  nameWithType: OpenSearchConfig
+  fullName: Cheetah.OpenSearch.Configuration.OpenSearchConfig
+  type: Class
+  source:
+    remote:
+      path: src/Cheetah.OpenSearch/Configuration/OpenSearchConfig.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: OpenSearchConfig
+    path: ../src/Cheetah.OpenSearch/Configuration/OpenSearchConfig.cs
+    startLine: 9
+  assemblies:
+  - Cheetah.OpenSearch
+  namespace: Cheetah.OpenSearch.Configuration
+  summary: OpenSearch related configuration intended to be set from appsettings.json or environment variables
+  example: []
+  syntax:
+    content: public class OpenSearchConfig
+    content.vb: Public Class OpenSearchConfig
+  inheritance:
+  - System.Object
+- uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig.Position
+  commentId: F:Cheetah.OpenSearch.Configuration.OpenSearchConfig.Position
+  id: Position
+  parent: Cheetah.OpenSearch.Configuration.OpenSearchConfig
+  langs:
+  - csharp
+  - vb
+  name: Position
+  nameWithType: OpenSearchConfig.Position
+  fullName: Cheetah.OpenSearch.Configuration.OpenSearchConfig.Position
+  type: Field
+  source:
+    remote:
+      path: src/Cheetah.OpenSearch/Configuration/OpenSearchConfig.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: Position
+    path: ../src/Cheetah.OpenSearch/Configuration/OpenSearchConfig.cs
+    startLine: 14
+  assemblies:
+  - Cheetah.OpenSearch
+  namespace: Cheetah.OpenSearch.Configuration
+  summary: Prefix for options e.g. OpenSearch__
+  example: []
+  syntax:
+    content: public const string Position = "OpenSearch"
+    return:
+      type: System.String
+    content.vb: Public Const Position As String = "OpenSearch"
+- uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig.Url
+  commentId: P:Cheetah.OpenSearch.Configuration.OpenSearchConfig.Url
+  id: Url
+  parent: Cheetah.OpenSearch.Configuration.OpenSearchConfig
+  langs:
+  - csharp
+  - vb
+  name: Url
+  nameWithType: OpenSearchConfig.Url
+  fullName: Cheetah.OpenSearch.Configuration.OpenSearchConfig.Url
+  type: Property
+  source:
+    remote:
+      path: src/Cheetah.OpenSearch/Configuration/OpenSearchConfig.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: Url
+    path: ../src/Cheetah.OpenSearch/Configuration/OpenSearchConfig.cs
+    startLine: 19
+  assemblies:
+  - Cheetah.OpenSearch
+  namespace: Cheetah.OpenSearch.Configuration
+  summary: Url for OpenSearch
+  example: []
+  syntax:
+    content: >-
+      [Required]
+
+      public string Url { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <Required>
+
+      Public Property Url As String
+  overload: Cheetah.OpenSearch.Configuration.OpenSearchConfig.Url*
+  attributes:
+  - type: System.ComponentModel.DataAnnotations.RequiredAttribute
+    ctor: System.ComponentModel.DataAnnotations.RequiredAttribute.#ctor
+    arguments: []
+- uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig.UserName
+  commentId: P:Cheetah.OpenSearch.Configuration.OpenSearchConfig.UserName
+  id: UserName
+  parent: Cheetah.OpenSearch.Configuration.OpenSearchConfig
+  langs:
+  - csharp
+  - vb
+  name: UserName
+  nameWithType: OpenSearchConfig.UserName
+  fullName: Cheetah.OpenSearch.Configuration.OpenSearchConfig.UserName
+  type: Property
+  source:
+    remote:
+      path: src/Cheetah.OpenSearch/Configuration/OpenSearchConfig.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: UserName
+    path: ../src/Cheetah.OpenSearch/Configuration/OpenSearchConfig.cs
+    startLine: 25
+  assemblies:
+  - Cheetah.OpenSearch
+  namespace: Cheetah.OpenSearch.Configuration
+  summary: UserName for Basic Auth
+  example: []
+  syntax:
+    content: public string UserName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property UserName As String
+  overload: Cheetah.OpenSearch.Configuration.OpenSearchConfig.UserName*
+- uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig.Password
+  commentId: P:Cheetah.OpenSearch.Configuration.OpenSearchConfig.Password
+  id: Password
+  parent: Cheetah.OpenSearch.Configuration.OpenSearchConfig
+  langs:
+  - csharp
+  - vb
+  name: Password
+  nameWithType: OpenSearchConfig.Password
+  fullName: Cheetah.OpenSearch.Configuration.OpenSearchConfig.Password
+  type: Property
+  source:
+    remote:
+      path: src/Cheetah.OpenSearch/Configuration/OpenSearchConfig.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: Password
+    path: ../src/Cheetah.OpenSearch/Configuration/OpenSearchConfig.cs
+    startLine: 30
+  assemblies:
+  - Cheetah.OpenSearch
+  namespace: Cheetah.OpenSearch.Configuration
+  summary: Password for Basic Auth
+  example: []
+  syntax:
+    content: public string Password { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Password As String
+  overload: Cheetah.OpenSearch.Configuration.OpenSearchConfig.Password*
+- uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig.AuthMode
+  commentId: P:Cheetah.OpenSearch.Configuration.OpenSearchConfig.AuthMode
+  id: AuthMode
+  parent: Cheetah.OpenSearch.Configuration.OpenSearchConfig
+  langs:
+  - csharp
+  - vb
+  name: AuthMode
+  nameWithType: OpenSearchConfig.AuthMode
+  fullName: Cheetah.OpenSearch.Configuration.OpenSearchConfig.AuthMode
+  type: Property
+  source:
+    remote:
+      path: src/Cheetah.OpenSearch/Configuration/OpenSearchConfig.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: AuthMode
+    path: ../src/Cheetah.OpenSearch/Configuration/OpenSearchConfig.cs
+    startLine: 36
+  assemblies:
+  - Cheetah.OpenSearch
+  namespace: Cheetah.OpenSearch.Configuration
+  summary: Authentication mode used by the OpenSearchClient
+  example: []
+  syntax:
+    content: public OpenSearchConfig.OpenSearchAuthMode AuthMode { get; set; }
+    parameters: []
+    return:
+      type: Cheetah.OpenSearch.Configuration.OpenSearchConfig.OpenSearchAuthMode
+    content.vb: Public Property AuthMode As OpenSearchConfig.OpenSearchAuthMode
+  overload: Cheetah.OpenSearch.Configuration.OpenSearchConfig.AuthMode*
+- uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig.DisableTlsValidation
+  commentId: P:Cheetah.OpenSearch.Configuration.OpenSearchConfig.DisableTlsValidation
+  id: DisableTlsValidation
+  parent: Cheetah.OpenSearch.Configuration.OpenSearchConfig
+  langs:
+  - csharp
+  - vb
+  name: DisableTlsValidation
+  nameWithType: OpenSearchConfig.DisableTlsValidation
+  fullName: Cheetah.OpenSearch.Configuration.OpenSearchConfig.DisableTlsValidation
+  type: Property
+  source:
+    remote:
+      path: src/Cheetah.OpenSearch/Configuration/OpenSearchConfig.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: DisableTlsValidation
+    path: ../src/Cheetah.OpenSearch/Configuration/OpenSearchConfig.cs
+    startLine: 41
+  assemblies:
+  - Cheetah.OpenSearch
+  namespace: Cheetah.OpenSearch.Configuration
+  summary: Disables TLS validation for OpenSearch
+  example: []
+  syntax:
+    content: public bool DisableTlsValidation { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property DisableTlsValidation As Boolean
+  overload: Cheetah.OpenSearch.Configuration.OpenSearchConfig.DisableTlsValidation*
+- uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig.CaCertificatePath
+  commentId: P:Cheetah.OpenSearch.Configuration.OpenSearchConfig.CaCertificatePath
+  id: CaCertificatePath
+  parent: Cheetah.OpenSearch.Configuration.OpenSearchConfig
+  langs:
+  - csharp
+  - vb
+  name: CaCertificatePath
+  nameWithType: OpenSearchConfig.CaCertificatePath
+  fullName: Cheetah.OpenSearch.Configuration.OpenSearchConfig.CaCertificatePath
+  type: Property
+  source:
+    remote:
+      path: src/Cheetah.OpenSearch/Configuration/OpenSearchConfig.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: CaCertificatePath
+    path: ../src/Cheetah.OpenSearch/Configuration/OpenSearchConfig.cs
+    startLine: 46
+  assemblies:
+  - Cheetah.OpenSearch
+  namespace: Cheetah.OpenSearch.Configuration
+  summary: Path to CA certificate used to validate OpenSearch certificate
+  example: []
+  syntax:
+    content: public string? CaCertificatePath { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property CaCertificatePath As String
+  overload: Cheetah.OpenSearch.Configuration.OpenSearchConfig.CaCertificatePath*
+- uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig.OAuth2
+  commentId: P:Cheetah.OpenSearch.Configuration.OpenSearchConfig.OAuth2
+  id: OAuth2
+  parent: Cheetah.OpenSearch.Configuration.OpenSearchConfig
+  langs:
+  - csharp
+  - vb
+  name: OAuth2
+  nameWithType: OpenSearchConfig.OAuth2
+  fullName: Cheetah.OpenSearch.Configuration.OpenSearchConfig.OAuth2
+  type: Property
+  source:
+    remote:
+      path: src/Cheetah.OpenSearch/Configuration/OpenSearchConfig.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: OAuth2
+    path: ../src/Cheetah.OpenSearch/Configuration/OpenSearchConfig.cs
+    startLine: 51
+  assemblies:
+  - Cheetah.OpenSearch
+  namespace: Cheetah.OpenSearch.Configuration
+  summary: The config to use when authenticating with OAuth2
+  example: []
+  syntax:
+    content: public OAuth2Config OAuth2 { get; set; }
+    parameters: []
+    return:
+      type: Cheetah.Auth.Configuration.OAuth2Config
+    content.vb: Public Property OAuth2 As OAuth2Config
+  overload: Cheetah.OpenSearch.Configuration.OpenSearchConfig.OAuth2*
+- uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig.Validate
+  commentId: M:Cheetah.OpenSearch.Configuration.OpenSearchConfig.Validate
+  id: Validate
+  parent: Cheetah.OpenSearch.Configuration.OpenSearchConfig
+  langs:
+  - csharp
+  - vb
+  name: Validate()
+  nameWithType: OpenSearchConfig.Validate()
+  fullName: Cheetah.OpenSearch.Configuration.OpenSearchConfig.Validate()
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.OpenSearch/Configuration/OpenSearchConfig.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: Validate
+    path: ../src/Cheetah.OpenSearch/Configuration/OpenSearchConfig.cs
+    startLine: 56
+  assemblies:
+  - Cheetah.OpenSearch
+  namespace: Cheetah.OpenSearch.Configuration
+  summary: Validates and throws an error if values are not set for a given <xref href="Cheetah.OpenSearch.Configuration.OpenSearchConfig.AuthMode" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public void Validate()
+    content.vb: Public Sub Validate()
+  overload: Cheetah.OpenSearch.Configuration.OpenSearchConfig.Validate*
+references:
+- uid: Cheetah.OpenSearch.Configuration
+  commentId: N:Cheetah.OpenSearch.Configuration
+  href: Cheetah.html
+  name: Cheetah.OpenSearch.Configuration
+  nameWithType: Cheetah.OpenSearch.Configuration
+  fullName: Cheetah.OpenSearch.Configuration
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.OpenSearch
+    name: OpenSearch
+    href: Cheetah.OpenSearch.html
+  - name: .
+  - uid: Cheetah.OpenSearch.Configuration
+    name: Configuration
+    href: Cheetah.OpenSearch.Configuration.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.OpenSearch
+    name: OpenSearch
+    href: Cheetah.OpenSearch.html
+  - name: .
+  - uid: Cheetah.OpenSearch.Configuration
+    name: Configuration
+    href: Cheetah.OpenSearch.Configuration.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig.Url*
+  commentId: Overload:Cheetah.OpenSearch.Configuration.OpenSearchConfig.Url
+  href: Cheetah.OpenSearch.Configuration.OpenSearchConfig.html#Cheetah_OpenSearch_Configuration_OpenSearchConfig_Url
+  name: Url
+  nameWithType: OpenSearchConfig.Url
+  fullName: Cheetah.OpenSearch.Configuration.OpenSearchConfig.Url
+- uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig.UserName*
+  commentId: Overload:Cheetah.OpenSearch.Configuration.OpenSearchConfig.UserName
+  href: Cheetah.OpenSearch.Configuration.OpenSearchConfig.html#Cheetah_OpenSearch_Configuration_OpenSearchConfig_UserName
+  name: UserName
+  nameWithType: OpenSearchConfig.UserName
+  fullName: Cheetah.OpenSearch.Configuration.OpenSearchConfig.UserName
+- uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig.Password*
+  commentId: Overload:Cheetah.OpenSearch.Configuration.OpenSearchConfig.Password
+  href: Cheetah.OpenSearch.Configuration.OpenSearchConfig.html#Cheetah_OpenSearch_Configuration_OpenSearchConfig_Password
+  name: Password
+  nameWithType: OpenSearchConfig.Password
+  fullName: Cheetah.OpenSearch.Configuration.OpenSearchConfig.Password
+- uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig.AuthMode*
+  commentId: Overload:Cheetah.OpenSearch.Configuration.OpenSearchConfig.AuthMode
+  href: Cheetah.OpenSearch.Configuration.OpenSearchConfig.html#Cheetah_OpenSearch_Configuration_OpenSearchConfig_AuthMode
+  name: AuthMode
+  nameWithType: OpenSearchConfig.AuthMode
+  fullName: Cheetah.OpenSearch.Configuration.OpenSearchConfig.AuthMode
+- uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig.OpenSearchAuthMode
+  commentId: T:Cheetah.OpenSearch.Configuration.OpenSearchConfig.OpenSearchAuthMode
+  parent: Cheetah.OpenSearch.Configuration
+  href: Cheetah.OpenSearch.Configuration.OpenSearchConfig.html
+  name: OpenSearchConfig.OpenSearchAuthMode
+  nameWithType: OpenSearchConfig.OpenSearchAuthMode
+  fullName: Cheetah.OpenSearch.Configuration.OpenSearchConfig.OpenSearchAuthMode
+  spec.csharp:
+  - uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig
+    name: OpenSearchConfig
+    href: Cheetah.OpenSearch.Configuration.OpenSearchConfig.html
+  - name: .
+  - uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig.OpenSearchAuthMode
+    name: OpenSearchAuthMode
+    href: Cheetah.OpenSearch.Configuration.OpenSearchConfig.OpenSearchAuthMode.html
+  spec.vb:
+  - uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig
+    name: OpenSearchConfig
+    href: Cheetah.OpenSearch.Configuration.OpenSearchConfig.html
+  - name: .
+  - uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig.OpenSearchAuthMode
+    name: OpenSearchAuthMode
+    href: Cheetah.OpenSearch.Configuration.OpenSearchConfig.OpenSearchAuthMode.html
+- uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig.DisableTlsValidation*
+  commentId: Overload:Cheetah.OpenSearch.Configuration.OpenSearchConfig.DisableTlsValidation
+  href: Cheetah.OpenSearch.Configuration.OpenSearchConfig.html#Cheetah_OpenSearch_Configuration_OpenSearchConfig_DisableTlsValidation
+  name: DisableTlsValidation
+  nameWithType: OpenSearchConfig.DisableTlsValidation
+  fullName: Cheetah.OpenSearch.Configuration.OpenSearchConfig.DisableTlsValidation
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig.CaCertificatePath*
+  commentId: Overload:Cheetah.OpenSearch.Configuration.OpenSearchConfig.CaCertificatePath
+  href: Cheetah.OpenSearch.Configuration.OpenSearchConfig.html#Cheetah_OpenSearch_Configuration_OpenSearchConfig_CaCertificatePath
+  name: CaCertificatePath
+  nameWithType: OpenSearchConfig.CaCertificatePath
+  fullName: Cheetah.OpenSearch.Configuration.OpenSearchConfig.CaCertificatePath
+- uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig.OAuth2*
+  commentId: Overload:Cheetah.OpenSearch.Configuration.OpenSearchConfig.OAuth2
+  href: Cheetah.OpenSearch.Configuration.OpenSearchConfig.html#Cheetah_OpenSearch_Configuration_OpenSearchConfig_OAuth2
+  name: OAuth2
+  nameWithType: OpenSearchConfig.OAuth2
+  fullName: Cheetah.OpenSearch.Configuration.OpenSearchConfig.OAuth2
+- uid: Cheetah.Auth.Configuration.OAuth2Config
+  commentId: T:Cheetah.Auth.Configuration.OAuth2Config
+  parent: Cheetah.Auth.Configuration
+  name: OAuth2Config
+  nameWithType: OAuth2Config
+  fullName: Cheetah.Auth.Configuration.OAuth2Config
+- uid: Cheetah.Auth.Configuration
+  commentId: N:Cheetah.Auth.Configuration
+  name: Cheetah.Auth.Configuration
+  nameWithType: Cheetah.Auth.Configuration
+  fullName: Cheetah.Auth.Configuration
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+  - name: .
+  - uid: Cheetah.Auth.Configuration
+    name: Configuration
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+  - name: .
+  - uid: Cheetah.Auth.Configuration
+    name: Configuration
+- uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig.AuthMode
+  commentId: P:Cheetah.OpenSearch.Configuration.OpenSearchConfig.AuthMode
+  href: Cheetah.OpenSearch.Configuration.OpenSearchConfig.html#Cheetah_OpenSearch_Configuration_OpenSearchConfig_AuthMode
+  name: AuthMode
+  nameWithType: OpenSearchConfig.AuthMode
+  fullName: Cheetah.OpenSearch.Configuration.OpenSearchConfig.AuthMode
+- uid: Cheetah.OpenSearch.Configuration.OpenSearchConfig.Validate*
+  commentId: Overload:Cheetah.OpenSearch.Configuration.OpenSearchConfig.Validate
+  href: Cheetah.OpenSearch.Configuration.OpenSearchConfig.html#Cheetah_OpenSearch_Configuration_OpenSearchConfig_Validate
+  name: Validate
+  nameWithType: OpenSearchConfig.Validate
+  fullName: Cheetah.OpenSearch.Configuration.OpenSearchConfig.Validate

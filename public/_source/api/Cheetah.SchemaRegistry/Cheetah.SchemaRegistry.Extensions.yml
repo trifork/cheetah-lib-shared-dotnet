@@ -1,0 +1,23 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.SchemaRegistry.Extensions
+  commentId: N:Cheetah.SchemaRegistry.Extensions
+  id: Cheetah.SchemaRegistry.Extensions
+  children:
+  - Cheetah.SchemaRegistry.Extensions.ServiceCollectionExtensions
+  langs:
+  - csharp
+  - vb
+  name: Cheetah.SchemaRegistry.Extensions
+  nameWithType: Cheetah.SchemaRegistry.Extensions
+  fullName: Cheetah.SchemaRegistry.Extensions
+  type: Namespace
+  assemblies:
+  - Cheetah.SchemaRegistry
+references:
+- uid: Cheetah.SchemaRegistry.Extensions.ServiceCollectionExtensions
+  commentId: T:Cheetah.SchemaRegistry.Extensions.ServiceCollectionExtensions
+  href: Cheetah.SchemaRegistry.Extensions.ServiceCollectionExtensions.html
+  name: ServiceCollectionExtensions
+  nameWithType: ServiceCollectionExtensions
+  fullName: Cheetah.SchemaRegistry.Extensions.ServiceCollectionExtensions

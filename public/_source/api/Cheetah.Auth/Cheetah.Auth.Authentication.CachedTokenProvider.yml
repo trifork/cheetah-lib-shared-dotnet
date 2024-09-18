@@ -1,0 +1,763 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.Auth.Authentication.CachedTokenProvider
+  commentId: T:Cheetah.Auth.Authentication.CachedTokenProvider
+  id: CachedTokenProvider
+  parent: Cheetah.Auth.Authentication
+  children:
+  - Cheetah.Auth.Authentication.CachedTokenProvider.#ctor(Cheetah.Auth.Authentication.ICachableTokenProvider,System.TimeSpan,System.TimeSpan,System.TimeSpan,Microsoft.Extensions.Logging.ILogger{Cheetah.Auth.Authentication.CachedTokenProvider})
+  - Cheetah.Auth.Authentication.CachedTokenProvider.#ctor(Cheetah.Auth.Configuration.OAuth2Config,Cheetah.Auth.Authentication.ICachableTokenProvider,Microsoft.Extensions.Logging.ILogger{Cheetah.Auth.Authentication.CachedTokenProvider})
+  - Cheetah.Auth.Authentication.CachedTokenProvider.Dispose
+  - Cheetah.Auth.Authentication.CachedTokenProvider.RequestAccessTokenAsync(System.Threading.CancellationToken)
+  - Cheetah.Auth.Authentication.CachedTokenProvider.StartAsync
+  langs:
+  - csharp
+  - vb
+  name: CachedTokenProvider
+  nameWithType: CachedTokenProvider
+  fullName: Cheetah.Auth.Authentication.CachedTokenProvider
+  type: Class
+  source:
+    remote:
+      path: src/Cheetah.Auth/Authentication/CachedTokenProvider.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: CachedTokenProvider
+    path: ../src/Cheetah.Auth/Authentication/CachedTokenProvider.cs
+    startLine: 14
+  assemblies:
+  - Cheetah.Auth
+  namespace: Cheetah.Auth.Authentication
+  summary: >-
+    CachedTokenProvider manages the retrieval and caching of OAuth2 tokens, optimizing performance by reducing unnecessary token requests.
+
+    Refreshing of tokens is handled in a separate thread, ensuring a consistent supply of valid tokens.
+
+    IMPORTANT: Before calling RequestAccessToken(), ensure to invoke StartAsync() unless you're utilizing Dependency Injection, where this process is managed by the builder.RunAsync() method.
+  example: []
+  syntax:
+    content: 'public class CachedTokenProvider : ITokenService, IDisposable'
+    content.vb: Public Class CachedTokenProvider Implements ITokenService, IDisposable
+  inheritance:
+  - System.Object
+  implements:
+  - Cheetah.Auth.Authentication.ITokenService
+  - System.IDisposable
+- uid: Cheetah.Auth.Authentication.CachedTokenProvider.#ctor(Cheetah.Auth.Authentication.ICachableTokenProvider,System.TimeSpan,System.TimeSpan,System.TimeSpan,Microsoft.Extensions.Logging.ILogger{Cheetah.Auth.Authentication.CachedTokenProvider})
+  commentId: M:Cheetah.Auth.Authentication.CachedTokenProvider.#ctor(Cheetah.Auth.Authentication.ICachableTokenProvider,System.TimeSpan,System.TimeSpan,System.TimeSpan,Microsoft.Extensions.Logging.ILogger{Cheetah.Auth.Authentication.CachedTokenProvider})
+  id: '#ctor(Cheetah.Auth.Authentication.ICachableTokenProvider,System.TimeSpan,System.TimeSpan,System.TimeSpan,Microsoft.Extensions.Logging.ILogger{Cheetah.Auth.Authentication.CachedTokenProvider})'
+  parent: Cheetah.Auth.Authentication.CachedTokenProvider
+  langs:
+  - csharp
+  - vb
+  name: CachedTokenProvider(ICachableTokenProvider, TimeSpan, TimeSpan, TimeSpan, ILogger<CachedTokenProvider>)
+  nameWithType: CachedTokenProvider.CachedTokenProvider(ICachableTokenProvider, TimeSpan, TimeSpan, TimeSpan, ILogger<CachedTokenProvider>)
+  fullName: Cheetah.Auth.Authentication.CachedTokenProvider.CachedTokenProvider(Cheetah.Auth.Authentication.ICachableTokenProvider, System.TimeSpan, System.TimeSpan, System.TimeSpan, Microsoft.Extensions.Logging.ILogger<Cheetah.Auth.Authentication.CachedTokenProvider>)
+  type: Constructor
+  source:
+    remote:
+      path: src/Cheetah.Auth/Authentication/CachedTokenProvider.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: .ctor
+    path: ../src/Cheetah.Auth/Authentication/CachedTokenProvider.cs
+    startLine: 33
+  assemblies:
+  - Cheetah.Auth
+  namespace: Cheetah.Auth.Authentication
+  summary: Create a new instance of <xref href="Cheetah.Auth.Authentication.CachedTokenProvider" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public CachedTokenProvider(ICachableTokenProvider tokenProvider, TimeSpan retryInterval, TimeSpan earlyRefresh, TimeSpan earlyExpiry, ILogger<CachedTokenProvider> logger)
+    parameters:
+    - id: tokenProvider
+      type: Cheetah.Auth.Authentication.ICachableTokenProvider
+      description: Token provider used to fetch a new token.
+    - id: retryInterval
+      type: System.TimeSpan
+      description: Interval between retry attempts.
+    - id: earlyRefresh
+      type: System.TimeSpan
+      description: Time before the token's actual expiry when it should be refreshed.
+    - id: earlyExpiry
+      type: System.TimeSpan
+      description: Time before the token's actual expiry when it should be considered expired.
+    - id: logger
+      type: Microsoft.Extensions.Logging.ILogger{Cheetah.Auth.Authentication.CachedTokenProvider}
+      description: The logger to be used for logging.
+    content.vb: Public Sub New(tokenProvider As ICachableTokenProvider, retryInterval As TimeSpan, earlyRefresh As TimeSpan, earlyExpiry As TimeSpan, logger As ILogger(Of CachedTokenProvider))
+  overload: Cheetah.Auth.Authentication.CachedTokenProvider.#ctor*
+  nameWithType.vb: CachedTokenProvider.New(ICachableTokenProvider, TimeSpan, TimeSpan, TimeSpan, ILogger(Of CachedTokenProvider))
+  fullName.vb: Cheetah.Auth.Authentication.CachedTokenProvider.New(Cheetah.Auth.Authentication.ICachableTokenProvider, System.TimeSpan, System.TimeSpan, System.TimeSpan, Microsoft.Extensions.Logging.ILogger(Of Cheetah.Auth.Authentication.CachedTokenProvider))
+  name.vb: New(ICachableTokenProvider, TimeSpan, TimeSpan, TimeSpan, ILogger(Of CachedTokenProvider))
+- uid: Cheetah.Auth.Authentication.CachedTokenProvider.#ctor(Cheetah.Auth.Configuration.OAuth2Config,Cheetah.Auth.Authentication.ICachableTokenProvider,Microsoft.Extensions.Logging.ILogger{Cheetah.Auth.Authentication.CachedTokenProvider})
+  commentId: M:Cheetah.Auth.Authentication.CachedTokenProvider.#ctor(Cheetah.Auth.Configuration.OAuth2Config,Cheetah.Auth.Authentication.ICachableTokenProvider,Microsoft.Extensions.Logging.ILogger{Cheetah.Auth.Authentication.CachedTokenProvider})
+  id: '#ctor(Cheetah.Auth.Configuration.OAuth2Config,Cheetah.Auth.Authentication.ICachableTokenProvider,Microsoft.Extensions.Logging.ILogger{Cheetah.Auth.Authentication.CachedTokenProvider})'
+  parent: Cheetah.Auth.Authentication.CachedTokenProvider
+  langs:
+  - csharp
+  - vb
+  name: CachedTokenProvider(OAuth2Config, ICachableTokenProvider, ILogger<CachedTokenProvider>)
+  nameWithType: CachedTokenProvider.CachedTokenProvider(OAuth2Config, ICachableTokenProvider, ILogger<CachedTokenProvider>)
+  fullName: Cheetah.Auth.Authentication.CachedTokenProvider.CachedTokenProvider(Cheetah.Auth.Configuration.OAuth2Config, Cheetah.Auth.Authentication.ICachableTokenProvider, Microsoft.Extensions.Logging.ILogger<Cheetah.Auth.Authentication.CachedTokenProvider>)
+  type: Constructor
+  source:
+    remote:
+      path: src/Cheetah.Auth/Authentication/CachedTokenProvider.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: .ctor
+    path: ../src/Cheetah.Auth/Authentication/CachedTokenProvider.cs
+    startLine: 48
+  assemblies:
+  - Cheetah.Auth
+  namespace: Cheetah.Auth.Authentication
+  summary: Create a new instance of <xref href="Cheetah.Auth.Authentication.CachedTokenProvider" data-throw-if-not-resolved="false"></xref> with default values.
+  example: []
+  syntax:
+    content: public CachedTokenProvider(OAuth2Config config, ICachableTokenProvider tokenProvider, ILogger<CachedTokenProvider> logger)
+    parameters:
+    - id: config
+      type: Cheetah.Auth.Configuration.OAuth2Config
+      description: OAuth2 configuration
+    - id: tokenProvider
+      type: Cheetah.Auth.Authentication.ICachableTokenProvider
+      description: The token provider used to fetch a new token.
+    - id: logger
+      type: Microsoft.Extensions.Logging.ILogger{Cheetah.Auth.Authentication.CachedTokenProvider}
+      description: The logger to be used for logging.
+    content.vb: Public Sub New(config As OAuth2Config, tokenProvider As ICachableTokenProvider, logger As ILogger(Of CachedTokenProvider))
+  overload: Cheetah.Auth.Authentication.CachedTokenProvider.#ctor*
+  nameWithType.vb: CachedTokenProvider.New(OAuth2Config, ICachableTokenProvider, ILogger(Of CachedTokenProvider))
+  fullName.vb: Cheetah.Auth.Authentication.CachedTokenProvider.New(Cheetah.Auth.Configuration.OAuth2Config, Cheetah.Auth.Authentication.ICachableTokenProvider, Microsoft.Extensions.Logging.ILogger(Of Cheetah.Auth.Authentication.CachedTokenProvider))
+  name.vb: New(OAuth2Config, ICachableTokenProvider, ILogger(Of CachedTokenProvider))
+- uid: Cheetah.Auth.Authentication.CachedTokenProvider.StartAsync
+  commentId: M:Cheetah.Auth.Authentication.CachedTokenProvider.StartAsync
+  id: StartAsync
+  parent: Cheetah.Auth.Authentication.CachedTokenProvider
+  langs:
+  - csharp
+  - vb
+  name: StartAsync()
+  nameWithType: CachedTokenProvider.StartAsync()
+  fullName: Cheetah.Auth.Authentication.CachedTokenProvider.StartAsync()
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Auth/Authentication/CachedTokenProvider.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: StartAsync
+    path: ../src/Cheetah.Auth/Authentication/CachedTokenProvider.cs
+    startLine: 64
+  assemblies:
+  - Cheetah.Auth
+  namespace: Cheetah.Auth.Authentication
+  summary: >-
+    Retrieves the token and starts the token refresh loop.
+
+    IMPORTANT: Before calling RequestAccessToken(), ensure to invoke StartAsync() unless you're utilizing Dependency Injection, where this process is managed by the builder.RunAsync() method.
+  example: []
+  syntax:
+    content: public Task StartAsync()
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Function StartAsync() As Task
+  overload: Cheetah.Auth.Authentication.CachedTokenProvider.StartAsync*
+  exceptions:
+  - type: Cheetah.Auth.Authentication.OAuth2TokenException
+    commentId: T:Cheetah.Auth.Authentication.OAuth2TokenException
+    description: ''
+  implements:
+  - Cheetah.Auth.Authentication.ITokenService.StartAsync
+- uid: Cheetah.Auth.Authentication.CachedTokenProvider.RequestAccessTokenAsync(System.Threading.CancellationToken)
+  commentId: M:Cheetah.Auth.Authentication.CachedTokenProvider.RequestAccessTokenAsync(System.Threading.CancellationToken)
+  id: RequestAccessTokenAsync(System.Threading.CancellationToken)
+  parent: Cheetah.Auth.Authentication.CachedTokenProvider
+  langs:
+  - csharp
+  - vb
+  name: RequestAccessTokenAsync(CancellationToken)
+  nameWithType: CachedTokenProvider.RequestAccessTokenAsync(CancellationToken)
+  fullName: Cheetah.Auth.Authentication.CachedTokenProvider.RequestAccessTokenAsync(System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Auth/Authentication/CachedTokenProvider.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: RequestAccessTokenAsync
+    path: ../src/Cheetah.Auth/Authentication/CachedTokenProvider.cs
+    startLine: 123
+  assemblies:
+  - Cheetah.Auth
+  namespace: Cheetah.Auth.Authentication
+  summary: Requests the access token asynchronously.
+  example: []
+  syntax:
+    content: public Task<(string AccessToken, long Expiration)> RequestAccessTokenAsync(CancellationToken cancellationToken)
+    parameters:
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+    return:
+      type: System.Threading.Tasks.Task{System.ValueTuple{System.String,System.Int64}}
+      description: Returns the access token and the expiry of the token
+    content.vb: Public Function RequestAccessTokenAsync(cancellationToken As CancellationToken) As Task(Of (AccessToken As String, Expiration As Long))
+  overload: Cheetah.Auth.Authentication.CachedTokenProvider.RequestAccessTokenAsync*
+  exceptions:
+  - type: Cheetah.Auth.Authentication.OAuth2TokenException
+    commentId: T:Cheetah.Auth.Authentication.OAuth2TokenException
+    description: ''
+  implements:
+  - Cheetah.Auth.Authentication.ITokenService.RequestAccessTokenAsync(System.Threading.CancellationToken)
+- uid: Cheetah.Auth.Authentication.CachedTokenProvider.Dispose
+  commentId: M:Cheetah.Auth.Authentication.CachedTokenProvider.Dispose
+  id: Dispose
+  parent: Cheetah.Auth.Authentication.CachedTokenProvider
+  langs:
+  - csharp
+  - vb
+  name: Dispose()
+  nameWithType: CachedTokenProvider.Dispose()
+  fullName: Cheetah.Auth.Authentication.CachedTokenProvider.Dispose()
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Auth/Authentication/CachedTokenProvider.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: Dispose
+    path: ../src/Cheetah.Auth/Authentication/CachedTokenProvider.cs
+    startLine: 159
+  assemblies:
+  - Cheetah.Auth
+  namespace: Cheetah.Auth.Authentication
+  summary: Disposes of the token provider and cancels the token refresh loop.
+  example: []
+  syntax:
+    content: public void Dispose()
+    content.vb: Public Sub Dispose()
+  overload: Cheetah.Auth.Authentication.CachedTokenProvider.Dispose*
+  implements:
+  - Cheetah.Auth.Authentication.ITokenService.Dispose
+  - System.IDisposable.Dispose
+references:
+- uid: Cheetah.Auth.Authentication
+  commentId: N:Cheetah.Auth.Authentication
+  href: Cheetah.html
+  name: Cheetah.Auth.Authentication
+  nameWithType: Cheetah.Auth.Authentication
+  fullName: Cheetah.Auth.Authentication
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+    href: Cheetah.Auth.html
+  - name: .
+  - uid: Cheetah.Auth.Authentication
+    name: Authentication
+    href: Cheetah.Auth.Authentication.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+    href: Cheetah.Auth.html
+  - name: .
+  - uid: Cheetah.Auth.Authentication
+    name: Authentication
+    href: Cheetah.Auth.Authentication.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Cheetah.Auth.Authentication.ITokenService
+  commentId: T:Cheetah.Auth.Authentication.ITokenService
+  parent: Cheetah.Auth.Authentication
+  href: Cheetah.Auth.Authentication.ITokenService.html
+  name: ITokenService
+  nameWithType: ITokenService
+  fullName: Cheetah.Auth.Authentication.ITokenService
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Cheetah.Auth.Authentication.CachedTokenProvider
+  commentId: T:Cheetah.Auth.Authentication.CachedTokenProvider
+  href: Cheetah.Auth.Authentication.CachedTokenProvider.html
+  name: CachedTokenProvider
+  nameWithType: CachedTokenProvider
+  fullName: Cheetah.Auth.Authentication.CachedTokenProvider
+- uid: Cheetah.Auth.Authentication.CachedTokenProvider.#ctor*
+  commentId: Overload:Cheetah.Auth.Authentication.CachedTokenProvider.#ctor
+  href: Cheetah.Auth.Authentication.CachedTokenProvider.html#Cheetah_Auth_Authentication_CachedTokenProvider__ctor_Cheetah_Auth_Authentication_ICachableTokenProvider_System_TimeSpan_System_TimeSpan_System_TimeSpan_Microsoft_Extensions_Logging_ILogger_Cheetah_Auth_Authentication_CachedTokenProvider__
+  name: CachedTokenProvider
+  nameWithType: CachedTokenProvider.CachedTokenProvider
+  fullName: Cheetah.Auth.Authentication.CachedTokenProvider.CachedTokenProvider
+  nameWithType.vb: CachedTokenProvider.New
+  fullName.vb: Cheetah.Auth.Authentication.CachedTokenProvider.New
+  name.vb: New
+- uid: Cheetah.Auth.Authentication.ICachableTokenProvider
+  commentId: T:Cheetah.Auth.Authentication.ICachableTokenProvider
+  parent: Cheetah.Auth.Authentication
+  href: Cheetah.Auth.Authentication.ICachableTokenProvider.html
+  name: ICachableTokenProvider
+  nameWithType: ICachableTokenProvider
+  fullName: Cheetah.Auth.Authentication.ICachableTokenProvider
+- uid: System.TimeSpan
+  commentId: T:System.TimeSpan
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.timespan
+  name: TimeSpan
+  nameWithType: TimeSpan
+  fullName: System.TimeSpan
+- uid: Microsoft.Extensions.Logging.ILogger{Cheetah.Auth.Authentication.CachedTokenProvider}
+  commentId: T:Microsoft.Extensions.Logging.ILogger{Cheetah.Auth.Authentication.CachedTokenProvider}
+  parent: Microsoft.Extensions.Logging
+  definition: Microsoft.Extensions.Logging.ILogger`1
+  href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1
+  name: ILogger<CachedTokenProvider>
+  nameWithType: ILogger<CachedTokenProvider>
+  fullName: Microsoft.Extensions.Logging.ILogger<Cheetah.Auth.Authentication.CachedTokenProvider>
+  nameWithType.vb: ILogger(Of CachedTokenProvider)
+  fullName.vb: Microsoft.Extensions.Logging.ILogger(Of Cheetah.Auth.Authentication.CachedTokenProvider)
+  name.vb: ILogger(Of CachedTokenProvider)
+  spec.csharp:
+  - uid: Microsoft.Extensions.Logging.ILogger`1
+    name: ILogger
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1
+  - name: <
+  - uid: Cheetah.Auth.Authentication.CachedTokenProvider
+    name: CachedTokenProvider
+    href: Cheetah.Auth.Authentication.CachedTokenProvider.html
+  - name: '>'
+  spec.vb:
+  - uid: Microsoft.Extensions.Logging.ILogger`1
+    name: ILogger
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Cheetah.Auth.Authentication.CachedTokenProvider
+    name: CachedTokenProvider
+    href: Cheetah.Auth.Authentication.CachedTokenProvider.html
+  - name: )
+- uid: Microsoft.Extensions.Logging.ILogger`1
+  commentId: T:Microsoft.Extensions.Logging.ILogger`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1
+  name: ILogger<TCategoryName>
+  nameWithType: ILogger<TCategoryName>
+  fullName: Microsoft.Extensions.Logging.ILogger<TCategoryName>
+  nameWithType.vb: ILogger(Of TCategoryName)
+  fullName.vb: Microsoft.Extensions.Logging.ILogger(Of TCategoryName)
+  name.vb: ILogger(Of TCategoryName)
+  spec.csharp:
+  - uid: Microsoft.Extensions.Logging.ILogger`1
+    name: ILogger
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1
+  - name: <
+  - name: TCategoryName
+  - name: '>'
+  spec.vb:
+  - uid: Microsoft.Extensions.Logging.ILogger`1
+    name: ILogger
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TCategoryName
+  - name: )
+- uid: Microsoft.Extensions.Logging
+  commentId: N:Microsoft.Extensions.Logging
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft
+  name: Microsoft.Extensions.Logging
+  nameWithType: Microsoft.Extensions.Logging
+  fullName: Microsoft.Extensions.Logging
+  spec.csharp:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions
+  - name: .
+  - uid: Microsoft.Extensions.Logging
+    name: Logging
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging
+  spec.vb:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions
+  - name: .
+  - uid: Microsoft.Extensions.Logging
+    name: Logging
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging
+- uid: Cheetah.Auth.Configuration.OAuth2Config
+  commentId: T:Cheetah.Auth.Configuration.OAuth2Config
+  parent: Cheetah.Auth.Configuration
+  href: Cheetah.Auth.Configuration.OAuth2Config.html
+  name: OAuth2Config
+  nameWithType: OAuth2Config
+  fullName: Cheetah.Auth.Configuration.OAuth2Config
+- uid: Cheetah.Auth.Configuration
+  commentId: N:Cheetah.Auth.Configuration
+  href: Cheetah.html
+  name: Cheetah.Auth.Configuration
+  nameWithType: Cheetah.Auth.Configuration
+  fullName: Cheetah.Auth.Configuration
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+    href: Cheetah.Auth.html
+  - name: .
+  - uid: Cheetah.Auth.Configuration
+    name: Configuration
+    href: Cheetah.Auth.Configuration.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+    href: Cheetah.Auth.html
+  - name: .
+  - uid: Cheetah.Auth.Configuration
+    name: Configuration
+    href: Cheetah.Auth.Configuration.html
+- uid: Cheetah.Auth.Authentication.OAuth2TokenException
+  commentId: T:Cheetah.Auth.Authentication.OAuth2TokenException
+  href: Cheetah.Auth.Authentication.OAuth2TokenException.html
+  name: OAuth2TokenException
+  nameWithType: OAuth2TokenException
+  fullName: Cheetah.Auth.Authentication.OAuth2TokenException
+- uid: Cheetah.Auth.Authentication.CachedTokenProvider.StartAsync*
+  commentId: Overload:Cheetah.Auth.Authentication.CachedTokenProvider.StartAsync
+  href: Cheetah.Auth.Authentication.CachedTokenProvider.html#Cheetah_Auth_Authentication_CachedTokenProvider_StartAsync
+  name: StartAsync
+  nameWithType: CachedTokenProvider.StartAsync
+  fullName: Cheetah.Auth.Authentication.CachedTokenProvider.StartAsync
+- uid: Cheetah.Auth.Authentication.ITokenService.StartAsync
+  commentId: M:Cheetah.Auth.Authentication.ITokenService.StartAsync
+  parent: Cheetah.Auth.Authentication.ITokenService
+  href: Cheetah.Auth.Authentication.ITokenService.html#Cheetah_Auth_Authentication_ITokenService_StartAsync
+  name: StartAsync()
+  nameWithType: ITokenService.StartAsync()
+  fullName: Cheetah.Auth.Authentication.ITokenService.StartAsync()
+  spec.csharp:
+  - uid: Cheetah.Auth.Authentication.ITokenService.StartAsync
+    name: StartAsync
+    href: Cheetah.Auth.Authentication.ITokenService.html#Cheetah_Auth_Authentication_ITokenService_StartAsync
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Cheetah.Auth.Authentication.ITokenService.StartAsync
+    name: StartAsync
+    href: Cheetah.Auth.Authentication.ITokenService.html#Cheetah_Auth_Authentication_ITokenService_StartAsync
+  - name: (
+  - name: )
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  name: Task
+  nameWithType: Task
+  fullName: System.Threading.Tasks.Task
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: Cheetah.Auth.Authentication.CachedTokenProvider.RequestAccessTokenAsync*
+  commentId: Overload:Cheetah.Auth.Authentication.CachedTokenProvider.RequestAccessTokenAsync
+  href: Cheetah.Auth.Authentication.CachedTokenProvider.html#Cheetah_Auth_Authentication_CachedTokenProvider_RequestAccessTokenAsync_System_Threading_CancellationToken_
+  name: RequestAccessTokenAsync
+  nameWithType: CachedTokenProvider.RequestAccessTokenAsync
+  fullName: Cheetah.Auth.Authentication.CachedTokenProvider.RequestAccessTokenAsync
+- uid: Cheetah.Auth.Authentication.ITokenService.RequestAccessTokenAsync(System.Threading.CancellationToken)
+  commentId: M:Cheetah.Auth.Authentication.ITokenService.RequestAccessTokenAsync(System.Threading.CancellationToken)
+  parent: Cheetah.Auth.Authentication.ITokenService
+  isExternal: true
+  href: Cheetah.Auth.Authentication.ITokenService.html#Cheetah_Auth_Authentication_ITokenService_RequestAccessTokenAsync_System_Threading_CancellationToken_
+  name: RequestAccessTokenAsync(CancellationToken)
+  nameWithType: ITokenService.RequestAccessTokenAsync(CancellationToken)
+  fullName: Cheetah.Auth.Authentication.ITokenService.RequestAccessTokenAsync(System.Threading.CancellationToken)
+  spec.csharp:
+  - uid: Cheetah.Auth.Authentication.ITokenService.RequestAccessTokenAsync(System.Threading.CancellationToken)
+    name: RequestAccessTokenAsync
+    href: Cheetah.Auth.Authentication.ITokenService.html#Cheetah_Auth_Authentication_ITokenService_RequestAccessTokenAsync_System_Threading_CancellationToken_
+  - name: (
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+  spec.vb:
+  - uid: Cheetah.Auth.Authentication.ITokenService.RequestAccessTokenAsync(System.Threading.CancellationToken)
+    name: RequestAccessTokenAsync
+    href: Cheetah.Auth.Authentication.ITokenService.html#Cheetah_Auth_Authentication_ITokenService_RequestAccessTokenAsync_System_Threading_CancellationToken_
+  - name: (
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+- uid: System.Threading.CancellationToken
+  commentId: T:System.Threading.CancellationToken
+  parent: System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  name: CancellationToken
+  nameWithType: CancellationToken
+  fullName: System.Threading.CancellationToken
+- uid: System.Threading.Tasks.Task{System.ValueTuple{System.String,System.Int64}}
+  commentId: T:System.Threading.Tasks.Task{System.ValueTuple{System.String,System.Int64}}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<(string AccessToken, long Expiration)>
+  nameWithType: Task<(string AccessToken, long Expiration)>
+  fullName: System.Threading.Tasks.Task<(string AccessToken, long Expiration)>
+  nameWithType.vb: Task(Of (AccessToken As String, Expiration As Long))
+  fullName.vb: System.Threading.Tasks.Task(Of (AccessToken As String, Expiration As Long))
+  name.vb: Task(Of (AccessToken As String, Expiration As Long))
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: " "
+  - uid: System.ValueTuple{System.String,System.Int64}.AccessToken
+    name: AccessToken
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-system.string,system.int64-.accesstoken
+  - name: ','
+  - name: " "
+  - uid: System.Int64
+    name: long
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int64
+  - name: " "
+  - uid: System.ValueTuple{System.String,System.Int64}.Expiration
+    name: Expiration
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-system.string,system.int64-.expiration
+  - name: )
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: (
+  - uid: System.ValueTuple{System.String,System.Int64}.AccessToken
+    name: AccessToken
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-system.string,system.int64-.accesstoken
+  - name: " "
+  - name: As
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.ValueTuple{System.String,System.Int64}.Expiration
+    name: Expiration
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-system.string,system.int64-.expiration
+  - name: " "
+  - name: As
+  - name: " "
+  - uid: System.Int64
+    name: Long
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int64
+  - name: )
+  - name: )
+- uid: System.Threading
+  commentId: N:System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading
+  nameWithType: System.Threading
+  fullName: System.Threading
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: Cheetah.Auth.Authentication.CachedTokenProvider.Dispose*
+  commentId: Overload:Cheetah.Auth.Authentication.CachedTokenProvider.Dispose
+  href: Cheetah.Auth.Authentication.CachedTokenProvider.html#Cheetah_Auth_Authentication_CachedTokenProvider_Dispose
+  name: Dispose
+  nameWithType: CachedTokenProvider.Dispose
+  fullName: Cheetah.Auth.Authentication.CachedTokenProvider.Dispose
+- uid: Cheetah.Auth.Authentication.ITokenService.Dispose
+  commentId: M:Cheetah.Auth.Authentication.ITokenService.Dispose
+  parent: Cheetah.Auth.Authentication.ITokenService
+  href: Cheetah.Auth.Authentication.ITokenService.html#Cheetah_Auth_Authentication_ITokenService_Dispose
+  name: Dispose()
+  nameWithType: ITokenService.Dispose()
+  fullName: Cheetah.Auth.Authentication.ITokenService.Dispose()
+  spec.csharp:
+  - uid: Cheetah.Auth.Authentication.ITokenService.Dispose
+    name: Dispose
+    href: Cheetah.Auth.Authentication.ITokenService.html#Cheetah_Auth_Authentication_ITokenService_Dispose
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Cheetah.Auth.Authentication.ITokenService.Dispose
+    name: Dispose
+    href: Cheetah.Auth.Authentication.ITokenService.html#Cheetah_Auth_Authentication_ITokenService_Dispose
+  - name: (
+  - name: )
+- uid: System.IDisposable.Dispose
+  commentId: M:System.IDisposable.Dispose
+  parent: System.IDisposable
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  name: Dispose()
+  nameWithType: IDisposable.Dispose()
+  fullName: System.IDisposable.Dispose()
+  spec.csharp:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )

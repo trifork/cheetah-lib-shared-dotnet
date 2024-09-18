@@ -1,0 +1,122 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.SchemaRegistry.Avro.Constants
+  commentId: T:Cheetah.SchemaRegistry.Avro.Constants
+  id: Constants
+  parent: Cheetah.SchemaRegistry.Avro
+  children:
+  - Cheetah.SchemaRegistry.Avro.Constants.TokenServiceKey
+  langs:
+  - csharp
+  - vb
+  name: Constants
+  nameWithType: Constants
+  fullName: Cheetah.SchemaRegistry.Avro.Constants
+  type: Class
+  source:
+    remote:
+      path: src/Cheetah.SchemaRegistry/Constants.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: Constants
+    path: ../src/Cheetah.SchemaRegistry/Constants.cs
+    startLine: 5
+  assemblies:
+  - Cheetah.SchemaRegistry
+  namespace: Cheetah.SchemaRegistry.Avro
+  summary: Static class contains constant values used within the Cheetah.SchemaRegistry.Avro namespace
+  example: []
+  syntax:
+    content: public static class Constants
+    content.vb: Public Module Constants
+  inheritance:
+  - System.Object
+- uid: Cheetah.SchemaRegistry.Avro.Constants.TokenServiceKey
+  commentId: F:Cheetah.SchemaRegistry.Avro.Constants.TokenServiceKey
+  id: TokenServiceKey
+  parent: Cheetah.SchemaRegistry.Avro.Constants
+  langs:
+  - csharp
+  - vb
+  name: TokenServiceKey
+  nameWithType: Constants.TokenServiceKey
+  fullName: Cheetah.SchemaRegistry.Avro.Constants.TokenServiceKey
+  type: Field
+  source:
+    remote:
+      path: src/Cheetah.SchemaRegistry/Constants.cs
+      branch: main
+      repo: https://github.com/KastTrifork/cheetah-lib-shared-dotnet
+    id: TokenServiceKey
+    path: ../src/Cheetah.SchemaRegistry/Constants.cs
+    startLine: 10
+  assemblies:
+  - Cheetah.SchemaRegistry
+  namespace: Cheetah.SchemaRegistry.Avro
+  summary: Key used to GetRequiredKeyedService for Cheetah.SchemaRegistry.Avro TokenService
+  example: []
+  syntax:
+    content: public const string TokenServiceKey = "cheetah-schema-registry"
+    return:
+      type: System.String
+    content.vb: Public Const TokenServiceKey As String = "cheetah-schema-registry"
+references:
+- uid: Cheetah.SchemaRegistry.Avro
+  commentId: N:Cheetah.SchemaRegistry.Avro
+  href: Cheetah.html
+  name: Cheetah.SchemaRegistry.Avro
+  nameWithType: Cheetah.SchemaRegistry.Avro
+  fullName: Cheetah.SchemaRegistry.Avro
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.SchemaRegistry
+    name: SchemaRegistry
+    href: Cheetah.SchemaRegistry.html
+  - name: .
+  - uid: Cheetah.SchemaRegistry.Avro
+    name: Avro
+    href: Cheetah.SchemaRegistry.Avro.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.SchemaRegistry
+    name: SchemaRegistry
+    href: Cheetah.SchemaRegistry.html
+  - name: .
+  - uid: Cheetah.SchemaRegistry.Avro
+    name: Avro
+    href: Cheetah.SchemaRegistry.Avro.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String

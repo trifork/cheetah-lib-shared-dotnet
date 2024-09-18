@@ -1,0 +1,23 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.Auth.Util
+  commentId: N:Cheetah.Auth.Util
+  id: Cheetah.Auth.Util
+  children:
+  - Cheetah.Auth.Util.DefaultHttpClientFactory
+  langs:
+  - csharp
+  - vb
+  name: Cheetah.Auth.Util
+  nameWithType: Cheetah.Auth.Util
+  fullName: Cheetah.Auth.Util
+  type: Namespace
+  assemblies:
+  - Cheetah.Auth
+references:
+- uid: Cheetah.Auth.Util.DefaultHttpClientFactory
+  commentId: T:Cheetah.Auth.Util.DefaultHttpClientFactory
+  href: Cheetah.Auth.Util.DefaultHttpClientFactory.html
+  name: DefaultHttpClientFactory
+  nameWithType: DefaultHttpClientFactory
+  fullName: Cheetah.Auth.Util.DefaultHttpClientFactory
