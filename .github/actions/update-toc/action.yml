@@ -90,7 +90,20 @@ runs:
 
               # Add 'v${{ inputs.version }}' entry to ${{ inputs.repo-name }} using yq and overwrite the file
               yq eval '
-              ( .[] | select(.name == "${{ inputs.repo-name }}") | .items ) += [{"name": "v${{ inputs.version }}", "href": "${{ inputs.repo-name }}/v${{ inputs.version }}/toc.yml"}]
+                .[] |= (
+                  select(.name == "${{ inputs.repo-name }}") |=
+                    (.items |=
+                      ([
+                        .[] | select(.name == "latest")
+                      ] + 
+                      [
+                        {"name": "v${{ inputs.version }}", "href": "${{ inputs.repo-name }}/v${{ inputs.version }}/toc.yml"}
+                      ] + 
+                      [
+                        .[] | select(.name != "latest")
+                      ])
+                    )
+                )
               ' -i "$YAML_PATH"
 
               echo "'v${{ inputs.version }}' item has been added to ${{ inputs.repo-name }}."

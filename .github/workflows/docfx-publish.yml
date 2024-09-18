@@ -121,7 +121,6 @@ jobs:
       - name: move new toc.yml to public/_source/articles/
         if: ${{ env.updated }} == true
         run: |
-          rm -rf public/_source/articles/toc.yml
           ls -la public/_source/articles/
           mv ./toc.yml public/_source/articles/
 
