@@ -1,6 +1,6 @@
 - name: latest
-  href: latest/toc.yml
-- name: v1.2.0
-  href: v1.2.0/toc.yml
-- name: v2.1.0
-  href: v2.1.0/toc.yml
+  items:
+  - name: Using Cheetah.Kafka
+    href: latest/UsingCheetahKafka.md
+  - name: Testing with Cheetah.Kafka
+    href: latest/TestingWithCheetahKafka.md

@@ -81,7 +81,7 @@ runs:
 
           if [ -z "$result" ]; then
             echo "Not found, adding new version to toc.yml"
-            yq '. |= . + [{"name": "v${{ inputs.version }}", "href": "v${{ inputs.version }}/toc.yml"}]' -i $YAML_PATH
+            yq '. |= . + [{"name": "v${{ inputs.version }}", "items": [{"name": "Using Cheetah.Kafka", "href": "v${{ inputs.version }}/UsingCheetahKafka.md"},{"name": "Testing with Cheetah.Kafka", "href": "v${{ inputs.version }}/TestingWithCheetahKafka.md"}]}]' -i $YAML_PATH
           else
             echo "Found version in toc.yml, skipping"
           fi
