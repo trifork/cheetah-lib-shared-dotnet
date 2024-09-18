@@ -124,13 +124,13 @@ jobs:
           destination_dir: _source/articles/${{inputs.project}}/v${{ steps.get-version.outputs.version }}
         
         # Second deployment to latest folder - refactor to only deploy once
-      - name: Deploy to GitHub Pages for project ${{ inputs.project }} to latest folder
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public/_source/articles/${{ inputs.project }}/
-          exclude_assets: ""
-          destination_dir: _source/articles/${{inputs.project}}/latest/
+      #- name: Deploy to GitHub Pages for project ${{ inputs.project }} to latest folder
+      #  uses: peaceiris/actions-gh-pages@v4
+      #  with:
+      #    github_token: ${{ secrets.GITHUB_TOKEN }}
+      #    publish_dir: ./public/_source/articles/${{ inputs.project }}/
+      #    exclude_assets: ""
+      #    destination_dir: _source/articles/${{inputs.project}}/latest/
 
         # Third deployment to root folder - refactor to only deploy once
       - name: Deploy to GitHub Pages
