@@ -4,3 +4,9 @@
       href: UsingCheetahKafka.md
     - name: Testing with Cheetah.Kafka
       href: TestingWithCheetahKafka.md
+- name: v2.1.0
+  items:
+    - name: Using Cheetah.Kafka
+      href: v2.1.0/UsingCheetahKafka.md
+    - name: Testing with Cheetah.Kafka
+      href: v2.1.0/TestingWithCheetahKafka.md
