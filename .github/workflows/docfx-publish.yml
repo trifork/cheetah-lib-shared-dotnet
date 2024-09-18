@@ -117,6 +117,7 @@ jobs:
           rm -rf public/_source/articles/toc.yml
           mv toc.yml public/_source/articles/
 
+        #TODO Refactor to only deploy once and only if that project has been updated
       - name: Deploy to GitHub Pages for project ${{ inputs.project }}
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -124,7 +125,8 @@ jobs:
           publish_dir: ./public/_source/articles/${{ inputs.project }}/
           exclude_assets: "./public/_source/articles/${{inputs.project}}/toc.yml"
           destination_dir: _source/articles/${{inputs.project}}/v${{ steps.get-version.outputs.version }}
-
+        
+        # Second deployment to latest folder - refactor to only deploy once
       - name: Deploy to GitHub Pages for project ${{ inputs.project }} to latest folder
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -133,6 +135,7 @@ jobs:
           exclude_assets: "./public/_source/articles/${{inputs.project}}/toc.yml"
           destination_dir: _source/articles/${{inputs.project}}/latest/
 
+        # Third deployment to root folder - refactor to only deploy once
       - name: Deploy to GitHub Pages
         id: deployment
         uses: peaceiris/actions-gh-pages@v4
