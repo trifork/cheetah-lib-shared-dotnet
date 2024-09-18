@@ -113,9 +113,3 @@ runs:
           echo "updated=true" >> $GITHUB_ENV
 
         fi
-    - name: Output updated status
-      id: output-updated
-      shell: bash
-      run: |
-        echo "updated=${{ env.updated }}" >> $GITHUB_ENV
-        echo "::set-output name=updated::${{ env.updated }}"
