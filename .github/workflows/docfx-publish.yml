@@ -88,15 +88,6 @@ jobs:
           prefix: "<VersionPrefix>"
           suffix: "</VersionPrefix>"
 
-      - name: create public/
-        run: |
-          mkdir -p public/
-          mv docs/ public/_source
-          mv src/ public/src
-          mv .gitignore public/.gitignore
-          rm public/_source/api/.gitignore
-          mv _site/ public/docs
-
       - name: Update toc file with new version v${{ steps.get-version.outputs.version }}
         id: update-toc
         uses: kasttrifork/cheetah-lib-shared-dotnet/.github/actions/update-toc@main
@@ -105,8 +96,7 @@ jobs:
           version: ${{ steps.get-version.outputs.version }}
           repo-name: ${{ inputs.project }}
 
-      - name: echo tree
-        run: tree
+
 
       - name: Commit changes to toc.yml
         if: ${{ env.updated }} == true
@@ -115,13 +105,15 @@ jobs:
           commit: -a
           message:  "Update toc file with new version v${{ steps.get-version.outputs.version }}"
 
-      - name: echo tree
-        run: tree
-
-      - name: move new toc.yml to public/_source/articles/
-        if: ${{ env.updated }} == true
+      - name: create public/
         run: |
-          ls -la public/_source/articles/
+          mkdir -p public/
+          mv docs/ public/_source
+          mv src/ public/src
+          mv .gitignore public/.gitignore
+          rm public/_source/api/.gitignore
+          mv _site/ public/docs
+          rm public/_source/articles/toc.yml
           mv ./toc.yml public/_source/articles/
 
         #TODO Refactor to only deploy once and only if that project has been updated
