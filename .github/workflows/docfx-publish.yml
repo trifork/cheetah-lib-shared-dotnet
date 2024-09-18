@@ -80,6 +80,15 @@ jobs:
         shell: bash
         run: echo "value=$(grep -Po '(?<=${{inputs.project}}:).*' ./.github/csproj-filepaths.yaml | awk '{$1=$1};1')" >> $GITHUB_OUTPUT
 
+      - name: create public/
+        run: |
+          mkdir -p public/
+          mv docs/ public/_source
+          mv src/ public/src
+          mv .gitignore public/.gitignore
+          rm public/_source/api/.gitignore
+          mv _site/ public/docs
+
       - name: Get project version
         id: get-version
         uses: trifork/cheetah-infrastructure-utils-workflows/.github/actions/versioning/get-version@main
@@ -102,15 +111,6 @@ jobs:
         with:
           commit: -a
           message:  "Update toc file with new version v${{ steps.get-version.outputs.version }}"
-
-      - name: create public/
-        run: |
-          mkdir -p public/
-          mv docs/ public/_source
-          mv src/ public/src
-          mv .gitignore public/.gitignore
-          rm public/_source/api/.gitignore
-          mv _site/ public/docs
 
         #TODO Refactor to only deploy once and only if that project has been updated
       - name: Deploy to GitHub Pages for project ${{ inputs.project }}
