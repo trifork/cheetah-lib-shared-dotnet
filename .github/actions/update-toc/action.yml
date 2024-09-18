@@ -81,21 +81,21 @@ runs:
             exit 1
           fi
 
-          # Extract the name 'v${{ inputs.version }}' from ${{ inputs.project }} and store it in a variable
-          result=$(yq eval '.[] | select(.name == "${{ inputs.project }}") | .items[] | select(.name == "v${{ inputs.version }}") | .name' "$YAML_PATH")
+          # Extract the name 'v${{ inputs.version }}' from ${{ inputs.repo-name }} and store it in a variable
+          result=$(yq eval '.[] | select(.name == "${{ inputs.repo-name }}") | .items[] | select(.name == "v${{ inputs.version }}") | .name' "$YAML_PATH")
 
           # Check if the result is empty
           if [[ -z "$result" ]]; then
-              echo "'v${{ inputs.version }}' item does not exist in ${{ inputs.project }}. Adding it now..."
+              echo "'v${{ inputs.version }}' item does not exist in ${{ inputs.repo-name }}. Adding it now..."
 
-              # Add 'v${{ inputs.version }}' entry to ${{ inputs.project }} using yq and overwrite the file
+              # Add 'v${{ inputs.version }}' entry to ${{ inputs.repo-name }} using yq and overwrite the file
               yq eval '
-              ( .[] | select(.name == "${{ inputs.project }}") | .items ) += [{"name": "v${{ inputs.version }}", "href": "${{ inputs.project }}/v${{ inputs.version }}/toc.yml"}]
+              ( .[] | select(.name == "${{ inputs.repo-name }}") | .items ) += [{"name": "v${{ inputs.version }}", "href": "${{ inputs.repo-name }}/v${{ inputs.version }}/toc.yml"}]
               ' -i "$YAML_PATH"
 
-              echo "'v${{ inputs.version }}' item has been added to ${{ inputs.project }}."
+              echo "'v${{ inputs.version }}' item has been added to ${{ inputs.repo-name }}."
           else
-              echo "The 'v${{ inputs.version }}' item exists in ${{ inputs.project }}: $result"
+              echo "The 'v${{ inputs.version }}' item exists in ${{ inputs.repo-name }}: $result"
           fi
           cat $YAML_PATH
          
