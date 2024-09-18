@@ -104,7 +104,6 @@ jobs:
           toc-file: toc.yml
           version: ${{ steps.get-version.outputs.version }}
           repo-name: ${{ inputs.project }}
-        continue-on-error: true
 
       - name: echo updated
         run: |
