@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Cheetah.Kafka.Test")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b35c01eb8778c7036a8a334c1bcc0d82e6d07375")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+63423244229937ee11d6c37e46abe5834b24b294")]
 [assembly: System.Reflection.AssemblyProductAttribute("Cheetah.Kafka.Test")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Cheetah.Kafka.Test")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

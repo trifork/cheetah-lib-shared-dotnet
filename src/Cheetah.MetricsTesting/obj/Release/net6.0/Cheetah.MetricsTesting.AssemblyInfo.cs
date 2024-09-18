@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("Cheetah.MetricsTesting")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.8.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.8.0+b35c01eb8778c7036a8a334c1bcc0d82e6d07375")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.8.0+63423244229937ee11d6c37e46abe5834b24b294")]
 [assembly: System.Reflection.AssemblyProductAttribute("Cheetah.MetricsTesting")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Cheetah.MetricsTesting")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.8.0.0")]
