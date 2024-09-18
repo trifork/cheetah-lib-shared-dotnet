@@ -147,6 +147,7 @@ jobs:
           publish_dir: ./toc-folder/
           commit_message: "Update toc file with new version v${{ steps.get-version.outputs.version }}"
           keep_files: true
+          destination_dir: _source/articles/${{inputs.project}}/
 
      # - name: Repository Dispatch
      #   uses: peter-evans/repository-dispatch@v3
