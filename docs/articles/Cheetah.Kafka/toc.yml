@@ -2,3 +2,5 @@
   href: latest/toc.yml
 - name: v1.2.0
   href: v1.2.0/toc.yml
+- name: v2.1.0
+  href: v{{ inputs.version }}/toc.yml
