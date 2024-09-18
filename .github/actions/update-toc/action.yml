@@ -15,8 +15,8 @@ inputs:
 
 outputs:
   updated:
-    description: 'Whether the toc.yml file was updated'
-    value: ${{ steps.check-changes.outputs.exit-code }}
+    description: 'Whether the YAML file was updated'
+    value: ${{ env.updated }}
 
 runs:
   using: composite
@@ -104,15 +104,15 @@ runs:
       id: check-changes
       shell: bash
       run: |
-        git diff --exit-code $YAML_PATH
-        if [ $? -eq 0 ]; then
+        # Check if there are any changes
+        if git diff --quiet $YAML_PATH; then
           echo "No changes were made to $YAML_PATH"
-          #Set output updated to false
-          echo "::set-output name=updated::false"
+          # Set output updated to false
+          echo "updated=false" >> $GITHUB_ENV
         else
           echo "Changes were made to $YAML_PATH"
-          #Set output updated to true
-          echo "::set-output name=updated::true"
+          # Set output updated to true
+          echo "updated=true" >> $GITHUB_ENV
         fi
 
 
