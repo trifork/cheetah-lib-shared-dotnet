@@ -96,6 +96,27 @@ jobs:
           rm public/_source/api/.gitignore
           mv _site/ public/docs
 
+      - name: Update toc file with new version v${{ steps.get-version.outputs.version }}
+        id: update-toc
+        uses: kasttrifork/cheetah-lib-shared-dotnet/.github/actions/update-toc@main
+        with:
+          toc-file: toc.yml
+          version: ${{ steps.get-version.outputs.version }}
+          repo-name: ${{ inputs.project }}
+      
+      - name: Commit changes to toc.yml
+        if: steps.update-toc.outputs.updated == exit-code 1
+        uses: EndBug/add-and-commit@v9
+        with:
+          commit: -a
+          message:  "Update toc file with new version v${{ steps.get-version.outputs.version }}"
+
+      - name: move new toc.yml to public/_source/articles/
+        if: steps.update-toc.outputs.updated == exit-code 1
+        run: |
+          rm -rf public/_source/articles/toc.yml
+          mv toc.yml public/_source/articles/
+
       - name: Deploy to GitHub Pages for project ${{ inputs.project }}
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -121,33 +142,6 @@ jobs:
           exclude_assets: "./public/_source/articles/"
           keep_files: true
 
-      - name: Update toc file with new version v${{ steps.get-version.outputs.version }}
-        id: update-toc
-        uses: kasttrifork/cheetah-lib-shared-dotnet/.github/actions/update-toc@main
-        with:
-          toc-file: docs/articles/${{inputs.project}}/toc.yml
-          version: ${{ steps.get-version.outputs.version }}
-          repo-name: ${{ inputs.project }}
-
-      - name: Commit changes to toc.yml
-        uses: EndBug/add-and-commit@v9
-        with:
-          commit: -a
-          message:  "Update toc file with new version v${{ steps.get-version.outputs.version }}"
-
-      - name: create toc-folder/
-        run: |
-          mkdir -p toc-folder/
-          mv docs/articles/Cheetah.Kafka/toc.yml toc-folder/
-
-      - name: Deploy toc.yml to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./toc-folder/
-          commit_message: "Update toc file with new version v${{ steps.get-version.outputs.version }}"
-          keep_files: true
-          destination_dir: _source/articles/${{inputs.project}}/
 
      # - name: Repository Dispatch
      #   uses: peter-evans/repository-dispatch@v3

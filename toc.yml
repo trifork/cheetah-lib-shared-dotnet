@@ -1,0 +1,13 @@
+---
+- name: Cheetah.Kafka
+  items:
+    - name: latest
+      href: Cheetah.Kafka/latest/toc.yml
+- name: Cheetah.OpenSearch
+  items:
+    - name: latest
+      href: Cheetah.OpenSearch/latest/toc.yml
+- name: Cheetah.SchemaRegistry
+  items:
+    - name: latest
+      href: Cheetah.SchemaRegistry/latest/toc.yml

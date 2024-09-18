@@ -13,6 +13,11 @@ inputs:
     description: 'The path to the toc.yml file'
     required: true
 
+outputs:
+  updated:
+    description: 'Whether the toc.yml file was updated'
+    value: ${{ steps.check-changes.outputs.exit-code }}
+
 runs:
   using: composite
   steps:
@@ -57,7 +62,7 @@ runs:
           echo "Updated"
           cat $YAML_PATH
 
-    - name: Update YAML file for cheetah-lib-processing
+    - name: Update YAML file for cheetah-lib-shared-dotnet
       #if: ${{ github.repository == 'cheetah-lib-shared-dotnet' }}
       shell: bash
       run: |
@@ -76,17 +81,36 @@ runs:
             exit 1
           fi
 
-          # Check if the entry already exists
-          result=$(yq '.[] | select(.name == "'v${{ inputs.version }}'") | .name' "$YAML_PATH")
+          # Extract the name 'v${{ inputs.version }}' from ${{ inputs.project }} and store it in a variable
+          result=$(yq eval '.[] | select(.name == "${{ inputs.project }}") | .items[] | select(.name == "v${{ inputs.version }}") | .name' "$YAML_PATH")
 
-          if [ -z "$result" ]; then
-            echo "Not found, adding new version to toc.yml"
-            yq '. |= . + [{"name": "v${{ inputs.version }}", "items": [{"name": "Using Cheetah.Kafka", "href": "v${{ inputs.version }}/UsingCheetahKafka.md"},{"name": "Testing with Cheetah.Kafka", "href": "v${{ inputs.version }}/TestingWithCheetahKafka.md"}]}]' -i $YAML_PATH
+          # Check if the result is empty
+          if [[ -z "$result" ]]; then
+              echo "'v${{ inputs.version }}' item does not exist in ${{ inputs.project }}. Adding it now..."
+
+              # Add 'v${{ inputs.version }}' entry to ${{ inputs.project }} using yq and overwrite the file
+              yq eval '
+              ( .[] | select(.name == "${{ inputs.project }}") | .items ) += [{"name": "v${{ inputs.version }}", "href": "${{ inputs.project }}/v${{ inputs.version }}/toc.yml"}]
+              ' -i "$YAML_PATH"
+
+              echo "'v${{ inputs.version }}' item has been added to ${{ inputs.project }}."
           else
-            echo "Found version in toc.yml, skipping"
+              echo "The 'v${{ inputs.version }}' item exists in ${{ inputs.project }}: $result"
           fi
-
-          echo "Updated"
           cat $YAML_PATH
+         
+          
+    - name: Check if any changes were made
+      id: check-changes
+      shell: bash
+      run: |
+        git diff --exit-code $YAML_PATH
+        if [ $? -eq 0 ]; then
+          echo "No changes were made to $YAML_PATH"
+          exit 0
+        else
+          echo "Changes were made to $YAML_PATH"
+          exit 1
+        fi
 
 
