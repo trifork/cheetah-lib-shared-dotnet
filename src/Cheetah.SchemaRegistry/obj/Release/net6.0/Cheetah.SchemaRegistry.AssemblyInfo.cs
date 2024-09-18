@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("Adds Avro serialization for use with Cheetah.Kafka")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("2.1.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.1.0+0739ed7b5b17b2c6c1e5c0aa4fabf7e2efed53e7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.1.0+7c99e5a022dbda10c58bbf8de251361fa3b87113")]
 [assembly: System.Reflection.AssemblyProductAttribute("Cheetah.SchemaRegistry")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Cheetah.SchemaRegistry")]
 [assembly: System.Reflection.AssemblyVersionAttribute("2.1.0.0")]
