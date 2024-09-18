@@ -2,6 +2,7 @@ name: Publish docfx
 
 on:
   workflow_dispatch:
+  #TODO Refactor so that the workflow checks which project has been updated and only deploys that project
     inputs:
       project:
         description: Which project to create a release branch for
@@ -104,6 +105,10 @@ jobs:
           version: ${{ steps.get-version.outputs.version }}
           repo-name: ${{ inputs.project }}
         continue-on-error: true
+
+      - name: echo updated
+        run: |
+          echo "updated: ${{ steps.update-toc.outputs.updated }}"
       
       - name: Commit changes to toc.yml
         if: steps.update-toc.outputs.updated == 1
