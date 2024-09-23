@@ -57,7 +57,6 @@ jobs:
 
   update-doc:
     uses: kasttrifork/cheetah-lib-shared-dotnet/.github/workflows/docfx-publish.yml@main
-    if: ${{ needs.check-for-changes.outputs.changed == 'true' }}
     with:
       project: ${{ needs.check-for-changes.outputs.project }}
       file: ${{ needs.check-for-changes.outputs.file }}
