@@ -43,8 +43,16 @@ jobs:
       file: ${{ matrix.project.toc_file }}
 
   update-doc:
+    runs-on: ubuntu-latest
     needs: check-for-changes
-    uses: kasttrifork/cheetah-lib-shared-dotnet/.github/workflows/docfx-publish.yml@main
-    with:
-      project: ${{ needs.check-for-changes.outputs.project }}
-      file: ${{ needs.check-for-changes.outputs.file }}
+    steps:
+      - name:
+        run: |
+          echo "Updating documentation for ${{ needs.check-for-changes.outputs.project }}"
+          echo "File: ${{ needs.check-for-changes.outputs.file }}"
+          echo "Changed: ${{ needs.check-for-changes.outputs.changed }}"
+    
+    #uses: kasttrifork/cheetah-lib-shared-dotnet/.github/workflows/docfx-publish.yml@main
+    #with:
+    #  project: ${{ needs.check-for-changes.outputs.project }}
+    #  file: ${{ needs.check-for-changes.outputs.file }}
