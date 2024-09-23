@@ -3,20 +3,13 @@
   items:
     - name: latest
       href: Cheetah.Kafka/toc.yml
-      homepage: Cheetah.Kafka/index.md
-    - name: v2.1.0
-      href: Cheetah.Kafka/v2.1.0/toc.yml
-- name: Cheetah.Kafka
+- name: Cheetah.OpenSearch
   items:
     - name: latest
-      href: Cheetah.Kafka/toc.yml
-      homepage: Cheetah.Kafka/index.md
-    - name: v2.1.0
-      href: Cheetah.Kafka/v2.1.0/toc.yml
-- name: Cheetah.Kafka
+      href: Cheetah.OpenSearch/toc.yml
+      homepage: Cheetah.OpenSearch/index.md
+- name: Cheetah.Auth
   items:
     - name: latest
-      href: Cheetah.Kafka/toc.yml
-      homepage: Cheetah.Kafka/index.md
-    - name: v2.1.0
-      href: Cheetah.Kafka/v2.1.0/toc.yml
+      href: Cheetah.Auth/toc.yml
+      homepage: Cheetah.Auth/index.md
