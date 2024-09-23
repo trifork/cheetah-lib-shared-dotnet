@@ -4751,20 +4751,20 @@
     ]
   },
   "packageFolders": {
-    "/home/runner/.nuget/packages/": {}
+    "/home/vscode/.nuget/packages/": {}
   },
   "project": {
     "version": "2.1.0",
     "restore": {
-      "projectUniqueName": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.csproj",
+      "projectUniqueName": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.csproj",
       "projectName": "Cheetah.SchemaRegistry",
-      "projectPath": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.csproj",
-      "packagesPath": "/home/runner/.nuget/packages/",
-      "outputPath": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.SchemaRegistry/obj/",
+      "projectPath": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.csproj",
+      "packagesPath": "/home/vscode/.nuget/packages/",
+      "outputPath": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.SchemaRegistry/obj/",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
       "configFilePaths": [
-        "/home/runner/.nuget/NuGet/NuGet.Config"
+        "/home/vscode/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0",
@@ -4772,30 +4772,31 @@
         "net8.0"
       ],
       "sources": {
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://nuget.pkg.github.com/trifork/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka/Cheetah.Kafka.csproj": {
-              "projectPath": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka/Cheetah.Kafka.csproj"
+            "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka/Cheetah.Kafka.csproj": {
+              "projectPath": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka/Cheetah.Kafka.csproj"
             }
           }
         },
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka/Cheetah.Kafka.csproj": {
-              "projectPath": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka/Cheetah.Kafka.csproj"
+            "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka/Cheetah.Kafka.csproj": {
+              "projectPath": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka/Cheetah.Kafka.csproj"
             }
           }
         },
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka/Cheetah.Kafka.csproj": {
-              "projectPath": "/home/runner/work/cheetah-lib-shared-dotnet/cheetah-lib-shared-dotnet/src/Cheetah.Kafka/Cheetah.Kafka.csproj"
+            "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka/Cheetah.Kafka.csproj": {
+              "projectPath": "/workspaces/cheetah-lib-shared-dotnet-1/src/Cheetah.Kafka/Cheetah.Kafka.csproj"
             }
           }
         }
@@ -4844,6 +4845,16 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[6.0.33, 6.0.33]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[6.0.33, 6.0.33]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
@@ -4882,6 +4893,16 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[7.0.20, 7.0.20]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[7.0.20, 7.0.20]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"

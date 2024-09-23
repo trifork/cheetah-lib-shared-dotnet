@@ -55,3 +55,6 @@ docs/api/.manifest
 
 # Mega-linter
 megalinter-reports/
+
+src/
+./src
