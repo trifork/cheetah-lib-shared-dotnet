@@ -83,7 +83,6 @@ jobs:
         with:
           commit: -a
           message:  "Update toc file with new version v${{ steps.get-version.outputs.version }}"
-          pull: true
   
       - uses: actions/cache@v4
         if: ${{ env.updated }} == true
