@@ -42,5 +42,5 @@ jobs:
     uses: kasttrifork/cheetah-lib-shared-dotnet/.github/workflows/docfx-publish.yml@main
     if: ${{ needs.check-for-changes.outputs.changed == 'true' }}
     with:
-      toc-file: 'Cheetah.Kafka'
-      repo-name: ".github/toc-files/articles/toc.yml"
+      project: 'Cheetah.Kafka'
+      file: ".github/toc-files/articles/toc.yml"
