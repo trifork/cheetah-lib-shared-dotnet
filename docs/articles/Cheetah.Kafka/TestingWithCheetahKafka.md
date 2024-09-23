@@ -21,7 +21,7 @@ With a `KafkaTestClientFactory` in hand, test writers and readers are easily cre
 
 The example below creates a reader and a writer, both reading from and writing to the `MyTopic` topic, with the reader joining the `MyConsumerGroup` consumer group.
 
-It then writes a message to the topic using the writer and retrieves the message using the reader, expecting 1 message with a maximum timeout of 5 seconds.
+It then writes a message to the topic using the writer and retrieves the message using the reader, expecting 1 message with a maximum timeout of 5 seconds   .
 
 ```csharp
 var writer = testClientFactory.CreateTestWriter<ExampleModel>("MyTopic");
