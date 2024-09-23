@@ -7,7 +7,7 @@ In order to easily test other components which communicate with OpenSearch, Chee
 
 In order to create a test client, you'll need to give it proper configuration. This requires either an `OpenSearchConfig` instance or an `IConfiguration` with the same configuration requirements as described in see [Using Cheetah.OpenSearch | Configuration](UsingCheetahOpenSearch.md#configuration).
 
-The following snippet creates a new client with the given configuration:
+The following snippet creates a new client with the given configuration:  
 
 ```csharp
 var configuration = new ConfigurationBuilder()
