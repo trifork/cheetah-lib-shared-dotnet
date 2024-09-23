@@ -37,6 +37,13 @@ jobs:
           echo "changed_project=${{ matrix.project.name }}" >> $GITHUB_ENV
           echo "changed_file=${{ matrix.project.toc_file }}" >> $GITHUB_ENV
 
+      - name: Update documentation
+        if: ${{ steps.changed-files.outputs.any_changed == 'true' }}
+        uses: kasttrifork/cheetah-lib-shared-dotnet/.github/actions/docfx-publish.yml@main
+        with:
+          project: ${{ matrix.project.name }}
+          file: ${{ matrix.project.toc_file }}
+
     outputs:
       changed: ${{ steps.changed-files.outputs.any_changed }}
       project: ${{ matrix.project.name }}

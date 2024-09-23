@@ -1,0 +1,80 @@
+name: 'Publish DocFX'
+description: 'A GitHub Action to publish DocFX documentation'
+inputs:
+  project:
+    description: 'The project name'
+    required: true
+    default: ''
+  file:
+    description: 'The toc file path'
+    required: true
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Get csproj filepath
+      id: get-csproj-filepath
+      shell: bash
+      run: echo "value=$(grep -Po '(?<=${{ inputs.project }}:).*' ./.github/csproj-filepaths.yaml | awk '{$1=$1};1')" >> $GITHUB_OUTPUT
+
+    - name: Get project version
+      id: get-version
+      uses: trifork/cheetah-infrastructure-utils-workflows/.github/actions/versioning/get-version@main
+      with:
+        file-path: ${{ steps.get-csproj-filepath.outputs.value }}
+        prefix: "<VersionPrefix>"
+        suffix: "</VersionPrefix>"
+
+    - name: Update toc file with new version v${{ steps.get-version.outputs.version }}
+      id: update-toc
+      uses: kasttrifork/cheetah-lib-shared-dotnet/.github/actions/update-toc@main
+      with:
+        toc-file: ${{ inputs.file }}
+        version: ${{ steps.get-version.outputs.version }}
+        repo-name: ${{ inputs.project }}
+
+    - name: Commit changes to toc.yml
+      if: ${{ steps.update-toc.outputs.updated }} == 'true'
+      uses: EndBug/add-and-commit@v9
+      with:
+        commit: -a
+        message: "Update toc file with new version v${{ steps.get-version.outputs.version }}"
+
+    - uses: actions/cache@v4
+      if: ${{ steps.update-toc.outputs.updated }} == 'true'
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          ${{ runner.os }}-nuget-
+
+    - name: dotnet build
+      if: ${{ steps.update-toc.outputs.updated }} == 'true'
+      shell: bash
+      run: |
+        dotnet build --verbosity minimal --configuration Release /nowarn:cs1591
+
+    - name: Build docfx
+      if: ${{ steps.update-toc.outputs.updated }} == 'true'
+      shell: bash
+      run: |
+        dotnet tool update -g docfx 
+        docfx --warningsAsErrors docs/docfx.json
+
+    - name: Create public/
+      if: ${{ steps.update-toc.outputs.updated }} == 'true'
+      shell: bash
+      run: |
+        mkdir -p public/
+        mv docs/ public/_source
+        mv src/ public/src
+        mv .gitignore public/.gitignore
+        rm public/_source/api/.gitignore
+        rm public/_source/articles/toc.yml
+        mv ${{ inputs.file }} public/_source/articles/
+        mv _site/ public/docs
