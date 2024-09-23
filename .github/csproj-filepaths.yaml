@@ -1,3 +1,4 @@
 Cheetah.Kafka: src/Cheetah.Kafka/Cheetah.Kafka.csproj
 Cheetah.OpenSearch: src/Cheetah.OpenSearch/Cheetah.OpenSearch.csproj
 Cheetah.SchemaRegistry: src/Cheetah.SchemaRegistry/Cheetah.SchemaRegistry.csproj
+Cheetah.Auth: src/Cheetah.Auth/Cheetah.Auth.csproj
