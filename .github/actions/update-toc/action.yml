@@ -24,8 +24,8 @@ runs:
     - name: Install yq
       shell: bash
       run: |
-        sudo apt-get update
-        sudo apt-get install jq
+        # sudo apt-get update
+        # sudo apt-get install jq
 
     - name: Update YAML file for cheetah-lib-processing
       if: ${{ github.repository == 'cheetah-lib-processing' }}
