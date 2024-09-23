@@ -63,7 +63,7 @@ runs:
           cat $YAML_PATH
 
     - name: Update YAML file for cheetah-lib-shared-dotnet
-      if: ${{ github.repository == 'cheetah-lib-shared-dotnet' && inputs.directory == 'articles' }}
+      if: ${{ github.repository == 'KastTrifork/cheetah-lib-shared-dotnet' && inputs.directory == 'articles' }}
       shell: bash
       run: |
           YAML_PATH="${{ inputs.toc-file }}"
@@ -113,7 +113,7 @@ runs:
           cat $YAML_PATH
 
     - name: Update YAML file for cheetah-lib-shared-dotnet
-      if: ${{ github.repository == 'kasttrifork-cheetah-lib-shared-dotnet' && inputs.directory == 'api' }}
+      if: ${{ github.repository == 'KastTrifork/cheetah-lib-shared-dotnet' && inputs.directory == 'api' }}
       shell: bash
       run: |
           YAML_PATH="${{ inputs.toc-file }}"
@@ -167,7 +167,6 @@ runs:
       id: check-changes
       shell: bash
       run: |
-        echo ${{github.repository}}
         # Check if there are any changes
         if git diff --quiet $YAML_PATH; then
           echo "No changes were made to $YAML_PATH"

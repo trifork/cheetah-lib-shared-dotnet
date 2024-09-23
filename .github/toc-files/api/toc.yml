@@ -4,5 +4,15 @@
     - name: latest
       href: Cheetah.Kafka/toc.yml
       homepage: Cheetah.Kafka/index.md
-    
+- name: Cheetah.Kafka
+  items:
+    - name: latest
+      href: Cheetah.Kafka/toc.yml
+      homepage: Cheetah.Kafka/index.md
+
+- name: Cheetah.Kafka
+  items:
+    - name: latest
+      href: Cheetah.Kafka/toc.yml
+      homepage: Cheetah.Kafka/index.md
 
