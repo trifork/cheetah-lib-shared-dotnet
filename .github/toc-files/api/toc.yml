@@ -3,6 +3,8 @@
   items:
     - name: latest
       href: Cheetah.Kafka/toc.yml
+    - name: v2.1.0
+      href: Cheetah.Kafka/v2.1.0/toc.yml
 - name: Cheetah.OpenSearch
   items:
     - name: latest
