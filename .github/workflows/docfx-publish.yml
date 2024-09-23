@@ -70,7 +70,7 @@ jobs:
       - name: Get value
         id: get-csproj-filepath
         shell: bash
-        run: echo "value=$(grep -Po '(?<=${{inputs.project.name}}:).*' ./.github/csproj-filepaths.yaml | awk '{$1=$1};1')" >> $GITHUB_OUTPUT
+        run: echo "value=$(grep -Po '(?<=${{inputs.project}}:).*' ./.github/csproj-filepaths.yaml | awk '{$1=$1};1')" >> $GITHUB_OUTPUT
 
       - name: Get project version
         id: get-version
