@@ -36,13 +36,13 @@ jobs:
           echo "changed_project=${{ matrix.project.name }}" >> $GITHUB_ENV
           echo "changed_file=${{ matrix.project.toc_file }}" >> $GITHUB_ENV
 
+
   update-doc:
     runs-on: ubuntu-latest
     needs: check-for-changes
-    if: ${{ needs.check-for-changes.outputs.changed == 'true' }}
     steps:
-      - name: update docs
-        uses: kasttrifork/cheetah-lib-shared-dotnet/.github/workflows/docfx-publish@main
+      - uses: kasttrifork/cheetah-lib-shared-dotnet/.github/workflows/docfx-publish.yml@main
+        if: ${{ needs.check-for-changes.outputs.changed == 'true' }}
         with:
           toc-file: ${{ env.changed_file }}
           repo-name: ${{ env.changed_project }}

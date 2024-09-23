@@ -1,15 +1,14 @@
 name: Publish docfx
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs: 
       project:
-        description: 'The project to update the documentation for'
         required: true
-      
+        type: string
       file:
-        description: 'The toc file to update'
         required: true
+        type: string
     
   workflow_run:
     workflows:
