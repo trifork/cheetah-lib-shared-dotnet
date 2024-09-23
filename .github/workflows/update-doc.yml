@@ -26,9 +26,6 @@ jobs:
         uses: tj-actions/changed-files@v45
         with: 
           dir_names: "true"
-          files: |
-            doc/api/${{ matrix.project.name }}/**
-            doc/articles/${{ matrix.project.name }}/**
 
       - name: Exho output variable
         run: |
@@ -39,7 +36,7 @@ jobs:
           echo modifede_files_count ${{ steps.changed-files.outputs.modified_files_count }}
           echo only_changed ${{ steps.changed-files.outputs.only_changed }}
           echo only_modified ${{ steps.changed-files.outputs.only_modified }}
-          
+
 
 
       - name: Set output variable
