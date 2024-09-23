@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Cheetah.OpenSearch.Extensions")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7c99e5a022dbda10c58bbf8de251361fa3b87113")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+40d22711679fc11d3b8f10b2b7d5aa6e8ccc502f")]
 [assembly: System.Reflection.AssemblyProductAttribute("Cheetah.OpenSearch.Extensions")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Cheetah.OpenSearch.Extensions")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
