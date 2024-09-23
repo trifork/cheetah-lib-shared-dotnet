@@ -119,6 +119,19 @@ jobs:
           dotnet tool update -g docfx 
           docfx --warningsAsErrors docs/docfx.json
 
+      - name: get directory
+        run: |
+            # Function to extract the desired part
+            extract_part() {
+              local input="$1"
+              echo "$input" | awk -F'/' '{print $(NF-1)}'
+            }
+
+            # Extracting from string
+            dir=$(extract_part "${{ inputs.file }}")
+
+            echo "directory=$directory" >> $GITHUB_ENV
+
       - name: create public/
         if: ${{ env.updated }} == true
         run: |
@@ -127,50 +140,19 @@ jobs:
           mv src/ public/src
           mv .gitignore public/.gitignore
           rm public/_source/api/.gitignore
-          rm public/_source/articles/toc.yml
-          mv ${{inputs.file}} public/_source/articles/
+          rm public/_source/${{env.directory}}/toc.yml
+          mv ${{inputs.file}} public/_source/${{env.directory}}/
           mv _site/ public/docs
 
-        #TODO Refactor to only deploy once and only if that project has been updated
       - name: Deploy to GitHub Pages for project ${{ inputs.project }}
         if: ${{ env.updated }} == true
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public/_source/articles/${{ inputs.project }}/
+          publish_dir: ./public/_source/${{env.directory}}/${{ inputs.project }}/
           exclude_assets: ""
-          destination_dir: _source/articles/${{inputs.project}}/v${{ steps.get-version.outputs.version }}
+          destination_dir: _source/${{env.directory}}/${{inputs.project}}/v${{ steps.get-version.outputs.version }}
         
-        # Second deployment to latest folder - refactor to only deploy once
-      #- name: Deploy to GitHub Pages for project ${{ inputs.project }} to latest folder
-      #  uses: peaceiris/actions-gh-pages@v4
-      #  with:
-      #    github_token: ${{ secrets.GITHUB_TOKEN }}
-      #    publish_dir: ./public/_source/articles/${{ inputs.project }}/
-      #    exclude_assets: ""
-      #    destination_dir: _source/articles/${ {inputs.project }}/latest/
-
-        # Third deployment to root folder - refactor to only deploy once
-      - name: Deploy to GitHub Pages
-        if: ${{ env.updated }} == true
-        id: deployment
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-          exclude_assets: "./public/_source/articles/"
-          keep_files: true
-
-        # Fourth deployment to latest folder - refactor to only deploy once
-      - name: Deploy to GitHub Pages for project ${{inputs.project}} to latest folder
-        if: ${{ env.updated }} == true
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public/_source/articles/toc.yml
-          destination_dir: _source/articles/
-          keep_files: true
-
       # - name: Repository Dispatch
       #   uses: peter-evans/repository-dispatch@v3
       #  with:
