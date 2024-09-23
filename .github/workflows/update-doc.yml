@@ -26,7 +26,9 @@ jobs:
         uses: tj-actions/changed-files@v45
         with: 
           dir_names: "true"
-          files: docs/articles/${{ matrix.project.name }}/*.md
+          files: |
+            docs/articles/${{ matrix.project.name }}/*.md
+            docs/api/${{ matrix.project.name }}/*.md
 
       - name: Exho output variable
         run: |
