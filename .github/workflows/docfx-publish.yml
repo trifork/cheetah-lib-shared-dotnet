@@ -50,27 +50,6 @@ jobs:
         with:
           dotnet-version: 7.0
 
-      - uses: actions/cache@v4
-        with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
-            ${{ runner.os }}-nuget-
-
-      - name: "dotnet build"
-        shell: bash
-        run: |
-          dotnet build --verbosity minimal --configuration Release /nowarn:cs1591
-
-      #- name: Build docfx
-      #  uses: trifork/cheetah-infrastructure-utils/.github/actions/docfx/docfx-build@main
-      - name: Build docfx
-        shell: bash
-        run: |
-          dotnet tool update -g docfx 
-          docfx --warningsAsErrors docs/docfx.json
-
       #- name: Get csproj filepath
       #  id: get-csproj-filepath
       #  uses: kasttrifork/cheetah-infrastructure-utils/.github/actions/get-from-map@main
@@ -104,8 +83,34 @@ jobs:
         with:
           commit: -a
           message:  "Update toc file with new version v${{ steps.get-version.outputs.version }}"
+          pull: true
+  
+      - uses: actions/cache@v4
+        if: ${{ env.updated }} == true
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+            ${{ runner.os }}-nuget-
+
+      - name: "dotnet build"
+        if: ${{ env.updated }} == true
+        shell: bash
+        run: |
+          dotnet build --verbosity minimal --configuration Release /nowarn:cs1591
+
+      #- name: Build docfx
+      #  uses: trifork/cheetah-infrastructure-utils/.github/actions/docfx/docfx-build@main
+      - name: Build docfx
+        if: ${{ env.updated }} == true
+        shell: bash
+        run: |
+          dotnet tool update -g docfx 
+          docfx --warningsAsErrors docs/docfx.json
 
       - name: create public/
+        if: ${{ env.updated }} == true
         run: |
           mkdir -p public/
           mv docs/ public/_source
@@ -118,6 +123,7 @@ jobs:
 
         #TODO Refactor to only deploy once and only if that project has been updated
       - name: Deploy to GitHub Pages for project ${{ matrix.project.name }}
+        if: ${{ env.updated }} == true
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -136,6 +142,7 @@ jobs:
 
         # Third deployment to root folder - refactor to only deploy once
       - name: Deploy to GitHub Pages
+        if: ${{ env.updated }} == true
         id: deployment
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -145,7 +152,8 @@ jobs:
           keep_files: true
 
         # Fourth deployment to latest folder - refactor to only deploy once
-      - name: Deploy to GitHub Pages for project $
+      - name: Deploy to GitHub Pages for project ${{matrix.project.name}} to latest folder
+        if: ${{ env.updated }} == true
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -153,10 +161,10 @@ jobs:
           destination_dir: _source/articles/
           keep_files: true
 
-     # - name: Repository Dispatch
-     #   uses: peter-evans/repository-dispatch@v3
+      # - name: Repository Dispatch
+      #   uses: peter-evans/repository-dispatch@v3
       #  with:
-       #   token: ${{ secrets.READ_PACKAGE_PAT }}
+        #   token: ${{ secrets.READ_PACKAGE_PAT }}
         #  repository: trifork/cheetah-artifact-documentation
-         # event-type: docs-update
+          # event-type: docs-update
           #client-payload: '{"version": "${{ steps.get-version.outputs.version }}, repoName": "${{ github.repository }}"}'
