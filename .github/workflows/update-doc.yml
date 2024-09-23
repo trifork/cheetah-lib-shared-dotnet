@@ -32,6 +32,7 @@ jobs:
           echo "any_changed=${{ steps.changed-files.outputs.any_changed }}"
           echo "project=${{ matrix.project.name }}"
           echo all_changed_files_count ${{ steps.changed-files.outputs.all_changed_files_count }}
+          echo all_changed_files ${{ steps.changed-files.outputs.all_changed_files }}
           echo any_modified ${{ steps.changed-files.outputs.any_modified }}
           echo modifede_files_count ${{ steps.changed-files.outputs.modified_files_count }}
           echo only_changed ${{ steps.changed-files.outputs.only_changed }}
