@@ -13,9 +13,9 @@ jobs:
         project:
           - { name: Cheetah.Kafka, toc_file: ".github/toc-files/articles/toc.yml" }
           - { name: Cheetah.OpenSearch, toc_file: ".github/toc-files/articles/toc.yml" }
-        #  - { name: Cheetah.SchemaRegistry, toc_file: ".github/toc-files/articles/toc.yml" }
-        #  - { name: Cheetah.Kafka, toc_file: ".github/toc-files/api/toc.yml" }
-        #  - { name: Cheetah.OpenSearch, toc_file: ".github/toc-files/api/toc.yml" }
+          - { name: Cheetah.SchemaRegistry, toc_file: ".github/toc-files/articles/toc.yml" }
+          - { name: Cheetah.Kafka, toc_file: ".github/toc-files/api/toc.yml" }
+          - { name: Cheetah.OpenSearch, toc_file: ".github/toc-files/api/toc.yml" }
         #  - { name: Cheetah.Auth, toc_file: ".github/toc-files/api/toc.yml" }
     steps:
       - name: Checkout

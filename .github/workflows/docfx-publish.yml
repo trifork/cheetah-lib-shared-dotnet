@@ -9,6 +9,20 @@ on:
       file:
         required: true
         type: string
+
+  workflow_dispatch:
+    inputs:
+      project:
+        type: choice
+        options:
+          - Cheetah.Kafka
+          - Cheetah.OpenSearch
+          - Cheetah.SchemaRegistry
+      file:
+        type: choice
+        options:
+          - .github/toc-files/articles/toc.yml
+          - .github/toc-files/api/toc.yml
     
   workflow_run:
     workflows:
