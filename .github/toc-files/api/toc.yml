@@ -3,11 +3,6 @@
   items:
     - name: latest
       href: Cheetah.Kafka/toc.yml
-- name: Cheetah.OpenSearch
-  items:
-    - name: latest
-      href: Cheetah.OpenSearch/toc.yml
-- name: Cheetah.SchemaRegistry
-  items:
-    - name: latest
-      href: Cheetah.SchemaRegistry/toc.yml
+      homepage: Cheetah.Kafka/index.md
+    
+

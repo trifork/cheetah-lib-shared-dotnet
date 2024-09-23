@@ -80,6 +80,19 @@ jobs:
           prefix: "<VersionPrefix>"
           suffix: "</VersionPrefix>"
 
+      - name: get directory
+        run: |
+            # Function to extract the desired part
+            extract_part() {
+              local input="$1"
+              echo "$input" | awk -F'/' '{print $(NF-1)}'
+            }
+
+            # Extracting from string
+            dir=$(extract_part "${{ inputs.file }}")
+
+            echo "directory=$directory" >> $GITHUB_ENV
+
       - name: Update toc file with new version v${{ steps.get-version.outputs.version }}
         id: update-toc
         uses: kasttrifork/cheetah-lib-shared-dotnet/.github/actions/update-toc@main
@@ -87,6 +100,7 @@ jobs:
           toc-file: ${{ inputs.file }}
           version: ${{ steps.get-version.outputs.version }}
           repo-name: ${{ inputs.project }}
+          directory: ${{ env.directory }}
 
       - name: Commit changes to toc.yml
         if: ${{ env.updated }} == true
@@ -118,19 +132,6 @@ jobs:
         run: |
           dotnet tool update -g docfx 
           docfx --warningsAsErrors docs/docfx.json
-
-      - name: get directory
-        run: |
-            # Function to extract the desired part
-            extract_part() {
-              local input="$1"
-              echo "$input" | awk -F'/' '{print $(NF-1)}'
-            }
-
-            # Extracting from string
-            dir=$(extract_part "${{ inputs.file }}")
-
-            echo "directory=$directory" >> $GITHUB_ENV
 
       - name: create public/
         if: ${{ env.updated }} == true
