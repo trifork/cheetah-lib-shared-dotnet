@@ -47,6 +47,7 @@ jobs:
     needs: check-for-changes
     steps:
       - name:
+        if: ${{ needs.check-for-changes.outputs.changed == 'true' }}
         run: |
           echo "Updating documentation for ${{ needs.check-for-changes.outputs.project }}"
           echo "File: ${{ needs.check-for-changes.outputs.file }}"
