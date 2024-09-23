@@ -39,7 +39,7 @@ jobs:
 
       - name: Update documentation
         if: ${{ steps.changed-files.outputs.any_changed == 'true' }}
-        uses: kasttrifork/cheetah-lib-shared-dotnet/.github/actions/docfx-publish.yml@main
+        uses: kasttrifork/cheetah-lib-shared-dotnet/.github/actions/docfx-publish@main
         with:
           project: ${{ matrix.project.name }}
           file: ${{ matrix.project.toc_file }}
