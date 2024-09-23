@@ -43,6 +43,7 @@ jobs:
         with:
           project: ${{ matrix.project.name }}
           file: ${{ matrix.project.toc_file }}
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
 
     outputs:
       changed: ${{ steps.changed-files.outputs.any_changed }}
