@@ -29,6 +29,11 @@ jobs:
             doc/api/${{ matrix.project.name }}/**
             doc/articles/${{ matrix.project.name }}/**
 
+      - name: Exho output variable
+        run: |
+          echo "any_changed=${{ steps.changed-files.outputs.any_changed }}"
+          echo "project=${{ matrix.project.name }}"
+
       - name: Set output variable
         if: ${{ steps.changed-files.outputs.any_changed == 'true' }}
         run: |
