@@ -91,7 +91,8 @@ jobs:
             # Extracting from string
             dir=$(extract_part "${{ inputs.file }}")
 
-            echo "directory=$directory" >> $GITHUB_ENV
+            echo $dir
+            echo "directory=$dir" >> $GITHUB_ENV
 
       - name: Update toc file with new version v${{ steps.get-version.outputs.version }}
         id: update-toc
