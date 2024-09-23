@@ -1,15 +1,6 @@
 name: Publish docfx
 
 on:
-  workflow_call:
-    inputs: 
-      project:
-        required: true
-        type: string
-      file:
-        required: true
-        type: string
-
   workflow_dispatch:
     inputs:
       project:

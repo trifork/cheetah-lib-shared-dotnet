@@ -78,3 +78,51 @@ runs:
         rm public/_source/articles/toc.yml
         mv ${{ inputs.file }} public/_source/articles/
         mv _site/ public/docs
+
+      #TODO Refactor to only deploy once and only if that project has been updated
+    - name: Deploy to GitHub Pages for project ${{ inputs.project }}
+      if: ${{ env.updated }} == true
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public/_source/articles/${{ inputs.project }}/
+        exclude_assets: ""
+        destination_dir: _source/articles/${{inputs.project}}/v${{ steps.get-version.outputs.version }}
+      
+      # Second deployment to latest folder - refactor to only deploy once
+    #- name: Deploy to GitHub Pages for project ${{ inputs.project }} to latest folder
+    #  uses: peaceiris/actions-gh-pages@v4
+    #  with:
+    #    github_token: ${{ secrets.GITHUB_TOKEN }}
+    #    publish_dir: ./public/_source/articles/${{ inputs.project }}/
+    #    exclude_assets: ""
+    #    destination_dir: _source/articles/${ {inputs.project }}/latest/
+
+      # Third deployment to root folder - refactor to only deploy once
+    - name: Deploy to GitHub Pages
+      if: ${{ env.updated }} == true
+      id: deployment
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
+        exclude_assets: "./public/_source/articles/"
+        keep_files: true
+
+      # Fourth deployment to latest folder - refactor to only deploy once
+    - name: Deploy to GitHub Pages for project ${{inputs.project}} to latest folder
+      if: ${{ env.updated }} == true
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public/_source/articles/toc.yml
+        destination_dir: _source/articles/
+        keep_files: true
+
+    # - name: Repository Dispatch
+    #   uses: peter-evans/repository-dispatch@v3
+    #  with:
+      #   token: ${{ secrets.READ_PACKAGE_PAT }}
+      #  repository: trifork/cheetah-artifact-documentation
+        # event-type: docs-update
+        #client-payload: '{"version": "${{ steps.get-version.outputs.version }}, repoName": "${{ github.repository }}"}'
