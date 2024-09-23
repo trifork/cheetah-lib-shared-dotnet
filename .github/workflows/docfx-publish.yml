@@ -1,10 +1,16 @@
 name: Publish docfx
 
 on:
-  push:
-    branches:
-      - main
-
+  workflow_dispatch:
+    inputs: 
+      project:
+        description: 'The project to update the documentation for'
+        required: true
+      
+      file:
+        description: 'The toc file to update'
+        required: true
+    
   workflow_run:
     workflows:
       - .NET Create Release
@@ -30,25 +36,17 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    strategy:
-      matrix:
-        project:
-          - { name: Cheetah.Kafka, toc_file: ".github/toc-files/articles/toc.yml" }
-          - { name: Cheetah.OpenSearch, toc_file: ".github/toc-files/articles/toc.yml" }
-        #  - { name: Cheetah.SchemaRegistry, toc_file: ".github/toc-files/articles/toc.yml" }
-        #  - { name: Cheetah.Kafka, toc_file: ".github/toc-files/api/toc.yml" }
-        #  - { name: Cheetah.OpenSearch, toc_file: ".github/toc-files/api/toc.yml" }
-        #  - { name: Cheetah.Auth, toc_file: ".github/toc-files/api/toc.yml" }
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       #- name: "dotnet build"
       #  uses: trifork/cheetah-infrastructure-utils/.github/actions/dotnet/dotnet-build@main
-      - name: "Setup .Net Core SDK"
-        uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3 # v4
-        with:
-          dotnet-version: 7.0
+      #- name: "Setup .Net Core SDK"
+      #  uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3 # v4
+      #  with:
+      #    dotnet-version: 7.0
 
       #- name: Get csproj filepath
       #  id: get-csproj-filepath
@@ -59,7 +57,7 @@ jobs:
       - name: Get value
         id: get-csproj-filepath
         shell: bash
-        run: echo "value=$(grep -Po '(?<=${{matrix.project.name}}:).*' ./.github/csproj-filepaths.yaml | awk '{$1=$1};1')" >> $GITHUB_OUTPUT
+        run: echo "value=$(grep -Po '(?<=${{inputs.project.name}}:).*' ./.github/csproj-filepaths.yaml | awk '{$1=$1};1')" >> $GITHUB_OUTPUT
 
       - name: Get project version
         id: get-version
@@ -73,9 +71,9 @@ jobs:
         id: update-toc
         uses: kasttrifork/cheetah-lib-shared-dotnet/.github/actions/update-toc@main
         with:
-          toc-file: ${{ matrix.project.toc_file }}
+          toc-file: ${{ inputs.file }}
           version: ${{ steps.get-version.outputs.version }}
-          repo-name: ${{ matrix.project.name }}
+          repo-name: ${{ inputs.project }}
 
       - name: Commit changes to toc.yml
         if: ${{ env.updated }} == true
@@ -117,27 +115,27 @@ jobs:
           mv .gitignore public/.gitignore
           rm public/_source/api/.gitignore
           rm public/_source/articles/toc.yml
-          mv ${{matrix.project.toc_file}} public/_source/articles/
+          mv ${{inputs.file}} public/_source/articles/
           mv _site/ public/docs
 
         #TODO Refactor to only deploy once and only if that project has been updated
-      - name: Deploy to GitHub Pages for project ${{ matrix.project.name }}
+      - name: Deploy to GitHub Pages for project ${{ inputs.project }}
         if: ${{ env.updated }} == true
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public/_source/articles/${{ matrix.project.name }}/
+          publish_dir: ./public/_source/articles/${{ inputs.project }}/
           exclude_assets: ""
-          destination_dir: _source/articles/${{matrix.project.name}}/v${{ steps.get-version.outputs.version }}
+          destination_dir: _source/articles/${{inputs.project}}/v${{ steps.get-version.outputs.version }}
         
         # Second deployment to latest folder - refactor to only deploy once
-      #- name: Deploy to GitHub Pages for project ${{ matrix.project.name }} to latest folder
+      #- name: Deploy to GitHub Pages for project ${{ inputs.project }} to latest folder
       #  uses: peaceiris/actions-gh-pages@v4
       #  with:
       #    github_token: ${{ secrets.GITHUB_TOKEN }}
-      #    publish_dir: ./public/_source/articles/${{ matrix.project.name }}/
+      #    publish_dir: ./public/_source/articles/${{ inputs.project }}/
       #    exclude_assets: ""
-      #    destination_dir: _source/articles/${ {matrix.project.name }}/latest/
+      #    destination_dir: _source/articles/${ {inputs.project }}/latest/
 
         # Third deployment to root folder - refactor to only deploy once
       - name: Deploy to GitHub Pages
@@ -151,7 +149,7 @@ jobs:
           keep_files: true
 
         # Fourth deployment to latest folder - refactor to only deploy once
-      - name: Deploy to GitHub Pages for project ${{matrix.project.name}} to latest folder
+      - name: Deploy to GitHub Pages for project ${{inputs.project}} to latest folder
         if: ${{ env.updated }} == true
         uses: peaceiris/actions-gh-pages@v4
         with:
