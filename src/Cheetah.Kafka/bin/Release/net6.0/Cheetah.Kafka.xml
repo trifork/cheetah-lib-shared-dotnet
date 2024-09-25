@@ -1,0 +1,847 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cheetah.Kafka</name>
+    </assembly>
+    <members>
+        <member name="T:Cheetah.Kafka.Configuration.KafkaConfig">
+            <summary>
+            KafkaConfig for IOptions
+            </summary>
+        </member>
+        <member name="F:Cheetah.Kafka.Configuration.KafkaConfig.Position">
+            <summary>
+            Prefix for options e.g. Kafka__
+            </summary>
+        </member>
+        <member name="P:Cheetah.Kafka.Configuration.KafkaConfig.Url">
+            <summary>
+            Bootstrap Url.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Cheetah.Kafka.Configuration.KafkaConfig.Principal">
+            <summary>
+            The principal used for authentication. Defaults to <c>unused</c> and is <i>usually</i> not required.
+            </summary>
+        </member>
+        <member name="P:Cheetah.Kafka.Configuration.KafkaConfig.SecurityProtocol">
+            <summary>
+            The security protocol used to communicate with brokers.
+            </summary>
+        </member>
+        <member name="P:Cheetah.Kafka.Configuration.KafkaConfig.SslCaLocation">
+            <summary>
+            The location of the CA certificate file used to verify the broker's certificate.
+            </summary>
+        </member>
+        <member name="P:Cheetah.Kafka.Configuration.KafkaConfig.SaslMechanism">
+            <summary>
+            The Sasl Mechanism used to communicate with brokers.
+            </summary>
+        </member>
+        <member name="P:Cheetah.Kafka.Configuration.KafkaConfig.OAuth2">
+            <summary>
+            The OAuth2 configuration
+            </summary>
+        </member>
+        <member name="M:Cheetah.Kafka.Configuration.KafkaConfig.Validate">
+            <summary>
+            Validates and throws an error if the configuration is invalid.
+            </summary>
+            <exception cref="T:System.ArgumentException">Thrown if the configuration is invalid</exception>
+        </member>
+        <member name="M:Cheetah.Kafka.Configuration.KafkaConfig.GetClientConfig">
+            <summary>
+            Converts the configuration to a <see cref="T:Confluent.Kafka.ClientConfig"/>/>.
+            </summary>
+            <returns>The converted <see cref="T:Confluent.Kafka.ClientConfig"/></returns>
+        </member>
+        <member name="T:Cheetah.Kafka.Constants">
+            <summary>
+            Static class contains constant values used within the Cheetah.Kafka namespace
+            </summary>
+        </member>
+        <member name="F:Cheetah.Kafka.Constants.TokenServiceKey">
+            <summary>
+            Key used to GetRequiredKeyedService for Cheetah.Kafka TokenService
+            </summary>
+        </member>
+        <member name="T:Cheetah.Kafka.Extensions.ClientInjector">
+            <summary>
+            Utility class used to inject Kafka clients into a service collection
+            </summary>
+        </member>
+        <member name="M:Cheetah.Kafka.Extensions.ClientInjector.#ctor(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Creates a new instance of <see cref="T:Cheetah.Kafka.Extensions.ClientInjector"/>
+            </summary>
+            <param name="serviceCollection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the services to.</param>
+        </member>
+        <member name="M:Cheetah.Kafka.Extensions.ClientInjector.WithProducer``2(System.Action{Cheetah.Kafka.ProducerOptionsBuilder{``0,``1}})">
+            <summary>
+            Registers a pre-configured <see cref="T:Confluent.Kafka.IProducer`2"/>/>
+            </summary>
+            <param name="configAction">Additional configuration that this specific producer should use</param>
+            <typeparam name="TKey">The type of key that the injected producer will produce</typeparam>
+            <typeparam name="TValue">The type of value that the injected producer will produce</typeparam>
+            <returns>This <see cref="T:Cheetah.Kafka.Extensions.ClientInjector"/> instance for method chaining</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.Extensions.ClientInjector.WithKeyedProducer``2(System.Object,System.Action{Cheetah.Kafka.ProducerOptionsBuilder{``0,``1}})">
+            <summary>
+            Registers a pre-configured, keyed <see cref="T:Confluent.Kafka.IProducer`2"/>/>
+            </summary>
+            <param name="key">The key that the producer should be registered with</param>
+            <param name="configAction">Additional configuration that this specific producer should use</param>
+            <typeparam name="TKey">The type of key that the injected producer will produce</typeparam>
+            <typeparam name="TValue">The type of value that the injected producer will produce</typeparam>
+            <returns>This <see cref="T:Cheetah.Kafka.Extensions.ClientInjector"/> instance for method chaining</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.Extensions.ClientInjector.WithConsumer``2(System.Action{Cheetah.Kafka.ConsumerOptionsBuilder{``0,``1}})">
+            <summary>
+            Registers a pre-configured <see cref="T:Confluent.Kafka.IConsumer`2"/>/>
+            </summary>
+            <param name="configAction">Additional configuration that this specific consumer should use</param>
+            <typeparam name="TKey">The type of key that the injected consumer will consume</typeparam>
+            <typeparam name="TValue">The type of value that the injected consumer will consume</typeparam>
+            <returns>This <see cref="T:Cheetah.Kafka.Extensions.ClientInjector"/> instance for method chaining</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.Extensions.ClientInjector.WithKeyedConsumer``2(System.Object,System.Action{Cheetah.Kafka.ConsumerOptionsBuilder{``0,``1}})">
+            <summary>
+            Registers a pre-configured, keyed <see cref="T:Confluent.Kafka.IConsumer`2"/>/>
+            </summary>
+            <param name="key">The key that the consumer should be registered with</param>
+            <param name="configAction">Additional configuration that this specific consumer should use</param>
+            <typeparam name="TKey">The type of key that the injected consumer will consume</typeparam>
+            <typeparam name="TValue">The type of value that the injected consumer will consume</typeparam>
+            <returns>This <see cref="T:Cheetah.Kafka.Extensions.ClientInjector"/> instance for method chaining</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.Extensions.ClientInjector.WithAdminClient(System.Action{Cheetah.Kafka.AdminClientOptionsBuilder})">
+            <summary>
+            Registers a pre-configured <see cref="T:Confluent.Kafka.IAdminClient"/>/>
+            </summary>
+            <param name="configAction">Additional configuration that this specific admin client should use</param>
+            <returns>This <see cref="T:Cheetah.Kafka.Extensions.ClientInjector"/> instance for method chaining</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.Extensions.ClientInjector.WithKeyedAdminClient(System.Object,System.Action{Cheetah.Kafka.AdminClientOptionsBuilder})">
+            <summary>
+            Registers a pre-configured <see cref="T:Confluent.Kafka.IAdminClient"/>/>
+            </summary>
+            <param name="key">The key that the admin client should be registered with</param>
+            <param name="configAction">Additional configuration that this specific admin client should use</param>>
+            <returns>This <see cref="T:Cheetah.Kafka.Extensions.ClientInjector"/> instance for method chaining</returns>
+        </member>
+        <member name="T:Cheetah.Kafka.Extensions.KafkaExtensions">
+             <summary>
+             Extension methods for adding Cheetah OAuth2 authentication to Kafka clients.
+             </summary>
+            
+        </member>
+        <member name="M:Cheetah.Kafka.Extensions.KafkaExtensions.AddCheetahOAuthentication``2(Confluent.Kafka.ConsumerBuilder{``0,``1},System.Func{System.Threading.Tasks.Task{System.ValueTuple{System.String,System.Int64,System.String}}},Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Adds Cheetah OAuth2 authentication to a Kafka consumer.
+            </summary>
+            <param name="builder">The builder to call this method on</param>
+            <param name="asyncTokenRequestFunc">A function which returns a Task, which results in a tuple containing a token, expiration and optional principal name</param>
+            <param name="logger">The logger to use when logging token-related messages</param>
+            <typeparam name="TKey">The key type on the builder</typeparam>
+            <typeparam name="TValue">The value type on the builder</typeparam>
+            <returns>The builder for method chaining</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.Extensions.KafkaExtensions.AddCheetahOAuthentication``2(Confluent.Kafka.ProducerBuilder{``0,``1},System.Func{System.Threading.Tasks.Task{System.ValueTuple{System.String,System.Int64,System.String}}},Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Adds Cheetah OAuth2 authentication to a Kafka producer.
+            </summary>
+            <param name="builder">The builder to call this method on</param>
+            <param name="asyncTokenRequestFunc">A function which returns a Task, which results in a tuple containing a token, expiration and optional principal name</param>
+            <param name="logger">The logger to use when logging token-related messages</param>
+            <typeparam name="TKey">The key type on the builder</typeparam>
+            <typeparam name="TValue">The value type on the builder</typeparam>
+            <returns>The builder for method chaining</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.Extensions.KafkaExtensions.AddCheetahOAuthentication(Confluent.Kafka.AdminClientBuilder,System.Func{System.Threading.Tasks.Task{System.ValueTuple{System.String,System.Int64,System.String}}},Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Adds Cheetah OAuth2 authentication to a Kafka admin client.
+            </summary>
+            <param name="builder">The builder to call this method on</param>
+            <param name="asyncTokenRequestFunc">A function which returns a Task, which results in a tuple containing a token, expiration and optional principal name</param>
+            <param name="logger">The logger to use when logging token-related messages</param>
+            <returns>The builder for method chaining</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.Extensions.KafkaExtensions.AddCheetahOAuthentication``2(Confluent.Kafka.ConsumerBuilder{``0,``1},System.Func{System.ValueTuple{System.String,System.Int64,System.String}},Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Adds Cheetah OAuth2 authentication to a Kafka consumer.
+            </summary>
+            <param name="builder">The builder to call this method on</param>
+            <param name="tokenRequestFunc">A function which returns a tuple containing a token, expiration and optional principal name</param>
+            <param name="logger">The logger to use when logging token-related messages</param>
+            <typeparam name="TKey">The key type on the builder</typeparam>
+            <typeparam name="TValue">The value type on the builder</typeparam>
+            <returns>The builder for method chaining</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.Extensions.KafkaExtensions.AddCheetahOAuthentication``2(Confluent.Kafka.ProducerBuilder{``0,``1},System.Func{System.ValueTuple{System.String,System.Int64,System.String}},Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Adds Cheetah OAuth2 authentication to a Kafka producer.
+            </summary>
+            <param name="builder">The builder to call this method on</param>
+            <param name="tokenRequestFunc">A function which returns a tuple containing a token, expiration and optional principal name</param>
+            <param name="logger">The logger to use when logging token-related messages</param>
+            <typeparam name="TKey">The key type on the builder</typeparam>
+            <typeparam name="TValue">The value type on the builder</typeparam>
+            <returns>The builder for method chaining</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.Extensions.KafkaExtensions.AddCheetahOAuthentication(Confluent.Kafka.AdminClientBuilder,System.Func{System.ValueTuple{System.String,System.Int64,System.String}},Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Adds Cheetah OAuth2 authentication to a Kafka admin client.
+            </summary>
+            <param name="builder">The builder to call this method on</param>
+            <param name="tokenRequestFunc">A function which returns a tuple containing a token, expiration and optional principal name</param>
+            <param name="logger">The logger to use when logging token-related messages</param>
+            <returns>The builder for method chaining</returns>
+        </member>
+        <member name="T:Cheetah.Kafka.Extensions.ServiceCollectionExtensions">
+            <summary>
+            Extension method for adding Cheetah Kafka client factory to IServiceCollection
+            </summary>
+        </member>
+        <member name="M:Cheetah.Kafka.Extensions.ServiceCollectionExtensions.AddCheetahKafka(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action{Cheetah.Kafka.ClientFactoryOptions})">
+            <summary>
+            Registers and configures a KafkaClientFactory with the provided configuration for dependency injection, along with its required dependencies.
+            </summary>
+            <remarks>
+            This method requires that the <see cref="T:Cheetah.Kafka.Configuration.KafkaConfig"/> section is configured in the supplied <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/> instance.
+            </remarks>
+            <param name="serviceCollection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to register the <see cref="T:Cheetah.Kafka.KafkaClientFactory"/> and its required services with.</param>
+            <param name="configuration">The <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/> instance to use for configuration.</param>
+            <param name="configure">Optional action to configure Kafka behavior</param>
+            <returns>The supplied <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance for method chaining.</returns>
+        </member>
+        <member name="T:Cheetah.Kafka.KafkaClientFactory">
+            <summary>
+            Factory for creating Kafka clients
+            </summary>
+        </member>
+        <member name="M:Cheetah.Kafka.KafkaClientFactory.#ctor(Cheetah.Auth.Authentication.ITokenService,Microsoft.Extensions.Logging.ILoggerFactory,Microsoft.Extensions.Options.IOptions{Cheetah.Kafka.Configuration.KafkaConfig},Cheetah.Kafka.ClientFactoryOptions,Cheetah.Kafka.Serdes.ISerializerProvider,Cheetah.Kafka.Serdes.IDeserializerProvider)">
+            <summary>
+            Creates a new instance of <see cref="T:Cheetah.Kafka.KafkaClientFactory"/>
+            </summary>
+            <param name="tokenService">The token service to use for kafka</param>
+            <param name="loggerFactory">The logger factory used to create necessary loggers</param>
+            <param name="config">The configuration to use when creating clients</param>
+            <param name="options">The options to use when creating clients</param>
+            <param name="serializerProvider"></param>
+            <param name="deserializerProvider"></param>
+        </member>
+        <member name="M:Cheetah.Kafka.KafkaClientFactory.CreateProducer``2(Cheetah.Kafka.ProducerOptions{``0,``1})">
+            <summary>
+            Creates a pre-configured <see cref="T:Confluent.Kafka.IProducer`2"/>/>
+            </summary>
+            <param name="producerOptions">Optional producer options used to modify the configuration</param>
+            <typeparam name="TKey">The type of message key that the resulting producer will produce</typeparam>
+            <typeparam name="TValue">The type of message value that the resulting producer will produce</typeparam>
+            <returns>A pre-configured <see cref="T:Confluent.Kafka.IProducer`2"/></returns>
+        </member>
+        <member name="M:Cheetah.Kafka.KafkaClientFactory.CreateProducerBuilder``2(Cheetah.Kafka.ProducerOptions{``0,``1})">
+            <summary>
+            Creates a pre-configured <see cref="T:Confluent.Kafka.ProducerBuilder`2"/>/>
+            </summary>
+            <inheritdoc cref="M:Cheetah.Kafka.KafkaClientFactory.CreateConsumer``2(Cheetah.Kafka.ConsumerOptions{``0,``1})"/>
+            <returns>A pre-configured <see cref="T:Confluent.Kafka.ProducerBuilder`2"/></returns>
+        </member>
+        <member name="M:Cheetah.Kafka.KafkaClientFactory.CreateConsumer``2(Cheetah.Kafka.ConsumerOptions{``0,``1})">
+            <summary>
+            Creates a pre-configured <see cref="T:Confluent.Kafka.IConsumer`2"/>/>
+            </summary>
+            <param name="consumerOptions">Optional consumer option used to modify the configuration</param>
+            <typeparam name="TKey">The type of message key that the resulting consumer will consume</typeparam>
+            <typeparam name="TValue">The type of message value that the resulting consumer will consume</typeparam>
+            <returns>A pre-configured <see cref="T:Confluent.Kafka.IConsumer`2"/></returns>
+        </member>
+        <member name="M:Cheetah.Kafka.KafkaClientFactory.CreateConsumerBuilder``2(Cheetah.Kafka.ConsumerOptions{``0,``1})">
+            <summary>
+            Creates a pre-configured <see cref="T:Confluent.Kafka.ConsumerBuilder`2"/>/>
+            </summary>
+            <inheritdoc cref="M:Cheetah.Kafka.KafkaClientFactory.CreateConsumer``2(Cheetah.Kafka.ConsumerOptions{``0,``1})"/>
+            <returns>A pre-configured <see cref="T:Confluent.Kafka.ConsumerBuilder`2"/></returns>
+        </member>
+        <member name="M:Cheetah.Kafka.KafkaClientFactory.CreateAdminClient(Cheetah.Kafka.AdminClientOptions)">
+            <summary>
+            Creates a pre-configured <see cref="T:Confluent.Kafka.IAdminClient"/>/>
+            </summary>
+            <param name="adminOptions">Optional admin option to modify the used <see cref="T:Confluent.Kafka.AdminClientConfig"/></param>
+            <returns>A pre-configured <see cref="T:Confluent.Kafka.IAdminClient"/></returns>
+        </member>
+        <member name="M:Cheetah.Kafka.KafkaClientFactory.CreateAdminClientBuilder(Cheetah.Kafka.AdminClientOptions)">
+            <summary>
+            Creates a pre-configured <see cref="T:Confluent.Kafka.AdminClientBuilder"/>/>
+            </summary>
+            <param name="adminOptions">Optional admin option to modify the used <see cref="T:Confluent.Kafka.AdminClientConfig"/></param>
+            <returns>A pre-configured <see cref="T:Confluent.Kafka.AdminClientBuilder"/></returns>
+        </member>
+        <member name="T:Cheetah.Kafka.AdminClientOptions">
+            <summary>
+            Represents options for configuring an admin client.
+            </summary>
+        </member>
+        <member name="T:Cheetah.Kafka.AdminClientOptionsBuilder">
+            <summary>
+            Builder for configuring <see cref="T:Cheetah.Kafka.AdminClientOptions"/>.
+            </summary>
+        </member>
+        <member name="M:Cheetah.Kafka.AdminClientOptionsBuilder.ConfigureClient(System.Action{Confluent.Kafka.AdminClientConfig})">
+            <summary>
+            Configures the admin client with the provided action.
+            </summary>
+            <param name="configureAction">The action to configure the admin client.</param>
+            <returns>The builder instance.</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.AdminClientOptionsBuilder.ConfigureBuilder(System.Action{Confluent.Kafka.AdminClientBuilder})">
+            <summary>
+            Configures the admin client builder with the provided action.
+            </summary>
+            <param name="builderAction">The action to configure the admin client builder.</param>
+            <returns>The builder instance.</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.AdminClientOptionsBuilder.Build(System.IServiceProvider)">
+            <summary>
+            Builds the admin client options.
+            </summary>
+            <param name="serviceProvider">The service provider.</param>
+            <returns>The configured admin client options.</returns>
+        </member>
+        <member name="T:Cheetah.Kafka.ClientFactoryOptions">
+            <summary>
+            Options for configuring the <see cref="T:Cheetah.Kafka.KafkaClientFactory"/>
+            </summary>
+        </member>
+        <member name="M:Cheetah.Kafka.ClientFactoryOptions.ConfigureDefaultClient(System.Action{Confluent.Kafka.ClientConfig})">
+            <summary>
+            Configures the default <see cref="T:Confluent.Kafka.ClientConfig"/> that will be used for all clients created by the factory
+            </summary>
+            <param name="configure">The configuration to apply</param>
+            <returns>This <see cref="T:Cheetah.Kafka.ClientFactoryOptions"/> instance for method chaining</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.ClientFactoryOptions.ConfigureDefaultProducer(System.Action{Confluent.Kafka.ProducerConfig})">
+            <summary>
+            Configures the default <see cref="T:Confluent.Kafka.ProducerConfig"/> that will be used for all producers created by the factory
+            </summary>
+            <remarks>This is applied <b>after</b> the default client configuration</remarks>
+            <param name="configure">The configuration to apply</param>
+            <returns>This <see cref="T:Cheetah.Kafka.ClientFactoryOptions"/> instance for method chaining</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.ClientFactoryOptions.ConfigureDefaultConsumer(System.Action{Confluent.Kafka.ConsumerConfig})">
+            <summary>
+            Configures the default <see cref="T:Confluent.Kafka.ConsumerConfig"/> that will be used for all consumers created by the factory
+            </summary>
+            <remarks>This is applied <b>after</b> the default client configuration</remarks>
+            <param name="configure">The configuration to apply</param>
+            <returns>This <see cref="T:Cheetah.Kafka.ClientFactoryOptions"/> instance for method chaining</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.ClientFactoryOptions.ConfigureDefaultAdminClient(System.Action{Confluent.Kafka.AdminClientConfig})">
+            <summary>
+            Configures the default <see cref="T:Confluent.Kafka.AdminClientConfig"/> that will be used for all admin clients created by the factory
+            </summary>
+            <remarks>This is applied <b>after</b> the default client configuration</remarks>
+            <param name="configure">The configuration to apply</param>
+            <returns>This <see cref="T:Cheetah.Kafka.ClientFactoryOptions"/> instance for method chaining</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.ClientFactoryOptions.ConfigureDefaultSerializerProvider(System.Func{System.IServiceProvider,Cheetah.Kafka.Serdes.ISerializerProvider})">
+            <summary>
+            Configures the default SerializerProviderFactory that will be used for all clients created by the factory
+            </summary>
+            <param name="serializerProviderFactory">The factory method for creating the default serializer provider.</param>
+            <returns>This <see cref="T:Cheetah.Kafka.ClientFactoryOptions"/> instance for method chaining</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.ClientFactoryOptions.ConfigureDefaultSerializerProvider(Cheetah.Kafka.Serdes.ISerializerProvider)">
+            <summary>
+            Configures the default SerializerProvider that will be used for all clients created by the factory
+            </summary>
+            <param name="serializerProvider">The serializer provider to be used as default.</param>
+            <returns>This <see cref="T:Cheetah.Kafka.ClientFactoryOptions"/> instance for method chaining</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.ClientFactoryOptions.ConfigureDefaultDeserializerProvider(System.Func{System.IServiceProvider,Cheetah.Kafka.Serdes.IDeserializerProvider})">
+            <summary>
+            Configures the default DeserializerProviderFactory that will be used for all clients created by the factory
+            </summary>
+            <param name="deserializerProviderFactory">The factory method for creating the default deserializer provider.</param>
+            <returns>This <see cref="T:Cheetah.Kafka.ClientFactoryOptions"/> instance for method chaining</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.ClientFactoryOptions.ConfigureDefaultDeserializerProvider(Cheetah.Kafka.Serdes.IDeserializerProvider)">
+            <summary>
+            Configures the default DeserializerProvider that will be used for all clients created by the factory
+            </summary>
+            <param name="deserializerProvider">The deserializer provider to be used as default.</param>
+            <returns>This <see cref="T:Cheetah.Kafka.ClientFactoryOptions"/> instance for method chaining</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.ClientFactoryOptions.MergeActions``1(System.Action{``0}[])">
+            <summary>
+            Merges multiple <see cref="T:System.Action`1"/> into a single <see cref="T:System.Action`1"/>
+            </summary>
+            <param name="actions">The actions to merge</param>
+            <typeparam name="T">The type that the action should operate on</typeparam>
+            <returns>The merged action</returns>
+        </member>
+        <member name="T:Cheetah.Kafka.ClientOptions`2">
+            <summary>
+            Represents options for configuring a client.
+            </summary>
+            <typeparam name="TConfig">The type of configuration for the client.</typeparam>
+            <typeparam name="TBuilder">The type of builder for the client.</typeparam>
+        </member>
+        <member name="M:Cheetah.Kafka.ClientOptions`2.ConfigureClient(System.Action{`0})">
+            <summary>
+            Configures the client with the provided action.
+            </summary>
+            <param name="configureAction">The action to configure the client.</param>
+        </member>
+        <member name="M:Cheetah.Kafka.ClientOptions`2.ConfigureBuilder(System.Action{`1})">
+            <summary>
+            Configures the client builder with the provided action.
+            </summary>
+            <param name="builderAction">The action to configure the client builder.</param>
+        </member>
+        <member name="T:Cheetah.Kafka.ConsumerOptions`2">
+            <summary>
+            Represents options for configuring a Kafka consumer.
+            </summary>
+            <typeparam name="TKey">The type of the consumer key.</typeparam>
+            <typeparam name="TValue">The type of the consumer value.</typeparam>
+        </member>
+        <member name="M:Cheetah.Kafka.ConsumerOptions`2.SetValueDeserializer(Confluent.Kafka.IDeserializer{`1})">
+            <summary>
+            Sets the value deserializer for the consumer.
+            </summary>
+            <param name="valueDeserializer">The value deserializer to be used for the consumer.</param>
+        </member>
+        <member name="M:Cheetah.Kafka.ConsumerOptions`2.SetKeyDeserializer(Confluent.Kafka.IDeserializer{`0})">
+            <summary>
+            Sets the key deserializer for the consumer.
+            </summary>
+            <param name="keyDeserializer">The key deserializer to be used for the consumer.</param>
+        </member>
+        <member name="T:Cheetah.Kafka.ConsumerOptionsBuilder`2">
+            <summary>
+            Builder for configuring <see cref="T:Cheetah.Kafka.ConsumerOptions`2"/>.
+            </summary>
+            <typeparam name="TKey">The type of the consumer key.</typeparam>
+            <typeparam name="TValue">The type of the consumer value.</typeparam>
+        </member>
+        <member name="M:Cheetah.Kafka.ConsumerOptionsBuilder`2.SetValueDeserializer(System.Func{System.IServiceProvider,Confluent.Kafka.IDeserializer{`1}})">
+            <summary>
+            Sets the value deserializer factory method.
+            </summary>
+            <param name="valueDeserializerFactory">The factory method for creating the value deserializer.</param>
+            <returns>The builder instance.</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.ConsumerOptionsBuilder`2.SetValueDeserializer(Confluent.Kafka.IDeserializer{`1})">
+            <summary>
+            Sets the value deserializer.
+            </summary>
+            <param name="valueDeserializer">The value deserializer.</param>
+            <returns>The builder instance.</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.ConsumerOptionsBuilder`2.SetKeyDeserializer(System.Func{System.IServiceProvider,Confluent.Kafka.IDeserializer{`0}})">
+            <summary>
+            Sets the key deserializer factory method.
+            </summary>
+            <param name="keyDeserializerFactory">The factory method for creating the key deserializer.</param>
+            <returns>The builder instance.</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.ConsumerOptionsBuilder`2.SetKeyDeserializer(Confluent.Kafka.IDeserializer{`0})">
+            <summary>
+            Sets the key deserializer.
+            </summary>
+            <param name="keyDeserializer">The key deserializer.</param>
+            <returns>The builder instance.</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.ConsumerOptionsBuilder`2.ConfigureClient(System.Action{Confluent.Kafka.ConsumerConfig})">
+            <summary>
+            Configures the consumer with the provided action.
+            </summary>
+            <param name="configureAction">The action to configure the consumer.</param>
+            <returns>The builder instance.</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.ConsumerOptionsBuilder`2.ConfigureBuilder(System.Action{Confluent.Kafka.ConsumerBuilder{`0,`1}})">
+            <summary>
+            Configures the consumer builder with the provided action.
+            </summary>
+            <param name="builderAction">The action to configure the consumer builder.</param>
+            <returns>The builder instance.</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.ConsumerOptionsBuilder`2.Build(System.IServiceProvider)">
+            <summary>
+            Builds the consumer options.
+            </summary>
+            <param name="serviceProvider">The service provider.</param>
+            <returns>The configured consumer options.</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.ConsumerOptionsBuilder`2.Build">
+            <summary>
+            Builds the consumer options.
+            </summary>
+            <returns>The configured consumer options.</returns>
+        </member>
+        <member name="T:Cheetah.Kafka.ProducerOptions`2">
+            <summary>
+            Represents options for configuring a Kafka producer.
+            </summary>
+            <typeparam name="TKey">The type of the producer key.</typeparam>
+            <typeparam name="TValue">The type of the producer value.</typeparam>
+        </member>
+        <member name="M:Cheetah.Kafka.ProducerOptions`2.SetValueSerializer(Confluent.Kafka.ISerializer{`1})">
+            <summary>
+            Sets the value serializer for the producer.
+            </summary>
+            <param name="valueSerializer">The serializer to be used for the producer.</param>
+        </member>
+        <member name="M:Cheetah.Kafka.ProducerOptions`2.SetKeySerializer(Confluent.Kafka.ISerializer{`0})">
+            <summary>
+            Sets the key serializer for the producer.
+            </summary>
+            <param name="keySerializer">The serializer to be used for the producer.</param>
+        </member>
+        <member name="T:Cheetah.Kafka.ProducerOptionsBuilder`2">
+            <summary>
+            Builder for configuring <see cref="T:Cheetah.Kafka.ProducerOptions`2"/>.
+            </summary>
+            <typeparam name="TKey">The type of the producer key.</typeparam>
+            <typeparam name="TValue">The type of the producer value.</typeparam>
+        </member>
+        <member name="M:Cheetah.Kafka.ProducerOptionsBuilder`2.SetValueSerializer(System.Func{System.IServiceProvider,Confluent.Kafka.ISerializer{`1}})">
+            <summary>
+            Sets the value serializer factory method.
+            </summary>
+            <param name="valueSerializerFactory">The factory method for creating the value serializer.</param>
+            <returns>The builder instance.</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.ProducerOptionsBuilder`2.SetValueSerializer(Confluent.Kafka.ISerializer{`1})">
+            <summary>
+            Sets the value serializer.
+            </summary>
+            <param name="valueSerializer">The value serializer.</param>
+            <returns>The builder instance.</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.ProducerOptionsBuilder`2.SetKeySerializer(System.Func{System.IServiceProvider,Confluent.Kafka.ISerializer{`0}})">
+            <summary>
+            Sets the key serializer factory method.
+            </summary>
+            <param name="keySerializerFactory">The factory method for creating the key serializer.</param>
+            <returns>The builder instance.</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.ProducerOptionsBuilder`2.SetKeySerializer(Confluent.Kafka.ISerializer{`0})">
+            <summary>
+            Sets the key serializer.
+            </summary>
+            <param name="keySerializer">The key serializer.</param>
+            <returns>The builder instance.</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.ProducerOptionsBuilder`2.ConfigureClient(System.Action{Confluent.Kafka.ProducerConfig})">
+            <summary>
+            Configures the producer with the provided action.
+            </summary>
+            <param name="configureAction">The action to configure the producer.</param>
+            <returns>The builder instance.</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.ProducerOptionsBuilder`2.ConfigureBuilder(System.Action{Confluent.Kafka.ProducerBuilder{`0,`1}})">
+            <summary>
+            Configures the producer builder with the provided action.
+            </summary>
+            <param name="builderAction">The action to configure the producer builder.</param>
+            <returns>The builder instance.</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.ProducerOptionsBuilder`2.Build(System.IServiceProvider)">
+            <summary>
+            Builds the producer options.
+            </summary>
+            <param name="serviceProvider">The service provider.</param>
+            <returns>The configured producer options.</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.ProducerOptionsBuilder`2.Build">
+            <summary>
+            Builds the producer options.
+            </summary>
+            <returns>The configured producer options.</returns>
+        </member>
+        <member name="T:Cheetah.Kafka.Serdes.IDeserializerProvider">
+            <summary>
+            Interface for the deserializer provider to be used to deserialize Kafka Messages
+            </summary>
+        </member>
+        <member name="M:Cheetah.Kafka.Serdes.IDeserializerProvider.GetValueDeserializer``1">
+            <summary>
+            Get a value deserializer
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns><see cref="T:Confluent.Kafka.IDeserializer`1"/></returns>
+        </member>
+        <member name="M:Cheetah.Kafka.Serdes.IDeserializerProvider.GetKeyDeserializer``1">
+            <summary>
+            Get a key deserializer
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns><see cref="T:Confluent.Kafka.IDeserializer`1"/></returns>
+        </member>
+        <member name="T:Cheetah.Kafka.Serdes.ISerializerProvider">
+            <summary>
+            Interface for the serializer provider to be used to serialize Kafka Messages
+            </summary>
+        </member>
+        <member name="M:Cheetah.Kafka.Serdes.ISerializerProvider.GetValueSerializer``1">
+            <summary>
+            Get a value serializer
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns><see cref="T:Confluent.Kafka.ISerializer`1"/></returns>
+        </member>
+        <member name="M:Cheetah.Kafka.Serdes.ISerializerProvider.GetKeySerializer``1">
+            <summary>
+            Get a key serializer
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns><see cref="T:Confluent.Kafka.ISerializer`1"/></returns>
+        </member>
+        <member name="T:Cheetah.Kafka.Serdes.Utf8DeserializerProvider">
+            <summary>
+            Provides UTF-8 serialization for Kafka messages.
+            </summary>
+        </member>
+        <member name="M:Cheetah.Kafka.Serdes.Utf8DeserializerProvider.FromServices">
+            <summary>
+            Creates an instance of <see cref="T:Cheetah.Kafka.Serdes.Utf8DeserializerProvider"/> from services.
+            </summary>
+            <returns>A function that creates an <see cref="T:Cheetah.Kafka.Serdes.Utf8DeserializerProvider"/> instance.</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.Serdes.Utf8DeserializerProvider.GetValueDeserializer``1">
+            <summary>
+            Gets a deserializer for the specified type using UTF-8 encoding.
+            </summary>
+            <typeparam name="T">The type of object to deserialize.</typeparam>
+            <returns>An instance of <see cref="T:Cheetah.Kafka.Util.Utf8JsonDeserializer`1"/>.</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.Serdes.Utf8DeserializerProvider.GetKeyDeserializer``1">
+            <summary>
+            Gets a deserializer for the specified type using UTF-8 encoding.
+            </summary>
+            <typeparam name="T">The type of object to deserialize.</typeparam>
+            <returns>An instance of <see cref="T:Cheetah.Kafka.Util.Utf8JsonDeserializer`1"/>.</returns>
+        </member>
+        <member name="T:Cheetah.Kafka.Serdes.Utf8SerializerProvider">
+            <summary>
+            Provides UTF-8 serialization for Kafka messages.
+            </summary>
+        </member>
+        <member name="M:Cheetah.Kafka.Serdes.Utf8SerializerProvider.FromServices">
+            <summary>
+            Creates an instance of <see cref="T:Cheetah.Kafka.Serdes.Utf8SerializerProvider"/> from services.
+            </summary>
+            <returns>A function that creates an <see cref="T:Cheetah.Kafka.Serdes.Utf8SerializerProvider"/> instance.</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.Serdes.Utf8SerializerProvider.GetValueSerializer``1">
+            <summary>
+            Gets a serializer for the specified type using UTF-8 encoding.
+            </summary>
+            <typeparam name="T">The type of object to serialize.</typeparam>
+            <returns>An instance of <see cref="T:Cheetah.Kafka.Util.Utf8JsonSerializer`1"/>.</returns>
+        </member>
+        <member name="M:Cheetah.Kafka.Serdes.Utf8SerializerProvider.GetKeySerializer``1">
+            <summary>
+            Gets a serializer for the specified type using UTF-8 encoding.
+            </summary>
+            <typeparam name="T">The type of object to serialize.</typeparam>
+            <returns>An instance of <see cref="T:Cheetah.Kafka.Util.Utf8JsonSerializer`1"/>.</returns>
+        </member>
+        <member name="T:Cheetah.Kafka.Testing.KafkaTestClientFactory">
+            <summary>
+            A factory for creating <see cref="T:Cheetah.Kafka.Testing.IKafkaTestReader`2"/> and <see cref="T:Cheetah.Kafka.Testing.IKafkaTestWriter`2"/> instances.
+            </summary>
+            <remarks>
+            This should only be used for testing purposes.
+            </remarks>
+        </member>
+        <member name="P:Cheetah.Kafka.Testing.KafkaTestClientFactory.ClientFactory">
+            <summary>
+            The internal <see cref="T:Cheetah.Kafka.KafkaClientFactory"/> used to create Writers and Readers.
+            </summary>
+            <remarks>
+            This property is exposed to allow more advanced functionality than <see cref="T:Cheetah.Kafka.Testing.KafkaTestClientFactory"/> and the clients it creates
+            provides and should <b>NOT</b> be used in production to generate actual clients. Use <see cref="M:Cheetah.Kafka.Extensions.ServiceCollectionExtensions.AddCheetahKafka(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action{Cheetah.Kafka.ClientFactoryOptions})"/> instead.
+            </remarks>
+        </member>
+        <member name="M:Cheetah.Kafka.Testing.KafkaTestClientFactory.Create(Microsoft.Extensions.Configuration.IConfiguration,Cheetah.Kafka.ClientFactoryOptions,Cheetah.Auth.Authentication.ITokenService,Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            Creates a <see cref="T:Cheetah.Kafka.Testing.KafkaTestClientFactory"/> using the provided <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/> instance
+            </summary>
+            <param name="configuration">The configuration to use</param>
+            <param name="tokenService">An optional token service, used to retrieve access tokens</param>
+            <param name="loggerFactory">An optional logger factory</param>
+            <param name="options">An optional </param>
+            <returns></returns>
+        </member>
+        <member name="M:Cheetah.Kafka.Testing.KafkaTestClientFactory.Create(Cheetah.Kafka.Configuration.KafkaConfig,Cheetah.Kafka.ClientFactoryOptions,Cheetah.Auth.Authentication.ITokenService,Microsoft.Extensions.Logging.ILoggerFactory,Cheetah.Kafka.Serdes.ISerializerProvider,Cheetah.Kafka.Serdes.IDeserializerProvider)">
+            <inheritdoc cref="M:Cheetah.Kafka.Testing.KafkaTestClientFactory.Create(Microsoft.Extensions.Configuration.IConfiguration,Cheetah.Kafka.ClientFactoryOptions,Cheetah.Auth.Authentication.ITokenService,Microsoft.Extensions.Logging.ILoggerFactory)"/>
+        </member>
+        <member name="M:Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter``1(System.String,Confluent.Kafka.ISerializer{``0})">
+            <summary>
+            Creates an <see cref="T:Cheetah.Kafka.Testing.IKafkaTestWriter`2"/> for the provided topic. This writer will not produce keys.
+            </summary>
+            <param name="topic">The topic to produce messages to</param>
+            <param name="valueSerializer">Optional valueSerializer. Defaults to valueSerializer from ISerializerProvider provided in the constructor</param>
+            <typeparam name="T">The type of messages to produce</typeparam>
+            <returns>The created <see cref="T:Cheetah.Kafka.Testing.IKafkaTestWriter`2"/></returns>
+            <exception cref="T:System.ArgumentException">Thrown if the provided topic is invalid</exception>
+        </member>
+        <member name="M:Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter``2(System.String,System.Func{``1,``0},Confluent.Kafka.ISerializer{``0},Confluent.Kafka.ISerializer{``1})">
+            <summary>
+            Creates an <see cref="T:Cheetah.Kafka.Testing.IKafkaTestWriter`2"/> for the provided topic.
+            </summary>
+            <param name="topic">The topic to produce messages to</param>
+            <param name="keyFunction">A function which produces a key for the provided message</param>
+            <param name="keySerializer">Optional keySerializer. Defaults to keySerializer from ISerializerProvider provided in the constructor</param>
+            <param name="valueSerializer">Optional valueSerializer. Defaults to valueSerializer from ISerializerProvider provided in the constructor</param>
+            <typeparam name="TKey">The type of key to produce</typeparam>
+            <typeparam name="T">The type of messages to produce</typeparam>
+            <returns>The created <see cref="T:Cheetah.Kafka.Testing.IKafkaTestWriter`2"/></returns>
+            <exception cref="T:System.ArgumentException">Thrown if the provided topic is invalid</exception>
+        </member>
+        <member name="M:Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter``2(System.String,Confluent.Kafka.ISerializer{``0},Confluent.Kafka.ISerializer{``1})">
+            <summary>
+            Creates an <see cref="T:Cheetah.Kafka.Testing.IKafkaTestWriter`2"/> for the provided topic.
+            </summary>
+            <param name="topic">The topic to produce messages to</param>
+            <param name="keySerializer">Optional keySerializer. Defaults to keySerializer from ISerializerProvider provided in the constructor</param>
+            <param name="valueSerializer">Optional valueSerializer. Defaults to valueSerializer from ISerializerProvider provided in the constructor</param>
+            <typeparam name="TKey">The type of key to produce</typeparam>
+            <typeparam name="T">The type of messages to produce</typeparam>
+            <returns>The created <see cref="T:Cheetah.Kafka.Testing.IKafkaTestWriter`2"/></returns>
+            <exception cref="T:System.ArgumentException">Thrown if the provided topic is invalid</exception>
+        </member>
+        <member name="M:Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestReader``1(System.String,System.String,Confluent.Kafka.IDeserializer{``0})">
+            <summary>
+            Creates an <see cref="T:Cheetah.Kafka.Testing.IKafkaTestReader`2"/> for the provided topic. This reader will not read keys.
+            </summary>
+            <param name="topic">The topic to read messages from. </param>
+            <param name="groupId">Optional group id to use. Defaults to a random Guid.</param>
+            <param name="valueDeserializer">Optional valueDeserializer. Defaults to valueDeserializer from IDeserializerProvider provided in the constructor</param>
+            <typeparam name="T">The type of message to read</typeparam>
+            <returns>The created <see cref="T:Cheetah.Kafka.Testing.IKafkaTestReader`2"/></returns>
+        </member>
+        <member name="M:Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestReader``2(System.String,System.String,Confluent.Kafka.IDeserializer{``0},Confluent.Kafka.IDeserializer{``1})">
+            <summary>
+            Creates an <see cref="T:Cheetah.Kafka.Testing.IKafkaTestReader`2"/> for the provided topic.
+            </summary>
+            <param name="topic">The topic to read messages from</param>
+            <param name="groupId">Optional group id to use. Defaults to a random Guid.</param>
+            <param name="keyDeserializer">Optional keyDeserializer. Defaults to keyDeserializer from IDeserializerProvider provided in the constructor</param>
+            <param name="valueDeserializer">Optional valueDeserializer. Defaults to valueDeserializer from IDeserializerProvider provided in the constructor</param>
+            <typeparam name="TKey">The type of key to read</typeparam>
+            <typeparam name="TValue">The type of message to read</typeparam>
+            <returns>The created <see cref="T:Cheetah.Kafka.Testing.IKafkaTestReader`2"/></returns>
+        </member>
+        <member name="T:Cheetah.Kafka.Testing.IKafkaTestReader`2">
+            <inheritdoc cref="T:Cheetah.Kafka.Testing.KafkaTestReader`2"/>
+        </member>
+        <member name="M:Cheetah.Kafka.Testing.IKafkaTestReader`2.ReadMessages(System.Int32,System.TimeSpan)">
+            <inheritdoc cref="M:Cheetah.Kafka.Testing.KafkaTestReader`2.ReadMessages(System.Int32,System.TimeSpan)"/>
+        </member>
+        <member name="M:Cheetah.Kafka.Testing.IKafkaTestReader`2.VerifyNoMoreMessages(System.TimeSpan)">
+            <inheritdoc cref="M:Cheetah.Kafka.Testing.KafkaTestReader`2.VerifyNoMoreMessages(System.TimeSpan)"/>
+        </member>
+        <member name="T:Cheetah.Kafka.Testing.KafkaTestReader`2">
+            <summary>
+            A simple Kafka client used to read messages from a Kafka topic.
+            </summary>
+            <remarks>
+            This should only be used for testing purposes, and has no performance guarantees.
+            </remarks>
+            <typeparam name="TKey">The type of key that read messages have</typeparam>
+            <typeparam name="T">The type of message to read</typeparam>
+        </member>
+        <member name="M:Cheetah.Kafka.Testing.KafkaTestReader`2.ReadMessages(System.Int32,System.TimeSpan)">
+            <summary>
+            Reads up to <paramref name="count"/> messages from the configured Kafka topic.
+            </summary>
+            <remarks>
+            Usually this method will require a rather large timeout, especially if it is the first read in a test.
+            This recommendation is based on the fact that the tested job usually needs some time to start up.
+            </remarks>
+            <param name="count">The amount of messages to write</param>
+            <param name="timeout">The maximum time to wait for the required number of messages to be available</param>
+            <returns>The read messages</returns>
+            <exception cref="T:System.InvalidOperationException">Thrown when the reader could not read enough messages within the allotted time</exception>
+        </member>
+        <member name="M:Cheetah.Kafka.Testing.KafkaTestReader`2.VerifyNoMoreMessages(System.TimeSpan)">
+            <summary>
+            Tests that there are no more available messages.
+            </summary>
+            <remarks>
+            This method is usually useful in conjunction with the <see cref="M:Cheetah.Kafka.Testing.KafkaTestReader`2.ReadMessages(System.Int32,System.TimeSpan)"/> method in order to ensure,
+            that we read not just the expected amount of messages, but also verify that there are no other, unexpected messages.
+            </remarks>
+            <param name="timeout">The amount of time to listen for unexpected messages.</param>
+            <returns><c>true</c> if no other messages were found after the timeout, otherwise <c>false</c></returns>
+        </member>
+        <member name="T:Cheetah.Kafka.Testing.IKafkaTestWriter`2">
+            <inheritdoc cref="T:Cheetah.Kafka.Testing.KafkaTestWriter`2"/>
+        </member>
+        <member name="M:Cheetah.Kafka.Testing.IKafkaTestWriter`2.WriteAsync(`1[])">
+            <inheritdoc cref="M:Cheetah.Kafka.Testing.KafkaTestWriter`2.WriteAsync(`1[])"/>
+        </member>
+        <member name="M:Cheetah.Kafka.Testing.IKafkaTestWriter`2.WriteAsync(Confluent.Kafka.Message{`0,`1}[])">
+            <inheritdoc cref="M:Cheetah.Kafka.Testing.KafkaTestWriter`2.WriteAsync(Confluent.Kafka.Message{`0,`1}[])"/>
+        </member>
+        <member name="T:Cheetah.Kafka.Testing.KafkaTestWriter`2">
+            <summary>
+            A simple Kafka client used to write messages to a Kafka topic.
+            </summary>
+            <remarks>
+            This should only be used for testing purposes, and has no performance guarantees.
+            </remarks>
+            <typeparam name="TKey">The type of key to produce</typeparam>
+            <typeparam name="T">The type of value to produce</typeparam>
+        </member>
+        <member name="M:Cheetah.Kafka.Testing.KafkaTestWriter`2.WriteAsync(`1[])">
+            <summary>
+            Publishes multiple messages to Kafka
+            </summary>
+            <param name="messages">The collection of messages to publish</param>
+            <exception cref="T:System.ArgumentException">Thrown if the provided collection of messages is empty</exception>
+        </member>
+        <member name="M:Cheetah.Kafka.Testing.KafkaTestWriter`2.WriteAsync(Confluent.Kafka.Message{`0,`1}[])">
+            <summary>
+            Publishes multiple messages to Kafka
+            </summary>
+            <param name="messages">The collection of messages to publish</param>
+            <exception cref="T:System.ArgumentException">Thrown if the provided collection of messages is empty</exception>
+        </member>
+        <member name="T:Cheetah.Kafka.Util.Utf8JsonDeserializer`1">
+            <summary>
+            Serializer which serializes data with UTF8-encoding
+            </summary>
+            <typeparam name="T">The type to (de)serialize</typeparam>
+        </member>
+        <member name="M:Cheetah.Kafka.Util.Utf8JsonDeserializer`1.Deserialize(System.ReadOnlySpan{System.Byte},System.Boolean,Confluent.Kafka.SerializationContext)">
+            <summary>
+            Deserializes the input data
+            </summary>
+            <param name="data">The data to deserialize</param>
+            <param name="isNull">Whether the data is null</param>
+            <param name="context">The current serialization context</param>
+            <returns>A <typeparamref name="T"/> instance obtained from deserializing the input <paramref name="data"/>.</returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="T:Cheetah.Kafka.Util.Utf8JsonSerializer`1">
+            <summary>
+            Serializer which serializes data with UTF8-encoding
+            </summary>
+            <typeparam name="T">The type to serialize</typeparam>
+        </member>
+        <member name="M:Cheetah.Kafka.Util.Utf8JsonSerializer`1.Serialize(`0,Confluent.Kafka.SerializationContext)">
+            <summary>
+            Serializes the input data using System.Text.Json and UTF8-encoding
+            </summary>
+            <param name="data">The data to serialize</param>
+            <param name="context">The current serialization context</param>
+            <returns>The serialized data as a byte-array</returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cheetah.Auth</name>
+    </assembly>
+    <members>
+        <member name="T:Cheetah.Auth.Authentication.CachedTokenProvider">
+            <summary>
+            CachedTokenProvider manages the retrieval and caching of OAuth2 tokens, optimizing performance by reducing unnecessary token requests.
+            Refreshing of tokens is handled in a separate thread, ensuring a consistent supply of valid tokens.
+            IMPORTANT: Before calling RequestAccessToken(), ensure to invoke StartAsync() unless you're utilizing Dependency Injection, where this process is managed by the builder.RunAsync() method.
+            </summary>
+        </member>
+        <member name="M:Cheetah.Auth.Authentication.CachedTokenProvider.#ctor(Cheetah.Auth.Authentication.ICachableTokenProvider,System.TimeSpan,System.TimeSpan,System.TimeSpan,Microsoft.Extensions.Logging.ILogger{Cheetah.Auth.Authentication.CachedTokenProvider})">
+            <summary>
+            Create a new instance of <see cref="T:Cheetah.Auth.Authentication.CachedTokenProvider"/>.
+            </summary>
+            <param name="tokenProvider">Token provider used to fetch a new token.</param>
+            <param name="retryInterval">Interval between retry attempts.</param>
+            <param name="earlyRefresh">Time before the token's actual expiry when it should be refreshed.</param>
+            <param name="earlyExpiry">Time before the token's actual expiry when it should be considered expired.</param>
+            <param name="logger">The logger to be used for logging.</param>
+        </member>
+        <member name="M:Cheetah.Auth.Authentication.CachedTokenProvider.#ctor(Cheetah.Auth.Configuration.OAuth2Config,Cheetah.Auth.Authentication.ICachableTokenProvider,Microsoft.Extensions.Logging.ILogger{Cheetah.Auth.Authentication.CachedTokenProvider})">
+            <summary>
+            Create a new instance of <see cref="T:Cheetah.Auth.Authentication.CachedTokenProvider"/> with default values.
+            </summary>
+            <param name="config">OAuth2 configuration</param>
+            <param name="tokenProvider">The token provider used to fetch a new token.</param>
+            <param name="logger">The logger to be used for logging.</param>
+        </member>
+        <member name="M:Cheetah.Auth.Authentication.CachedTokenProvider.StartAsync">
+            <summary>
+            Retrieves the token and starts the token refresh loop.
+            IMPORTANT: Before calling RequestAccessToken(), ensure to invoke StartAsync() unless you're utilizing Dependency Injection, where this process is managed by the builder.RunAsync() method.
+            </summary>
+            <exception cref="T:Cheetah.Auth.Authentication.OAuth2TokenException"></exception>
+        </member>
+        <member name="M:Cheetah.Auth.Authentication.CachedTokenProvider.RequestAccessTokenAsync(System.Threading.CancellationToken)">
+            <summary>
+            Requests the access token asynchronously.
+            </summary>
+            <returns>Returns the access token and the expiry of the token</returns>
+            <exception cref="T:Cheetah.Auth.Authentication.OAuth2TokenException"></exception>
+        </member>
+        <member name="M:Cheetah.Auth.Authentication.CachedTokenProvider.Dispose">
+            <summary>
+            Disposes of the token provider and cancels the token refresh loop.
+            </summary>
+        </member>
+        <member name="T:Cheetah.Auth.Authentication.ICachableTokenProvider">
+            <summary>
+            Interface for a token provider that returns a token response.
+            </summary>
+        </member>
+        <member name="M:Cheetah.Auth.Authentication.ICachableTokenProvider.GetTokenResponse(System.Threading.CancellationToken)">
+            <summary>
+            Get a token response.
+            </summary>
+            <param name="cancellationToken"></param>
+            <returns>TokenResponse</returns>
+        </member>
+        <member name="T:Cheetah.Auth.Authentication.ITokenService">
+            <summary>
+            Service for retrieving OAuth2 access tokens
+            </summary>
+        </member>
+        <member name="M:Cheetah.Auth.Authentication.ITokenService.RequestAccessTokenAsync(System.Threading.CancellationToken)">
+            <summary>
+            Request an access token asynchronously.
+            </summary>
+            <returns>A tuple containing the access token and its absolute expiration in epoch millis </returns>
+        </member>
+        <member name="M:Cheetah.Auth.Authentication.ITokenService.StartAsync">
+            <summary>
+            Start the token service.
+            IMPORTANT: Before calling RequestAccessToken(), ensure to invoke StartAsync() unless you're utilizing Dependency Injection, where this process is managed by the builder.RunAsync() method.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cheetah.Auth.Authentication.ITokenService.Dispose">
+            <summary>
+            Stop the token service.
+            </summary>
+        </member>
+        <member name="T:Cheetah.Auth.Authentication.OAuth2TokenException">
+            <summary>
+            Exception thrown when an OAuth2 token could not be retrieved
+            </summary>
+        </member>
+        <member name="M:Cheetah.Auth.Authentication.OAuth2TokenException.#ctor(System.String)">
+            <summary>
+            Create a new instance of <see cref="T:Cheetah.Auth.Authentication.OAuth2TokenException"/>
+            </summary>
+            <param name="error">An error message describing what went wrong</param>
+        </member>
+        <member name="T:Cheetah.Auth.Authentication.OAuthTokenProvider">
+            <summary>
+            OAuth2 token provider to retrieve OAuth2 tokens.
+            </summary>
+        </member>
+        <member name="M:Cheetah.Auth.Authentication.OAuthTokenProvider.#ctor(Cheetah.Auth.Configuration.OAuth2Config,System.Net.Http.IHttpClientFactory)">
+            <summary>
+            Creates a new instance of <see cref="T:Cheetah.Auth.Authentication.OAuthTokenProvider"/>
+            </summary>
+            <param name="config">OAuth2 configuration</param>
+            <param name="httpClientFactory">httpClientFactory to create a httpClient</param>
+        </member>
+        <member name="M:Cheetah.Auth.Authentication.OAuthTokenProvider.GetTokenResponse(System.Threading.CancellationToken)">
+            <summary>
+            Get a token response asynchronously.
+            </summary>
+            <param name="cancellationToken"></param>
+            <returns>TokenResponse</returns>
+        </member>
+        <member name="T:Cheetah.Auth.Authentication.StartUpTokenService">
+            <summary>
+            Background service responsible for starting the token service.
+            </summary>
+        </member>
+        <member name="M:Cheetah.Auth.Authentication.StartUpTokenService.#ctor(Cheetah.Auth.Authentication.ITokenService)">
+            <summary>
+            Creates a new instance of <see cref="T:Cheetah.Auth.Authentication.StartUpTokenService"/>.
+            </summary>
+            <param name="tokenService"></param>
+        </member>
+        <member name="M:Cheetah.Auth.Authentication.StartUpTokenService.ExecuteAsync(System.Threading.CancellationToken)">
+            <summary>
+            Starts the token service asynchronously.
+            </summary>
+            <param name="stoppingToken">The token that can be used to request cancellation of the background operation</param>
+        </member>
+        <member name="T:Cheetah.Auth.Authentication.TokenWithExpiry">
+            <summary>
+            Represents a token with an expiry time.
+            </summary>
+        </member>
+        <member name="P:Cheetah.Auth.Authentication.TokenWithExpiry.AccessToken">
+            <summary>
+            The access token.
+            </summary>
+        </member>
+        <member name="P:Cheetah.Auth.Authentication.TokenWithExpiry.Expires">
+            <summary>
+            Expiry time of the token.
+            </summary>
+        </member>
+        <member name="M:Cheetah.Auth.Authentication.TokenWithExpiry.#ctor(System.String,System.DateTimeOffset)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cheetah.Auth.Authentication.TokenWithExpiry"/> class.
+            </summary>
+            <param name="accessToken">The access token.</param>
+            <param name="expires">The expiry time of the token.</param>
+        </member>
+        <member name="T:Cheetah.Auth.Configuration.OAuth2Config">
+            <summary>
+            Configuration for OAuth2 authentication
+            </summary>
+        </member>
+        <member name="P:Cheetah.Auth.Configuration.OAuth2Config.TokenEndpoint">
+            <summary>
+            The endpoint to retrieve the token from
+            </summary>
+        </member>
+        <member name="P:Cheetah.Auth.Configuration.OAuth2Config.ClientId">
+            <summary>
+            The client id to use when authenticating
+            </summary>
+        </member>
+        <member name="P:Cheetah.Auth.Configuration.OAuth2Config.ClientSecret">
+            <summary>
+            The client secret to use when authenticating
+            </summary>
+        </member>
+        <member name="P:Cheetah.Auth.Configuration.OAuth2Config.Scope">
+            <summary>
+            Optional scope to request when authenticating
+            </summary>
+        </member>
+        <member name="P:Cheetah.Auth.Configuration.OAuth2Config.RetryInterval">
+            <summary>
+            The interval between retry attempts to get a token
+            </summary>
+        </member>
+        <member name="P:Cheetah.Auth.Configuration.OAuth2Config.EarlyRefresh">
+            <summary>
+            The time before the token's actual expiry when it should be refreshed.
+            </summary>
+        </member>
+        <member name="P:Cheetah.Auth.Configuration.OAuth2Config.EarlyExpiry">
+            <summary>
+            The time before the token's actual expiry when it should be considered expired.
+            </summary>
+        </member>
+        <member name="M:Cheetah.Auth.Configuration.OAuth2Config.Validate">
+            <summary>
+            Validates that configuration has minimum values
+            </summary>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="T:Cheetah.Auth.Extensions.ServiceCollectionExtensions">
+            <summary>
+            Extension method for adding Cheetah auth keyed token service to IServiceCollection
+            </summary>
+        </member>
+        <member name="M:Cheetah.Auth.Extensions.ServiceCollectionExtensions.TryAddCheetahKeyedTokenService(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,Cheetah.Auth.Configuration.OAuth2Config)">
+            <summary>
+            Registers and configures a CachedTokenProvider and a TokenService with dependency injection,
+            utilizing a unique key for GetRequiredKeyedService, ensuring that a distinct singleton is registered for each KeyedTokenService instance.
+            </summary>
+            <param name="serviceCollection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the services to.</param>
+            <param name="key">The key used for resolving the services.</param>
+            <param name="oAuthConfig">The OAuth2 configuration.</param>
+            <returns>The modified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.</returns>
+        </member>
+        <member name="T:Cheetah.Auth.Util.DefaultHttpClientFactory">
+            <summary>
+            Default implementation of <see cref="T:System.Net.Http.IHttpClientFactory"/>
+            </summary>
+        </member>
+        <member name="M:Cheetah.Auth.Util.DefaultHttpClientFactory.CreateClient(System.String)">
+            <summary>
+            Create a <see cref="T:System.Net.Http.HttpClient"/> with the supplied name/>
+            </summary>
+            <param name="name">The name to use for the <see cref="T:System.Net.Http.HttpClient"/></param>
+            <returns>The created <see cref="T:System.Net.Http.HttpClient"/></returns>
+        </member>
+        <member name="M:Cheetah.Auth.Util.DefaultHttpClientFactory.Dispose">
+            <summary>
+            Dispose of the factory and any resources it holds
+            </summary>
+        </member>
+    </members>
+</doc>
