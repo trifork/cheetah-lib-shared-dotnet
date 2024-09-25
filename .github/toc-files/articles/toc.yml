@@ -7,6 +7,9 @@
   items:
     - name: latest
       href: Cheetah.OpenSearch/toc.yml
+    - name: v1.1.0
+      href: Cheetah.OpenSearch/v1.1.0/toc.yml
+      homepage: Cheetah.OpenSearch/v1.1.0/index.md
 - name: Cheetah.SchemaRegistry
   items:
     - name: latest
