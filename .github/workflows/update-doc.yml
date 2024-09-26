@@ -30,7 +30,7 @@ jobs:
   update-doc-api-Cheetah-Kafka:
     if: ${{ needs.api-Cheetah-Kafka.outputs.changed == 'true' }}
     needs: api-Cheetah-Kafka
-    uses: kasttrifork/cheetah-lib-shared-dotnet/.github/workflows/docfx-publish.yml@main
+    uses: trifork/cheetah-lib-shared-dotnet/.github/workflows/docfx-publish.yml@main
     with:
       project: Cheetah.Kafka
       file: .github/toc-files/api/toc.yml
@@ -59,7 +59,7 @@ jobs:
   update-doc-api-Cheetah-OpenSearch:
     if: ${{ needs.api-Cheetah-OpenSearch.outputs.changed == 'true' }}
     needs: api-Cheetah-OpenSearch
-    uses: kasttrifork/cheetah-lib-shared-dotnet/.github/workflows/docfx-publish.yml@main
+    uses: trifork/cheetah-lib-shared-dotnet/.github/workflows/docfx-publish.yml@main
     with:
       project: Cheetah.OpenSearch
       file: .github/toc-files/api/toc.yml
@@ -88,7 +88,7 @@ jobs:
   update-doc-articles-Cheetah-Kafka:
     if: ${{ needs.articles-Cheetah-Kafka.outputs.changed == 'true' }}
     needs: articles-Cheetah-Kafka
-    uses: kasttrifork/cheetah-lib-shared-dotnet/.github/workflows/docfx-publish.yml@main
+    uses: trifork/cheetah-lib-shared-dotnet/.github/workflows/docfx-publish.yml@main
     with:
       project: Cheetah.Kafka
       file: .github/toc-files/articles/toc.yml
@@ -117,7 +117,7 @@ jobs:
   update-articles-Cheetah-OpenSearch:
     if: ${{ needs.articles-Cheetah-OpenSearch.outputs.changed == 'true' }}
     needs: articles-Cheetah-OpenSearch
-    uses: kasttrifork/cheetah-lib-shared-dotnet/.github/workflows/docfx-publish.yml@main
+    uses: trifork/cheetah-lib-shared-dotnet/.github/workflows/docfx-publish.yml@main
     with:
       project: Cheetah.OpenSearch
       file: .github/toc-files/articles/toc.yml
@@ -146,7 +146,7 @@ jobs:
   update-articles-Cheetah-SchemaRegistry:
     if: ${{ needs.articles-Cheetah-SchemaRegistry.outputs.changed == 'true' }}
     needs: articles-Cheetah-SchemaRegistry
-    uses: kasttrifork/cheetah-lib-shared-dotnet/.github/workflows/docfx-publish.yml@main
+    uses: trifork/cheetah-lib-shared-dotnet/.github/workflows/docfx-publish.yml@main
     with:
       project: Cheetah.SchemaRegistry
       file: .github/toc-files/articles/toc.yml
