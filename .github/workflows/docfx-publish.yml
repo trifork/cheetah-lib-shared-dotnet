@@ -1,7 +1,29 @@
 name: Publish docfx
 
 on:
+  workflow_call:
+    inputs:
+      project:
+        required: true
+        type: string
+      file:
+        required: true
+        type: string
+
   workflow_dispatch:
+    inputs:
+      project:
+        type: choice
+        options:
+          - Cheetah.Kafka
+          - Cheetah.OpenSearch
+          - Cheetah.SchemaRegistry
+      file:
+        type: choice
+        options:
+          - .github/toc-files/articles/toc.yml
+          - .github/toc-files/api/toc.yml
+
   workflow_run:
     workflows:
       - .NET Create Release
@@ -27,34 +49,93 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Get value
+        id: get-csproj-filepath
+        shell: bash
+        run: echo "value=$(grep -Po '(?<=${{inputs.project}}:).*' ./.github/csproj-filepaths.yaml | awk '{$1=$1};1')" >> $GITHUB_OUTPUT
+
+      - name: Get project version
+        id: get-version
+        uses: trifork/cheetah-infrastructure-utils-workflows/.github/actions/versioning/get-version@main
+        with:
+          file-path: ${{ steps.get-csproj-filepath.outputs.value }}
+          prefix: "<VersionPrefix>"
+          suffix: "</VersionPrefix>"
+
+      - name: get directory
+        run: |
+            # Function to extract the desired part
+            extract_part() {
+              local input="$1"
+              echo "$input" | awk -F'/' '{print $(NF-1)}'
+            }
+
+            # Extracting from string
+            dir=$(extract_part "${{ inputs.file }}")
+
+            echo $dir
+            echo "directory=$dir" >> $GITHUB_ENV
+
+      - name: Update toc file with new version v${{ steps.get-version.outputs.version }}
+        id: update-toc
+        uses: trifork/cheetah-infrastructure-utils/.github/actions/update-toc@main
+        with:
+          toc-file: ${{ inputs.file }}
+          version: ${{ steps.get-version.outputs.version }}
+          repo-name: ${{ inputs.project }}
+          directory: ${{ env.directory }}
+
+      - name: Commit changes to toc.yml
+        if: ${{ env.updated }} == true
+        uses: EndBug/add-and-commit@v9
+        with:
+          commit: -a
+          message:  "Update toc file with new version v${{ env.version }}"
+
+      - uses: actions/cache@v4
+        if: ${{ env.updated }} == true
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+            ${{ runner.os }}-nuget-
+
       - name: "dotnet build"
-        uses: trifork/cheetah-infrastructure-utils/.github/actions/dotnet/dotnet-build@main
-      
+        if: ${{ env.updated }} == true
+        shell: bash
+        run: |
+          dotnet build --verbosity minimal --configuration Release /nowarn:cs1591
+
       - name: Build docfx
         uses: trifork/cheetah-infrastructure-utils/.github/actions/docfx/docfx-build@main
 
       - name: create public/
+        if: ${{ env.updated }} == true
         run: |
           mkdir -p public/
           mv docs/ public/_source
           mv src/ public/src
           mv .gitignore public/.gitignore
           rm public/_source/api/.gitignore
+          rm public/_source/${{env.directory}}/toc.yml
+          mv ${{inputs.file}} public/_source/${{env.directory}}/
           mv _site/ public/docs
 
-      - name: Deploy to GitHub Pages
-        id: deployment
+      - name: Deploy to GitHub Pages for project ${{ inputs.project }}
+        if: ${{ env.updated }} == true
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          publish_dir: ./public/_source/${{env.directory}}/${{ inputs.project }}/
           exclude_assets: ""
-          force_orphan: true
-      
+          destination_dir: _source/${{env.directory}}/${{inputs.project}}/v${{ env.version }}
+
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v3
         with:
