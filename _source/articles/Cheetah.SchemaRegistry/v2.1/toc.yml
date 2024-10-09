@@ -1,0 +1,5 @@
+---
+- name: Using Cheetah.SchemaRegistry
+  href: UsingCheetahSchemaRegistry.md
+- name: Testing with Cheetah.SchemaRegistry
+  href: TestingWithCheetahSchemaRegistry.md
