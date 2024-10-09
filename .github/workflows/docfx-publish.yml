@@ -137,7 +137,7 @@ jobs:
           rm public/_source/api/.gitignore
           rm public/_source/${{env.directory}}/toc.yml
           mv _site/ public/docs
-          
+
       - name: Deploy to GitHub Pages for project ${{ inputs.project }}
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -146,13 +146,20 @@ jobs:
           exclude_assets: ""
           destination_dir: _source/${{env.directory}}/${{inputs.project}}/v${{ env.version }}
           keep_files: true
+          commit_message: "Update documentation with new version v${{ env.version }} for ${{ inputs.project }}"
+
+      - name: create toc/
+        run: |
+          mkdir -p toc/
+          mv ${{ inputs.file }} toc/
 
       - name: Deploy updated toc file to GitHub Pages for project ${{ inputs.project }}
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ${{inputs.file}}
+          publish_dir: ./toc/
           exclude_assets: ""
+          commit_message: "Update toc file with new version v${{ env.version }} for ${{ inputs.project }}"
           destination_dir: _source/${{env.directory}}/
           keep_files: true
 
