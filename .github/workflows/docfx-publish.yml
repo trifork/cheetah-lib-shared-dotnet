@@ -90,12 +90,26 @@ jobs:
           repo-name: ${{ inputs.project }}
           directory: ${{ env.directory }}
 
-      - name: Commit changes to toc.yml
-        if: ${{ env.updated }} == true
-        uses: EndBug/add-and-commit@v9
+        #TODO - Only run the following steps if the toc file was updated
+      - name: Create Pull Request
+        id: cpr
+        #if: ${{steps.update-toc.outputs.updated == 'true'}}
+        uses: peter-evans/create-pull-request@v7.0.5
         with:
-          commit: --signoff
-          message:  "Update toc file with new version v${{ env.version }}"
+          commit-message: "Update toc file with new version v${{ env.version }} for ${{ inputs.project }}"
+          sign-commits: true
+          title: "Update toc file with new version v${{ env.version }} for ${{ inputs.project }}"
+          labels: "automated"
+          token: ${{ secrets.WRITE_PACKAGE_PAT }}
+          branch-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Enable Pull Request Automerge
+        #if: ${{steps.update-toc.outputs.updated == 'true'}}
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+          token: ${{ secrets.WRITE_PACKAGE_PAT }}
+          merge-method: squash
 
       - uses: actions/cache@v4
         if: ${{ env.updated }} == true
