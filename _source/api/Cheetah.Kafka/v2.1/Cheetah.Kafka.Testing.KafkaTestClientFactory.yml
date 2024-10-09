@@ -1,0 +1,1315 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.Kafka.Testing.KafkaTestClientFactory
+  commentId: T:Cheetah.Kafka.Testing.KafkaTestClientFactory
+  id: KafkaTestClientFactory
+  parent: Cheetah.Kafka.Testing
+  children:
+  - Cheetah.Kafka.Testing.KafkaTestClientFactory.ClientFactory
+  - Cheetah.Kafka.Testing.KafkaTestClientFactory.Create(Cheetah.Kafka.Configuration.KafkaConfig,Cheetah.Kafka.ClientFactoryOptions,Cheetah.Auth.Authentication.ITokenService,Microsoft.Extensions.Logging.ILoggerFactory,Cheetah.Kafka.Serdes.ISerializerProvider,Cheetah.Kafka.Serdes.IDeserializerProvider)
+  - Cheetah.Kafka.Testing.KafkaTestClientFactory.Create(Microsoft.Extensions.Configuration.IConfiguration,Cheetah.Kafka.ClientFactoryOptions,Cheetah.Auth.Authentication.ITokenService,Microsoft.Extensions.Logging.ILoggerFactory)
+  - Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestReader``1(System.String,System.String,Confluent.Kafka.IDeserializer{``0})
+  - Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestReader``2(System.String,System.String,Confluent.Kafka.IDeserializer{``0},Confluent.Kafka.IDeserializer{``1})
+  - Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter``1(System.String,Confluent.Kafka.ISerializer{``0})
+  - Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter``2(System.String,Confluent.Kafka.ISerializer{``0},Confluent.Kafka.ISerializer{``1})
+  - Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter``2(System.String,System.Func{``1,``0},Confluent.Kafka.ISerializer{``0},Confluent.Kafka.ISerializer{``1})
+  langs:
+  - csharp
+  - vb
+  name: KafkaTestClientFactory
+  nameWithType: KafkaTestClientFactory
+  fullName: Cheetah.Kafka.Testing.KafkaTestClientFactory
+  type: Class
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: KafkaTestClientFactory
+    path: ../src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs
+    startLine: 20
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka.Testing
+  summary: A factory for creating <xref href="Cheetah.Kafka.Testing.IKafkaTestReader%602" data-throw-if-not-resolved="false"></xref> and <xref href="Cheetah.Kafka.Testing.IKafkaTestWriter%602" data-throw-if-not-resolved="false"></xref> instances.
+  remarks: This should only be used for testing purposes.
+  example: []
+  syntax:
+    content: public class KafkaTestClientFactory
+    content.vb: Public Class KafkaTestClientFactory
+  inheritance:
+  - System.Object
+- uid: Cheetah.Kafka.Testing.KafkaTestClientFactory.ClientFactory
+  commentId: P:Cheetah.Kafka.Testing.KafkaTestClientFactory.ClientFactory
+  id: ClientFactory
+  parent: Cheetah.Kafka.Testing.KafkaTestClientFactory
+  langs:
+  - csharp
+  - vb
+  name: ClientFactory
+  nameWithType: KafkaTestClientFactory.ClientFactory
+  fullName: Cheetah.Kafka.Testing.KafkaTestClientFactory.ClientFactory
+  type: Property
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: ClientFactory
+    path: ../src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs
+    startLine: 29
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka.Testing
+  summary: The internal <xref href="Cheetah.Kafka.KafkaClientFactory" data-throw-if-not-resolved="false"></xref> used to create Writers and Readers.
+  remarks: >-
+    This property is exposed to allow more advanced functionality than <xref href="Cheetah.Kafka.Testing.KafkaTestClientFactory" data-throw-if-not-resolved="false"></xref> and the clients it creates
+
+    provides and should <b>NOT</b> be used in production to generate actual clients. Use <xref href="Cheetah.Kafka.Extensions.ServiceCollectionExtensions.AddCheetahKafka(Microsoft.Extensions.DependencyInjection.IServiceCollection%2cMicrosoft.Extensions.Configuration.IConfiguration%2cSystem.Action%7bCheetah.Kafka.ClientFactoryOptions%7d)" data-throw-if-not-resolved="false"></xref> instead.
+  example: []
+  syntax:
+    content: public KafkaClientFactory ClientFactory { get; }
+    parameters: []
+    return:
+      type: Cheetah.Kafka.KafkaClientFactory
+    content.vb: Public ReadOnly Property ClientFactory As KafkaClientFactory
+  overload: Cheetah.Kafka.Testing.KafkaTestClientFactory.ClientFactory*
+- uid: Cheetah.Kafka.Testing.KafkaTestClientFactory.Create(Microsoft.Extensions.Configuration.IConfiguration,Cheetah.Kafka.ClientFactoryOptions,Cheetah.Auth.Authentication.ITokenService,Microsoft.Extensions.Logging.ILoggerFactory)
+  commentId: M:Cheetah.Kafka.Testing.KafkaTestClientFactory.Create(Microsoft.Extensions.Configuration.IConfiguration,Cheetah.Kafka.ClientFactoryOptions,Cheetah.Auth.Authentication.ITokenService,Microsoft.Extensions.Logging.ILoggerFactory)
+  id: Create(Microsoft.Extensions.Configuration.IConfiguration,Cheetah.Kafka.ClientFactoryOptions,Cheetah.Auth.Authentication.ITokenService,Microsoft.Extensions.Logging.ILoggerFactory)
+  parent: Cheetah.Kafka.Testing.KafkaTestClientFactory
+  langs:
+  - csharp
+  - vb
+  name: Create(IConfiguration, ClientFactoryOptions?, ITokenService?, ILoggerFactory?)
+  nameWithType: KafkaTestClientFactory.Create(IConfiguration, ClientFactoryOptions?, ITokenService?, ILoggerFactory?)
+  fullName: Cheetah.Kafka.Testing.KafkaTestClientFactory.Create(Microsoft.Extensions.Configuration.IConfiguration, Cheetah.Kafka.ClientFactoryOptions?, Cheetah.Auth.Authentication.ITokenService?, Microsoft.Extensions.Logging.ILoggerFactory?)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: Create
+    path: ../src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs
+    startLine: 39
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka.Testing
+  summary: Creates a <xref href="Cheetah.Kafka.Testing.KafkaTestClientFactory" data-throw-if-not-resolved="false"></xref> using the provided <xref href="Microsoft.Extensions.Configuration.IConfiguration" data-throw-if-not-resolved="false"></xref> instance
+  example: []
+  syntax:
+    content: public static KafkaTestClientFactory Create(IConfiguration configuration, ClientFactoryOptions? options = null, ITokenService? tokenService = null, ILoggerFactory? loggerFactory = null)
+    parameters:
+    - id: configuration
+      type: Microsoft.Extensions.Configuration.IConfiguration
+      description: The configuration to use
+    - id: options
+      type: Cheetah.Kafka.ClientFactoryOptions
+      description: An optional
+    - id: tokenService
+      type: Cheetah.Auth.Authentication.ITokenService
+      description: An optional token service, used to retrieve access tokens
+    - id: loggerFactory
+      type: Microsoft.Extensions.Logging.ILoggerFactory
+      description: An optional logger factory
+    return:
+      type: Cheetah.Kafka.Testing.KafkaTestClientFactory
+      description: ''
+    content.vb: Public Shared Function Create(configuration As IConfiguration, options As ClientFactoryOptions = Nothing, tokenService As ITokenService = Nothing, loggerFactory As ILoggerFactory = Nothing) As KafkaTestClientFactory
+  overload: Cheetah.Kafka.Testing.KafkaTestClientFactory.Create*
+  nameWithType.vb: KafkaTestClientFactory.Create(IConfiguration, ClientFactoryOptions, ITokenService, ILoggerFactory)
+  fullName.vb: Cheetah.Kafka.Testing.KafkaTestClientFactory.Create(Microsoft.Extensions.Configuration.IConfiguration, Cheetah.Kafka.ClientFactoryOptions, Cheetah.Auth.Authentication.ITokenService, Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: Create(IConfiguration, ClientFactoryOptions, ITokenService, ILoggerFactory)
+- uid: Cheetah.Kafka.Testing.KafkaTestClientFactory.Create(Cheetah.Kafka.Configuration.KafkaConfig,Cheetah.Kafka.ClientFactoryOptions,Cheetah.Auth.Authentication.ITokenService,Microsoft.Extensions.Logging.ILoggerFactory,Cheetah.Kafka.Serdes.ISerializerProvider,Cheetah.Kafka.Serdes.IDeserializerProvider)
+  commentId: M:Cheetah.Kafka.Testing.KafkaTestClientFactory.Create(Cheetah.Kafka.Configuration.KafkaConfig,Cheetah.Kafka.ClientFactoryOptions,Cheetah.Auth.Authentication.ITokenService,Microsoft.Extensions.Logging.ILoggerFactory,Cheetah.Kafka.Serdes.ISerializerProvider,Cheetah.Kafka.Serdes.IDeserializerProvider)
+  id: Create(Cheetah.Kafka.Configuration.KafkaConfig,Cheetah.Kafka.ClientFactoryOptions,Cheetah.Auth.Authentication.ITokenService,Microsoft.Extensions.Logging.ILoggerFactory,Cheetah.Kafka.Serdes.ISerializerProvider,Cheetah.Kafka.Serdes.IDeserializerProvider)
+  parent: Cheetah.Kafka.Testing.KafkaTestClientFactory
+  langs:
+  - csharp
+  - vb
+  name: Create(KafkaConfig, ClientFactoryOptions?, ITokenService?, ILoggerFactory?, ISerializerProvider?, IDeserializerProvider?)
+  nameWithType: KafkaTestClientFactory.Create(KafkaConfig, ClientFactoryOptions?, ITokenService?, ILoggerFactory?, ISerializerProvider?, IDeserializerProvider?)
+  fullName: Cheetah.Kafka.Testing.KafkaTestClientFactory.Create(Cheetah.Kafka.Configuration.KafkaConfig, Cheetah.Kafka.ClientFactoryOptions?, Cheetah.Auth.Authentication.ITokenService?, Microsoft.Extensions.Logging.ILoggerFactory?, Cheetah.Kafka.Serdes.ISerializerProvider?, Cheetah.Kafka.Serdes.IDeserializerProvider?)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: Create
+    path: ../src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs
+    startLine: 50
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka.Testing
+  summary: Creates a <xref href="Cheetah.Kafka.Testing.KafkaTestClientFactory" data-throw-if-not-resolved="false"></xref> using the provided <xref href="Microsoft.Extensions.Configuration.IConfiguration" data-throw-if-not-resolved="false"></xref> instance
+  example: []
+  syntax:
+    content: public static KafkaTestClientFactory Create(KafkaConfig configuration, ClientFactoryOptions? options = null, ITokenService? tokenService = null, ILoggerFactory? loggerFactory = null, ISerializerProvider? serializerProvider = null, IDeserializerProvider? deserializerProvider = null)
+    parameters:
+    - id: configuration
+      type: Cheetah.Kafka.Configuration.KafkaConfig
+      description: The configuration to use
+    - id: options
+      type: Cheetah.Kafka.ClientFactoryOptions
+      description: An optional
+    - id: tokenService
+      type: Cheetah.Auth.Authentication.ITokenService
+      description: An optional token service, used to retrieve access tokens
+    - id: loggerFactory
+      type: Microsoft.Extensions.Logging.ILoggerFactory
+      description: An optional logger factory
+    - id: serializerProvider
+      type: Cheetah.Kafka.Serdes.ISerializerProvider
+    - id: deserializerProvider
+      type: Cheetah.Kafka.Serdes.IDeserializerProvider
+    return:
+      type: Cheetah.Kafka.Testing.KafkaTestClientFactory
+      description: ''
+    content.vb: Public Shared Function Create(configuration As KafkaConfig, options As ClientFactoryOptions = Nothing, tokenService As ITokenService = Nothing, loggerFactory As ILoggerFactory = Nothing, serializerProvider As ISerializerProvider = Nothing, deserializerProvider As IDeserializerProvider = Nothing) As KafkaTestClientFactory
+  overload: Cheetah.Kafka.Testing.KafkaTestClientFactory.Create*
+  nameWithType.vb: KafkaTestClientFactory.Create(KafkaConfig, ClientFactoryOptions, ITokenService, ILoggerFactory, ISerializerProvider, IDeserializerProvider)
+  fullName.vb: Cheetah.Kafka.Testing.KafkaTestClientFactory.Create(Cheetah.Kafka.Configuration.KafkaConfig, Cheetah.Kafka.ClientFactoryOptions, Cheetah.Auth.Authentication.ITokenService, Microsoft.Extensions.Logging.ILoggerFactory, Cheetah.Kafka.Serdes.ISerializerProvider, Cheetah.Kafka.Serdes.IDeserializerProvider)
+  name.vb: Create(KafkaConfig, ClientFactoryOptions, ITokenService, ILoggerFactory, ISerializerProvider, IDeserializerProvider)
+- uid: Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter``1(System.String,Confluent.Kafka.ISerializer{``0})
+  commentId: M:Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter``1(System.String,Confluent.Kafka.ISerializer{``0})
+  id: CreateTestWriter``1(System.String,Confluent.Kafka.ISerializer{``0})
+  parent: Cheetah.Kafka.Testing.KafkaTestClientFactory
+  langs:
+  - csharp
+  - vb
+  name: CreateTestWriter<T>(string, ISerializer<T>?)
+  nameWithType: KafkaTestClientFactory.CreateTestWriter<T>(string, ISerializer<T>?)
+  fullName: Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter<T>(string, Confluent.Kafka.ISerializer<T>?)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: CreateTestWriter
+    path: ../src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs
+    startLine: 98
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka.Testing
+  summary: Creates an <xref href="Cheetah.Kafka.Testing.IKafkaTestWriter%602" data-throw-if-not-resolved="false"></xref> for the provided topic. This writer will not produce keys.
+  example: []
+  syntax:
+    content: public IKafkaTestWriter<Null, T> CreateTestWriter<T>(string topic, ISerializer<T>? valueSerializer = null)
+    parameters:
+    - id: topic
+      type: System.String
+      description: The topic to produce messages to
+    - id: valueSerializer
+      type: Confluent.Kafka.ISerializer{{T}}
+      description: Optional valueSerializer. Defaults to valueSerializer from ISerializerProvider provided in the constructor
+    typeParameters:
+    - id: T
+      description: The type of messages to produce
+    return:
+      type: Cheetah.Kafka.Testing.IKafkaTestWriter{Confluent.Kafka.Null,{T}}
+      description: The created <xref href="Cheetah.Kafka.Testing.IKafkaTestWriter%602" data-throw-if-not-resolved="false"></xref>
+    content.vb: Public Function CreateTestWriter(Of T)(topic As String, valueSerializer As ISerializer(Of T) = Nothing) As IKafkaTestWriter(Of Null, T)
+  overload: Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter*
+  exceptions:
+  - type: System.ArgumentException
+    commentId: T:System.ArgumentException
+    description: Thrown if the provided topic is invalid
+  nameWithType.vb: KafkaTestClientFactory.CreateTestWriter(Of T)(String, ISerializer(Of T))
+  fullName.vb: Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter(Of T)(String, Confluent.Kafka.ISerializer(Of T))
+  name.vb: CreateTestWriter(Of T)(String, ISerializer(Of T))
+- uid: Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter``2(System.String,System.Func{``1,``0},Confluent.Kafka.ISerializer{``0},Confluent.Kafka.ISerializer{``1})
+  commentId: M:Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter``2(System.String,System.Func{``1,``0},Confluent.Kafka.ISerializer{``0},Confluent.Kafka.ISerializer{``1})
+  id: CreateTestWriter``2(System.String,System.Func{``1,``0},Confluent.Kafka.ISerializer{``0},Confluent.Kafka.ISerializer{``1})
+  parent: Cheetah.Kafka.Testing.KafkaTestClientFactory
+  langs:
+  - csharp
+  - vb
+  name: CreateTestWriter<TKey, T>(string, Func<T, TKey>, ISerializer<TKey>?, ISerializer<T>?)
+  nameWithType: KafkaTestClientFactory.CreateTestWriter<TKey, T>(string, Func<T, TKey>, ISerializer<TKey>?, ISerializer<T>?)
+  fullName: Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter<TKey, T>(string, System.Func<T, TKey>, Confluent.Kafka.ISerializer<TKey>?, Confluent.Kafka.ISerializer<T>?)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: CreateTestWriter
+    path: ../src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs
+    startLine: 114
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka.Testing
+  summary: Creates an <xref href="Cheetah.Kafka.Testing.IKafkaTestWriter%602" data-throw-if-not-resolved="false"></xref> for the provided topic.
+  example: []
+  syntax:
+    content: >-
+      [Obsolete("Using a keyFunction is deprecated, please use the method CreateTestWriter without keyFunction parameter, and the function WriteAsync(params Message<TKey, T>[] messages)")]
+
+      public IKafkaTestWriter<TKey, T> CreateTestWriter<TKey, T>(string topic, Func<T, TKey> keyFunction, ISerializer<TKey>? keySerializer = null, ISerializer<T>? valueSerializer = null)
+    parameters:
+    - id: topic
+      type: System.String
+      description: The topic to produce messages to
+    - id: keyFunction
+      type: System.Func{{T},{TKey}}
+      description: A function which produces a key for the provided message
+    - id: keySerializer
+      type: Confluent.Kafka.ISerializer{{TKey}}
+      description: Optional keySerializer. Defaults to keySerializer from ISerializerProvider provided in the constructor
+    - id: valueSerializer
+      type: Confluent.Kafka.ISerializer{{T}}
+      description: Optional valueSerializer. Defaults to valueSerializer from ISerializerProvider provided in the constructor
+    typeParameters:
+    - id: TKey
+      description: The type of key to produce
+    - id: T
+      description: The type of messages to produce
+    return:
+      type: Cheetah.Kafka.Testing.IKafkaTestWriter{{TKey},{T}}
+      description: The created <xref href="Cheetah.Kafka.Testing.IKafkaTestWriter%602" data-throw-if-not-resolved="false"></xref>
+    content.vb: >-
+      <Obsolete("Using a keyFunction is deprecated, please use the method CreateTestWriter without keyFunction parameter, and the function WriteAsync(params Message<TKey, T>[] messages)")>
+
+      Public Function CreateTestWriter(Of TKey, T)(topic As String, keyFunction As Func(Of T, TKey), keySerializer As ISerializer(Of TKey) = Nothing, valueSerializer As ISerializer(Of T) = Nothing) As IKafkaTestWriter(Of TKey, T)
+  overload: Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter*
+  exceptions:
+  - type: System.ArgumentException
+    commentId: T:System.ArgumentException
+    description: Thrown if the provided topic is invalid
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Using a keyFunction is deprecated, please use the method CreateTestWriter without keyFunction parameter, and the function WriteAsync(params Message<TKey, T>[] messages)
+  nameWithType.vb: KafkaTestClientFactory.CreateTestWriter(Of TKey, T)(String, Func(Of T, TKey), ISerializer(Of TKey), ISerializer(Of T))
+  fullName.vb: Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter(Of TKey, T)(String, System.Func(Of T, TKey), Confluent.Kafka.ISerializer(Of TKey), Confluent.Kafka.ISerializer(Of T))
+  name.vb: CreateTestWriter(Of TKey, T)(String, Func(Of T, TKey), ISerializer(Of TKey), ISerializer(Of T))
+- uid: Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter``2(System.String,Confluent.Kafka.ISerializer{``0},Confluent.Kafka.ISerializer{``1})
+  commentId: M:Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter``2(System.String,Confluent.Kafka.ISerializer{``0},Confluent.Kafka.ISerializer{``1})
+  id: CreateTestWriter``2(System.String,Confluent.Kafka.ISerializer{``0},Confluent.Kafka.ISerializer{``1})
+  parent: Cheetah.Kafka.Testing.KafkaTestClientFactory
+  langs:
+  - csharp
+  - vb
+  name: CreateTestWriter<TKey, T>(string, ISerializer<TKey>?, ISerializer<T>?)
+  nameWithType: KafkaTestClientFactory.CreateTestWriter<TKey, T>(string, ISerializer<TKey>?, ISerializer<T>?)
+  fullName: Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter<TKey, T>(string, Confluent.Kafka.ISerializer<TKey>?, Confluent.Kafka.ISerializer<T>?)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: CreateTestWriter
+    path: ../src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs
+    startLine: 148
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka.Testing
+  summary: Creates an <xref href="Cheetah.Kafka.Testing.IKafkaTestWriter%602" data-throw-if-not-resolved="false"></xref> for the provided topic.
+  example: []
+  syntax:
+    content: public IKafkaTestWriter<TKey, T> CreateTestWriter<TKey, T>(string topic, ISerializer<TKey>? keySerializer = null, ISerializer<T>? valueSerializer = null)
+    parameters:
+    - id: topic
+      type: System.String
+      description: The topic to produce messages to
+    - id: keySerializer
+      type: Confluent.Kafka.ISerializer{{TKey}}
+      description: Optional keySerializer. Defaults to keySerializer from ISerializerProvider provided in the constructor
+    - id: valueSerializer
+      type: Confluent.Kafka.ISerializer{{T}}
+      description: Optional valueSerializer. Defaults to valueSerializer from ISerializerProvider provided in the constructor
+    typeParameters:
+    - id: TKey
+      description: The type of key to produce
+    - id: T
+      description: The type of messages to produce
+    return:
+      type: Cheetah.Kafka.Testing.IKafkaTestWriter{{TKey},{T}}
+      description: The created <xref href="Cheetah.Kafka.Testing.IKafkaTestWriter%602" data-throw-if-not-resolved="false"></xref>
+    content.vb: Public Function CreateTestWriter(Of TKey, T)(topic As String, keySerializer As ISerializer(Of TKey) = Nothing, valueSerializer As ISerializer(Of T) = Nothing) As IKafkaTestWriter(Of TKey, T)
+  overload: Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter*
+  exceptions:
+  - type: System.ArgumentException
+    commentId: T:System.ArgumentException
+    description: Thrown if the provided topic is invalid
+  nameWithType.vb: KafkaTestClientFactory.CreateTestWriter(Of TKey, T)(String, ISerializer(Of TKey), ISerializer(Of T))
+  fullName.vb: Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter(Of TKey, T)(String, Confluent.Kafka.ISerializer(Of TKey), Confluent.Kafka.ISerializer(Of T))
+  name.vb: CreateTestWriter(Of TKey, T)(String, ISerializer(Of TKey), ISerializer(Of T))
+- uid: Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestReader``1(System.String,System.String,Confluent.Kafka.IDeserializer{``0})
+  commentId: M:Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestReader``1(System.String,System.String,Confluent.Kafka.IDeserializer{``0})
+  id: CreateTestReader``1(System.String,System.String,Confluent.Kafka.IDeserializer{``0})
+  parent: Cheetah.Kafka.Testing.KafkaTestClientFactory
+  langs:
+  - csharp
+  - vb
+  name: CreateTestReader<T>(string, string?, IDeserializer<T>?)
+  nameWithType: KafkaTestClientFactory.CreateTestReader<T>(string, string?, IDeserializer<T>?)
+  fullName: Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestReader<T>(string, string?, Confluent.Kafka.IDeserializer<T>?)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: CreateTestReader
+    path: ../src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs
+    startLine: 177
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka.Testing
+  summary: Creates an <xref href="Cheetah.Kafka.Testing.IKafkaTestReader%602" data-throw-if-not-resolved="false"></xref> for the provided topic. This reader will not read keys.
+  example: []
+  syntax:
+    content: public IKafkaTestReader<Null, T> CreateTestReader<T>(string topic, string? groupId = null, IDeserializer<T>? valueDeserializer = null)
+    parameters:
+    - id: topic
+      type: System.String
+      description: The topic to read messages from.
+    - id: groupId
+      type: System.String
+      description: Optional group id to use. Defaults to a random Guid.
+    - id: valueDeserializer
+      type: Confluent.Kafka.IDeserializer{{T}}
+      description: Optional valueDeserializer. Defaults to valueDeserializer from IDeserializerProvider provided in the constructor
+    typeParameters:
+    - id: T
+      description: The type of message to read
+    return:
+      type: Cheetah.Kafka.Testing.IKafkaTestReader{Confluent.Kafka.Null,{T}}
+      description: The created <xref href="Cheetah.Kafka.Testing.IKafkaTestReader%602" data-throw-if-not-resolved="false"></xref>
+    content.vb: Public Function CreateTestReader(Of T)(topic As String, groupId As String = Nothing, valueDeserializer As IDeserializer(Of T) = Nothing) As IKafkaTestReader(Of Null, T)
+  overload: Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestReader*
+  nameWithType.vb: KafkaTestClientFactory.CreateTestReader(Of T)(String, String, IDeserializer(Of T))
+  fullName.vb: Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestReader(Of T)(String, String, Confluent.Kafka.IDeserializer(Of T))
+  name.vb: CreateTestReader(Of T)(String, String, IDeserializer(Of T))
+- uid: Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestReader``2(System.String,System.String,Confluent.Kafka.IDeserializer{``0},Confluent.Kafka.IDeserializer{``1})
+  commentId: M:Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestReader``2(System.String,System.String,Confluent.Kafka.IDeserializer{``0},Confluent.Kafka.IDeserializer{``1})
+  id: CreateTestReader``2(System.String,System.String,Confluent.Kafka.IDeserializer{``0},Confluent.Kafka.IDeserializer{``1})
+  parent: Cheetah.Kafka.Testing.KafkaTestClientFactory
+  langs:
+  - csharp
+  - vb
+  name: CreateTestReader<TKey, TValue>(string, string?, IDeserializer<TKey>?, IDeserializer<TValue>?)
+  nameWithType: KafkaTestClientFactory.CreateTestReader<TKey, TValue>(string, string?, IDeserializer<TKey>?, IDeserializer<TValue>?)
+  fullName: Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestReader<TKey, TValue>(string, string?, Confluent.Kafka.IDeserializer<TKey>?, Confluent.Kafka.IDeserializer<TValue>?)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: CreateTestReader
+    path: ../src/Cheetah.Kafka/Testing/KafkaTestClientFactory.cs
+    startLine: 192
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka.Testing
+  summary: Creates an <xref href="Cheetah.Kafka.Testing.IKafkaTestReader%602" data-throw-if-not-resolved="false"></xref> for the provided topic.
+  example: []
+  syntax:
+    content: public IKafkaTestReader<TKey, TValue> CreateTestReader<TKey, TValue>(string topic, string? groupId = null, IDeserializer<TKey>? keyDeserializer = null, IDeserializer<TValue>? valueDeserializer = null)
+    parameters:
+    - id: topic
+      type: System.String
+      description: The topic to read messages from
+    - id: groupId
+      type: System.String
+      description: Optional group id to use. Defaults to a random Guid.
+    - id: keyDeserializer
+      type: Confluent.Kafka.IDeserializer{{TKey}}
+      description: Optional keyDeserializer. Defaults to keyDeserializer from IDeserializerProvider provided in the constructor
+    - id: valueDeserializer
+      type: Confluent.Kafka.IDeserializer{{TValue}}
+      description: Optional valueDeserializer. Defaults to valueDeserializer from IDeserializerProvider provided in the constructor
+    typeParameters:
+    - id: TKey
+      description: The type of key to read
+    - id: TValue
+      description: The type of message to read
+    return:
+      type: Cheetah.Kafka.Testing.IKafkaTestReader{{TKey},{TValue}}
+      description: The created <xref href="Cheetah.Kafka.Testing.IKafkaTestReader%602" data-throw-if-not-resolved="false"></xref>
+    content.vb: Public Function CreateTestReader(Of TKey, TValue)(topic As String, groupId As String = Nothing, keyDeserializer As IDeserializer(Of TKey) = Nothing, valueDeserializer As IDeserializer(Of TValue) = Nothing) As IKafkaTestReader(Of TKey, TValue)
+  overload: Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestReader*
+  nameWithType.vb: KafkaTestClientFactory.CreateTestReader(Of TKey, TValue)(String, String, IDeserializer(Of TKey), IDeserializer(Of TValue))
+  fullName.vb: Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestReader(Of TKey, TValue)(String, String, Confluent.Kafka.IDeserializer(Of TKey), Confluent.Kafka.IDeserializer(Of TValue))
+  name.vb: CreateTestReader(Of TKey, TValue)(String, String, IDeserializer(Of TKey), IDeserializer(Of TValue))
+references:
+- uid: Cheetah.Kafka.Testing.IKafkaTestReader`2
+  commentId: T:Cheetah.Kafka.Testing.IKafkaTestReader`2
+  href: Cheetah.Kafka.Testing.IKafkaTestReader-2.html
+  name: IKafkaTestReader<TKey, T>
+  nameWithType: IKafkaTestReader<TKey, T>
+  fullName: Cheetah.Kafka.Testing.IKafkaTestReader<TKey, T>
+  nameWithType.vb: IKafkaTestReader(Of TKey, T)
+  fullName.vb: Cheetah.Kafka.Testing.IKafkaTestReader(Of TKey, T)
+  name.vb: IKafkaTestReader(Of TKey, T)
+  spec.csharp:
+  - uid: Cheetah.Kafka.Testing.IKafkaTestReader`2
+    name: IKafkaTestReader
+    href: Cheetah.Kafka.Testing.IKafkaTestReader-2.html
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Cheetah.Kafka.Testing.IKafkaTestReader`2
+    name: IKafkaTestReader
+    href: Cheetah.Kafka.Testing.IKafkaTestReader-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Cheetah.Kafka.Testing.IKafkaTestWriter`2
+  commentId: T:Cheetah.Kafka.Testing.IKafkaTestWriter`2
+  href: Cheetah.Kafka.Testing.IKafkaTestWriter-2.html
+  name: IKafkaTestWriter<TKey, T>
+  nameWithType: IKafkaTestWriter<TKey, T>
+  fullName: Cheetah.Kafka.Testing.IKafkaTestWriter<TKey, T>
+  nameWithType.vb: IKafkaTestWriter(Of TKey, T)
+  fullName.vb: Cheetah.Kafka.Testing.IKafkaTestWriter(Of TKey, T)
+  name.vb: IKafkaTestWriter(Of TKey, T)
+  spec.csharp:
+  - uid: Cheetah.Kafka.Testing.IKafkaTestWriter`2
+    name: IKafkaTestWriter
+    href: Cheetah.Kafka.Testing.IKafkaTestWriter-2.html
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Cheetah.Kafka.Testing.IKafkaTestWriter`2
+    name: IKafkaTestWriter
+    href: Cheetah.Kafka.Testing.IKafkaTestWriter-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Cheetah.Kafka.Testing
+  commentId: N:Cheetah.Kafka.Testing
+  href: Cheetah.html
+  name: Cheetah.Kafka.Testing
+  nameWithType: Cheetah.Kafka.Testing
+  fullName: Cheetah.Kafka.Testing
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  - name: .
+  - uid: Cheetah.Kafka.Testing
+    name: Testing
+    href: Cheetah.Kafka.Testing.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  - name: .
+  - uid: Cheetah.Kafka.Testing
+    name: Testing
+    href: Cheetah.Kafka.Testing.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Cheetah.Kafka.KafkaClientFactory
+  commentId: T:Cheetah.Kafka.KafkaClientFactory
+  parent: Cheetah.Kafka
+  href: Cheetah.Kafka.KafkaClientFactory.html
+  name: KafkaClientFactory
+  nameWithType: KafkaClientFactory
+  fullName: Cheetah.Kafka.KafkaClientFactory
+- uid: Cheetah.Kafka.Testing.KafkaTestClientFactory
+  commentId: T:Cheetah.Kafka.Testing.KafkaTestClientFactory
+  parent: Cheetah.Kafka.Testing
+  href: Cheetah.Kafka.Testing.KafkaTestClientFactory.html
+  name: KafkaTestClientFactory
+  nameWithType: KafkaTestClientFactory
+  fullName: Cheetah.Kafka.Testing.KafkaTestClientFactory
+- uid: Cheetah.Kafka.Extensions.ServiceCollectionExtensions.AddCheetahKafka(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action{Cheetah.Kafka.ClientFactoryOptions})
+  commentId: M:Cheetah.Kafka.Extensions.ServiceCollectionExtensions.AddCheetahKafka(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action{Cheetah.Kafka.ClientFactoryOptions})
+  isExternal: true
+  href: Cheetah.Kafka.Extensions.ServiceCollectionExtensions.html#Cheetah_Kafka_Extensions_ServiceCollectionExtensions_AddCheetahKafka_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfiguration_System_Action_Cheetah_Kafka_ClientFactoryOptions__
+  name: AddCheetahKafka(IServiceCollection, IConfiguration, Action<ClientFactoryOptions>)
+  nameWithType: ServiceCollectionExtensions.AddCheetahKafka(IServiceCollection, IConfiguration, Action<ClientFactoryOptions>)
+  fullName: Cheetah.Kafka.Extensions.ServiceCollectionExtensions.AddCheetahKafka(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfiguration, System.Action<Cheetah.Kafka.ClientFactoryOptions>)
+  nameWithType.vb: ServiceCollectionExtensions.AddCheetahKafka(IServiceCollection, IConfiguration, Action(Of ClientFactoryOptions))
+  fullName.vb: Cheetah.Kafka.Extensions.ServiceCollectionExtensions.AddCheetahKafka(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfiguration, System.Action(Of Cheetah.Kafka.ClientFactoryOptions))
+  name.vb: AddCheetahKafka(IServiceCollection, IConfiguration, Action(Of ClientFactoryOptions))
+  spec.csharp:
+  - uid: Cheetah.Kafka.Extensions.ServiceCollectionExtensions.AddCheetahKafka(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action{Cheetah.Kafka.ClientFactoryOptions})
+    name: AddCheetahKafka
+    href: Cheetah.Kafka.Extensions.ServiceCollectionExtensions.html#Cheetah_Kafka_Extensions_ServiceCollectionExtensions_AddCheetahKafka_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfiguration_System_Action_Cheetah_Kafka_ClientFactoryOptions__
+  - name: (
+  - uid: Microsoft.Extensions.DependencyInjection.IServiceCollection
+    name: IServiceCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection
+  - name: ','
+  - name: " "
+  - uid: Microsoft.Extensions.Configuration.IConfiguration
+    name: IConfiguration
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration
+  - name: ','
+  - name: " "
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - uid: Cheetah.Kafka.ClientFactoryOptions
+    name: ClientFactoryOptions
+    href: Cheetah.Kafka.ClientFactoryOptions.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Cheetah.Kafka.Extensions.ServiceCollectionExtensions.AddCheetahKafka(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action{Cheetah.Kafka.ClientFactoryOptions})
+    name: AddCheetahKafka
+    href: Cheetah.Kafka.Extensions.ServiceCollectionExtensions.html#Cheetah_Kafka_Extensions_ServiceCollectionExtensions_AddCheetahKafka_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfiguration_System_Action_Cheetah_Kafka_ClientFactoryOptions__
+  - name: (
+  - uid: Microsoft.Extensions.DependencyInjection.IServiceCollection
+    name: IServiceCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection
+  - name: ','
+  - name: " "
+  - uid: Microsoft.Extensions.Configuration.IConfiguration
+    name: IConfiguration
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration
+  - name: ','
+  - name: " "
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Cheetah.Kafka.ClientFactoryOptions
+    name: ClientFactoryOptions
+    href: Cheetah.Kafka.ClientFactoryOptions.html
+  - name: )
+  - name: )
+- uid: Cheetah.Kafka.Testing.KafkaTestClientFactory.ClientFactory*
+  commentId: Overload:Cheetah.Kafka.Testing.KafkaTestClientFactory.ClientFactory
+  href: Cheetah.Kafka.Testing.KafkaTestClientFactory.html#Cheetah_Kafka_Testing_KafkaTestClientFactory_ClientFactory
+  name: ClientFactory
+  nameWithType: KafkaTestClientFactory.ClientFactory
+  fullName: Cheetah.Kafka.Testing.KafkaTestClientFactory.ClientFactory
+- uid: Cheetah.Kafka
+  commentId: N:Cheetah.Kafka
+  href: Cheetah.html
+  name: Cheetah.Kafka
+  nameWithType: Cheetah.Kafka
+  fullName: Cheetah.Kafka
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+- uid: Microsoft.Extensions.Configuration.IConfiguration
+  commentId: T:Microsoft.Extensions.Configuration.IConfiguration
+  parent: Microsoft.Extensions.Configuration
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration
+  name: IConfiguration
+  nameWithType: IConfiguration
+  fullName: Microsoft.Extensions.Configuration.IConfiguration
+- uid: Cheetah.Kafka.Testing.KafkaTestClientFactory.Create*
+  commentId: Overload:Cheetah.Kafka.Testing.KafkaTestClientFactory.Create
+  href: Cheetah.Kafka.Testing.KafkaTestClientFactory.html#Cheetah_Kafka_Testing_KafkaTestClientFactory_Create_Microsoft_Extensions_Configuration_IConfiguration_Cheetah_Kafka_ClientFactoryOptions_Cheetah_Auth_Authentication_ITokenService_Microsoft_Extensions_Logging_ILoggerFactory_
+  name: Create
+  nameWithType: KafkaTestClientFactory.Create
+  fullName: Cheetah.Kafka.Testing.KafkaTestClientFactory.Create
+- uid: Cheetah.Kafka.ClientFactoryOptions
+  commentId: T:Cheetah.Kafka.ClientFactoryOptions
+  parent: Cheetah.Kafka
+  href: Cheetah.Kafka.ClientFactoryOptions.html
+  name: ClientFactoryOptions
+  nameWithType: ClientFactoryOptions
+  fullName: Cheetah.Kafka.ClientFactoryOptions
+- uid: Cheetah.Auth.Authentication.ITokenService
+  commentId: T:Cheetah.Auth.Authentication.ITokenService
+  parent: Cheetah.Auth.Authentication
+  name: ITokenService
+  nameWithType: ITokenService
+  fullName: Cheetah.Auth.Authentication.ITokenService
+- uid: Microsoft.Extensions.Logging.ILoggerFactory
+  commentId: T:Microsoft.Extensions.Logging.ILoggerFactory
+  parent: Microsoft.Extensions.Logging
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory
+  name: ILoggerFactory
+  nameWithType: ILoggerFactory
+  fullName: Microsoft.Extensions.Logging.ILoggerFactory
+- uid: Microsoft.Extensions.Configuration
+  commentId: N:Microsoft.Extensions.Configuration
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft
+  name: Microsoft.Extensions.Configuration
+  nameWithType: Microsoft.Extensions.Configuration
+  fullName: Microsoft.Extensions.Configuration
+  spec.csharp:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions
+  - name: .
+  - uid: Microsoft.Extensions.Configuration
+    name: Configuration
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration
+  spec.vb:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions
+  - name: .
+  - uid: Microsoft.Extensions.Configuration
+    name: Configuration
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration
+- uid: Cheetah.Auth.Authentication
+  commentId: N:Cheetah.Auth.Authentication
+  name: Cheetah.Auth.Authentication
+  nameWithType: Cheetah.Auth.Authentication
+  fullName: Cheetah.Auth.Authentication
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+  - name: .
+  - uid: Cheetah.Auth.Authentication
+    name: Authentication
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+  - name: .
+  - uid: Cheetah.Auth.Authentication
+    name: Authentication
+- uid: Microsoft.Extensions.Logging
+  commentId: N:Microsoft.Extensions.Logging
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft
+  name: Microsoft.Extensions.Logging
+  nameWithType: Microsoft.Extensions.Logging
+  fullName: Microsoft.Extensions.Logging
+  spec.csharp:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions
+  - name: .
+  - uid: Microsoft.Extensions.Logging
+    name: Logging
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging
+  spec.vb:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions
+  - name: .
+  - uid: Microsoft.Extensions.Logging
+    name: Logging
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging
+- uid: Cheetah.Kafka.Configuration.KafkaConfig
+  commentId: T:Cheetah.Kafka.Configuration.KafkaConfig
+  parent: Cheetah.Kafka.Configuration
+  href: Cheetah.Kafka.Configuration.KafkaConfig.html
+  name: KafkaConfig
+  nameWithType: KafkaConfig
+  fullName: Cheetah.Kafka.Configuration.KafkaConfig
+- uid: Cheetah.Kafka.Serdes.ISerializerProvider
+  commentId: T:Cheetah.Kafka.Serdes.ISerializerProvider
+  parent: Cheetah.Kafka.Serdes
+  href: Cheetah.Kafka.Serdes.ISerializerProvider.html
+  name: ISerializerProvider
+  nameWithType: ISerializerProvider
+  fullName: Cheetah.Kafka.Serdes.ISerializerProvider
+- uid: Cheetah.Kafka.Serdes.IDeserializerProvider
+  commentId: T:Cheetah.Kafka.Serdes.IDeserializerProvider
+  parent: Cheetah.Kafka.Serdes
+  href: Cheetah.Kafka.Serdes.IDeserializerProvider.html
+  name: IDeserializerProvider
+  nameWithType: IDeserializerProvider
+  fullName: Cheetah.Kafka.Serdes.IDeserializerProvider
+- uid: Cheetah.Kafka.Configuration
+  commentId: N:Cheetah.Kafka.Configuration
+  href: Cheetah.html
+  name: Cheetah.Kafka.Configuration
+  nameWithType: Cheetah.Kafka.Configuration
+  fullName: Cheetah.Kafka.Configuration
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  - name: .
+  - uid: Cheetah.Kafka.Configuration
+    name: Configuration
+    href: Cheetah.Kafka.Configuration.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  - name: .
+  - uid: Cheetah.Kafka.Configuration
+    name: Configuration
+    href: Cheetah.Kafka.Configuration.html
+- uid: Cheetah.Kafka.Serdes
+  commentId: N:Cheetah.Kafka.Serdes
+  href: Cheetah.html
+  name: Cheetah.Kafka.Serdes
+  nameWithType: Cheetah.Kafka.Serdes
+  fullName: Cheetah.Kafka.Serdes
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  - name: .
+  - uid: Cheetah.Kafka.Serdes
+    name: Serdes
+    href: Cheetah.Kafka.Serdes.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  - name: .
+  - uid: Cheetah.Kafka.Serdes
+    name: Serdes
+    href: Cheetah.Kafka.Serdes.html
+- uid: System.ArgumentException
+  commentId: T:System.ArgumentException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentexception
+  name: ArgumentException
+  nameWithType: ArgumentException
+  fullName: System.ArgumentException
+- uid: Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter*
+  commentId: Overload:Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter
+  href: Cheetah.Kafka.Testing.KafkaTestClientFactory.html#Cheetah_Kafka_Testing_KafkaTestClientFactory_CreateTestWriter__1_System_String_Confluent_Kafka_ISerializer___0__
+  name: CreateTestWriter
+  nameWithType: KafkaTestClientFactory.CreateTestWriter
+  fullName: Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestWriter
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Confluent.Kafka.ISerializer{{T}}
+  commentId: T:Confluent.Kafka.ISerializer{``0}
+  parent: Confluent.Kafka
+  definition: Confluent.Kafka.ISerializer`1
+  name: ISerializer<T>
+  nameWithType: ISerializer<T>
+  fullName: Confluent.Kafka.ISerializer<T>
+  nameWithType.vb: ISerializer(Of T)
+  fullName.vb: Confluent.Kafka.ISerializer(Of T)
+  name.vb: ISerializer(Of T)
+  spec.csharp:
+  - uid: Confluent.Kafka.ISerializer`1
+    name: ISerializer
+    isExternal: true
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Confluent.Kafka.ISerializer`1
+    name: ISerializer
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Cheetah.Kafka.Testing.IKafkaTestWriter{Confluent.Kafka.Null,{T}}
+  commentId: T:Cheetah.Kafka.Testing.IKafkaTestWriter{Confluent.Kafka.Null,``0}
+  parent: Cheetah.Kafka.Testing
+  definition: Cheetah.Kafka.Testing.IKafkaTestWriter`2
+  href: Cheetah.Kafka.Testing.IKafkaTestWriter-2.html
+  name: IKafkaTestWriter<Null, T>
+  nameWithType: IKafkaTestWriter<Null, T>
+  fullName: Cheetah.Kafka.Testing.IKafkaTestWriter<Confluent.Kafka.Null, T>
+  nameWithType.vb: IKafkaTestWriter(Of Null, T)
+  fullName.vb: Cheetah.Kafka.Testing.IKafkaTestWriter(Of Confluent.Kafka.Null, T)
+  name.vb: IKafkaTestWriter(Of Null, T)
+  spec.csharp:
+  - uid: Cheetah.Kafka.Testing.IKafkaTestWriter`2
+    name: IKafkaTestWriter
+    href: Cheetah.Kafka.Testing.IKafkaTestWriter-2.html
+  - name: <
+  - uid: Confluent.Kafka.Null
+    name: "Null"
+    isExternal: true
+  - name: ','
+  - name: " "
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Cheetah.Kafka.Testing.IKafkaTestWriter`2
+    name: IKafkaTestWriter
+    href: Cheetah.Kafka.Testing.IKafkaTestWriter-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Confluent.Kafka.Null
+    name: "Null"
+    isExternal: true
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Confluent.Kafka.ISerializer`1
+  commentId: T:Confluent.Kafka.ISerializer`1
+  isExternal: true
+  name: ISerializer<T>
+  nameWithType: ISerializer<T>
+  fullName: Confluent.Kafka.ISerializer<T>
+  nameWithType.vb: ISerializer(Of T)
+  fullName.vb: Confluent.Kafka.ISerializer(Of T)
+  name.vb: ISerializer(Of T)
+  spec.csharp:
+  - uid: Confluent.Kafka.ISerializer`1
+    name: ISerializer
+    isExternal: true
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Confluent.Kafka.ISerializer`1
+    name: ISerializer
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Confluent.Kafka
+  commentId: N:Confluent.Kafka
+  isExternal: true
+  name: Confluent.Kafka
+  nameWithType: Confluent.Kafka
+  fullName: Confluent.Kafka
+  spec.csharp:
+  - uid: Confluent
+    name: Confluent
+    isExternal: true
+  - name: .
+  - uid: Confluent.Kafka
+    name: Kafka
+    isExternal: true
+  spec.vb:
+  - uid: Confluent
+    name: Confluent
+    isExternal: true
+  - name: .
+  - uid: Confluent.Kafka
+    name: Kafka
+    isExternal: true
+- uid: System.Func{{T},{TKey}}
+  commentId: T:System.Func{``1,``0}
+  parent: System
+  definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<T, TKey>
+  nameWithType: Func<T, TKey>
+  fullName: System.Func<T, TKey>
+  nameWithType.vb: Func(Of T, TKey)
+  fullName.vb: System.Func(Of T, TKey)
+  name.vb: Func(Of T, TKey)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: )
+- uid: Confluent.Kafka.ISerializer{{TKey}}
+  commentId: T:Confluent.Kafka.ISerializer{`0}
+  parent: Confluent.Kafka
+  definition: Confluent.Kafka.ISerializer`1
+  name: ISerializer<TKey>
+  nameWithType: ISerializer<TKey>
+  fullName: Confluent.Kafka.ISerializer<TKey>
+  nameWithType.vb: ISerializer(Of TKey)
+  fullName.vb: Confluent.Kafka.ISerializer(Of TKey)
+  name.vb: ISerializer(Of TKey)
+  spec.csharp:
+  - uid: Confluent.Kafka.ISerializer`1
+    name: ISerializer
+    isExternal: true
+  - name: <
+  - name: TKey
+  - name: '>'
+  spec.vb:
+  - uid: Confluent.Kafka.ISerializer`1
+    name: ISerializer
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: )
+- uid: Cheetah.Kafka.Testing.IKafkaTestWriter{{TKey},{T}}
+  commentId: T:Cheetah.Kafka.Testing.IKafkaTestWriter{``0,``1}
+  parent: Cheetah.Kafka.Testing
+  definition: Cheetah.Kafka.Testing.IKafkaTestWriter`2
+  href: Cheetah.Kafka.Testing.IKafkaTestWriter-2.html
+  name: IKafkaTestWriter<TKey, T>
+  nameWithType: IKafkaTestWriter<TKey, T>
+  fullName: Cheetah.Kafka.Testing.IKafkaTestWriter<TKey, T>
+  nameWithType.vb: IKafkaTestWriter(Of TKey, T)
+  fullName.vb: Cheetah.Kafka.Testing.IKafkaTestWriter(Of TKey, T)
+  name.vb: IKafkaTestWriter(Of TKey, T)
+  spec.csharp:
+  - uid: Cheetah.Kafka.Testing.IKafkaTestWriter`2
+    name: IKafkaTestWriter
+    href: Cheetah.Kafka.Testing.IKafkaTestWriter-2.html
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Cheetah.Kafka.Testing.IKafkaTestWriter`2
+    name: IKafkaTestWriter
+    href: Cheetah.Kafka.Testing.IKafkaTestWriter-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestReader*
+  commentId: Overload:Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestReader
+  href: Cheetah.Kafka.Testing.KafkaTestClientFactory.html#Cheetah_Kafka_Testing_KafkaTestClientFactory_CreateTestReader__1_System_String_System_String_Confluent_Kafka_IDeserializer___0__
+  name: CreateTestReader
+  nameWithType: KafkaTestClientFactory.CreateTestReader
+  fullName: Cheetah.Kafka.Testing.KafkaTestClientFactory.CreateTestReader
+- uid: Confluent.Kafka.IDeserializer{{T}}
+  commentId: T:Confluent.Kafka.IDeserializer{``0}
+  parent: Confluent.Kafka
+  definition: Confluent.Kafka.IDeserializer`1
+  name: IDeserializer<T>
+  nameWithType: IDeserializer<T>
+  fullName: Confluent.Kafka.IDeserializer<T>
+  nameWithType.vb: IDeserializer(Of T)
+  fullName.vb: Confluent.Kafka.IDeserializer(Of T)
+  name.vb: IDeserializer(Of T)
+  spec.csharp:
+  - uid: Confluent.Kafka.IDeserializer`1
+    name: IDeserializer
+    isExternal: true
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Confluent.Kafka.IDeserializer`1
+    name: IDeserializer
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Cheetah.Kafka.Testing.IKafkaTestReader{Confluent.Kafka.Null,{T}}
+  commentId: T:Cheetah.Kafka.Testing.IKafkaTestReader{Confluent.Kafka.Null,``0}
+  parent: Cheetah.Kafka.Testing
+  definition: Cheetah.Kafka.Testing.IKafkaTestReader`2
+  href: Cheetah.Kafka.Testing.IKafkaTestReader-2.html
+  name: IKafkaTestReader<Null, T>
+  nameWithType: IKafkaTestReader<Null, T>
+  fullName: Cheetah.Kafka.Testing.IKafkaTestReader<Confluent.Kafka.Null, T>
+  nameWithType.vb: IKafkaTestReader(Of Null, T)
+  fullName.vb: Cheetah.Kafka.Testing.IKafkaTestReader(Of Confluent.Kafka.Null, T)
+  name.vb: IKafkaTestReader(Of Null, T)
+  spec.csharp:
+  - uid: Cheetah.Kafka.Testing.IKafkaTestReader`2
+    name: IKafkaTestReader
+    href: Cheetah.Kafka.Testing.IKafkaTestReader-2.html
+  - name: <
+  - uid: Confluent.Kafka.Null
+    name: "Null"
+    isExternal: true
+  - name: ','
+  - name: " "
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Cheetah.Kafka.Testing.IKafkaTestReader`2
+    name: IKafkaTestReader
+    href: Cheetah.Kafka.Testing.IKafkaTestReader-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Confluent.Kafka.Null
+    name: "Null"
+    isExternal: true
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Confluent.Kafka.IDeserializer`1
+  commentId: T:Confluent.Kafka.IDeserializer`1
+  isExternal: true
+  name: IDeserializer<T>
+  nameWithType: IDeserializer<T>
+  fullName: Confluent.Kafka.IDeserializer<T>
+  nameWithType.vb: IDeserializer(Of T)
+  fullName.vb: Confluent.Kafka.IDeserializer(Of T)
+  name.vb: IDeserializer(Of T)
+  spec.csharp:
+  - uid: Confluent.Kafka.IDeserializer`1
+    name: IDeserializer
+    isExternal: true
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Confluent.Kafka.IDeserializer`1
+    name: IDeserializer
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Confluent.Kafka.IDeserializer{{TKey}}
+  commentId: T:Confluent.Kafka.IDeserializer{`0}
+  parent: Confluent.Kafka
+  definition: Confluent.Kafka.IDeserializer`1
+  name: IDeserializer<TKey>
+  nameWithType: IDeserializer<TKey>
+  fullName: Confluent.Kafka.IDeserializer<TKey>
+  nameWithType.vb: IDeserializer(Of TKey)
+  fullName.vb: Confluent.Kafka.IDeserializer(Of TKey)
+  name.vb: IDeserializer(Of TKey)
+  spec.csharp:
+  - uid: Confluent.Kafka.IDeserializer`1
+    name: IDeserializer
+    isExternal: true
+  - name: <
+  - name: TKey
+  - name: '>'
+  spec.vb:
+  - uid: Confluent.Kafka.IDeserializer`1
+    name: IDeserializer
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: )
+- uid: Confluent.Kafka.IDeserializer{{TValue}}
+  commentId: T:Confluent.Kafka.IDeserializer{`1}
+  parent: Confluent.Kafka
+  definition: Confluent.Kafka.IDeserializer`1
+  name: IDeserializer<TValue>
+  nameWithType: IDeserializer<TValue>
+  fullName: Confluent.Kafka.IDeserializer<TValue>
+  nameWithType.vb: IDeserializer(Of TValue)
+  fullName.vb: Confluent.Kafka.IDeserializer(Of TValue)
+  name.vb: IDeserializer(Of TValue)
+  spec.csharp:
+  - uid: Confluent.Kafka.IDeserializer`1
+    name: IDeserializer
+    isExternal: true
+  - name: <
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: Confluent.Kafka.IDeserializer`1
+    name: IDeserializer
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: Cheetah.Kafka.Testing.IKafkaTestReader{{TKey},{TValue}}
+  commentId: T:Cheetah.Kafka.Testing.IKafkaTestReader{``0,``1}
+  parent: Cheetah.Kafka.Testing
+  definition: Cheetah.Kafka.Testing.IKafkaTestReader`2
+  href: Cheetah.Kafka.Testing.IKafkaTestReader-2.html
+  name: IKafkaTestReader<TKey, TValue>
+  nameWithType: IKafkaTestReader<TKey, TValue>
+  fullName: Cheetah.Kafka.Testing.IKafkaTestReader<TKey, TValue>
+  nameWithType.vb: IKafkaTestReader(Of TKey, TValue)
+  fullName.vb: Cheetah.Kafka.Testing.IKafkaTestReader(Of TKey, TValue)
+  name.vb: IKafkaTestReader(Of TKey, TValue)
+  spec.csharp:
+  - uid: Cheetah.Kafka.Testing.IKafkaTestReader`2
+    name: IKafkaTestReader
+    href: Cheetah.Kafka.Testing.IKafkaTestReader-2.html
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: Cheetah.Kafka.Testing.IKafkaTestReader`2
+    name: IKafkaTestReader
+    href: Cheetah.Kafka.Testing.IKafkaTestReader-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )

@@ -1,0 +1,54 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.Kafka.Configuration
+  commentId: N:Cheetah.Kafka.Configuration
+  id: Cheetah.Kafka.Configuration
+  children:
+  - Cheetah.Kafka.Configuration.KafkaConfig
+  langs:
+  - csharp
+  - vb
+  name: Cheetah.Kafka.Configuration
+  nameWithType: Cheetah.Kafka.Configuration
+  fullName: Cheetah.Kafka.Configuration
+  type: Namespace
+  assemblies:
+  - Cheetah.Kafka
+references:
+- uid: Cheetah.Kafka.Configuration.KafkaConfig
+  commentId: T:Cheetah.Kafka.Configuration.KafkaConfig
+  parent: Cheetah.Kafka.Configuration
+  href: Cheetah.Kafka.Configuration.KafkaConfig.html
+  name: KafkaConfig
+  nameWithType: KafkaConfig
+  fullName: Cheetah.Kafka.Configuration.KafkaConfig
+- uid: Cheetah.Kafka.Configuration
+  commentId: N:Cheetah.Kafka.Configuration
+  href: Cheetah.html
+  name: Cheetah.Kafka.Configuration
+  nameWithType: Cheetah.Kafka.Configuration
+  fullName: Cheetah.Kafka.Configuration
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  - name: .
+  - uid: Cheetah.Kafka.Configuration
+    name: Configuration
+    href: Cheetah.Kafka.Configuration.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  - name: .
+  - uid: Cheetah.Kafka.Configuration
+    name: Configuration
+    href: Cheetah.Kafka.Configuration.html

@@ -1,0 +1,259 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.Kafka.ClientOptions`2
+  commentId: T:Cheetah.Kafka.ClientOptions`2
+  id: ClientOptions`2
+  parent: Cheetah.Kafka
+  children:
+  - Cheetah.Kafka.ClientOptions`2.ConfigureBuilder(System.Action{`1})
+  - Cheetah.Kafka.ClientOptions`2.ConfigureClient(System.Action{`0})
+  langs:
+  - csharp
+  - vb
+  name: ClientOptions<TConfig, TBuilder>
+  nameWithType: ClientOptions<TConfig, TBuilder>
+  fullName: Cheetah.Kafka.ClientOptions<TConfig, TBuilder>
+  type: Class
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Options/ClientOptions.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: ClientOptions
+    path: ../src/Cheetah.Kafka/Options/ClientOptions.cs
+    startLine: 10
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka
+  summary: Represents options for configuring a client.
+  example: []
+  syntax:
+    content: 'public class ClientOptions<TConfig, TBuilder> where TConfig : ClientConfig where TBuilder : class'
+    typeParameters:
+    - id: TConfig
+      description: The type of configuration for the client.
+    - id: TBuilder
+      description: The type of builder for the client.
+    content.vb: Public Class ClientOptions(Of TConfig As ClientConfig, TBuilder As Class)
+  inheritance:
+  - System.Object
+  derivedClasses:
+  - Cheetah.Kafka.AdminClientOptions
+  - Cheetah.Kafka.ConsumerOptions`2
+  - Cheetah.Kafka.ProducerOptions`2
+  nameWithType.vb: ClientOptions(Of TConfig, TBuilder)
+  fullName.vb: Cheetah.Kafka.ClientOptions(Of TConfig, TBuilder)
+  name.vb: ClientOptions(Of TConfig, TBuilder)
+- uid: Cheetah.Kafka.ClientOptions`2.ConfigureClient(System.Action{`0})
+  commentId: M:Cheetah.Kafka.ClientOptions`2.ConfigureClient(System.Action{`0})
+  id: ConfigureClient(System.Action{`0})
+  parent: Cheetah.Kafka.ClientOptions`2
+  langs:
+  - csharp
+  - vb
+  name: ConfigureClient(Action<TConfig>)
+  nameWithType: ClientOptions<TConfig, TBuilder>.ConfigureClient(Action<TConfig>)
+  fullName: Cheetah.Kafka.ClientOptions<TConfig, TBuilder>.ConfigureClient(System.Action<TConfig>)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Options/ClientOptions.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: ConfigureClient
+    path: ../src/Cheetah.Kafka/Options/ClientOptions.cs
+    startLine: 19
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka
+  summary: Configures the client with the provided action.
+  example: []
+  syntax:
+    content: public void ConfigureClient(Action<TConfig> configureAction)
+    parameters:
+    - id: configureAction
+      type: System.Action{{TConfig}}
+      description: The action to configure the client.
+    content.vb: Public Sub ConfigureClient(configureAction As Action(Of TConfig))
+  overload: Cheetah.Kafka.ClientOptions`2.ConfigureClient*
+  nameWithType.vb: ClientOptions(Of TConfig, TBuilder).ConfigureClient(Action(Of TConfig))
+  fullName.vb: Cheetah.Kafka.ClientOptions(Of TConfig, TBuilder).ConfigureClient(System.Action(Of TConfig))
+  name.vb: ConfigureClient(Action(Of TConfig))
+- uid: Cheetah.Kafka.ClientOptions`2.ConfigureBuilder(System.Action{`1})
+  commentId: M:Cheetah.Kafka.ClientOptions`2.ConfigureBuilder(System.Action{`1})
+  id: ConfigureBuilder(System.Action{`1})
+  parent: Cheetah.Kafka.ClientOptions`2
+  langs:
+  - csharp
+  - vb
+  name: ConfigureBuilder(Action<TBuilder>)
+  nameWithType: ClientOptions<TConfig, TBuilder>.ConfigureBuilder(Action<TBuilder>)
+  fullName: Cheetah.Kafka.ClientOptions<TConfig, TBuilder>.ConfigureBuilder(System.Action<TBuilder>)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Kafka/Options/ClientOptions.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: ConfigureBuilder
+    path: ../src/Cheetah.Kafka/Options/ClientOptions.cs
+    startLine: 28
+  assemblies:
+  - Cheetah.Kafka
+  namespace: Cheetah.Kafka
+  summary: Configures the client builder with the provided action.
+  example: []
+  syntax:
+    content: public void ConfigureBuilder(Action<TBuilder> builderAction)
+    parameters:
+    - id: builderAction
+      type: System.Action{{TBuilder}}
+      description: The action to configure the client builder.
+    content.vb: Public Sub ConfigureBuilder(builderAction As Action(Of TBuilder))
+  overload: Cheetah.Kafka.ClientOptions`2.ConfigureBuilder*
+  nameWithType.vb: ClientOptions(Of TConfig, TBuilder).ConfigureBuilder(Action(Of TBuilder))
+  fullName.vb: Cheetah.Kafka.ClientOptions(Of TConfig, TBuilder).ConfigureBuilder(System.Action(Of TBuilder))
+  name.vb: ConfigureBuilder(Action(Of TBuilder))
+references:
+- uid: Cheetah.Kafka
+  commentId: N:Cheetah.Kafka
+  href: Cheetah.html
+  name: Cheetah.Kafka
+  nameWithType: Cheetah.Kafka
+  fullName: Cheetah.Kafka
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Cheetah.Kafka.ClientOptions`2.ConfigureClient*
+  commentId: Overload:Cheetah.Kafka.ClientOptions`2.ConfigureClient
+  href: Cheetah.Kafka.ClientOptions-2.html#Cheetah_Kafka_ClientOptions_2_ConfigureClient_System_Action__0__
+  name: ConfigureClient
+  nameWithType: ClientOptions<TConfig, TBuilder>.ConfigureClient
+  fullName: Cheetah.Kafka.ClientOptions<TConfig, TBuilder>.ConfigureClient
+  nameWithType.vb: ClientOptions(Of TConfig, TBuilder).ConfigureClient
+  fullName.vb: Cheetah.Kafka.ClientOptions(Of TConfig, TBuilder).ConfigureClient
+- uid: System.Action{{TConfig}}
+  commentId: T:System.Action{`0}
+  parent: System
+  definition: System.Action`1
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<TConfig>
+  nameWithType: Action<TConfig>
+  fullName: System.Action<TConfig>
+  nameWithType.vb: Action(Of TConfig)
+  fullName.vb: System.Action(Of TConfig)
+  name.vb: Action(Of TConfig)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - name: TConfig
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TConfig
+  - name: )
+- uid: System.Action`1
+  commentId: T:System.Action`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Cheetah.Kafka.ClientOptions`2.ConfigureBuilder*
+  commentId: Overload:Cheetah.Kafka.ClientOptions`2.ConfigureBuilder
+  href: Cheetah.Kafka.ClientOptions-2.html#Cheetah_Kafka_ClientOptions_2_ConfigureBuilder_System_Action__1__
+  name: ConfigureBuilder
+  nameWithType: ClientOptions<TConfig, TBuilder>.ConfigureBuilder
+  fullName: Cheetah.Kafka.ClientOptions<TConfig, TBuilder>.ConfigureBuilder
+  nameWithType.vb: ClientOptions(Of TConfig, TBuilder).ConfigureBuilder
+  fullName.vb: Cheetah.Kafka.ClientOptions(Of TConfig, TBuilder).ConfigureBuilder
+- uid: System.Action{{TBuilder}}
+  commentId: T:System.Action{`1}
+  parent: System
+  definition: System.Action`1
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<TBuilder>
+  nameWithType: Action<TBuilder>
+  fullName: System.Action<TBuilder>
+  nameWithType.vb: Action(Of TBuilder)
+  fullName.vb: System.Action(Of TBuilder)
+  name.vb: Action(Of TBuilder)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - name: TBuilder
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TBuilder
+  - name: )

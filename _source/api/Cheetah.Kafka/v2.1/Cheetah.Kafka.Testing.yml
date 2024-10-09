@@ -1,0 +1,182 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.Kafka.Testing
+  commentId: N:Cheetah.Kafka.Testing
+  id: Cheetah.Kafka.Testing
+  children:
+  - Cheetah.Kafka.Testing.IKafkaTestReader`2
+  - Cheetah.Kafka.Testing.IKafkaTestWriter`2
+  - Cheetah.Kafka.Testing.KafkaTestClientFactory
+  - Cheetah.Kafka.Testing.KafkaTestReader`2
+  - Cheetah.Kafka.Testing.KafkaTestWriter`2
+  langs:
+  - csharp
+  - vb
+  name: Cheetah.Kafka.Testing
+  nameWithType: Cheetah.Kafka.Testing
+  fullName: Cheetah.Kafka.Testing
+  type: Namespace
+  assemblies:
+  - Cheetah.Kafka
+references:
+- uid: Cheetah.Kafka.Testing.KafkaTestClientFactory
+  commentId: T:Cheetah.Kafka.Testing.KafkaTestClientFactory
+  parent: Cheetah.Kafka.Testing
+  href: Cheetah.Kafka.Testing.KafkaTestClientFactory.html
+  name: KafkaTestClientFactory
+  nameWithType: KafkaTestClientFactory
+  fullName: Cheetah.Kafka.Testing.KafkaTestClientFactory
+- uid: Cheetah.Kafka.Testing.IKafkaTestReader`2
+  commentId: T:Cheetah.Kafka.Testing.IKafkaTestReader`2
+  href: Cheetah.Kafka.Testing.IKafkaTestReader-2.html
+  name: IKafkaTestReader<TKey, T>
+  nameWithType: IKafkaTestReader<TKey, T>
+  fullName: Cheetah.Kafka.Testing.IKafkaTestReader<TKey, T>
+  nameWithType.vb: IKafkaTestReader(Of TKey, T)
+  fullName.vb: Cheetah.Kafka.Testing.IKafkaTestReader(Of TKey, T)
+  name.vb: IKafkaTestReader(Of TKey, T)
+  spec.csharp:
+  - uid: Cheetah.Kafka.Testing.IKafkaTestReader`2
+    name: IKafkaTestReader
+    href: Cheetah.Kafka.Testing.IKafkaTestReader-2.html
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Cheetah.Kafka.Testing.IKafkaTestReader`2
+    name: IKafkaTestReader
+    href: Cheetah.Kafka.Testing.IKafkaTestReader-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Cheetah.Kafka.Testing.KafkaTestReader`2
+  commentId: T:Cheetah.Kafka.Testing.KafkaTestReader`2
+  href: Cheetah.Kafka.Testing.KafkaTestReader-2.html
+  name: KafkaTestReader<TKey, T>
+  nameWithType: KafkaTestReader<TKey, T>
+  fullName: Cheetah.Kafka.Testing.KafkaTestReader<TKey, T>
+  nameWithType.vb: KafkaTestReader(Of TKey, T)
+  fullName.vb: Cheetah.Kafka.Testing.KafkaTestReader(Of TKey, T)
+  name.vb: KafkaTestReader(Of TKey, T)
+  spec.csharp:
+  - uid: Cheetah.Kafka.Testing.KafkaTestReader`2
+    name: KafkaTestReader
+    href: Cheetah.Kafka.Testing.KafkaTestReader-2.html
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Cheetah.Kafka.Testing.KafkaTestReader`2
+    name: KafkaTestReader
+    href: Cheetah.Kafka.Testing.KafkaTestReader-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Cheetah.Kafka.Testing.IKafkaTestWriter`2
+  commentId: T:Cheetah.Kafka.Testing.IKafkaTestWriter`2
+  href: Cheetah.Kafka.Testing.IKafkaTestWriter-2.html
+  name: IKafkaTestWriter<TKey, T>
+  nameWithType: IKafkaTestWriter<TKey, T>
+  fullName: Cheetah.Kafka.Testing.IKafkaTestWriter<TKey, T>
+  nameWithType.vb: IKafkaTestWriter(Of TKey, T)
+  fullName.vb: Cheetah.Kafka.Testing.IKafkaTestWriter(Of TKey, T)
+  name.vb: IKafkaTestWriter(Of TKey, T)
+  spec.csharp:
+  - uid: Cheetah.Kafka.Testing.IKafkaTestWriter`2
+    name: IKafkaTestWriter
+    href: Cheetah.Kafka.Testing.IKafkaTestWriter-2.html
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Cheetah.Kafka.Testing.IKafkaTestWriter`2
+    name: IKafkaTestWriter
+    href: Cheetah.Kafka.Testing.IKafkaTestWriter-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Cheetah.Kafka.Testing.KafkaTestWriter`2
+  commentId: T:Cheetah.Kafka.Testing.KafkaTestWriter`2
+  href: Cheetah.Kafka.Testing.KafkaTestWriter-2.html
+  name: KafkaTestWriter<TKey, T>
+  nameWithType: KafkaTestWriter<TKey, T>
+  fullName: Cheetah.Kafka.Testing.KafkaTestWriter<TKey, T>
+  nameWithType.vb: KafkaTestWriter(Of TKey, T)
+  fullName.vb: Cheetah.Kafka.Testing.KafkaTestWriter(Of TKey, T)
+  name.vb: KafkaTestWriter(Of TKey, T)
+  spec.csharp:
+  - uid: Cheetah.Kafka.Testing.KafkaTestWriter`2
+    name: KafkaTestWriter
+    href: Cheetah.Kafka.Testing.KafkaTestWriter-2.html
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Cheetah.Kafka.Testing.KafkaTestWriter`2
+    name: KafkaTestWriter
+    href: Cheetah.Kafka.Testing.KafkaTestWriter-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Cheetah.Kafka.Testing
+  commentId: N:Cheetah.Kafka.Testing
+  href: Cheetah.html
+  name: Cheetah.Kafka.Testing
+  nameWithType: Cheetah.Kafka.Testing
+  fullName: Cheetah.Kafka.Testing
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  - name: .
+  - uid: Cheetah.Kafka.Testing
+    name: Testing
+    href: Cheetah.Kafka.Testing.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  - name: .
+  - uid: Cheetah.Kafka.Testing
+    name: Testing
+    href: Cheetah.Kafka.Testing.html
