@@ -1,0 +1,76 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.Kafka.Serdes
+  commentId: N:Cheetah.Kafka.Serdes
+  id: Cheetah.Kafka.Serdes
+  children:
+  - Cheetah.Kafka.Serdes.IDeserializerProvider
+  - Cheetah.Kafka.Serdes.ISerializerProvider
+  - Cheetah.Kafka.Serdes.Utf8DeserializerProvider
+  - Cheetah.Kafka.Serdes.Utf8SerializerProvider
+  langs:
+  - csharp
+  - vb
+  name: Cheetah.Kafka.Serdes
+  nameWithType: Cheetah.Kafka.Serdes
+  fullName: Cheetah.Kafka.Serdes
+  type: Namespace
+  assemblies:
+  - Cheetah.Kafka
+references:
+- uid: Cheetah.Kafka.Serdes.IDeserializerProvider
+  commentId: T:Cheetah.Kafka.Serdes.IDeserializerProvider
+  parent: Cheetah.Kafka.Serdes
+  href: Cheetah.Kafka.Serdes.IDeserializerProvider.html
+  name: IDeserializerProvider
+  nameWithType: IDeserializerProvider
+  fullName: Cheetah.Kafka.Serdes.IDeserializerProvider
+- uid: Cheetah.Kafka.Serdes.ISerializerProvider
+  commentId: T:Cheetah.Kafka.Serdes.ISerializerProvider
+  parent: Cheetah.Kafka.Serdes
+  href: Cheetah.Kafka.Serdes.ISerializerProvider.html
+  name: ISerializerProvider
+  nameWithType: ISerializerProvider
+  fullName: Cheetah.Kafka.Serdes.ISerializerProvider
+- uid: Cheetah.Kafka.Serdes.Utf8DeserializerProvider
+  commentId: T:Cheetah.Kafka.Serdes.Utf8DeserializerProvider
+  href: Cheetah.Kafka.Serdes.Utf8DeserializerProvider.html
+  name: Utf8DeserializerProvider
+  nameWithType: Utf8DeserializerProvider
+  fullName: Cheetah.Kafka.Serdes.Utf8DeserializerProvider
+- uid: Cheetah.Kafka.Serdes.Utf8SerializerProvider
+  commentId: T:Cheetah.Kafka.Serdes.Utf8SerializerProvider
+  href: Cheetah.Kafka.Serdes.Utf8SerializerProvider.html
+  name: Utf8SerializerProvider
+  nameWithType: Utf8SerializerProvider
+  fullName: Cheetah.Kafka.Serdes.Utf8SerializerProvider
+- uid: Cheetah.Kafka.Serdes
+  commentId: N:Cheetah.Kafka.Serdes
+  href: Cheetah.html
+  name: Cheetah.Kafka.Serdes
+  nameWithType: Cheetah.Kafka.Serdes
+  fullName: Cheetah.Kafka.Serdes
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  - name: .
+  - uid: Cheetah.Kafka.Serdes
+    name: Serdes
+    href: Cheetah.Kafka.Serdes.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  - name: .
+  - uid: Cheetah.Kafka.Serdes
+    name: Serdes
+    href: Cheetah.Kafka.Serdes.html

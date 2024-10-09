@@ -1,0 +1,71 @@
+### YamlMime:TableOfContent
+items:
+- uid: Cheetah.Kafka
+  name: Cheetah.Kafka
+  items:
+  - uid: Cheetah.Kafka.AdminClientOptions
+    name: AdminClientOptions
+  - uid: Cheetah.Kafka.AdminClientOptionsBuilder
+    name: AdminClientOptionsBuilder
+  - uid: Cheetah.Kafka.ClientFactoryOptions
+    name: ClientFactoryOptions
+  - uid: Cheetah.Kafka.ClientOptions`2
+    name: ClientOptions<TConfig, TBuilder>
+  - uid: Cheetah.Kafka.Constants
+    name: Constants
+  - uid: Cheetah.Kafka.ConsumerOptionsBuilder`2
+    name: ConsumerOptionsBuilder<TKey, TValue>
+  - uid: Cheetah.Kafka.ConsumerOptions`2
+    name: ConsumerOptions<TKey, TValue>
+  - uid: Cheetah.Kafka.KafkaClientFactory
+    name: KafkaClientFactory
+  - uid: Cheetah.Kafka.ProducerOptionsBuilder`2
+    name: ProducerOptionsBuilder<TKey, TValue>
+  - uid: Cheetah.Kafka.ProducerOptions`2
+    name: ProducerOptions<TKey, TValue>
+- uid: Cheetah.Kafka.Configuration
+  name: Cheetah.Kafka.Configuration
+  items:
+  - uid: Cheetah.Kafka.Configuration.KafkaConfig
+    name: KafkaConfig
+- uid: Cheetah.Kafka.Extensions
+  name: Cheetah.Kafka.Extensions
+  items:
+  - uid: Cheetah.Kafka.Extensions.ClientInjector
+    name: ClientInjector
+  - uid: Cheetah.Kafka.Extensions.KafkaExtensions
+    name: KafkaExtensions
+  - uid: Cheetah.Kafka.Extensions.ServiceCollectionExtensions
+    name: ServiceCollectionExtensions
+- uid: Cheetah.Kafka.Serdes
+  name: Cheetah.Kafka.Serdes
+  items:
+  - uid: Cheetah.Kafka.Serdes.IDeserializerProvider
+    name: IDeserializerProvider
+  - uid: Cheetah.Kafka.Serdes.ISerializerProvider
+    name: ISerializerProvider
+  - uid: Cheetah.Kafka.Serdes.Utf8DeserializerProvider
+    name: Utf8DeserializerProvider
+  - uid: Cheetah.Kafka.Serdes.Utf8SerializerProvider
+    name: Utf8SerializerProvider
+- uid: Cheetah.Kafka.Testing
+  name: Cheetah.Kafka.Testing
+  items:
+  - uid: Cheetah.Kafka.Testing.IKafkaTestReader`2
+    name: IKafkaTestReader<TKey, T>
+  - uid: Cheetah.Kafka.Testing.IKafkaTestWriter`2
+    name: IKafkaTestWriter<TKey, T>
+  - uid: Cheetah.Kafka.Testing.KafkaTestClientFactory
+    name: KafkaTestClientFactory
+  - uid: Cheetah.Kafka.Testing.KafkaTestReader`2
+    name: KafkaTestReader<TKey, T>
+  - uid: Cheetah.Kafka.Testing.KafkaTestWriter`2
+    name: KafkaTestWriter<TKey, T>
+- uid: Cheetah.Kafka.Util
+  name: Cheetah.Kafka.Util
+  items:
+  - uid: Cheetah.Kafka.Util.Utf8JsonDeserializer`1
+    name: Utf8JsonDeserializer<T>
+  - uid: Cheetah.Kafka.Util.Utf8JsonSerializer`1
+    name: Utf8JsonSerializer<T>
+memberLayout: SamePage

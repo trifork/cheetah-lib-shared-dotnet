@@ -1,0 +1,239 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.Kafka
+  commentId: N:Cheetah.Kafka
+  id: Cheetah.Kafka
+  children:
+  - Cheetah.Kafka.AdminClientOptions
+  - Cheetah.Kafka.AdminClientOptionsBuilder
+  - Cheetah.Kafka.ClientFactoryOptions
+  - Cheetah.Kafka.ClientOptions`2
+  - Cheetah.Kafka.Constants
+  - Cheetah.Kafka.ConsumerOptionsBuilder`2
+  - Cheetah.Kafka.ConsumerOptions`2
+  - Cheetah.Kafka.KafkaClientFactory
+  - Cheetah.Kafka.ProducerOptionsBuilder`2
+  - Cheetah.Kafka.ProducerOptions`2
+  langs:
+  - csharp
+  - vb
+  name: Cheetah.Kafka
+  nameWithType: Cheetah.Kafka
+  fullName: Cheetah.Kafka
+  type: Namespace
+  assemblies:
+  - Cheetah.Kafka
+references:
+- uid: Cheetah.Kafka.Constants
+  commentId: T:Cheetah.Kafka.Constants
+  href: Cheetah.Kafka.Constants.html
+  name: Constants
+  nameWithType: Constants
+  fullName: Cheetah.Kafka.Constants
+- uid: Cheetah.Kafka.KafkaClientFactory
+  commentId: T:Cheetah.Kafka.KafkaClientFactory
+  parent: Cheetah.Kafka
+  href: Cheetah.Kafka.KafkaClientFactory.html
+  name: KafkaClientFactory
+  nameWithType: KafkaClientFactory
+  fullName: Cheetah.Kafka.KafkaClientFactory
+- uid: Cheetah.Kafka.AdminClientOptions
+  commentId: T:Cheetah.Kafka.AdminClientOptions
+  parent: Cheetah.Kafka
+  href: Cheetah.Kafka.AdminClientOptions.html
+  name: AdminClientOptions
+  nameWithType: AdminClientOptions
+  fullName: Cheetah.Kafka.AdminClientOptions
+- uid: Cheetah.Kafka.AdminClientOptionsBuilder
+  commentId: T:Cheetah.Kafka.AdminClientOptionsBuilder
+  parent: Cheetah.Kafka
+  href: Cheetah.Kafka.AdminClientOptionsBuilder.html
+  name: AdminClientOptionsBuilder
+  nameWithType: AdminClientOptionsBuilder
+  fullName: Cheetah.Kafka.AdminClientOptionsBuilder
+- uid: Cheetah.Kafka.ClientFactoryOptions
+  commentId: T:Cheetah.Kafka.ClientFactoryOptions
+  parent: Cheetah.Kafka
+  href: Cheetah.Kafka.ClientFactoryOptions.html
+  name: ClientFactoryOptions
+  nameWithType: ClientFactoryOptions
+  fullName: Cheetah.Kafka.ClientFactoryOptions
+- uid: Cheetah.Kafka.ClientOptions`2
+  commentId: T:Cheetah.Kafka.ClientOptions`2
+  href: Cheetah.Kafka.ClientOptions-2.html
+  name: ClientOptions<TConfig, TBuilder>
+  nameWithType: ClientOptions<TConfig, TBuilder>
+  fullName: Cheetah.Kafka.ClientOptions<TConfig, TBuilder>
+  nameWithType.vb: ClientOptions(Of TConfig, TBuilder)
+  fullName.vb: Cheetah.Kafka.ClientOptions(Of TConfig, TBuilder)
+  name.vb: ClientOptions(Of TConfig, TBuilder)
+  spec.csharp:
+  - uid: Cheetah.Kafka.ClientOptions`2
+    name: ClientOptions
+    href: Cheetah.Kafka.ClientOptions-2.html
+  - name: <
+  - name: TConfig
+  - name: ','
+  - name: " "
+  - name: TBuilder
+  - name: '>'
+  spec.vb:
+  - uid: Cheetah.Kafka.ClientOptions`2
+    name: ClientOptions
+    href: Cheetah.Kafka.ClientOptions-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TConfig
+  - name: ','
+  - name: " "
+  - name: TBuilder
+  - name: )
+- uid: Cheetah.Kafka.ConsumerOptions`2
+  commentId: T:Cheetah.Kafka.ConsumerOptions`2
+  href: Cheetah.Kafka.ConsumerOptions-2.html
+  name: ConsumerOptions<TKey, TValue>
+  nameWithType: ConsumerOptions<TKey, TValue>
+  fullName: Cheetah.Kafka.ConsumerOptions<TKey, TValue>
+  nameWithType.vb: ConsumerOptions(Of TKey, TValue)
+  fullName.vb: Cheetah.Kafka.ConsumerOptions(Of TKey, TValue)
+  name.vb: ConsumerOptions(Of TKey, TValue)
+  spec.csharp:
+  - uid: Cheetah.Kafka.ConsumerOptions`2
+    name: ConsumerOptions
+    href: Cheetah.Kafka.ConsumerOptions-2.html
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: Cheetah.Kafka.ConsumerOptions`2
+    name: ConsumerOptions
+    href: Cheetah.Kafka.ConsumerOptions-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: Cheetah.Kafka.ConsumerOptionsBuilder`2
+  commentId: T:Cheetah.Kafka.ConsumerOptionsBuilder`2
+  parent: Cheetah.Kafka
+  href: Cheetah.Kafka.ConsumerOptionsBuilder-2.html
+  name: ConsumerOptionsBuilder<TKey, TValue>
+  nameWithType: ConsumerOptionsBuilder<TKey, TValue>
+  fullName: Cheetah.Kafka.ConsumerOptionsBuilder<TKey, TValue>
+  nameWithType.vb: ConsumerOptionsBuilder(Of TKey, TValue)
+  fullName.vb: Cheetah.Kafka.ConsumerOptionsBuilder(Of TKey, TValue)
+  name.vb: ConsumerOptionsBuilder(Of TKey, TValue)
+  spec.csharp:
+  - uid: Cheetah.Kafka.ConsumerOptionsBuilder`2
+    name: ConsumerOptionsBuilder
+    href: Cheetah.Kafka.ConsumerOptionsBuilder-2.html
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: Cheetah.Kafka.ConsumerOptionsBuilder`2
+    name: ConsumerOptionsBuilder
+    href: Cheetah.Kafka.ConsumerOptionsBuilder-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: Cheetah.Kafka.ProducerOptions`2
+  commentId: T:Cheetah.Kafka.ProducerOptions`2
+  href: Cheetah.Kafka.ProducerOptions-2.html
+  name: ProducerOptions<TKey, TValue>
+  nameWithType: ProducerOptions<TKey, TValue>
+  fullName: Cheetah.Kafka.ProducerOptions<TKey, TValue>
+  nameWithType.vb: ProducerOptions(Of TKey, TValue)
+  fullName.vb: Cheetah.Kafka.ProducerOptions(Of TKey, TValue)
+  name.vb: ProducerOptions(Of TKey, TValue)
+  spec.csharp:
+  - uid: Cheetah.Kafka.ProducerOptions`2
+    name: ProducerOptions
+    href: Cheetah.Kafka.ProducerOptions-2.html
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: Cheetah.Kafka.ProducerOptions`2
+    name: ProducerOptions
+    href: Cheetah.Kafka.ProducerOptions-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: Cheetah.Kafka.ProducerOptionsBuilder`2
+  commentId: T:Cheetah.Kafka.ProducerOptionsBuilder`2
+  parent: Cheetah.Kafka
+  href: Cheetah.Kafka.ProducerOptionsBuilder-2.html
+  name: ProducerOptionsBuilder<TKey, TValue>
+  nameWithType: ProducerOptionsBuilder<TKey, TValue>
+  fullName: Cheetah.Kafka.ProducerOptionsBuilder<TKey, TValue>
+  nameWithType.vb: ProducerOptionsBuilder(Of TKey, TValue)
+  fullName.vb: Cheetah.Kafka.ProducerOptionsBuilder(Of TKey, TValue)
+  name.vb: ProducerOptionsBuilder(Of TKey, TValue)
+  spec.csharp:
+  - uid: Cheetah.Kafka.ProducerOptionsBuilder`2
+    name: ProducerOptionsBuilder
+    href: Cheetah.Kafka.ProducerOptionsBuilder-2.html
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: Cheetah.Kafka.ProducerOptionsBuilder`2
+    name: ProducerOptionsBuilder
+    href: Cheetah.Kafka.ProducerOptionsBuilder-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: Cheetah.Kafka
+  commentId: N:Cheetah.Kafka
+  href: Cheetah.html
+  name: Cheetah.Kafka
+  nameWithType: Cheetah.Kafka
+  fullName: Cheetah.Kafka
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Kafka
+    name: Kafka
+    href: Cheetah.Kafka.html
