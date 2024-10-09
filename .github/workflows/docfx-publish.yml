@@ -90,10 +90,9 @@ jobs:
           repo-name: ${{ inputs.project }}
           directory: ${{ env.directory }}
 
-        #TODO - Only run the following steps if the toc file was updated
       - name: Create Pull Request
         id: cpr
-        #if: ${{steps.update-toc.outputs.updated == 'true'}}
+        if: ${{steps.update-toc.outputs.updated == 'true'}}
         uses: peter-evans/create-pull-request@v7.0.5
         with:
           commit-message: "Update toc file with new version v${{ env.version }} for ${{ inputs.project }}"
@@ -104,7 +103,7 @@ jobs:
           branch-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Enable Pull Request Automerge
-        #if: ${{steps.update-toc.outputs.updated == 'true'}}
+        if: ${{steps.update-toc.outputs.updated == 'true'}}
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
           pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
@@ -112,7 +111,6 @@ jobs:
           merge-method: squash
 
       - uses: actions/cache@v4
-        if: ${{ env.updated }} == true
         with:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
@@ -121,7 +119,6 @@ jobs:
             ${{ runner.os }}-nuget-
 
       - name: "dotnet build"
-        if: ${{ env.updated }} == true
         shell: bash
         run: |
           dotnet build --verbosity minimal --configuration Release /nowarn:cs1591
@@ -130,7 +127,6 @@ jobs:
         uses: trifork/cheetah-infrastructure-utils/.github/actions/docfx/docfx-build@main
 
       - name: create public/
-        if: ${{ env.updated }} == true
         run: |
           mkdir -p public/
           mv docs/ public/_source
@@ -142,7 +138,6 @@ jobs:
           mv _site/ public/docs
 
       - name: Deploy to GitHub Pages for project ${{ inputs.project }}
-        if: ${{ env.updated }} == true
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
