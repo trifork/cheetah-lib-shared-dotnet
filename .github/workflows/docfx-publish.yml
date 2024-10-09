@@ -13,12 +13,14 @@ on:
   workflow_dispatch:
     inputs:
       project:
+        description: "The project to update the toc file for"
         type: choice
         options:
           - Cheetah.Kafka
           - Cheetah.OpenSearch
           - Cheetah.SchemaRegistry
       file:
+        description: "Path to the toc file"
         type: choice
         options:
           - .github/toc-files/articles/toc.yml
@@ -134,9 +136,9 @@ jobs:
           mv .gitignore public/.gitignore
           rm public/_source/api/.gitignore
           rm public/_source/${{env.directory}}/toc.yml
-          mv ${{inputs.file}} public/_source/${{env.directory}}/
           mv _site/ public/docs
-
+          mv ${{inputs.file}} public/_source/${{env.directory}}/
+          
       - name: Deploy to GitHub Pages for project ${{ inputs.project }}
         uses: peaceiris/actions-gh-pages@v4
         with:
