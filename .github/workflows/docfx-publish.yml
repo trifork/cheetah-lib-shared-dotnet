@@ -145,6 +145,7 @@ jobs:
           publish_dir: ./public/_source/${{env.directory}}/${{ inputs.project }}/
           exclude_assets: ""
           destination_dir: _source/${{env.directory}}/${{inputs.project}}/v${{ env.version }}
+          keep_files: true
 
       - name: Deploy updated toc file to GitHub Pages for project ${{ inputs.project }}
         uses: peaceiris/actions-gh-pages@v4
@@ -153,6 +154,7 @@ jobs:
           publish_dir: ${{inputs.file}}
           exclude_assets: ""
           destination_dir: _source/${{env.directory}}/
+          keep_files: true
 
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v3
