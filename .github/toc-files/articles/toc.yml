@@ -20,6 +20,9 @@
   items:
     - name: latest
       href: Cheetah.SchemaRegistry/toc.yml
+    - name: v2.1
+      href: Cheetah.SchemaRegistry/v2.1/toc.yml
+      homepage: Cheetah.SchemaRegistry/v2.1/index.md
     - name: v2.1.0
       href: Cheetah.SchemaRegistry/v2.1.0/toc.yml
       homepage: Cheetah.SchemaRegistry/v2.1.0/index.md
