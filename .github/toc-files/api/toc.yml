@@ -12,6 +12,8 @@
     - name: latest
       href: Cheetah.OpenSearch/toc.yml
       homepage: Cheetah.OpenSearch/index.md
+    - name: v1.1
+      href: Cheetah.OpenSearch/v1.1/toc.yml
     - name: v1.1.0
       href: Cheetah.OpenSearch/v1.1.0/toc.yml
 - name: Cheetah.Auth
