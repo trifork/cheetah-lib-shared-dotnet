@@ -34,6 +34,8 @@ jobs:
     with:
       project: Cheetah.Kafka
       file: .github/toc-files/api/toc.yml
+    secrets:
+      token: ${{ secrets.WRITE_PACKAGE_PAT }}
 
   api-Cheetah-OpenSearch:
     runs-on: ubuntu-latest
@@ -64,7 +66,7 @@ jobs:
       project: Cheetah.OpenSearch
       file: .github/toc-files/api/toc.yml
     secrets:
-      token: ${{ secrets.WRITE_PACKAGE_PATH }}
+      token: ${{ secrets.WRITE_PACKAGE_PAT }}
 
   articles-Cheetah-Kafka:
       runs-on: ubuntu-latest
@@ -95,7 +97,7 @@ jobs:
       project: Cheetah.Kafka
       file: .github/toc-files/articles/toc.yml
     secrets:
-      token: ${{ secrets.WRITE_PACKAGE_PATH }}
+      token: ${{ secrets.WRITE_PACKAGE_PAT }}
 
   articles-Cheetah-OpenSearch:
     runs-on: ubuntu-latest
@@ -126,7 +128,7 @@ jobs:
       project: Cheetah.OpenSearch
       file: .github/toc-files/articles/toc.yml
     secrets:
-      token: ${{ secrets.WRITE_PACKAGE_PATH }}
+      token: ${{ secrets.WRITE_PACKAGE_PAT }}
       
   articles-Cheetah-SchemaRegistry:
     runs-on: ubuntu-latest
@@ -157,4 +159,4 @@ jobs:
       project: Cheetah.SchemaRegistry
       file: .github/toc-files/articles/toc.yml
     secrets:
-      token: ${{ secrets.WRITE_PACKAGE_PATH }}
+      token: ${{ secrets.WRITE_PACKAGE_PAT }}
