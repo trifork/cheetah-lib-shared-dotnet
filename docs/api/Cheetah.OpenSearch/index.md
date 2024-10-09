@@ -1,4 +1,4 @@
-# Cheetah.OpenSearch
+# Cheetah.OpenSearch 
 
 This space contains API documentation relating to the `Cheetah.OpenSearch` nuget package.
 

@@ -1,4 +1,4 @@
-# Testing with Cheetah.SchemaRegistry
+# Testing with Cheetah.SchemaRegistry 
 
 In order to easily test other components which communicate with Kafka using Avro, Cheetah.SchemaRegistry includes a simple way to generate test clients that can be used to verify the behavior of other components.
 
