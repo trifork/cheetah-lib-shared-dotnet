@@ -152,7 +152,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ${{inputs.file}}
           exclude_assets: ""
-          destination_dir: _source/${{env.directory}}/${{inputs.project}}/
+          destination_dir: _source/${{env.directory}}/
 
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v3
