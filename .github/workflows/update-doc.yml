@@ -37,37 +37,6 @@ jobs:
     secrets:
       WRITE_PACKAGE_PAT: ${{ secrets.WRITE_PACKAGE_PAT }}
 
-  api-Cheetah-Auth:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Check if files have changed
-        id: changed-files
-        uses: tj-actions/changed-files@v45
-        with:
-          dir_names: "true"
-          files: |
-            docs/api/Cheetah.Auth/*.md
-
-      - name: Set output variable
-        if: ${{ steps.changed-files.outputs.any_changed == 'true' }}
-        run: |
-          echo "changed=true" >> $GITHUB_ENV
-    outputs:
-      changed: ${{ steps.changed-files.outputs.any_changed }}
-
-  update-doc-api-Cheetah-Auth:
-    if: ${{ needs.api-Cheetah-Auth.outputs.changed == 'true' }}
-    needs: api-Cheetah-Auth
-    uses: trifork/cheetah-lib-shared-dotnet/.github/workflows/docfx-publish.yml@main
-    with:
-      project: Cheetah.Auth
-      file: .github/toc-files/api/toc.yml
-    secrets:
-      WRITE_PACKAGE_PAT: ${{ secrets.WRITE_PACKAGE_PAT }}
-
   api-Cheetah-OpenSearch:
     runs-on: ubuntu-latest
     steps:
