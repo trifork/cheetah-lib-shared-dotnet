@@ -1,0 +1,350 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.Auth.Authentication.OAuth2TokenException
+  commentId: T:Cheetah.Auth.Authentication.OAuth2TokenException
+  id: OAuth2TokenException
+  parent: Cheetah.Auth.Authentication
+  children:
+  - Cheetah.Auth.Authentication.OAuth2TokenException.#ctor(System.String)
+  langs:
+  - csharp
+  - vb
+  name: OAuth2TokenException
+  nameWithType: OAuth2TokenException
+  fullName: Cheetah.Auth.Authentication.OAuth2TokenException
+  type: Class
+  source:
+    remote:
+      path: src/Cheetah.Auth/Authentication/OAuth2TokenException.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: OAuth2TokenException
+    path: ../src/Cheetah.Auth/Authentication/OAuth2TokenException.cs
+    startLine: 7
+  assemblies:
+  - Cheetah.Auth
+  namespace: Cheetah.Auth.Authentication
+  summary: Exception thrown when an OAuth2 token could not be retrieved
+  example: []
+  syntax:
+    content: 'public class OAuth2TokenException : Exception, ISerializable'
+    content.vb: Public Class OAuth2TokenException Inherits Exception Implements ISerializable
+  inheritance:
+  - System.Object
+  - System.Exception
+  implements:
+  - System.Runtime.Serialization.ISerializable
+  inheritedMembers:
+  - System.Exception.GetBaseException
+  - System.Exception.GetType
+  - System.Exception.ToString
+  - System.Exception.Data
+  - System.Exception.HelpLink
+  - System.Exception.HResult
+  - System.Exception.InnerException
+  - System.Exception.Message
+  - System.Exception.Source
+  - System.Exception.StackTrace
+  - System.Exception.TargetSite
+  - System.Exception.SerializeObjectState
+- uid: Cheetah.Auth.Authentication.OAuth2TokenException.#ctor(System.String)
+  commentId: M:Cheetah.Auth.Authentication.OAuth2TokenException.#ctor(System.String)
+  id: '#ctor(System.String)'
+  parent: Cheetah.Auth.Authentication.OAuth2TokenException
+  langs:
+  - csharp
+  - vb
+  name: OAuth2TokenException(string?)
+  nameWithType: OAuth2TokenException.OAuth2TokenException(string?)
+  fullName: Cheetah.Auth.Authentication.OAuth2TokenException.OAuth2TokenException(string?)
+  type: Constructor
+  source:
+    remote:
+      path: src/Cheetah.Auth/Authentication/OAuth2TokenException.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: .ctor
+    path: ../src/Cheetah.Auth/Authentication/OAuth2TokenException.cs
+    startLine: 13
+  assemblies:
+  - Cheetah.Auth
+  namespace: Cheetah.Auth.Authentication
+  summary: Create a new instance of <xref href="Cheetah.Auth.Authentication.OAuth2TokenException" data-throw-if-not-resolved="false"></xref>
+  example: []
+  syntax:
+    content: public OAuth2TokenException(string? error)
+    parameters:
+    - id: error
+      type: System.String
+      description: An error message describing what went wrong
+    content.vb: Public Sub New([error] As String)
+  overload: Cheetah.Auth.Authentication.OAuth2TokenException.#ctor*
+  nameWithType.vb: OAuth2TokenException.New(String)
+  fullName.vb: Cheetah.Auth.Authentication.OAuth2TokenException.New(String)
+  name.vb: New(String)
+references:
+- uid: Cheetah.Auth.Authentication
+  commentId: N:Cheetah.Auth.Authentication
+  href: Cheetah.html
+  name: Cheetah.Auth.Authentication
+  nameWithType: Cheetah.Auth.Authentication
+  fullName: Cheetah.Auth.Authentication
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+    href: Cheetah.Auth.html
+  - name: .
+  - uid: Cheetah.Auth.Authentication
+    name: Authentication
+    href: Cheetah.Auth.Authentication.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+    href: Cheetah.Auth.html
+  - name: .
+  - uid: Cheetah.Auth.Authentication
+    name: Authentication
+    href: Cheetah.Auth.Authentication.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Exception
+  commentId: T:System.Exception
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.exception
+  name: Exception
+  nameWithType: Exception
+  fullName: System.Exception
+- uid: System.Runtime.Serialization.ISerializable
+  commentId: T:System.Runtime.Serialization.ISerializable
+  parent: System.Runtime.Serialization
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.runtime.serialization.iserializable
+  name: ISerializable
+  nameWithType: ISerializable
+  fullName: System.Runtime.Serialization.ISerializable
+- uid: System.Exception.GetBaseException
+  commentId: M:System.Exception.GetBaseException
+  parent: System.Exception
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.exception.getbaseexception
+  name: GetBaseException()
+  nameWithType: Exception.GetBaseException()
+  fullName: System.Exception.GetBaseException()
+  spec.csharp:
+  - uid: System.Exception.GetBaseException
+    name: GetBaseException
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception.getbaseexception
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Exception.GetBaseException
+    name: GetBaseException
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception.getbaseexception
+  - name: (
+  - name: )
+- uid: System.Exception.GetType
+  commentId: M:System.Exception.GetType
+  parent: System.Exception
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.exception.gettype
+  name: GetType()
+  nameWithType: Exception.GetType()
+  fullName: System.Exception.GetType()
+  spec.csharp:
+  - uid: System.Exception.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Exception.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception.gettype
+  - name: (
+  - name: )
+- uid: System.Exception.ToString
+  commentId: M:System.Exception.ToString
+  parent: System.Exception
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.exception.tostring
+  name: ToString()
+  nameWithType: Exception.ToString()
+  fullName: System.Exception.ToString()
+  spec.csharp:
+  - uid: System.Exception.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Exception.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception.tostring
+  - name: (
+  - name: )
+- uid: System.Exception.Data
+  commentId: P:System.Exception.Data
+  parent: System.Exception
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.exception.data
+  name: Data
+  nameWithType: Exception.Data
+  fullName: System.Exception.Data
+- uid: System.Exception.HelpLink
+  commentId: P:System.Exception.HelpLink
+  parent: System.Exception
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.exception.helplink
+  name: HelpLink
+  nameWithType: Exception.HelpLink
+  fullName: System.Exception.HelpLink
+- uid: System.Exception.HResult
+  commentId: P:System.Exception.HResult
+  parent: System.Exception
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.exception.hresult
+  name: HResult
+  nameWithType: Exception.HResult
+  fullName: System.Exception.HResult
+- uid: System.Exception.InnerException
+  commentId: P:System.Exception.InnerException
+  parent: System.Exception
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.exception.innerexception
+  name: InnerException
+  nameWithType: Exception.InnerException
+  fullName: System.Exception.InnerException
+- uid: System.Exception.Message
+  commentId: P:System.Exception.Message
+  parent: System.Exception
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.exception.message
+  name: Message
+  nameWithType: Exception.Message
+  fullName: System.Exception.Message
+- uid: System.Exception.Source
+  commentId: P:System.Exception.Source
+  parent: System.Exception
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.exception.source
+  name: Source
+  nameWithType: Exception.Source
+  fullName: System.Exception.Source
+- uid: System.Exception.StackTrace
+  commentId: P:System.Exception.StackTrace
+  parent: System.Exception
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.exception.stacktrace
+  name: StackTrace
+  nameWithType: Exception.StackTrace
+  fullName: System.Exception.StackTrace
+- uid: System.Exception.TargetSite
+  commentId: P:System.Exception.TargetSite
+  parent: System.Exception
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.exception.targetsite
+  name: TargetSite
+  nameWithType: Exception.TargetSite
+  fullName: System.Exception.TargetSite
+- uid: System.Exception.SerializeObjectState
+  commentId: E:System.Exception.SerializeObjectState
+  parent: System.Exception
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.exception.serializeobjectstate
+  name: SerializeObjectState
+  nameWithType: Exception.SerializeObjectState
+  fullName: System.Exception.SerializeObjectState
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Runtime.Serialization
+  commentId: N:System.Runtime.Serialization
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Runtime.Serialization
+  nameWithType: System.Runtime.Serialization
+  fullName: System.Runtime.Serialization
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Runtime
+    name: Runtime
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.runtime
+  - name: .
+  - uid: System.Runtime.Serialization
+    name: Serialization
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.runtime.serialization
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Runtime
+    name: Runtime
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.runtime
+  - name: .
+  - uid: System.Runtime.Serialization
+    name: Serialization
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.runtime.serialization
+- uid: Cheetah.Auth.Authentication.OAuth2TokenException
+  commentId: T:Cheetah.Auth.Authentication.OAuth2TokenException
+  href: Cheetah.Auth.Authentication.OAuth2TokenException.html
+  name: OAuth2TokenException
+  nameWithType: OAuth2TokenException
+  fullName: Cheetah.Auth.Authentication.OAuth2TokenException
+- uid: Cheetah.Auth.Authentication.OAuth2TokenException.#ctor*
+  commentId: Overload:Cheetah.Auth.Authentication.OAuth2TokenException.#ctor
+  href: Cheetah.Auth.Authentication.OAuth2TokenException.html#Cheetah_Auth_Authentication_OAuth2TokenException__ctor_System_String_
+  name: OAuth2TokenException
+  nameWithType: OAuth2TokenException.OAuth2TokenException
+  fullName: Cheetah.Auth.Authentication.OAuth2TokenException.OAuth2TokenException
+  nameWithType.vb: OAuth2TokenException.New
+  fullName.vb: Cheetah.Auth.Authentication.OAuth2TokenException.New
+  name.vb: New
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String

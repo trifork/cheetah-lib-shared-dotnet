@@ -1,0 +1,54 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.Auth.Configuration
+  commentId: N:Cheetah.Auth.Configuration
+  id: Cheetah.Auth.Configuration
+  children:
+  - Cheetah.Auth.Configuration.OAuth2Config
+  langs:
+  - csharp
+  - vb
+  name: Cheetah.Auth.Configuration
+  nameWithType: Cheetah.Auth.Configuration
+  fullName: Cheetah.Auth.Configuration
+  type: Namespace
+  assemblies:
+  - Cheetah.Auth
+references:
+- uid: Cheetah.Auth.Configuration.OAuth2Config
+  commentId: T:Cheetah.Auth.Configuration.OAuth2Config
+  parent: Cheetah.Auth.Configuration
+  href: Cheetah.Auth.Configuration.OAuth2Config.html
+  name: OAuth2Config
+  nameWithType: OAuth2Config
+  fullName: Cheetah.Auth.Configuration.OAuth2Config
+- uid: Cheetah.Auth.Configuration
+  commentId: N:Cheetah.Auth.Configuration
+  href: Cheetah.html
+  name: Cheetah.Auth.Configuration
+  nameWithType: Cheetah.Auth.Configuration
+  fullName: Cheetah.Auth.Configuration
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+    href: Cheetah.Auth.html
+  - name: .
+  - uid: Cheetah.Auth.Configuration
+    name: Configuration
+    href: Cheetah.Auth.Configuration.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+    href: Cheetah.Auth.html
+  - name: .
+  - uid: Cheetah.Auth.Configuration
+    name: Configuration
+    href: Cheetah.Auth.Configuration.html
