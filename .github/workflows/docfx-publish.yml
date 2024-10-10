@@ -10,7 +10,7 @@ on:
         required: true
         type: string
     secrets:
-      token:
+      WRITE_PACKAGE_PAT:
         required: true
 
   workflow_dispatch:
@@ -172,25 +172,9 @@ jobs:
           destination_dir: _source/${{env.directory}}/
           keep_files: true
 
-      - name: Repository Dispatch
-        uses: peter-evans/repository-dispatch@v3
-        with:
-          token: ${{ secrets.READ_PACKAGE_PAT }}
-          repository: trifork/cheetah-artifact-documentation
-          event-type: docs-update
-
       - name: Repository Dispatch for workflow_dispatch
-        if: ${{ github.event_name == 'workflow_dispatch' }}
         uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.WRITE_PACKAGE_PAT }}
-          repository: trifork/cheetah-artifact-documentation
-          event-type: docs-update
-
-      - name: Repository Dispatch for workflow_call
-        if: ${{ github.event_name == 'workflow_call' }}
-        uses: peter-evans/repository-dispatch@v3
-        with:
-          token: ${{ secrets.token }}
           repository: trifork/cheetah-artifact-documentation
           event-type: docs-update
