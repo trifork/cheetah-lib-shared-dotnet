@@ -1,4 +1,4 @@
-# Testing with Cheetah.Kafka
+# Testing with Cheetah.Kafka 
 
 In order to easily test other components which communicate with Kafka, Cheetah.Kafka includes a simple way to generate test clients that can be used to verify the behavior of other components.
 

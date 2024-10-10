@@ -129,7 +129,7 @@ jobs:
           dotnet build --verbosity minimal --configuration Release /nowarn:cs1591
 
       - name: Build docfx
-        run: | 
+        run: |
          dotnet tool update -g docfx
          docfx docs/docfx.json
 
