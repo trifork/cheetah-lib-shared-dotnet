@@ -66,16 +66,11 @@ jobs:
 
       - name: Get project version
         id: get-version
-        if: ${{ inputs.project != 'Cheetah.Auth' }}
         uses: trifork/cheetah-infrastructure-utils-workflows/.github/actions/versioning/get-version@main
         with:
           file-path: ${{ steps.get-csproj-filepath.outputs.value }}
           prefix: "<VersionPrefix>"
           suffix: "</VersionPrefix>"
-
-      - name: Set project version
-        if: ${{ inputs.project == 'Cheetah.Auth' }}
-        run: echo "version=v0.1.0" >> $GITHUB_ENV
 
       - name: get directory
         run: |
@@ -91,12 +86,12 @@ jobs:
             echo $dir
             echo "directory=$dir" >> $GITHUB_ENV
 
-      - name: Update toc file with new version v${{ steps.get-version.outputs.version || env.version }}
+      - name: Update toc file with new version v${{ steps.get-version.outputs.version }}
         id: update-toc
         uses: trifork/cheetah-infrastructure-utils/.github/actions/update-toc@main
         with:
           toc-file: ${{ inputs.file }}
-          version: ${{ steps.get-version.outputs.version || env.version}}
+          version: ${{ steps.get-version.outputs.version }}
           repo-name: ${{ inputs.project }}
           directory: ${{ env.directory }}
 
@@ -170,6 +165,16 @@ jobs:
           exclude_assets: ""
           commit_message: "Update toc file with new version v${{ env.version }} for ${{ inputs.project }}"
           destination_dir: _source/${{env.directory}}/
+          keep_files: true
+
+      - name: Deploy Cheetah.Auth to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public/_source/api/Cheetah.Auth/
+          exclude_assets: ""
+          commit_message: "Update Cheetah.Auth"
+          destination_dir: _source/api/Cheetah.Auth/
           keep_files: true
 
       - name: Repository Dispatch for workflow_dispatch
