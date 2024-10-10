@@ -3,10 +3,13 @@
   items:
     - name: v2.1
       href: Cheetah.Kafka/v2.1/toc.yml
+      homepage: Cheetah.Kafka/v2.1/index.md
 - name: Cheetah.OpenSearch
   items:
     - name: v1.1
       href: Cheetah.OpenSearch/v1.1/toc.yml
+      homepage: Cheetah.OpenSearch/v1.1/index.md
+
 - name: Cheetah.Auth
   homepage: Cheetah.Auth/index.md
   href: Cheetah.Auth/toc.yml
