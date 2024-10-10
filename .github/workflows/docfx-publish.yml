@@ -66,11 +66,16 @@ jobs:
 
       - name: Get project version
         id: get-version
+        if: ${{ inputs.project != 'Cheetah.Auth' }}
         uses: trifork/cheetah-infrastructure-utils-workflows/.github/actions/versioning/get-version@main
         with:
           file-path: ${{ steps.get-csproj-filepath.outputs.value }}
           prefix: "<VersionPrefix>"
           suffix: "</VersionPrefix>"
+
+      - name: Set project version
+        if: ${{ inputs.project == 'Cheetah.Auth' }}
+        run: echo "version=v0.0.0" >> $GITHUB_ENV
 
       - name: get directory
         run: |
@@ -86,12 +91,12 @@ jobs:
             echo $dir
             echo "directory=$dir" >> $GITHUB_ENV
 
-      - name: Update toc file with new version v${{ steps.get-version.outputs.version }}
+      - name: Update toc file with new version v${{ steps.get-version.outputs.version || env.version }}
         id: update-toc
         uses: trifork/cheetah-infrastructure-utils/.github/actions/update-toc@main
         with:
           toc-file: ${{ inputs.file }}
-          version: ${{ steps.get-version.outputs.version }}
+          version: ${{ steps.get-version.outputs.version || env.version}}
           repo-name: ${{ inputs.project }}
           directory: ${{ env.directory }}
 
@@ -100,7 +105,7 @@ jobs:
         if: ${{steps.update-toc.outputs.updated == 'true'}}
         uses: peter-evans/create-pull-request@v7.0.5
         with:
-          commit-message: "Update toc file with new version v${{ env.version }} for ${{ inputs.project }}"
+          commit-message: "Update toc file with new version v${{ env.version  }} for ${{ inputs.project }}"
           sign-commits: true
           title: "Update toc file with new version v${{ env.version }} for ${{ inputs.project }}"
           labels: "automated"
