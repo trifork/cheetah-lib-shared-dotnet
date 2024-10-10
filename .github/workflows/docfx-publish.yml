@@ -130,6 +130,7 @@ jobs:
 
       - name: Build docfx
         run: | 
+         dotnet tool update -g docfx
          docfx docs/docfx.json
 
       - name: create public/
