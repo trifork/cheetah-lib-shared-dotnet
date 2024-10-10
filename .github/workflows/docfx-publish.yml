@@ -174,7 +174,7 @@ jobs:
           publish_dir: ./public/_source/api/Cheetah.Auth/
           exclude_assets: ""
           commit_message: "Update Cheetah.Auth"
-          destination_dir: _source/api/
+          destination_dir: _source/api/Cheetah.Auth/
           keep_files: true
 
       - name: Repository Dispatch for workflow_dispatch

@@ -8,5 +8,6 @@
     - name: v1.1
       href: Cheetah.OpenSearch/v1.1/toc.yml
 - name: Cheetah.Auth
-  href: Cheetah.Auth/index.md
+  homepage: Cheetah.Auth/index.md
+  href: Cheetah.Auth/toc.yml
 
