@@ -1,4 +1,4 @@
-# Cheetah.Auth 
+# Cheetah.Auth
 
 This space contains API documentation relating to the `Cheetah.Auth` nuget package.
 
