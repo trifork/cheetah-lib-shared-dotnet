@@ -1,19 +1,35 @@
----
-- name: Cheetah.Kafka
+### YamlMime:TableOfContent
+items:
+- uid: Cheetah.Auth.Authentication
+  name: Cheetah.Auth.Authentication
   items:
-    - name: latest
-      href: Cheetah.Kafka/toc.yml
-    - name: v2.1
-      href: Cheetah.Kafka/v2.1/toc.yml
-- name: Cheetah.OpenSearch
+  - uid: Cheetah.Auth.Authentication.CachedTokenProvider
+    name: CachedTokenProvider
+  - uid: Cheetah.Auth.Authentication.ICachableTokenProvider
+    name: ICachableTokenProvider
+  - uid: Cheetah.Auth.Authentication.ITokenService
+    name: ITokenService
+  - uid: Cheetah.Auth.Authentication.OAuth2TokenException
+    name: OAuth2TokenException
+  - uid: Cheetah.Auth.Authentication.OAuthTokenProvider
+    name: OAuthTokenProvider
+  - uid: Cheetah.Auth.Authentication.StartUpTokenService
+    name: StartUpTokenService
+  - uid: Cheetah.Auth.Authentication.TokenWithExpiry
+    name: TokenWithExpiry
+- uid: Cheetah.Auth.Configuration
+  name: Cheetah.Auth.Configuration
   items:
-    - name: latest
-      href: Cheetah.OpenSearch/toc.yml
-      homepage: Cheetah.OpenSearch/index.md
-    - name: v1.1
-      href: Cheetah.OpenSearch/v1.1/toc.yml
-- name: Cheetah.Auth
+  - uid: Cheetah.Auth.Configuration.OAuth2Config
+    name: OAuth2Config
+- uid: Cheetah.Auth.Extensions
+  name: Cheetah.Auth.Extensions
   items:
-    - name: latest
-      href: Cheetah.Auth/toc.yml
-      homepage: Cheetah.Auth/index.md
+  - uid: Cheetah.Auth.Extensions.ServiceCollectionExtensions
+    name: ServiceCollectionExtensions
+- uid: Cheetah.Auth.Util
+  name: Cheetah.Auth.Util
+  items:
+  - uid: Cheetah.Auth.Util.DefaultHttpClientFactory
+    name: DefaultHttpClientFactory
+memberLayout: SamePage

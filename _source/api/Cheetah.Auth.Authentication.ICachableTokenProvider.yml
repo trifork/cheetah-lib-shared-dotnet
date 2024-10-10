@@ -1,0 +1,238 @@
+### YamlMime:ManagedReference
+items:
+- uid: Cheetah.Auth.Authentication.ICachableTokenProvider
+  commentId: T:Cheetah.Auth.Authentication.ICachableTokenProvider
+  id: ICachableTokenProvider
+  parent: Cheetah.Auth.Authentication
+  children:
+  - Cheetah.Auth.Authentication.ICachableTokenProvider.GetTokenResponse(System.Threading.CancellationToken)
+  langs:
+  - csharp
+  - vb
+  name: ICachableTokenProvider
+  nameWithType: ICachableTokenProvider
+  fullName: Cheetah.Auth.Authentication.ICachableTokenProvider
+  type: Interface
+  source:
+    remote:
+      path: src/Cheetah.Auth/Authentication/ICachableTokenProvider.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: ICachableTokenProvider
+    path: ../src/Cheetah.Auth/Authentication/ICachableTokenProvider.cs
+    startLine: 9
+  assemblies:
+  - Cheetah.Auth
+  namespace: Cheetah.Auth.Authentication
+  summary: Interface for a token provider that returns a token response.
+  example: []
+  syntax:
+    content: public interface ICachableTokenProvider
+    content.vb: Public Interface ICachableTokenProvider
+- uid: Cheetah.Auth.Authentication.ICachableTokenProvider.GetTokenResponse(System.Threading.CancellationToken)
+  commentId: M:Cheetah.Auth.Authentication.ICachableTokenProvider.GetTokenResponse(System.Threading.CancellationToken)
+  id: GetTokenResponse(System.Threading.CancellationToken)
+  parent: Cheetah.Auth.Authentication.ICachableTokenProvider
+  langs:
+  - csharp
+  - vb
+  name: GetTokenResponse(CancellationToken)
+  nameWithType: ICachableTokenProvider.GetTokenResponse(CancellationToken)
+  fullName: Cheetah.Auth.Authentication.ICachableTokenProvider.GetTokenResponse(System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: src/Cheetah.Auth/Authentication/ICachableTokenProvider.cs
+      branch: main
+      repo: https://github.com/trifork/cheetah-lib-shared-dotnet
+    id: GetTokenResponse
+    path: ../src/Cheetah.Auth/Authentication/ICachableTokenProvider.cs
+    startLine: 16
+  assemblies:
+  - Cheetah.Auth
+  namespace: Cheetah.Auth.Authentication
+  summary: Get a token response.
+  example: []
+  syntax:
+    content: Task<TokenResponse?> GetTokenResponse(CancellationToken cancellationToken)
+    parameters:
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: ''
+    return:
+      type: System.Threading.Tasks.Task{IdentityModel.Client.TokenResponse}
+      description: TokenResponse
+    content.vb: Function GetTokenResponse(cancellationToken As CancellationToken) As Task(Of TokenResponse)
+  overload: Cheetah.Auth.Authentication.ICachableTokenProvider.GetTokenResponse*
+references:
+- uid: Cheetah.Auth.Authentication
+  commentId: N:Cheetah.Auth.Authentication
+  href: Cheetah.html
+  name: Cheetah.Auth.Authentication
+  nameWithType: Cheetah.Auth.Authentication
+  fullName: Cheetah.Auth.Authentication
+  spec.csharp:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+    href: Cheetah.Auth.html
+  - name: .
+  - uid: Cheetah.Auth.Authentication
+    name: Authentication
+    href: Cheetah.Auth.Authentication.html
+  spec.vb:
+  - uid: Cheetah
+    name: Cheetah
+    href: Cheetah.html
+  - name: .
+  - uid: Cheetah.Auth
+    name: Auth
+    href: Cheetah.Auth.html
+  - name: .
+  - uid: Cheetah.Auth.Authentication
+    name: Authentication
+    href: Cheetah.Auth.Authentication.html
+- uid: Cheetah.Auth.Authentication.ICachableTokenProvider.GetTokenResponse*
+  commentId: Overload:Cheetah.Auth.Authentication.ICachableTokenProvider.GetTokenResponse
+  href: Cheetah.Auth.Authentication.ICachableTokenProvider.html#Cheetah_Auth_Authentication_ICachableTokenProvider_GetTokenResponse_System_Threading_CancellationToken_
+  name: GetTokenResponse
+  nameWithType: ICachableTokenProvider.GetTokenResponse
+  fullName: Cheetah.Auth.Authentication.ICachableTokenProvider.GetTokenResponse
+- uid: System.Threading.CancellationToken
+  commentId: T:System.Threading.CancellationToken
+  parent: System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  name: CancellationToken
+  nameWithType: CancellationToken
+  fullName: System.Threading.CancellationToken
+- uid: System.Threading.Tasks.Task{IdentityModel.Client.TokenResponse}
+  commentId: T:System.Threading.Tasks.Task{IdentityModel.Client.TokenResponse}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TokenResponse>
+  nameWithType: Task<TokenResponse>
+  fullName: System.Threading.Tasks.Task<IdentityModel.Client.TokenResponse>
+  nameWithType.vb: Task(Of TokenResponse)
+  fullName.vb: System.Threading.Tasks.Task(Of IdentityModel.Client.TokenResponse)
+  name.vb: Task(Of TokenResponse)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: IdentityModel.Client.TokenResponse
+    name: TokenResponse
+    isExternal: true
+    href: https://github.com/IdentityModel/IdentityModel/blob/main/src/Client/Messages/TokenResponse.cs
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdentityModel.Client.TokenResponse
+    name: TokenResponse
+    isExternal: true
+    href: https://github.com/IdentityModel/IdentityModel/blob/main/src/Client/Messages/TokenResponse.cs
+  - name: )
+- uid: System.Threading
+  commentId: N:System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading
+  nameWithType: System.Threading
+  fullName: System.Threading
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
