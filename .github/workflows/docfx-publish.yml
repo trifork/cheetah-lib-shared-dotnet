@@ -129,8 +129,8 @@ jobs:
           dotnet build --verbosity minimal --configuration Release /nowarn:cs1591
 
       - name: Build docfx
-        continue-on-error: true
-        uses: trifork/cheetah-infrastructure-utils/.github/actions/docfx/docfx-build@main
+        run: | 
+         docfx docs/docfx.json
 
       - name: create public/
         run: |
