@@ -75,7 +75,7 @@ jobs:
 
       - name: Set project version
         if: ${{ inputs.project == 'Cheetah.Auth' }}
-        run: echo "version=v0.0.0" >> $GITHUB_ENV
+        run: echo "version=v0.1.0" >> $GITHUB_ENV
 
       - name: get directory
         run: |
