@@ -2,6 +2,11 @@ name: E2E
 
 on:
   workflow_call:
+    inputs:
+      extra-dotnet-test-args:
+        description: Extra arguments to pass to dotnet test
+        required: false
+        type: string
     secrets:
       PAT:
         description: A personal access token with permission to publish a package and push to all branches
@@ -10,10 +15,10 @@ on:
   schedule:
     - cron: "0 3 * * *"
   push:
-    branches: [ 'main', 'release/v**' ]
+    branches: ["main", "release/v**"]
   pull_request:
-    branches: [ 'main', 'release/v**' ]
-    types: [ opened, synchronize, reopened, labeled ]
+    branches: ["main", "release/v**"]
+    types: [opened, synchronize, reopened, labeled]
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
@@ -40,7 +45,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.PAT }}
-  
+
       - name: Checkout trifork/cheetah-development-infrastructure
         uses: actions/checkout@v4
         with:
@@ -54,7 +59,7 @@ jobs:
         run: docker compose --profile core up --wait
 
       - name: Dotnet Test
-        run: dotnet test --logger trx
+        run: dotnet test --logger trx ${{ inputs.extra-dotnet-test-args }}
 
       - name: Display test report OpenSearch
         uses: dorny/test-reporter@v1.9.1
@@ -70,8 +75,8 @@ jobs:
         with:
           name: Tests
           path: src/Cheetah.Kafka.Test/TestResults/*.trx
-          reporter: dotnet-trx      
-      
+          reporter: dotnet-trx
+
       - name: Display test report SchemaRegistry
         uses: dorny/test-reporter@v1.9.1
         if: always()

@@ -6,6 +6,8 @@ on:
 jobs:
   run-tests:
     uses: ./.github/workflows/e2e.yml
+    with:
+      extra-dotnet-test-args: -p:TreatWarningsAsErrors=false
     secrets:
       PAT: ${{ secrets.READ_PACKAGE_PAT }}
 
