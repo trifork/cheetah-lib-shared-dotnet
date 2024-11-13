@@ -4,6 +4,13 @@ on:
   workflow_dispatch:
 
 jobs:
+  run-tests:
+    uses: ./.github/workflows/e2e.yml
+    with:
+      extra-dotnet-test-args: -p:TreatWarningsAsErrors=false
+    secrets:
+      PAT: ${{ secrets.READ_PACKAGE_PAT }}
+
   get-csproj-filepath:
     runs-on: ubuntu-latest
     timeout-minutes: 5
