@@ -134,15 +134,20 @@ namespace Cheetah.Auth.Authentication
                     continue;
                 }
 
-                if (TimeSpan.FromSeconds(GetExpiryInSeconds()).Subtract(_earlyExpiry) > TimeSpan.Zero)
+                if (_token?.AccessToken == null)
                 {
-                    if (_token?.AccessToken == null)
-                    {
-                        throw new OAuth2TokenException($"Failed to retrieve access token - Access token is null");
-                    }
-                    return (_token.AccessToken, DateTimeOffset.UtcNow.AddSeconds(GetExpiryInSeconds()).ToUnixTimeMilliseconds());
+                    throw new OAuth2TokenException($"Failed to retrieve access token - Access token is null");
                 }
-                _logger.LogWarning($"No token available yet. Waiting for {_retryInterval} before checking again");
+
+                var aboutToExpire = TimeSpan.FromSeconds(GetExpiryInSeconds()).Subtract(_earlyExpiry) <= TimeSpan.Zero;
+                if (aboutToExpire)
+                {
+                    _logger.LogWarning($"Token is about to expire. Requesting new token in {_retryInterval}.");
+                    await Task.Delay(_retryInterval, cancellationToken);
+                    continue;
+                }
+
+                return (_token.AccessToken, DateTimeOffset.UtcNow.AddSeconds(GetExpiryInSeconds()).ToUnixTimeMilliseconds());
             }
             throw new OAuth2TokenException("Cancellation of Token Requested");
         }
