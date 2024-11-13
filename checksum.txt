@@ -1,1 +1,1 @@
-a5c8a8d16f2a8ee891923b377770785d3174a9659f27177ba0b14bcd9118f8ec output/Cheetah.SchemaRegistry.2.0.0.nupkg
+93908eea5bbc739b9952139f85be6f753edd58880837deca5bbd516e51fe00b8 output/Cheetah.SchemaRegistry.2.0.1.nupkg
