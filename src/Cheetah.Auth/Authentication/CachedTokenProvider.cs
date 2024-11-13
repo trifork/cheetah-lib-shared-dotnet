@@ -139,7 +139,8 @@ namespace Cheetah.Auth.Authentication
                     throw new OAuth2TokenException($"Failed to retrieve access token - Access token is null");
                 }
 
-                if (TimeSpan.FromSeconds(GetExpiryInSeconds()).Subtract(_earlyExpiry) > TimeSpan.Zero)
+                var aboutToExpire = TimeSpan.FromSeconds(GetExpiryInSeconds()).Subtract(_earlyExpiry) <= TimeSpan.Zero 
+                if (aboutToExpire)
                 {
                     _logger.LogWarning($"Token is about to expire. Requesting new token in {_retryInterval}.");
                     await Task.Delay(_retryInterval, cancellationToken);
