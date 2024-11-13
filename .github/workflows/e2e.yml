@@ -2,11 +2,6 @@ name: E2E
 
 on:
   workflow_call:
-    inputs:
-      extra-dotnet-test-args:
-        description: Extra arguments to pass to dotnet test
-        required: false
-        type: string
     secrets:
       PAT:
         description: A personal access token with permission to publish a package and push to all branches
@@ -59,7 +54,7 @@ jobs:
         run: docker compose --profile core up --wait
 
       - name: Dotnet Test
-        run: dotnet test --logger trx ${{ inputs.extra-dotnet-test-args }}
+        run: dotnet test --logger trx
 
       - name: Display test report OpenSearch
         uses: dorny/test-reporter@v1.9.1
