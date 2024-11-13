@@ -9,7 +9,7 @@
         <RootNamespace>Cheetah.OpenSearch</RootNamespace>
         <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
         <Nullable>enable</Nullable>
-        <VersionPrefix>1.0.2</VersionPrefix>
+        <VersionPrefix>1.0.3</VersionPrefix>
     </PropertyGroup>
 
     <ItemGroup>
