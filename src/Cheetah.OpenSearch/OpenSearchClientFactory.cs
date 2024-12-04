@@ -94,7 +94,7 @@ namespace Cheetah.OpenSearch
         private ConnectionSettings.SourceSerializerFactory GetSourceSerializerFactory()
         {
             return (builtin, settings) =>
-                new JsonNetSerializer(
+                new JsonNetSerializer( // Implement a interface for CheetahJsonSerializer. Dicuss with Kristian if stuck on task.
                     builtin,
                     settings,
                     () => _clientOptions.JsonSerializerSettings
