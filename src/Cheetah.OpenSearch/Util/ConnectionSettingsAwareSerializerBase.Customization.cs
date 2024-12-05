@@ -33,7 +33,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using OpenSearch.Net;
 
-namespace OpenSearch.Client.JsonNetSerializer
+namespace OpenSearch.Client.CheetahJsonSerializer
 {
     public abstract partial class ConnectionSettingsAwareSerializerBase : IOpenSearchSerializer
     {

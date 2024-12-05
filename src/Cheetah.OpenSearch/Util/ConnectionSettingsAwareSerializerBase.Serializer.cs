@@ -29,24 +29,32 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using OpenSearch.Client.CheetahJsonSerializer.Converters;
 using OpenSearch.Net;
 
-namespace OpenSearch.Client.JsonNetSerializer
+namespace OpenSearch.Client.CheetahJsonSerializer
 {
     public abstract partial class ConnectionSettingsAwareSerializerBase
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="builtinSerializer"></param>
+        /// <param name="connectionSettings"></param>
         protected ConnectionSettingsAwareSerializerBase(IOpenSearchSerializer builtinSerializer, IConnectionSettingsValues connectionSettings)
             : this(builtinSerializer, connectionSettings, null, null, null) { }
 
         internal ConnectionSettingsAwareSerializerBase(
             IOpenSearchSerializer builtinSerializer,
             IConnectionSettingsValues connectionSettings,
-            Func<JsonSerializerSettings> jsonSerializerSettingsFactory,
+            Func<JsonSerializerOptions> jsonSerializerOptionsFactory,
             Action<ConnectionSettingsAwareContractResolver> modifyContractResolver,
             IEnumerable<JsonConverter> contractJsonConverters
         )
         {
-            JsonSerializerSettingsFactory = jsonSerializerSettingsFactory;
+            JsonSerializerOptionsFactory = jsonSerializerOptionsFactory;
             ModifyContractResolverCallback = modifyContractResolver;
             ContractJsonConverters = contractJsonConverters ?? Enumerable.Empty<JsonConverter>();
 
@@ -65,7 +73,7 @@ namespace OpenSearch.Client.JsonNetSerializer
 
         protected IConnectionSettingsValues ConnectionSettings { get; }
         protected IEnumerable<JsonConverter> ContractJsonConverters { get; }
-        protected Func<JsonSerializerSettings> JsonSerializerSettingsFactory { get; }
+        protected Func<JsonSerializerOptions> JsonSerializerOptionsFactory { get; }
         protected Action<ConnectionSettingsAwareContractResolver> ModifyContractResolverCallback { get; }
 
         private List<JsonConverter> Converters { get; }
@@ -90,7 +98,7 @@ namespace OpenSearch.Client.JsonNetSerializer
             return contract;
         }
 
-        protected virtual JsonSerializerSettings CreateJsonSerializerSettings() => JsonSerializerSettingsFactory?.Invoke();
+        protected virtual JsonSerializerSettings CreateJsonSerializerSettings() => JsonSerializerOptionsFactory?.Invoke();
 
         protected virtual IEnumerable<JsonConverter> CreateJsonConverters() => ContractJsonConverters;
 

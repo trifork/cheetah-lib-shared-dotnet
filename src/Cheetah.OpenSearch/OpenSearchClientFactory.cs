@@ -1,15 +1,11 @@
 using System;
-using System.IO;
 using System.Text;
-using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 using Cheetah.OpenSearch.Configuration;
 using Cheetah.OpenSearch.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OpenSearch.Client;
-using OpenSearch.Client.JsonNetSerializer;
+using OpenSearch.Client.CheetahJsonSerializer;
 using OpenSearch.Net;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
@@ -119,9 +115,5 @@ namespace Cheetah.OpenSearch
                 );
             }
         }
-    }
-
-    internal class CheetahJsonSerializer : ConnectionSettingsAwareSerializerBase
-    {
     }
 }

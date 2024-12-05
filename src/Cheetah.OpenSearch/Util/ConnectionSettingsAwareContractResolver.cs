@@ -33,7 +33,7 @@ using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
 
-namespace OpenSearch.Client.JsonNetSerializer
+namespace OpenSearch.Client.CheetahJsonSerializer
 {
     /// <summary>
     /// 
@@ -50,7 +50,9 @@ namespace OpenSearch.Client.JsonNetSerializer
             ConnectionSettings = connectionSettings ?? throw new ArgumentNullException(nameof(connectionSettings));
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         protected IConnectionSettingsValues ConnectionSettings { get; }
 
         // protected override string ResolvePropertyName(string fieldName)
@@ -70,6 +72,12 @@ namespace OpenSearch.Client.JsonNetSerializer
         //     return contract;
         // }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="member"></param>
+        /// <param name="memberSerialization"></param>
+        /// <returns></returns>
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             var property = base.CreateProperty(member, memberSerialization);
@@ -87,7 +95,7 @@ namespace OpenSearch.Client.JsonNetSerializer
             var serializerMapping = ConnectionSettings.PropertyMappingProvider?.CreatePropertyMapping(member);
 
             var nameOverride = propertyMapping?.Name ?? serializerMapping?.Name;
-            if (!string.IsNullOrWhiteSpace(nameOverride)) property.PropertyName = nameOverride;
+            if (!string.IsNullOrWhiteSpace(nameOverride)) property.Name = nameOverride;
 
             var overrideIgnore = propertyMapping?.Ignore ?? serializerMapping?.Ignore;
             if (overrideIgnore.HasValue)

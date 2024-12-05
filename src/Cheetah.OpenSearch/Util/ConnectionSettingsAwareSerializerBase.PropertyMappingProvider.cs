@@ -30,7 +30,7 @@ using System.Collections.Concurrent;
 using System.Reflection;
 using System.Runtime.Serialization;
 
-namespace OpenSearch.Client.JsonNetSerializer
+namespace OpenSearch.Client.CheetahJsonSerializer
 {
     public abstract partial class ConnectionSettingsAwareSerializerBase : IPropertyMappingProvider
     {
