@@ -1,5 +1,6 @@
 using System;
-using Newtonsoft.Json;
+using System.Text.Json;
+// using Newtonsoft.Json;
 using Confluent.Kafka;
 
 namespace Cheetah.Kafka.Util
@@ -20,7 +21,7 @@ namespace Cheetah.Kafka.Util
         /// <exception cref="ArgumentException"></exception>
         public T Deserialize(ReadOnlySpan<byte> data, bool isNull, SerializationContext context)
         {
-            return JsonConvert.DeserializeObject<T>(System.Text.Encoding.UTF8.GetString(data.ToArray())) ?? throw new JsonException(
+            return JsonSerializer.Deserialize<T>(data) ?? throw new JsonException(
                     $"Deserialization to type '{typeof(T).Name}' returned a null response"
                 );
         }

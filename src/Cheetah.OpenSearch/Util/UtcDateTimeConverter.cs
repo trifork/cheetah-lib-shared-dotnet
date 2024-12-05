@@ -1,6 +1,9 @@
 using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+// using System.Data;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+// using Newtonsoft.Json;
+// using Newtonsoft.Json.Converters;
 
 namespace Cheetah.OpenSearch.Util
 {
@@ -11,14 +14,15 @@ namespace Cheetah.OpenSearch.Util
     /// This converter is used to ensure that all <see cref="DateTime"/>s are serialized to Unix epoch time (milliseconds).<br/>
     /// <c>null</c> values are (de)serialized as <c>null</c>.
     /// </remarks>
-    public class UtcDateTimeConverter : DateTimeConverterBase
+    public class UtcDateTimeConverter : JsonConverter<object>
     {
+        // public override Type? Type => throw new NotImplementedException();
+
         /// <inheritdoc/>
-        public override object? ReadJson(
-            JsonReader reader,
+        public override object? Read(
+            ref Utf8JsonReader reader,
             Type objectType,
-            object? existingValue,
-            JsonSerializer serializer
+            JsonSerializerOptions options
         )
         {
             try
@@ -43,38 +47,45 @@ namespace Cheetah.OpenSearch.Util
             }
             catch (Exception e)
             {
-                throw new JsonSerializationException(
-                    $"Unable to deserialize '{reader.Value}' into a DateTime. See inner exception for details",
+                throw new JsonException(
+                    $"Unable to deserialize '{reader.GetString()}' into a DateTime. See inner exception for details",
                     e
                 );
             }
         }
 
         private static DateTime? ReadDateTime(
-            JsonReader reader
+            Utf8JsonReader reader
         )
         {
-            return reader.Value switch
-            {
-                long val => DateTime.UnixEpoch.AddMilliseconds(val).ToUniversalTime(),
-                string val
-                    => DateTime.TryParse(val, out var dateTime)
-                        ? dateTime.ToUniversalTime()
-                        : throw new ArgumentException(
-                            $"Attempted to deserialize the string '{val}', into a DateTime, but it could not be parsed"
-                        ),
-                DateTime val => val.ToUniversalTime(),
-                DateTimeOffset val => new DateTime(val.ToUniversalTime().Ticks, DateTimeKind.Utc),
-                null => null,
-                _
-                    => throw new ArgumentException(
-                        $"Unable to deserialize type '{reader.Value?.GetType().FullName}' into a DateTime."
-                    )
-            };
+            return DateTime.TryParse(reader.GetString(), out var dateTime)
+                ? dateTime.ToUniversalTime()
+                : throw new ArgumentException(
+                    $"Attempted to deserialize the string '{reader.GetString()}', into a DateTime, but it could not be parsed"
+                );
+
+
+            // return reader.Value switch
+            // {
+            //     long val => DateTime.UnixEpoch.AddMilliseconds(val).ToUniversalTime(),
+            //     string val
+            //         => DateTime.TryParse(val, out var dateTime)
+            //             ? dateTime.ToUniversalTime()
+            //             : throw new ArgumentException(
+            //                 $"Attempted to deserialize the string '{val}', into a DateTime, but it could not be parsed"
+            //             ),
+            //     DateTime val => val.ToUniversalTime(),
+            //     DateTimeOffset val => new DateTime(val.ToUniversalTime().Ticks, DateTimeKind.Utc),
+            //     null => null,
+            //     _
+            //         => throw new ArgumentException(
+            //             $"Unable to deserialize type '{reader.Value?.GetType().FullName}' into a DateTime."
+            //         )
+            // };
         }
 
         /// <inheritdoc/>
-        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
+        public override void Write(Utf8JsonWriter writer, object? value, JsonSerializerOptions options)
         {
             long? unixTimeMilliseconds = value switch
             {
@@ -88,7 +99,12 @@ namespace Cheetah.OpenSearch.Util
                         $"Unable to extract epoch millis from object of type {value.GetType().Name}"
                     )
             };
-            writer.WriteValue(unixTimeMilliseconds);
+            writer.WriteStringValue(unixTimeMilliseconds.ToString());
         }
+
+        // public override bool CanConvert(Type typeToConvert)
+        // {
+        //     throw new NotImplementedException();
+        // }
     }
 }

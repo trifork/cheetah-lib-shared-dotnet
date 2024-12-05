@@ -1,5 +1,9 @@
 using System;
+using System.IO;
 using System.Text;
+using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
 using Cheetah.OpenSearch.Configuration;
 using Cheetah.OpenSearch.Extensions;
 using Microsoft.Extensions.Logging;
@@ -94,10 +98,10 @@ namespace Cheetah.OpenSearch
         private ConnectionSettings.SourceSerializerFactory GetSourceSerializerFactory()
         {
             return (builtin, settings) =>
-                new JsonNetSerializer( // Implement a interface for CheetahJsonSerializer. Dicuss with Kristian if stuck on task.
+                new CheetahJsonSerializer( // Implement a interface for CheetahJsonSerializer. Dicuss with Kristian if stuck on task.
                     builtin,
                     settings,
-                    () => _clientOptions.JsonSerializerSettings
+                    () => _clientOptions.JsonSerializerOptions
                 );
         }
 
@@ -115,5 +119,9 @@ namespace Cheetah.OpenSearch
                 );
             }
         }
+    }
+
+    internal class CheetahJsonSerializer : ConnectionSettingsAwareSerializerBase
+    {
     }
 }

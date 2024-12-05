@@ -1,5 +1,7 @@
 using System;
-using Newtonsoft.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+// using Newtonsoft.Json;
 using OpenSearch.Client;
 
 namespace Cheetah.OpenSearch
@@ -10,10 +12,10 @@ namespace Cheetah.OpenSearch
     public class OpenSearchClientOptions
     {
         /// <summary>
-        /// Retrieves the current <see cref="JsonSerializerSettings"/> used by the <see cref="OpenSearchClient"/>
+        /// Retrieves the current <see cref="JsonSerializerOptions"/> used by the <see cref="OpenSearchClient"/>
         /// </summary>
-        public JsonSerializerSettings JsonSerializerSettings { get; } =
-            new JsonSerializerSettings() { MissingMemberHandling = MissingMemberHandling.Ignore };
+        public JsonSerializerOptions JsonSerializerOptions { get; } =
+            new JsonSerializerOptions() { UnmappedMemberHandling = JsonUnmappedMemberHandling.Skip };
 
         /// <summary>
         /// Retrieves the current <see cref="ConnectionSettings"/> used by the <see cref="OpenSearchClient"/>
@@ -21,15 +23,15 @@ namespace Cheetah.OpenSearch
         internal Action<ConnectionSettings>? InternalConnectionSettings { get; set; }
 
         /// <summary>
-        /// Configures the <see cref="JsonSerializerSettings"/> used by the <see cref="OpenSearchClient"/>
+        /// Configures the <see cref="JsonSerializerOptions"/> used by the <see cref="OpenSearchClient"/>
         /// </summary>
-        /// <param name="configure">Action which configures used <see cref="JsonSerializerSettings"/></param>
+        /// <param name="configure">Action which configures used <see cref="JsonSerializerOptions"/></param>
         /// <returns>This <see cref="OpenSearchClientOptions"/> instance for method chaining.</returns>
-        public OpenSearchClientOptions WithJsonSerializerSettings(
-            Action<JsonSerializerSettings> configure
+        public OpenSearchClientOptions WithJsonSerializerOptions(
+            Action<JsonSerializerOptions> configure
         )
         {
-            configure(JsonSerializerSettings);
+            configure(JsonSerializerOptions);
             return this;
         }
 

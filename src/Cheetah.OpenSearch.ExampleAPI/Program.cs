@@ -1,6 +1,8 @@
 using Cheetah.OpenSearch.Extensions;
 using Cheetah.OpenSearch.Util;
-using Newtonsoft.Json;
+// using System.Text.Json;
+using System.Text.Json.Serialization;
+// using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,10 +22,10 @@ builder.Services.AddCheetahOpenSearch(
                 settings.DisableDirectStreaming();
             }
         });
-        cfg.WithJsonSerializerSettings(settings =>
+        cfg.WithJsonSerializerOptions(options =>
         {
-            settings.MissingMemberHandling = MissingMemberHandling.Error;
-            settings.Converters.Add(new UtcDateTimeConverter());
+            options.UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow;
+            options.Converters.Add(new UtcDateTimeConverter());
         });
     }
 );
