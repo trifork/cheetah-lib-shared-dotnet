@@ -40,7 +40,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.PAT }}
+          password: ${{ secrets.READ_PACKAGE_PAT }}
 
       - name: Checkout trifork/cheetah-development-infrastructure
         uses: actions/checkout@v4
