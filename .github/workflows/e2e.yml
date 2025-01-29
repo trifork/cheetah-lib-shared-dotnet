@@ -54,6 +54,11 @@ jobs:
         working-directory: integrationtests/
         run: docker compose --profile core up --wait
 
+      - name: Setup Dotnet
+        uses: actions/setup-dotnet@v4.2.0
+        with:
+          dotnet-version: "8.0.401"
+
       - name: Dotnet Test
         run: dotnet test --logger trx -p:TreatWarningsAsErrors=true
 
