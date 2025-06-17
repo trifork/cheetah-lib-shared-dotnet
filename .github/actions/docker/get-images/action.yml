@@ -1,0 +1,71 @@
+name: Get Images
+description: Gets the images to push and logs in to the necessary container registries
+
+inputs:
+  image-name:
+    description: The name of the image
+    required: true
+  TRIFORK_GITHUB_PAT:
+    description: A personal access token with permission to publish a package
+    required: false
+  KAMSTRUP_GITLAB_PAT:
+    description: A personal access token with permission to publish a package to the Kamstrup GitLab container registry
+    required: false
+  KAMSTRUP_AZURE_PAT:
+    description: A personal access token with permission to publish a package to the Kamstrup Azure container registry
+    required: false
+outputs:
+  images:
+    description: The images to push
+    value: ${{ steps.get-pushes.outputs.images }}
+
+runs:
+  using: composite
+  steps:
+    - name: Get pushes
+      id: get-pushes
+      shell: bash
+      run: |
+        images=""
+
+        if [ -n "${{ inputs.TRIFORK_GITHUB_PAT}}" ]; then
+          echo "push-to-trifork-github=true" >> $GITHUB_OUTPUT
+          images="${images},ghcr.io/trifork/${{ inputs.image-name }}"
+        fi
+
+        if [ -n "${{ inputs.KAMSTRUP_GITLAB_PAT}}" ]; then
+          echo "push-to-kamstrup-gitlab=true" >> $GITHUB_OUTPUT
+          images="${images},registry.gitlab.com/kamstrup/dataplatform/external-dependencies/${{ inputs.image-name }}"
+        fi
+
+        if [ -n "${{ inputs.KAMSTRUP_AZURE_PAT}}" ]; then
+          echo "push-to-kamstrup-azure=true" >> $GITHUB_OUTPUT
+          images="${images},nufvcrkamstrupglobal.azurecr.io/trifork/${{ inputs.image-name }}"
+        fi
+
+        echo "images=${images#,}" >> $GITHUB_OUTPUT
+
+      # it is not possible to check for a secret in an if condition
+    - name: Log in to the container registry
+      if: ${{ steps.get-pushes.outputs.push-to-trifork-github }}
+      uses: docker/login-action@1220aa36aaf257e736f1d64e3b87c4878665836f
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ inputs.TRIFORK_GITHUB_PAT }}
+
+    - name: Log in to the Kamstrup GitLab container registry
+      if: ${{ steps.get-pushes.outputs.push-to-kamstrup-gitlab }}
+      uses: docker/login-action@1220aa36aaf257e736f1d64e3b87c4878665836f
+      with:
+        registry: registry.gitlab.com/kamstrup/dataplatform/external-dependencies
+        username: trifork
+        password: ${{ inputs.KAMSTRUP_GITLAB_PAT }}
+
+    - name: Log in to the Kamstrup Azure container registry
+      if: ${{ steps.get-pushes.outputs.push-to-kamstrup-azure }}
+      uses: docker/login-action@1220aa36aaf257e736f1d64e3b87c4878665836f
+      with:
+        registry: nufvcrkamstrupglobal.azurecr.io
+        username: 605de392-d354-4b55-993c-b93aa86e028d
+        password: ${{ inputs.KAMSTRUP_AZURE_PAT }}

@@ -30,14 +30,14 @@ jobs:
 
       - name: Get csproj filepath
         id: get-csproj-filepath
-        uses: trifork/cheetah-infrastructure-utils/.github/actions/get-from-map@main
+        uses: trifork/cheetah-lib-shared-dotnet/.github/actions/get-from-map@main
         with:
           file-path: ./.github/csproj-filepaths.yaml
           key: ${{ steps.get-project-name.outputs.project-name }}
 
   create-release:
     needs: get-csproj-filepath
-    uses: trifork/cheetah-infrastructure-utils/.github/workflows/dotnet-create-release.yml@main
+    uses: trifork/cheetah-lib-shared-dotnet/.github/workflows/dotnet-create-release.yml@main
     with:
       project-name: ${{ needs.get-csproj-filepath.outputs.project-name }}
       fat-pack: true

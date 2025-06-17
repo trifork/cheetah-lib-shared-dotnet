@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: "dotnet build"
-        uses: trifork/cheetah-infrastructure-utils/.github/actions/dotnet/dotnet-build@main
+        uses: trifork/cheetah-lib-shared-dotnet/.github/actions/dotnet/dotnet-build@main
       
       - name: Build docfx
-        uses: trifork/cheetah-infrastructure-utils/.github/actions/docfx/docfx-build@main
+        uses: trifork/cheetah-lib-shared-dotnet/.github/actions/docfx/docfx-build@main

@@ -1,0 +1,21 @@
+name: .NET Fat Pack
+description: Uses nuget cache
+
+inputs:
+  csproj-filepath:
+    description: The path to the .csproj file
+    required: true
+  output-filepath:
+    description: The path to the output directory
+    required: false
+    default: output
+  pack-args:
+    description: Extra args for the dotnet pack command
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - name: Fat Pack
+      shell: pwsh
+      run: ${{ github.action_path }}/Fat-Pack.ps1 -ProjectPath ${{ inputs.csproj-filepath }} -DestinationPath ${{ inputs.output-filepath }} -DotnetPackArgs "${{ inputs.pack-args }}"

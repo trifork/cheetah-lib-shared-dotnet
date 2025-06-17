@@ -1,0 +1,36 @@
+name: .NET build
+description: Uses nuget cache
+
+inputs:
+  csproj-filepath:
+    description: The path to the .csproj file
+    required: false
+  dotnet-version:
+    description: The version of the .NET framework
+    required: false
+    default: "7.0"
+  verbosity:
+    description: Sets the verbosity level of the command. Allowed values are q[uiet], m[inimal], n[ormal], d[etailed], and diag[nostic]. The default is minimal.
+    required: false
+    default: minimal
+
+runs:
+  using: composite
+  steps:
+    - name: "Setup .Net Core SDK"
+      uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3 # v4
+      with:
+        dotnet-version: ${{ inputs.dotnet-version }}
+
+    - uses: actions/cache@v4
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          ${{ runner.os }}-nuget-
+
+    - name: "dotnet build"
+      shell: bash
+      run: |
+        dotnet build --verbosity ${{ inputs.verbosity }} --configuration Release ${{ inputs.csproj-filepath }} /nowarn:cs1591

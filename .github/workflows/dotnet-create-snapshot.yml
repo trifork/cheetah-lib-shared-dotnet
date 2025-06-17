@@ -1,0 +1,49 @@
+name: .NET Create Snapshot
+
+on:
+  workflow_call:
+    inputs:
+      solution-filepath:
+        description: The path to the .sln file
+        required: false
+        type: string
+      dotnet-version:
+        description: The version of the .NET framework
+        required: false
+        type: string
+        default: "8.0"
+      fat-pack:
+        description: Whether to Fat Pack the project. Set this to false if the project does not include internal project references. Defaults to false
+        required: false
+        type: boolean
+        default: false
+      csproj-filepath:
+        description: The path to the .csproj file. This is only used for Fat Pack
+        required: false
+        type: string
+    secrets:
+      TRIFORK_GITHUB_PAT:
+        description: A personal access token with permission to publish a package to the Trifork GitHub NuGet registry. If left empty, the package will ont be pushed to Trifork GitHub NuGet registry
+        required: true
+
+jobs:
+  create-snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get package suffix
+        id: get-package-suffix
+        run: echo "branch-name=$(echo '${{ github.ref_name }}' | sed 's/[^a-zA-Z0-9]/-/g')" >> $GITHUB_OUTPUT
+
+      - name: Build and Publish
+        uses: trifork/cheetah-lib-shared-dotnet/.github/actions/dotnet/dotnet-publish@main
+        with:
+          package-suffix: "${{ steps.get-package-suffix.outputs.branch-name }}-SNAPSHOT${{ github.run_number }}"
+          solution-filepath: ${{ inputs.solution-filepath }}
+          dotnet-version: ${{ inputs.dotnet-version }}
+          fat-pack: ${{ inputs.fat-pack }}
+          csproj-filepath: ${{ inputs.csproj-filepath }}
+          TRIFORK_GITHUB_PAT: ${{ secrets.TRIFORK_GITHUB_PAT }}
