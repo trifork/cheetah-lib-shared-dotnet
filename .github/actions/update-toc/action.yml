@@ -1,0 +1,284 @@
+name: update-toc
+description: Update toc.yml with new repo entry
+
+
+inputs:
+  version:
+    description: 'The version of the library'
+    required: true
+  repo-name:
+    description: 'The name of the repository'
+    required: false
+  toc-file:
+    description: 'The path to the toc.yml file'
+    required: true
+  directory:
+    description: 'The directory of the library'
+    required: false
+
+outputs:
+  updated: 
+    description: 'Whether the toc.yml file was updated'
+    value: ${{ steps.check-changes.outputs.updated }}
+
+
+runs:
+  using: composite
+  steps:
+    - name: Install yq
+      shell: bash
+      run: |
+        # sudo apt-get update
+        # sudo apt-get install jq
+
+    - name: Extract major and minor version
+      shell: bash
+      run: |
+        # Extract the major and minor version from the version
+        version="${{ inputs.version }}"
+        major=$(echo $version | cut -d'.' -f1)
+        minor=$(echo $version | cut -d'.' -f2)
+        echo "version=$major.$minor" >> $GITHUB_ENV
+        echo ${{env.version}}
+
+    - name: Update YAML file for cheetah-lib-processing
+      if: ${{ github.repository == 'trifork/cheetah-lib-processing' }}
+      shell: bash
+      run: |
+          YAML_PATH="${{ inputs.toc-file }}"
+          cat $YAML_PATH
+
+          # Ensure yq is installed
+          if ! command -v yq &> /dev/null; then
+            echo "yq could not be found. Please install yq to use this script."
+            exit 1
+          fi
+
+          # Ensure the YAML file exists
+          if [ ! -f "$YAML_PATH" ]; then
+            echo "YAML file not found: $YAML_PATH"
+            exit 1
+          fi
+
+          # Check if the entry already exists
+          result=$(yq '.[] | select(.name == "'v${{env.version}}'") | .name' "$YAML_PATH")
+
+          if [ -z "$result" ]; then
+            echo "Not found, adding new version to toc.yml"
+            yq '. |= [{"name": "v${{env.version}}", "items": [{"name": "Overview", "href": "v${{env.version}}/README.md"},{"name": "Articles", "href": "v${{env.version}}/source/articles/toc.yml"},{"name": "Apis", "href": "v${{env.version}}/source/api/toc.yml"}]}] + .' -i $YAML_PATH
+          else
+            echo "Found version in toc.yml, skipping"
+          fi
+          cat $YAML_PATH
+
+    - name: Update YAML file for cheetah-lib-shared-dotnet api docs
+      if: ${{ github.repository == 'trifork/cheetah-lib-shared-dotnet' && inputs.directory == 'api' }}
+      shell: bash
+      run: |
+          YAML_PATH="${{ inputs.toc-file }}"
+          cat $YAML_PATH
+
+          # Ensure yq is installed
+          if ! command -v yq &> /dev/null; then
+            echo "yq could not be found. Please install yq to use this script."
+            exit 1
+          fi
+
+          # Ensure the YAML file exists
+          if [ ! -f "$YAML_PATH" ]; then
+            echo "YAML file not found: $YAML_PATH"
+            exit 1
+          fi
+
+          # Extract the name 'v${{env.version}}' from ${{ inputs.repo-name }} and store it in a variable
+          result=$(yq eval '.[] | select(.name == "${{ inputs.repo-name }}") | .items[] | select(.name == "v${{env.version}}") | .name' "$YAML_PATH")
+
+          # Check if the result is empty
+          if [[ -z "$result" ]]; then
+              echo "'v${{env.version}}' item does not exist in ${{ inputs.repo-name }}. Adding it now..."
+
+              # Add 'v${{env.version}}' entry to ${{ inputs.repo-name }} using yq and add to the file
+              yq eval '
+                .[] |= (
+                  select(.name == "${{ inputs.repo-name }}") |=
+                    (.items |=
+                      ([
+                        .[] | select(.name == "latest")
+                      ] +
+                      [
+                        {"name": "v${{env.version}}", "href": "${{ inputs.repo-name }}/v${{env.version}}/toc.yml", "homepage": "${{ inputs.repo-name }}/v${{env.version}}/index.md"}
+                      ] +
+                      [
+                        .[] | select(.name != "latest")
+                      ])
+                    )
+                )
+              ' -i "$YAML_PATH"
+
+              echo "'v${{env.version}}' item has been added to ${{ inputs.repo-name }}."
+          else
+              echo "The 'v${{env.version}}' item exists in ${{ inputs.repo-name }}: $result"
+          fi
+          cat $YAML_PATH
+
+    - name: Update YAML file for cheetah-lib-shared-dotnet articles docs
+      if: ${{ github.repository == 'trifork/cheetah-lib-shared-dotnet' && inputs.directory == 'articles' }}
+      shell: bash
+      run: |
+          YAML_PATH="${{ inputs.toc-file }}"
+          cat $YAML_PATH
+
+          # Ensure yq is installed
+          if ! command -v yq &> /dev/null; then
+            echo "yq could not be found. Please install yq to use this script."
+            exit 1
+          fi
+
+          # Ensure the YAML file exists
+          if [ ! -f "$YAML_PATH" ]; then
+            echo "YAML file not found: $YAML_PATH"
+            exit 1
+          fi
+
+          # Extract the name 'v${{env.version}}' from ${{ inputs.repo-name }} and store it in a variable
+          result=$(yq eval '.[] | select(.name == "${{ inputs.repo-name }}") | .items[] | select(.name == "v${{env.version}}") | .name' "$YAML_PATH")
+
+          # Check if the result is empty
+          if [[ -z "$result" ]]; then
+              echo "'v${{env.version}}' item does not exist in ${{ inputs.repo-name }}. Adding it now..."
+
+              # Add 'v${{env.version}}' entry to ${{ inputs.repo-name }} using yq and overwrite the file
+              yq eval '
+                .[] |= (
+                  select(.name == "${{ inputs.repo-name }}") |=
+                    (.items |=
+                      ([
+                        .[] | select(.name == "latest")
+                      ] +
+                      [
+                        {"name": "v${{env.version}}", "href": "${{ inputs.repo-name }}/v${{env.version}}/toc.yml"}
+                      ] +
+                      [
+                        .[] | select(.name != "latest")
+                      ])
+                    )
+                )
+              ' -i "$YAML_PATH"
+
+              echo "'v${{env.version}}' item has been added to ${{ inputs.repo-name }}."
+          else
+              echo "The 'v${{env.version}}' item exists in ${{ inputs.repo-name }}: $result"
+          fi
+          cat $YAML_PATH
+
+    - name: Update YAML file for cheetah-lib-templates-dotnet
+      if: ${{ github.repository == 'trifork/cheetah-lib-templates-dotnet' }}
+      shell: bash
+      run: |
+          YAML_PATH="${{ inputs.toc-file }}"
+          cat $YAML_PATH
+
+          # Ensure yq is installed
+          if ! command -v yq &> /dev/null; then
+            echo "yq could not be found. Please install yq to use this script."
+            exit 1
+          fi
+
+          # Ensure the YAML file exists
+          if [ ! -f "$YAML_PATH" ]; then
+            echo "YAML file not found: $YAML_PATH"
+            exit 1
+          fi
+
+          # Check if the entry already exists
+          result=$(yq '.[] | select(.name == "v${{env.version}}") | .name' "$YAML_PATH")
+
+          if [ -z "$result" ]; then
+            echo "Not found, adding new version to toc.yml"
+            yq '. |= [{"name": "v${{env.version}}", "href": "v${{env.version}}/source/index.md" }] + .' -i $YAML_PATH
+          else
+            echo "Found version in toc.yml, skipping"
+          fi
+
+          cat $YAML_PATH
+
+    - name: Update YAML file for cheetah-lib-templates-java
+      if: ${{ github.repository == 'trifork/cheetah-lib-templates-java' }}
+      shell: bash
+      run: |
+          YAML_PATH="${{ inputs.toc-file }}"
+          cat $YAML_PATH
+
+          # Ensure yq is installed
+          if ! command -v yq &> /dev/null; then
+            echo "yq could not be found. Please install yq to use this script."
+            exit 1
+          fi
+
+          # Ensure the YAML file exists
+          if [ ! -f "$YAML_PATH" ]; then
+            echo "YAML file not found: $YAML_PATH"
+            exit 1
+          fi
+
+          result=$(yq '.[] | select(.name == "${{ inputs.repo-name }}") | .items[] | select(.name == "v${{ env.version }}") | .name' "$YAML_PATH")
+
+
+
+          if [ -z "$result" ]; then
+            yq eval '
+              .[] |= (
+                select(.name == "${{ inputs.repo-name }}") |=
+                  (.items |= [{"name": "v${{ env.version }}", "href": "${{ inputs.repo-name }}/v${{ env.version }}/index.md"}] + .)
+              )
+            ' -i "$YAML_PATH"
+          else
+            echo "Version v${{ env.version }} found, skipping"
+          fi
+          cat $YAML_PATH
+
+    - name: Update YAML file for cheetah-lib-templates-java
+      if: ${{ github.repository == 'trifork/cheetah-charts' }}
+      shell: bash
+      run: |
+          YAML_PATH="${{ inputs.toc-file }}"
+          cat $YAML_PATH
+
+          # Ensure yq is installed
+          if ! command -v yq &> /dev/null; then
+            echo "yq could not be found. Please install yq to use this script."
+            exit 1
+          fi
+
+          # Ensure the YAML file exists
+          if [ ! -f "$YAML_PATH" ]; then
+            echo "YAML file not found: $YAML_PATH"
+            exit 1
+          fi
+
+          result=$(yq '.[] | select(.name == "${{ inputs.repo-name }}") | .items[] | select(.name == "v${{ inputs.version }}") | .name' "$YAML_PATH")
+
+
+          if [ -z "$result" ]; then
+            yq eval '
+              .[] |= (
+                select(.name == "${{ inputs.repo-name }}") |=
+                  (.items |= [{"name": "v${{ inputs.version }}", "href": "charts/${{ inputs.repo-name }}/v${{ inputs.version }}/README.md"}] + .)
+              )
+            ' -i "$YAML_PATH"
+          else
+            echo "Version v${{ inputs.version }} found, skipping"
+          fi
+          cat $YAML_PATH
+
+    - name: Check if any files have changed
+      id: check-changes
+      shell: bash
+      run: |
+        if [[ -z $(git status --porcelain) ]]; then
+          echo "No changes to the output files"
+          echo "updated=false" >> "$GITHUB_OUTPUT"
+        else
+          echo "Changes detected in the output files"
+          echo "updated=true" >> "$GITHUB_OUTPUT"
+        fi

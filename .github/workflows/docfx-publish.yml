@@ -88,7 +88,7 @@ jobs:
 
       - name: Update toc file with new version v${{ steps.get-version.outputs.version }}
         id: update-toc
-        uses: trifork/cheetah-infrastructure-utils/.github/actions/update-toc@main
+        uses: trifork/cheetah-lib-shared-dotnet/.github/actions/update-toc@main
         with:
           toc-file: ${{ inputs.file }}
           version: ${{ steps.get-version.outputs.version }}

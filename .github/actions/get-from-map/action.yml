@@ -1,0 +1,22 @@
+name: Get Value From Map
+description: Gets the value for the specified key in the given yaml map file
+
+inputs:
+  file-path:
+    description: The path to the yaml map file
+    required: true
+  key:
+    description: The key to find the value for in the specified yaml map file
+    required: true
+outputs:
+  value:
+    description: The value for the specified key in the given yaml map file
+    value: ${{ steps.get-value.outputs.value }}
+
+runs:
+  using: composite
+  steps:
+    - name: Get value
+      id: get-value
+      shell: bash
+      run: echo "value=$(grep -Po '(?<=${{ inputs.key }}:).*' ${{ inputs.file-path }} | awk '{$1=$1};1')" >> $GITHUB_OUTPUT # Magic for retrieving the value of the given key in the given yaml map file. The AWK command trims leading and trailing whitespaces

@@ -1,0 +1,69 @@
+name: Build and Publish .NET NuGet Package
+description: Builds and publishes a .NET NuGet package
+
+inputs:
+  package-suffix:
+    description: The suffix of the package released to GitHub. Use '' for releases. The only reason this input does not have a default value is to avoid accidental release packages
+    required: true
+  solution-filepath:
+    description: The path to the .sln file
+    required: false
+  dotnet-version:
+    description: The version of the .NET framework
+    required: false
+    default: "7.0"
+  fat-pack:
+    description: Whether to Fat Pack the project. Set this to false if the project does not include internal project references. Defaults to false
+    required: false
+    default: "false"
+  csproj-filepath:
+    description: The path to the .csproj file. This is only needed for Fat Pack
+    required: false
+    default: ./*.csproj
+  TRIFORK_GITHUB_PAT:
+    description: A personal access token with permission to publish a package to the Trifork GitHub NuGet registry. If left empty, the package will ont be pushed to Trifork GitHub NuGet registry
+    required: false
+  KAMSTRUP_GITLAB_PAT:
+    description: A personal access token with permission to publish a package to the Kamstrup GitLab NuGet registry. If left empty, the package will not be pushed to Kamstrup GitLab NuGet registry
+    required: false
+
+runs:
+  using: composite
+  steps:
+
+
+    # Pack ------------------------------------------------------------------------------------------------------------------------------------
+    - name: Pack NuGet
+      if: ${{ !inputs.fat-pack && inputs.package-suffix == '' }}
+      shell: bash
+      run: dotnet pack ${{inputs.csproj-filepath}} --output ./output -c Release
+
+    - name: Pack NuGet with suffix
+      if: ${{ !inputs.fat-pack && inputs.package-suffix != '' }}
+      shell: bash
+      run: dotnet pack ${{inputs.csproj-filepath}} --output ./output --version-suffix ${{ inputs.package-suffix }} -c Release
+
+    - name: Fat Pack NuGet
+      if: ${{ inputs.fat-pack && inputs.package-suffix == '' }}
+      uses: trifork/cheetah-lib-shared-dotnet/.github/actions/dotnet/dotnet-fat-pack@main
+      with:
+        csproj-filepath: ${{ inputs.csproj-filepath }}
+        pack-args: "-c Release"
+
+    - name: Fat Pack NuGet
+      if: ${{ inputs.fat-pack && inputs.package-suffix != '' }}
+      uses: trifork/cheetah-lib-shared-dotnet/.github/actions/dotnet/dotnet-fat-pack@main
+      with:
+        csproj-filepath: ${{ inputs.csproj-filepath }}
+        pack-args: "-c Release --version-suffix ${{ inputs.package-suffix }}"
+    # -----------------------------------------------------------------------------------------------------------------------------------------
+
+    - name: Publish to GitHub packages
+      if: ${{ inputs.TRIFORK_GITHUB_PAT != '' }}
+      shell: bash
+      run: dotnet nuget push output/*.nupkg --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --api-key ${{ inputs.TRIFORK_GITHUB_PAT }}
+
+    - name: Publish to GitLab packages
+      if: ${{ inputs.KAMSTRUP_GITLAB_PAT != '' }}
+      shell: bash
+      run: dotnet nuget push output/*.nupkg --source https://gitlab.com/api/v4/projects/45237329/packages/nuget/index.json --api-key ${{ inputs.KAMSTRUP_GITLAB_PAT }}

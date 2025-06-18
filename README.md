@@ -65,7 +65,7 @@ The following packages are published as NuGet packages to both the GitHub NuGet 
 - Cheetah.Kafka
 - Cheetah.OpenSearch
 
-Any other projects that these two projects refer to are also implicitly published, since they will get baked into the NuGet package through the [`Fat-Pack` script](https://github.com/trifork/cheetah-infrastructure-utils/blob/main/.github/actions/dotnet/dotnet-fat-pack/Fat-Pack.ps1).
+Any other projects that these two projects refer to are also implicitly published, since they will get baked into the NuGet package through the [`Fat-Pack` script](https://github.com/trifork/cheetah-lib-shared-dotnet/blob/main/.github/actions/dotnet/dotnet-fat-pack/Fat-Pack.ps1).
 
 This currently only applies to `Cheetah.Auth` which is built-in to both the Kafka and OpenSearch packages.
 

@@ -1,0 +1,75 @@
+name: .NET Create Release Branch
+
+on:
+  workflow_call:
+    inputs:
+      project-name:
+        description: The name of the project. If this is non-empty, the release branch will be called 'release/<project-name>-vX.Y>' Leave this empty if you only have a single project in the repository
+        required: false
+        type: string
+      bump-type:
+        description: Whether to create a minor or a major release
+        required: true
+        type: string
+      csproj-filepath:
+        description: The path to the .csproj file
+        required: true
+        type: string
+    secrets:
+      GITHUB_PUSH_PAT:
+        description: A personal access token with permission to push to all branches
+        required: true
+
+jobs:
+  create-release-branch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_PUSH_PAT }} # for pushing to a protected branch
+
+      - name: Bump major version
+        if: ${{ inputs.bump-type == 'major' }}
+        uses: trifork/cheetah-infrastructure-utils-workflows/.github/actions/versioning/bump-version@main
+        with:
+          file-path: ${{ inputs.csproj-filepath }}
+          prefix: "<VersionPrefix>"
+          suffix: "</VersionPrefix>"
+          bump-type: major
+
+      - name: Get project version
+        id: get-version
+        uses: trifork/cheetah-infrastructure-utils-workflows/.github/actions/versioning/get-version@main
+        with:
+          file-path: ${{ inputs.csproj-filepath }}
+          prefix: "<VersionPrefix>"
+          suffix: "</VersionPrefix>"
+
+      - name: Create release branch
+        uses: trifork/cheetah-infrastructure-utils-workflows/.github/actions/versioning/create-release-branch@main
+        with:
+          project-name: ${{ inputs.project-name }}
+          release-version: ${{ steps.get-version.outputs.version }}
+
+      - name: Bump minor version
+        uses: trifork/cheetah-infrastructure-utils-workflows/.github/actions/versioning/bump-version@main
+        with:
+          file-path: ${{ inputs.csproj-filepath }}
+          prefix: "<VersionPrefix>"
+          suffix: "</VersionPrefix>"
+          bump-type: minor
+
+      - name: git add minor version bump
+        run: git add .
+
+      - name: Commit minor version bump
+        id: commit
+        uses: qoomon/actions--create-commit@v1.2.3
+        with:
+          message: Bump minor version to keep version ahead of all releases
+          allow-empty: true
+
+      - if: ${{ steps.commit.outputs.commit }}
+        run: git push
