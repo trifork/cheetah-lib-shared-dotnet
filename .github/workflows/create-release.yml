@@ -7,7 +7,7 @@ jobs:
   run-tests:
     uses: ./.github/workflows/e2e.yml
     secrets:
-      PAT: ${{ secrets.READ_PACKAGE_PAT }}
+      READ_PACKAGE_PAT: ${{ secrets.READ_PACKAGE_PAT }}
 
   get-csproj-filepath:
     runs-on: ubuntu-latest

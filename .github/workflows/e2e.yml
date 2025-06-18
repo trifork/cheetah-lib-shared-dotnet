@@ -3,7 +3,7 @@ name: E2E
 on:
   workflow_call:
     secrets:
-      PAT:
+      READ_PACKAGE_PAT:
         description: A personal access token with permission to publish a package and push to all branches
         required: true
   workflow_dispatch:
@@ -40,7 +40,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.PAT }}
+          password: ${{ secrets.READ_PACKAGE_PAT }}
 
       - name: Checkout trifork/cheetah-development-infrastructure
         uses: actions/checkout@v4
@@ -58,7 +58,7 @@ jobs:
         uses: actions/setup-dotnet@v4.3.1
         with:
           dotnet-version: 6.0.x
-      
+
       - name: Setup Dotnet 8.0
         uses: actions/setup-dotnet@v4.3.1
         with:
