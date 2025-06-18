@@ -1,0 +1,120 @@
+name: .NET Create Release
+
+on:
+  workflow_call:
+    inputs:
+      project-name:
+        description: The name of the project. If this is non-empty, the release branch will be called 'release/<project-name>-vX.Y>' Leave this empty if you only have a single project in the repository
+        required: false
+        type: string
+      solution-filepath:
+        description: The path to the .sln file
+        required: false
+        type: string
+      csproj-filepath:
+        description: The path to the .csproj file
+        required: true
+        type: string
+      dotnet-version:
+        description: The version of the .NET framework
+        required: false
+        type: string
+        default: "8.0"
+      fat-pack:
+        description: Whether to Fat Pack the project. Set this to false if the project does not include internal project references. Defaults to false
+        required: false
+        type: boolean
+        default: false
+      package:
+        description: Whether to build a NuGet package. If this is set to false, only the release will be created and the version bumped. Defaults to true
+        type: boolean
+        default: true
+    secrets:
+      TRIFORK_GITHUB_PAT:
+        description: A personal access token with permission to publish a package to the Trifork GitHub NuGet registry. If left empty, the package will ont be pushed to Trifork GitHub NuGet registry
+        required: true
+      KAMSTRUP_GITLAB_PAT:
+        description: A personal access token with permission to publish a package to the Kamstrup GitLab NuGet registry. If left empty, the package will not be pushed to Kamstrup GitLab NuGet registry
+        required: false
+
+jobs:
+  verify-release-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Success"
+        if: ${{ startsWith(github.ref_name, 'release/') }}
+        run: |
+          echo "Creating a release for branch '${{ github.ref_name }}'"
+          exit 0
+
+      - name: "Error"
+        if: ${{ !startsWith(github.ref_name, 'release/') }}
+        run: |
+          echo "::error::Cannot create release from branch '${{ github.ref_name }}' since it does not start with 'release/'"
+          exit 1
+
+  create-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: verify-release-branch
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.TRIFORK_GITHUB_PAT }}
+
+      - name: Build and publish release package
+        uses: trifork/cheetah-lib-shared-dotnet/.github/actions/dotnet/dotnet-publish@main
+        if: ${{ inputs.package }}
+        with:
+          package-suffix: ""
+          solution-filepath: ${{ inputs.solution-filepath }}
+          dotnet-version: ${{ inputs.dotnet-version }}
+          fat-pack: ${{ inputs.fat-pack }}
+          csproj-filepath: ${{ inputs.csproj-filepath }}
+          TRIFORK_GITHUB_PAT: ${{ secrets.TRIFORK_GITHUB_PAT }}
+          KAMSTRUP_GITLAB_PAT: ${{ secrets.KAMSTRUP_GITLAB_PAT }}
+
+      - name: Generate Checksum
+        uses: jmgilman/actions-generate-checksum@v1.0.1
+        with:
+          patterns: output/*.nupkg
+
+      - name: Get project version
+        id: get-version
+        uses: trifork/cheetah-infrastructure-utils-workflows/.github/actions/versioning/get-version@main
+        with:
+          file-path: ${{ inputs.csproj-filepath }}
+          prefix: <VersionPrefix>
+          suffix: </VersionPrefix>
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          tag_name: ${{ inputs.project-name && format('{0}-v{1}', inputs.project-name, steps.get-version.outputs.version) || format('v{0}', steps.get-version.outputs.version) }}
+          files: checksum.txt
+          target_commitish: ${{ github.ref }}
+
+      - name: Bump release branch patch version
+        id: bump-version
+        uses: trifork/cheetah-infrastructure-utils-workflows/.github/actions/versioning/bump-version@main
+        with:
+          file-path: ${{ inputs.csproj-filepath }}
+          prefix: <VersionPrefix>
+          suffix: </VersionPrefix>
+          bump-type: patch
+
+      - name: git add patch version bump
+        run: git add .
+
+      - name: Commit patch version bump
+        id: commit
+        uses: qoomon/actions--create-commit@v1.2.3
+        with:
+          message: Bump patch version to keep version ahead of all releases
+          allow-empty: true
+
+      - if: ${{ steps.commit.outputs.commit }}
+        run: git push
