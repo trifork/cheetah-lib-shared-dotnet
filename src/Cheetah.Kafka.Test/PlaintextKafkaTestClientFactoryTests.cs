@@ -84,7 +84,6 @@ namespace Cheetah.Kafka.Test
             };
 
             await writer.WriteAsync(message);
-            await Task.Delay(TimeSpan.FromSeconds(2));
             var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(5));
             readMessages.Should().HaveCount(1);
             reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(1)).Should().BeTrue();
@@ -93,10 +92,10 @@ namespace Cheetah.Kafka.Test
         public async Task Should_WriteAndRead_When_UsingDifferentDeserializer()
         {
             var writer = _testClientFactory.CreateTestWriter<string, string>(
-                "MyNullKeyJsonTopic"
+                "MyDifferentDeserializerTopic"
             );
             var reader = _testClientFactory.CreateTestReader<string, string>(
-                "MyNullKeyJsonTopic",
+                "MyDifferentDeserializerTopic",
                 keyDeserializer: Deserializers.Utf8 // gitleaks:allow
             );
 
