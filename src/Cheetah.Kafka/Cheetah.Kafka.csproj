@@ -9,7 +9,7 @@
         <RootNamespace>Cheetah.Kafka</RootNamespace>
         <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
         <Nullable>enable</Nullable>
-        <VersionPrefix>2.2.0</VersionPrefix>
+        <VersionPrefix>2.3.0</VersionPrefix>
         <NoWarn>
             $(NoWarn);
             SYSLIB1045 <!-- Supress GeneratedRegex warning, since we're not using regex in hot paths -->
