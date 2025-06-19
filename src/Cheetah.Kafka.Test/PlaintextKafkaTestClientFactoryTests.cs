@@ -61,6 +61,7 @@ namespace Cheetah.Kafka.Test
             };
 
             await writer.WriteAsync(message);
+            await Task.Delay(TimeSpan.FromSeconds(1));
             var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(5));
             readMessages.Should().HaveCount(1);
             Assert.Equal(messageValue, readMessages.First().Key);
@@ -84,6 +85,7 @@ namespace Cheetah.Kafka.Test
             };
 
             await writer.WriteAsync(message);
+            await Task.Delay(TimeSpan.FromSeconds(1));
             var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(5));
             readMessages.Should().HaveCount(1);
             reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(1)).Should().BeTrue();
@@ -107,6 +109,7 @@ namespace Cheetah.Kafka.Test
             };
 
             await writer.WriteAsync(message);
+            await Task.Delay(TimeSpan.FromSeconds(1));
             var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(5));
             readMessages.Should().HaveCount(1);
             var jsonMessageValue = JsonSerializer.Serialize(messageValue);
