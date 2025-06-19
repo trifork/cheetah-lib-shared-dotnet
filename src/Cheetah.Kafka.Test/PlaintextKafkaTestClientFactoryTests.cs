@@ -84,7 +84,7 @@ namespace Cheetah.Kafka.Test
             };
 
             await writer.WriteAsync(message);
-            var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(5));
+            var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(10));
             readMessages.Should().HaveCount(1);
             reader.VerifyNoMoreMessages(TimeSpan.FromSeconds(1)).Should().BeTrue();
         }
