@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Cheetah.Auth.Authentication
 {
@@ -11,14 +12,16 @@ namespace Cheetah.Auth.Authentication
     public class StartUpTokenService : BackgroundService
     {
         readonly ITokenService _tokenService;
+        private readonly ILogger<StartUpTokenService> _logger;
 
         /// <summary>
         /// Creates a new instance of <see cref="StartUpTokenService"/>.
         /// </summary>
         /// <param name="tokenService"></param>
-        public StartUpTokenService(ITokenService tokenService)
+        public StartUpTokenService(ITokenService tokenService, ILogger<StartUpTokenService> logger)
         {
             _tokenService = tokenService;
+            _logger = logger;
         }
 
         /// <summary>
@@ -32,11 +35,9 @@ namespace Cheetah.Auth.Authentication
             {
                 await _tokenService.StartAsync(stoppingToken);
             }
-            catch (OperationCanceledException)
+            catch (OperationCanceledException ex)
             {
-            }
-            catch (OAuth2TokenException)
-            {
+                _logger.LogInformation(ex, $"Stopping {nameof(StartUpTokenService)}");
             }
         }
     }

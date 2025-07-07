@@ -60,10 +60,10 @@ namespace Cheetah.Auth.Authentication
         /// Retrieves the token and starts the token refresh loop.
         /// IMPORTANT: Before calling RequestAccessToken(), ensure to invoke StartAsync() unless you're utilizing Dependency Injection, where this process is managed by the builder.RunAsync() method.
         /// </summary>
-        /// <exception cref="OAuth2TokenException"></exception>
+        /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled via the cancellation token.</exception>
         public async Task StartAsync(CancellationToken cancellationToken = default)
         {
-            while (!cancellationToken.IsCancellationRequested)
+            while (true)
             {
                 _token = await FetchTokenAsync(cancellationToken);
                 await Task.Delay(TimeSpan.FromSeconds(GetExpiryInSeconds()).Subtract(_earlyRefresh), cancellationToken);
@@ -112,11 +112,12 @@ namespace Cheetah.Auth.Authentication
         /// </summary>
         /// <returns>Returns the access token and the expiry of the token</returns>
         /// <exception cref="OAuth2TokenException"></exception>
+        /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled via the cancellation token.</exception>
         public async Task<(string AccessToken, long Expiration)> RequestAccessTokenAsync(
             CancellationToken cancellationToken
         )
         {
-            while (!cancellationToken.IsCancellationRequested)
+            while (true)
             {
                 if (_token == null)
                 {
@@ -140,7 +141,6 @@ namespace Cheetah.Auth.Authentication
 
                 return (_token.AccessToken, DateTimeOffset.UtcNow.AddSeconds(GetExpiryInSeconds()).ToUnixTimeMilliseconds());
             }
-            throw new OAuth2TokenException("Cancellation of Token Requested");
         }
 
         private double GetExpiryInSeconds()
