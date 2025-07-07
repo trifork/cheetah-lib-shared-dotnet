@@ -12,7 +12,7 @@ namespace Cheetah.Auth.Authentication
     /// Refreshing of tokens is handled in a separate thread, ensuring a consistent supply of valid tokens.
     /// IMPORTANT: Before calling RequestAccessToken(), ensure to invoke StartAsync() unless you're utilizing Dependency Injection, where this process is managed by the builder.RunAsync() method.
     /// </summary>
-    public class CachedTokenProvider : ITokenService, IDisposable
+    public class CachedTokenProvider : ITokenService
     {
         readonly OAuth2Config? _config;
         readonly ILogger<CachedTokenProvider> _logger;
@@ -20,7 +20,6 @@ namespace Cheetah.Auth.Authentication
         private readonly TimeSpan _retryInterval;
         private readonly TimeSpan _earlyRefresh;
         private readonly TimeSpan _earlyExpiry;
-        readonly CancellationTokenSource _cts = new();
         private TokenWithExpiry? _token;
 
         /// <summary>
@@ -68,18 +67,25 @@ namespace Cheetah.Auth.Authentication
             {
                 while (!cancellationToken.IsCancellationRequested)
                 {
-                    _token = await FetchTokenAsync();
-                    await Task.Delay(TimeSpan.FromSeconds(GetExpiryInSeconds()).Subtract(_earlyRefresh), cancellationToken);
+                    _token = await FetchTokenAsync(cancellationToken);
+
+                    try
+                    {
+                        await Task.Delay(TimeSpan.FromSeconds(GetExpiryInSeconds()).Subtract(_earlyRefresh), cancellationToken);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        // cancellation was requested
+                    }
                 }
             }
-            catch (OAuth2TokenException e)
+            catch (OAuth2TokenException)
             {
-                Dispose();
-                throw new OAuth2TokenException(e.Message);
+                throw;
             }
         }
 
-        private async Task<TokenWithExpiry> FetchTokenAsync()
+        private async Task<TokenWithExpiry> FetchTokenAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation($"Fetching new token for service: {DateTimeOffset.UtcNow}");
             for (int retries = 0; ; retries++)
@@ -87,10 +93,10 @@ namespace Cheetah.Auth.Authentication
                 if (retries > 0)
                 {
                     _logger.LogWarning($"Unable to fetch OAuth token. Retrying in {_retryInterval}.");
-                    await Task.Delay(_retryInterval);
+                    await Task.Delay(_retryInterval, cancellationToken);
                 }
 
-                TokenResponse? token = await FetchTokenOrNullAsync(_cts.Token);
+                TokenResponse? token = await FetchTokenOrNullAsync(cancellationToken);
 
                 if (token == null) continue;
 
@@ -157,14 +163,6 @@ namespace Cheetah.Auth.Authentication
             if (_token != null)
                 return (_token.Expires - DateTimeOffset.UtcNow).TotalSeconds;
             return 0;
-        }
-
-        /// <summary>
-        /// Disposes of the token provider and cancels the token refresh loop.
-        /// </summary>
-        public void Dispose()
-        {
-            _cts.Dispose();
         }
     }
 }

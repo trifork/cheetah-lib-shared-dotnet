@@ -24,10 +24,5 @@ namespace Cheetah.Auth.Authentication
         /// </summary>
         /// <returns></returns>
         Task StartAsync(CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Stop the token service.
-        /// </summary>
-        void Dispose();
     }
 }

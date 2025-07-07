@@ -33,7 +33,6 @@ namespace Cheetah.Auth.Authentication
             }
             catch (OAuth2TokenException)
             {
-                _tokenService.Dispose();
             }
         }
     }
