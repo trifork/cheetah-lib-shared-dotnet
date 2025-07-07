@@ -44,7 +44,7 @@ namespace Cheetah.SchemaRegistry.Testing
             var schemaTokenService = new CachedTokenProvider(schemaConfig.OAuth2,
                 new OAuthTokenProvider(schemaConfig.OAuth2, new DefaultHttpClientFactory()),
                 loggerFactory.CreateLogger<CachedTokenProvider>());
-            Task.Run(schemaTokenService.StartAsync);
+            Task.Run(() => schemaTokenService.StartAsync());
 
             var authHeaderValueProvider = new OAuthHeaderValueProvider(schemaTokenService);
             var schemaRegistryClient = new CachedSchemaRegistryClient(schemaConfig.GetSchemaRegistryConfig(), authHeaderValueProvider);
