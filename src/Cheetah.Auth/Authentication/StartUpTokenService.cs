@@ -12,16 +12,14 @@ namespace Cheetah.Auth.Authentication
     public class StartUpTokenService : BackgroundService
     {
         readonly ITokenService _tokenService;
-        private readonly ILogger<StartUpTokenService> _logger;
 
         /// <summary>
         /// Creates a new instance of <see cref="StartUpTokenService"/>.
         /// </summary>
         /// <param name="tokenService"></param>
-        public StartUpTokenService(ITokenService tokenService, ILogger<StartUpTokenService> logger)
+        public StartUpTokenService(ITokenService tokenService)
         {
             _tokenService = tokenService;
-            _logger = logger;
         }
 
         /// <summary>
@@ -35,9 +33,9 @@ namespace Cheetah.Auth.Authentication
             {
                 await _tokenService.StartAsync(stoppingToken);
             }
-            catch (OperationCanceledException ex)
+            catch (OperationCanceledException)
             {
-                _logger.LogInformation(ex, $"Stopping {nameof(StartUpTokenService)}");
+                // cancelled - this is expected during shutdown
             }
         }
     }
