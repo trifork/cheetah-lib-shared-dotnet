@@ -18,6 +18,7 @@ namespace Cheetah.Auth.Authentication
         /// Creates a new instance of <see cref="StartUpTokenService"/>.
         /// </summary>
         /// <param name="tokenService"></param>
+        /// <param name="logger"></param>
         public StartUpTokenService(ITokenService tokenService, ILogger<StartUpTokenService> logger)
         {
             _tokenService = tokenService;
