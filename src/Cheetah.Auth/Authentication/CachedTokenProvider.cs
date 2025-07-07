@@ -63,25 +63,10 @@ namespace Cheetah.Auth.Authentication
         /// <exception cref="OAuth2TokenException"></exception>
         public async Task StartAsync(CancellationToken cancellationToken = default)
         {
-            try
+            while (!cancellationToken.IsCancellationRequested)
             {
-                while (!cancellationToken.IsCancellationRequested)
-                {
-                    _token = await FetchTokenAsync(cancellationToken);
-
-                    try
-                    {
-                        await Task.Delay(TimeSpan.FromSeconds(GetExpiryInSeconds()).Subtract(_earlyRefresh), cancellationToken);
-                    }
-                    catch (OperationCanceledException)
-                    {
-                        // cancellation was requested
-                    }
-                }
-            }
-            catch (OAuth2TokenException)
-            {
-                throw;
+                _token = await FetchTokenAsync(cancellationToken);
+                await Task.Delay(TimeSpan.FromSeconds(GetExpiryInSeconds()).Subtract(_earlyRefresh), cancellationToken);
             }
         }
 

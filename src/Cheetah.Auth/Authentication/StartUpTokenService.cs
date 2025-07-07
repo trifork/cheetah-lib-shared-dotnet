@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
@@ -30,6 +31,9 @@ namespace Cheetah.Auth.Authentication
             try
             {
                 await _tokenService.StartAsync(stoppingToken);
+            }
+            catch (OperationCanceledException)
+            {
             }
             catch (OAuth2TokenException)
             {
