@@ -62,14 +62,14 @@ namespace Cheetah.Auth.Authentication
         /// IMPORTANT: Before calling RequestAccessToken(), ensure to invoke StartAsync() unless you're utilizing Dependency Injection, where this process is managed by the builder.RunAsync() method.
         /// </summary>
         /// <exception cref="OAuth2TokenException"></exception>
-        public async Task StartAsync()
+        public async Task StartAsync(CancellationToken cancellationToken = default)
         {
             try
             {
-                while (!_cts.Token.IsCancellationRequested)
+                while (!cancellationToken.IsCancellationRequested)
                 {
                     _token = await FetchTokenAsync();
-                    await Task.Delay(TimeSpan.FromSeconds(GetExpiryInSeconds()).Subtract(_earlyRefresh));
+                    await Task.Delay(TimeSpan.FromSeconds(GetExpiryInSeconds()).Subtract(_earlyRefresh), cancellationToken);
                 }
             }
             catch (OAuth2TokenException e)

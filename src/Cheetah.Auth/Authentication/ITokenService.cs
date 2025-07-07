@@ -23,7 +23,8 @@ namespace Cheetah.Auth.Authentication
         /// IMPORTANT: Before calling RequestAccessToken(), ensure to invoke StartAsync() unless you're utilizing Dependency Injection, where this process is managed by the builder.RunAsync() method.
         /// </summary>
         /// <returns></returns>
-        Task StartAsync();
+        Task StartAsync(CancellationToken cancellationToken = default);
+
         /// <summary>
         /// Stop the token service.
         /// </summary>

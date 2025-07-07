@@ -29,7 +29,7 @@ namespace Cheetah.Auth.Authentication
             await Task.Yield();
             try
             {
-                await _tokenService.StartAsync();
+                await _tokenService.StartAsync(stoppingToken);
             }
             catch (OAuth2TokenException)
             {
