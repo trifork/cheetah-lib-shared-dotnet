@@ -41,7 +41,7 @@ namespace Cheetah.Auth.Extensions
                     sp.GetRequiredKeyedService<ICachableTokenProvider>(key),
                     sp.GetRequiredService<ILogger<CachedTokenProvider>>()));
 
-            serviceCollection.AddSingleton<IHostedService, StartUpTokenService>(sp => new StartUpTokenService(sp.GetRequiredKeyedService<ITokenService>(key)));
+            serviceCollection.AddSingleton<IHostedService, StartUpTokenService>(sp => new StartUpTokenService(sp.GetRequiredKeyedService<ITokenService>(key), sp.GetRequiredService<ILogger<StartUpTokenService>>()));
 
             return serviceCollection;
         }
