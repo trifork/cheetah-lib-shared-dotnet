@@ -11,3 +11,4 @@ namespace Cheetah.Kafka
         public const string TokenServiceKey = "cheetah-kafka";
     }
 }
+
