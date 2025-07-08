@@ -55,7 +55,7 @@ namespace Cheetah.OpenSearch.Testing
                 var tokenService = new CachedTokenProvider(configuration.OAuth2,
                     new OAuthTokenProvider(configuration.OAuth2, new DefaultHttpClientFactory()),
                     loggerFactory.CreateLogger<CachedTokenProvider>());
-                Task.Run(() => tokenService.StartAsync());
+                Task.Run(tokenService.StartAsync);
 
                 connection = new CheetahOpenSearchConnection(tokenService);
             }
