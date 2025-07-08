@@ -70,6 +70,17 @@ namespace Cheetah.Auth.Authentication
             }
         }
 
+
+        /// <summary>
+        /// Retrieves the token and starts the token refresh loop.
+        /// IMPORTANT: Before calling RequestAccessToken(), ensure to invoke StartAsync() unless you're utilizing Dependency Injection, where this process is managed by the builder.RunAsync() method.
+        /// </summary>
+        /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled via the cancellation token.</exception>
+        public Task StartAsync()
+        {
+            return StartAsync(CancellationToken.None);
+        }
+
         private async Task<TokenWithExpiry> FetchTokenAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation($"Fetching new token for service: {DateTimeOffset.UtcNow}");
