@@ -7,7 +7,7 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile> 
         <RepositoryUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</RepositoryUrl>
         <RootNamespace>Cheetah.Kafka</RootNamespace>
-        <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+        <TargetFrameworks>net8.0</TargetFrameworks>
         <Nullable>enable</Nullable>
         <VersionPrefix>2.4.0</VersionPrefix>
         <NoWarn>
