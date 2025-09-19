@@ -127,6 +127,7 @@ namespace Cheetah.SchemaRegistry.Test
 
             // Act
             await writerAvro.WriteAsync(message);
+            await Task.Delay(1000); // wait for the message to be available
             var readMessages = readerAvro.ReadMessages(1, TimeSpan.FromSeconds(5));
 
             // Assert
@@ -160,6 +161,7 @@ namespace Cheetah.SchemaRegistry.Test
             await writerAvro.WriteAsync(message1);
             await writerAvro.WriteAsync(message2);
             await writerAvro.WriteAsync(message1);
+            await Task.Delay(1000); // wait for the message to be available
             var readMessages = readerAvro.ReadMessages(3, TimeSpan.FromSeconds(5));
 
             // Assert
