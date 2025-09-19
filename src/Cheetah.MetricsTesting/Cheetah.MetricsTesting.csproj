@@ -9,7 +9,7 @@
     <PackageReadmeFile>CheetahComponentTest.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</RepositoryUrl>
     <RootNamespace>Cheetah.MetricsTesting</RootNamespace>
-    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <VersionPrefix>1.8.0</VersionPrefix>
     <NoWarn>
       $(NoWarn);
@@ -20,7 +20,7 @@
     <None Include="../../docs/articles/CheetahComponentTest.md" Pack="true" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Confluent.SchemaRegistry.Serdes.Avro" Version="2.10.0" />
+    <PackageReference Include="Confluent.SchemaRegistry.Serdes.Avro" Version="2.11.1" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
