@@ -74,9 +74,11 @@ namespace Cheetah.Kafka.Test
             var writer = _testClientFactory.CreateTestWriter<string>(
                 "MyNullKeyJsonTopic"
             );
+            Console.WriteLine("Writer created for MyNullKeyJsonTopic"); // Debugging line
             var reader = _testClientFactory.CreateTestReader<string>(
                 "MyNullKeyJsonTopic"
             );
+            Console.WriteLine("Reader created for MyNullKeyJsonTopic"); // Debugging line
 
             var messageValue = "Message4";
             var message = new Message<Null, string>()
@@ -85,6 +87,7 @@ namespace Cheetah.Kafka.Test
             };
 
             await writer.WriteAsync(message);
+            Console.WriteLine("Message written to MyNullKeyJsonTopic"); // Debugging line
             await Task.Delay(TimeSpan.FromSeconds(10));
             var readMessages = reader.ReadMessages(1, TimeSpan.FromSeconds(5));
             readMessages.Should().HaveCount(1);
