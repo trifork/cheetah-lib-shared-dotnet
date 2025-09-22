@@ -22,8 +22,18 @@ namespace Cheetah.SchemaRegistry.Test
         {
             var localConfig = new Dictionary<string, string?>
             {
-                { "KAFKA:URL", "localhost:9093" },
-                { "KAFKA:SECURITYPROTOCOL", "Plaintext" },
+                { "KAFKA:URL", "localhost:9092" },
+                { "KAFKA:OAUTH2:CLIENTID", "default-access" },
+                { "KAFKA:OAUTH2:CLIENTSECRET", "default-access-secret" },
+                { "KAFKA:OAUTH2:TOKENENDPOINT", "http://localhost:1852/realms/local-development/protocol/openid-connect/token " },
+                { "KAFKA:OAUTH2:SCOPE", "kafka" },
+                { "KAFKA:SECURITYPROTOCOL", "SaslPlaintext" },
+                { "KAFKA:SASLMECHANISM", "OAuthBearer" },
+                { "SCHEMAREGISTRY:URL", "http://localhost:8081/apis/ccompat/v7" },
+                { "SCHEMAREGISTRY:OAUTH2:CLIENTID", "default-access" },
+                { "SCHEMAREGISTRY:OAUTH2:CLIENTSECRET", "default-access-secret" },
+                { "SCHEMAREGISTRY:OAUTH2:TOKENENDPOINT", "http://localhost:1852/realms/local-development/protocol/openid-connect/token " },
+                { "SCHEMAREGISTRY:OAUTH2:SCOPE", "schema-registry" },
             };
 
             var configuration = new ConfigurationBuilder()
