@@ -18,7 +18,7 @@ jobs:
       csproj-filepath: ${{ steps.get-csproj-filepath.outputs.value }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Get project name
         id: get-project-name
