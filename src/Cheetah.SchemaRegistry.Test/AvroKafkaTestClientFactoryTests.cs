@@ -99,6 +99,7 @@ namespace Cheetah.SchemaRegistry.Test
 
             // Act
             await writerAvro.WriteAsync(message);
+            await Task.Delay(TimeSpan.FromSeconds(10));
             var readMessages = readerAvro.ReadMessages(1, TimeSpan.FromSeconds(5));
 
             // Assert
