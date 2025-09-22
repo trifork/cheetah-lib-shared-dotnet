@@ -7,14 +7,14 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <RepositoryUrl>https://github.com/trifork/cheetah-lib-shared-dotnet</RepositoryUrl>
         <RootNamespace>Cheetah.SchemaRegistry</RootNamespace>
-        <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+        <TargetFrameworks>net8.0</TargetFrameworks>
         <Nullable>enable</Nullable>
         <VersionPrefix>2.1.0</VersionPrefix>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Confluent.SchemaRegistry" Version="2.10.0" />
-      <PackageReference Include="Confluent.SchemaRegistry.Serdes.Avro" Version="2.10.0" />
+      <PackageReference Include="Confluent.SchemaRegistry" Version="2.11.1" />
+      <PackageReference Include="Confluent.SchemaRegistry.Serdes.Avro" Version="2.11.1" />
       <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.3" />
       <PackageReference Include="System.Text.Json" Version="8.0.6"/>
     </ItemGroup>

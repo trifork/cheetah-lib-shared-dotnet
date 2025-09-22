@@ -23,13 +23,8 @@ namespace Cheetah.Kafka.Test
         {
             var localConfig = new Dictionary<string, string?>
             {
-                { "KAFKA:URL", "localhost:9092" },
-                { "KAFKA:OAUTH2:CLIENTID", "default-access" },
-                { "KAFKA:OAUTH2:CLIENTSECRET", "default-access-secret" },
-                { "KAFKA:OAUTH2:TOKENENDPOINT", "http://localhost:1852/realms/local-development/protocol/openid-connect/token " },
-                { "KAFKA:OAUTH2:SCOPE", "kafka" },
-                { "KAFKA:SECURITYPROTOCOL", "SaslPlaintext" },
-                { "KAFKA:SASLMECHANISM", "OAuthBearer" },
+                { "KAFKA:URL", "localhost:9093" },
+                { "KAFKA:SECURITYPROTOCOL", "Plaintext" },
             };
 
             var configuration = new ConfigurationBuilder()

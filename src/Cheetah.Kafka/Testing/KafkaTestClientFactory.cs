@@ -217,7 +217,7 @@ namespace Cheetah.Kafka.Testing
             return cfg =>
             {
                 cfg.GroupId = groupId;
-                cfg.AutoOffsetReset = AutoOffsetReset.Latest;
+                cfg.AutoOffsetReset = AutoOffsetReset.Earliest;
                 cfg.EnablePartitionEof = true;
                 cfg.AllowAutoCreateTopics = true;
             };
