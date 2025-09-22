@@ -18,7 +18,7 @@ runs:
   using: composite
   steps:
     - name: "Setup .Net Core SDK"
-      uses: actions/setup-dotnet@d4c94342e560b34958eacfc5d055d21461ed1c5d # v5
+      uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3 # v4
       with:
         dotnet-version: ${{ inputs.dotnet-version }}
 
