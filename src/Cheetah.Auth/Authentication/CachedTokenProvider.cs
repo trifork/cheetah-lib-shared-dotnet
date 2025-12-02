@@ -16,6 +16,11 @@ namespace Cheetah.Auth.Authentication
     {
         readonly OAuth2Config? _config;
         readonly ILogger<CachedTokenProvider> _logger;
+        private readonly ICachableTokenProvider _tokenProvider;
+        private readonly TimeSpan _retryInterval;
+        private readonly TimeSpan _earlyRefresh;
+        private readonly TimeSpan _earlyExpiry;
+        private TokenWithExpiry? _token;
 
         // LoggerMessage source generators for high-performance logging
         [LoggerMessage(Level = LogLevel.Information, Message = "Fetching new token for service: {CurrentTime}")]
@@ -32,11 +37,6 @@ namespace Cheetah.Auth.Authentication
 
         [LoggerMessage(Level = LogLevel.Warning, Message = "Token is about to expire. Requesting new token in {RetryInterval}.")]
         private static partial void LogTokenAboutToExpire(ILogger logger, TimeSpan retryInterval);
-        private readonly ICachableTokenProvider _tokenProvider;
-        private readonly TimeSpan _retryInterval;
-        private readonly TimeSpan _earlyRefresh;
-        private readonly TimeSpan _earlyExpiry;
-        private TokenWithExpiry? _token;
 
         /// <summary>
         /// Create a new instance of <see cref="CachedTokenProvider"/>.
