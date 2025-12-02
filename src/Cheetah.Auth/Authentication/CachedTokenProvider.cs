@@ -83,12 +83,12 @@ namespace Cheetah.Auth.Authentication
 
         private async Task<TokenWithExpiry> FetchTokenAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"Fetching new token for service: {DateTimeOffset.UtcNow}");
+            _logger.LogInformation("Fetching new token for service: {CurrentTime}", DateTimeOffset.UtcNow);
             for (int retries = 0; ; retries++)
             {
                 if (retries > 0)
                 {
-                    _logger.LogWarning($"Unable to fetch OAuth token. Retrying in {_retryInterval}.");
+                    _logger.LogWarning("Unable to fetch OAuth token. Retrying in {RetryInterval}.", _retryInterval);
                     await Task.Delay(_retryInterval, cancellationToken);
                 }
 
@@ -101,7 +101,7 @@ namespace Cheetah.Auth.Authentication
                     return new TokenWithExpiry(token.AccessToken, DateTimeOffset.UtcNow.AddSeconds(token.ExpiresIn));
                 }
 
-                _logger.LogWarning($"Failed to retrieve token with following error message: \"{token.Error}: {token.ErrorDescription}\"");
+                _logger.LogWarning("Failed to retrieve token with following error message: \"{Error}: {ErrorDescription}\"", token.Error, token.ErrorDescription);
             }
         }
 
@@ -132,7 +132,7 @@ namespace Cheetah.Auth.Authentication
             {
                 if (_token == null)
                 {
-                    _logger.LogWarning($"No token available yet. Waiting for {_retryInterval} before checking again.");
+                    _logger.LogWarning("No token available yet. Waiting for {RetryInterval} before checking again.", _retryInterval);
                     await Task.Delay(_retryInterval, cancellationToken);
                     continue;
                 }
@@ -145,7 +145,7 @@ namespace Cheetah.Auth.Authentication
                 var aboutToExpire = TimeSpan.FromSeconds(GetExpiryInSeconds()).Subtract(_earlyExpiry) <= TimeSpan.Zero;
                 if (aboutToExpire)
                 {
-                    _logger.LogWarning($"Token is about to expire. Requesting new token in {_retryInterval}.");
+                    _logger.LogWarning("Token is about to expire. Requesting new token in {RetryInterval}.", _retryInterval);
                     await Task.Delay(_retryInterval, cancellationToken);
                     continue;
                 }
