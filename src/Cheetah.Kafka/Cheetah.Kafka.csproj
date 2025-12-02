@@ -10,10 +10,7 @@
         <TargetFrameworks>net10.0</TargetFrameworks>
         <Nullable>enable</Nullable>
         <VersionPrefix>2.4.0</VersionPrefix>
-        <NoWarn>
-            $(NoWarn);
-            SYSLIB1045;CA1873 <!-- Supress GeneratedRegex warning and false positive CA1873 for structured logging -->
-        </NoWarn>
+
     </PropertyGroup>
 
     <ItemGroup>

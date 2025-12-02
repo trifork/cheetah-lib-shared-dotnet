@@ -18,7 +18,7 @@ namespace Cheetah.Kafka.Testing
     /// <remarks>
     /// This should only be used for testing purposes.
     /// </remarks>
-    public class KafkaTestClientFactory
+    public partial class KafkaTestClientFactory
     {
         /// <summary>
         /// The internal <see cref="KafkaClientFactory"/> used to create Writers and Readers.
@@ -230,7 +230,7 @@ namespace Cheetah.Kafka.Testing
                 throw new ArgumentException("A topic must be provided");
             }
 
-            var hasOnlyValidCharacters = Regex.Match(topic, "^[a-zA-Z0-9\\._\\-]+$");
+            var hasOnlyValidCharacters = HasOnlyValidCharactersRegex().Match(topic);
             if (!hasOnlyValidCharacters.Success)
             {
                 throw new ArgumentException(
@@ -243,5 +243,8 @@ namespace Cheetah.Kafka.Testing
                 throw new ArgumentException("Topic names cannot exceed 249 characters");
             }
         }
+
+        [GeneratedRegex("^[a-zA-Z0-9\\._\\-]+$")]
+        private static partial Regex HasOnlyValidCharactersRegex();
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Cheetah.Kafka.ExampleProcessor.Services
 {
-    public class AConsumerService : ConsumerService
+    public partial class AConsumerService : ConsumerService
     {
         public AConsumerService(
             ILogger<ConsumerService> logger,
@@ -14,15 +14,16 @@ namespace Cheetah.Kafka.ExampleProcessor.Services
         )
             : base(logger, consumer) { }
 
+        [LoggerMessage(Level = LogLevel.Information, Message = "Received message in A: {messageId} {messageValue} {messageTimestamp}")]
+        private static partial void LogReceivedMessageA(ILogger logger, string messageId, double messageValue, long messageTimestamp);
+
         protected override void LogMessage(ExampleModelAvro message)
         {
-            Logger.LogInformation(
-                $"Received message in A: {message.id} {message.value} {message.timestamp}"
-            );
+            LogReceivedMessageA(Logger, message.id, message.value, message.timestamp);
         }
     }
 
-    public class BConsumerService : ConsumerService
+    public partial class BConsumerService : ConsumerService
     {
         public BConsumerService(
             ILogger<ConsumerService> logger,
@@ -30,11 +31,12 @@ namespace Cheetah.Kafka.ExampleProcessor.Services
         )
             : base(logger, consumer) { }
 
+        [LoggerMessage(Level = LogLevel.Information, Message = "Received message in B: {messageId} {messageValue} {messageTimestamp}")]
+        private static partial void LogReceivedMessageB(ILogger logger, string messageId, double messageValue, long messageTimestamp);
+
         protected override void LogMessage(ExampleModelAvro message)
         {
-            Logger.LogInformation(
-                $"Received message in B: {message.id} {message.value} {message.timestamp}"
-            );
+            LogReceivedMessageB(Logger, message.id, message.value, message.timestamp);
         }
     }
 
