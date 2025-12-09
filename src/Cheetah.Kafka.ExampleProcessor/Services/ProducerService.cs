@@ -5,10 +5,13 @@ using Microsoft.Extensions.Logging;
 
 namespace Cheetah.Kafka.ExampleProcessor.Services
 {
-    public class ProducerService : BackgroundService
+    public partial class ProducerService : BackgroundService
     {
         private readonly ILogger<ProducerService> _logger;
         private readonly IProducer<string, ExampleModelAvro> _producer;
+
+        [LoggerMessage(Level = LogLevel.Information, Message = "Sending message: {messageId} {messageValue} {messageTimestamp}")]
+        private static partial void LogSendingMessage(ILogger logger, string messageId, double messageValue, long messageTimestamp);
 
         public ProducerService(
             IProducer<string, ExampleModelAvro> producer,
@@ -32,9 +35,7 @@ namespace Cheetah.Kafka.ExampleProcessor.Services
                         timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
                     };
 
-                    _logger.LogInformation(
-                        $"Sending message: {message.id} {message.value} {message.timestamp}"
-                    );
+                    LogSendingMessage(_logger, message.id, message.value, message.timestamp);
                     _producer.Produce(
                         Constants.TopicName,
                         new Message<string, ExampleModelAvro> { Key = message.id, Value = message }

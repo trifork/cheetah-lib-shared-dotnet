@@ -25,7 +25,7 @@ namespace Cheetah.Kafka.Testing
     /// </remarks>
     /// <typeparam name="TKey">The type of key that read messages have</typeparam>
     /// <typeparam name="T">The type of message to read</typeparam>
-    public class KafkaTestReader<TKey, T> : IKafkaTestReader<TKey, T>
+    public partial class KafkaTestReader<TKey, T> : IKafkaTestReader<TKey, T>
     {
         private static readonly ILogger Logger = new LoggerFactory().CreateLogger<
             KafkaTestReader<TKey, T>
@@ -33,10 +33,17 @@ namespace Cheetah.Kafka.Testing
         private string Topic { get; }
         private IConsumer<TKey, T> Consumer { get; }
 
+        // LoggerMessage source generators for high-performance logging
+        [LoggerMessage(Level = LogLevel.Information, Message = "Preparing kafka producer, producing to topic '{Topic}'")]
+        private static partial void LogPreparingKafkaProducer(ILogger logger, string topic);
+
+        [LoggerMessage(Level = LogLevel.Information, Message = "Consuming messages from '{topic}', expecting a total of {count} messages...")]
+        private static partial void LogConsumingMessages(ILogger logger, string topic, int count);
+
         internal KafkaTestReader(IConsumer<TKey, T> consumer, string topic)
         {
             Topic = topic;
-            Logger.LogInformation("Preparing kafka producer, producing to topic '{Topic}'", Topic);
+            LogPreparingKafkaProducer(Logger, Topic);
             Consumer = consumer;
 
             Consumer.Assign(new TopicPartition(Topic, 0));
@@ -78,11 +85,7 @@ namespace Cheetah.Kafka.Testing
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
             cancellationTokenSource.CancelAfter(timeout);
             var cancellationToken = cancellationTokenSource.Token;
-            Logger.LogInformation(
-                "Consuming messages from '{topic}', expecting a total of {count} messages...",
-                Topic,
-                count
-            );
+            LogConsumingMessages(Logger, Topic, count);
             while (messages.Count < count && !cancellationToken.IsCancellationRequested)
             {
                 try

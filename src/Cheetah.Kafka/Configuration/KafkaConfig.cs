@@ -9,7 +9,7 @@ namespace Cheetah.Kafka.Configuration
     /// <summary>
     /// KafkaConfig for IOptions
     /// </summary>
-    public class KafkaConfig
+    public partial class KafkaConfig
     {
         /// <summary>
         /// Prefix for options e.g. Kafka__
@@ -76,7 +76,7 @@ namespace Cheetah.Kafka.Configuration
             // Kafka producers and consumers will silently fail if a scheme is prepended (e.g. http://kafka:19092)
             // This ensures that we fail early and loudly if this is the case. Uses a regex that should match any prefix followed by '://'
             // We could also just strip the scheme prefix if it's there, but that would hide the fact that the input is wrong.
-            var hasSchemePrefix = Regex.Match(Url, "(.*://).*");
+            var hasSchemePrefix = HasSchemePrefixRegex().Match(Url);
             if (hasSchemePrefix.Success)
             {
                 throw new ArgumentException(
@@ -101,5 +101,8 @@ namespace Cheetah.Kafka.Configuration
 
             return clientConfig;
         }
+
+        [GeneratedRegex("(.*://).*")]
+        private static partial Regex HasSchemePrefixRegex();
     }
 }

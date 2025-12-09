@@ -35,7 +35,7 @@ namespace Cheetah.OpenSearch.Extensions
             {
                 settings = settings.ServerCertificateValidationCallback(
                     CertificateValidations.AuthorityIsRoot(
-                        new X509Certificate2(config.CaCertificatePath)
+                        X509CertificateLoader.LoadCertificateFromFile(config.CaCertificatePath)
                     )
                 );
             }

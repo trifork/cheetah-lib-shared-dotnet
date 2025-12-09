@@ -12,7 +12,7 @@ namespace Cheetah.Auth.Authentication
     /// Refreshing of tokens is handled in a separate thread, ensuring a consistent supply of valid tokens.
     /// IMPORTANT: Before calling RequestAccessToken(), ensure to invoke StartAsync() unless you're utilizing Dependency Injection, where this process is managed by the builder.RunAsync() method.
     /// </summary>
-    public class CachedTokenProvider : ITokenService
+    public partial class CachedTokenProvider : ITokenService
     {
         readonly OAuth2Config? _config;
         readonly ILogger<CachedTokenProvider> _logger;
@@ -21,6 +21,22 @@ namespace Cheetah.Auth.Authentication
         private readonly TimeSpan _earlyRefresh;
         private readonly TimeSpan _earlyExpiry;
         private TokenWithExpiry? _token;
+
+        // LoggerMessage source generators for high-performance logging
+        [LoggerMessage(Level = LogLevel.Information, Message = "Fetching new token for service: {CurrentTime}")]
+        private static partial void LogFetchingToken(ILogger logger, DateTimeOffset currentTime);
+
+        [LoggerMessage(Level = LogLevel.Warning, Message = "Unable to fetch OAuth token. Retrying in {RetryInterval}.")]
+        private static partial void LogRetryingTokenFetch(ILogger logger, TimeSpan retryInterval);
+
+        [LoggerMessage(Level = LogLevel.Warning, Message = "Failed to retrieve token with following error message: \"{Error}: {ErrorDescription}\"")]
+        private static partial void LogTokenRetrievalError(ILogger logger, string? error, string? errorDescription);
+
+        [LoggerMessage(Level = LogLevel.Warning, Message = "No token available yet. Waiting for {RetryInterval} before checking again.")]
+        private static partial void LogNoTokenAvailable(ILogger logger, TimeSpan retryInterval);
+
+        [LoggerMessage(Level = LogLevel.Warning, Message = "Token is about to expire. Requesting new token in {RetryInterval}.")]
+        private static partial void LogTokenAboutToExpire(ILogger logger, TimeSpan retryInterval);
 
         /// <summary>
         /// Create a new instance of <see cref="CachedTokenProvider"/>.
@@ -83,12 +99,12 @@ namespace Cheetah.Auth.Authentication
 
         private async Task<TokenWithExpiry> FetchTokenAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"Fetching new token for service: {DateTimeOffset.UtcNow}");
+            LogFetchingToken(_logger, DateTimeOffset.UtcNow);
             for (int retries = 0; ; retries++)
             {
                 if (retries > 0)
                 {
-                    _logger.LogWarning($"Unable to fetch OAuth token. Retrying in {_retryInterval}.");
+                    LogRetryingTokenFetch(_logger, _retryInterval);
                     await Task.Delay(_retryInterval, cancellationToken);
                 }
 
@@ -101,7 +117,7 @@ namespace Cheetah.Auth.Authentication
                     return new TokenWithExpiry(token.AccessToken, DateTimeOffset.UtcNow.AddSeconds(token.ExpiresIn));
                 }
 
-                _logger.LogWarning($"Failed to retrieve token with following error message: \"{token.Error}: {token.ErrorDescription}\"");
+                LogTokenRetrievalError(_logger, token.Error, token.ErrorDescription);
             }
         }
 
@@ -132,7 +148,7 @@ namespace Cheetah.Auth.Authentication
             {
                 if (_token == null)
                 {
-                    _logger.LogWarning($"No token available yet. Waiting for {_retryInterval} before checking again.");
+                    LogNoTokenAvailable(_logger, _retryInterval);
                     await Task.Delay(_retryInterval, cancellationToken);
                     continue;
                 }
@@ -145,7 +161,7 @@ namespace Cheetah.Auth.Authentication
                 var aboutToExpire = TimeSpan.FromSeconds(GetExpiryInSeconds()).Subtract(_earlyExpiry) <= TimeSpan.Zero;
                 if (aboutToExpire)
                 {
-                    _logger.LogWarning($"Token is about to expire. Requesting new token in {_retryInterval}.");
+                    LogTokenAboutToExpire(_logger, _retryInterval);
                     await Task.Delay(_retryInterval, cancellationToken);
                     continue;
                 }

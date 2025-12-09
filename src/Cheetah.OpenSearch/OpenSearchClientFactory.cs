@@ -14,7 +14,7 @@ namespace Cheetah.OpenSearch
     /// <summary>
     /// Factory for creating <see cref="OpenSearchClient"/> instances
     /// </summary>
-    public class OpenSearchClientFactory
+    public partial class OpenSearchClientFactory
     {
         private readonly ILogger<OpenSearchClientFactory> _logger;
         readonly IConnectionPool _connectionPool;
@@ -22,6 +22,10 @@ namespace Cheetah.OpenSearch
         private readonly OpenSearchConfig _clientConfig;
         private readonly OpenSearchClientOptions _clientOptions;
         private readonly IConnection? _connection;
+
+        // LoggerMessage source generators for high-performance logging
+        [LoggerMessage(Level = LogLevel.Information, Message = "Creating OpenSearchClient. {authInfo}")]
+        private static partial void LogCreatingOpenSearchClient(ILogger logger, string authInfo);
 
         /// <summary>
         /// Create a new instance of <see cref="OpenSearchClientFactory"/>
@@ -56,26 +60,20 @@ namespace Cheetah.OpenSearch
         /// <returns></returns>
         public OpenSearchClient CreateOpenSearchClient()
         {
-            _logger.LogInformation(
-                "Creating OpenSearchClient. Authentication is {authMode}",
-                GetAuthModeLogString()
-            );
+            // Log based on auth mode 
+            var authInfo = _clientConfig.AuthMode switch
+            {
+                OpenSearchConfig.OpenSearchAuthMode.None => "Authentication is disabled",
+                OpenSearchConfig.OpenSearchAuthMode.Basic => $"Authentication is enabled using Basic Auth, username={_clientConfig.UserName ?? string.Empty}",
+                OpenSearchConfig.OpenSearchAuthMode.OAuth2 => $"Authentication is enabled using OAuth2, clientId={_clientConfig.OAuth2?.ClientId ?? string.Empty}",
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            LogCreatingOpenSearchClient(_logger, authInfo);
+
             var connectionSettings = GetDefaultConnectionSettings();
             _clientOptions.InternalConnectionSettings?.Invoke(connectionSettings);
             return new OpenSearchClient(connectionSettings);
-        }
-
-        private string GetAuthModeLogString()
-        {
-            return _clientConfig.AuthMode switch
-            {
-                OpenSearchConfig.OpenSearchAuthMode.None => "disabled",
-                OpenSearchConfig.OpenSearchAuthMode.Basic
-                    => $"enabled using Basic Auth, username=${_clientConfig.UserName}",
-                OpenSearchConfig.OpenSearchAuthMode.OAuth2
-                    => $"enabled using OAuth2, clientId=${_clientConfig.OAuth2.ClientId}",
-                _ => throw new ArgumentOutOfRangeException()
-            };
         }
 
         private ConnectionSettings GetDefaultConnectionSettings()
