@@ -1,4 +1,4 @@
-﻿using Cheetah.Auth.Authentication;
+using Cheetah.Auth.Authentication;
 using Cheetah.Auth.Configuration;
 using Cheetah.Auth.Extensions;
 using Cheetah.SchemaRegistry.Avro;
