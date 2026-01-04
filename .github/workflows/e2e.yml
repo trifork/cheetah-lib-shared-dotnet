@@ -73,7 +73,7 @@ jobs:
         run: dotnet test --logger trx -p:TreatWarningsAsErrors=true
 
       - name: Display test report OpenSearch
-        uses: dorny/test-reporter@v2.3.0
+        uses: dorny/test-reporter@v2.4.0
         if: always()
         with:
           name: Tests
@@ -81,7 +81,7 @@ jobs:
           reporter: dotnet-trx
 
       - name: Display test report Kafka
-        uses: dorny/test-reporter@v2.3.0
+        uses: dorny/test-reporter@v2.4.0
         if: always()
         with:
           name: Tests
@@ -89,7 +89,7 @@ jobs:
           reporter: dotnet-trx
 
       - name: Display test report SchemaRegistry
-        uses: dorny/test-reporter@v2.3.0
+        uses: dorny/test-reporter@v2.4.0
         if: always()
         with:
           name: Tests
