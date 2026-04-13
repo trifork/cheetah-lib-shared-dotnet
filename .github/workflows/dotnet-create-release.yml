@@ -121,7 +121,7 @@ jobs:
 
       - name: Commit patch version bump
         id: commit
-        uses: qoomon/actions--create-commit@v1.2.3
+        uses: qoomon/actions--create-commit@v1.2.4
         with:
           message: Bump patch version to keep version ahead of all releases
           allow-empty: true

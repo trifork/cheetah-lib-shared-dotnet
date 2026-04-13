@@ -66,7 +66,7 @@ jobs:
 
       - name: Commit minor version bump
         id: commit
-        uses: qoomon/actions--create-commit@v1.2.3
+        uses: qoomon/actions--create-commit@v1.2.4
         with:
           message: Bump minor version to keep version ahead of all releases
           allow-empty: true
