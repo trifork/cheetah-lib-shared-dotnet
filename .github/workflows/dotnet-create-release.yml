@@ -100,7 +100,7 @@ jobs:
           suffix: </VersionPrefix>
 
       - name: Create release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           generate_release_notes: true
           tag_name: ${{ inputs.project-name && format('{0}-v{1}', inputs.project-name, steps.get-version.outputs.version) || format('v{0}', steps.get-version.outputs.version) }}
