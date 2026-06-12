@@ -1,1 +1,1 @@
-e061fd4eecd1bdd3d06e3979584a58b73c48a4aeabfaa8e173131cd2708342d8 output/Cheetah.OpenSearch.1.2.1.nupkg
+7431e6ee632891989ff6b6df7f42203a31b848672680ae48ea5de699f683b167 output/Cheetah.OpenSearch.2.0.0.nupkg
