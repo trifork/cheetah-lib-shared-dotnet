@@ -1,0 +1,21 @@
+name: Release Reminder
+
+on:
+  schedule:
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  reminder:
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [Cheetah.Kafka, Cheetah.OpenSearch, Cheetah.SchemaRegistry]
+    uses: trifork/cheetah-infrastructure-utils-workflows/.github/workflows/create-release-reminder.yml@main
+    with:
+      project-name: ${{ matrix.project }}
+      tag-prefix: ${{ matrix.project }}-v
