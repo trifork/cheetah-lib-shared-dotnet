@@ -19,3 +19,5 @@ jobs:
     with:
       project-name: ${{ matrix.project }}
       tag-prefix: ${{ matrix.project }}-v
+    secrets:
+      PROJECT_TOKEN: ${{ secrets.PROJECT_TOKEN }}
